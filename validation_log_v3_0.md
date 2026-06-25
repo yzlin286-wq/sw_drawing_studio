@@ -62,6 +62,10 @@ Evidence added in this slice:
 - `app/services/drawing_blueprint_model.py` and `app/services/dimension_planner.py`: `DimensionPlan` now carries `reference_callouts` from the 006 reference-intent plan into DrawingBlueprint evidence.
 - `app/services/vision_qc_v6.py`: new `reference_callout_visual_check_missing` gate requires application UI manual review to include a per-callout checklist for required same-name reference manufacturing callouts, including `thread_callout_m4_6h` and `surface_finish_rest_3_2`. The gate records `notes_do_not_count_as_display_dim=true`; callout proof does not replace real DisplayDim requirements.
 - `tools/validation/lb26001_006_rerun_packet_v4_2.py` source-guards the v6 reference-callout UI checklist behavior so the next 006 rerun packet cannot silently drop it.
+- `tools/validation/lb26001_006_regeneration_evidence_gate_v4_4.py`: new offline Task 3 fresh-regeneration evidence gate. It accepts only explicit `--run-dir` or staged `--summary` evidence, verifies `drw_output/runs/<run_id>` ownership, requires `manifest.run_id`, checks SLDDRW/PDF/DXF/PNG/QC/vision/final-quality artifact freshness against job start time, verifies `sw_session.json`, and requires `job_started/progress/heartbeat/job_finished` in `job_event_log.jsonl`. It does not call SolidWorks and it explicitly reports `report_is_drawing_acceptance_evidence=false`.
+- `drw_output/diagnostics/lb26001_006_regeneration_evidence_gate_v4_4.json` and `.md`: current result is `status=blocked_by_missing_fresh_006_run`, `pass=false`, `blocking_issue_keys=["explicit_006_run_evidence_source"]`. This is expected because SolidWorks readiness is currently blocked by `solidworks_not_running`, so no fresh locked 006 CAD run was launched in this slice.
+- `app/workers/cad_job_worker.py`: successful CAD worker manifests now include `run_id`, matching the existing failure manifest behavior, so future 006 evidence can prove the generated artifacts belong to the intended run folder.
+- `test_v4_4_lb26001_006_regeneration_evidence_gate.py`: verifies a synthetic fresh 006 run passes, stale artifacts fail, missing job start time fails, missing SolidWorks session evidence fails, missing explicit run evidence fails, and the gate stays file-only.
 
 Validation commands:
 
@@ -97,6 +101,10 @@ python test_v2_3_system_health_page.py
 python test_v2_3_home_page_health_worker.py
 python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
 python tools\validation\lb26001_006_ui_defect_buckets_v4_4.py
+python -B -m py_compile tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py test_v4_4_lb26001_006_regeneration_evidence_gate.py app\workers\cad_job_worker.py
+python -B test_v4_4_lb26001_006_regeneration_evidence_gate.py
+python -B test_v3_cad_worker_artifact_freshness.py
+python -B tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py --out-json drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.json --out-md drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.md
 python test_v4_1_solidworks_entrypoint_scan.py
 python test_v4_1_solidworks_global_lock.py
 python test_v4_1_solidworks_conflict_monitor.py
@@ -113,7 +121,7 @@ python app\workers\diagnostics_action_worker.py --job-id diag_smoke --action bui
 python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v4_4_diagnostics_worker --mock-duration-s 0.4
 ```
 
-Result: PASS for SolidWorks Stability Gate, 006 reference-intent plan/contract verification, 006 UI defect-bucket classification, diagnostics worker smoke, source-level UI robot quick suite, and regression tests; overall v4.4 remains WARNING because SolidWorks is currently not running and 006 still requires a fresh locked CAD worker run plus application Drawing Review UI screenshot acceptance.
+Result: PASS for SolidWorks Stability Gate, 006 reference-intent plan/contract verification, 006 UI defect-bucket classification, diagnostics worker smoke, source-level UI robot quick suite, fresh-regeneration evidence-gate unit tests, and regression tests. The standalone regeneration evidence report intentionally returns a blocked result (`status=blocked_by_missing_fresh_006_run`) because SolidWorks is currently not running and no fresh locked 006 run was launched; overall v4.4 remains WARNING because 006 still requires a fresh locked CAD worker run plus application Drawing Review UI screenshot acceptance.
 
 Evidence added in this slice:
 

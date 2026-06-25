@@ -1,0 +1,54 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4",
+  "generated_at": "2026-06-25 23:53:30",
+  "base": "LB26001-A-04-006",
+  "status": "blocked_by_missing_fresh_006_run",
+  "pass": false,
+  "release_ready": false,
+  "report_is_drawing_acceptance_evidence": false,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_acceptance_required": true,
+  "application_drawing_review_ui_required": true,
+  "solidworks_runtime_called": false,
+  "run_id": "",
+  "run_dir": "",
+  "summary_path": "",
+  "readiness": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+    "status": "blocked",
+    "ready_to_start_locked_006_cad": false,
+    "blocking_issue_keys": [
+      "solidworks_not_running"
+    ]
+  },
+  "artifact_summary": {},
+  "event_summary": {
+    "event_types": [],
+    "event_count": 0
+  },
+  "manifest_summary": {
+    "part_base": null,
+    "run_id": null,
+    "run_dir": null,
+    "core_files_ok": null,
+    "drawing_usable": null,
+    "hard_fail": null,
+    "artifact_freshness": null
+  },
+  "checks": [
+    {
+      "key": "explicit_006_run_evidence_source",
+      "status": "fail",
+      "message": "Provide --run-dir or --summary for the fresh locked 006 CAD run.",
+      "details": {
+        "run_dir_arg": "",
+        "summary_path": "",
+        "summary_case_found": false
+      }
+    }
+  ],
+  "blocking_issue_keys": [
+    "explicit_006_run_evidence_source"
+  ],
+  "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker. Do not reuse older run folders as current correction evidence."
+}

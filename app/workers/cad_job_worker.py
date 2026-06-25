@@ -917,12 +917,14 @@ def _collect_worker_artifacts(part_path: str, output_dir: str, result_data: dict
     drawing_usable = qc_data.get("drawing_usable") or result_data.get("drawing_usable") or {}
     hard_fail = qc_data.get("hard_fail", result_data.get("hard_fail", []))
     warnings = qc_data.get("warnings", result_data.get("warnings", []))
+    run_id = result_data.get("run_id") or run_dir.name
 
     manifest = {
         "schema": "sw_drawing_studio.worker_manifest.v1",
         "job_type": "cad",
         "part_path": part_path,
         "part_base": base,
+        "run_id": run_id,
         "run_dir": str(run_dir),
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "returncode": result_data.get("returncode"),
