@@ -42,6 +42,8 @@ def _fixture(
     visual_audit_schema_gap_pass: bool | None = None,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
+    ui_visual_review_pass: bool | None = None,
+    ui_visual_review_screenshot_exists: bool = True,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -60,6 +62,10 @@ def _fixture(
         if packet_real_cad_allowed
         else "blocked_by_solidworks_readiness"
     )
+    ui_review_pass = acceptance_pass if ui_visual_review_pass is None else ui_visual_review_pass
+    ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
+    if ui_visual_review_screenshot_exists:
+        _write_file(ui_screenshot)
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -150,6 +156,38 @@ def _fixture(
                 },
             },
         ),
+        "ui_visual_review": _write_json(
+            root / "ui_visual_review.json",
+            {
+                "schema": "sw_drawing_studio.ui_visual_review.v4_4",
+                "status": "pass" if ui_review_pass else "need_review",
+                "pass": ui_review_pass,
+                "visual_acceptance_pass": ui_review_pass,
+                "review_method": "application_drawing_review_ui_screenshot",
+                "application_ui_screenshot_is_final_gate": True,
+                "api_only_acceptance_allowed": False,
+                "pass_count": 1 if ui_review_pass else 0,
+                "fail_count": 0 if ui_review_pass else 1,
+                "blocking_issue_keys": [] if ui_review_pass else ["vision_qc_v6_with_ui_not_pass"],
+                "entries": [
+                    {
+                        "base": BASE,
+                        "status": "pass" if ui_review_pass else "need_review",
+                        "pass": ui_review_pass,
+                        "visual_acceptance_pass": ui_review_pass,
+                        "application_ui_screenshot": str(ui_screenshot),
+                        "checks": {
+                            "ui_report_entry_pass": True,
+                            "manual_review_entry_screenshot_pass": True,
+                            "vision_qc_v6_visual_acceptance_pass": ui_review_pass,
+                            "reference_compare_v4_pass": ui_review_pass,
+                            "generated_png_source_pass": True,
+                        },
+                        "blocking_issue_keys": [] if ui_review_pass else ["vision_qc_v6_with_ui_not_pass"],
+                    }
+                ],
+            },
+        ),
         "requested": _write_json(
             root / "requested.json",
             {
@@ -230,6 +268,7 @@ def _build(paths: dict[str, Path]) -> dict:
         rerun_packet_path=paths["rerun_packet"],
         regeneration_gate_path=paths["regeneration"],
         acceptance_proof_path=paths["acceptance"],
+        ui_visual_review_path=paths["ui_visual_review"],
         requested_status_path=paths["requested"],
         issue_schema_validation_path=paths["issue_schema"],
         normalized_issue_schema_validation_path=paths["normalized_issue_schema"],
@@ -303,6 +342,34 @@ def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -
         assert result["do_not_expand_007_008_009_015_022"] is True
         assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
         assert "application_ui_006_acceptance_pass" in set(result["blocking_issue_keys"])
+
+
+def test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["do_not_expand_007_008_009_015_022"] is True
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["base_entry"]["application_ui_screenshot_exists"] is True
+        assert check["details"]["base_entry"]["visual_acceptance_pass"] is False
+
+
+def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True, ui_visual_review_screenshot_exists=False)
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["base_entry"]["application_ui_screenshot_exists"] is False
 
 
 def test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes() -> None:
@@ -407,6 +474,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
+    test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
+    test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()

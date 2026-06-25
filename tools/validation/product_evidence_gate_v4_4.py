@@ -24,6 +24,14 @@ DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_00
 DEFAULT_RERUN_PACKET = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
 DEFAULT_REGENERATION_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regeneration_evidence_gate_v4_4.json"
 DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
+DEFAULT_UI_VISUAL_REVIEW = (
+    REPO_ROOT
+    / "drw_output"
+    / "ui_acceptance"
+    / "LB26001_006_locked_real_rerun_20260625_041353_visual_review"
+    / "closed_loop"
+    / "ui_visual_review.json"
+)
 DEFAULT_REQUESTED_STATUS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_requested_drawings_status_v4_2.json"
 DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.json"
 DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.md"
@@ -56,6 +64,7 @@ def build_product_evidence_gate(
     rerun_packet_path: Path = DEFAULT_RERUN_PACKET,
     regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
+    ui_visual_review_path: Path = DEFAULT_UI_VISUAL_REVIEW,
     requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
     issue_schema_validation_path: Path = DEFAULT_ISSUE_SCHEMA_VALIDATION,
     normalized_issue_schema_validation_path: Path = DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION,
@@ -71,6 +80,7 @@ def build_product_evidence_gate(
     rerun_packet = _read_json(rerun_packet_path)
     regeneration_gate = _read_json(regeneration_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
+    ui_visual_review = _read_json(ui_visual_review_path)
     requested_status = _read_json(requested_status_path)
     issue_schema_validation = _read_json(issue_schema_validation_path)
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
@@ -213,6 +223,13 @@ def build_product_evidence_gate(
             "manual_visual_checklist_failed_items": ui_closure.get("manual_visual_checklist_failed_items") or [],
         },
     )
+    _add_check(
+        checks,
+        "canonical_006_ui_visual_review_pass",
+        _canonical_ui_visual_review_pass(ui_visual_review),
+        "006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.",
+        _ui_visual_review_summary(ui_visual_review_path, ui_visual_review),
+    )
     matrix = requested_status.get("per_drawing_ui_review_matrix") or []
     matrix_by_base = {
         str(item.get("base") or ""): item
@@ -333,7 +350,10 @@ def build_product_evidence_gate(
             and _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
         ),
         regeneration_ok=_check_pass(checks, "regeneration_006_fresh_evidence_pass"),
-        acceptance_ok=_check_pass(checks, "application_ui_006_acceptance_pass"),
+        acceptance_ok=(
+            _check_pass(checks, "application_ui_006_acceptance_pass")
+            and _check_pass(checks, "canonical_006_ui_visual_review_pass")
+        ),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
         exe_ui_stability_ok=_check_pass(checks, "exe_ui_and_stability_proof_pass"),
@@ -362,6 +382,7 @@ def build_product_evidence_gate(
             "rerun_packet": str(rerun_packet_path),
             "regeneration_gate": str(regeneration_gate_path),
             "acceptance_proof": str(acceptance_proof_path),
+            "ui_visual_review": str(ui_visual_review_path),
             "requested_status": str(requested_status_path),
             "issue_schema_validation": str(issue_schema_validation_path),
             "normalized_issue_schema_validation": str(normalized_issue_schema_validation_path),
@@ -450,7 +471,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_006_rerun_packet"
     if not _check_pass(checks, "regeneration_006_fresh_evidence_pass"):
         return "blocked_by_006_regeneration_evidence"
-    if not _check_pass(checks, "application_ui_006_acceptance_pass"):
+    if not _check_pass(checks, "application_ui_006_acceptance_pass") or not _check_pass(checks, "canonical_006_ui_visual_review_pass"):
         return "blocked_by_006_application_ui_review"
     if not _check_pass(checks, "requested_ref6_ui_status_pass"):
         return "blocked_by_requested_ref6_ui_review"
@@ -538,6 +559,62 @@ def _source_signature_summary(value: Any) -> dict[str, dict[str, Any]]:
     return summary
 
 
+def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
+    entries = [item for item in payload.get("entries") or [] if isinstance(item, dict)]
+    base_entry = next((item for item in entries if item.get("base") == BASE), {})
+    return bool(
+        payload.get("pass") is True
+        and payload.get("status") == "pass"
+        and payload.get("application_ui_screenshot_is_final_gate") is True
+        and payload.get("api_only_acceptance_allowed") is False
+        and payload.get("review_method") == "application_drawing_review_ui_screenshot"
+        and base_entry.get("pass") is True
+        and base_entry.get("visual_acceptance_pass") is True
+        and _nonempty_file(base_entry.get("application_ui_screenshot"))
+    )
+
+
+def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    entries = [item for item in payload.get("entries") or [] if isinstance(item, dict)]
+    base_entry = next((item for item in entries if item.get("base") == BASE), {})
+    screenshot = base_entry.get("application_ui_screenshot")
+    return {
+        "path": str(path),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "visual_acceptance_pass": payload.get("visual_acceptance_pass"),
+        "review_method": payload.get("review_method"),
+        "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate"),
+        "api_only_acceptance_allowed": payload.get("api_only_acceptance_allowed"),
+        "pass_count": payload.get("pass_count"),
+        "fail_count": payload.get("fail_count"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
+        "base_entry": {
+            "present": bool(base_entry),
+            "base": base_entry.get("base"),
+            "status": base_entry.get("status"),
+            "pass": base_entry.get("pass"),
+            "visual_acceptance_pass": base_entry.get("visual_acceptance_pass"),
+            "application_ui_screenshot": screenshot,
+            "application_ui_screenshot_exists": _nonempty_file(screenshot),
+            "blocking_issue_keys": base_entry.get("blocking_issue_keys") or [],
+            "checks": base_entry.get("checks") or {},
+        },
+    }
+
+
+def _nonempty_file(value: Any) -> bool:
+    if not value:
+        return False
+    try:
+        path = Path(str(value))
+        if not path.is_absolute():
+            path = (REPO_ROOT / path).resolve()
+        return path.exists() and path.is_file() and path.stat().st_size > 0
+    except Exception:
+        return False
+
+
 def _pass_flag(payload: dict[str, Any]) -> bool:
     return payload.get("pass") is True or str(payload.get("status") or "").lower() == "pass"
 
@@ -600,6 +677,7 @@ def main() -> int:
     parser.add_argument("--rerun-packet", default=str(DEFAULT_RERUN_PACKET))
     parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
+    parser.add_argument("--ui-visual-review", default=str(DEFAULT_UI_VISUAL_REVIEW))
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
     parser.add_argument("--issue-schema-validation", default=str(DEFAULT_ISSUE_SCHEMA_VALIDATION))
     parser.add_argument("--normalized-issue-schema-validation", default=str(DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION))
@@ -614,6 +692,7 @@ def main() -> int:
         rerun_packet_path=_repo_path(args.rerun_packet),
         regeneration_gate_path=_repo_path(args.regeneration_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),
+        ui_visual_review_path=_repo_path(args.ui_visual_review),
         requested_status_path=_repo_path(args.requested_status),
         issue_schema_validation_path=_repo_path(args.issue_schema_validation),
         normalized_issue_schema_validation_path=_repo_path(args.normalized_issue_schema_validation),
