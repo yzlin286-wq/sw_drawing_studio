@@ -601,6 +601,103 @@ def test_generator_preserves_reference_intent_view_names_and_add_methods() -> No
     assert "Drawing View 3" in module._reference_intent_view_name_candidates("top", dimension_plan)
 
 
+def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -> None:
+    module = _load_generator()
+    with TemporaryDirectory() as tmp:
+        plan_path = Path(tmp) / "reference_intent_dimension_plan_006.json"
+        ui_defect_path = Path(tmp) / "lb26001_006_ui_defect_buckets_v4_4.json"
+        plan_path.write_text(
+            json.dumps(
+                {
+                    "base": "LB26001-A-04-006",
+                    "required_display_dim_count": 12,
+                    "dimensions": [
+                        {
+                            "key": "hole_diameter",
+                            "target_view": "top",
+                            "expected_type": "diameter",
+                            "reference_value": {"hole_count": 4, "diameter_mm": 3.3, "thread": "M4-6H"},
+                            "source_reference_evidence": {
+                                "source_text": "4-⌀3.3 完全贯穿; M4-6H 完全贯穿",
+                            },
+                            "expected_add_method": "AddDiameterDimension2",
+                        }
+                    ],
+                    "reference_callouts": [
+                        {
+                            "key": "thread_callout_m4_6h",
+                            "target_view": "top",
+                            "expected_type": "thread_callout",
+                            "reference_value": "M4-6H 完全贯穿",
+                            "is_manufacturing_dimension": True,
+                        },
+                        {
+                            "key": "surface_finish_rest_3_2",
+                            "target_view": "sheet_notes",
+                            "expected_type": "surface_finish_callout",
+                            "reference_value": "3.2 其余",
+                            "is_manufacturing_dimension": True,
+                        },
+                        {
+                            "key": "radius_callout",
+                            "target_view": "front/top/right",
+                            "expected_type": "radius_callout",
+                            "reference_value": None,
+                        },
+                    ],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        ui_defect_path.write_text(
+            json.dumps(
+                {
+                    "base": "LB26001-A-04-006",
+                    "status": "blocked_by_solidworks_readiness",
+                    "pass": False,
+                    "api_only_acceptance_allowed": False,
+                    "application_ui_screenshot_is_final_gate": True,
+                    "expansion_allowed_now": False,
+                    "active_buckets": ["callout_missing", "dimension_visual_overdense"],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        old_plan = os.environ.get("REFERENCE_INTENT_DIMENSION_PLAN_PATH")
+        old_ui_defects = os.environ.get("LB26001_006_UI_DEFECT_BUCKETS_PATH")
+        try:
+            os.environ["REFERENCE_INTENT_DIMENSION_PLAN_PATH"] = str(plan_path)
+            os.environ["LB26001_006_UI_DEFECT_BUCKETS_PATH"] = str(ui_defect_path)
+            blueprint = module._v4_apply_reference_intent_plan_path({"base": "LB26001-A-04-006"})
+        finally:
+            if old_plan is None:
+                os.environ.pop("REFERENCE_INTENT_DIMENSION_PLAN_PATH", None)
+            else:
+                os.environ["REFERENCE_INTENT_DIMENSION_PLAN_PATH"] = old_plan
+            if old_ui_defects is None:
+                os.environ.pop("LB26001_006_UI_DEFECT_BUCKETS_PATH", None)
+            else:
+                os.environ["LB26001_006_UI_DEFECT_BUCKETS_PATH"] = old_ui_defects
+
+    callout_plan = blueprint["dimension_plan"]["reference_callout_review_plan"]
+    constraints = blueprint["dimension_plan"]["visual_defect_constraints"]
+    assert callout_plan["schema"] == "sw_drawing_studio.reference_callout_review_plan.v4_4"
+    assert callout_plan["notes_do_not_count_as_display_dim"] is True
+    assert callout_plan["application_ui_screenshot_required"] is True
+    assert set(callout_plan["required_keys"]) == {
+        "hole_diameter",
+        "thread_callout_m4_6h",
+        "surface_finish_rest_3_2",
+    }
+    assert callout_plan["absence_check_keys"] == ["radius_callout"]
+    assert constraints["callout_presence_recheck_required"] is True
+    assert constraints["reference_callout_review_required_keys"] == callout_plan["required_keys"]
+    assert constraints["reference_callout_absence_check_keys"] == ["radius_callout"]
+    assert "ui_defect_bucket_reference_callout_review_plan" in blueprint["dimension_plan"]["reasons"]
+
+
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:
     module = _load_generator()
 
@@ -1685,6 +1782,7 @@ if __name__ == "__main__":
     test_generator_force_dimension_plan_only_chases_floor_gap()
     test_generator_skips_bulk_model_dimensions_for_006_reference_intent_contract()
     test_generator_preserves_reference_intent_view_names_and_add_methods()
+    test_generator_attaches_reference_callout_review_plan_for_006_ui_closure()
     test_generator_reference_autodim_and_prune_policy_is_bounded()
     test_generator_source_blocks_reference_intent_autodim_after_ui_failure()
     test_generator_scores_long_thin_display_dims_by_reference_intent()

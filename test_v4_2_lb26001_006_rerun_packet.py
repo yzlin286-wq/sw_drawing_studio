@@ -656,6 +656,21 @@ def test_006_rerun_packet_blocks_when_generator_strict_target_match_missing() ->
     ]
 
 
+def test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="reference_callout_required_keys",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "reference_callout_required_keys"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1021,6 +1036,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_displaydim_dedupe_is_missing()
     test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
     test_006_rerun_packet_blocks_when_generator_strict_target_match_missing()
+    test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing()
     test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()

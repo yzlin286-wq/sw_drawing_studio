@@ -774,6 +774,87 @@ def _v4_blueprint_dimension_plan(blueprint_data):
     return plan if isinstance(plan, dict) else {}
 
 
+def _v4_reference_callout_review_plan(intent_plan):
+    # reference_callout_review_plan_required:
+    # keep hole/thread/roughness visual callouts as explicit UI review items.
+    # These are not DisplayDim substitutes; DisplayDim targets still have to
+    # persist independently.
+    if not isinstance(intent_plan, dict):
+        return {}
+    items = []
+    required_keys = []
+    absence_check_keys = []
+
+    def _append(item):
+        key = str(item.get("key") or "").strip()
+        if not key:
+            return
+        if key in {entry.get("key") for entry in items}:
+            return
+        items.append(item)
+        if item.get("required_visual_confirmation"):
+            required_keys.append(key)
+        if item.get("absence_check_required"):
+            absence_check_keys.append(key)
+
+    for dim in intent_plan.get("dimensions") or []:
+        if not isinstance(dim, dict):
+            continue
+        key = str(dim.get("key") or "")
+        expected_type = str(dim.get("expected_type") or "").lower()
+        value = dim.get("reference_value")
+        if key == "hole_diameter" or (expected_type == "diameter" and isinstance(value, dict)):
+            evidence = dim.get("source_reference_evidence") or {}
+            _append({
+                "key": key or "hole_diameter",
+                "source_dimension_key": key or "hole_diameter",
+                "target_view": str(dim.get("target_view") or "top"),
+                "expected_type": "hole_callout",
+                "reference_value": value,
+                "source_text": str(evidence.get("source_text") or ""),
+                "required_visual_confirmation": True,
+                "is_manufacturing_dimension": True,
+                "notes_do_not_count_as_display_dim": True,
+                "application_ui_screenshot_required": True,
+            })
+
+    for callout in intent_plan.get("reference_callouts") or []:
+        if not isinstance(callout, dict):
+            continue
+        key = str(callout.get("key") or "")
+        value = callout.get("reference_value")
+        expected_type = str(callout.get("expected_type") or "")
+        has_reference_value = value not in (None, "", [], {})
+        manufacturing = bool(callout.get("is_manufacturing_dimension"))
+        absence_check = (not has_reference_value) and expected_type in {"radius_callout", "chamfer_callout"}
+        _append({
+            "key": key,
+            "target_view": str(callout.get("target_view") or ""),
+            "expected_type": expected_type,
+            "reference_value": value,
+            "source_text": str((callout.get("source_reference_evidence") or {}).get("source_text") or ""),
+            "fallback_policy": str(callout.get("fallback_policy") or ""),
+            "required_visual_confirmation": bool(has_reference_value or manufacturing),
+            "absence_check_required": bool(absence_check),
+            "is_manufacturing_dimension": manufacturing,
+            "notes_do_not_count_as_display_dim": True,
+            "application_ui_screenshot_required": True,
+        })
+
+    if not items:
+        return {}
+    return {
+        "schema": "sw_drawing_studio.reference_callout_review_plan.v4_4",
+        "source": "reference_intent_dimension_plan_006.reference_callouts",
+        "application_ui_screenshot_required": True,
+        "api_is_supporting_only": True,
+        "notes_do_not_count_as_display_dim": True,
+        "required_keys": required_keys,
+        "absence_check_keys": absence_check_keys,
+        "items": items,
+    }
+
+
 def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
     if not isinstance(blueprint_data, dict) or not blueprint_data:
         return blueprint_data
@@ -832,6 +913,11 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
 
     if targets:
         dimension_plan["dimension_targets"] = targets
+        if intent_plan.get("reference_callouts"):
+            dimension_plan["reference_callouts"] = list(intent_plan.get("reference_callouts") or [])
+        callout_review_plan = _v4_reference_callout_review_plan(intent_plan)
+        if callout_review_plan:
+            dimension_plan["reference_callout_review_plan"] = callout_review_plan
         try:
             dimension_plan["required_display_dim_count"] = max(
                 int(dimension_plan.get("required_display_dim_count") or 0),
@@ -951,6 +1037,13 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     constraints["compact_titlebar_fields_required"] = "titlebar_incomplete" in active_buckets
                     constraints["projection_view_style_match_required"] = "projection_view_style_mismatch" in active_buckets
                     constraints["callout_presence_recheck_required"] = True
+                    callout_review_plan = dimension_plan.get("reference_callout_review_plan") or {}
+                    constraints["reference_callout_review_required_keys"] = list(
+                        callout_review_plan.get("required_keys") or []
+                    )
+                    constraints["reference_callout_absence_check_keys"] = list(
+                        callout_review_plan.get("absence_check_keys") or []
+                    )
                 layout_plan = blueprint_data.setdefault("layout_plan", {})
                 if isinstance(layout_plan, dict):
                     if "projection_view_style_mismatch" in active_buckets:
@@ -964,6 +1057,7 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "reference_intent_ui_defect_bucket_constraints",
                     "ui_defect_bucket_reject_generic_autodim_survivors",
                     "ui_defect_bucket_compact_local_lanes",
+                    "ui_defect_bucket_reference_callout_review_plan",
                 ]:
                     if reason not in reasons:
                         reasons.append(reason)

@@ -137,6 +137,9 @@ GENERATOR_SIGNATURES = {
     "ui_defect_compact_notes": "ui_defect_bucket_reference_style_notes",
     "ui_defect_compact_titlebar": "ui_defect_bucket_compact_titlebar_fields",
     "ui_defect_strict_target_match": "ui_defect_strict_reference_intent_target_match",
+    "reference_callout_review_plan": "reference_callout_review_plan_required",
+    "ui_defect_reference_callout_review_plan": "ui_defect_bucket_reference_callout_review_plan",
+    "reference_callout_required_keys": "reference_callout_review_required_keys",
 }
 
 CAD_WORKER_SIGNATURES = {

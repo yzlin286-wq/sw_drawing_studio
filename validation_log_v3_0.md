@@ -77,10 +77,17 @@ Evidence added in this slice:
 - `tools/validation/apply_ui_visual_review_v4.py`: now writes canonical `ui_visual_review.json` alongside `ui_visual_review_gate_summary.json`. The canonical packet uses schema `sw_drawing_studio.ui_visual_review.v4_4`, records `review_method=application_drawing_review_ui_screenshot`, keeps `api_only_acceptance_allowed=false`, and exposes per-drawing screenshot/v6/v4 evidence plus blocking issue keys.
 - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/closed_loop/ui_visual_review.json`: latest 006 UI packet is `status=need_review`, `pass=false`, `pass_count=0`, `fail_count=1`, with blocking keys `vision_qc_v6_with_ui_not_pass` and `reference_compare_v4_with_ui_not_pass`. This is screenshot-backed failure evidence, not acceptance.
 - `test_v4_apply_ui_visual_review.py`: now verifies the canonical `ui_visual_review.json` is written, declares application UI screenshot as the final gate, and cannot allow API-only acceptance.
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: next 006-only runs now attach `dimension_plan.reference_callout_review_plan` from `reference_intent_dimension_plan_006.json`. The plan carries the 4-⌀3.3/M4-6H hole callout, `thread_callout_m4_6h`, `surface_finish_rest_3_2`, and radius/chamfer absence checks, while preserving `notes_do_not_count_as_display_dim=true`.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py`: generator source signatures now require `reference_callout_review_plan_required`, `ui_defect_bucket_reference_callout_review_plan`, and `reference_callout_review_required_keys`. Current `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` still reports `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- `test_v3_generator_reference_style_plan.py` and `test_v4_2_lb26001_006_rerun_packet.py`: verify the callout review plan is attached to the 006 blueprint and that the rerun packet blocks if the generator signature is missing.
 
 Validation commands:
 
 ```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
 python -B -m py_compile tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py
 python -B test_v4_apply_ui_visual_review.py
 python -B tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_041353\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\closed_loop --base LB26001-A-04-006
