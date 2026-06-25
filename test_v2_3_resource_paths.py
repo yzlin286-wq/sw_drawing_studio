@@ -39,6 +39,10 @@ def test_frozen_worker_and_pipeline_commands(monkeypatch) -> None:
     assert program == "C:/dist/sw_drawing_studio.exe"
     assert args == ["--worker", "qc_action", "--job-id", "qc"]
 
+    program, args = resource_paths.worker_command("diagnostics_action", Path("ignored.py"), ["--job-id", "diag"])
+    assert program == "C:/dist/sw_drawing_studio.exe"
+    assert args == ["--worker", "diagnostics_action", "--job-id", "diag"]
+
     program, args = resource_paths.worker_command("system_health", Path("ignored.py"), ["--job-id", "health"])
     assert program == "C:/dist/sw_drawing_studio.exe"
     assert args == ["--worker", "system_health", "--job-id", "health"]

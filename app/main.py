@@ -64,6 +64,7 @@ def _run_worker(argv: list[str]) -> int:
         "batch": "app.workers.batch_job_worker",
         "drawing_review": "app.workers.drawing_review_worker",
         "qc_action": "app.workers.qc_action_worker",
+        "diagnostics_action": "app.workers.diagnostics_action_worker",
         "llm_action": "app.workers.llm_action_worker",
         "system_health": "app.workers.health_check_worker",
         "solidworks_com_probe": "app.workers.solidworks_com_probe_worker",

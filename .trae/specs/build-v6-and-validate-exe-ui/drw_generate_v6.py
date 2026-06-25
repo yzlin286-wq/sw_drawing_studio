@@ -4401,6 +4401,15 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
     part = sw.OpenDoc6(part_path, 1, 1|16|256, "", e, w)
     if part is None:
         raise SystemExit(f"打开零件失败 errors={e.value}")
+    _solidworks_doc_registry_event(
+        "solidworks_doc_opened",
+        role="copied_part",
+        path=part_path,
+        title=_doc_title(part),
+        doc_type="part",
+        stage="initial_part_open",
+        extra={"open_errors": int(e.value), "open_warnings": int(w.value)},
+    )
 
     _default_props = _inject_default_custom_properties(part, str(part_path))
     print(f"[cprop] injected {len(_default_props)} defaults")
@@ -4674,6 +4683,14 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
         if drw is not None: break
         time.sleep(0.25); drw = sw.ActiveDoc
     if drw is None: raise SystemExit("新建工程图失败")
+    _solidworks_doc_registry_event(
+        "solidworks_doc_opened",
+        role="generated_drawing",
+        path=target_drw,
+        title=_doc_title(drw),
+        doc_type="drawing",
+        stage="new_drawing_created",
+    )
     sheet = call(drw, "GetCurrentSheet")
     sheet_name = call(sheet, "GetName") or "Sheet1"
     try: drw.SetupSheet5(sheet_name, 6, 13, scale_num, scale_den, True, "", 0.297, 0.21, "", True)
@@ -4773,6 +4790,16 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 log(f"  [v1.6 dim_seed] seed_dim_count={seed_result['seed_dim_count']}")
                 # 重新打开副本作为 part
                 part = sw.OpenDoc6(_work_part_path, 1, 1|16|256, "", e, w)
+                if part is not None:
+                    _solidworks_doc_registry_event(
+                        "solidworks_doc_opened",
+                        role="copied_part",
+                        path=_work_part_path,
+                        title=_doc_title(part),
+                        doc_type="part",
+                        stage="seed_work_part_open",
+                        extra={"open_errors": int(e.value), "open_warnings": int(w.value)},
+                    )
                 # 后续 CreateDrawViewFromModelView3 使用 _work_part_path
             else:
                 log(f"  [v1.6 dim_seed] 失败: {seed_result.get('error', 'unknown')}")
@@ -9254,14 +9281,55 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
         }, f, ensure_ascii=False, indent=2, default=str)
     log(f"  Warnings: {len(warnings_box)} 条 -> {warn_path}")
 
-    try: sw.CloseDoc(call(drw, "GetTitle"))
-    except Exception: pass
+    try:
+        drw_title = call(drw, "GetTitle")
+        if drw_title:
+            sw.CloseDoc(drw_title)
+            _solidworks_doc_registry_event(
+                "solidworks_doc_closed",
+                role="generated_drawing",
+                path=slddrw,
+                title=drw_title,
+                doc_type="drawing",
+                stage="final_close_generated_drawing",
+                close_verified=True,
+            )
+    except Exception as exc:
+        _solidworks_doc_registry_event(
+            "solidworks_doc_close_failed",
+            role="generated_drawing",
+            path=slddrw,
+            title=_doc_title(drw),
+            doc_type="drawing",
+            stage="final_close_generated_drawing",
+            close_verified=False,
+            reason=str(exc),
+        )
     try:
         if part is not None:
             part_title = call(part, "GetTitle")
             if part_title:
                 sw.CloseDoc(part_title)
-    except Exception: pass
+                _solidworks_doc_registry_event(
+                    "solidworks_doc_closed",
+                    role="copied_part",
+                    path=_work_part_path,
+                    title=part_title,
+                    doc_type="part",
+                    stage="final_close_work_part",
+                    close_verified=True,
+                )
+    except Exception as exc:
+        _solidworks_doc_registry_event(
+            "solidworks_doc_close_failed",
+            role="copied_part",
+            path=_work_part_path if "_work_part_path" in locals() else part_path,
+            title=_doc_title(part) if part is not None else "",
+            doc_type="part",
+            stage="final_close_work_part",
+            close_verified=False,
+            reason=str(exc),
+        )
 
     return {
         "slddrw": slddrw, "pdf": pdf, "dxf": dxf, "png": png_path, "warnings": warn_path,

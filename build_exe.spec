@@ -32,6 +32,7 @@ datas += [('app/workers/cad_job_worker.py', 'app/workers')]
 datas += [('app/workers/batch_job_worker.py', 'app/workers')]
 datas += [('app/workers/drawing_review_worker.py', 'app/workers')]
 datas += [('app/workers/qc_action_worker.py', 'app/workers')]
+datas += [('app/workers/diagnostics_action_worker.py', 'app/workers')]
 datas += [('app/workers/llm_action_worker.py', 'app/workers')]
 datas += [('app/workers/health_check_worker.py', 'app/workers')]
 datas += [('app/workers/solidworks_com_probe_worker.py', 'app/workers')]
@@ -138,6 +139,7 @@ hiddenimports = [
     'app.workers.batch_job_worker',
     'app.workers.drawing_review_worker',
     'app.workers.qc_action_worker',
+    'app.workers.diagnostics_action_worker',
     'app.workers.llm_action_worker',
     'app.workers.health_check_worker',
     'app.workers.solidworks_com_probe_worker',

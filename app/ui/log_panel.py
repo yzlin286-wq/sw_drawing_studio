@@ -3,12 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from pathlib import Path
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QFileDialog,
     QHBoxLayout,
-    QMessageBox,
     QPlainTextEdit,
     QPushButton,
     QVBoxLayout,
@@ -26,6 +25,8 @@ _LEVEL_COLORS = {
 
 
 class LogPanel(QWidget):
+    request_diagnostics = Signal()
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -112,28 +113,4 @@ class LogPanel(QWidget):
         self.append(text, level=lvl)
 
     def _on_build_diag(self) -> None:
-        try:
-            from app.services.run_manager import list_recent_runs
-            from app.services.diagnostics import build_diagnostics_zip
-        except Exception as exc:
-            self.append(f"诊断包模块加载失败: {exc}", level="ERROR")
-            return
-        runs = list_recent_runs(1)
-        if not runs:
-            QMessageBox.information(
-                self,
-                "诊断包",
-                "尚无可用 run。请先在「单件制图」页运行至少一次。",
-            )
-            return
-        run_id = runs[0].get("run_id")
-        if not run_id:
-            self.append("最近 run 无 run_id", level="WARN")
-            return
-        try:
-            zip_path = build_diagnostics_zip(run_id)
-            self.append(f"诊断包已生成: {zip_path}", level="INFO")
-            QMessageBox.information(self, "诊断包", f"已生成:\n{zip_path}")
-        except Exception as exc:
-            self.append(f"诊断包生成失败: {exc}", level="ERROR")
-            QMessageBox.warning(self, "诊断包", f"失败: {exc}")
+        self.request_diagnostics.emit()

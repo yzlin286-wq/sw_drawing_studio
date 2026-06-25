@@ -1,0 +1,42 @@
+{
+  "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
+  "generated_at": "2026-06-25T21:02:27",
+  "status": "warning",
+  "pass": false,
+  "release_ready": false,
+  "warning_reasons": [
+    "unguarded_or_review_required_solidworks_entrypoints"
+  ],
+  "reports": {
+    "unguarded_solidworks_entrypoints": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
+    "solidworks_lock_test_result": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
+    "conflict_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json"
+  },
+  "entrypoint_summary": {
+    "status": "warning",
+    "entrypoint_count": 522,
+    "unguarded_or_unknown_count": 30,
+    "ui_thread_direct_risk_count": 0,
+    "service_direct_risk_count": 0,
+    "system_health_ui_thread_direct_probe_count": 0,
+    "external_addin_needs_host_lock_count": 20,
+    "external_addin_host_lock_contract_status": "pass"
+  },
+  "lock_test_summary": {
+    "status": "pass",
+    "check_count": 6,
+    "failure": ""
+  },
+  "conflict_summary": {
+    "level": "OK",
+    "counts": {
+      "solidworks_processes": 0,
+      "cad_job_workers": 0,
+      "batch_job_workers": 0,
+      "waiting_jobs": 0,
+      "smoke_leftovers": 0,
+      "dialog_guards": 0
+    },
+    "fix_suggestion": ""
+  }
+}

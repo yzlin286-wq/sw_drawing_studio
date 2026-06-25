@@ -180,6 +180,7 @@ class MainWindow(QMainWindow):
         self._active_batch_job_id = ""
         self._active_batch_items: list[str] = []
         self._qc_action_jobs: dict[str, dict[str, str]] = {}
+        self._diagnostics_jobs: dict[str, dict[str, str]] = {}
         self._cad_rerun_jobs: dict[str, dict[str, str]] = {}
         self._llm_action_jobs: dict[str, dict[str, str]] = {}
 
@@ -281,6 +282,8 @@ class MainWindow(QMainWindow):
         self.qc_page.request_rerun.connect(self._on_request_rerun)
         self.qc_page.request_render_png.connect(self._on_request_render_png)
         self.qc_page.request_rerun_vqc2.connect(self._on_request_rerun_vqc2)
+        self.log_panel.request_diagnostics.connect(self._on_request_latest_diagnostics)
+        self.logs_diagnostics_page.request_build_diagnostics.connect(self._on_request_diagnostics_for_run)
 
         self.job_facade.job_progress.connect(self._on_batch_job_progress)
         self.job_facade.job_finished.connect(self._on_batch_job_finished)
@@ -289,6 +292,9 @@ class MainWindow(QMainWindow):
         self.job_facade.job_progress.connect(self._on_qc_action_progress)
         self.job_facade.job_finished.connect(self._on_qc_action_finished)
         self.job_facade.job_failed.connect(self._on_qc_action_failed)
+        self.job_facade.job_progress.connect(self._on_diagnostics_action_progress)
+        self.job_facade.job_finished.connect(self._on_diagnostics_action_finished)
+        self.job_facade.job_failed.connect(self._on_diagnostics_action_failed)
         self.job_facade.job_progress.connect(self._on_cad_rerun_progress)
         self.job_facade.job_finished.connect(self._on_cad_rerun_finished)
         self.job_facade.job_failed.connect(self._on_cad_rerun_failed)
@@ -460,6 +466,93 @@ class MainWindow(QMainWindow):
                 self.log_panel.append(f"LLM action cancel failed: {exc}", "ERROR")
         if self._llm_action_jobs:
             self._llm_action_jobs.clear()
+
+    # ---------------- diagnostics facade jobs ----------------
+    def _on_request_latest_diagnostics(self) -> None:
+        try:
+            from app.services.run_manager import list_recent_runs
+        except Exception as exc:
+            self.log_panel.append(f"诊断包模块加载失败: {exc}", "ERROR")
+            return
+        runs = list_recent_runs(1)
+        if not runs:
+            QMessageBox.information(
+                self,
+                "诊断包",
+                "尚无可用 run。请先在「单件制图」页运行至少一次。",
+            )
+            return
+        run_id = str(runs[0].get("run_id") or "").strip()
+        if not run_id:
+            self.log_panel.append("最近 run 无 run_id", "WARN")
+            return
+        self._on_request_diagnostics_for_run(run_id, source="log_panel")
+
+    def _on_request_diagnostics_for_run(self, run_id: str, source: str = "logs_page") -> None:
+        normalized = str(run_id or "").strip()
+        if not normalized:
+            self.log_panel.append("诊断包生成失败: run_id 为空", "ERROR")
+            return
+        try:
+            job_id = self.job_facade.start_diagnostics_action(
+                action="build_zip",
+                run_id=normalized,
+                timeout_s=180,
+            )
+        except Exception as exc:
+            self.log_panel.append(f"诊断包提交失败: {exc}", "ERROR")
+            if source == "logs_page":
+                self.logs_diagnostics_page.show_diagnostics_failed(str(exc))
+            return
+        self._diagnostics_jobs[job_id] = {"action": "build_zip", "run_id": normalized, "source": source}
+        self.log_panel.append(f"诊断包 worker 已提交: {job_id} run_id={normalized}", "INFO")
+        self.statusBar().showMessage(f"诊断包生成中: {normalized}")
+        if source == "logs_page":
+            self.logs_diagnostics_page.set_diagnostics_running(normalized, job_id)
+
+    def _on_diagnostics_action_progress(self, job_id: str, data: dict) -> None:
+        meta = self._diagnostics_jobs.get(job_id)
+        if not meta:
+            return
+        stage = str((data or {}).get("stage") or "")
+        if stage:
+            self.statusBar().showMessage(f"诊断包: {stage}")
+
+    def _on_diagnostics_action_finished(self, job_id: str, data: dict) -> None:
+        meta = self._diagnostics_jobs.pop(job_id, None)
+        if not meta:
+            return
+        result = (data or {}).get("result", data or {})
+        if not isinstance(result, dict):
+            result = {}
+        zip_path = str(result.get("zip_path") or "")
+        if not zip_path:
+            reason = "diagnostics worker returned no zip_path"
+            self.log_panel.append(f"诊断包生成失败: {reason}", "ERROR")
+            if meta.get("source") == "logs_page":
+                self.logs_diagnostics_page.show_diagnostics_failed(reason)
+            elif meta.get("source") == "log_panel":
+                QMessageBox.warning(self, "诊断包", f"失败: {reason}")
+            return
+        self.log_panel.append(f"诊断包已生成: {zip_path}", "INFO")
+        self.statusBar().showMessage("诊断包已生成")
+        if meta.get("source") == "logs_page":
+            self.logs_diagnostics_page.show_diagnostics_result(zip_path)
+        elif meta.get("source") == "log_panel":
+            QMessageBox.information(self, "诊断包", f"已生成:\n{zip_path}")
+
+    def _on_diagnostics_action_failed(self, job_id: str, data: dict) -> None:
+        meta = self._diagnostics_jobs.pop(job_id, None)
+        if not meta:
+            return
+        reason = str((data or {}).get("reason") or (data or {}).get("error") or data or "diagnostics failed")
+        self.log_panel.append(f"诊断包生成失败: {reason}", "ERROR")
+        self.statusBar().showMessage("诊断包生成失败")
+        if meta.get("source") == "logs_page":
+            self.logs_diagnostics_page.show_diagnostics_failed(reason)
+        elif meta.get("source") == "log_panel":
+            QMessageBox.warning(self, "诊断包", f"失败: {reason}")
+
     def _tb_pre_analyze(self) -> None:
         self._goto_page(PAGE_BATCH)
         self.batch_page._on_pre_analyze()

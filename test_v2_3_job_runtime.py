@@ -117,6 +117,29 @@ def test_qc_action_worker_args() -> None:
     assert args[args.index("--run-dir") + 1] == "drw_output/runs/qc_args"
 
 
+def test_diagnostics_action_worker_args() -> None:
+    queue = JobQueue()
+    runner = JobRunner(event_bus=JobEventBus(), job_queue=queue)
+    record = JobRecord(
+        job_id="diag",
+        part_name="diagnostics_fixture",
+        part_path="fixture_run",
+        job_type="diagnostics_action",
+        timeout_s=120,
+        run_dir="drw_output/runs/fixture_run",
+        run_id="fixture_run",
+    )
+    record.result.update({
+        "action": "build_zip",
+        "run_id": "fixture_run",
+        "screenshots_dir": "drw_output/ui_acceptance/fixture/screenshots",
+    })
+    args = runner._build_worker_args(record)
+    assert args[args.index("--action") + 1] == "build_zip"
+    assert args[args.index("--run-id") + 1] == "fixture_run"
+    assert args[args.index("--screenshots-dir") + 1] == "drw_output/ui_acceptance/fixture/screenshots"
+
+
 def test_llm_action_worker_args() -> None:
     queue = JobQueue()
     runner = JobRunner(event_bus=JobEventBus(), job_queue=queue)
@@ -338,6 +361,35 @@ def test_facade_qc_action_record(monkeypatch=None) -> None:
     assert status["run_dir"] == "drw_output/runs/qc"
 
 
+def test_facade_diagnostics_action_record(monkeypatch=None) -> None:
+    facade = JobRuntimeFacade()
+    facade.initialize()
+    started: list[JobRecord] = []
+
+    def fake_start(record: JobRecord) -> bool:
+        started.append(record)
+        return True
+
+    if monkeypatch is not None:
+        monkeypatch.setattr(facade._job_runner, "start_job", fake_start)
+    else:
+        facade._job_runner.start_job = fake_start  # type: ignore[method-assign]
+
+    job_id = facade.start_diagnostics_action(
+        action="build_zip",
+        run_id="fixture_run",
+        screenshots_dir="drw_output/ui_acceptance/fixture/screenshots",
+        timeout_s=55,
+    )
+    status = facade.get_job_status(job_id)
+    assert started and started[0].job_type == "diagnostics_action"
+    assert started[0].timeout_s == 55
+    assert status is not None
+    assert status["result"]["action"] == "build_zip"
+    assert status["result"]["run_id"] == "fixture_run"
+    assert Path(status["run_dir"]).as_posix().endswith("drw_output/runs/fixture_run")
+
+
 def test_facade_llm_action_record(monkeypatch=None) -> None:
     facade = JobRuntimeFacade()
     facade.initialize()
@@ -371,7 +423,17 @@ def test_mock_worker_exists() -> None:
     assert (Path(__file__).resolve().parent / "app" / "workers" / "drawing_review_worker.py").exists()
     assert (Path(__file__).resolve().parent / "app" / "workers" / "health_check_worker.py").exists()
     assert (Path(__file__).resolve().parent / "app" / "workers" / "qc_action_worker.py").exists()
+    assert (Path(__file__).resolve().parent / "app" / "workers" / "diagnostics_action_worker.py").exists()
     assert (Path(__file__).resolve().parent / "app" / "workers" / "llm_action_worker.py").exists()
+
+
+def test_diagnostics_ui_uses_worker_contract() -> None:
+    log_panel = Path("app/ui/log_panel.py").read_text(encoding="utf-8")
+    logs_page = Path("app/ui/logs_diagnostics_page.py").read_text(encoding="utf-8")
+    assert "build_diagnostics_zip" not in log_panel
+    assert "build_diagnostics_zip" not in logs_page
+    assert "request_diagnostics = Signal()" in log_panel
+    assert "request_build_diagnostics = Signal(str)" in logs_page
 
 
 if __name__ == "__main__":
@@ -380,6 +442,7 @@ if __name__ == "__main__":
     test_drawing_review_worker_args()
     test_system_health_worker_args()
     test_qc_action_worker_args()
+    test_diagnostics_action_worker_args()
     test_llm_action_worker_args()
     test_runner_skip_running_job_kills_process_and_logs_event()
     test_runner_missing_terminal_event_fails_job_and_logs_event()
@@ -387,6 +450,8 @@ if __name__ == "__main__":
     test_facade_drawing_review_action_record()
     test_facade_system_health_record()
     test_facade_qc_action_record()
+    test_facade_diagnostics_action_record()
     test_facade_llm_action_record()
+    test_diagnostics_ui_uses_worker_contract()
     run_mock_facade_job()
     print("v2.3 job runtime verification PASS")

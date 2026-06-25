@@ -1,0 +1,209 @@
+{
+  "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
+  "generated_at": "2026-06-25T21:02:27",
+  "status": "pass",
+  "pass": true,
+  "failure": "",
+  "checks": [
+    {
+      "key": "first_job_acquires_lock",
+      "status": "pass",
+      "details": {
+        "acquired": true,
+        "status": "acquired",
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+          "owner_pid": 28488,
+          "owner_worker_pid": 28488,
+          "owner_job_id": "job_a",
+          "owner_run_id": "run_a",
+          "operation": "unit.acquire",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-25T21:02:27",
+          "heartbeat_at": "2026-06-25T21:02:27",
+          "ttl_sec": 1,
+          "allow_restart_sw": false,
+          "status": "active"
+        }
+      }
+    },
+    {
+      "key": "second_job_blocked_by_owner",
+      "status": "pass",
+      "details": {
+        "acquired": false,
+        "status": "blocked_by_solidworks_lock",
+        "owner": {
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_job_id": "job_a",
+          "owner_run_id": "run_a",
+          "owner_pid": 28488,
+          "owner_worker_pid": 28488,
+          "operation": "unit.acquire",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "heartbeat_at": "2026-06-25T21:02:27",
+          "heartbeat_age_s": 0.263,
+          "stale_lock": false
+        },
+        "reason": "SolidWorks 正被另一个任务使用",
+        "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+          "owner_pid": 28488,
+          "owner_worker_pid": 28488,
+          "owner_job_id": "job_a",
+          "owner_run_id": "run_a",
+          "operation": "unit.acquire",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-25T21:02:27",
+          "heartbeat_at": "2026-06-25T21:02:27",
+          "ttl_sec": 1,
+          "allow_restart_sw": false,
+          "status": "active"
+        }
+      }
+    },
+    {
+      "key": "heartbeat_and_release",
+      "status": "pass",
+      "details": {
+        "heartbeat": {
+          "updated": true,
+          "status": "heartbeat",
+          "lock": {
+            "lock_version": 1,
+            "owner_project": "v4_4_lock_test",
+            "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+            "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+            "owner_pid": 28488,
+            "owner_worker_pid": 28488,
+            "owner_job_id": "job_a",
+            "owner_run_id": "run_a",
+            "operation": "unit.acquire",
+            "part_path": "fixture.SLDPRT",
+            "sw_pid": null,
+            "created_at": "2026-06-25T21:02:27",
+            "heartbeat_at": "2026-06-25T21:02:27",
+            "ttl_sec": 1,
+            "allow_restart_sw": false,
+            "status": "active"
+          }
+        },
+        "release": {
+          "released": true,
+          "status": "released",
+          "reason": "unit_release",
+          "lock": {
+            "lock_version": 1,
+            "owner_project": "v4_4_lock_test",
+            "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+            "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+            "owner_pid": 28488,
+            "owner_worker_pid": 28488,
+            "owner_job_id": "job_a",
+            "owner_run_id": "run_a",
+            "operation": "unit.acquire",
+            "part_path": "fixture.SLDPRT",
+            "sw_pid": null,
+            "created_at": "2026-06-25T21:02:27",
+            "heartbeat_at": "2026-06-25T21:02:27",
+            "ttl_sec": 1,
+            "allow_restart_sw": false,
+            "status": "active"
+          }
+        }
+      }
+    },
+    {
+      "key": "alive_owner_not_stolen",
+      "status": "pass",
+      "details": {
+        "acquired": false,
+        "status": "blocked_by_solidworks_lock",
+        "owner": {
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_job_id": "alive_owner",
+          "owner_run_id": "alive_run",
+          "owner_pid": 28488,
+          "owner_worker_pid": 28488,
+          "operation": "unit.old_heartbeat",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "heartbeat_at": "2026-06-25T20:02:27",
+          "heartbeat_age_s": 3600.278,
+          "stale_lock": false
+        },
+        "reason": "SolidWorks 正被另一个任务使用",
+        "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "",
+          "owner_pid": 28488,
+          "owner_worker_pid": 28488,
+          "owner_job_id": "alive_owner",
+          "owner_run_id": "alive_run",
+          "operation": "unit.old_heartbeat",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-25T20:02:27",
+          "heartbeat_at": "2026-06-25T20:02:27",
+          "ttl_sec": 1,
+          "allow_restart_sw": false,
+          "status": "active"
+        }
+      }
+    },
+    {
+      "key": "stale_owner_released",
+      "status": "pass",
+      "details": {
+        "released": true,
+        "status": "released_stale",
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "v4_4_lock_test",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "",
+          "owner_pid": 99999999,
+          "owner_worker_pid": 99999998,
+          "owner_job_id": "dead_owner",
+          "owner_run_id": "alive_run",
+          "operation": "unit.old_heartbeat",
+          "part_path": "fixture.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-25T20:02:27",
+          "heartbeat_at": "2026-06-25T20:02:27",
+          "ttl_sec": 1,
+          "allow_restart_sw": false,
+          "status": "active"
+        },
+        "reason": "unit_stale"
+      }
+    },
+    {
+      "key": "conflict_log_written",
+      "status": "pass",
+      "details": {
+        "path": "C:\\Users\\Vision\\AppData\\Local\\Temp\\tmpxizqoopb\\solidworks_lock_conflicts.jsonl"
+      }
+    }
+  ],
+  "policy": {
+    "second_owner_must_be_blocked": true,
+    "alive_owner_lock_must_not_be_stolen": true,
+    "stale_owner_lock_can_be_released_after_pid_and_ttl_checks": true
+  }
+}

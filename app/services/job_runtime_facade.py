@@ -50,6 +50,7 @@ VISION_AUDIT_WORKER = WORKERS_DIR / "vision_audit_worker.py"
 BATCH_WORKER = WORKERS_DIR / "batch_job_worker.py"
 DRAWING_REVIEW_WORKER = WORKERS_DIR / "drawing_review_worker.py"
 QC_ACTION_WORKER = WORKERS_DIR / "qc_action_worker.py"
+DIAGNOSTICS_ACTION_WORKER = WORKERS_DIR / "diagnostics_action_worker.py"
 LLM_ACTION_WORKER = WORKERS_DIR / "llm_action_worker.py"
 SYSTEM_HEALTH_WORKER = WORKERS_DIR / "health_check_worker.py"
 MOCK_WORKER = WORKERS_DIR / "mock_long_job_worker.py"
@@ -414,6 +415,57 @@ class JobRuntimeFacade(QObject):
             "qc_json_path": qc_json_path,
             "png_path": png_path,
             "run_dir": run_dir,
+        })
+
+        self._job_queue.add_job(record)
+        self._job_runner.start_job(record)
+        return job_id
+
+    # ========== Diagnostics Actions ==========
+
+    def start_diagnostics_action(
+        self,
+        action: str,
+        run_id: str,
+        screenshots_dir: str = "",
+        timeout_s: float = 180,
+        priority: str = "normal",
+    ) -> str:
+        """Start diagnostics package work in a QProcess worker."""
+        self._ensure_initialized()
+
+        allowed = {"build_zip"}
+        if action not in allowed:
+            raise ValueError(f"Unknown diagnostics action: {action}")
+
+        normalized_run_id = str(run_id or "").strip()
+        if not normalized_run_id:
+            raise ValueError("run_id is required")
+
+        job_id = str(uuid.uuid4())[:8]
+        run_dir = str(REPO_ROOT / "drw_output" / "runs" / normalized_run_id)
+
+        from app.services.job_queue import JobRecord, JobPriority
+        priority_map = {
+            "low": JobPriority.LOW,
+            "normal": JobPriority.NORMAL,
+            "high": JobPriority.HIGH,
+            "urgent": JobPriority.URGENT,
+        }
+        record = JobRecord(
+            job_id=job_id,
+            part_name=f"diagnostics_{normalized_run_id}",
+            part_path=normalized_run_id,
+            job_type="diagnostics_action",
+            priority=priority_map.get(priority, JobPriority.NORMAL),
+            timeout_s=timeout_s,
+            run_dir=run_dir,
+            run_id=normalized_run_id,
+        )
+        record.result.update({
+            "action": action,
+            "run_id": normalized_run_id,
+            "screenshots_dir": screenshots_dir,
         })
 
         self._job_queue.add_job(record)

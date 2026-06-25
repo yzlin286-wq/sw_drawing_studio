@@ -14,6 +14,23 @@ Generated: 2026-06-21
 - [ ] Do not claim v3.0 PASS, release-ready, production-ready, or goal complete until every item in `docs/final_acceptance_criteria.md` passes.
 - [~] Existing mock/source/smoke evidence remains useful regression evidence, but does not satisfy the updated final product gate by itself.
 
+## v4.4 SolidWorks Stability Gate - 2026-06-25
+
+- [~] Current v4.4 status remains `WARNING / NOT RELEASE READY`; do not run `full_129`, `LB26001_36`, or expand from 006 to `007/008/009/015/022`.
+- [x] Refresh `drw_output/diagnostics/unguarded_solidworks_entrypoints.json` with v4.4 UI/service/worker risk buckets for COM, Add-in Ping, DocMgr probe, subprocess, and sleep entrypoints.
+- [x] Generate `drw_output/diagnostics/solidworks_lock_test_result.json`; synthetic global-lock checks pass for first-owner acquire, second-owner block, heartbeat/release, alive-owner no-steal, stale-owner release, and conflict-log write.
+- [x] Generate `drw_output/diagnostics/conflict_report.json`; current no-COM conflict monitor reports `level=OK`, with no SolidWorks process, CAD worker, batch worker, waiting job, smoke leftover, or DialogGuard detected.
+- [x] Add `tools/validation/run_solidworks_stability_gate_v4_4.py` to reproduce the three required diagnostics plus `drw_output/diagnostics/solidworks_stability_gate_v4_4.json`.
+- [x] Extend `batch_job_worker.py` with SolidWorks resource audit, document registry propagation, cleanup before lock release, and `solidworks_resource_*` / `solidworks_cleanup_finished` event evidence, matching the CAD worker stability pattern.
+- [x] Extend `drw_generate_v6.py` document registry evidence for job-owned part/drawing open and final close events.
+- [x] Add `test_v4_4_solidworks_stability_gate.py`.
+- [x] Move Diagnostics ZIP generation behind `app/workers/diagnostics_action_worker.py` so Logs/Diagnostics UI and LogPanel no longer call `build_diagnostics_zip()` synchronously on the UI thread.
+- [x] Classify bounded COM probe worker launchers and System Health DocMgr worker-service probes separately from service-direct COM risk.
+- [x] Add external Add-in/sidecar host-lock contract evidence to `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`; current contract status is `pass`.
+- [~] Gate result remains WARNING: entrypoint scan is `status=warning`, `unguarded_or_unknown_count=30`, `service_direct_risk_count=0`, `external_addin_needs_host_lock_count=20`, and `external_addin_host_lock_contract_status=pass`. UI thread direct risk is currently `0`, and System Health UI direct Add-in/DocMgr/subprocess-run risk is `0`.
+- [ ] Continue cleanup/classification of the remaining `unguarded_or_unknown_count=30` before calling the SolidWorks Stability Gate PASS.
+- [ ] 006 still requires a fresh locked CAD run and application Drawing Review UI screenshot PASS before any expansion to 007/008/009/015/022.
+
 ## v4.1 Immediate SolidWorks Conflict Control
 
 - [~] Current v4.1 status remains `WARNING / NOT RELEASE READY`; do not resume broad real CAD batches until lock and conflict evidence is green.
@@ -70,6 +87,7 @@ Generated: 2026-06-21
 - [x] Add `app/workers/health_check_worker.py` and move System Health probes behind JobRuntimeFacade/QProcess.
 - [x] Move legacy Dashboard/Home health self-check behind JobRuntimeFacade/QProcess via the System Health worker.
 - [x] Add `app/workers/qc_action_worker.py` and move legacy QC PNG render / Vision QC v2 / legacy vision score entrypoints behind JobRuntimeFacade/QProcess.
+- [x] Add `app/workers/diagnostics_action_worker.py` and move Diagnostics ZIP generation behind JobRuntimeFacade/QProcess.
 - [x] Move legacy CAD rerun helpers behind JobRuntimeFacade/start_cad_job instead of SwRunner/QThreadPool.
 - [x] Add `app/workers/llm_action_worker.py` and move active AI pre-analysis / technical text generation behind JobRuntimeFacade/QProcess.
 - [x] Extend `app/workers/mock_long_job_worker.py` to cover pass, pass_with_warning, timeout, failed, recovered, and stuck_then_recovered.
@@ -89,7 +107,7 @@ Generated: 2026-06-21
 - [~] Drawing Review Workbench exists and has source-level issue click, bbox, layer, human review, JobRuntime/QProcess service-action evidence, and Windows-level EXE screenshot evidence; still needs real CAD review evidence.
 - [~] Batch Validation has v3.0 empty-state polish and Windows-level EXE screenshot evidence; still needs staged real CAD batch evidence.
 - [~] System Health page exists, refreshes through a QProcess worker, has source-level plus Windows-level EXE grouped health screenshot evidence and 2-hour EXE navigation stability evidence, and now uses a bounded SolidWorks COM probe worker so an unresponsive COM session is reported quickly as `solidworks_com_active_object_timeout` instead of hanging the worker; still needs staged real CAD environment evidence after SolidWorks COM is responsive.
-- [~] Logs & Diagnostics page exists and has source-level diagnostics zip proof, Windows-level EXE screenshot evidence, and a final diagnostics sample zip; still needs real failed-run diagnostics evidence during staged CAD validation.
+- [~] Logs & Diagnostics page exists, submits diagnostics packaging through a QProcess worker, has source-level diagnostics zip proof, Windows-level EXE screenshot evidence, and a final diagnostics sample zip; still needs real failed-run diagnostics evidence during staged CAD validation.
 - [~] Settings exists and has source-level main-window automated operation proof plus Windows-level EXE screenshot evidence; still needs final release configuration evidence.
 - [x] Main-window v3 navigation exists with 9 clickable entries and source-level 9-page screenshot acceptance.
 

@@ -1,0 +1,14 @@
+{"event_type": "job_started", "type": "job_started", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:47", "data": {"job_type": "mock", "scenario": "timeout", "duration_s": 0.4}, "message": "Mock job started: timeout"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.25, "stage": "mock_step_1/4"}, "message": "Mock progress 25%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"ts": 1782392628.0386524}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.5, "stage": "mock_step_2/4"}, "message": "Mock progress 50%"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.75, "stage": "mock_step_3/4"}, "message": "Mock progress 75%"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 1.0, "stage": "mock_step_4/4"}, "message": "Mock progress 100%"}
+{"event_type": "job_failed", "type": "job_failed", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"error": "mock timeout", "scenario": "timeout"}, "message": "Mock job timed out"}
+{"event_type": "job_started", "type": "job_started", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"job_type": "mock", "scenario": "timeout", "duration_s": 0.4}, "message": "Mock job started: timeout"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.25, "stage": "mock_step_1/4"}, "message": "Mock progress 25%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"ts": 1782392628.6579747}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.5, "stage": "mock_step_2/4"}, "message": "Mock progress 50%"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 0.75, "stage": "mock_step_3/4"}, "message": "Mock progress 75%"}
+{"event_type": "progress", "type": "progress", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"progress": 1.0, "stage": "mock_step_4/4"}, "message": "Mock progress 100%"}
+{"event_type": "job_failed", "type": "job_failed", "job_id": "d3425b92", "timestamp": "2026-06-25T21:03:48", "data": {"error": "mock timeout", "scenario": "timeout"}, "message": "Mock job timed out"}

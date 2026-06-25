@@ -31,6 +31,7 @@ _WORKER_SCRIPTS: dict[str, str] = {
     "vision_audit": "vision_audit_worker.py",
     "drawing_review": "drawing_review_worker.py",
     "qc_action": "qc_action_worker.py",
+    "diagnostics_action": "diagnostics_action_worker.py",
     "llm_action": "llm_action_worker.py",
     "system_health": "health_check_worker.py",
     "batch": "batch_job_worker.py",
@@ -392,6 +393,13 @@ class JobRunner(QObject):
                 "--qc-json-path", str(record.result.get("qc_json_path") or ""),
                 "--png-path", str(record.result.get("png_path") or ""),
                 "--run-dir", str(record.run_dir or record.result.get("run_dir") or ""),
+            ]
+        elif record.job_type == "diagnostics_action":
+            return [
+                "--job-id", record.job_id,
+                "--action", str(record.result.get("action") or ""),
+                "--run-id", str(record.result.get("run_id") or record.run_id or ""),
+                "--screenshots-dir", str(record.result.get("screenshots_dir") or ""),
             ]
         elif record.job_type == "llm_action":
             return [

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, Signal
 from PySide6.QtGui import QColor, QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import (
     QAbstractItemView,
@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from app.services.diagnostics import DIAGNOSTICS_DIR, build_diagnostics_zip
+from app.services.diagnostics import DIAGNOSTICS_DIR
 from app.services.run_manager import RUNS_DIR
 
 
@@ -88,11 +88,14 @@ class RunSummary:
 class LogsDiagnosticsPage(QWidget):
     """Operational run log and diagnostics workbench."""
 
+    request_build_diagnostics = Signal(str)
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._runs: list[RunSummary] = []
         self._current_run: RunSummary | None = None
         self._diagnostics: list[Path] = []
+        self._pending_diagnostics_job_id = ""
 
         self.summary_label = QLabel("日志诊断")
         self.summary_label.setWordWrap(True)
@@ -188,16 +191,30 @@ class LogsDiagnosticsPage(QWidget):
         if run is None:
             self.detail_view.setPlainText("select a run first")
             return None
-        try:
-            zip_path = build_diagnostics_zip(run.run_id)
-        except Exception as exc:
-            QMessageBox.warning(self, "Diagnostics", f"诊断包生成失败: {exc}")
-            self.detail_view.setPlainText(f"diagnostics failed: {exc}")
-            return None
+        self.request_build_diagnostics.emit(run.run_id)
+        self.summary_label.setText(f"诊断包生成中: {run.run_id}")
+        self.detail_view.setPlainText(f"diagnostics job requested for run_id={run.run_id}")
+        return None
+
+    def set_diagnostics_running(self, run_id: str, job_id: str) -> None:
+        self._pending_diagnostics_job_id = job_id
+        self.btn_build_zip.setEnabled(False)
+        self.summary_label.setText(f"诊断包生成中: run_id={run_id} job_id={job_id}")
+
+    def show_diagnostics_result(self, zip_path: str | Path) -> None:
+        self._pending_diagnostics_job_id = ""
+        self.btn_build_zip.setEnabled(True)
+        path = Path(zip_path)
         self._diagnostics = list_diagnostics()
-        self.detail_view.setPlainText(describe_zip(zip_path))
-        self.summary_label.setText(f"诊断包已生成: {zip_path}")
-        return zip_path
+        self.detail_view.setPlainText(describe_zip(path))
+        self.summary_label.setText(f"诊断包已生成: {path}")
+
+    def show_diagnostics_failed(self, reason: str) -> None:
+        self._pending_diagnostics_job_id = ""
+        self.btn_build_zip.setEnabled(True)
+        self.detail_view.setPlainText(f"diagnostics failed: {reason}")
+        self.summary_label.setText(f"诊断包生成失败: {reason}")
+        QMessageBox.warning(self, "Diagnostics", f"诊断包生成失败: {reason}")
 
     def copy_summary(self) -> str:
         run = self._selected_run()

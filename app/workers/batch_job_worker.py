@@ -27,6 +27,15 @@ from app.services.resource_paths import (
     runtime_path,
 )
 from app.services.solidworks_global_lock import acquire_lock, heartbeat as lock_heartbeat, release_lock
+from app.services.solidworks_resource_audit import (
+    DOC_REGISTRY_ENV,
+    RESOURCE_AUDIT_ENV,
+    SolidWorksResourceAudit,
+    cleanup_job_owned_documents,
+    document_registry_path,
+    load_document_registry_events,
+    summarize_document_registry,
+)
 
 # 确保 stdout 行缓冲（事件实时传递）
 sys.stdout.reconfigure(line_buffering=True)
@@ -64,6 +73,89 @@ def _heartbeat_loop(
         stop_event.wait(interval)
 
 
+def _emit_document_registry_events(job_id: str, run_dir: str | Path | None, start_index: int = 0) -> int:
+    if not run_dir:
+        return start_index
+    events = load_document_registry_events(document_registry_path(run_dir))
+    for event in events[max(0, int(start_index)) :]:
+        event_type = str(event.get("event_type") or "")
+        if event_type not in {"solidworks_doc_opened", "solidworks_doc_closed", "solidworks_doc_close_failed"}:
+            continue
+        _emit(
+            event_type,
+            job_id,
+            data=event,
+            message=f"{event_type}: {event.get('role') or ''} {event.get('title') or event.get('path') or ''}".strip(),
+        )
+    return len(events)
+
+
+def _resource_block_payload(snapshot: dict | None, cleanup: dict | None = None) -> dict:
+    snapshot = snapshot or {}
+    cleanup = cleanup or {}
+    blockers = list(snapshot.get("resource_blockers") or [])
+    if cleanup and not cleanup.get("pass", True):
+        blockers.append({
+            "key": "solidworks_cleanup_not_clean",
+            "status": cleanup.get("status", "blocked_by_solidworks_resource_pressure"),
+            "reason": cleanup.get("reason", "job-owned SolidWorks document cleanup did not pass"),
+        })
+    return {
+        "status": "blocked_by_solidworks_resource_pressure",
+        "failure_bucket": "solidworks_resource_pressure",
+        "resource_blockers": blockers,
+        "audit_path": snapshot.get("audit_path", ""),
+        "cleanup_status": cleanup.get("status", ""),
+        "recoverable": True,
+        "fix_suggestion": "Inspect solidworks_resource_audit.json and solidworks_document_registry.json before another batch CAD run.",
+    }
+
+
+def _finalize_solidworks_resources(
+    *,
+    job_id: str,
+    output_dir: str,
+    resource_audit: SolidWorksResourceAudit,
+    solidworks_lock: dict,
+    registry_event_cursor: int,
+    release_reason: str,
+) -> dict:
+    registry_event_cursor = _emit_document_registry_events(job_id, output_dir, registry_event_cursor)
+    cleanup = cleanup_job_owned_documents(output_dir, job_id)
+    registry_event_cursor = _emit_document_registry_events(job_id, output_dir, registry_event_cursor)
+    registry_summary = cleanup.get("registry_summary") or summarize_document_registry(output_dir)
+    _emit(
+        "solidworks_cleanup_finished",
+        job_id,
+        data={
+            "status": cleanup.get("status"),
+            "pass": bool(cleanup.get("pass")),
+            "cleanup_records": cleanup.get("cleanup_records") or [],
+            "document_registry": registry_summary,
+        },
+        message="SolidWorks job-owned document cleanup finished",
+    )
+    after_snapshot = resource_audit.capture(
+        "after_batch_cleanup",
+        lock_result=solidworks_lock,
+        registry_summary=registry_summary,
+    )
+    if after_snapshot.get("resource_blockers"):
+        _emit(
+            "solidworks_resource_blocked",
+            job_id,
+            data=_resource_block_payload(after_snapshot, cleanup),
+            message="SolidWorks resource audit found blockers after batch cleanup",
+        )
+    release = release_lock(job_id, release_reason)
+    return {
+        "cleanup": cleanup,
+        "after_resource_audit": after_snapshot,
+        "release": release,
+        "registry_event_cursor": registry_event_cursor,
+    }
+
+
 def _run_single_part(
     job_id: str,
     part_path: str,
@@ -72,6 +164,7 @@ def _run_single_part(
     timeout_s: float,
     part_index: int,
     total_parts: int,
+    resource_audit_path: str = "",
 ) -> dict:
     """执行单个零件的出图流程
 
@@ -98,6 +191,8 @@ def _run_single_part(
     env["QC_LOOP_MAX_ROUNDS"] = str(max_rounds)
     env["JOB_ID"] = job_id
     env["SW_DRAWING_STUDIO_LOCK_JOB_ID"] = job_id
+    env[DOC_REGISTRY_ENV] = str(document_registry_path(output_dir))
+    env[RESOURCE_AUDIT_ENV] = str(resource_audit_path or (Path(output_dir) / "solidworks_resource_audit.json"))
     if output_dir:
         env["RUN_DIR"] = output_dir
 
@@ -209,6 +304,10 @@ def main() -> int:
           },
           message=f"批量作业启动: {total_parts} 个零件")
 
+    run_id = os.environ.get("RUN_ID", "") or Path(output_dir).name
+    resource_audit = SolidWorksResourceAudit(output_dir, job_id, run_id)
+    registry_event_cursor = 0
+
     lock_timeout_s = float(os.environ.get("SW_GLOBAL_LOCK_TIMEOUT_S", "30") or "30")
     solidworks_lock = acquire_lock(
         owner_project=os.environ.get("SW_DRAWING_STUDIO_OWNER_PROJECT", "sw_drawing_studio"),
@@ -217,10 +316,25 @@ def main() -> int:
         operation="batch_job_worker.generate_drawings",
         part_path=f"{total_parts} parts",
         timeout_sec=lock_timeout_s,
-        run_id=os.environ.get("RUN_ID", ""),
+        run_id=run_id,
         allow_restart_sw=os.environ.get("SWDS_ALLOW_RESTART_SW", "0") == "1",
     )
     if not solidworks_lock.get("acquired"):
+        lock_block_snapshot = resource_audit.capture(
+            "lock_blocked",
+            lock_result=solidworks_lock,
+            include_com_documents=False,
+        )
+        _emit(
+            "solidworks_resource_blocked",
+            job_id,
+            data={
+                "status": "blocked_by_solidworks_lock",
+                "failure_bucket": "solidworks_lock_conflict",
+                "resource_audit": lock_block_snapshot,
+            },
+            message="SolidWorks resource audit captured lock-blocked batch state",
+        )
         _emit(
             "job_failed",
             job_id,
@@ -231,11 +345,66 @@ def main() -> int:
                 "owner": solidworks_lock.get("owner", {}),
                 "reason": solidworks_lock.get("reason", ""),
                 "fix_suggestion": solidworks_lock.get("fix_suggestion", ""),
+                "solidworks_resource_audit": str(resource_audit.path),
                 "recoverable": True,
             },
             message="SolidWorks 正被另一个任务使用",
         )
         return 4
+
+    _emit(
+        "solidworks_resource_audit_started",
+        job_id,
+        data={
+            "audit_path": str(resource_audit.path),
+            "registry_path": str(document_registry_path(output_dir)),
+        },
+        message="SolidWorks resource audit started",
+    )
+    before_resource_snapshot = resource_audit.capture("before_batch", lock_result=solidworks_lock)
+    if before_resource_snapshot.get("resource_blockers"):
+        summary = {
+            "total": total_parts,
+            "ok": 0,
+            "failed": total_parts,
+            "results": [],
+            "solidworks_resource_audit": str(resource_audit.path),
+            "solidworks_resource_snapshot": before_resource_snapshot,
+        }
+        resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="batch_job_worker_resource_pressure_before",
+        )
+        summary["solidworks_cleanup"] = resource_final["cleanup"]
+        summary["solidworks_resource_audit_after"] = resource_final["after_resource_audit"]
+        summary["solidworks_lock_release"] = resource_final["release"]
+        _emit(
+            "solidworks_resource_blocked",
+            job_id,
+            data=_resource_block_payload(before_resource_snapshot, resource_final["cleanup"]),
+            message="SolidWorks resource audit blocked batch before CAD subprocesses",
+        )
+        _emit(
+            "job_failed",
+            job_id,
+            data={
+                "error": "blocked_by_solidworks_resource_pressure",
+                "status": "blocked_by_solidworks_resource_pressure",
+                "failure_bucket": "solidworks_resource_pressure",
+                "result": summary,
+                "fix_suggestion": "Inspect solidworks_resource_audit.json before retrying batch CAD.",
+                "recoverable": True,
+            },
+            message="SolidWorks resource pressure blocks batch CAD",
+        )
+        return 5
+
+    os.environ[DOC_REGISTRY_ENV] = str(document_registry_path(output_dir))
+    os.environ[RESOURCE_AUDIT_ENV] = str(resource_audit.path)
 
     # ── 启动心跳线程 ──────────────────────────────────────
     stop_hb = threading.Event()
@@ -268,8 +437,10 @@ def main() -> int:
             timeout_s=timeout_s,
             part_index=idx,
             total_parts=total_parts,
+            resource_audit_path=str(resource_audit.path),
         )
         results.append(part_result)
+        registry_event_cursor = _emit_document_registry_events(job_id, output_dir, registry_event_cursor)
         if part_result.get("ok"):
             ok_count += 1
         else:
@@ -286,19 +457,49 @@ def main() -> int:
     }
 
     if fail_count == 0:
-        release_lock(job_id, "batch_job_worker_finished")
+        resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="batch_job_worker_finished",
+        )
+        summary["solidworks_cleanup"] = resource_final["cleanup"]
+        summary["solidworks_resource_audit_after"] = resource_final["after_resource_audit"]
+        summary["solidworks_lock_release"] = resource_final["release"]
         _emit("job_finished", job_id,
               data={"result": summary},
               message=f"批量作业完成: {ok_count}/{total_parts} 成功")
         return 0
     elif ok_count > 0:
-        release_lock(job_id, "batch_job_worker_finished_partial")
+        resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="batch_job_worker_finished_partial",
+        )
+        summary["solidworks_cleanup"] = resource_final["cleanup"]
+        summary["solidworks_resource_audit_after"] = resource_final["after_resource_audit"]
+        summary["solidworks_lock_release"] = resource_final["release"]
         _emit("job_finished", job_id,
               data={"result": summary},
               message=f"批量作业完成（部分失败）: {ok_count}/{total_parts} 成功, {fail_count} 失败")
         return 0
     else:
-        release_lock(job_id, "batch_job_worker_failed")
+        resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="batch_job_worker_failed",
+        )
+        summary["solidworks_cleanup"] = resource_final["cleanup"]
+        summary["solidworks_resource_audit_after"] = resource_final["after_resource_audit"]
+        summary["solidworks_lock_release"] = resource_final["release"]
         _emit("job_failed", job_id,
               data={"error": f"全部 {total_parts} 个零件均失败", "result": summary},
               message=f"批量作业全部失败: {total_parts} 个零件")
