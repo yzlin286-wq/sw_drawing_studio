@@ -1,0 +1,35 @@
+﻿Found 5 small parts:
+  -AK-15-AC-25-1-V3-V02.SLDPRT
+  -AK-15-AC-26-1-V3-V02.SLDPRT
+  -AK-15-AC-27-1-V3-V02.SLDPRT
+  -M3x8十字螺丝-1-V3-V02.SLDPRT
+  -弹簧压棒弹簧-1-V3-V02.SLDPRT
+
+=== 1/5 -AK-15-AC-25-1-V3-V02.SLDPRT ===
+[v1.4 PNG fallback] reconciled hard_fail=['dim_total_too_low', 'qc_pass_too_low'], drawing_usable.pass=False
+  status=failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] png_missing=False dim_zero=False dim=0
+
+=== 2/5 -AK-15-AC-26-1-V3-V02.SLDPRT ===
+[v1.4 PNG fallback] reconciled hard_fail=['dim_total_too_low', 'qc_pass_too_low'], drawing_usable.pass=False
+  status=failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] png_missing=False dim_zero=False dim=0
+
+=== 3/5 -AK-15-AC-27-1-V3-V02.SLDPRT ===
+  status=failed hard_fail=['dim_total_zero', 'qc_pass_too_low'] png_missing=False dim_zero=True dim=0
+
+=== 4/5 -M3x8十字螺丝-1-V3-V02.SLDPRT ===
+  status=failed hard_fail=['dim_total_zero', 'qc_pass_too_low'] png_missing=False dim_zero=True dim=0
+
+=== 5/5 -弹簧压棒弹簧-1-V3-V02.SLDPRT ===
+  status=failed hard_fail=['dim_total_zero', 'qc_pass_too_low'] png_missing=False dim_zero=True dim=0
+
+=== SUMMARY ===
+total=5 success=0 warning=0 failed=5
+png_missing=0/5 (target: 0)
+dim_total_zero=3/5 (target: <=1)
+  -AK-15-AC-25-1-V3-V02: failed png_missing=False dim_zero=False dim=0
+  -AK-15-AC-26-1-V3-V02: failed png_missing=False dim_zero=False dim=0
+  -AK-15-AC-27-1-V3-V02: failed png_missing=False dim_zero=True dim=0
+  -M3x8十字螺丝-1-V3-V02: failed png_missing=False dim_zero=True dim=0
+  -弹簧压棒弹簧-1-V3-V02: failed png_missing=False dim_zero=True dim=0
+
+Results saved to c:\Users\Vision\Desktop\SW 相关\drw_output\v5\task6_6_results.json

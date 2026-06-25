@@ -1,0 +1,291 @@
+{
+  "total_parts": 36,
+  "deliverable": 9,
+  "not_deliverable": 27,
+  "missing": 0,
+  "deliverable_rate": "9/36",
+  "not_deliverable_list": [
+    "LB26001-A-04-015",
+    "LB26001-A-04-016",
+    "LB26001-A-04-021",
+    "LB26001-A-04-022",
+    "LB26001-A-04-023",
+    "LB26001-A-04-024",
+    "LB26001-A-04-025",
+    "LB26001-A-04-026",
+    "LB26001-A-04-031",
+    "LB26001-A-04-032",
+    "LB26001-A-04-033",
+    "LB26001-A-04-034",
+    "LB26001-A-04-035",
+    "LB26001-A-04-036",
+    "LB26001-A-04-037",
+    "LB26001-A-04-038",
+    "LB26001-A-04-039",
+    "LB26001-A-04-040",
+    "LB26001-A-04-041",
+    "LB26001-A-04-042",
+    "LB26001-A-04-044",
+    "LB26001-A-04-045",
+    "LB26001-A-04-046",
+    "LB26001-A-04-047",
+    "LB26001-A-04-048",
+    "LB26001-A-04-049",
+    "LB26001-A-04-050"
+  ],
+  "missing_list": [],
+  "part_status": {
+    "LB26001-A-04-009": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\0bf957d377b5",
+      "run_id": "0bf957d377b5",
+      "grade": "B",
+      "part_class": "tiny_part"
+    },
+    "LB26001-A-04-007": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\54dad5f4ff40",
+      "run_id": "54dad5f4ff40",
+      "grade": "B",
+      "part_class": "tiny_part"
+    },
+    "LB26001-A-04-005": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b9cdef37e01e",
+      "run_id": "b9cdef37e01e",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-004": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f5ef81a68301",
+      "run_id": "f5ef81a68301",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-003": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9d1462be4c82",
+      "run_id": "9d1462be4c82",
+      "grade": "B",
+      "part_class": "long_thin"
+    },
+    "LB26001-A-04-002": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\e37f286e4ab0",
+      "run_id": "e37f286e4ab0",
+      "grade": "B",
+      "part_class": "long_thin"
+    },
+    "LB26001-A-04-001": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2189cc4922b5",
+      "run_id": "2189cc4922b5",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-008": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f4a58eba8ddd",
+      "run_id": "f4a58eba8ddd",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-006": {
+      "deliverable": true,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\51df09710df0",
+      "run_id": "51df09710df0",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-050": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\75fe831d6c94",
+      "run_id": "75fe831d6c94",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-049": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\af1edd05aaa9",
+      "run_id": "af1edd05aaa9",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-048": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3933e3380003",
+      "run_id": "3933e3380003",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-047": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ea2d4a64a8fd",
+      "run_id": "ea2d4a64a8fd",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-046": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a5691d84dffb",
+      "run_id": "a5691d84dffb",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-045": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\1639652a02cc",
+      "run_id": "1639652a02cc",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-044": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01ac2ec5520c",
+      "run_id": "01ac2ec5520c",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-042": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8f6f036526eb",
+      "run_id": "8f6f036526eb",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-041": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d63881dca743",
+      "run_id": "d63881dca743",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-040": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5a3e6282cc10",
+      "run_id": "5a3e6282cc10",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-039": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cf3d799d8361",
+      "run_id": "cf3d799d8361",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-038": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c5c1d5117f22",
+      "run_id": "c5c1d5117f22",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-037": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\0e1041d64d7e",
+      "run_id": "0e1041d64d7e",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-036": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f62e47caaa08",
+      "run_id": "f62e47caaa08",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-035": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a2d5ca1836f6",
+      "run_id": "a2d5ca1836f6",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-034": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\22d0bc2c9038",
+      "run_id": "22d0bc2c9038",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-033": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dd9b87ecf5c9",
+      "run_id": "dd9b87ecf5c9",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-032": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9381c354d6d9",
+      "run_id": "9381c354d6d9",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-031": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8246a78c21dd",
+      "run_id": "8246a78c21dd",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-026": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b90dcedb9f9a",
+      "run_id": "b90dcedb9f9a",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-025": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b399c6b19d7e",
+      "run_id": "b399c6b19d7e",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-024": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ddf6029dc7d6",
+      "run_id": "ddf6029dc7d6",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-023": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\0950c055511d",
+      "run_id": "0950c055511d",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-022": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3be38a747af2",
+      "run_id": "3be38a747af2",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-021": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\663df79018c6",
+      "run_id": "663df79018c6",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-016": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c6b5eb4a9c0d",
+      "run_id": "c6b5eb4a9c0d",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-015": {
+      "deliverable": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d",
+      "run_id": "cc8250ee687d",
+      "grade": "",
+      "part_class": ""
+    }
+  }
+}

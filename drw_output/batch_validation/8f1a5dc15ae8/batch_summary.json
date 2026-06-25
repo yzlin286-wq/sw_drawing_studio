@@ -1,0 +1,36 @@
+{
+  "batch_id": "8f1a5dc15ae8",
+  "started_at": "2026-06-19 00:06:31",
+  "finished_at": "",
+  "total": 129,
+  "success": 0,
+  "warning": 0,
+  "failed": 1,
+  "items": [
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "run_id": "b81f3e456ad7",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    }
+  ]
+}

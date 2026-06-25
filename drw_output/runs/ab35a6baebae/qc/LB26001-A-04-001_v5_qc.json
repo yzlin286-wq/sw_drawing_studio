@@ -1,0 +1,12 @@
+{
+  "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5.SLDDRW",
+  "pass": false,
+  "score_pass_count": 0,
+  "issues": [
+    "quality_check exception: cannot access local variable 'Path' where it is not associated with a value"
+  ],
+  "checks": {
+    "__error__": "cannot access local variable 'Path' where it is not associated with a value"
+  },
+  "_check_order": []
+}

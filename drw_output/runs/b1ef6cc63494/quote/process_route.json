@@ -1,0 +1,42 @@
+[
+  {
+    "process_code": "CUT_LASER",
+    "name": "激光切割",
+    "qty": 1.0,
+    "minutes": 3.0,
+    "cny": 4.5,
+    "scrap_factor": 0.05
+  },
+  {
+    "process_code": "BEND",
+    "name": "数控折弯",
+    "qty": 1.0,
+    "minutes": 4.0,
+    "cny": 4.8,
+    "scrap_factor": 0.02
+  },
+  {
+    "process_code": "TAP",
+    "name": "攻丝",
+    "qty": 1.0,
+    "minutes": 4.0,
+    "cny": 1.2,
+    "scrap_factor": 0.01
+  },
+  {
+    "process_code": "POWDER",
+    "name": "脱脂磷化喷粉",
+    "qty": 1.0,
+    "minutes": 0.0,
+    "cny": 0.8,
+    "scrap_factor": 0.04
+  },
+  {
+    "process_code": "ASSEMBLE",
+    "name": "装配",
+    "qty": 1.0,
+    "minutes": 2.0,
+    "cny": 2.0,
+    "scrap_factor": 0.01
+  }
+]

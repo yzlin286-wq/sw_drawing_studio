@@ -1,0 +1,67 @@
+{
+  "run_id": "b84a04edfd46",
+  "started_at": "2026-06-18 18:15:52",
+  "finished_at": "2026-06-18 18:16:33",
+  "app_version": "1.1.0",
+  "sw_revision": "not_connected",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\input\\LB26001-A-04-001.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\drawing\\LB26001-A-04-001_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\drawing\\LB26001-A-04-001_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\drawing\\LB26001-A-04-001_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\drawing\\LB26001-A-04-001_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\qc\\LB26001-A-04-001_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\qc\\LB26001-A-04-001_v5_vision.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b84a04edfd46\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 44,
+      "qc_pass_count": 11,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 11,
+  "score_total": 12,
+  "vision_score": 65,
+  "dim_total": 44,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "ok",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

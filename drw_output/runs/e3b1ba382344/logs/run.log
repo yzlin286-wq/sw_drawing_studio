@@ -1,0 +1,5 @@
+[2026-06-19 14:59:24] === Full pipeline start ===
+[2026-06-19 14:59:24] strategy=v6_recommended
+[2026-06-19 14:59:24] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-004.SLDPRT
+[2026-06-19 14:59:24] sw_revision=33.5.0
+[2026-06-19 14:59:24] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py

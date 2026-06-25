@@ -1,0 +1,127 @@
+{
+  "synthetic_overlap_case": {
+    "bbox_m": [
+      0.08,
+      0.04,
+      0.04
+    ],
+    "centers_m": {
+      "front": [
+        0.1,
+        0.15
+      ],
+      "top": [
+        0.1,
+        0.13
+      ]
+    },
+    "scale_1_1_ok": false,
+    "scale_1_1_pairs": [
+      [
+        "front",
+        "top"
+      ]
+    ],
+    "scale_1_1_out_of_workarea": [],
+    "selected_scale": [
+      1,
+      5
+    ],
+    "selected_pairs": [],
+    "selected_out_of_workarea": [],
+    "selected_utilization": 0.007968871595330754
+  },
+  "reference_samples_nominal_bbox": {
+    "LB26001-A-04-006": {
+      "view_keys": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "selected_scale": [
+        1,
+        1
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.34664591439688697,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-007": {
+      "view_keys": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "selected_scale": [
+        1,
+        2
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.08666147859922184,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-008": {
+      "view_keys": [
+        "front",
+        "top"
+      ],
+      "selected_scale": [
+        1,
+        1
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.1992217898832684,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-009": {
+      "view_keys": [
+        "front",
+        "top",
+        "right"
+      ],
+      "selected_scale": [
+        1,
+        1
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.24902723735408555,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-015": {
+      "view_keys": [
+        "front",
+        "top"
+      ],
+      "selected_scale": [
+        1,
+        1
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.1992217898832684,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-022": {
+      "view_keys": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "selected_scale": [
+        1,
+        1
+      ],
+      "selected_pairs": [],
+      "selected_out_of_workarea": [],
+      "selected_utilization": 0.34664591439688713,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    }
+  }
+}

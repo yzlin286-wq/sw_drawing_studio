@@ -1,0 +1,477 @@
+{
+  "schema": "sw_drawing_studio.vision_qc_v6",
+  "version": "v6",
+  "generated_at": "2026-06-24 11:25:30",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_apply_ui_visual_review_debug\\runs\\case\\drawing\\LB26001-A-04-006_v5.PNG",
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+  "manual_review": "drw_output\\_apply_ui_visual_review_debug\\ui\\manual_visual_judgement.json",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_apply_ui_visual_review_debug\\runs\\case",
+  "drawing_blueprint": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_apply_ui_visual_review_debug\\runs\\case\\qc\\drawing_blueprint.json",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_apply_ui_visual_review_debug\\runs\\case\\qc\\LB26001-A-04-006_v5_qc.json",
+  "success": true,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "issues": [
+    {
+      "key": "dimension_visual_candidates_lower_than_blueprint",
+      "severity": "major",
+      "bbox": [
+        0.0889,
+        0.12,
+        0.9011,
+        0.865
+      ],
+      "source": "dimension_visual_validator",
+      "confidence": 0.62,
+      "evidence": {
+        "success": true,
+        "required_display_dim_count": 1,
+        "dimension_text_candidate_count": 0,
+        "dimension_arrow_candidate_count": 5,
+        "min_visual_candidate_count": 1,
+        "visual_dimension_coverage_pass": false,
+        "visual_dimension_density_pass": true,
+        "text_candidate_examples": [],
+        "arrow_candidate_examples": [
+          {
+            "bbox": [
+              0.144444,
+              0.12,
+              0.023333,
+              0.001667
+            ],
+            "area": 21,
+            "area_norm": 3.889e-05,
+            "aspect": 21.0
+          },
+          {
+            "bbox": [
+              0.194444,
+              0.12,
+              0.023333,
+              0.001667
+            ],
+            "area": 21,
+            "area_norm": 3.889e-05,
+            "aspect": 21.0
+          },
+          {
+            "bbox": [
+              0.244444,
+              0.12,
+              0.023333,
+              0.001667
+            ],
+            "area": 21,
+            "area_norm": 3.889e-05,
+            "aspect": 21.0
+          },
+          {
+            "bbox": [
+              0.294444,
+              0.12,
+              0.023333,
+              0.001667
+            ],
+            "area": 21,
+            "area_norm": 3.889e-05,
+            "aspect": 21.0
+          },
+          {
+            "bbox": [
+              0.344444,
+              0.12,
+              0.023333,
+              0.001667
+            ],
+            "area": 21,
+            "area_norm": 3.889e-05,
+            "aspect": 21.0
+          }
+        ],
+        "source": "dimension_visual_candidates"
+      },
+      "fix_suggestion": "Generate real DisplayDim objects according to DrawingBlueprint.dimension_plan; do not replace them with Notes.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Dimension text/arrow visual candidates are below the DrawingBlueprint requirement."
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 0,
+    "major": 1,
+    "minor": 0,
+    "info": 0
+  },
+  "checks": {
+    "drawing_objects": {
+      "success": true,
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_apply_ui_visual_review_debug\\runs\\case\\drawing\\LB26001-A-04-006_v5.PNG",
+      "width": 900,
+      "height": 600,
+      "ink_present": true,
+      "ink_ratio": 0.007843,
+      "ink_bbox": [
+        0.088889,
+        0.12,
+        0.901111,
+        0.865
+      ],
+      "component_count": 8,
+      "components": [
+        {
+          "bbox": [
+            0.683333,
+            0.841667,
+            0.306667,
+            0.143333
+          ],
+          "area": 1947,
+          "area_norm": 0.00360556,
+          "aspect": 3.209
+        },
+        {
+          "bbox": [
+            0.111111,
+            0.166667,
+            0.29,
+            0.235
+          ],
+          "area": 1592,
+          "area_norm": 0.00294815,
+          "aspect": 1.851
+        },
+        {
+          "bbox": [
+            0.088889,
+            0.125,
+            0.345556,
+            0.31
+          ],
+          "area": 591,
+          "area_norm": 0.00109444,
+          "aspect": 1.672
+        },
+        {
+          "bbox": [
+            0.144444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.194444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.244444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.294444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.344444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        }
+      ],
+      "view_frame_count": 3,
+      "view_frames": [
+        {
+          "bbox": [
+            0.683333,
+            0.841667,
+            0.306667,
+            0.143333
+          ],
+          "area": 1947,
+          "area_norm": 0.00360556,
+          "aspect": 3.209
+        },
+        {
+          "bbox": [
+            0.111111,
+            0.166667,
+            0.29,
+            0.235
+          ],
+          "area": 1592,
+          "area_norm": 0.00294815,
+          "aspect": 1.851
+        },
+        {
+          "bbox": [
+            0.088889,
+            0.125,
+            0.345556,
+            0.31
+          ],
+          "area": 591,
+          "area_norm": 0.00109444,
+          "aspect": 1.672
+        }
+      ],
+      "dimension_text_candidate_count": 0,
+      "dimension_text_candidates": [],
+      "dimension_arrow_candidate_count": 5,
+      "dimension_arrow_candidates": [
+        {
+          "bbox": [
+            0.144444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.194444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.244444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.294444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.344444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        }
+      ],
+      "centerline_candidate_count": 0,
+      "centerline_candidates": [],
+      "center_mark_candidate_count": 0,
+      "center_mark_candidates": [],
+      "section_arrow_candidate_count": 0,
+      "section_arrow_candidates": []
+    },
+    "titlebar": {
+      "success": true,
+      "box_norm": [
+        0.68,
+        0.82,
+        0.32,
+        0.18
+      ],
+      "detected": true,
+      "ink_density": 0.062596,
+      "line_candidate_count": 0,
+      "component_count": 1,
+      "source": "titlebar_region_ink_density"
+    },
+    "notes": {
+      "success": true,
+      "box_norm": [
+        0.58,
+        0.65,
+        0.4,
+        0.17
+      ],
+      "detected": false,
+      "technical_requirements_detected": false,
+      "requires_technical_requirements": false,
+      "required_notes": [],
+      "raw_reference_note_count": 0,
+      "warning_note_count": 0,
+      "ink_density": 0.0,
+      "component_count": 0,
+      "source": "notes_region_ink_density"
+    },
+    "dimension_visuals": {
+      "success": true,
+      "required_display_dim_count": 1,
+      "dimension_text_candidate_count": 0,
+      "dimension_arrow_candidate_count": 5,
+      "min_visual_candidate_count": 1,
+      "visual_dimension_coverage_pass": false,
+      "visual_dimension_density_pass": true,
+      "text_candidate_examples": [],
+      "arrow_candidate_examples": [
+        {
+          "bbox": [
+            0.144444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.194444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.244444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.294444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        },
+        {
+          "bbox": [
+            0.344444,
+            0.12,
+            0.023333,
+            0.001667
+          ],
+          "area": 21,
+          "area_norm": 3.889e-05,
+          "aspect": 21.0
+        }
+      ],
+      "source": "dimension_visual_candidates"
+    },
+    "symbols": {
+      "centerline_candidate_count": 0,
+      "center_mark_candidate_count": 0,
+      "section_arrow_candidate_count": 0,
+      "missing": []
+    },
+    "reference_visual_compare": {
+      "success": true,
+      "generated_ink_bbox": [
+        0.088889,
+        0.12,
+        0.901111,
+        0.865
+      ],
+      "reference_ink_bbox": [
+        0.143705,
+        0.039463,
+        0.731591,
+        0.766583
+      ],
+      "center_delta": 0.1597,
+      "area_ratio": 1.3898,
+      "coarse_layout_match": true
+    },
+    "ui_screenshot_review": {
+      "required": true,
+      "pass": true,
+      "manual_review_status": "pass",
+      "manual_review_error": "",
+      "manual_review_method": "application_drawing_review_ui_screenshot",
+      "manual_review_method_ok": true,
+      "ui_screenshot_evidence_present": true,
+      "ui_screenshot_paths": [
+        "drw_output\\_apply_ui_visual_review_debug\\ui\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "ui_screenshot_paths_existing": [
+        "drw_output\\_apply_ui_visual_review_debug\\ui\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "source_ui_report": "drw_output\\_apply_ui_visual_review_debug\\ui\\drawing_visual_review_report.json",
+      "source_ui_report_exists": true,
+      "case_match": {
+        "required": true,
+        "pass": true,
+        "base": "LB26001-A-04-006",
+        "matching_count": 1
+      },
+      "source": "application_ui_screenshot_review",
+      "api_is_not_final_judgement": true
+    },
+    "geometry_qc_supporting": {
+      "source": "geometry_qc_supporting_only",
+      "pass": true,
+      "display_dim_count": 1,
+      "dimension_grade": "",
+      "hard_fail": [],
+      "warnings": [],
+      "api_is_not_final_judgement": true
+    }
+  },
+  "duration_s": 0.206,
+  "status": "need_review",
+  "output_path": "drw_output\\_apply_ui_visual_review_debug\\ui\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json"
+}

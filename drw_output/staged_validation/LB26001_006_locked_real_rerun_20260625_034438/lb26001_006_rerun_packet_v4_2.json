@@ -1,0 +1,2771 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
+  "generated_at": "2026-06-25 03:44:41",
+  "base": "LB26001-A-04-006",
+  "status": "ready_for_locked_006_rerun",
+  "pass": false,
+  "report_is_acceptance_evidence": false,
+  "packet_build_ready": true,
+  "real_cad_allowed_now": true,
+  "readiness_ready": true,
+  "readiness_status": "ready",
+  "readiness_blocking_issue_keys": [],
+  "offline_prerequisite_missing_keys": [],
+  "must_not_run_real_cad_when_blocked": true,
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "application_ui_screenshot_is_final_gate": true,
+  "requested_bases": [
+    "LB26001-A-04-006",
+    "LB26001-A-04-007",
+    "LB26001-A-04-008",
+    "LB26001-A-04-009",
+    "LB26001-A-04-015",
+    "LB26001-A-04-022"
+  ],
+  "expansion_policy": {
+    "006_must_pass_first": true,
+    "blocked_bases_until_006_passes": [
+      "LB26001-A-04-007",
+      "LB26001-A-04-008",
+      "LB26001-A-04-009",
+      "LB26001-A-04-015",
+      "LB26001-A-04-022"
+    ],
+    "expansion_allowed_now": false
+  },
+  "ui_screenshot_validation_policy": {
+    "per_drawing_application_ui_screenshot_required": true,
+    "required_review_mode": "application_drawing_review_ui_screenshot",
+    "required_visual_checklist": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "manual_case_pass_required": true,
+    "fresh_generated_png_under_run_dir_required": true,
+    "supporting_api_metrics_do_not_override_visual_fail": true,
+    "api_only_acceptance_allowed": false
+  },
+  "post_rerun_acceptance_requirements": [
+    {
+      "key": "fresh_generated_png_source_evidence",
+      "required": true,
+      "current_pass": true,
+      "evidence": {
+        "base": "LB26001-A-04-006",
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f5e3033024dc\\drawing\\LB26001-A-04-006_v5.PNG",
+        "source": "run_dir",
+        "exists": true,
+        "strict_sample": true,
+        "under_run_dir": true,
+        "under_legacy_v5": false,
+        "strict_source_pass": true,
+        "reasons": [],
+        "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+      },
+      "fix_suggestion": "After the next locked CAD rerun, capture Drawing Review UI evidence from the PNG under drw_output/runs/<run_id>/drawing/."
+    },
+    {
+      "key": "displaydim_lifecycle_audit_pass",
+      "required": true,
+      "current_pass": false,
+      "evidence": {
+        "required_floor": 12,
+        "required_stages": [
+          "pre_saveas",
+          "post_saveas_reopen_prune",
+          "post_saveas_reopen_prune_guard",
+          "pre_export_final",
+          "post_layout_final"
+        ],
+        "sidecar_acceptance_allowed": false,
+        "slot_rebind_summary_required": true
+      },
+      "fix_suggestion": "After the next locked CAD rerun, run the 006 DisplayDim lifecycle audit and require it to pass before any UI-backed acceptance or expansion."
+    },
+    {
+      "key": "reference_compare_v3_pass",
+      "required": true,
+      "current_pass": false,
+      "evidence": {
+        "report": "<fresh_case_dir>\\reference_compare.json"
+      },
+      "fix_suggestion": "After the next locked CAD rerun, require the same-name reference comparison report to pass before UI-backed acceptance."
+    },
+    {
+      "key": "reference_style_pass",
+      "required": true,
+      "current_pass": false,
+      "evidence": {
+        "report": "<fresh_case_dir>\\reference_style.json"
+      },
+      "fix_suggestion": "After the next locked CAD rerun, require the strict reference-style report to pass before UI-backed acceptance."
+    },
+    {
+      "key": "vision_qc_v6_pass",
+      "required": true,
+      "current_pass": false,
+      "evidence": {
+        "report": "<fresh_case_dir>\\vision_qc_v6.json"
+      },
+      "fix_suggestion": "After the next locked CAD rerun, require v6 visual QC to pass before final Drawing Review UI closure."
+    },
+    {
+      "key": "application_ui_screenshot_manual_visual_pass",
+      "required": true,
+      "current_pass": false,
+      "evidence": {
+        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\manual_visual_judgement.json",
+        "failed_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "latest_manual_findings": [
+          "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
+          "The new run uses current-run generated PNG evidence from drw_output/runs/f5e3033024dc, not stale v5 output.",
+          "The strict target-prune change reduced some excess, but the generated drawing still has visible over-dimensioning and dense right-side dimensions.",
+          "A long diagonal/cross-sheet dimension line remains, which is not present in the reference and hurts manufacturing readability.",
+          "API/reference metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
+        ],
+        "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+        "correction_actions": [
+          {
+            "check": "reference_match",
+            "source_note": "Generated drawing is still not visually equivalent to the same-name reference: it is denser, larger, and uses a different dimension/storyboard style.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+          },
+          {
+            "check": "view_layout",
+            "source_note": "The expected views are present, but the generated view scale and spacing remain reference-mismatched, and the diagonal dimension cuts across the main view area.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
+          },
+          {
+            "check": "display_dimensions",
+            "source_note": "The drawing still shows extra/non-reference DisplayDim stacks around the main and right views; the visible scheme is not the compact 12-target reference style.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+          },
+          {
+            "check": "dimension_readability",
+            "source_note": "Dimension text, arrows, extension lines, and leaders cluster heavily around the right side; the long diagonal/cross-sheet dimension line makes the sheet hard to read.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+          },
+          {
+            "check": "title_block",
+            "source_note": "The title/data text block remains larger and differently placed than the compact reference title area.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+          },
+          {
+            "check": "manufacturing_notes",
+            "source_note": "Manufacturing notes are present but do not match the reference placement/style and are not yet a clean manufacturing note block.",
+            "source_type": "manual_visual_checklist",
+            "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+          }
+        ]
+      },
+      "fix_suggestion": "After the next locked CAD rerun, write a PASS manual visual checklist from the application Drawing Review UI screenshot."
+    }
+  ],
+  "current_006_ui_verdict": {
+    "status": "manual_visual_checklist_failed",
+    "pass": false,
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\manual_visual_judgement.json",
+    "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\drawing_visual_review_report.json",
+    "source_ui_report_mode": "source_qt_application_ui_screenshot",
+    "generated_png_source_pass": true,
+    "application_ui_screenshot_content_check_pass": true,
+    "failed_visual_checklist_items": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "latest_manual_visual_checklist": {
+      "reference_match": false,
+      "view_layout": false,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "latest_manual_visual_checklist_notes": {
+      "reference_match": "Generated drawing is still not visually equivalent to the same-name reference: it is denser, larger, and uses a different dimension/storyboard style.",
+      "view_layout": "The expected views are present, but the generated view scale and spacing remain reference-mismatched, and the diagonal dimension cuts across the main view area.",
+      "display_dimensions": "The drawing still shows extra/non-reference DisplayDim stacks around the main and right views; the visible scheme is not the compact 12-target reference style.",
+      "dimension_readability": "Dimension text, arrows, extension lines, and leaders cluster heavily around the right side; the long diagonal/cross-sheet dimension line makes the sheet hard to read.",
+      "title_block": "The title/data text block remains larger and differently placed than the compact reference title area.",
+      "manufacturing_notes": "Manufacturing notes are present but do not match the reference placement/style and are not yet a clean manufacturing note block."
+    },
+    "latest_manual_findings": [
+      "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
+      "The new run uses current-run generated PNG evidence from drw_output/runs/f5e3033024dc, not stale v5 output.",
+      "The strict target-prune change reduced some excess, but the generated drawing still has visible over-dimensioning and dense right-side dimensions.",
+      "A long diagonal/cross-sheet dimension line remains, which is not present in the reference and hurts manufacturing readability.",
+      "API/reference metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
+    ],
+    "correction_plan_direct_ui_findings_used_for_correction": false,
+    "correction_plan_effective_failed_visual_checks": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "correction_actions": [
+      {
+        "check": "reference_match",
+        "source_note": "Generated drawing is still not visually equivalent to the same-name reference: it is denser, larger, and uses a different dimension/storyboard style.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+      },
+      {
+        "check": "view_layout",
+        "source_note": "The expected views are present, but the generated view scale and spacing remain reference-mismatched, and the diagonal dimension cuts across the main view area.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
+      },
+      {
+        "check": "display_dimensions",
+        "source_note": "The drawing still shows extra/non-reference DisplayDim stacks around the main and right views; the visible scheme is not the compact 12-target reference style.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+      },
+      {
+        "check": "dimension_readability",
+        "source_note": "Dimension text, arrows, extension lines, and leaders cluster heavily around the right side; the long diagonal/cross-sheet dimension line makes the sheet hard to read.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+      },
+      {
+        "check": "title_block",
+        "source_note": "The title/data text block remains larger and differently placed than the compact reference title area.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+      },
+      {
+        "check": "manufacturing_notes",
+        "source_note": "Manufacturing notes are present but do not match the reference placement/style and are not yet a clean manufacturing note block.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+      }
+    ],
+    "latest_manual_required_correction": "Next correction should keep current-run artifact generation and lifecycle gains, then suppress the diagonal cross-sheet dimension, split or remove the dense right-side dimension stack, enforce reference-lane placement for hole/pitch dimensions, and rebuild the compact title/notes block before another locked 006-only CAD rerun.",
+    "ui_screenshot_files": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "application_ui_screenshot_paths_existing_application_ui": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "generated_png": "drw_output\\runs\\f5e3033024dc\\drawing\\LB26001-A-04-006_v5.PNG",
+    "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png"
+  },
+  "offline_prerequisites": [
+    {
+      "key": "readiness_report_loaded",
+      "pass": true,
+      "evidence": {
+        "status": "ready",
+        "ready_to_start_locked_006_cad": true,
+        "blocking_issue_keys": []
+      },
+      "fix_suggestion": "Regenerate lb26001_006_regression_readiness_v4_2.json."
+    },
+    {
+      "key": "requested_six_drawing_ui_status_loaded",
+      "pass": true,
+      "evidence": {
+        "status": "blocked_by_006",
+        "pass_count": 0,
+        "not_pass_count": 6,
+        "requested_bases": [
+          "LB26001-A-04-006",
+          "LB26001-A-04-007",
+          "LB26001-A-04-008",
+          "LB26001-A-04-009",
+          "LB26001-A-04-015",
+          "LB26001-A-04-022"
+        ]
+      },
+      "fix_suggestion": "Regenerate lb26001_requested_drawings_status_v4_2.json with all six requested bases."
+    },
+    {
+      "key": "six_requested_drawings_recorded_as_ui_failed",
+      "pass": true,
+      "evidence": {
+        "pass_count": 0,
+        "not_pass_count": 6,
+        "all_generated_drawings_currently_unqualified": true
+      },
+      "fix_suggestion": "Refresh the requested drawing status so application UI screenshot failures are explicit."
+    },
+    {
+      "key": "006_application_ui_fail_is_latest_gate",
+      "pass": true,
+      "evidence": {
+        "status": "manual_visual_checklist_failed",
+        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\manual_visual_judgement.json",
+        "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\drawing_visual_review_report.json",
+        "failed_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ]
+      },
+      "fix_suggestion": "Capture/close a Drawing Review UI screenshot judgement for 006 before considering a rerun packet complete."
+    },
+    {
+      "key": "correction_plan_ready",
+      "pass": true,
+      "evidence": {
+        "status": "blocked_by_006",
+        "correction_plan_ready": true,
+        "missing_reference_rules": []
+      },
+      "fix_suggestion": "Regenerate lb26001_correction_plan_v4_2.json from current standard/status/readiness inputs."
+    },
+    {
+      "key": "correction_plan_matches_current_006_status",
+      "pass": true,
+      "evidence": {
+        "requested_status": "manual_visual_checklist_failed",
+        "correction_status": "manual_visual_checklist_failed",
+        "requested_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\manual_visual_judgement.json",
+        "correction_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_032939_visual_review\\manual_visual_judgement.json",
+        "requested_generated_png_source_pass": true,
+        "correction_generated_png_source_pass": true,
+        "requested_ui_screenshot_content_check_pass": true,
+        "correction_ui_screenshot_content_check_pass": true
+      },
+      "fix_suggestion": "Regenerate lb26001_correction_plan_v4_2.json after refreshing the requested six-drawing status."
+    },
+    {
+      "key": "006_correction_entry_present",
+      "pass": true,
+      "evidence": {
+        "correction_stage": "pilot_006_first",
+        "blocked_by_readiness": false,
+        "reference_intent_trace_policy": {
+          "required": true,
+          "source_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+          "required_fields": [
+            "target_key",
+            "view_slot",
+            "selected_entity",
+            "add_method",
+            "display_dim_count_before",
+            "display_dim_count_after",
+            "target_covered_after_attempt",
+            "persisted_after_reopen"
+          ],
+          "required_stages": [
+            "pre_saveas",
+            "post_saveas_reopen_prune",
+            "pre_export_final",
+            "post_layout_final"
+          ],
+          "final_stage_required": "post_layout_final",
+          "generic_autodimension_acceptance_allowed": false,
+          "expected_add_methods_by_type": {
+            "diameter": "AddDiameterDimension2",
+            "linear_horizontal": "AddHorizontalDimension2",
+            "linear_vertical": "AddVerticalDimension2"
+          }
+        }
+      },
+      "fix_suggestion": "Ensure the correction plan keeps 006 as the pilot gate."
+    },
+    {
+      "key": "006_effective_ui_corrections_present",
+      "pass": true,
+      "evidence": {
+        "requested_status": "manual_visual_checklist_failed",
+        "failed_visual_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "correction_action_count": 6,
+        "direct_ui_findings_used_for_correction": false
+      },
+      "fix_suggestion": "Regenerate the correction plan so the latest UI screenshot findings become actionable correction items."
+    },
+    {
+      "key": "006_reference_intent_plan_ready",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+        "exists": true,
+        "pass": true,
+        "missing_expected_keys": []
+      },
+      "fix_suggestion": "Regenerate the 006 reference-intent dimension plan with target keys and post_layout_final requirements."
+    },
+    {
+      "key": "006_reference_intent_contract_ready",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
+        "exists": true,
+        "pass": true,
+        "missing_expected_keys": []
+      },
+      "fix_suggestion": "Regenerate the 006 worker contract with target_key, selected_entity, and persisted_after_reopen fields."
+    },
+    {
+      "key": "cad_worker_ui_correction_evidence_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "ui_correction_evidence_helper",
+            "signature": "_prepare_lb26001_006_ui_correction_evidence",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_sidecar",
+            "signature": "lb26001_006_ui_correction_evidence.json",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_rerun_packet_env",
+            "signature": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_generator_env",
+            "signature": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_manifest_key",
+            "signature": "ui_correction_evidence",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore cad_job_worker so the next 006 run writes UI correction evidence sidecar and passes its path to the generator."
+    },
+    {
+      "key": "generator_repair_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "post_layout_view_family_rebind",
+            "signature": "view_family_heuristic:type7_front",
+            "present": true
+          },
+          {
+            "key": "post_layout_projected_view_rebind",
+            "signature": "view_family_heuristic:type4_right",
+            "present": true
+          },
+          {
+            "key": "coverage_delta_diagnostics",
+            "signature": "reference_intent_target_coverage_delta",
+            "present": true
+          },
+          {
+            "key": "coverage_based_post_layout_repair",
+            "signature": "_reference_intent_post_layout_repair_reason",
+            "present": true
+          },
+          {
+            "key": "final_acceptance_blockers",
+            "signature": "_reference_intent_final_acceptance_blockers",
+            "present": true
+          },
+          {
+            "key": "visible_entity_rank",
+            "signature": "_reference_intent_entity_rank",
+            "present": true
+          },
+          {
+            "key": "created_but_uncovered_detection",
+            "signature": "created_but_target_not_covered",
+            "present": true
+          },
+          {
+            "key": "generator_final_blocker_warning",
+            "signature": "post_layout_reference_intent_final_blocked",
+            "present": true
+          },
+          {
+            "key": "post_layout_persisted_name_rebind",
+            "signature": "select_by_persisted_name",
+            "present": true
+          },
+          {
+            "key": "post_layout_direct_accept_rebind",
+            "signature": "direct_accept_failed_select_by_persisted_name",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_diagnostics",
+            "signature": "slot_rebind_diagnostics",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_summary",
+            "signature": "slot_rebind_summary",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_unbound_slots",
+            "signature": "unbound_slots",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_nearest_candidates",
+            "signature": "nearest_candidates",
+            "present": true
+          },
+          {
+            "key": "post_prune_guard_coverage_snapshot",
+            "signature": "post_saveas_reopen_prune_guard",
+            "present": true
+          },
+          {
+            "key": "post_layout_reference_view_name_candidate_rebind",
+            "signature": "reference_view_name_candidate_select",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_view_chain_scan_rebind",
+            "signature": "live_view_chain_scan",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_getviews_scan_rebind",
+            "signature": "live_getviews_scan",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_created_views_scan_rebind",
+            "signature": "live_created_views_scan",
+            "present": true
+          },
+          {
+            "key": "post_layout_reopen_getviews_refresh",
+            "signature": "reference_intent_created_views_refreshed",
+            "present": true
+          },
+          {
+            "key": "post_layout_created_views_refresh_source",
+            "signature": "post_layout_reopen_getviews_refresh",
+            "present": true
+          },
+          {
+            "key": "post_layout_current_doc_refreshed",
+            "signature": "post_layout_current_drawing_doc_refreshed",
+            "present": true
+          },
+          {
+            "key": "post_layout_view_materialization_probe",
+            "signature": "post_layout_reopen_view_materialization_probe",
+            "present": true
+          },
+          {
+            "key": "post_layout_view_materialization_fallback",
+            "signature": "post_layout_reopen_view_materialization_fallback_open_options",
+            "present": true
+          },
+          {
+            "key": "post_layout_view_materialization_fallback_option_1",
+            "signature": "\"to_open_options\": 1",
+            "present": true
+          },
+          {
+            "key": "post_layout_view_materialization_before_rebind",
+            "signature": "post_layout_reopen_view_materialization_before_rebind",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_view_recovery_blocker",
+            "signature": "post_layout_live_view_recovery_failed",
+            "present": true
+          },
+          {
+            "key": "post_layout_reopen_force_rebuild_before_rebind",
+            "signature": "post_layout_reopen_force_rebuild_wait",
+            "present": true
+          },
+          {
+            "key": "post_layout_refresh_actions_recorded",
+            "signature": "refresh_actions",
+            "present": true
+          },
+          {
+            "key": "post_layout_refresh_record_count_recorded",
+            "signature": "\"record_count\": len(records_)",
+            "present": true
+          },
+          {
+            "key": "post_layout_current_doc_view_count",
+            "signature": "current_doc_view_count",
+            "present": true
+          },
+          {
+            "key": "post_layout_getviews_count",
+            "signature": "getviews_count",
+            "present": true
+          },
+          {
+            "key": "post_layout_current_sheet_getviews_count",
+            "signature": "current_sheet_getviews_count",
+            "present": true
+          },
+          {
+            "key": "post_layout_after_prune_coverage",
+            "signature": "post_layout_after_prune",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_guard_explicit_repair",
+            "signature": "post_layout_prune_guard_explicit_display_dims",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_guard_blocker",
+            "signature": "post_layout_prune_guard_still_blocked",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_guard_after_arrange_coverage",
+            "signature": "post_layout_prune_guard_after_arrange",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_guard_arrange_guard_repair",
+            "signature": "post_layout_prune_guard_arrange_guard_explicit_display_dims",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_guard_after_arrange_blocker",
+            "signature": "post_layout_prune_guard_after_arrange_still_blocked",
+            "present": true
+          },
+          {
+            "key": "reference_outline_layout_extraction",
+            "signature": "_v4_blueprint_layout_outlines",
+            "present": true
+          },
+          {
+            "key": "reference_outline_scale_hint",
+            "signature": "_reference_outline_scale_hint",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_target_outlines",
+            "signature": "target_outlines=_layout_outlines_for_solver",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_target_tolerance",
+            "signature": "target_outline_tolerance=0.28",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_start_scale",
+            "signature": "start_scale=chosen",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_primary_outline_blocking",
+            "signature": "target_outline_size_blocking_issues",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_iso_outline_warning",
+            "signature": "target_outline_size_warning_issues",
+            "present": true
+          },
+          {
+            "key": "persisted_layout_scale_direction",
+            "signature": "target_outline_scale_direction",
+            "present": true
+          },
+          {
+            "key": "drawing_doc_getviews_candidates",
+            "signature": "_drawing_doc_getviews_candidates",
+            "present": true
+          },
+          {
+            "key": "expected_add_method_trace",
+            "signature": "expected_add_method",
+            "present": true
+          },
+          {
+            "key": "raw_target_key_trace",
+            "signature": "\"target_key\": target_key",
+            "present": true
+          },
+          {
+            "key": "raw_view_slot_trace",
+            "signature": "\"view_slot\": slot",
+            "present": true
+          },
+          {
+            "key": "raw_selected_entity_trace",
+            "signature": "\"selected_entity\": entity_identity",
+            "present": true
+          },
+          {
+            "key": "raw_before_after_count_trace",
+            "signature": "\"display_dim_count_before\": before_one",
+            "present": true
+          },
+          {
+            "key": "raw_target_covered_trace",
+            "signature": "\"target_covered_after_attempt\": target_covered_after_attempt",
+            "present": true
+          },
+          {
+            "key": "prune_deleted_item_target_key",
+            "signature": "\"target_key\": target_match.get(\"target_key\", \"\")",
+            "present": true
+          },
+          {
+            "key": "prune_deleted_item_reason",
+            "signature": "\"reason\": \"over_quota_or_low_reference_intent_score\"",
+            "present": true
+          },
+          {
+            "key": "reference_intent_best_target_prune_protection",
+            "signature": "reference_intent_best_target_displaydim_protected",
+            "present": true
+          },
+          {
+            "key": "reference_intent_exact_target_cap",
+            "signature": "reference_intent_exact_target_cap",
+            "present": true
+          },
+          {
+            "key": "sidecar_mode_written",
+            "signature": "dimension_sidecar_mode",
+            "present": true
+          },
+          {
+            "key": "sidecar_diagnostic_only_warning",
+            "signature": "reference_intent_dimension_sidecar_diagnostic_only",
+            "present": true
+          },
+          {
+            "key": "sidecar_event_drawing_path",
+            "signature": "\"drawing_path\": str(slddrw)",
+            "present": true
+          },
+          {
+            "key": "sidecar_event_acceptance_allowed",
+            "signature": "\"acceptance_allowed\": not _skip_generic_model_dim_import",
+            "present": true
+          },
+          {
+            "key": "strict_sidecar_acceptance_forbidden",
+            "signature": "\"acceptance_allowed\": False",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_env",
+            "signature": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_source_input",
+            "signature": "lb26001_006_ui_correction_evidence_path",
+            "present": true
+          },
+          {
+            "key": "ui_correction_evidence_warning",
+            "signature": "lb26001_006_ui_correction_evidence_attached",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore generator logic for view-family rebinding, target coverage deltas, and final post-layout blockers."
+    },
+    {
+      "key": "strict_v4_compare_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\reference_compare_v4.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "post_layout_final_required",
+            "signature": "reference_intent_post_layout_final_coverage_missing",
+            "present": true
+          },
+          {
+            "key": "generator_final_blocker_consumed",
+            "signature": "post_layout_reference_intent_final_blocked",
+            "present": true
+          },
+          {
+            "key": "lost_target_keys_reported",
+            "signature": "lost_target_keys",
+            "present": true
+          },
+          {
+            "key": "stage_delta_reported",
+            "signature": "stage_delta",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore strict v4 comparison handling for post_layout_final coverage, lost targets, and generator blockers."
+    },
+    {
+      "key": "vision_qc_v6_ui_template_policy_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\vision_qc_v6.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "ui_screenshot_final_gate",
+            "signature": "manual_ui_screenshot_review_required",
+            "present": true
+          },
+          {
+            "key": "ui_screenshot_content_validator",
+            "signature": "validate_application_ui_screenshots",
+            "present": true
+          },
+          {
+            "key": "ui_screenshot_content_pass_gate",
+            "signature": "ui_screenshot_content_check_pass",
+            "present": true
+          },
+          {
+            "key": "reference_sheet_template_artifact_check",
+            "signature": "_reference_sheet_template_artifact_check",
+            "present": true
+          },
+          {
+            "key": "reference_titleblock_artifact_issue",
+            "signature": "reference_titleblock_artifacts_present",
+            "present": true
+          },
+          {
+            "key": "reference_visual_grid_signature",
+            "signature": "_ink_grid_signature",
+            "present": true
+          },
+          {
+            "key": "reference_visual_grid_layout_match",
+            "signature": "grid_layout_match",
+            "present": true
+          },
+          {
+            "key": "dimension_cluster_issue",
+            "signature": "dimension_visual_clustered_unreadable",
+            "present": true
+          },
+          {
+            "key": "template_policy_supporting_api_guard",
+            "signature": "api_is_not_final_judgement",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore v6 visual QC handling for application UI screenshot gating and reference-style titleblock/template artifact rejection."
+    },
+    {
+      "key": "application_ui_screenshot_validator_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\application_ui_screenshot_validator.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "single_screenshot_validator",
+            "signature": "validate_application_ui_screenshot",
+            "present": true
+          },
+          {
+            "key": "multi_screenshot_validator",
+            "signature": "validate_application_ui_screenshots",
+            "present": true
+          },
+          {
+            "key": "minimum_size_gate",
+            "signature": "min_size_pass",
+            "present": true
+          },
+          {
+            "key": "aspect_ratio_gate",
+            "signature": "aspect_pass",
+            "present": true
+          },
+          {
+            "key": "top_chrome_gate",
+            "signature": "top_chrome_pass",
+            "present": true
+          },
+          {
+            "key": "left_navigation_gate",
+            "signature": "left_nav_pass",
+            "present": true
+          },
+          {
+            "key": "bottom_log_gate",
+            "signature": "bottom_log_pass",
+            "present": true
+          },
+          {
+            "key": "side_by_side_review_gate",
+            "signature": "\"side_by_side_review_region_pass\": side_by_side_pass",
+            "present": true
+          },
+          {
+            "key": "side_by_side_region_helper",
+            "signature": "_side_by_side_review_region_pass",
+            "present": true
+          },
+          {
+            "key": "passing_paths_output",
+            "signature": "passing_paths",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore application_ui_screenshot_validator.py so arbitrary PNGs cannot masquerade as Drawing Review application UI screenshots."
+    },
+    {
+      "key": "dimension_visual_readability_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\dimension_visual_validator.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "dimension_cluster_summary",
+            "signature": "_dimension_text_cluster_summary",
+            "present": true
+          },
+          {
+            "key": "dimension_cluster_count",
+            "signature": "max_local_dimension_text_cluster_count",
+            "present": true
+          },
+          {
+            "key": "dimension_cluster_pass_gate",
+            "signature": "visual_dimension_cluster_pass",
+            "present": true
+          },
+          {
+            "key": "reference_style_readability_gate",
+            "signature": "_reference_style_dimension_readability_required",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore dimension visual readability clustering checks so dense reference-style dimensions cannot pass by API count alone."
+    },
+    {
+      "key": "dimension_arrange_reference_lane_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\dimension_arrange_service.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "top_view_local_reference_lanes",
+            "signature": "Reference-style long-thin drawings keep top-view dimensions",
+            "present": true
+          },
+          {
+            "key": "top_view_no_far_right_callout",
+            "signature": "creates cross-view leader lines like the 006 visual review fail",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore dimension arrange logic so long-thin top-view dimensions stay in local reference lanes instead of far-right callout lanes that create cross-view leaders."
+    },
+    {
+      "key": "displaydim_lifecycle_audit_ready",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_006_displaydim_lifecycle_audit_v4_2.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "display_dim_lifecycle_schema",
+            "signature": "sw_drawing_studio.lb26001_006_displaydim_lifecycle_audit.v4_2",
+            "present": true
+          },
+          {
+            "key": "post_prune_guard_audited",
+            "signature": "post_prune_dim_guard",
+            "present": true
+          },
+          {
+            "key": "post_prune_guard_coverage_audited",
+            "signature": "target_coverage_after_guard",
+            "present": true
+          },
+          {
+            "key": "prune_to_sidecar_loss_detected",
+            "signature": "display_dim_lost_between_prune_and_sidecar",
+            "present": true
+          },
+          {
+            "key": "post_layout_diagnostics_required",
+            "signature": "post_layout_slot_rebind_diagnostics_missing",
+            "present": true
+          },
+          {
+            "key": "post_layout_final_coverage_required",
+            "signature": "post_layout_final_target_coverage_missing",
+            "present": true
+          },
+          {
+            "key": "post_layout_direct_accept_rebind_audited",
+            "signature": "direct_accept_failed_select_by_persisted_name",
+            "present": true
+          },
+          {
+            "key": "target_stage_matrix_audited",
+            "signature": "target_stage_matrix",
+            "present": true
+          },
+          {
+            "key": "target_trace_fields_required",
+            "signature": "target_trace_missing_fields",
+            "present": true
+          },
+          {
+            "key": "existing_display_dim_coverage_trace",
+            "signature": "existing_display_dim_coverage",
+            "present": true
+          },
+          {
+            "key": "post_layout_target_matrix_view_not_found",
+            "signature": "target_stage_matrix_view_not_found",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_summary_missing",
+            "signature": "post_layout_slot_rebind_summary_missing",
+            "present": true
+          },
+          {
+            "key": "post_layout_slot_rebind_unbound_slots",
+            "signature": "post_layout_slot_rebind_unbound_slots",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_view_recovery_failed",
+            "signature": "post_layout_live_view_recovery_failed",
+            "present": true
+          },
+          {
+            "key": "post_layout_live_view_counts_audited",
+            "signature": "current_sheet_getviews_count",
+            "present": true
+          },
+          {
+            "key": "prune_deleted_items_detail_audited",
+            "signature": "prune_deleted_items_detail_missing",
+            "present": true
+          },
+          {
+            "key": "prune_deleted_key_slot_reason_audited",
+            "signature": "prune_deleted_item_key_slot_reason_missing",
+            "present": true
+          },
+          {
+            "key": "sidecar_policy_audited",
+            "signature": "sidecar_policy_summary",
+            "present": true
+          },
+          {
+            "key": "strict_sidecar_mode_blocker",
+            "signature": "strict_reference_intent_sidecar_mode_missing",
+            "present": true
+          },
+          {
+            "key": "strict_sidecar_ran_blocker",
+            "signature": "strict_reference_intent_sidecar_ran",
+            "present": true
+          },
+          {
+            "key": "sidecar_path_blocker",
+            "signature": "sidecar_drawing_path_not_current_run",
+            "present": true
+          },
+          {
+            "key": "strict_sidecar_acceptance_blocker",
+            "signature": "sidecar_acceptance_allowed_for_strict_reference_intent",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore the no-COM lifecycle audit so the next 006 rerun can explain DisplayDim losses by stage."
+    },
+    {
+      "key": "staged_validation_lifecycle_ui_gate_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\staged_cad_validation_v3.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "case_lifecycle_audit_writer",
+            "signature": "_write_displaydim_lifecycle_audit_report",
+            "present": true
+          },
+          {
+            "key": "case_lifecycle_report_output",
+            "signature": "displaydim_lifecycle_audit.json",
+            "present": true
+          },
+          {
+            "key": "case_lifecycle_not_pass_bucket",
+            "signature": "displaydim_lifecycle_not_pass",
+            "present": true
+          },
+          {
+            "key": "case_lifecycle_required_flag",
+            "signature": "displaydim_lifecycle_required",
+            "present": true
+          },
+          {
+            "key": "case_lifecycle_blocks_deliverable",
+            "signature": "and lifecycle_pass",
+            "present": true
+          },
+          {
+            "key": "vision_qc_requires_visual_acceptance",
+            "signature": "vision.get(\"visual_acceptance_pass\")",
+            "present": true
+          },
+          {
+            "key": "passes_stage_packet_to_smoke",
+            "signature": "--lb26001-006-rerun-packet",
+            "present": true
+          },
+          {
+            "key": "stage_packet_report_variable",
+            "signature": "lb26001_006_rerun_packet_report",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore staged_cad_validation_v3 so each 006 staged case writes DisplayDim lifecycle evidence, requires application UI visual acceptance before deliverability, and passes the stage-local rerun packet to real_cad_smoke_v3."
+    },
+    {
+      "key": "real_cad_smoke_packet_env_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\real_cad_smoke_v3.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "packet_env_helper",
+            "signature": "_set_006_rerun_packet_env",
+            "present": true
+          },
+          {
+            "key": "packet_env_key",
+            "signature": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+            "present": true
+          },
+          {
+            "key": "packet_cli_argument",
+            "signature": "--lb26001-006-rerun-packet",
+            "present": true
+          },
+          {
+            "key": "packet_report_field",
+            "signature": "lb26001_006_rerun_packet_report",
+            "present": true
+          },
+          {
+            "key": "direct_guard_packet_report_path",
+            "signature": "packet_report_path",
+            "present": true
+          },
+          {
+            "key": "facade_start_after_packet_env",
+            "signature": "facade.start_cad_job",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore real_cad_smoke_v3 so the 006 direct/staged smoke path writes the rerun packet report and sets SWDS_LB26001_006_RERUN_PACKET_PATH before JobRuntimeFacade starts the CAD worker."
+    },
+    {
+      "key": "drawing_visual_review_suite_source_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\ui_robot\\drawing_visual_review_suite.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "application_ui_source_mode",
+            "signature": "source_qt_application_ui_screenshot",
+            "present": true
+          },
+          {
+            "key": "application_ui_source_label",
+            "signature": "Drawing Review page",
+            "present": true
+          },
+          {
+            "key": "ui_screenshot_final_gate",
+            "signature": "ui_screenshot_is_final_gate",
+            "present": true
+          },
+          {
+            "key": "per_drawing_ui_required",
+            "signature": "per_drawing_application_ui_screenshot_required",
+            "present": true
+          },
+          {
+            "key": "api_only_acceptance_forbidden",
+            "signature": "api_only_acceptance_allowed",
+            "present": true
+          },
+          {
+            "key": "manual_judgement_template_written",
+            "signature": "write_manual_visual_judgement_template",
+            "present": true
+          },
+          {
+            "key": "manual_judgement_pending_status",
+            "signature": "pending_manual_visual_judgement",
+            "present": true
+          },
+          {
+            "key": "generated_png_source_evidence",
+            "signature": "generated_png_source_evidence",
+            "present": true
+          },
+          {
+            "key": "fresh_generated_png_strict_source",
+            "signature": "strict_source_pass",
+            "present": true
+          },
+          {
+            "key": "reference_and_generated_png_entry",
+            "signature": "\"reference_png\": str(reference_png)",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore drawing_visual_review_suite.py so 006 UI closure is captured from the Drawing Review application page with generated/reference PNG evidence and a manual judgement template, not from handwritten API-only JSON."
+    },
+    {
+      "key": "manual_visual_judgement_template_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\manual_visual_judgement_template_v4.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "overall_pending_status",
+            "signature": "PENDING_MANUAL_REVIEW",
+            "present": true
+          },
+          {
+            "key": "entry_pending_status",
+            "signature": "\"manual_status\": \"PENDING\"",
+            "present": true
+          },
+          {
+            "key": "all_required_checklist_items",
+            "signature": "required_visual_checklist_items",
+            "present": true
+          },
+          {
+            "key": "checklist_defaults_to_null",
+            "signature": "\"visual_checklist\": {key: None for key in REQUIRED_VISUAL_CHECKS}",
+            "present": true
+          },
+          {
+            "key": "checklist_notes_defaults_empty",
+            "signature": "\"visual_checklist_notes\": {key: \"\" for key in REQUIRED_VISUAL_CHECKS}",
+            "present": true
+          },
+          {
+            "key": "application_ui_review_required",
+            "signature": "application_ui_screenshot_review_required",
+            "present": true
+          },
+          {
+            "key": "api_only_acceptance_forbidden",
+            "signature": "api_only_acceptance_allowed",
+            "present": true
+          },
+          {
+            "key": "ui_screenshot_final_gate",
+            "signature": "ui_screenshot_review_is_final_gate",
+            "present": true
+          },
+          {
+            "key": "pass_only_after_all_checks_true",
+            "signature": "Set manual_status to PASS only when every visual_checklist item is true.",
+            "present": true
+          },
+          {
+            "key": "template_writer",
+            "signature": "write_manual_visual_judgement_template",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore manual_visual_judgement_template_v4.py so generated templates remain pending, checklist-complete, and impossible to mistake for acceptance evidence."
+    },
+    {
+      "key": "correction_plan_source_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_correction_plan_v4_2.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "direct_ui_findings_keyword_mapping",
+            "signature": "FINDING_CHECK_KEYWORDS",
+            "present": true
+          },
+          {
+            "key": "direct_ui_findings_inferred_checks",
+            "signature": "_inferred_check_notes_from_findings",
+            "present": true
+          },
+          {
+            "key": "effective_failed_visual_checks",
+            "signature": "effective_failed_visual_checks",
+            "present": true
+          },
+          {
+            "key": "application_ui_screenshot_content_status",
+            "signature": "application_ui_screenshot_content_check_pass",
+            "present": true
+          },
+          {
+            "key": "per_drawing_visual_validation_policy",
+            "signature": "per_drawing_application_ui_screenshot_required",
+            "present": true
+          },
+          {
+            "key": "final_judgement_application_ui_source",
+            "signature": "application_drawing_review_ui_screenshot_manual_visual_judgement",
+            "present": true
+          },
+          {
+            "key": "current_missing_ui_requirements",
+            "signature": "current_missing_ui_acceptance_requirements",
+            "present": true
+          },
+          {
+            "key": "direct_ui_screenshot_source_type",
+            "signature": "direct_ui_screenshot_finding",
+            "present": true
+          },
+          {
+            "key": "direct_ui_findings_used_flag",
+            "signature": "direct_ui_findings_used_for_correction",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore correction-plan logic that maps direct UI screenshot findings into effective visual checks and correction actions."
+    },
+    {
+      "key": "apply_ui_visual_review_gate_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\apply_ui_visual_review_v4.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "ui_report_entry_gate",
+            "signature": "ui_report_entry_pass",
+            "present": true
+          },
+          {
+            "key": "manual_screenshot_binding_gate",
+            "signature": "manual_review_entry_screenshot_pass",
+            "present": true
+          },
+          {
+            "key": "manual_review_entries_all_pass",
+            "signature": "manual_review_entries_all_pass",
+            "present": true
+          },
+          {
+            "key": "application_ui_report_source_check",
+            "signature": "_source_ui_report_application_ui_ok",
+            "present": true
+          },
+          {
+            "key": "generated_png_source_gate",
+            "signature": "generated_png_source_pass",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore the UI closure tool signatures for application screenshot entries, manual screenshot binding, and generated PNG source checks."
+    },
+    {
+      "key": "acceptance_gate_manual_ui_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_acceptance_gate_v4_2.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "manual_visual_checklist_pass_required",
+            "signature": "manual_visual_checklist_ok",
+            "present": true
+          },
+          {
+            "key": "ui_screenshot_method_required",
+            "signature": "ui_screenshot_review_method_ok",
+            "present": true
+          },
+          {
+            "key": "staged_summary_lifecycle_input",
+            "signature": "staged_summary_path",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_report_gate",
+            "signature": "displaydim_lifecycle_report_exists",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_missing_blocker",
+            "signature": "displaydim_lifecycle_report_missing",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_not_pass_blocker",
+            "signature": "displaydim_lifecycle_not_pass",
+            "present": true
+          },
+          {
+            "key": "manual_case_blocker_reported",
+            "signature": "manual_visual_case_not_pass",
+            "present": true
+          },
+          {
+            "key": "manual_checklist_blocker_reported",
+            "signature": "manual_visual_checklist_missing_or_incomplete",
+            "present": true
+          },
+          {
+            "key": "application_ui_source_blocker_reported",
+            "signature": "application_ui_screenshot_source_report_invalid",
+            "present": true
+          },
+          {
+            "key": "application_ui_screenshot_content_blocker",
+            "signature": "application_ui_screenshot_content_invalid",
+            "present": true
+          },
+          {
+            "key": "fresh_png_source_blocker_reported",
+            "signature": "generated_png_source_evidence_not_current_run",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore the LB26001 acceptance gate signatures that require manual case PASS, complete visual checklist, application UI source, and fresh PNG source."
+    },
+    {
+      "key": "006_acceptance_proof_manual_ui_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_006_acceptance_proof_v4_2.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "supplemental_checklist_gate",
+            "signature": "DEFAULT_SUPPLEMENTAL_CHECKLIST_GATE",
+            "present": true
+          },
+          {
+            "key": "supplemental_checklist_base_merge",
+            "signature": "supplemental_checklist_base",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_report_evidence",
+            "signature": "displaydim_lifecycle_report_exists",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_report_missing_blocker",
+            "signature": "displaydim_lifecycle_report_missing",
+            "present": true
+          },
+          {
+            "key": "displaydim_lifecycle_not_pass_blocker",
+            "signature": "displaydim_lifecycle_not_pass",
+            "present": true
+          },
+          {
+            "key": "application_ui_source_report_blocker",
+            "signature": "application_ui_source_report_invalid",
+            "present": true
+          },
+          {
+            "key": "manual_visual_case_blocker",
+            "signature": "manual_visual_case_not_pass",
+            "present": true
+          },
+          {
+            "key": "manual_visual_checklist_missing_blocker",
+            "signature": "manual_visual_checklist_missing",
+            "present": true
+          },
+          {
+            "key": "manual_visual_checklist_not_pass_blocker",
+            "signature": "manual_visual_checklist_not_pass",
+            "present": true
+          },
+          {
+            "key": "direct_ui_screenshot_recheck_blocker",
+            "signature": "direct_ui_screenshot_recheck_not_pass",
+            "present": true
+          },
+          {
+            "key": "fresh_png_source_blocker",
+            "signature": "generated_png_source_not_current_run",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore the 006 proof signatures that expose application UI source, manual case, manual checklist, and fresh PNG blockers."
+    }
+  ],
+  "source_signatures": {
+    "cad_job_worker": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "ui_correction_evidence_helper",
+          "signature": "_prepare_lb26001_006_ui_correction_evidence",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_sidecar",
+          "signature": "lb26001_006_ui_correction_evidence.json",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_rerun_packet_env",
+          "signature": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_generator_env",
+          "signature": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_manifest_key",
+          "signature": "ui_correction_evidence",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "generator": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "post_layout_view_family_rebind",
+          "signature": "view_family_heuristic:type7_front",
+          "present": true
+        },
+        {
+          "key": "post_layout_projected_view_rebind",
+          "signature": "view_family_heuristic:type4_right",
+          "present": true
+        },
+        {
+          "key": "coverage_delta_diagnostics",
+          "signature": "reference_intent_target_coverage_delta",
+          "present": true
+        },
+        {
+          "key": "coverage_based_post_layout_repair",
+          "signature": "_reference_intent_post_layout_repair_reason",
+          "present": true
+        },
+        {
+          "key": "final_acceptance_blockers",
+          "signature": "_reference_intent_final_acceptance_blockers",
+          "present": true
+        },
+        {
+          "key": "visible_entity_rank",
+          "signature": "_reference_intent_entity_rank",
+          "present": true
+        },
+        {
+          "key": "created_but_uncovered_detection",
+          "signature": "created_but_target_not_covered",
+          "present": true
+        },
+        {
+          "key": "generator_final_blocker_warning",
+          "signature": "post_layout_reference_intent_final_blocked",
+          "present": true
+        },
+        {
+          "key": "post_layout_persisted_name_rebind",
+          "signature": "select_by_persisted_name",
+          "present": true
+        },
+        {
+          "key": "post_layout_direct_accept_rebind",
+          "signature": "direct_accept_failed_select_by_persisted_name",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_diagnostics",
+          "signature": "slot_rebind_diagnostics",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_summary",
+          "signature": "slot_rebind_summary",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_unbound_slots",
+          "signature": "unbound_slots",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_nearest_candidates",
+          "signature": "nearest_candidates",
+          "present": true
+        },
+        {
+          "key": "post_prune_guard_coverage_snapshot",
+          "signature": "post_saveas_reopen_prune_guard",
+          "present": true
+        },
+        {
+          "key": "post_layout_reference_view_name_candidate_rebind",
+          "signature": "reference_view_name_candidate_select",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_view_chain_scan_rebind",
+          "signature": "live_view_chain_scan",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_getviews_scan_rebind",
+          "signature": "live_getviews_scan",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_created_views_scan_rebind",
+          "signature": "live_created_views_scan",
+          "present": true
+        },
+        {
+          "key": "post_layout_reopen_getviews_refresh",
+          "signature": "reference_intent_created_views_refreshed",
+          "present": true
+        },
+        {
+          "key": "post_layout_created_views_refresh_source",
+          "signature": "post_layout_reopen_getviews_refresh",
+          "present": true
+        },
+        {
+          "key": "post_layout_current_doc_refreshed",
+          "signature": "post_layout_current_drawing_doc_refreshed",
+          "present": true
+        },
+        {
+          "key": "post_layout_view_materialization_probe",
+          "signature": "post_layout_reopen_view_materialization_probe",
+          "present": true
+        },
+        {
+          "key": "post_layout_view_materialization_fallback",
+          "signature": "post_layout_reopen_view_materialization_fallback_open_options",
+          "present": true
+        },
+        {
+          "key": "post_layout_view_materialization_fallback_option_1",
+          "signature": "\"to_open_options\": 1",
+          "present": true
+        },
+        {
+          "key": "post_layout_view_materialization_before_rebind",
+          "signature": "post_layout_reopen_view_materialization_before_rebind",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_view_recovery_blocker",
+          "signature": "post_layout_live_view_recovery_failed",
+          "present": true
+        },
+        {
+          "key": "post_layout_reopen_force_rebuild_before_rebind",
+          "signature": "post_layout_reopen_force_rebuild_wait",
+          "present": true
+        },
+        {
+          "key": "post_layout_refresh_actions_recorded",
+          "signature": "refresh_actions",
+          "present": true
+        },
+        {
+          "key": "post_layout_refresh_record_count_recorded",
+          "signature": "\"record_count\": len(records_)",
+          "present": true
+        },
+        {
+          "key": "post_layout_current_doc_view_count",
+          "signature": "current_doc_view_count",
+          "present": true
+        },
+        {
+          "key": "post_layout_getviews_count",
+          "signature": "getviews_count",
+          "present": true
+        },
+        {
+          "key": "post_layout_current_sheet_getviews_count",
+          "signature": "current_sheet_getviews_count",
+          "present": true
+        },
+        {
+          "key": "post_layout_after_prune_coverage",
+          "signature": "post_layout_after_prune",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_guard_explicit_repair",
+          "signature": "post_layout_prune_guard_explicit_display_dims",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_guard_blocker",
+          "signature": "post_layout_prune_guard_still_blocked",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_guard_after_arrange_coverage",
+          "signature": "post_layout_prune_guard_after_arrange",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_guard_arrange_guard_repair",
+          "signature": "post_layout_prune_guard_arrange_guard_explicit_display_dims",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_guard_after_arrange_blocker",
+          "signature": "post_layout_prune_guard_after_arrange_still_blocked",
+          "present": true
+        },
+        {
+          "key": "reference_outline_layout_extraction",
+          "signature": "_v4_blueprint_layout_outlines",
+          "present": true
+        },
+        {
+          "key": "reference_outline_scale_hint",
+          "signature": "_reference_outline_scale_hint",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_target_outlines",
+          "signature": "target_outlines=_layout_outlines_for_solver",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_target_tolerance",
+          "signature": "target_outline_tolerance=0.28",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_start_scale",
+          "signature": "start_scale=chosen",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_primary_outline_blocking",
+          "signature": "target_outline_size_blocking_issues",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_iso_outline_warning",
+          "signature": "target_outline_size_warning_issues",
+          "present": true
+        },
+        {
+          "key": "persisted_layout_scale_direction",
+          "signature": "target_outline_scale_direction",
+          "present": true
+        },
+        {
+          "key": "drawing_doc_getviews_candidates",
+          "signature": "_drawing_doc_getviews_candidates",
+          "present": true
+        },
+        {
+          "key": "expected_add_method_trace",
+          "signature": "expected_add_method",
+          "present": true
+        },
+        {
+          "key": "raw_target_key_trace",
+          "signature": "\"target_key\": target_key",
+          "present": true
+        },
+        {
+          "key": "raw_view_slot_trace",
+          "signature": "\"view_slot\": slot",
+          "present": true
+        },
+        {
+          "key": "raw_selected_entity_trace",
+          "signature": "\"selected_entity\": entity_identity",
+          "present": true
+        },
+        {
+          "key": "raw_before_after_count_trace",
+          "signature": "\"display_dim_count_before\": before_one",
+          "present": true
+        },
+        {
+          "key": "raw_target_covered_trace",
+          "signature": "\"target_covered_after_attempt\": target_covered_after_attempt",
+          "present": true
+        },
+        {
+          "key": "prune_deleted_item_target_key",
+          "signature": "\"target_key\": target_match.get(\"target_key\", \"\")",
+          "present": true
+        },
+        {
+          "key": "prune_deleted_item_reason",
+          "signature": "\"reason\": \"over_quota_or_low_reference_intent_score\"",
+          "present": true
+        },
+        {
+          "key": "reference_intent_best_target_prune_protection",
+          "signature": "reference_intent_best_target_displaydim_protected",
+          "present": true
+        },
+        {
+          "key": "reference_intent_exact_target_cap",
+          "signature": "reference_intent_exact_target_cap",
+          "present": true
+        },
+        {
+          "key": "sidecar_mode_written",
+          "signature": "dimension_sidecar_mode",
+          "present": true
+        },
+        {
+          "key": "sidecar_diagnostic_only_warning",
+          "signature": "reference_intent_dimension_sidecar_diagnostic_only",
+          "present": true
+        },
+        {
+          "key": "sidecar_event_drawing_path",
+          "signature": "\"drawing_path\": str(slddrw)",
+          "present": true
+        },
+        {
+          "key": "sidecar_event_acceptance_allowed",
+          "signature": "\"acceptance_allowed\": not _skip_generic_model_dim_import",
+          "present": true
+        },
+        {
+          "key": "strict_sidecar_acceptance_forbidden",
+          "signature": "\"acceptance_allowed\": False",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_env",
+          "signature": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_source_input",
+          "signature": "lb26001_006_ui_correction_evidence_path",
+          "present": true
+        },
+        {
+          "key": "ui_correction_evidence_warning",
+          "signature": "lb26001_006_ui_correction_evidence_attached",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "reference_compare_v4": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\reference_compare_v4.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "post_layout_final_required",
+          "signature": "reference_intent_post_layout_final_coverage_missing",
+          "present": true
+        },
+        {
+          "key": "generator_final_blocker_consumed",
+          "signature": "post_layout_reference_intent_final_blocked",
+          "present": true
+        },
+        {
+          "key": "lost_target_keys_reported",
+          "signature": "lost_target_keys",
+          "present": true
+        },
+        {
+          "key": "stage_delta_reported",
+          "signature": "stage_delta",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "vision_qc_v6": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\vision_qc_v6.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "ui_screenshot_final_gate",
+          "signature": "manual_ui_screenshot_review_required",
+          "present": true
+        },
+        {
+          "key": "ui_screenshot_content_validator",
+          "signature": "validate_application_ui_screenshots",
+          "present": true
+        },
+        {
+          "key": "ui_screenshot_content_pass_gate",
+          "signature": "ui_screenshot_content_check_pass",
+          "present": true
+        },
+        {
+          "key": "reference_sheet_template_artifact_check",
+          "signature": "_reference_sheet_template_artifact_check",
+          "present": true
+        },
+        {
+          "key": "reference_titleblock_artifact_issue",
+          "signature": "reference_titleblock_artifacts_present",
+          "present": true
+        },
+        {
+          "key": "reference_visual_grid_signature",
+          "signature": "_ink_grid_signature",
+          "present": true
+        },
+        {
+          "key": "reference_visual_grid_layout_match",
+          "signature": "grid_layout_match",
+          "present": true
+        },
+        {
+          "key": "dimension_cluster_issue",
+          "signature": "dimension_visual_clustered_unreadable",
+          "present": true
+        },
+        {
+          "key": "template_policy_supporting_api_guard",
+          "signature": "api_is_not_final_judgement",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "application_ui_screenshot_validator": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\application_ui_screenshot_validator.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "single_screenshot_validator",
+          "signature": "validate_application_ui_screenshot",
+          "present": true
+        },
+        {
+          "key": "multi_screenshot_validator",
+          "signature": "validate_application_ui_screenshots",
+          "present": true
+        },
+        {
+          "key": "minimum_size_gate",
+          "signature": "min_size_pass",
+          "present": true
+        },
+        {
+          "key": "aspect_ratio_gate",
+          "signature": "aspect_pass",
+          "present": true
+        },
+        {
+          "key": "top_chrome_gate",
+          "signature": "top_chrome_pass",
+          "present": true
+        },
+        {
+          "key": "left_navigation_gate",
+          "signature": "left_nav_pass",
+          "present": true
+        },
+        {
+          "key": "bottom_log_gate",
+          "signature": "bottom_log_pass",
+          "present": true
+        },
+        {
+          "key": "side_by_side_review_gate",
+          "signature": "\"side_by_side_review_region_pass\": side_by_side_pass",
+          "present": true
+        },
+        {
+          "key": "side_by_side_region_helper",
+          "signature": "_side_by_side_review_region_pass",
+          "present": true
+        },
+        {
+          "key": "passing_paths_output",
+          "signature": "passing_paths",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "dimension_visual_validator": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\dimension_visual_validator.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "dimension_cluster_summary",
+          "signature": "_dimension_text_cluster_summary",
+          "present": true
+        },
+        {
+          "key": "dimension_cluster_count",
+          "signature": "max_local_dimension_text_cluster_count",
+          "present": true
+        },
+        {
+          "key": "dimension_cluster_pass_gate",
+          "signature": "visual_dimension_cluster_pass",
+          "present": true
+        },
+        {
+          "key": "reference_style_readability_gate",
+          "signature": "_reference_style_dimension_readability_required",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "dimension_arrange_service": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\dimension_arrange_service.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "top_view_local_reference_lanes",
+          "signature": "Reference-style long-thin drawings keep top-view dimensions",
+          "present": true
+        },
+        {
+          "key": "top_view_no_far_right_callout",
+          "signature": "creates cross-view leader lines like the 006 visual review fail",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "displaydim_lifecycle_audit": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_006_displaydim_lifecycle_audit_v4_2.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "display_dim_lifecycle_schema",
+          "signature": "sw_drawing_studio.lb26001_006_displaydim_lifecycle_audit.v4_2",
+          "present": true
+        },
+        {
+          "key": "post_prune_guard_audited",
+          "signature": "post_prune_dim_guard",
+          "present": true
+        },
+        {
+          "key": "post_prune_guard_coverage_audited",
+          "signature": "target_coverage_after_guard",
+          "present": true
+        },
+        {
+          "key": "prune_to_sidecar_loss_detected",
+          "signature": "display_dim_lost_between_prune_and_sidecar",
+          "present": true
+        },
+        {
+          "key": "post_layout_diagnostics_required",
+          "signature": "post_layout_slot_rebind_diagnostics_missing",
+          "present": true
+        },
+        {
+          "key": "post_layout_final_coverage_required",
+          "signature": "post_layout_final_target_coverage_missing",
+          "present": true
+        },
+        {
+          "key": "post_layout_direct_accept_rebind_audited",
+          "signature": "direct_accept_failed_select_by_persisted_name",
+          "present": true
+        },
+        {
+          "key": "target_stage_matrix_audited",
+          "signature": "target_stage_matrix",
+          "present": true
+        },
+        {
+          "key": "target_trace_fields_required",
+          "signature": "target_trace_missing_fields",
+          "present": true
+        },
+        {
+          "key": "existing_display_dim_coverage_trace",
+          "signature": "existing_display_dim_coverage",
+          "present": true
+        },
+        {
+          "key": "post_layout_target_matrix_view_not_found",
+          "signature": "target_stage_matrix_view_not_found",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_summary_missing",
+          "signature": "post_layout_slot_rebind_summary_missing",
+          "present": true
+        },
+        {
+          "key": "post_layout_slot_rebind_unbound_slots",
+          "signature": "post_layout_slot_rebind_unbound_slots",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_view_recovery_failed",
+          "signature": "post_layout_live_view_recovery_failed",
+          "present": true
+        },
+        {
+          "key": "post_layout_live_view_counts_audited",
+          "signature": "current_sheet_getviews_count",
+          "present": true
+        },
+        {
+          "key": "prune_deleted_items_detail_audited",
+          "signature": "prune_deleted_items_detail_missing",
+          "present": true
+        },
+        {
+          "key": "prune_deleted_key_slot_reason_audited",
+          "signature": "prune_deleted_item_key_slot_reason_missing",
+          "present": true
+        },
+        {
+          "key": "sidecar_policy_audited",
+          "signature": "sidecar_policy_summary",
+          "present": true
+        },
+        {
+          "key": "strict_sidecar_mode_blocker",
+          "signature": "strict_reference_intent_sidecar_mode_missing",
+          "present": true
+        },
+        {
+          "key": "strict_sidecar_ran_blocker",
+          "signature": "strict_reference_intent_sidecar_ran",
+          "present": true
+        },
+        {
+          "key": "sidecar_path_blocker",
+          "signature": "sidecar_drawing_path_not_current_run",
+          "present": true
+        },
+        {
+          "key": "strict_sidecar_acceptance_blocker",
+          "signature": "sidecar_acceptance_allowed_for_strict_reference_intent",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "staged_cad_validation_v3": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\staged_cad_validation_v3.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "case_lifecycle_audit_writer",
+          "signature": "_write_displaydim_lifecycle_audit_report",
+          "present": true
+        },
+        {
+          "key": "case_lifecycle_report_output",
+          "signature": "displaydim_lifecycle_audit.json",
+          "present": true
+        },
+        {
+          "key": "case_lifecycle_not_pass_bucket",
+          "signature": "displaydim_lifecycle_not_pass",
+          "present": true
+        },
+        {
+          "key": "case_lifecycle_required_flag",
+          "signature": "displaydim_lifecycle_required",
+          "present": true
+        },
+        {
+          "key": "case_lifecycle_blocks_deliverable",
+          "signature": "and lifecycle_pass",
+          "present": true
+        },
+        {
+          "key": "vision_qc_requires_visual_acceptance",
+          "signature": "vision.get(\"visual_acceptance_pass\")",
+          "present": true
+        },
+        {
+          "key": "passes_stage_packet_to_smoke",
+          "signature": "--lb26001-006-rerun-packet",
+          "present": true
+        },
+        {
+          "key": "stage_packet_report_variable",
+          "signature": "lb26001_006_rerun_packet_report",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "real_cad_smoke_v3": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\real_cad_smoke_v3.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "packet_env_helper",
+          "signature": "_set_006_rerun_packet_env",
+          "present": true
+        },
+        {
+          "key": "packet_env_key",
+          "signature": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+          "present": true
+        },
+        {
+          "key": "packet_cli_argument",
+          "signature": "--lb26001-006-rerun-packet",
+          "present": true
+        },
+        {
+          "key": "packet_report_field",
+          "signature": "lb26001_006_rerun_packet_report",
+          "present": true
+        },
+        {
+          "key": "direct_guard_packet_report_path",
+          "signature": "packet_report_path",
+          "present": true
+        },
+        {
+          "key": "facade_start_after_packet_env",
+          "signature": "facade.start_cad_job",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "drawing_visual_review_suite": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\ui_robot\\drawing_visual_review_suite.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "application_ui_source_mode",
+          "signature": "source_qt_application_ui_screenshot",
+          "present": true
+        },
+        {
+          "key": "application_ui_source_label",
+          "signature": "Drawing Review page",
+          "present": true
+        },
+        {
+          "key": "ui_screenshot_final_gate",
+          "signature": "ui_screenshot_is_final_gate",
+          "present": true
+        },
+        {
+          "key": "per_drawing_ui_required",
+          "signature": "per_drawing_application_ui_screenshot_required",
+          "present": true
+        },
+        {
+          "key": "api_only_acceptance_forbidden",
+          "signature": "api_only_acceptance_allowed",
+          "present": true
+        },
+        {
+          "key": "manual_judgement_template_written",
+          "signature": "write_manual_visual_judgement_template",
+          "present": true
+        },
+        {
+          "key": "manual_judgement_pending_status",
+          "signature": "pending_manual_visual_judgement",
+          "present": true
+        },
+        {
+          "key": "generated_png_source_evidence",
+          "signature": "generated_png_source_evidence",
+          "present": true
+        },
+        {
+          "key": "fresh_generated_png_strict_source",
+          "signature": "strict_source_pass",
+          "present": true
+        },
+        {
+          "key": "reference_and_generated_png_entry",
+          "signature": "\"reference_png\": str(reference_png)",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "manual_visual_judgement_template_v4": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\manual_visual_judgement_template_v4.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "overall_pending_status",
+          "signature": "PENDING_MANUAL_REVIEW",
+          "present": true
+        },
+        {
+          "key": "entry_pending_status",
+          "signature": "\"manual_status\": \"PENDING\"",
+          "present": true
+        },
+        {
+          "key": "all_required_checklist_items",
+          "signature": "required_visual_checklist_items",
+          "present": true
+        },
+        {
+          "key": "checklist_defaults_to_null",
+          "signature": "\"visual_checklist\": {key: None for key in REQUIRED_VISUAL_CHECKS}",
+          "present": true
+        },
+        {
+          "key": "checklist_notes_defaults_empty",
+          "signature": "\"visual_checklist_notes\": {key: \"\" for key in REQUIRED_VISUAL_CHECKS}",
+          "present": true
+        },
+        {
+          "key": "application_ui_review_required",
+          "signature": "application_ui_screenshot_review_required",
+          "present": true
+        },
+        {
+          "key": "api_only_acceptance_forbidden",
+          "signature": "api_only_acceptance_allowed",
+          "present": true
+        },
+        {
+          "key": "ui_screenshot_final_gate",
+          "signature": "ui_screenshot_review_is_final_gate",
+          "present": true
+        },
+        {
+          "key": "pass_only_after_all_checks_true",
+          "signature": "Set manual_status to PASS only when every visual_checklist item is true.",
+          "present": true
+        },
+        {
+          "key": "template_writer",
+          "signature": "write_manual_visual_judgement_template",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "lb26001_correction_plan_v4_2": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_correction_plan_v4_2.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "direct_ui_findings_keyword_mapping",
+          "signature": "FINDING_CHECK_KEYWORDS",
+          "present": true
+        },
+        {
+          "key": "direct_ui_findings_inferred_checks",
+          "signature": "_inferred_check_notes_from_findings",
+          "present": true
+        },
+        {
+          "key": "effective_failed_visual_checks",
+          "signature": "effective_failed_visual_checks",
+          "present": true
+        },
+        {
+          "key": "application_ui_screenshot_content_status",
+          "signature": "application_ui_screenshot_content_check_pass",
+          "present": true
+        },
+        {
+          "key": "per_drawing_visual_validation_policy",
+          "signature": "per_drawing_application_ui_screenshot_required",
+          "present": true
+        },
+        {
+          "key": "final_judgement_application_ui_source",
+          "signature": "application_drawing_review_ui_screenshot_manual_visual_judgement",
+          "present": true
+        },
+        {
+          "key": "current_missing_ui_requirements",
+          "signature": "current_missing_ui_acceptance_requirements",
+          "present": true
+        },
+        {
+          "key": "direct_ui_screenshot_source_type",
+          "signature": "direct_ui_screenshot_finding",
+          "present": true
+        },
+        {
+          "key": "direct_ui_findings_used_flag",
+          "signature": "direct_ui_findings_used_for_correction",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "apply_ui_visual_review_v4": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\apply_ui_visual_review_v4.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "ui_report_entry_gate",
+          "signature": "ui_report_entry_pass",
+          "present": true
+        },
+        {
+          "key": "manual_screenshot_binding_gate",
+          "signature": "manual_review_entry_screenshot_pass",
+          "present": true
+        },
+        {
+          "key": "manual_review_entries_all_pass",
+          "signature": "manual_review_entries_all_pass",
+          "present": true
+        },
+        {
+          "key": "application_ui_report_source_check",
+          "signature": "_source_ui_report_application_ui_ok",
+          "present": true
+        },
+        {
+          "key": "generated_png_source_gate",
+          "signature": "generated_png_source_pass",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "lb26001_acceptance_gate_v4_2": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_acceptance_gate_v4_2.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "manual_visual_checklist_pass_required",
+          "signature": "manual_visual_checklist_ok",
+          "present": true
+        },
+        {
+          "key": "ui_screenshot_method_required",
+          "signature": "ui_screenshot_review_method_ok",
+          "present": true
+        },
+        {
+          "key": "staged_summary_lifecycle_input",
+          "signature": "staged_summary_path",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_report_gate",
+          "signature": "displaydim_lifecycle_report_exists",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_missing_blocker",
+          "signature": "displaydim_lifecycle_report_missing",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_not_pass_blocker",
+          "signature": "displaydim_lifecycle_not_pass",
+          "present": true
+        },
+        {
+          "key": "manual_case_blocker_reported",
+          "signature": "manual_visual_case_not_pass",
+          "present": true
+        },
+        {
+          "key": "manual_checklist_blocker_reported",
+          "signature": "manual_visual_checklist_missing_or_incomplete",
+          "present": true
+        },
+        {
+          "key": "application_ui_source_blocker_reported",
+          "signature": "application_ui_screenshot_source_report_invalid",
+          "present": true
+        },
+        {
+          "key": "application_ui_screenshot_content_blocker",
+          "signature": "application_ui_screenshot_content_invalid",
+          "present": true
+        },
+        {
+          "key": "fresh_png_source_blocker_reported",
+          "signature": "generated_png_source_evidence_not_current_run",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "lb26001_006_acceptance_proof_v4_2": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\lb26001_006_acceptance_proof_v4_2.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "supplemental_checklist_gate",
+          "signature": "DEFAULT_SUPPLEMENTAL_CHECKLIST_GATE",
+          "present": true
+        },
+        {
+          "key": "supplemental_checklist_base_merge",
+          "signature": "supplemental_checklist_base",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_report_evidence",
+          "signature": "displaydim_lifecycle_report_exists",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_report_missing_blocker",
+          "signature": "displaydim_lifecycle_report_missing",
+          "present": true
+        },
+        {
+          "key": "displaydim_lifecycle_not_pass_blocker",
+          "signature": "displaydim_lifecycle_not_pass",
+          "present": true
+        },
+        {
+          "key": "application_ui_source_report_blocker",
+          "signature": "application_ui_source_report_invalid",
+          "present": true
+        },
+        {
+          "key": "manual_visual_case_blocker",
+          "signature": "manual_visual_case_not_pass",
+          "present": true
+        },
+        {
+          "key": "manual_visual_checklist_missing_blocker",
+          "signature": "manual_visual_checklist_missing",
+          "present": true
+        },
+        {
+          "key": "manual_visual_checklist_not_pass_blocker",
+          "signature": "manual_visual_checklist_not_pass",
+          "present": true
+        },
+        {
+          "key": "direct_ui_screenshot_recheck_blocker",
+          "signature": "direct_ui_screenshot_recheck_not_pass",
+          "present": true
+        },
+        {
+          "key": "fresh_png_source_blocker",
+          "signature": "generated_png_source_not_current_run",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    }
+  },
+  "reference_intent_artifacts": {
+    "plan": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+      "exists": true,
+      "pass": true,
+      "missing_expected_keys": []
+    },
+    "contract": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
+      "exists": true,
+      "pass": true,
+      "missing_expected_keys": []
+    }
+  },
+  "ordered_next_gates": [
+    {
+      "gate": "no_com_readiness_audit",
+      "command": "python tools\\validation\\lb26001_006_regression_readiness_v4_2.py --out drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+      "acceptance": "ready_to_start_locked_006_cad must be true before real CAD starts."
+    },
+    {
+      "gate": "locked_006_real_cad_rerun",
+      "command": "python tools\\validation\\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\\staged_validation\\LB26001_006_<timestamp>",
+      "acceptance": "One 006-only QProcess/JobRuntimeFacade CAD run, protected by the SolidWorks global lock."
+    },
+    {
+      "gate": "dimension_validation",
+      "command": "python tools\\validation\\dimension_validation_smoke_v3.py --run-dir <fresh_run_dir> --out drw_output\\dimension_validation_006_v4_2.json",
+      "acceptance": "Final persisted/exported real DisplayDim count must be >= 12; Note/OCR/sidecar text is not accepted."
+    },
+    {
+      "gate": "displaydim_lifecycle_audit",
+      "command": "python tools\\validation\\lb26001_006_displaydim_lifecycle_audit_v4_2.py --warnings <fresh_run_dir>\\qc\\LB26001-A-04-006_v5_warnings.json --cad-smoke <fresh_case_dir>\\cad_smoke.json --dimension-validation <fresh_case_dir>\\dimension_validation.json --out-json drw_output\\diagnostics\\lb26001_006_displaydim_lifecycle_audit_v4_2_<run_id>.json --out-md drw_output\\diagnostics\\lb26001_006_displaydim_lifecycle_audit_v4_2_<run_id>.md",
+      "acceptance": "pre-save, post-save/reopen, post-prune, post-layout, and final export must all preserve at least 12 real DisplayDim targets with no sidecar acceptance."
+    },
+    {
+      "gate": "reference_compare_v3",
+      "command": "python tools\\validation\\reference_compare_smoke_v3.py --run-dir <fresh_run_dir> --part <copied_input_part> --out <fresh_case_dir>\\reference_compare.json",
+      "acceptance": "Same-name reference drawing comparison must pass or pass_with_warning with no strict 006 blockers."
+    },
+    {
+      "gate": "reference_style",
+      "command": "python tools\\validation\\reference_style_profile_v3.py --bases LB26001-A-04-006 --stage-summary <fresh_summary.json> --out-dir drw_output\\reference_style_profile\\LB26001_006_<run_id>",
+      "acceptance": "Same-name reference style report must pass: view family, layout centers, DisplayDim floor, and no default template pollution."
+    },
+    {
+      "gate": "strict_reference_compare_v4",
+      "command": "python tools\\validation\\reference_compare_v4.py --run-dir <fresh_run_dir> --base LB26001-A-04-006 --out drw_output\\reference_compare_v4_006_v4_2.json",
+      "acceptance": "View family/layout, target coverage, title block policy, and post_layout_final coverage must pass."
+    },
+    {
+      "gate": "vision_qc_v6",
+      "command": "verify <fresh_case_dir>\\vision_qc_v6.json from staged_cad_validation_v3.py or run app.services.vision_qc_v6.run_vision_qc_v6 on the fresh generated PNG/reference PNG",
+      "acceptance": "vision_qc_v6 must pass with reference visual layout, readable dimensions, title block/template policy, and UI screenshot review requirements satisfied."
+    },
+    {
+      "gate": "drawing_review_application_ui_screenshot",
+      "command": "python tools\\ui_robot\\drawing_visual_review_suite.py --summary <fresh_summary.json> --base LB26001-A-04-006 --out-dir drw_output\\ui_acceptance\\LB26001_006_<timestamp>_visual_review",
+      "acceptance": "The Drawing Review application UI must show reference and generated drawing screenshots for visual judgement."
+    },
+    {
+      "gate": "manual_visual_judgement",
+      "command": "write <fresh_manual_visual_judgement.json> from the application UI screenshot",
+      "acceptance": "Every required checklist item must be true: reference_match, view_layout, display_dimensions, dimension_readability, title_block, manufacturing_notes."
+    },
+    {
+      "gate": "with_ui_closure",
+      "command": "python tools\\validation\\apply_ui_visual_review_v4.py --summary <fresh_summary.json> --ui-report <fresh_drawing_visual_review_report.json> --manual-review <fresh_manual_visual_judgement.json> --out-dir <fresh_closed_loop_dir> --base LB26001-A-04-006",
+      "acceptance": "vision_qc_v6_with_ui_review and reference_compare_v4_with_ui_review must both pass."
+    },
+    {
+      "gate": "lb26001_expansion_gate",
+      "command": "python tools\\validation\\lb26001_acceptance_gate_v4_2.py --gate-summary <fresh_ui_visual_review_gate_summary.json> --staged-summary <fresh_staged_summary.json>",
+      "acceptance": "Only after 006 passes lifecycle/v3/v4/v6 and application UI screenshot gates may 007/008/009/015/022 proceed."
+    }
+  ]
+}

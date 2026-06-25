@@ -1,0 +1,249 @@
+﻿python : 119 INFO: PyInstaller: 6.21.0, contrib hooks: 2026.6
+At line:15 char:873
++ ...  $env:PATH; python -m PyInstaller --noconfirm build_exe.spec 2>&1 | T ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (119 INFO: PyIns...b hooks: 2026.6:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+119 INFO: Python: 3.11.4
+134 INFO: Platform: Windows-10-10.0.26200-SP0
+135 INFO: Python environment: C:\Users\Vision\AppData\Local\Programs\Python\Python311
+138 WARNING: collect_data_files - skipping data collection for module 'qt_material' as it is not a package.
+138 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\Vision\\Desktop\\SW 相关',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python311.zip',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\DLLs',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\win32',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\win32\\lib',
+ 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\Pythonwin',
+ 'C:\\Users\\Vision\\Desktop\\SW 相关']
+495 INFO: Appending 'datas' from .spec
+496 INFO: checking Analysis
+524 INFO: Building because excludes changed
+525 INFO: Looking for Python shared library...
+525 INFO: Using Python shared library: C:\Users\Vision\AppData\Local\Programs\Python\Python311\python311.dll
+525 INFO: Running Analysis Analysis-00.toc
+525 INFO: Target bytecode optimization level: 0
+525 INFO: Initializing module dependency graph...
+526 INFO: Initializing module graph hook caches...
+537 INFO: Analyzing modules for base_library.zip ...
+1388 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\P
+ython311\\Lib\\site-packages\\PyInstaller\\hooks'
+1443 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+2592 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Py
+thon311\\Lib\\site-packages\\PyInstaller\\hooks'
+2757 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\
+Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+3905 INFO: Caching module dependency graph...
+3939 INFO: Analyzing C:\Users\Vision\Desktop\SW 相关\app\main.py
+3942 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4175 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4324 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\Vision\\AppData\\Local\\Program
+s\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+6562 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\
+Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+10034 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\Vision\\AppData\\Local\\Progra
+ms\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+13973 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\
+Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+40440 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\Vision\\AppData\\Local\\Pro
+grams\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+40562 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Py
+thon311\\Lib\\site-packages\\PyInstaller\\hooks'
+40777 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+41379 INFO: Processing standard module hook 'hook-certifi.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+41783 INFO: Processing standard module hook 'hook-anyio.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\
+Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+42315 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\Vision\\AppData\\Local\
+\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+42316 INFO: SetuptoolsInfo: initializing cached setuptools info...
+43554 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+43608 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+43656 INFO: Processing standard module hook 'hook-webbrowser.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+43676 INFO: Processing standard module hook 'hook-pygments.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+47152 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Py
+thon311\\Lib\\site-packages\\PyInstaller\\hooks'
+47237 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyth
+on\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+47667 INFO: Processing standard module hook 'hook-numpy.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\
+Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+48404 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyth
+on\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+48951 INFO: Processing standard module hook 'hook-psutil.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+50027 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\Vision\\AppData\\Local\\Progr
+ams\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+50290 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\Vision\\AppData\\Local\\P
+rograms\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+50599 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs
+\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+50901 INFO: Processing standard module hook 'hook-pandas.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+52517 INFO: Processing standard module hook 'hook-zoneinfo.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+53904 INFO: Processing standard module hook 'hook-pandas.io.formats.style.py' from 'C:\\Users\\Vision\\AppData\\Local\\
+Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+55606 INFO: Processing standard module hook 'hook-pyarrow.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+56325 INFO: Processing standard module hook 'hook-urllib3.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+56393 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from 'C:\\Users\\Vision\\AppData\\Local\\Program
+s\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+56552 INFO: Processing standard module hook 'hook-cryptography.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\P
+ython\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+60289 INFO: hook-cryptography: cryptography does not seem to be using dynamically linked OpenSSL.
+60558 INFO: Processing standard module hook 'hook-bcrypt.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+61900 INFO: Processing standard module hook 'hook-pandas.plotting.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs
+\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+62601 INFO: Processing standard module hook 'hook-dateutil.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+62731 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from 'C:\\Users\\Vision\\AppData\\Local\\Program
+s\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+63327 INFO: Processing standard module hook 'hook-openpyxl.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+63443 INFO: Processing standard module hook 'hook-lxml.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\P
+ython311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+63735 INFO: Processing standard module hook 'hook-lxml.etree.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+65064 INFO: Processing standard module hook 'hook-sqlalchemy.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+65819 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'C:\\Users\\Vision\\AppData\\Local
+\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+69059 INFO: Processing standard module hook 'hook-sqlite3.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python
+\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+69340 INFO: Processing standard module hook 'hook-pandas.io.clipboard.py' from 'C:\\Users\\Vision\\AppData\\Local\\Prog
+rams\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+69504 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\
+\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+69813 INFO: Processing standard module hook 'hook-pytest.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+70055 INFO: Processing standard module hook 'hook-py.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyt
+hon311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+70230 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'C:\\Users\\Vision\\AppData\\Local\\Program
+s\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+70554 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\P
+ython\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+71382 INFO: Processing standard module hook 'hook-pkg_resources.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\
+Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+73123 INFO: Processing pre-safe-import-module hook 'hook-win32com.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs
+\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\pre_safe_import_module'
+73283 INFO: Processing standard module hook 'hook-win32com.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pytho
+n\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+73285 INFO: Processing standard module hook 'hook-pythoncom.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyth
+on\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+73431 INFO: Processing standard module hook 'hook-pywintypes.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+74202 INFO: Analyzing hidden import 'app.services.part_classification_service'
+74208 INFO: Analyzing hidden import 'app.services.dimension_sidecar_service'
+74220 INFO: Analyzing hidden import 'app.services.standard_part_annotation'
+74223 INFO: Analyzing hidden import 'app.services.model_dim_seed_service'
+74231 INFO: Analyzing hidden import 'app.services.persisted_layout_solver'
+74251 INFO: Analyzing hidden import 'app.services.annotate_sidecar_service'
+74257 INFO: Analyzing hidden import 'app.services.drawing_accuracy_score'
+74265 INFO: Analyzing hidden import 'app.services.sw_addin_client'
+74273 INFO: Analyzing hidden import 'app.services.sw_docmgr_relink'
+74279 INFO: Analyzing hidden import 'app.services.pmi_probe_service'
+74283 INFO: Processing module hooks (post-graph stage)...
+74557 INFO: Processing standard module hook 'hook-lxml.isoschematron.py' from 'C:\\Users\\Vision\\AppData\\Local\\Progr
+ams\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+74655 INFO: Processing standard module hook 'hook-pycparser.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyth
+on\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+74835 INFO: Processing standard module hook 'hook-setuptools.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+74842 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'C:\\Users\\Vision\\AppData\\Local\\Program
+s\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+74842 INFO: Processing pre-find-module-path hook 'hook-distutils.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\
+\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+75638 INFO: Processing standard module hook 'hook-distutils.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyth
+on\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+75686 INFO: Processing standard module hook 'hook-distutils.util.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\
+\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+75783 INFO: Processing standard module hook 'hook-_osx_support.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\P
+ython\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+76673 WARNING: Hidden import "pycparser.lextab" not found!
+76673 WARNING: Hidden import "pycparser.yacctab" not found!
+76777 INFO: Processing standard module hook 'hook-jinja2.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+77437 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\Vision\\AppData\\Local\\Pr
+ograms\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+80030 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from 'C:\\Users\\Vision\\Ap
+pData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+80135 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'C:\\Users\\Vision\\AppData\\
+Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+80864 INFO: Processing standard module hook 'hook-sqlalchemy.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+81247 WARNING: Hidden import "pysqlite2" not found!
+81247 WARNING: Hidden import "MySQLdb" not found!
+81247 WARNING: Hidden import "psycopg2" not found!
+81581 INFO: Processing standard module hook 'hook-nacl.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\P
+ython311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+82421 INFO: Processing standard module hook 'hook-lxml.objectify.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\
+\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+82422 INFO: Processing standard module hook 'hook-tzdata.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\
+\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+82938 INFO: Performing binary vs. data reclassification (1391 entries)
+83149 INFO: Looking for ctypes DLLs
+83279 INFO: Analyzing run-time hooks ...
+83287 INFO: Including run-time hook 'pyi_rth_pythoncom.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\P
+ython311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+83289 INFO: Including run-time hook 'pyi_rth_pywintypes.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\
+Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+83290 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyt
+hon311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83291 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyt
+hon311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83292 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Pyt
+hon\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83295 INFO: Including run-time hook 'pyi_rth_pkgres.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyth
+on311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83300 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\
+Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83300 INFO: Including run-time hook 'pyi_rth_cryptography_openssl.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs
+\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+83301 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyt
+hon311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+83303 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Vision\\AppData\\Local\\Prog
+rams\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+83305 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Vision\\AppData\\Local\\Programs\
+\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+83376 INFO: Creating base_library.zip...
+83400 INFO: Looking for dynamic libraries
+86590 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Pyth
+on311\\Lib\\site-packages\\shiboken6', 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packa
+ges\\numpy.libs', 'C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\pandas.libs', 'C
+:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\pyarrow.libs']
+86591 INFO: Extra DLL search directories (PATH): ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\Lib\
+\site-packages\\PySide6']
+88469 INFO: Warnings written to C:\Users\Vision\Desktop\SW 相关\build\build_exe\warn-build_exe.txt
+88747 INFO: Graph cross-reference written to C:\Users\Vision\Desktop\SW 相关\build\build_exe\xref-build_exe.html
+88837 INFO: checking PYZ
+88927 INFO: checking PKG
+89029 INFO: Building because toc changed
+89029 INFO: Building PKG (CArchive) sw_drawing_studio.pkg
+117989 INFO: Building PKG (CArchive) sw_drawing_studio.pkg completed successfully.
+118024 INFO: Bootloader C:\Users\Vision\AppData\Local\Programs\Python\Python311\Lib\site-packages\PyInstaller\bootloade
+r\Windows-64bit-intel\runw.exe
+118024 INFO: checking EXE
+118040 INFO: Building because toc changed
+118040 INFO: Building EXE from EXE-00.toc
+118052 INFO: Copying bootloader EXE to C:\Users\Vision\Desktop\SW 相关\dist\sw_drawing_studio.exe
+118118 INFO: Copying icon to EXE
+118169 INFO: Copying 0 resources to EXE
+118169 INFO: Embedding manifest in EXE
+118223 INFO: Appending PKG archive to EXE
+118332 INFO: Fixing EXE headers
+119021 INFO: Building EXE from EXE-00.toc completed successfully.
+119049 INFO: Build complete! The results are available in: C:\Users\Vision\Desktop\SW 相关\dist

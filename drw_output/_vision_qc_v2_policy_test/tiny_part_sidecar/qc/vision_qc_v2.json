@@ -1,0 +1,61 @@
+{
+  "version": "v1.8",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_vision_qc_v2_policy_test\\tiny_part_sidecar\\qc\\fixture_qc.json",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_vision_qc_v2_policy_test\\tiny_part_sidecar\\drawing\\fixture.png",
+  "issues": [
+    {
+      "key": "dimension_insufficient",
+      "severity": "minor",
+      "bbox": [
+        0.1,
+        0.1,
+        0.8,
+        0.7
+      ],
+      "description": "尺寸数量低于制造图阈值: DisplayDim=4/5；tiny_part 已有 sidecar 三向尺寸证据，dimension_grade=B",
+      "fix_suggestion": "保留为警告；如需制造级出图，补充真实 DisplayDim 或人工复核确认。",
+      "auto_fix_available": false,
+      "source": "geometry_qc",
+      "confidence": 0.9,
+      "evidence": {
+        "part_class": "tiny_part",
+        "dimension_grade": "B",
+        "display_dim_count": 4,
+        "has_sidecar_evidence": true,
+        "policy": "tiny_or_long_thin_sidecar_dimension_warning"
+      },
+      "human_review_status": "pending"
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 0,
+    "major": 0,
+    "minor": 1,
+    "info": 0
+  },
+  "checks": {
+    "titlebar": {
+      "pass": true,
+      "issues": []
+    },
+    "layout": {
+      "pass": true,
+      "issues": []
+    },
+    "dimension": {
+      "pass": true,
+      "issues": [
+        "dimension_insufficient"
+      ]
+    },
+    "annotation": {
+      "pass": true,
+      "issues": []
+    },
+    "readability": {
+      "pass": true,
+      "issues": []
+    }
+  }
+}

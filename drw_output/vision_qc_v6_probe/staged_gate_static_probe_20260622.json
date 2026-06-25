@@ -1,0 +1,89 @@
+{
+  "schema": "sw_drawing_studio.staged_gate_static_probe.v1",
+  "purpose": "Prove staged CAD validation no longer accepts API-only pass without vision_qc_v6/UI visual evidence.",
+  "case": {
+    "part": "LB26001-A-04-006.SLDPRT",
+    "part_name": "LB26001-A-04-006",
+    "case_dir": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006",
+    "run_dir": "drw_output/runs/example",
+    "cad_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\cad_smoke.json",
+    "dimension_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\dimension_validation.json",
+    "reference_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\reference_compare.json",
+    "reference_style_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\reference_style.json",
+    "vision_qc_v6_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\vision_qc_v6.json",
+    "cad_pass": true,
+    "dimension_pass": true,
+    "reference_pass": true,
+    "reference_style_pass": true,
+    "vision_qc_v6_pass": false,
+    "deliverable": false,
+    "status": "need_review",
+    "failure_bucket": [
+      "vision_qc_v6_not_pass"
+    ],
+    "reasons": [],
+    "final_quality_status": "pass",
+    "dimension_status": "pass",
+    "reference_status": "pass",
+    "reference_style_status": "pass",
+    "vision_qc_v6_status": "need_review",
+    "vision_qc_v6_visual_acceptance_pass": false,
+    "commands": {}
+  },
+  "summary": {
+    "schema": "sw_drawing_studio.staged_cad_validation.v1",
+    "stage": "LB26001_36",
+    "generated_at": "2026-06-22 23:19:07",
+    "out_dir": "drw_output\\staged_validation\\static_probe",
+    "duration_s": 0.0,
+    "total": 1,
+    "processed": 1,
+    "deliverable_count": 0,
+    "deliverable_target_ratio": 0.97,
+    "required_deliverable_count": 1,
+    "execution_completed": true,
+    "acceptance_pass": false,
+    "need_review_count": 1,
+    "failed_count": 0,
+    "status": "need_review",
+    "pass": false,
+    "cases": [
+      {
+        "part": "LB26001-A-04-006.SLDPRT",
+        "part_name": "LB26001-A-04-006",
+        "case_dir": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006",
+        "run_dir": "drw_output/runs/example",
+        "cad_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\cad_smoke.json",
+        "dimension_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\dimension_validation.json",
+        "reference_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\reference_compare.json",
+        "reference_style_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\reference_style.json",
+        "vision_qc_v6_report": "drw_output\\staged_validation\\static_probe\\LB26001-A-04-006\\vision_qc_v6.json",
+        "cad_pass": true,
+        "dimension_pass": true,
+        "reference_pass": true,
+        "reference_style_pass": true,
+        "vision_qc_v6_pass": false,
+        "deliverable": false,
+        "status": "need_review",
+        "failure_bucket": [
+          "vision_qc_v6_not_pass"
+        ],
+        "reasons": [],
+        "final_quality_status": "pass",
+        "dimension_status": "pass",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "vision_qc_v6_status": "need_review",
+        "vision_qc_v6_visual_acceptance_pass": false,
+        "commands": {}
+      }
+    ],
+    "remaining_gates": [
+      "core_12",
+      "medium_30",
+      "historical_visual_audit_100_percent",
+      "full_129",
+      "final_exe_rebuild_and_release_log"
+    ]
+  }
+}

@@ -1,0 +1,399 @@
+{
+  "base": "LB26001-A-04-021",
+  "status": "need_review",
+  "pass": false,
+  "view_style_score": 0.679,
+  "dimension_style_score": 0.625,
+  "layout_style_score": 0.288,
+  "overall_style_score": 0.577,
+  "reference": {
+    "base": "LB26001-A-04-021",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-021.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 20,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.0758,
+          0.1126,
+          0.1442,
+          0.177
+        ],
+        "center_m": [
+          0.11,
+          0.1448
+        ],
+        "size_m": [
+          0.0684,
+          0.0644
+        ],
+        "center_norm": [
+          0.3704,
+          0.6895
+        ],
+        "size_norm": [
+          0.2303,
+          0.3067
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.183667,
+          0.1126,
+          0.202067,
+          0.177
+        ],
+        "center_m": [
+          0.192867,
+          0.1448
+        ],
+        "size_m": [
+          0.0184,
+          0.0644
+        ],
+        "center_norm": [
+          0.6494,
+          0.6895
+        ],
+        "size_norm": [
+          0.062,
+          0.3067
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline_m": [
+          0.0758,
+          0.0642,
+          0.1442,
+          0.0826
+        ],
+        "center_m": [
+          0.11,
+          0.0734
+        ],
+        "size_m": [
+          0.0684,
+          0.0184
+        ],
+        "center_norm": [
+          0.3704,
+          0.3495
+        ],
+        "size_norm": [
+          0.2303,
+          0.0876
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline_m": [
+          0.222112,
+          0.052432,
+          0.280009,
+          0.135133
+        ],
+        "center_m": [
+          0.251061,
+          0.093783
+        ],
+        "size_m": [
+          0.057897,
+          0.082701
+        ],
+        "center_norm": [
+          0.8453,
+          0.4466
+        ],
+        "size_norm": [
+          0.1949,
+          0.3938
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-021_reference.json",
+    "source": "csharp_sidecar"
+  },
+  "generated": {
+    "base": "LB26001-A-04-021",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\18bd79d77de9\\drawing\\LB26001-A-04-021_v5.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 3,
+      "4": 1
+    },
+    "display_dim_count": 32,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.0698,
+          0.1302,
+          0.0902,
+          0.1498
+        ],
+        "center_m": [
+          0.08,
+          0.14
+        ],
+        "size_m": [
+          0.0204,
+          0.0196
+        ],
+        "center_norm": [
+          0.2694,
+          0.6667
+        ],
+        "size_norm": [
+          0.0687,
+          0.0933
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.0698,
+          0.0748,
+          0.0902,
+          0.0852
+        ],
+        "center_m": [
+          0.08,
+          0.08
+        ],
+        "size_m": [
+          0.0204,
+          0.0104
+        ],
+        "center_norm": [
+          0.2694,
+          0.381
+        ],
+        "size_norm": [
+          0.0687,
+          0.0495
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "7",
+        "outline_m": [
+          0.1748,
+          0.1302,
+          0.1852,
+          0.1498
+        ],
+        "center_m": [
+          0.18,
+          0.14
+        ],
+        "size_m": [
+          0.0104,
+          0.0196
+        ],
+        "center_norm": [
+          0.6061,
+          0.6667
+        ],
+        "size_norm": [
+          0.035,
+          0.0933
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline_m": [
+          0.22085,
+          0.16837,
+          0.23915,
+          0.19163
+        ],
+        "center_m": [
+          0.23,
+          0.18
+        ],
+        "size_m": [
+          0.018299,
+          0.02326
+        ],
+        "center_norm": [
+          0.7744,
+          0.8571
+        ],
+        "size_norm": [
+          0.0616,
+          0.1108
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-021_generated.json",
+    "source": "csharp_sidecar"
+  },
+  "qc_display_dim_count": 4,
+  "differences": [
+    {
+      "key": "view_type_count_lower_than_reference",
+      "severity": "need_review",
+      "reference": {
+        "type": "4",
+        "count": 2
+      },
+      "generated": {
+        "type": "4",
+        "count": 1
+      },
+      "fix_suggestion": "Create the same number of reference view-family instances for this known LB26001 sample."
+    },
+    {
+      "key": "view_type_count_higher_than_reference",
+      "severity": "need_review",
+      "reference": {
+        "type": "7",
+        "count": 2
+      },
+      "generated": {
+        "type": "7",
+        "count": 3
+      },
+      "fix_suggestion": "Remove extra views from this view family or prove the same-name reference requires them."
+    },
+    {
+      "key": "projected_view_count_lower_than_reference",
+      "severity": "need_review",
+      "reference": 2,
+      "generated": 1,
+      "fix_suggestion": "Use real projected views for the orthographic top/right views."
+    },
+    {
+      "key": "display_dim_count_higher_than_reference",
+      "severity": "need_review",
+      "reference": 20,
+      "generated": 32,
+      "fix_suggestion": "Avoid over-dimensioning beyond the same-name reference drawing style; prefer the minimum manufacturable set."
+    },
+    {
+      "key": "view_layout_center_shifted_from_reference",
+      "severity": "need_review",
+      "reference": {
+        "slot": "front",
+        "center_norm": [
+          0.3704,
+          0.6895
+        ],
+        "tolerance_norm": 0.08
+      },
+      "generated": {
+        "slot": "front",
+        "center_norm": [
+          0.7744,
+          0.8571
+        ],
+        "distance_norm": 0.4374
+      },
+      "fix_suggestion": "Place the generated view center within the learned reference layout tolerance for this LB26001 sample."
+    },
+    {
+      "key": "view_layout_center_shifted_from_reference",
+      "severity": "need_review",
+      "reference": {
+        "slot": "iso",
+        "center_norm": [
+          0.8453,
+          0.4466
+        ],
+        "tolerance_norm": 0.08
+      },
+      "generated": {
+        "slot": "iso",
+        "center_norm": [
+          0.6061,
+          0.6667
+        ],
+        "distance_norm": 0.3251
+      },
+      "fix_suggestion": "Place the generated view center within the learned reference layout tolerance for this LB26001 sample."
+    },
+    {
+      "key": "view_layout_center_missing",
+      "severity": "need_review",
+      "reference": {
+        "slot": "right",
+        "center_norm": [
+          0.6494,
+          0.6895
+        ]
+      },
+      "generated": {
+        "available_slots": [
+          "front",
+          "iso",
+          "top"
+        ]
+      },
+      "fix_suggestion": "Create the same semantic view slot as the reference drawing before accepting this generated drawing."
+    },
+    {
+      "key": "view_layout_center_shifted_from_reference",
+      "severity": "need_review",
+      "reference": {
+        "slot": "top",
+        "center_norm": [
+          0.3704,
+          0.3495
+        ],
+        "tolerance_norm": 0.08
+      },
+      "generated": {
+        "slot": "top",
+        "center_norm": [
+          0.2694,
+          0.381
+        ],
+        "distance_norm": 0.1058
+      },
+      "fix_suggestion": "Place the generated view center within the learned reference layout tolerance for this LB26001 sample."
+    }
+  ],
+  "reasons": [
+    "view_type_count_lower_than_reference",
+    "view_type_count_higher_than_reference",
+    "projected_view_count_lower_than_reference",
+    "display_dim_count_higher_than_reference",
+    "view_layout_center_shifted_from_reference",
+    "view_layout_center_shifted_from_reference",
+    "view_layout_center_missing",
+    "view_layout_center_shifted_from_reference"
+  ],
+  "schema": "sw_drawing_studio.reference_style_case.v1",
+  "generated_at": "2026-06-22 17:41:44",
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-021.SLDPRT",
+  "reference_compare_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_36_current_20260622\\12_LB26001-A-04-021\\reference_compare.json",
+  "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_36_current_20260622\\12_LB26001-A-04-021\\dimension_validation.json"
+}

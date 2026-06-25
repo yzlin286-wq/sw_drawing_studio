@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-06-22 17:54:52",
+  "mode": "reference_compare_smoke_v3",
+  "metrics_mode": "sidecar_first",
+  "sidecar_timeout_s": 180,
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-025.SLDPRT",
+  "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-025.SLDDRW",
+  "generated_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dea2e6804216\\drawing\\LB26001-A-04-025_v5.SLDDRW",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dea2e6804216",
+  "connection_method": "get_active_object",
+  "connection_probe": {
+    "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+    "method": "get_active_object",
+    "status": "connected",
+    "reason": "",
+    "sw_revision": "33.5.0",
+    "sw_pid": 20172,
+    "visible": true,
+    "elapsed_ms": 264,
+    "returncode": 0,
+    "attempts": [
+      {
+        "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+        "method": "get_active_object",
+        "status": "connected",
+        "reason": "",
+        "sw_revision": "33.5.0",
+        "sw_pid": 20172,
+        "visible": true,
+        "elapsed_ms": 264,
+        "returncode": 0
+      }
+    ],
+    "connection_method": "get_active_object"
+  },
+  "reference_metrics": {
+    "schema": "sw_drawing_studio.reference_metrics.v1",
+    "source": "csharp_sidecar",
+    "generated_at": "2026-06-22 17:54:39",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-025.SLDDRW",
+    "exists": true,
+    "success": true,
+    "status": "ok",
+    "reason": "",
+    "connection_method": "get_active_object",
+    "sw_revision": "33.5.0",
+    "open_errors": 0,
+    "open_warnings": 0,
+    "sheet": {
+      "name": null,
+      "paper_size": [],
+      "properties": [
+        6,
+        13,
+        1,
+        1,
+        1,
+        0.297,
+        0.21,
+        1
+      ]
+    },
+    "view_count": 3,
+    "view_types": {
+      "7": 1,
+      "4": 2
+    },
+    "view_names": [
+      "工程图视图1",
+      "工程图视图2",
+      "工程图视图3"
+    ],
+    "view_outlines": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline": [
+          0.06069938162544169,
+          0.11394999999999997,
+          0.1494993816254417,
+          0.17794999999999997
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline": [
+          0.06069938162544169,
+          0.07493749999999991,
+          0.1494993816254417,
+          0.0883375000000001
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline": [
+          0.20536842206877612,
+          0.060669852242161294,
+          0.27415534118210716,
+          0.14933014775783873
+        ]
+      }
+    ],
+    "display_dim_count": 18,
+    "annotation_count": 0,
+    "file_size_bytes": 317872,
+    "warnings": [],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_reference.json",
+    "returncode": 0,
+    "stdout": "{\"success\":true,\"status\":\"ok\",\"out\":\"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\reference_metrics_sidecar\\\\LB26001-A-04-025_reference.json\",\"view_count\":3,\"display_dim_count\":18}",
+    "stderr": "",
+    "annotation_probe": {
+      "source": "pywin32_annotation_probe",
+      "success": true,
+      "reason": "",
+      "view_count": 4,
+      "display_dim_count": 18,
+      "display_dim_annotation_count": 0,
+      "display_dim_count_source": "annotation_type1",
+      "annotation_count": 0,
+      "open_errors": 0,
+      "open_warnings": 128
+    },
+    "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_reference_annotation_probe.json",
+    "display_dim_annotation_count": 0,
+    "display_dim_count_source": "display_dimension_api"
+  },
+  "generated_metrics": {
+    "schema": "sw_drawing_studio.reference_metrics.v1",
+    "source": "csharp_sidecar",
+    "generated_at": "2026-06-22 17:54:46",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dea2e6804216\\drawing\\LB26001-A-04-025_v5.SLDDRW",
+    "exists": true,
+    "success": true,
+    "status": "ok",
+    "reason": "",
+    "connection_method": "get_active_object",
+    "sw_revision": "33.5.0",
+    "open_errors": 0,
+    "open_warnings": 0,
+    "sheet": {
+      "name": null,
+      "paper_size": [],
+      "properties": [
+        6,
+        13,
+        1,
+        1,
+        1,
+        0.297,
+        0.21,
+        1
+      ]
+    },
+    "view_count": 4,
+    "view_types": {
+      "7": 3,
+      "4": 1
+    },
+    "view_names": [
+      "工程图视图1",
+      "工程图视图2",
+      "工程图视图3",
+      "工程图视图4"
+    ],
+    "view_outlines": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline": [
+          0.06776,
+          0.13024,
+          0.09224,
+          0.14976000000000003
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline": [
+          0.06776,
+          0.07529999999999999,
+          0.09224,
+          0.08470000000000001
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "7",
+        "outline": [
+          0.17529999999999998,
+          0.13024,
+          0.1847,
+          0.14976000000000003
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline": [
+          0.2197613080886669,
+          0.16777397044843223,
+          0.24023869191133312,
+          0.19222602955156776
+        ]
+      }
+    ],
+    "display_dim_count": 32,
+    "annotation_count": 0,
+    "file_size_bytes": 117955,
+    "warnings": [],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_generated.json",
+    "returncode": 0,
+    "stdout": "{\"success\":true,\"status\":\"ok\",\"out\":\"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\reference_metrics_sidecar\\\\LB26001-A-04-025_generated.json\",\"view_count\":4,\"display_dim_count\":32}",
+    "stderr": "",
+    "annotation_probe": {
+      "source": "pywin32_annotation_probe",
+      "success": true,
+      "reason": "",
+      "view_count": 5,
+      "display_dim_count": 32,
+      "display_dim_annotation_count": 0,
+      "display_dim_count_source": "annotation_type1",
+      "annotation_count": 0,
+      "open_errors": 0,
+      "open_warnings": 128
+    },
+    "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_generated_annotation_probe.json",
+    "display_dim_annotation_count": 0,
+    "display_dim_count_source": "display_dimension_api"
+  },
+  "sidecar_artifacts": {
+    "reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_reference.json",
+    "generated": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-025_generated.json"
+  },
+  "view_match_score": 0.85,
+  "dimension_match_score": 1.0,
+  "titlebar_match_score": 1.0,
+  "annotation_match_score": 1.0,
+  "layout_match_score": 1.0,
+  "overall_score": 0.963,
+  "status": "need_review",
+  "differences": [
+    {
+      "key": "view_count_higher_than_reference",
+      "severity": "need_review",
+      "reference": "3",
+      "generated": "4",
+      "fix_suggestion": "Remove extra generated views or prove the reference drawing requires an additional view."
+    }
+  ],
+  "metric_quality": {
+    "reference": {
+      "usable": true,
+      "weak_reasons": [],
+      "annotation_evidence_skipped": [
+        "has_ra_note",
+        "gb_has_section_view_or_skipped"
+      ]
+    },
+    "generated": {
+      "usable": true,
+      "weak_reasons": [],
+      "fallbacks": []
+    }
+  },
+  "pass": false,
+  "reasons": [
+    "view_count_higher_than_reference"
+  ],
+  "fix_suggestions": [
+    "Remove extra generated views or prove the reference drawing requires an additional view."
+  ]
+}

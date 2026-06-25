@@ -1,0 +1,73 @@
+{
+  "schema": "sw_drawing_studio.reference_compare_overproduction_probe.v1",
+  "status": "source_probe_pass",
+  "cases": {
+    "extra_count": {
+      "view_match_score": 0.7,
+      "dimension_match_score": 1.0,
+      "titlebar_match_score": 1.0,
+      "annotation_match_score": 1.0,
+      "layout_match_score": 1.0,
+      "overall_score": 0.925,
+      "status": "need_review",
+      "differences": [
+        {
+          "key": "view_count_higher_than_reference",
+          "severity": "need_review",
+          "reference": "2",
+          "generated": "4",
+          "fix_suggestion": "Remove extra generated views or prove the reference drawing requires an additional view."
+        }
+      ],
+      "metric_quality": {
+        "reference": {
+          "usable": true,
+          "weak_reasons": [],
+          "annotation_evidence_skipped": []
+        },
+        "generated": {
+          "usable": true,
+          "weak_reasons": [],
+          "fallbacks": []
+        }
+      }
+    },
+    "extra_type": {
+      "view_match_score": 0.8,
+      "dimension_match_score": 1.0,
+      "titlebar_match_score": 1.0,
+      "annotation_match_score": 1.0,
+      "layout_match_score": 1.0,
+      "overall_score": 0.95,
+      "status": "need_review",
+      "differences": [
+        {
+          "key": "view_count_higher_than_reference",
+          "severity": "need_review",
+          "reference": "2",
+          "generated": "3",
+          "fix_suggestion": "Remove extra generated views or prove the reference drawing requires an additional view."
+        },
+        {
+          "key": "view_type_extra_than_reference",
+          "severity": "need_review",
+          "reference": "[\"4\", \"7\"]",
+          "generated": "[\"3\", \"4\", \"7\"]",
+          "fix_suggestion": "Do not add section/detail/view families that are absent from the same-name reference drawing."
+        }
+      ],
+      "metric_quality": {
+        "reference": {
+          "usable": true,
+          "weak_reasons": [],
+          "annotation_evidence_skipped": []
+        },
+        "generated": {
+          "usable": true,
+          "weak_reasons": [],
+          "fallbacks": []
+        }
+      }
+    }
+  }
+}

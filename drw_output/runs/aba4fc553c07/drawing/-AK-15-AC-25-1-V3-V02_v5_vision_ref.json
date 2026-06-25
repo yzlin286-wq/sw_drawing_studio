@@ -1,0 +1,64 @@
+{
+  "score": 25,
+  "issues": [
+    {
+      "key": "dim_count_sufficient",
+      "severity": "warning",
+      "description": "全图有效标注尺寸数量为0，远低于要求的最低标注数量，完全无法指导生产",
+      "fix_suggestion": "补充该轴类零件全部定形、定位尺寸，标注格式符合GB/T 4458.4要求"
+    },
+    {
+      "key": "centermark_count_sufficient",
+      "severity": "warning",
+      "description": "中心标记仅1个，回转特征中心标记数量不足",
+      "fix_suggestion": "为所有圆孔、回转轴线特征添加符合国标的中心标记"
+    },
+    {
+      "key": "has_tech_note",
+      "severity": "warning",
+      "description": "技术要求放置位置不符合规范，未被规则正确识别",
+      "fix_suggestion": "将技术要求放置在标题栏左侧或图纸下方空白区域，保持逐条阿拉伯数字编号"
+    },
+    {
+      "key": "has_ra_note",
+      "severity": "warning",
+      "description": "粗糙度统一标注未被规则识别，标注位置不规范",
+      "fix_suggestion": "将其余粗糙度标注放置在标题栏右上角，标注格式符合GB/T 131-2006要求"
+    },
+    {
+      "key": "has_datum_a",
+      "severity": "warning",
+      "description": "未识别到基准A与相关形位公差标注",
+      "fix_suggestion": "根据零件功能需求，添加必要的形位公差与基准代号，符合GB/T 1182-2008要求"
+    },
+    {
+      "key": "refdoc_correct",
+      "severity": "warning",
+      "description": "引用文档名称不匹配，存在4项错误引用",
+      "fix_suggestion": "核对本零件编号，修正所有关联引用文档的名称与属性"
+    },
+    {
+      "key": "gb_titlebar_complete",
+      "severity": "warning",
+      "description": "标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段",
+      "fix_suggestion": "补全标题栏所有核心必填字段，符合国标标题栏规范要求"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "severity": "warning",
+      "description": "本零件要求添加剖视图但未设置",
+      "fix_suggestion": "根据零件内部结构表达需求，添加符合GB/T 17452要求的剖视图"
+    }
+  ],
+  "summary": "本工程图存在标题栏核心字段缺失、无任何标注尺寸、缺少剖视图等严重缺陷，不符合GB机械制图规范，需全面整改",
+  "png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aba4fc553c07\\drawing\\-AK-15-AC-25-1-V3-V02_v5_vision_ref.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":25,\"issues\":[{\"key\":\"dim_count_sufficient\",\"desc\":\"全图有效标注尺寸数量为0，远低于要求的最低标注数量，完全无法指导生产\",\"fix\":\"补充该轴类零件全部定形、定位尺寸，标注格式符合GB/T 4458.4要求\"},{\"key\":\"centermark_count_sufficient\",\"desc\":\"中心标记仅1个，回转特征中心标记数量不足\",\"fix\":\"为所有圆孔、回转轴线特征添加符合国标的中心标记\"},{\"key\":\"has_tech_note\",\"desc\":\"技术要求放置位置不符合规范，未被规则正确识别\",\"fix\":\"将技术要求放置在标题栏左侧或图纸下方空白区域，保持逐条阿拉伯数字编号\"},{\"key\":\"has_ra_note\",\"desc\":\"粗糙度统一标注未被规则识别，标注位置不规范\",\"fix\":\"将其余粗糙度标注放置在标题栏右上角，标注格式符合GB/T 131-2006要求\"},{\"key\":\"has_datum_a\",\"desc\":\"未识别到基准A与相关形位公差标注\",\"fix\":\"根据零件功能需求，添加必要的形位公差与基准代号，符合GB/T 1182-2008要求\"},{\"key\":\"refdoc_correct\",\"desc\":\"引用文档名称不匹配，存在4项错误引用\",\"fix\":\"核对本零件编号，修正所有关联引用文档的名称与属性\"},{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段\",\"fix\":\"补全标题栏所有核心必填字段，符合国标标题栏规范要求\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"本零件要求添加剖视图但未设置\",\"fix\":\"根据零件内部结构表达需求，添加符合GB/T 17452要求的剖视图\"}],\"summary\":\"本工程图存在标题栏核心字段缺失、无任何标注尺寸、缺少剖视图等严重缺陷，不符合GB机械制图规范，需全面整改\",\"reference_diff\":null}",
+  "error": "",
+  "reference_diff": null,
+  "reference_png": null,
+  "threshold": 60,
+  "pass": false,
+  "image_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aba4fc553c07\\drawing\\-AK-15-AC-25-1-V3-V02_v5_vision_ref.png",
+  "model": "doubao-seed-2.0-pro"
+}

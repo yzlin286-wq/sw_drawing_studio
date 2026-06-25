@@ -1,0 +1,123 @@
+{
+  "version": "v1.8",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8dbae325a25a\\qc\\LB26001-A-04-035_v5_qc.json",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8dbae325a25a\\drawing\\LB26001-A-04-035_v5.PNG",
+  "issues": [
+    {
+      "key": "titlebar_gb_incomplete",
+      "severity": "minor",
+      "bbox": [
+        0.7,
+        0.85,
+        0.3,
+        0.15
+      ],
+      "description": "标题栏不符合 GB 标准完整性要求",
+      "fix_suggestion": "按 GB/T 10609.1 补全标题栏字段",
+      "auto_fix_available": true,
+      "source": "geometry_qc",
+      "confidence": 0.8,
+      "evidence": {
+        "description": "标题栏不符合 GB 标准完整性要求"
+      },
+      "human_review_status": "pending"
+    },
+    {
+      "key": "dimension_insufficient",
+      "severity": "minor",
+      "bbox": [
+        0.1,
+        0.1,
+        0.8,
+        0.7
+      ],
+      "description": "尺寸数量低于制造图阈值: DisplayDim=4/5；tiny_part 已有 sidecar 三向尺寸证据，dimension_grade=B",
+      "fix_suggestion": "保留为警告；如需制造级出图，补充真实 DisplayDim 或人工复核确认。",
+      "auto_fix_available": false,
+      "source": "geometry_qc",
+      "confidence": 0.9,
+      "evidence": {
+        "part_class": "tiny_part",
+        "dimension_grade": "B",
+        "display_dim_count": 4,
+        "has_sidecar_evidence": true,
+        "policy": "tiny_or_long_thin_sidecar_dimension_warning"
+      },
+      "human_review_status": "pending"
+    },
+    {
+      "key": "annotation_no_tech_note",
+      "severity": "minor",
+      "bbox": [
+        0.1,
+        0.75,
+        0.5,
+        0.1
+      ],
+      "description": "缺少技术要求注释",
+      "fix_suggestion": "添加技术要求（如：未注公差按 GB/T 1804-m）",
+      "auto_fix_available": true,
+      "source": "geometry_qc",
+      "confidence": 0.8,
+      "evidence": {
+        "description": "缺少技术要求注释"
+      },
+      "human_review_status": "pending"
+    },
+    {
+      "key": "annotation_no_ra",
+      "severity": "minor",
+      "bbox": [
+        0.7,
+        0.05,
+        0.1,
+        0.05
+      ],
+      "description": "缺少表面粗糙度 Ra 标注",
+      "fix_suggestion": "在标题栏右上角标注 '其余 Ra=3.2'",
+      "auto_fix_available": true,
+      "source": "geometry_qc",
+      "confidence": 0.8,
+      "evidence": {
+        "description": "缺少表面粗糙度 Ra 标注"
+      },
+      "human_review_status": "pending"
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "critical": 0,
+    "major": 0,
+    "minor": 4,
+    "info": 0
+  },
+  "checks": {
+    "titlebar": {
+      "pass": true,
+      "issues": [
+        "titlebar_gb_incomplete"
+      ]
+    },
+    "layout": {
+      "pass": true,
+      "issues": []
+    },
+    "dimension": {
+      "pass": true,
+      "issues": [
+        "dimension_insufficient"
+      ]
+    },
+    "annotation": {
+      "pass": true,
+      "issues": [
+        "annotation_no_tech_note",
+        "annotation_no_ra"
+      ]
+    },
+    "readability": {
+      "pass": true,
+      "issues": []
+    }
+  }
+}

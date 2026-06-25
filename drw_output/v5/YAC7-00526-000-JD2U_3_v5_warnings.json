@@ -1,0 +1,179 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_3.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    }
+  ],
+  "issues_in": [
+    "scale_in_set",
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "gb_scale_in_extended_set"
+  ],
+  "scale": "1:2",
+  "bbox_m": [
+    0.0004879549157028001,
+    9.99999999999994e-05,
+    0.00048795491570280056
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.0798780112710743,
+      0.13997500000000002,
+      0.0801219887289257,
+      0.140025
+    ],
+    "top": [
+      0.0798780112710743,
+      0.0798780112710743,
+      0.0801219887289257,
+      0.0801219887289257
+    ],
+    "right": [
+      0.1798780112710743,
+      0.13997500000000002,
+      0.18012198872892568,
+      0.140025
+    ],
+    "iso": [
+      0.22991460788975202,
+      0.179914607889752,
+      0.230085392110248,
+      0.180085392110248
+    ]
+  },
+  "real_outlines_m": {
+    "front": [
+      0.0756780112710743,
+      0.135775,
+      0.0843219887289257,
+      0.14422500000000002
+    ],
+    "top": [
+      0.0756780112710743,
+      0.0756780112710743,
+      0.0843219887289257,
+      0.0843219887289257
+    ],
+    "right": [
+      0.1756780112710743,
+      0.135775,
+      0.1843219887289257,
+      0.14422500000000002
+    ],
+    "iso": [
+      0.22562748188509663,
+      0.17567999389185696,
+      0.2343725181149034,
+      0.18432000610814303
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

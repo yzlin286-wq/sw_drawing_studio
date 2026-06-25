@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "LB26001-A-04-006": {
+      "base": "LB26001-A-04-006",
+      "view_count": 1,
+      "view_types": {
+        "7": 1
+      },
+      "display_dim_count": 1,
+      "normalized_notes": [],
+      "roughness_symbols": [],
+      "datum_symbols": []
+    }
+  }
+}

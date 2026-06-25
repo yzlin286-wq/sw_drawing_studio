@@ -1,0 +1,201 @@
+{
+  "version": "v2.1",
+  "timestamp": "2026-06-20 18:24:44",
+  "checks": {
+    "v21_modules": {
+      "pass": true,
+      "modules": [
+        "app.services.pmi_seed_service",
+        "app.services.blueprint_decision_service",
+        "app.services.health_check",
+        "app.services.vision_qc_v3",
+        "app.services.docmgr_service",
+        "app.services.sw_addin_client",
+        "app.services.final_quality",
+        "app.ui.drawing_review_workbench"
+      ]
+    },
+    "health_check_16": {
+      "pass": false,
+      "total": 16,
+      "pass_count": 8,
+      "warning_count": 7,
+      "fail_count": 1,
+      "has_v21_keys": true,
+      "v21_keys_present": [
+        "opencv",
+        "ultralytics",
+        "ocr",
+        "vision_model"
+      ]
+    },
+    "blueprint_rules_v21": {
+      "pass": true,
+      "expected": [
+        "default",
+        "feature_part",
+        "long_thin",
+        "tiny_part",
+        "fastener",
+        "spring",
+        "purchased_part",
+        "sheet_metal",
+        "weldment",
+        "imported_body",
+        "sheet_like"
+      ],
+      "found": [
+        "default",
+        "feature_part",
+        "long_thin",
+        "tiny_part",
+        "fastener",
+        "spring",
+        "purchased_part",
+        "sheet_metal",
+        "weldment",
+        "imported_body",
+        "sheet_like"
+      ],
+      "count": 11,
+      "classes_with_detail": [
+        "default",
+        "feature_part",
+        "long_thin",
+        "tiny_part",
+        "fastener",
+        "spring",
+        "purchased_part",
+        "sheet_metal",
+        "weldment",
+        "imported_body",
+        "sheet_like"
+      ],
+      "classes_missing_detail": []
+    },
+    "blueprint_decision_service": {
+      "pass": true,
+      "part_class": "feature_part",
+      "dimension_policy": "full",
+      "required_dims": [
+        "overall_length",
+        "overall_width",
+        "overall_height",
+        "hole_diameter",
+        "hole_position",
+        "fillet_radius",
+        "chamfer"
+      ],
+      "vision_policy": "strict"
+    },
+    "vision_qc_v3_fields": {
+      "pass": true,
+      "mode": "fallback",
+      "vqc_files_total": 1,
+      "vqc_files_with_mode": 0,
+      "vqc_files_with_fallback_used": 0,
+      "vqc_files_with_real_issues": 0,
+      "sample_issue": null
+    },
+    "final_quality_manual_review": {
+      "pass": true,
+      "status": "pass_with_manual_review",
+      "has_manual_review": true,
+      "deliverable": true,
+      "version": "v2.1"
+    },
+    "ui_workbench_v21": {
+      "pass": true,
+      "methods_checked": [
+        "_on_addin_dimension",
+        "_on_docmgr_relink",
+        "_on_vision_qc_v3",
+        "_on_manual_confirm",
+        "_on_diag_pack",
+        "_start_worker",
+        "_handle_service_result",
+        "_load_dimension_policy",
+        "_update_manifest_with_human_review"
+      ],
+      "missing_methods": [],
+      "worker_class_exists": true
+    },
+    "docmgr_dry_run_apply": {
+      "pass": true,
+      "has_mode_param": true,
+      "default_mode": "dry_run",
+      "has_relink_cfg": true
+    },
+    "addin_v3_methods": {
+      "pass": true,
+      "generate_dimensions_v3_params": [
+        "drawing_path",
+        "part_path",
+        "run_dir",
+        "run_id",
+        "policy"
+      ],
+      "seed_pmi_params": [
+        "part_path",
+        "run_dir",
+        "run_id"
+      ],
+      "extract_view_entities_v2_params": [
+        "drawing_path",
+        "view_names",
+        "run_dir",
+        "run_id"
+      ]
+    },
+    "core_12_and_targets": {
+      "pass": true,
+      "total_runs": 27,
+      "deliverable": 26,
+      "core_12_pass": true,
+      "display_dim_positive": 4,
+      "display_dim_pass": true,
+      "addin_created_dim_positive": 4,
+      "addin_created_pass": true,
+      "png_missing": 0,
+      "png_pass": true,
+      "view_overlap_total": 0,
+      "view_overlap_pass": true,
+      "small_parts_c": 10,
+      "vqc3_count": 0,
+      "blueprint_decision_count": 0,
+      "human_review_count": 0,
+      "targets_info": [
+        {
+          "base": "LB26001-A-04-002",
+          "display_dim_count": 12,
+          "addin_created_dim_count": 1,
+          "source": "v2.1"
+        },
+        {
+          "base": "LB26001-A-04-003",
+          "display_dim_count": 6,
+          "addin_created_dim_count": 1,
+          "source": "v2.1"
+        },
+        {
+          "base": "LB26001-A-04-007",
+          "display_dim_count": 8,
+          "addin_created_dim_count": 1,
+          "source": "v2.1"
+        },
+        {
+          "base": "LB26001-A-04-009",
+          "display_dim_count": 4,
+          "addin_created_dim_count": 1,
+          "source": "v2.1"
+        }
+      ]
+    },
+    "build_spec_v21": {
+      "pass": true,
+      "v21_modules_present": true,
+      "v21_datas_present": true
+    }
+  },
+  "overall_pass": false
+}

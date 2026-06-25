@@ -1,0 +1,42 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 01:49:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/1492e0377567",
+      "generated_png_source": "explicit_override_from_fresh_drw_output_v5_after_staged_worker_copy_failure",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "need_review",
+        "dimension": "fail",
+        "reference": "fail",
+        "reference_style": "pass",
+        "reference_compare_v4": "fail",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "Reference-intent scoring improved the generated drawing: the right projected-view dimensions are present and top/front dimensions are closer to a manufacturing drawing than the prior AutoDimension-like baseline cluster.",
+        "The drawing is still not acceptable: the angled 2 X R2 / M4-6H / note-style callout stack overlaps the top view and obscures the hole-position area.",
+        "The generated dimension presentation remains heavier and less concise than the same-name reference drawing; a drafter would still need manual cleanup before manufacturing release.",
+        "The staged worker also failed after generation because legacy quality_check hit SolidWorks OpenDoc6 RPC failure, so this screenshot is visual evidence for a fresh generated PNG but not a deliverable PASS."
+      ],
+      "improvement_evidence": {
+        "previous_run": "drw_output/runs/093ab290e2c9",
+        "current_run": "drw_output/runs/1492e0377567",
+        "fresh_generated_png": "drw_output/v5/LB26001-A-04-006_v5.PNG",
+        "reference_intent_score_reported": true,
+        "final_display_dim_count_from_generator_warning": 12
+      },
+      "required_next_action": "Route hole/radius/thread callouts into a dedicated non-overlap leader lane outside the top-view box, then rerun 006 staged CAD and repeat application UI screenshot review."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

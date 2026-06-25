@@ -1,0 +1,249 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-050.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "first_angle_views_pending_unbound",
+      "method": "Create1stAngleViews2",
+      "msg": "method succeeded but bind delayed; views=0 before=0 projected=0"
+    },
+    {
+      "code": "first_angle_views_still_unbound",
+      "msg": "views=0 projected=0"
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "OK",
+      "key": "section_view_exempt_reference_style",
+      "msg": "同名参考图未使用剖视图；已按参考图跳过自动剖视，保持视图数量一致"
+    },
+    {
+      "code": "reference_autodim_no_increase",
+      "before": 0,
+      "after": 0,
+      "reference_display_dim_floor": 21
+    },
+    {
+      "code": "part_class",
+      "msg": "feature_part: default; history dim_total=0 (suspect imported_body)"
+    },
+    {
+      "code": "dim_via_sidecar",
+      "msg": "ok",
+      "annotations_added": 3,
+      "standard_annotation_present": false,
+      "fallback_mode": "python_invoke_member"
+    },
+    {
+      "code": "reference_display_dim_floor_unmet",
+      "msg": "DisplayDim 0 < reference 21; gap=21",
+      "reference_display_dim_floor": 21,
+      "generated_display_dim_count": 0
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [],
+  "scale": "5:1",
+  "bbox_m": [
+    0.08750999383000001,
+    0.05840000848499449,
+    0.005000000000000001
+  ],
+  "centers_m": {
+    "front": [
+      0.092499,
+      0.150675
+    ],
+    "top": [
+      0.092499,
+      0.081113
+    ],
+    "right": [
+      0.234381,
+      0.105394
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.048744003084999994,
+      0.12147499575750276,
+      0.136253996915,
+      0.17987500424249725
+    ],
+    "top": [
+      0.048744003084999994,
+      0.078613,
+      0.136253996915,
+      0.083613
+    ],
+    "right": [
+      0.231881,
+      0.07619399575750276,
+      0.236881,
+      0.13459400424249723
+    ]
+  },
+  "real_outlines_m": {
+    "工程图视图1": [
+      0.04454400308499999,
+      0.11727499575750276,
+      0.14045399691500002,
+      0.18407500424249726
+    ],
+    "工程图视图2": [
+      0.04454400308499999,
+      0.07441299999999991,
+      0.14045399691500002,
+      0.0878130000000001
+    ],
+    "工程图视图3": [
+      0.22768099999999986,
+      0.07199399575750276,
+      0.24108100000000016,
+      0.13879400424249724
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": false,
+  "section_view": false,
+  "display_dim_count_before_sidecar": 0,
+  "display_dim_count_final": 0,
+  "reference_autodim": {
+    "applied": false,
+    "before": 0,
+    "after": 0,
+    "calls_used": 2,
+    "attempts": [
+      {
+        "view": "front",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.092499,
+          0.150675
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.092499,0.150675",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 0,
+            "after": 0,
+            "delta": 0
+          }
+        ]
+      },
+      {
+        "view": "top",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.092499,
+          0.081113
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.092499,0.081113",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 0,
+            "after": 0,
+            "delta": 0
+          }
+        ]
+      }
+    ]
+  },
+  "reference_dim_prune": {
+    "enabled": true,
+    "cap": 32,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": true,
+        "errors": 0,
+        "warnings": 0,
+        "method": "Extension.SaveAs"
+      },
+      "open_errors": 0,
+      "open_warnings": 0
+    },
+    "prune": {
+      "cap": 32,
+      "before": 32,
+      "after": 32,
+      "deleted": 0,
+      "attempted": 0,
+      "success": true,
+      "reasons": []
+    },
+    "save": {},
+    "success": true
+  },
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

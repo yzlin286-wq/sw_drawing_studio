@@ -1,0 +1,17 @@
+{
+  "work_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\e37f286e4ab0\\input_work\\LB26001-A-04-002_seed.SLDPRT",
+  "seed_dim_count": 0,
+  "bbox": {
+    "xmin": -0.205,
+    "ymin": 0.0,
+    "zmin": -0.006,
+    "xmax": 0.205,
+    "ymax": 0.015,
+    "zmax": 0.006
+  },
+  "overall_length": 0.41,
+  "overall_width": 0.015,
+  "overall_height": 0.012,
+  "success": true,
+  "error": ""
+}

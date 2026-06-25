@@ -1,0 +1,253 @@
+{
+  "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+  "generated_at": "2026-06-22 20:46:49",
+  "mode": "source_qt_application_ui_screenshot",
+  "summary": "drw_output\\staged_validation\\LB26001_ref6_current_20260622\\summary.json",
+  "out_dir": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622",
+  "total": 6,
+  "screenshot_pass": true,
+  "image_inputs_loaded": true,
+  "pass": true,
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 28,
+        "avg_luma": 241.72,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5f4ad69a6442",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-007.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5f4ad69a6442\\drawing\\LB26001-A-04-007_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\02_LB26001-A-04-007_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 29,
+        "avg_luma": 241.52,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-008.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43\\drawing\\LB26001-A-04-008_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\03_LB26001-A-04-008_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 31,
+        "avg_luma": 241.09,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass_with_warning",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": [
+          "qc_dimension_fallback_not_displaydim"
+        ]
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fca65cb67b3d",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-009.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fca65cb67b3d\\drawing\\LB26001-A-04-009_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\04_LB26001-A-04-009_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 29,
+        "avg_luma": 241.53,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5519ec098ec6",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-015.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5519ec098ec6\\drawing\\LB26001-A-04-015_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\05_LB26001-A-04-015_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 28,
+        "avg_luma": 241.42,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\90f4733ef751",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-022.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\90f4733ef751\\drawing\\LB26001-A-04-022_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\comparison_images\\06_LB26001-A-04-022_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_20260622\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 5950689,
+        "width": 1800,
+        "height": 1100,
+        "sample_unique_colors": 32,
+        "avg_luma": 241.42,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    }
+  ],
+  "remaining_gates": [
+    "Manual visual judgement still must mark each drawing PASS/WARNING/FAIL.",
+    "This is source-level application UI evidence, not EXE-level Windows robot evidence."
+  ]
+}

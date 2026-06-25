@@ -1,0 +1,37 @@
+{
+  "version": "v1.7",
+  "success": true,
+  "status": "ok",
+  "msg": "",
+  "reason": "",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-016_v5.SLDDRW",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-016.SLDPRT",
+  "part_class": "tiny_part",
+  "annotations_added": 4,
+  "overall_length": 53.99999800000167,
+  "overall_width": 17.3,
+  "overall_height": 13.000000000000108,
+  "fastener_spec": "",
+  "spring_spec": "",
+  "standard_annotation_present": false,
+  "dimension_count_before": 0,
+  "dimension_count_after": 0,
+  "fallback_mode": "python_invoke_member",
+  "dimension_sources": {
+    "overall_length": {
+      "source": "bbox_note",
+      "value": 53.99999800000167,
+      "type": "note"
+    },
+    "overall_width": {
+      "source": "bbox_note",
+      "value": 17.3,
+      "type": "note"
+    },
+    "overall_height": {
+      "source": "bbox_note",
+      "value": 13.000000000000108,
+      "type": "note"
+    }
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\eacfb3cbe84b\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "out_root": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435",
+  "results": [
+    {
+      "combo": [
+        0,
+        1
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 14,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_2.SLDDRW"
+    },
+    {
+      "combo": [
+        0,
+        2
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 9,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_3.SLDDRW"
+    },
+    {
+      "combo": [
+        0,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 25,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_4.SLDDRW"
+    },
+    {
+      "combo": [
+        1,
+        2
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 11,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_2_3.SLDDRW"
+    },
+    {
+      "combo": [
+        1,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 28,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_2_4.SLDDRW"
+    },
+    {
+      "combo": [
+        2,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 23,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_3_4.SLDDRW"
+    },
+    {
+      "combo": [
+        0,
+        1,
+        2
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 17,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_2_3.SLDDRW"
+    },
+    {
+      "combo": [
+        0,
+        1,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 34,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_2_4.SLDDRW"
+    },
+    {
+      "combo": [
+        0,
+        2,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 0,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 29,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_1_3_4.SLDDRW"
+    },
+    {
+      "combo": [
+        1,
+        2,
+        3
+      ],
+      "save_errors": 0,
+      "save_warnings": 0,
+      "calls": [
+        {
+          "idx": 1,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 2,
+          "selected": true,
+          "returned": "1"
+        },
+        {
+          "idx": 3,
+          "selected": true,
+          "returned": "1"
+        }
+      ],
+      "display_dim_count": 30,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\combo_autodim_20260622_145435\\combo_2_3_4.SLDDRW"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[2026-06-18 20:47:52] === Full pipeline start ===
+[2026-06-18 20:47:52] strategy=v6_recommended
+[2026-06-18 20:47:52] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB25006_N4RX0(Chengdu)_6U2(1X6)_FCT_Fixture_NVME_V01^2U.2硬盘转卡-V02.SLDPRT
+[2026-06-18 20:47:52] sw_revision=33.5.0
+[2026-06-18 20:47:52] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 20:49:27] qc_loop exit_code=0
+[2026-06-18 20:49:30] bom rows=1
+[2026-06-18 20:49:30] === Full pipeline done. drawing_usable=False ===

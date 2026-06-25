@@ -1,0 +1,8 @@
+{
+  "connected": false,
+  "sw_pid": null,
+  "revision": null,
+  "active_doc": null,
+  "transaction_status": "not_started",
+  "diagnostics_sample": true
+}

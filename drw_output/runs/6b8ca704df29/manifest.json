@@ -1,0 +1,49 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "part_base": "LB26001-A-04-006",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\6b8ca704df29",
+  "generated_at": "2026-06-22 09:34:56",
+  "returncode": 1,
+  "line_count": 22,
+  "core_files_ok": false,
+  "drawing_usable": {
+    "pass": false,
+    "reason": "SolidWorks COM active object did not respond within the bounded probe."
+  },
+  "hard_fail": [
+    "solidworks_com_active_object_timeout",
+    "subprocess_failed"
+  ],
+  "warnings": [],
+  "qc_pass": false,
+  "qc_score_pass_count": 0,
+  "dimension_grade": "",
+  "dimension_sources": {},
+  "display_dim_count": 0,
+  "note_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {},
+  "final_quality": {},
+  "vision_final_quality_error": "skipped_on_worker_failure",
+  "output_files": {
+    "drawing": [],
+    "qc": [],
+    "logs": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\6b8ca704df29\\manifest.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\6b8ca704df29\\sw_session.json"
+    ]
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\6b8ca704df29\\sw_session.json",
+  "failure_reason": "SolidWorks COM active object did not respond within the bounded probe.",
+  "failure_bucket": "solidworks_com_active_object_timeout",
+  "fix_suggestion": "请先保存 SolidWorks 中的未保存文档，关闭可能阻塞的对话框；如仍不响应，请重启 SolidWorks 后重新运行 006 样张修正测试。",
+  "recoverable": true,
+  "failure_evidence": [
+    "[sw_connect] active probe status=timeout reason=GetActiveObject probe timed out after 15s revision=",
+    "solidworks_active_object_timeout: GetActiveObject probe timed out after 15s"
+  ]
+}

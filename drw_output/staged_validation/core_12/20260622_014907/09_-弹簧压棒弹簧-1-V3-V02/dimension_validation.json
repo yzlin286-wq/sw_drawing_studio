@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-06-22 03:17:14",
+  "mode": "dimension_validation_smoke_v3",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d",
+  "drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.SLDDRW",
+  "png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.PNG",
+  "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\-弹簧压棒弹簧-1-V3-V02_v5_qc.json",
+  "final_quality_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\final_quality.json",
+  "source_separation": {
+    "display_dim_source": "qc.display_dim_count / dimension_sources.display_dim_count",
+    "note_dim_source": "qc.note_dim_count / dimension_sources.note_dim_count",
+    "notes_counted_as_display_dim": false,
+    "model_associative_source": "qc.model_associative_dim_count",
+    "source_summary": [
+      "sidecar_note=5",
+      "standard_annotation=true"
+    ]
+  },
+  "dimension_validation": {
+    "display_dim_count": 0,
+    "addin_created_dim_count": 0,
+    "existing_display_dim_count": 0,
+    "model_associative_dim_count": 0,
+    "note_dim_count": 5,
+    "standard_annotation_count": 1,
+    "overall_length": true,
+    "overall_width": true,
+    "overall_height": true,
+    "hole_diameter": false,
+    "hole_location": false,
+    "dimension_text_readable": true,
+    "dimension_overlap": false,
+    "dimension_grade": "C",
+    "usable_for": [
+      "procurement",
+      "assembly"
+    ],
+    "part_class": "spring",
+    "dimension_evidence_policy": "procurement_standard_annotation",
+    "has_dimension_evidence": true,
+    "blocking_reasons": [],
+    "warnings": [
+      "display_dim_zero_allowed_by_policy:procurement_standard_annotation",
+      "gb_has_section_view_or_skipped",
+      "gb_titlebar_complete",
+      "has_datum_a",
+      "has_ra_note",
+      "model_associative_dim_count_zero",
+      "note_dimensions_present_not_counted_as_display_dim",
+      "titlebar_complete"
+    ]
+  },
+  "final_quality_status": "pass_with_warning",
+  "final_quality_deliverable": true,
+  "status": "pass_with_warning",
+  "pass": true,
+  "reasons": [],
+  "fix_suggestions": [
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Run Add-in Dimension / associative dimension generation for model_associative_dim_count_zero.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json."
+  ]
+}

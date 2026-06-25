@@ -1,0 +1,8 @@
+[2026-06-18 19:57:02] === Full pipeline start ===
+[2026-06-18 19:57:02] strategy=v6_recommended
+[2026-06-18 19:57:02] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\ABSORBER_2-1-SOLID2.SLDPRT
+[2026-06-18 19:57:02] sw_revision=33.5.0
+[2026-06-18 19:57:02] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 19:58:43] qc_loop exit_code=0
+[2026-06-18 19:58:45] bom rows=1
+[2026-06-18 19:58:45] === Full pipeline done. drawing_usable=False ===

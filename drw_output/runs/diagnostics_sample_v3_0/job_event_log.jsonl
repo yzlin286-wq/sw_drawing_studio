@@ -1,0 +1,3 @@
+{"type": "job_started", "job_id": "diagnostics_sample_v3_0", "stage": "diagnostics_sample"}
+{"type": "progress", "job_id": "diagnostics_sample_v3_0", "percent": 100}
+{"type": "job_finished", "job_id": "diagnostics_sample_v3_0", "status": "sample"}

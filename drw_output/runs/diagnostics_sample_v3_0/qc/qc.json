@@ -1,0 +1,6 @@
+{
+  "pass": false,
+  "checks": [
+    "diagnostics_sample"
+  ]
+}

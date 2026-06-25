@@ -1,0 +1,84 @@
+{
+  "schema": "sw_drawing_studio.reference_annotation_probe.v1",
+  "source": "pywin32_annotation_probe",
+  "generated_at": "2026-06-22 21:59:23",
+  "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7786247413ed\\drawing\\LB26001-A-04-007_v5.SLDDRW",
+  "exists": true,
+  "success": true,
+  "reason": "",
+  "view_count": 5,
+  "view_types": {
+    "1": 1,
+    "7": 2,
+    "4": 2
+  },
+  "view_names": [
+    "图纸1",
+    "工程图视图1",
+    "工程图视图2",
+    "工程图视图3",
+    "工程图视图4"
+  ],
+  "view_outlines": [
+    {
+      "name": "图纸1",
+      "type": "1",
+      "outline": [
+        0.0,
+        0.0,
+        0.297,
+        0.21
+      ]
+    },
+    {
+      "name": "工程图视图1",
+      "type": "7",
+      "outline": [
+        0.07588500000000001,
+        0.13480399999999998,
+        0.113985,
+        0.172904
+      ]
+    },
+    {
+      "name": "工程图视图2",
+      "type": "4",
+      "outline": [
+        0.07588500000000001,
+        0.06667999999999995,
+        0.113985,
+        0.09908000000000004
+      ]
+    },
+    {
+      "name": "工程图视图3",
+      "type": "4",
+      "outline": [
+        0.13206199999999993,
+        0.13480399999999998,
+        0.16446200000000008,
+        0.172904
+      ]
+    },
+    {
+      "name": "工程图视图4",
+      "type": "7",
+      "outline": [
+        0.1682041829251412,
+        0.07745409004227675,
+        0.21457581707485882,
+        0.13202590995772326
+      ]
+    }
+  ],
+  "display_dim_count": 10,
+  "display_dim_annotation_count": 0,
+  "display_dim_count_source": "annotation_type1",
+  "annotation_count": 0,
+  "warnings": [],
+  "open_errors": 0,
+  "open_warnings": 128,
+  "sheet": {},
+  "file_size_bytes": 90135,
+  "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-007_generated_annotation_probe.json"
+}

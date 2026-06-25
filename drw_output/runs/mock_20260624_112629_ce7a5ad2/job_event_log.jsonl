@@ -1,0 +1,5 @@
+{"event_type": "job_started", "type": "job_started", "job_id": "ce7a5ad2", "timestamp": "2026-06-24T11:26:29", "data": {"job_type": "mock", "scenario": "normal_pass", "duration_s": 0.2}, "message": "Mock job started: normal_pass"}
+{"event_type": "progress", "type": "progress", "job_id": "ce7a5ad2", "timestamp": "2026-06-24T11:26:29", "data": {"progress": 0.5, "stage": "mock_step_1/2"}, "message": "Mock progress 50%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "ce7a5ad2", "timestamp": "2026-06-24T11:26:29", "data": {"ts": 1782271589.8172631}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "ce7a5ad2", "timestamp": "2026-06-24T11:26:29", "data": {"progress": 1.0, "stage": "mock_step_2/2"}, "message": "Mock progress 100%"}
+{"event_type": "job_finished", "type": "job_finished", "job_id": "ce7a5ad2", "timestamp": "2026-06-24T11:26:29", "data": {"result": {"ok": true, "scenario": "normal_pass", "duration_s": 0.2}}, "message": "Mock job finished"}

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-06-20 20:05:53",
+  "results": [
+    {
+      "base": "LB26001-A-04-024",
+      "status": "not_deliverable",
+      "returncode": 0,
+      "elapsed_s": 656.8,
+      "files": {
+        "slddrw": true,
+        "pdf": true,
+        "dxf": true,
+        "png": false,
+        "qc_json": true
+      },
+      "core_files_ok": false,
+      "deliverable": false,
+      "qc_pass": false,
+      "qc_score": 9
+    },
+    {
+      "base": "LB26001-A-04-040",
+      "status": "deliverable",
+      "returncode": 0,
+      "elapsed_s": 74.5,
+      "files": {
+        "slddrw": true,
+        "pdf": true,
+        "dxf": true,
+        "png": true,
+        "qc_json": true
+      },
+      "core_files_ok": true,
+      "deliverable": true,
+      "qc_pass": false,
+      "qc_score": 10
+    }
+  ],
+  "deliverable_count": 1,
+  "pass": true
+}

@@ -1,0 +1,57 @@
+{"event_type": "job_started", "type": "job_started", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"job_type": "mock", "scenario": "normal_pass", "duration_s": 5.0}, "message": "Mock job started: normal_pass"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.02, "stage": "mock_step_1/50"}, "message": "Mock progress 2%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"ts": 1782185081.183132}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.04, "stage": "mock_step_2/50"}, "message": "Mock progress 4%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.06, "stage": "mock_step_3/50"}, "message": "Mock progress 6%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.08, "stage": "mock_step_4/50"}, "message": "Mock progress 8%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.1, "stage": "mock_step_5/50"}, "message": "Mock progress 10%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.12, "stage": "mock_step_6/50"}, "message": "Mock progress 12%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.14, "stage": "mock_step_7/50"}, "message": "Mock progress 14%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.16, "stage": "mock_step_8/50"}, "message": "Mock progress 16%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:41", "data": {"progress": 0.18, "stage": "mock_step_9/50"}, "message": "Mock progress 18%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.2, "stage": "mock_step_10/50"}, "message": "Mock progress 20%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.22, "stage": "mock_step_11/50"}, "message": "Mock progress 22%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"ts": 1782185082.1871464}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.24, "stage": "mock_step_12/50"}, "message": "Mock progress 24%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.26, "stage": "mock_step_13/50"}, "message": "Mock progress 26%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.28, "stage": "mock_step_14/50"}, "message": "Mock progress 28%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.3, "stage": "mock_step_15/50"}, "message": "Mock progress 30%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.32, "stage": "mock_step_16/50"}, "message": "Mock progress 32%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.34, "stage": "mock_step_17/50"}, "message": "Mock progress 34%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.36, "stage": "mock_step_18/50"}, "message": "Mock progress 36%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:42", "data": {"progress": 0.38, "stage": "mock_step_19/50"}, "message": "Mock progress 38%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.4, "stage": "mock_step_20/50"}, "message": "Mock progress 40%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.42, "stage": "mock_step_21/50"}, "message": "Mock progress 42%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"ts": 1782185083.1916497}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.44, "stage": "mock_step_22/50"}, "message": "Mock progress 44%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.46, "stage": "mock_step_23/50"}, "message": "Mock progress 46%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.48, "stage": "mock_step_24/50"}, "message": "Mock progress 48%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.5, "stage": "mock_step_25/50"}, "message": "Mock progress 50%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.52, "stage": "mock_step_26/50"}, "message": "Mock progress 52%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.54, "stage": "mock_step_27/50"}, "message": "Mock progress 54%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.56, "stage": "mock_step_28/50"}, "message": "Mock progress 56%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:43", "data": {"progress": 0.58, "stage": "mock_step_29/50"}, "message": "Mock progress 58%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.6, "stage": "mock_step_30/50"}, "message": "Mock progress 60%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.62, "stage": "mock_step_31/50"}, "message": "Mock progress 62%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"ts": 1782185084.1966703}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.64, "stage": "mock_step_32/50"}, "message": "Mock progress 64%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.66, "stage": "mock_step_33/50"}, "message": "Mock progress 66%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.68, "stage": "mock_step_34/50"}, "message": "Mock progress 68%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.7, "stage": "mock_step_35/50"}, "message": "Mock progress 70%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.72, "stage": "mock_step_36/50"}, "message": "Mock progress 72%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.74, "stage": "mock_step_37/50"}, "message": "Mock progress 74%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:44", "data": {"progress": 0.76, "stage": "mock_step_38/50"}, "message": "Mock progress 76%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.78, "stage": "mock_step_39/50"}, "message": "Mock progress 78%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.8, "stage": "mock_step_40/50"}, "message": "Mock progress 80%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.82, "stage": "mock_step_41/50"}, "message": "Mock progress 82%"}
+{"event_type": "heartbeat", "type": "heartbeat", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"ts": 1782185085.2012858}, "message": "mock alive"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.84, "stage": "mock_step_42/50"}, "message": "Mock progress 84%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.86, "stage": "mock_step_43/50"}, "message": "Mock progress 86%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.88, "stage": "mock_step_44/50"}, "message": "Mock progress 88%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.9, "stage": "mock_step_45/50"}, "message": "Mock progress 90%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.92, "stage": "mock_step_46/50"}, "message": "Mock progress 92%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.94, "stage": "mock_step_47/50"}, "message": "Mock progress 94%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:45", "data": {"progress": 0.96, "stage": "mock_step_48/50"}, "message": "Mock progress 96%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:46", "data": {"progress": 0.98, "stage": "mock_step_49/50"}, "message": "Mock progress 98%"}
+{"event_type": "progress", "type": "progress", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:46", "data": {"progress": 1.0, "stage": "mock_step_50/50"}, "message": "Mock progress 100%"}
+{"event_type": "job_finished", "type": "job_finished", "job_id": "1c2657bd", "timestamp": "2026-06-23T11:24:46", "data": {"result": {"ok": true, "scenario": "normal_pass", "duration_s": 5.0}}, "message": "Mock job finished"}

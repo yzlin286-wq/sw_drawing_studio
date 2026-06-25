@@ -1,0 +1,31 @@
+{
+  "version": "v2.1",
+  "status": "pass_with_warning",
+  "reason": "通过但有 warning (geo=9, vision=5)",
+  "conflict": false,
+  "conflict_reason": "",
+  "deliverable": true,
+  "has_manual_review": false,
+  "manual_review": {},
+  "geo_qc": {
+    "pass": true,
+    "hard_fail": [],
+    "warnings_count": 9,
+    "drawing_usable_pass": true,
+    "dimension_grade": "B",
+    "usable_for": [
+      "manufacturing",
+      "assembly",
+      "procurement"
+    ]
+  },
+  "vision_qc": {
+    "pass": true,
+    "critical": 0,
+    "major": 0,
+    "minor": 5,
+    "total_issues": 5
+  },
+  "drawing_accuracy_score": 68,
+  "recommendation": "图纸可用，建议复核 warning 项后交付"
+}

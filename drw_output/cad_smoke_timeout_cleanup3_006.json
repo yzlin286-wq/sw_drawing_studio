@@ -1,0 +1,613 @@
+{
+  "generated_at": "2026-06-22 08:57:50",
+  "mode": "real_cad_smoke_v3",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "job_id": "5b1cd17c",
+  "started_at_epoch": 1782089844.7683723,
+  "finished_at_epoch": 1782089870.0034988,
+  "duration_s": 25.2,
+  "status": {
+    "job_id": "5b1cd17c",
+    "part_name": "LB26001-A-04-006",
+    "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+    "job_type": "cad",
+    "status": "cancelled",
+    "priority": 1,
+    "created_at": "2026-06-22T08:57:24",
+    "started_at": "2026-06-22T08:57:24",
+    "finished_at": "2026-06-22T08:57:50",
+    "duration_s": 26.0,
+    "retry_count": 0,
+    "max_retries": 3,
+    "timeout_s": 5,
+    "sw_pid": 30896,
+    "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+    "run_id": "8901430cd760",
+    "error": "子进程退出码: 1",
+    "progress": 0.1,
+    "stage": "出图中 (lines=10)",
+    "result": {
+      "max_rounds": 1,
+      "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+      "titlebar_overrides": {},
+      "strategy": "v6_recommended"
+    },
+    "last_event": "warning"
+  },
+  "terminal": {
+    "finished": false,
+    "failed": true,
+    "timeout": true,
+    "reason": "validator timeout after 25s",
+    "job_id": "5b1cd17c",
+    "error": {
+      "error": "子进程退出码: 1"
+    }
+  },
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+  "event_types": [
+    "heartbeat",
+    "job_started",
+    "progress",
+    "warning"
+  ],
+  "event_count": 19,
+  "observed_event_count": 21,
+  "artifacts": {
+    "manifest": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\manifest.json",
+      "exists": true,
+      "size_bytes": 1321,
+      "mtime": "2026-06-22 08:57:24",
+      "mtime_epoch": 1782089844.8078477,
+      "fresh": true
+    },
+    "sw_session": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\sw_session.json",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "job_event_log": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\job_event_log.jsonl",
+      "exists": true,
+      "size_bytes": 6122,
+      "mtime": "2026-06-22 08:57:50",
+      "mtime_epoch": 1782089870.0034988,
+      "fresh": true
+    },
+    "input_copy": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\input\\LB26001-A-04-006.SLDPRT",
+      "exists": true,
+      "size_bytes": 88929,
+      "mtime": "2026-01-23 16:48:46",
+      "mtime_epoch": 1769158126.0,
+      "fresh": false
+    },
+    "slddrw": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+      "exists": true,
+      "size_bytes": 71358,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.8053694,
+      "fresh": true
+    },
+    "pdf": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\drawing\\LB26001-A-04-006_v5.PDF",
+      "exists": true,
+      "size_bytes": 52997,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.8053694,
+      "fresh": true
+    },
+    "dxf": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\drawing\\LB26001-A-04-006_v5.DXF",
+      "exists": true,
+      "size_bytes": 110892,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.808897,
+      "fresh": true
+    },
+    "png": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\drawing\\LB26001-A-04-006_v5.PNG",
+      "exists": true,
+      "size_bytes": 86400,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.8109028,
+      "fresh": true
+    },
+    "qc_json": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\qc\\LB26001-A-04-006_v5_qc.json",
+      "exists": true,
+      "size_bytes": 9991,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.811802,
+      "fresh": true
+    },
+    "warnings_json": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\qc\\LB26001-A-04-006_v5_warnings.json",
+      "exists": true,
+      "size_bytes": 3364,
+      "mtime": "2026-06-22 08:57:30",
+      "mtime_epoch": 1782089850.812448,
+      "fresh": true
+    },
+    "vision_qc": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "final_quality": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760\\qc\\final_quality.json",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    }
+  },
+  "manifest_summary": {
+    "drawing_usable": {},
+    "hard_fail": [],
+    "warnings": [],
+    "dimension_grade": "",
+    "dimension_sources": {}
+  },
+  "qc_summary": {
+    "pass": false,
+    "score_pass_count": 10,
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "drawing_usable": {
+      "pass": true,
+      "criteria": {
+        "files_exported": true,
+        "view_in_frame": true,
+        "view_overlap_ok": true,
+        "dim_total": 8,
+        "qc_pass_count": 10,
+        "vision_score": null
+      }
+    }
+  },
+  "final_quality": {},
+  "sw_session": {},
+  "checks": [
+    {
+      "key": "facade_submitted",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "job_completed",
+      "pass": false,
+      "reason": "Job status is cancelled; terminal={'finished': False, 'failed': True, 'timeout': True, 'reason': 'validator timeout after 25s', 'job_id': '5b1cd17c', 'error': {'error': '子进程退出码: 1'}}",
+      "fix_suggestion": "Inspect job_event_log.jsonl and worker stdout for the CAD worker failure."
+    },
+    {
+      "key": "hard_timeout",
+      "pass": false,
+      "reason": "Validator hard timeout fired.",
+      "fix_suggestion": "Check SolidWorks dialogs, worker timeout, and cancel/retry behavior."
+    },
+    {
+      "key": "worker_jsonl_events",
+      "pass": false,
+      "reason": "Missing worker events: ['job_failed']",
+      "fix_suggestion": "Ensure cad_job_worker emits job_started/progress/heartbeat plus job_finished or job_failed."
+    },
+    {
+      "key": "run_dir_under_runs",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_manifest",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_sw_session",
+      "pass": false,
+      "reason": "Missing or empty artifact: sw_session",
+      "fix_suggestion": "Make the CAD worker write sw_session into run_dir."
+    },
+    {
+      "key": "artifact_job_event_log",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_input_copy",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_slddrw",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_pdf",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_dxf",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_png",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_qc_json",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_warnings_json",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_vision_qc",
+      "pass": false,
+      "reason": "Missing or empty artifact: vision_qc",
+      "fix_suggestion": "Make the CAD worker write vision_qc into run_dir."
+    },
+    {
+      "key": "artifact_final_quality",
+      "pass": false,
+      "reason": "Missing or empty artifact: final_quality",
+      "fix_suggestion": "Make the CAD worker write final_quality into run_dir."
+    },
+    {
+      "key": "fresh_slddrw",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_pdf",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_dxf",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_png",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_qc_json",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_warnings_json",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_vision_qc",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: vision_qc",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_final_quality",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: final_quality",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_manifest",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_sw_session",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: sw_session",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "original_cad_unchanged",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "manifest_drawing_usable",
+      "pass": false,
+      "reason": "manifest.drawing_usable.pass is not true: {}",
+      "fix_suggestion": "Fix generated drawing quality; do not lower QC thresholds."
+    },
+    {
+      "key": "manifest_no_hard_fail",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "qc_json_readable",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "final_quality_status",
+      "pass": false,
+      "reason": "final_quality.status is ''",
+      "fix_suggestion": "Run visual QC/final quality fusion and fix blocking issues."
+    },
+    {
+      "key": "sw_session_connected",
+      "pass": false,
+      "reason": "sw_session does not prove connection: {}",
+      "fix_suggestion": "Record SolidWorks sw_pid/revision from inside the CAD worker."
+    }
+  ],
+  "pass": false,
+  "reasons": [
+    "Job status is cancelled; terminal={'finished': False, 'failed': True, 'timeout': True, 'reason': 'validator timeout after 25s', 'job_id': '5b1cd17c', 'error': {'error': '子进程退出码: 1'}}",
+    "Validator hard timeout fired.",
+    "Missing worker events: ['job_failed']",
+    "Missing or empty artifact: sw_session",
+    "Missing or empty artifact: vision_qc",
+    "Missing or empty artifact: final_quality",
+    "Artifact is not fresh relative to job start: vision_qc",
+    "Artifact is not fresh relative to job start: final_quality",
+    "Artifact is not fresh relative to job start: sw_session",
+    "manifest.drawing_usable.pass is not true: {}",
+    "final_quality.status is ''",
+    "sw_session does not prove connection: {}"
+  ],
+  "fix_suggestions": [
+    "Inspect job_event_log.jsonl and worker stdout for the CAD worker failure.",
+    "Check SolidWorks dialogs, worker timeout, and cancel/retry behavior.",
+    "Ensure cad_job_worker emits job_started/progress/heartbeat plus job_finished or job_failed.",
+    "Make the CAD worker write sw_session into run_dir.",
+    "Make the CAD worker write vision_qc into run_dir.",
+    "Make the CAD worker write final_quality into run_dir.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Fix generated drawing quality; do not lower QC thresholds.",
+    "Run visual QC/final quality fusion and fix blocking issues.",
+    "Record SolidWorks sw_pid/revision from inside the CAD worker."
+  ],
+  "process_guard": {
+    "enabled": true,
+    "timeout_s": 35,
+    "child_exitcode": 0
+  },
+  "trace_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_cleanup3_006_trace.jsonl",
+  "trace_tail": [
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8139305,
+      "stage": "runner_qprocess_created",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8151877,
+      "stage": "runner_environment_set",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8151877,
+      "stage": "runner_worker_args_built",
+      "job_id": "5b1cd17c",
+      "args": [
+        "--job-id",
+        "5b1cd17c",
+        "--part-path",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+        "--output-dir",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+        "--max-rounds",
+        "1",
+        "--timeout-s",
+        "5"
+      ]
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8151877,
+      "stage": "runner_worker_command_built",
+      "job_id": "5b1cd17c",
+      "program": "C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+      "worker_args": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py",
+        "--job-id",
+        "5b1cd17c",
+        "--part-path",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+        "--output-dir",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+        "--max-rounds",
+        "1",
+        "--timeout-s",
+        "5"
+      ]
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8151877,
+      "stage": "runner_qprocess_start_call",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8211308,
+      "stage": "runner_qprocess_wait_for_started_enter",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "runner_qprocess_wait_for_started_exit",
+      "job_id": "5b1cd17c",
+      "started": true,
+      "state": "ProcessState.Running"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "runner_process_stored",
+      "job_id": "5b1cd17c",
+      "pid": 30896
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "runner_status_running",
+      "job_id": "5b1cd17c",
+      "pid": 30896
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "runner_job_started_event_published",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "facade_runner_start_job_done",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8231394,
+      "stage": "facade_start_cad_job_return",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8251467,
+      "stage": "start_cad_job_call_done",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:24",
+      "epoch": 1782089844.8251467,
+      "stage": "app_exec_enter",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.0034988,
+      "stage": "app_exec_exit",
+      "job_id": "5b1cd17c",
+      "terminal": {
+        "finished": false,
+        "failed": true,
+        "timeout": true,
+        "reason": "validator timeout after 25s",
+        "job_id": "5b1cd17c",
+        "error": {
+          "error": "子进程退出码: 1"
+        }
+      }
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.0034988,
+      "stage": "collect_status_start",
+      "job_id": "5b1cd17c"
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.0034988,
+      "stage": "collect_status_done",
+      "status": {
+        "job_id": "5b1cd17c",
+        "part_name": "LB26001-A-04-006",
+        "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+        "job_type": "cad",
+        "status": "cancelled",
+        "priority": 1,
+        "created_at": "2026-06-22T08:57:24",
+        "started_at": "2026-06-22T08:57:24",
+        "finished_at": "2026-06-22T08:57:50",
+        "duration_s": 26.0,
+        "retry_count": 0,
+        "max_retries": 3,
+        "timeout_s": 5,
+        "sw_pid": 30896,
+        "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+        "run_id": "8901430cd760",
+        "error": "子进程退出码: 1",
+        "progress": 0.1,
+        "stage": "出图中 (lines=10)",
+        "result": {
+          "max_rounds": 1,
+          "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8901430cd760",
+          "titlebar_overrides": {},
+          "strategy": "v6_recommended"
+        },
+        "last_event": "warning"
+      }
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.0362496,
+      "stage": "report_written",
+      "report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_cleanup3_006.json",
+      "passed": false
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.0362496,
+      "stage": "child_run_smoke_return"
+    },
+    {
+      "ts": "2026-06-22T08:57:50",
+      "epoch": 1782089870.1450367,
+      "stage": "parent_child_report_found",
+      "child_exitcode": 0
+    }
+  ]
+}

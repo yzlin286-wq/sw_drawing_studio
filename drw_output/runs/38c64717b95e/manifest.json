@@ -1,0 +1,166 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "part_base": "LB26001-A-04-006",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e",
+  "generated_at": "2026-06-25 01:29:07",
+  "returncode": 0,
+  "line_count": 0,
+  "core_files_ok": true,
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 11,
+      "qc_pass_count": 11,
+      "vision_score": null
+    }
+  },
+  "hard_fail": [],
+  "warnings": [
+    "refdoc_correct",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "titlebar_complete",
+    "non_model_associative_dimension"
+  ],
+  "qc_pass": false,
+  "qc_score_pass_count": 11,
+  "dimension_grade": "B",
+  "dimension_sources": {
+    "display_dim_count": 11,
+    "note_dim_count": 0,
+    "standard_annotation_present": false,
+    "sidecar_overall": null,
+    "sources_summary": [
+      "model_display_dim=11"
+    ]
+  },
+  "display_dim_count": 11,
+  "note_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {
+    "total": 79,
+    "layout": {
+      "score": 20,
+      "max": 20,
+      "details": {
+        "view_overlap": 8,
+        "view_in_frame": 7,
+        "scale_in_set": 5
+      }
+    },
+    "dimension": {
+      "score": 31,
+      "max": 35,
+      "details": {
+        "dim_total": 20,
+        "associativity": 4,
+        "overall": 7
+      }
+    },
+    "titlebar": {
+      "score": 6,
+      "max": 10,
+      "details": {
+        "keys": 6,
+        "gb_titlebar": 0
+      }
+    },
+    "annotation": {
+      "score": 5,
+      "max": 15,
+      "details": {
+        "tech_note": 0,
+        "ra_note": 0,
+        "datum_a": 3,
+        "standard_annotation": 2
+      }
+    },
+    "visual_clarity": {
+      "score": 17,
+      "max": 20,
+      "details": {
+        "text_height": 5,
+        "png": 8,
+        "vision": 4
+      }
+    },
+    "grade_label": "B",
+    "reasons": [
+      "dimension.associativity: non_model",
+      "titlebar.gb_titlebar: 不完整",
+      "annotation.tech_note: 缺失",
+      "visual.vision: 未评估"
+    ]
+  },
+  "final_quality": {
+    "version": "v2.1",
+    "status": "pass_with_warning",
+    "reason": "通过但有 warning (geo=6, vision=3)",
+    "conflict": false,
+    "conflict_reason": "",
+    "deliverable": true,
+    "has_manual_review": false,
+    "manual_review": {},
+    "geo_qc": {
+      "pass": true,
+      "hard_fail": [],
+      "warnings_count": 6,
+      "drawing_usable_pass": true,
+      "dimension_grade": "B",
+      "usable_for": [
+        "manufacturing",
+        "assembly",
+        "procurement"
+      ]
+    },
+    "vision_qc": {
+      "pass": true,
+      "critical": 0,
+      "major": 0,
+      "minor": 3,
+      "total_issues": 3
+    },
+    "drawing_accuracy_score": 79,
+    "recommendation": "图纸可用，建议复核 warning 项后交付"
+  },
+  "vision_final_quality_error": "",
+  "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\vision_qc_v6.json",
+  "vision_qc_v6_status": "need_review",
+  "vision_qc_v6_visual_acceptance_pass": false,
+  "vision_qc_v6_error": "",
+  "artifact_freshness": {
+    "min_mtime": 1782321907.331274,
+    "stale_artifacts": []
+  },
+  "output_files": {
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\drawing\\LB26001-A-04-006_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\drawing\\LB26001-A-04-006_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\drawing\\LB26001-A-04-006_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\LB26001-A-04-006_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\LB26001-A-04-006_v5_warnings.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\dimension_arrange.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\drawing_blueprint.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\lb26001_006_ui_correction_evidence.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\part_class.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\reference_intent_dimension_contract_006.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\reference_intent_dimension_plan_006.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\vision_qc_v2.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\final_quality.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\qc\\vision_qc_v6.json"
+    ],
+    "logs": []
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\38c64717b95e\\sw_session.json"
+}

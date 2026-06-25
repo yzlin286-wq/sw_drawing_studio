@@ -1,0 +1,656 @@
+{
+  "generated_at": "2026-06-22 17:04:11",
+  "mode": "real_cad_smoke_v3",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+  "job_id": "107f4627",
+  "started_at_epoch": 1782118150.2834637,
+  "finished_at_epoch": 1782119051.4020875,
+  "duration_s": 901.1,
+  "status": {
+    "job_id": "107f4627",
+    "part_name": "LB26001-A-04-001",
+    "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+    "job_type": "cad",
+    "status": "failed",
+    "priority": 1,
+    "created_at": "2026-06-22T16:49:10",
+    "started_at": "2026-06-22T16:49:10",
+    "finished_at": "2026-06-22T17:04:11",
+    "duration_s": 901.0,
+    "retry_count": 0,
+    "max_retries": 3,
+    "timeout_s": 900,
+    "sw_pid": 25308,
+    "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+    "run_id": "42df4f290562",
+    "error": "子进程退出码: 1",
+    "progress": 0.35,
+    "stage": "出图中 (lines=60)",
+    "result": {
+      "max_rounds": 1,
+      "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+      "titlebar_overrides": {},
+      "strategy": "v6_recommended"
+    },
+    "last_event": "job_failed"
+  },
+  "terminal": {
+    "finished": false,
+    "failed": true,
+    "job_id": "107f4627",
+    "error": {
+      "error": "子进程退出码: 1",
+      "failure_bucket": "cad_subprocess_failed",
+      "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+      "reason": "subprocess_exit_code_1",
+      "recoverable": true,
+      "returncode": 1
+    }
+  },
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+  "failure_bucket": "cad_subprocess_failed",
+  "failure_reason": "subprocess_exit_code_1",
+  "failure_fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+  "event_types": [
+    "heartbeat",
+    "job_failed",
+    "job_started",
+    "progress",
+    "warning"
+  ],
+  "event_count": 160,
+  "observed_event_count": 161,
+  "artifacts": {
+    "manifest": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562\\manifest.json",
+      "exists": true,
+      "size_bytes": 2290,
+      "mtime": "2026-06-22 17:04:11",
+      "mtime_epoch": 1782119051.3954873,
+      "fresh": true
+    },
+    "sw_session": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562\\sw_session.json",
+      "exists": true,
+      "size_bytes": 1209,
+      "mtime": "2026-06-22 17:04:11",
+      "mtime_epoch": 1782119051.3954873,
+      "fresh": true
+    },
+    "job_event_log": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562\\job_event_log.jsonl",
+      "exists": true,
+      "size_bytes": 36927,
+      "mtime": "2026-06-22 17:04:11",
+      "mtime_epoch": 1782119051.3954873,
+      "fresh": true
+    },
+    "input_copy": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562\\input\\LB26001-A-04-001.SLDPRT",
+      "exists": true,
+      "size_bytes": 3192464,
+      "mtime": "2026-03-13 19:44:04",
+      "mtime_epoch": 1773402244.0,
+      "fresh": false
+    },
+    "slddrw": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "pdf": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "dxf": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "png": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "qc_json": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "warnings_json": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "vision_qc": {
+      "path": "",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    },
+    "final_quality": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562\\qc\\final_quality.json",
+      "exists": false,
+      "size_bytes": 0,
+      "mtime": "",
+      "mtime_epoch": null,
+      "fresh": false
+    }
+  },
+  "manifest_summary": {
+    "drawing_usable": {
+      "pass": false,
+      "reason": "subprocess_exit_code_1"
+    },
+    "hard_fail": [
+      "cad_subprocess_failed",
+      "subprocess_failed"
+    ],
+    "warnings": [],
+    "dimension_grade": "",
+    "dimension_sources": {}
+  },
+  "qc_summary": {
+    "pass": null,
+    "score_pass_count": null,
+    "hard_fail": [],
+    "warnings": [],
+    "drawing_usable": {}
+  },
+  "final_quality": {},
+  "sw_session": {
+    "schema": "sw_drawing_studio.sw_session.v1",
+    "generated_at": "2026-06-22 17:04:11",
+    "source": "cad_job_worker",
+    "status": "not_collected",
+    "connection_method": "skipped_on_worker_failure",
+    "sw_pid": null,
+    "sw_revision": "",
+    "visible": null,
+    "active_doc_title": "",
+    "active_doc_path": "",
+    "reason": "subprocess_exit_code_1",
+    "failure_bucket": "cad_subprocess_failed",
+    "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+    "recoverable": true,
+    "evidence": [
+      "[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)",
+      "[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)",
+      "[loop] qc_log.md 已写: C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md",
+      "========== 汇总 ==========",
+      "final_pass = False",
+      "final_path = ",
+      "  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']",
+      "qc_log.md = C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md"
+    ]
+  },
+  "checks": [
+    {
+      "key": "facade_submitted",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "job_completed",
+      "pass": false,
+      "reason": "Job status is failed; terminal={'finished': False, 'failed': True, 'job_id': '107f4627', 'error': {'error': '子进程退出码: 1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'reason': 'subprocess_exit_code_1', 'recoverable': True, 'returncode': 1}}",
+      "fix_suggestion": "Inspect job_event_log.jsonl and worker stdout for the CAD worker failure."
+    },
+    {
+      "key": "hard_timeout",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "worker_jsonl_events",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "run_dir_under_runs",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_manifest",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_sw_session",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_job_event_log",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_input_copy",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "artifact_slddrw",
+      "pass": false,
+      "reason": "Missing or empty artifact: slddrw",
+      "fix_suggestion": "Make the CAD worker write slddrw into run_dir."
+    },
+    {
+      "key": "artifact_pdf",
+      "pass": false,
+      "reason": "Missing or empty artifact: pdf",
+      "fix_suggestion": "Make the CAD worker write pdf into run_dir."
+    },
+    {
+      "key": "artifact_dxf",
+      "pass": false,
+      "reason": "Missing or empty artifact: dxf",
+      "fix_suggestion": "Make the CAD worker write dxf into run_dir."
+    },
+    {
+      "key": "artifact_png",
+      "pass": false,
+      "reason": "Missing or empty artifact: png",
+      "fix_suggestion": "Make the CAD worker write png into run_dir."
+    },
+    {
+      "key": "artifact_qc_json",
+      "pass": false,
+      "reason": "Missing or empty artifact: qc_json",
+      "fix_suggestion": "Make the CAD worker write qc_json into run_dir."
+    },
+    {
+      "key": "artifact_warnings_json",
+      "pass": false,
+      "reason": "Missing or empty artifact: warnings_json",
+      "fix_suggestion": "Make the CAD worker write warnings_json into run_dir."
+    },
+    {
+      "key": "artifact_vision_qc",
+      "pass": false,
+      "reason": "Missing or empty artifact: vision_qc",
+      "fix_suggestion": "Make the CAD worker write vision_qc into run_dir."
+    },
+    {
+      "key": "artifact_final_quality",
+      "pass": false,
+      "reason": "Missing or empty artifact: final_quality",
+      "fix_suggestion": "Make the CAD worker write final_quality into run_dir."
+    },
+    {
+      "key": "fresh_slddrw",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: slddrw",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_pdf",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: pdf",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_dxf",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: dxf",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_png",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: png",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_qc_json",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: qc_json",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_warnings_json",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: warnings_json",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_vision_qc",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: vision_qc",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_final_quality",
+      "pass": false,
+      "reason": "Artifact is not fresh relative to job start: final_quality",
+      "fix_suggestion": "Regenerate the CAD job and verify mtime >= job_started_at."
+    },
+    {
+      "key": "fresh_manifest",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fresh_sw_session",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "original_cad_unchanged",
+      "pass": true,
+      "reason": "",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "manifest_drawing_usable",
+      "pass": false,
+      "reason": "manifest.drawing_usable.pass is not true: {'pass': False, 'reason': 'subprocess_exit_code_1'}",
+      "fix_suggestion": "Fix generated drawing quality; do not lower QC thresholds."
+    },
+    {
+      "key": "manifest_no_hard_fail",
+      "pass": false,
+      "reason": "manifest hard_fail is not empty: ['cad_subprocess_failed', 'subprocess_failed']",
+      "fix_suggestion": "Fix the CAD/QC cause and rerun smoke."
+    },
+    {
+      "key": "qc_json_readable",
+      "pass": false,
+      "reason": "QC JSON could not be read.",
+      "fix_suggestion": "Ensure *_v5_qc.json is written into run_dir/qc."
+    },
+    {
+      "key": "final_quality_status",
+      "pass": false,
+      "reason": "final_quality.status is ''",
+      "fix_suggestion": "Run visual QC/final quality fusion and fix blocking issues."
+    },
+    {
+      "key": "sw_session_connected",
+      "pass": false,
+      "reason": "sw_session does not prove connection: {'schema': 'sw_drawing_studio.sw_session.v1', 'generated_at': '2026-06-22 17:04:11', 'source': 'cad_job_worker', 'status': 'not_collected', 'connection_method': 'skipped_on_worker_failure', 'sw_pid': None, 'sw_revision': '', 'visible': None, 'active_doc_title': '', 'active_doc_path': '', 'reason': 'subprocess_exit_code_1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'recoverable': True, 'evidence': [\"[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)\", \"[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)\", '[loop] qc_log.md 已写: C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md', '========== 汇总 ==========', 'final_pass = False', 'final_path = ', \"  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\", 'qc_log.md = C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md']}",
+      "fix_suggestion": "Record SolidWorks sw_pid/revision from inside the CAD worker."
+    }
+  ],
+  "pass": false,
+  "reasons": [
+    "Job status is failed; terminal={'finished': False, 'failed': True, 'job_id': '107f4627', 'error': {'error': '子进程退出码: 1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'reason': 'subprocess_exit_code_1', 'recoverable': True, 'returncode': 1}}",
+    "Missing or empty artifact: slddrw",
+    "Missing or empty artifact: pdf",
+    "Missing or empty artifact: dxf",
+    "Missing or empty artifact: png",
+    "Missing or empty artifact: qc_json",
+    "Missing or empty artifact: warnings_json",
+    "Missing or empty artifact: vision_qc",
+    "Missing or empty artifact: final_quality",
+    "Artifact is not fresh relative to job start: slddrw",
+    "Artifact is not fresh relative to job start: pdf",
+    "Artifact is not fresh relative to job start: dxf",
+    "Artifact is not fresh relative to job start: png",
+    "Artifact is not fresh relative to job start: qc_json",
+    "Artifact is not fresh relative to job start: warnings_json",
+    "Artifact is not fresh relative to job start: vision_qc",
+    "Artifact is not fresh relative to job start: final_quality",
+    "manifest.drawing_usable.pass is not true: {'pass': False, 'reason': 'subprocess_exit_code_1'}",
+    "manifest hard_fail is not empty: ['cad_subprocess_failed', 'subprocess_failed']",
+    "QC JSON could not be read.",
+    "final_quality.status is ''",
+    "sw_session does not prove connection: {'schema': 'sw_drawing_studio.sw_session.v1', 'generated_at': '2026-06-22 17:04:11', 'source': 'cad_job_worker', 'status': 'not_collected', 'connection_method': 'skipped_on_worker_failure', 'sw_pid': None, 'sw_revision': '', 'visible': None, 'active_doc_title': '', 'active_doc_path': '', 'reason': 'subprocess_exit_code_1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'recoverable': True, 'evidence': [\"[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)\", \"[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)\", '[loop] qc_log.md 已写: C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md', '========== 汇总 ==========', 'final_pass = False', 'final_path = ', \"  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\", 'qc_log.md = C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md']}"
+  ],
+  "fix_suggestions": [
+    "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+    "Inspect job_event_log.jsonl and worker stdout for the CAD worker failure.",
+    "Make the CAD worker write slddrw into run_dir.",
+    "Make the CAD worker write pdf into run_dir.",
+    "Make the CAD worker write dxf into run_dir.",
+    "Make the CAD worker write png into run_dir.",
+    "Make the CAD worker write qc_json into run_dir.",
+    "Make the CAD worker write warnings_json into run_dir.",
+    "Make the CAD worker write vision_qc into run_dir.",
+    "Make the CAD worker write final_quality into run_dir.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Regenerate the CAD job and verify mtime >= job_started_at.",
+    "Fix generated drawing quality; do not lower QC thresholds.",
+    "Fix the CAD/QC cause and rerun smoke.",
+    "Ensure *_v5_qc.json is written into run_dir/qc.",
+    "Run visual QC/final quality fusion and fix blocking issues.",
+    "Record SolidWorks sw_pid/revision from inside the CAD worker."
+  ],
+  "process_guard": {
+    "enabled": true,
+    "timeout_s": 960,
+    "child_exitcode": 0
+  },
+  "trace_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_36_current_20260622\\01_LB26001-A-04-001\\cad_smoke_trace.jsonl",
+  "trace_tail": [
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3268287,
+      "stage": "runner_qprocess_created",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3278356,
+      "stage": "runner_environment_set",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3278356,
+      "stage": "runner_worker_args_built",
+      "job_id": "107f4627",
+      "args": [
+        "--job-id",
+        "107f4627",
+        "--part-path",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+        "--output-dir",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+        "--max-rounds",
+        "1",
+        "--timeout-s",
+        "900"
+      ]
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3278356,
+      "stage": "runner_worker_command_built",
+      "job_id": "107f4627",
+      "program": "C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+      "worker_args": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py",
+        "--job-id",
+        "107f4627",
+        "--part-path",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+        "--output-dir",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+        "--max-rounds",
+        "1",
+        "--timeout-s",
+        "900"
+      ]
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3288383,
+      "stage": "runner_qprocess_start_call",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3338354,
+      "stage": "runner_qprocess_wait_for_started_enter",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3408484,
+      "stage": "runner_qprocess_wait_for_started_exit",
+      "job_id": "107f4627",
+      "started": true,
+      "state": "ProcessState.Running"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3423371,
+      "stage": "runner_process_stored",
+      "job_id": "107f4627",
+      "pid": 25308
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3423371,
+      "stage": "runner_status_running",
+      "job_id": "107f4627",
+      "pid": 25308
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3423371,
+      "stage": "runner_job_started_event_published",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3433456,
+      "stage": "facade_runner_start_job_done",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3433456,
+      "stage": "facade_start_cad_job_return",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3433456,
+      "stage": "start_cad_job_call_done",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T16:49:10",
+      "epoch": 1782118150.3443458,
+      "stage": "app_exec_enter",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.4020875,
+      "stage": "app_exec_exit",
+      "job_id": "107f4627",
+      "terminal": {
+        "finished": false,
+        "failed": true,
+        "job_id": "107f4627",
+        "error": {
+          "error": "子进程退出码: 1",
+          "failure_bucket": "cad_subprocess_failed",
+          "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+          "reason": "subprocess_exit_code_1",
+          "recoverable": true,
+          "returncode": 1
+        }
+      }
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.4020875,
+      "stage": "collect_status_start",
+      "job_id": "107f4627"
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.4020875,
+      "stage": "collect_status_done",
+      "status": {
+        "job_id": "107f4627",
+        "part_name": "LB26001-A-04-001",
+        "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+        "job_type": "cad",
+        "status": "failed",
+        "priority": 1,
+        "created_at": "2026-06-22T16:49:10",
+        "started_at": "2026-06-22T16:49:10",
+        "finished_at": "2026-06-22T17:04:11",
+        "duration_s": 901.0,
+        "retry_count": 0,
+        "max_retries": 3,
+        "timeout_s": 900,
+        "sw_pid": 25308,
+        "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+        "run_id": "42df4f290562",
+        "error": "子进程退出码: 1",
+        "progress": 0.35,
+        "stage": "出图中 (lines=60)",
+        "result": {
+          "max_rounds": 1,
+          "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+          "titlebar_overrides": {},
+          "strategy": "v6_recommended"
+        },
+        "last_event": "job_failed"
+      }
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.4357624,
+      "stage": "report_written",
+      "report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_36_current_20260622\\01_LB26001-A-04-001\\cad_smoke.json",
+      "passed": false
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.4357624,
+      "stage": "child_run_smoke_return"
+    },
+    {
+      "ts": "2026-06-22T17:04:11",
+      "epoch": 1782119051.5826228,
+      "stage": "parent_child_report_found",
+      "child_exitcode": 0
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "dim_count_sufficient": {
+      "dim_total": 4
+    },
+    "dimension_coverage": {
+      "associativity": "model"
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true
+    }
+  },
+  "hard_fail": [],
+  "warnings": [],
+  "display_dim_count": 4,
+  "note_dim_count": 4,
+  "part_class": "tiny_part",
+  "dimension_grade": "B",
+  "has_valid_sidecar_annotation": true,
+  "dimension_sources": {
+    "sidecar_overall": {
+      "overall_length": 29.0,
+      "overall_width": 19.5,
+      "overall_height": 8.0
+    }
+  }
+}

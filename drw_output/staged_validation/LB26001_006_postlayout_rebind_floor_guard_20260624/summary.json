@@ -1,0 +1,41 @@
+{
+  "schema": "sw_drawing_studio.staged_cad_validation.v1",
+  "stage": "LB26001_006",
+  "generated_at": "2026-06-24 10:53:24",
+  "out_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_postlayout_rebind_floor_guard_20260624",
+  "duration_s": 0.8,
+  "total": 1,
+  "processed": 0,
+  "deliverable_count": 0,
+  "deliverable_target_ratio": 1.0,
+  "required_deliverable_count": 1,
+  "execution_completed": false,
+  "acceptance_pass": false,
+  "need_review_count": 0,
+  "failed_count": 0,
+  "status": "fail",
+  "pass": false,
+  "preflight_pass": false,
+  "sw_connection_guard_pass": false,
+  "sw_connection_guard_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_postlayout_rebind_floor_guard_20260624\\sw_connection_guard.json",
+  "sw_safe_restart_workflow_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_postlayout_rebind_floor_guard_20260624\\sw_safe_restart_workflow.json",
+  "failure_bucket": [
+    "solidworks_connection_failed",
+    "sw_connection_guard_not_pass"
+  ],
+  "reasons": [
+    "(-2147417856, '系统调用失败。', None, None)"
+  ],
+  "fix_suggestions": [
+    "请检查 SolidWorks 状态、弹窗和 Add-in 连接后重新探测。"
+  ],
+  "cases": [],
+  "remaining_gates": [
+    "core_12",
+    "LB26001_36",
+    "medium_30",
+    "historical_visual_audit_100_percent",
+    "full_129",
+    "final_exe_rebuild_and_release_log"
+  ]
+}

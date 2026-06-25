@@ -1,0 +1,30 @@
+{
+  "run_id": "diagnostics_sample_v3_0",
+  "started_at": "2026-06-21 20:08:40",
+  "finished_at": "2026-06-21 20:08:40",
+  "input_part_path_abs": "C:\\diagnostics_sample\\sample.SLDPRT",
+  "drawing_usable": {
+    "pass": false,
+    "reason": "diagnostics sample run"
+  },
+  "qc_pass_count": 0,
+  "vision_score": 0,
+  "hard_fail": [
+    "diagnostics_sample"
+  ],
+  "warnings": [
+    {
+      "code": "sample_only",
+      "message": "Release diagnostics sample fixture"
+    }
+  ],
+  "exception_summary": [],
+  "artifacts": {
+    "manifest": "manifest.json",
+    "vision_qc": "qc/vision_qc_v5.json",
+    "final_quality": "qc/final_quality.json",
+    "sw_session": "sw_session.json",
+    "job_events": "job_event_log.jsonl"
+  },
+  "diagnostics_sample": true
+}

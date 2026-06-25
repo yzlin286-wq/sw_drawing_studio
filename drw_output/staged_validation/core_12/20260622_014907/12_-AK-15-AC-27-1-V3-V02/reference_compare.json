@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-06-22 03:42:09",
+  "mode": "reference_compare_smoke_v3",
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+  "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDDRW",
+  "generated_drawing": "",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5b141b8b67b2",
+  "status": "no_reference",
+  "pass": true,
+  "reasons": [
+    "no_same_name_reference_slddrw"
+  ],
+  "fix_suggestions": [
+    "Record this as an accepted no-reference case for the staged validation set."
+  ],
+  "no_reference_reason": "Same-name original SLDDRW was not found in the reference test directory."
+}

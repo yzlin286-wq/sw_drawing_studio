@@ -1,0 +1,330 @@
+{
+  "source_summary": "drw_output\\staged_validation\\LB26001_ref6_current_20260622\\summary.json",
+  "status": "pass",
+  "pass": true,
+  "deliverable_count": 6,
+  "total": 6,
+  "rows": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass",
+      "style_pass": true,
+      "style_score": 0.936,
+      "reference_dims": 12,
+      "generated_dims": 14,
+      "reference_views": 4,
+      "generated_views": 4,
+      "reference_types": {
+        "7": 2,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 2,
+        "4": 2
+      },
+      "autodim_calls": 2,
+      "prune": {
+        "enabled": true,
+        "cap": 18,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 18,
+          "before": 16,
+          "after": 16,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      }
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5f4ad69a6442",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass",
+      "style_pass": true,
+      "style_score": 0.91,
+      "reference_dims": 8,
+      "generated_dims": 10,
+      "reference_views": 4,
+      "generated_views": 4,
+      "reference_types": {
+        "7": 2,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 2,
+        "4": 2
+      },
+      "autodim_calls": 2,
+      "prune": {
+        "enabled": true,
+        "cap": 12,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 12,
+          "before": 12,
+          "after": 12,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      }
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass_with_warning",
+      "style_pass": true,
+      "style_score": 0.85,
+      "reference_dims": 2,
+      "generated_dims": 3,
+      "reference_views": 2,
+      "generated_views": 2,
+      "reference_types": {
+        "7": 1,
+        "4": 1
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 1
+      },
+      "autodim_calls": 1,
+      "prune": {
+        "enabled": true,
+        "cap": 4,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 4,
+          "before": 295,
+          "after": 4,
+          "deleted": 291,
+          "attempted": 291,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      }
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fca65cb67b3d",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass",
+      "style_pass": true,
+      "style_score": 1.0,
+      "reference_dims": 4,
+      "generated_dims": 4,
+      "reference_views": 3,
+      "generated_views": 3,
+      "reference_types": {
+        "7": 1,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 2
+      },
+      "autodim_calls": 2,
+      "prune": {
+        "enabled": true,
+        "cap": 6,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 6,
+          "before": 8,
+          "after": 6,
+          "deleted": 2,
+          "attempted": 2,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      }
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5519ec098ec6",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass",
+      "style_pass": true,
+      "style_score": 0.865,
+      "reference_dims": 14,
+      "generated_dims": 20,
+      "reference_views": 2,
+      "generated_views": 2,
+      "reference_types": {
+        "7": 1,
+        "4": 1
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 1
+      },
+      "autodim_calls": 2,
+      "prune": {
+        "enabled": true,
+        "cap": 21,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 21,
+          "before": 87,
+          "after": 21,
+          "deleted": 66,
+          "attempted": 66,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      }
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\90f4733ef751",
+      "case_status": "pass",
+      "deliverable": true,
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "style_status": "pass",
+      "style_pass": true,
+      "style_score": 0.871,
+      "reference_dims": 25,
+      "generated_dims": 35,
+      "reference_views": 4,
+      "generated_views": 4,
+      "reference_types": {
+        "7": 2,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 2,
+        "4": 2
+      },
+      "autodim_calls": 2,
+      "prune": {
+        "enabled": true,
+        "cap": 38,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 38,
+          "before": 37,
+          "after": 37,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      }
+    }
+  ]
+}

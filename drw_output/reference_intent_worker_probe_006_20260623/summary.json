@@ -1,0 +1,21 @@
+{
+  "schema": "sw_drawing_studio.reference_intent_worker_probe.v4_2",
+  "base": "LB26001-A-04-006",
+  "blueprint_path": "drw_output\\reference_intent_worker_probe_006_20260623\\drawing_blueprint_with_reference_intent_targets_006.json",
+  "dimension_target_count": 12,
+  "required_display_dim_count": 12,
+  "worker_contract_prepare": {
+    "enabled": true,
+    "status": "ready",
+    "base": "LB26001-A-04-006",
+    "plan_path": "drw_output\\reference_intent_worker_probe_006_20260623\\run\\qc\\reference_intent_dimension_plan_006.json",
+    "contract_path": "drw_output\\reference_intent_worker_probe_006_20260623\\run\\qc\\reference_intent_dimension_contract_006.json",
+    "required_display_dim_count": 12,
+    "dimension_target_count": 12,
+    "operation_count": 12,
+    "requires_solidworks_lock": true,
+    "ui_thread_may_execute": false,
+    "allowed_entrypoint": "cad_job_worker"
+  },
+  "solidworks_com_called": false
+}

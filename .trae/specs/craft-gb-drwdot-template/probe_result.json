@@ -1,0 +1,41 @@
+{
+  "template": "C:\\Users\\Vision\\Desktop\\SW 相关\\templates\\gb_a4_landscape.drwdot",
+  "checks": {
+    "sheet_size_a4": {
+      "pass": true,
+      "w": 0.297,
+      "h": 0.21,
+      "raw": [
+        6.0,
+        12.0,
+        1.0,
+        1.0,
+        1.0,
+        0.297,
+        0.21,
+        1.0
+      ]
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true,
+      "value_m": 0.0035
+    },
+    "layer_count_ge_5": {
+      "pass": true,
+      "count": 13
+    },
+    "noteblock_ge_13": {
+      "pass": true,
+      "count": 87
+    },
+    "prp_links_ge_3": {
+      "pass": true,
+      "count": 31
+    }
+  },
+  "summary": {
+    "pass_count": 5,
+    "total": 5,
+    "all_pass": true
+  }
+}

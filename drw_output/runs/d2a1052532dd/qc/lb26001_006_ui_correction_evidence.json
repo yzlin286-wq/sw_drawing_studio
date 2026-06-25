@@ -1,0 +1,130 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_ui_correction_evidence.v4_2",
+  "base": "LB26001-A-04-006",
+  "generated_at": "2026-06-25 00:13:11",
+  "source_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_001306\\lb26001_006_rerun_packet_v4_2.json",
+  "packet_status": "ready_for_locked_006_rerun",
+  "packet_build_ready": true,
+  "real_cad_allowed_at_packet_time": true,
+  "api_is_not_final_judgement": true,
+  "application_ui_screenshot_is_final_gate": true,
+  "current_006_ui_verdict": {
+    "status": "manual_visual_checklist_failed",
+    "pass": false,
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260624_235132_visual_review\\manual_visual_judgement.json",
+    "source_ui_report": "drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_235132_visual_review/drawing_visual_review_report.json",
+    "source_ui_report_mode": "source_qt_application_ui_screenshot",
+    "generated_png_source_pass": true,
+    "application_ui_screenshot_content_check_pass": true,
+    "failed_visual_checklist_items": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "latest_manual_visual_checklist": {
+      "reference_match": false,
+      "view_layout": false,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "latest_manual_visual_checklist_notes": {
+      "reference_match": "The generated drawing still visibly differs from the same-name reference drawing in composition, annotation pattern, and sheet treatment.",
+      "view_layout": "The generated view arrangement has shifted to a different front/side/projected layout and does not match the reference view distribution.",
+      "display_dimensions": "Structured evidence still reports generated DisplayDim below the reference floor and missing post-layout reference-intent target coverage.",
+      "dimension_readability": "Dimension placement remains dense and clustered around the generated primary/projected views, with several callouts difficult to read at the UI review scale.",
+      "title_block": "The generated sheet still contains a non-reference title block/table area and does not match the compact reference treatment.",
+      "manufacturing_notes": "Manufacturing notes, blue technical annotations, and reference-style warning/requirements are not reproduced in the same layout or completeness."
+    },
+    "latest_manual_findings": [
+      "The generated 006 output is fresh from run drw_output/runs/cd5d8212fb17, but it is not visually acceptable.",
+      "The generated drawing does not match the same-name reference layout and view distribution.",
+      "The generated drawing has different dimension grouping and remains hard to read as a manufacturing drawing.",
+      "The generated drawing remains below the reference DisplayDim floor and lacks proven post-layout target coverage.",
+      "Title block/template treatment and manufacturing notes remain visibly different from the reference."
+    ],
+    "correction_plan_direct_ui_findings_used_for_correction": false,
+    "correction_plan_effective_failed_visual_checks": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "correction_actions": [
+      {
+        "check": "reference_match",
+        "source_note": "The generated drawing still visibly differs from the same-name reference drawing in composition, annotation pattern, and sheet treatment.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+      },
+      {
+        "check": "view_layout",
+        "source_note": "The generated view arrangement has shifted to a different front/side/projected layout and does not match the reference view distribution.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
+      },
+      {
+        "check": "display_dimensions",
+        "source_note": "Structured evidence still reports generated DisplayDim below the reference floor and missing post-layout reference-intent target coverage.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+      },
+      {
+        "check": "dimension_readability",
+        "source_note": "Dimension placement remains dense and clustered around the generated primary/projected views, with several callouts difficult to read at the UI review scale.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+      },
+      {
+        "check": "title_block",
+        "source_note": "The generated sheet still contains a non-reference title block/table area and does not match the compact reference treatment.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+      },
+      {
+        "check": "manufacturing_notes",
+        "source_note": "Manufacturing notes, blue technical annotations, and reference-style warning/requirements are not reproduced in the same layout or completeness.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+      }
+    ],
+    "latest_manual_required_correction": "Revise 006 generation to preserve reference-intent SolidWorks DisplayDim targets through post-layout final export, match the reference layout/title block/notes, then rerun exactly one locked 006 CAD cycle and repeat Drawing Review UI screenshot judgement.",
+    "ui_screenshot_files": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260624_235132_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "application_ui_screenshot_paths_existing_application_ui": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260624_235132_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "comparison_image": "drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_235132_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+    "generated_png": "drw_output/runs/cd5d8212fb17/drawing/LB26001-A-04-006_v5.PNG",
+    "reference_png": "drw_output/case_library/LB26001-A-04-006.png"
+  },
+  "comparison_image": "drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_235132_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+  "failed_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "latest_manual_findings": [
+    "The generated 006 output is fresh from run drw_output/runs/cd5d8212fb17, but it is not visually acceptable.",
+    "The generated drawing does not match the same-name reference layout and view distribution.",
+    "The generated drawing has different dimension grouping and remains hard to read as a manufacturing drawing.",
+    "The generated drawing remains below the reference DisplayDim floor and lacks proven post-layout target coverage.",
+    "Title block/template treatment and manufacturing notes remain visibly different from the reference."
+  ],
+  "latest_manual_required_correction": "Revise 006 generation to preserve reference-intent SolidWorks DisplayDim targets through post-layout final export, match the reference layout/title block/notes, then rerun exactly one locked 006 CAD cycle and repeat Drawing Review UI screenshot judgement.",
+  "ui_screenshot_files": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260624_235132_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+  ],
+  "generated_png": "drw_output/runs/cd5d8212fb17/drawing/LB26001-A-04-006_v5.PNG",
+  "reference_png": "drw_output/case_library/LB26001-A-04-006.png"
+}

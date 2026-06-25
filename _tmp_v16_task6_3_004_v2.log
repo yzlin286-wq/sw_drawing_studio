@@ -1,0 +1,11 @@
+﻿=== Task 6.3: LB26001-A-04-004.SLDPRT ===
+
+=== RESULT ===
+run_id=e3cd6e7c40cb
+hard_fail=['view_out_of_frame']
+warnings=['refdoc_correct', 'has_datum_a', 'has_ra_note', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped', 'titlebar_complete', 'model_2d_consistency', 'non_model_associative_dimension']
+dim_total=64
+qc_pass=10/12
+drawing_usable={'pass': False, 'criteria': {'files_exported': True, 'view_in_frame': False, 'view_overlap_ok': True, 'dim_total': 64, 'qc_pass_count': 10, 'vision_score': None}}
+
+persisted_layout.json NOT FOUND at C:\Users\Vision\Desktop\SW 相关\drw_output\runs\e3cd6e7c40cb\drawing\persisted_layout.json

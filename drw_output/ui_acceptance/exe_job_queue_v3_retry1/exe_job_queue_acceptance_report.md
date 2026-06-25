@@ -1,0 +1,44 @@
+# v3.0 EXE Job Queue Acceptance
+
+Generated: 2026-06-21 23:11:04
+EXE: `dist_v3_smoke\sw_drawing_studio.exe`
+Overall: PASS
+
+## Checks
+
+- normal_pass_completed: True
+- timeout_failed: True
+- retry_count_changed: True
+- retry_final_failed: True
+- cancelled: True
+- skip_completed: True
+- skip_event_logged: True
+- open_run_dir_exercised: True
+- screenshots_pass: True
+- process_alive_before_cleanup: True
+- failure_count: 0
+
+## Jobs
+
+- normal_pass: `{"job_id": "6fcb8725", "part": "mock_normal_pass", "stage": "done", "progress": "100%", "status": "completed", "retry_count": "0", "duration": "2.0", "sw_pid": "36932", "last_event": "", "action": "", "values": ["6fcb8725", "mock_normal_pass", "done", "100%", "completed", "0", "2.0", "36932"], "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist_v3_smoke\\drw_output\\runs\\mock_20260621_231019_6fcb8725"}`
+- timeout: `{"job_id": "b74433e2", "part": "mock_timeout", "stage": "mock_step_8/8", "progress": "100%", "status": "failed", "retry_count": "0", "duration": "2.0", "sw_pid": "37140", "last_event": "", "action": "", "values": ["b74433e2", "mock_timeout", "mock_step_8/8", "100%", "failed", "0", "2.0", "37140"]}`
+- retry_timeout: `{"started": {"job_id": "b74433e2", "part": "mock_timeout", "stage": "mock_step_8/8", "progress": "100%", "status": "running", "retry_count": "1", "duration": "0", "sw_pid": "21676", "last_event": "", "action": "", "values": ["b74433e2", "mock_timeout", "mock_step_8/8", "100%", "running", "1", "0", "21676"]}, "final": {"job_id": "b74433e2", "part": "mock_timeout", "stage": "mock_step_8/8", "progress": "100%", "status": "failed", "retry_count": "1", "duration": "2.0", "sw_pid": "21676", "last_event": "", "action": "", "values": ["b74433e2", "mock_timeout", "mock_step_8/8", "100%", "failed", "1", "2.0", "21676"]}}`
+- cancel: `{"job_id": "54171773", "part": "mock_normal_pass", "stage": "mock_step_30/60", "progress": "50%", "status": "cancelled", "retry_count": "0", "duration": "4.0", "sw_pid": "9444", "last_event": "", "action": "", "values": ["54171773", "mock_normal_pass", "mock_step_30/60", "50%", "cancelled", "0", "4.0", "9444"]}`
+- skip: `{"job_id": "79836b05", "part": "mock_normal_pass", "stage": "mock_step_31/60", "progress": "52%", "status": "completed", "retry_count": "0", "duration": "4.0", "sw_pid": "32388", "last_event": "", "action": "", "values": ["79836b05", "mock_normal_pass", "mock_step_31/60", "52%", "completed", "0", "4.0", "32388"], "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist_v3_smoke\\drw_output\\runs\\mock_20260621_231058_79836b05", "event_log_has_skipped": true}`
+
+## Screenshots
+
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\01_job_queue_loaded.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\02_normal_pass_completed.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\03_timeout_failed_ui_responsive.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\04_timeout_retry_failed.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\05_cancelled.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\06_skipped.png` size=8341592 pass=True
+- `drw_output\ui_acceptance\exe_job_queue_v3_retry1\screenshots\07_final.png` size=8341592 pass=True
+
+## Remaining Gates
+
+- Historical visual audit 100 percent coverage remains pending.
+- v3.0 staged real CAD validation remains pending.
+- Final dist/sw_drawing_studio.exe remains pending.
+- Final release_log_v3_0.md remains pending.

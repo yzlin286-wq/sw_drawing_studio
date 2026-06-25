@@ -1,0 +1,38 @@
+{
+  "LB26001-A-04-006": {
+    "reference_display_dim_floor": 12,
+    "attempts_from_zero": 14,
+    "attempts_from_eight": 6,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-007": {
+    "reference_display_dim_floor": 8,
+    "attempts_from_zero": 10,
+    "attempts_from_eight": 0,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-008": {
+    "reference_display_dim_floor": 2,
+    "attempts_from_zero": 5,
+    "attempts_from_eight": 0,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-009": {
+    "reference_display_dim_floor": 4,
+    "attempts_from_zero": 6,
+    "attempts_from_eight": 0,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-015": {
+    "reference_display_dim_floor": 14,
+    "attempts_from_zero": 16,
+    "attempts_from_eight": 8,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-022": {
+    "reference_display_dim_floor": 25,
+    "attempts_from_zero": 27,
+    "attempts_from_eight": 19,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  }
+}

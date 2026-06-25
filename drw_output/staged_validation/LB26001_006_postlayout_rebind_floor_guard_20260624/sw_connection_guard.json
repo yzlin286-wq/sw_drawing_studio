@@ -1,0 +1,44 @@
+{
+  "schema": "sw_drawing_studio.sw_connection_guard.v4",
+  "status": "fail",
+  "connected": false,
+  "failure_bucket": "solidworks_connection_failed",
+  "reason": "(-2147417856, '系统调用失败。', None, None)",
+  "elapsed_ms": 765,
+  "probe": {
+    "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+    "method": "get_active_object",
+    "status": "failed",
+    "reason": "(-2147417856, '系统调用失败。', None, None)",
+    "sw_revision": "",
+    "sw_pid": null,
+    "visible": null,
+    "elapsed_ms": 765,
+    "solidworks_lock": {
+      "status": "acquired",
+      "owner_job_id": "solidworks_probe_22204"
+    },
+    "returncode": 1,
+    "attempts": [
+      {
+        "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+        "method": "get_active_object",
+        "status": "failed",
+        "reason": "(-2147417856, '系统调用失败。', None, None)",
+        "sw_revision": "",
+        "sw_pid": null,
+        "visible": null,
+        "elapsed_ms": 765,
+        "solidworks_lock": {
+          "status": "acquired",
+          "owner_job_id": "solidworks_probe_22204"
+        },
+        "returncode": 1
+      }
+    ],
+    "connection_method": "get_active_object"
+  },
+  "safe_to_start_cad_job": false,
+  "user_action_required": "请检查 SolidWorks 状态、弹窗和 Add-in 连接后重新探测。",
+  "do_not_continue_batch": true
+}

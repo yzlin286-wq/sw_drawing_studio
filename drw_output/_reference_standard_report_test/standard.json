@@ -1,0 +1,164 @@
+{
+  "schema": "sw_drawing_studio.lb26001_drawing_standard.v1",
+  "generated_at": "2026-06-22 11:31:34",
+  "status": "standard_ready",
+  "pass": true,
+  "source_profile_status": "profile_ready",
+  "source_profile_generated_at": "2026-06-22 07:06:31",
+  "sample_count": 2,
+  "reference_scope": [
+    "LB26001-A-04-006",
+    "LB26001-A-04-008"
+  ],
+  "global_rules": [
+    {
+      "key": "exact_same_name_view_family",
+      "severity": "need_review",
+      "rule": "已学习的 LB26001 同名样本必须匹配参考图纸的视图数量和视图类型计数。"
+    },
+    {
+      "key": "projected_views_are_not_named_view_substitutes",
+      "severity": "need_review",
+      "rule": "参考图中的 type 4 投影视图必须用真实投影视图生成，不能用独立命名模型视图替代。"
+    },
+    {
+      "key": "real_displaydim_floor",
+      "severity": "fail",
+      "rule": "生成图纸的真实 SolidWorks DisplayDim 数量不得低于同名参考图纸基线。"
+    },
+    {
+      "key": "no_note_or_sidecar_displaydim_substitution",
+      "severity": "fail",
+      "rule": "Note、OCR 文本、视觉文本和 QC sidecar 数值只能辅助复核，不能计为真实 DisplayDim。"
+    },
+    {
+      "key": "reference_layout_center_tolerance",
+      "severity": "need_review",
+      "rule": "front/top/right/iso 语义视图中心必须保持在参考布局 0.08 归一化图幅单位内。"
+    },
+    {
+      "key": "no_extra_section_or_detail_for_six_samples",
+      "severity": "need_review",
+      "rule": "六张已学习样本只使用 type 7 和 type 4，同名零件禁用自动新增剖视图/详图。"
+    }
+  ],
+  "sample_rules": [
+    {
+      "base": "LB26001-A-04-006",
+      "reference_drawing": "C:/ref/LB26001-A-04-006.SLDDRW",
+      "sheet_size_mm": {
+        "width": 297.0,
+        "height": 210.0
+      },
+      "required_view_count": 4,
+      "required_view_types": {
+        "7": 2,
+        "4": 2
+      },
+      "required_projected_view_count": 2,
+      "display_dim_floor": 12,
+      "annotation_count_reference": 0,
+      "layout_slots_center_norm": {
+        "front": [
+          0.37,
+          0.8
+        ],
+        "iso": [
+          0.8,
+          0.48
+        ],
+        "right": [
+          0.72,
+          0.8
+        ],
+        "top": [
+          0.37,
+          0.58
+        ]
+      },
+      "layout_tolerance_norm": 0.08,
+      "section_policy": {
+        "automatic_section_or_detail_allowed": false,
+        "reason": "same-name reference uses only standard/named and projected views"
+      },
+      "must_not_count_as_display_dim": [
+        "Note",
+        "OCR text",
+        "QC sidecar",
+        "visual-only text"
+      ],
+      "correction_checks": [
+        "generated view_count must equal required_view_count",
+        "generated view_types must equal required_view_types",
+        "generated real DisplayDim count must be >= display_dim_floor",
+        "generated semantic layout centers must stay within layout_tolerance_norm",
+        "automatic section/detail views must remain disabled when section_policy forbids them"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "reference_drawing": "C:/ref/LB26001-A-04-008.SLDDRW",
+      "sheet_size_mm": {
+        "width": 297.0,
+        "height": 210.0
+      },
+      "required_view_count": 2,
+      "required_view_types": {
+        "7": 1,
+        "4": 1
+      },
+      "required_projected_view_count": 1,
+      "display_dim_floor": 2,
+      "annotation_count_reference": 0,
+      "layout_slots_center_norm": {
+        "front": [
+          0.37,
+          0.8
+        ],
+        "top": [
+          0.72,
+          0.8
+        ]
+      },
+      "layout_tolerance_norm": 0.08,
+      "section_policy": {
+        "automatic_section_or_detail_allowed": false,
+        "reason": "same-name reference uses only standard/named and projected views"
+      },
+      "must_not_count_as_display_dim": [
+        "Note",
+        "OCR text",
+        "QC sidecar",
+        "visual-only text"
+      ],
+      "correction_checks": [
+        "generated view_count must equal required_view_count",
+        "generated view_types must equal required_view_types",
+        "generated real DisplayDim count must be >= display_dim_floor",
+        "generated semantic layout centers must stay within layout_tolerance_norm",
+        "automatic section/detail views must remain disabled when section_policy forbids them"
+      ]
+    }
+  ],
+  "current_gap_summary": {
+    "source_report": "",
+    "stage_summary": "",
+    "status": "fail",
+    "pass": false,
+    "sample_count": 2,
+    "pass_count": 0,
+    "need_review_count": 0,
+    "fail_count": 2,
+    "difference_counts": {
+      "display_dim_count_lower_than_reference": 1,
+      "view_type_count_lower_than_reference": 1
+    }
+  },
+  "next_cad_test_plan": [
+    "先恢复可响应的 SolidWorks COM active-object 会话，再进行真实修正测试。",
+    "通过 JobRuntimeFacade/start_cad_job 重跑 LB26001-A-04-006，并要求视图类型 7x2/4x2、DisplayDim >= 12、无额外视图族、布局通过。",
+    "006 通过后，再按各自视图规则和 DisplayDim 下限重跑 007/008/009/015/022。",
+    "六张样本全部通过 strict style gate 后，才允许重跑 LB26001_36。"
+  ],
+  "non_release_note": "本报告只是已学习制图规范和离线证据；只有 fresh SLDDRW/PDF/DXF/PNG 全部通过严格验证后，才能作为真实 CAD 通过证明。"
+}

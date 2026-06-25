@@ -1,0 +1,141 @@
+﻿[v6] 输出目录 c:\Users\Vision\Desktop\SW 相关\drw_output\v5
+[v6] issues_to_fix: (无)
+[..] 连接 SolidWorks
+[1/9] 打开 LB26001-A-04-001.SLDPRT
+[cprop] 机型 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 品名 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 图号 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 类别 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 数量 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 材质 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 表面处理 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 比例 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 重量 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] UNIT_OF_MEASURE failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 设计 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] 日期 failed: (-2147352561, '非选择性的参数。', None, None)
+[cprop] injected 12 defaults
+[v6 refdoc] path1 GetActiveConfiguration failed: (-2147352573, '找不到成员。', None, None)
+[v6 refdoc] cached cfg_name='默认' (after fallback)
+[2/9] 读 13 项属性 + MassProperties.重量
+  非空属性 4/13
+[3/9] GetPartBox + 自动布局 layout_4_views
+  bbox(mm) Lx=500.0 Ly=12.6 Lz=310.0
+  选定比例 1:5
+  layout_4_views centers(mm): front=(80.0,140.0), top=(80.0,80.0), right=(180.0,140.0), iso=(230.0,180.0)
+[4/9] 新建 A4 横向 / 第一角 / 1:5
+[template] using C:\Users\Vision\Desktop\SW 相关\templates\gb_a4_landscape.drwdot
+  字高 SetUserPreferenceDoubleValue(89, 0.005) -> False
+  箭头 SetUserPreferenceDoubleValue(2, 0.005) -> False
+[4.5/9] 创建 5 个图层
+  ! 无法获取 LayerManager
+[5/9] 4 个标准视图（layout_4_views）
+  positions(mm): front=(80.0,140.0) top=(80.0,80.0) right=(180.0,140.0) iso=(230.0,180.0)
+[v6 layout] checking overlaps...
+  + *前视 ok @(80.0,140.0)mm
+    set scale front -> 1:5  ok=True
+[refdoc] view 工程图视图1 bound config 默认
+    force position front -> (80.0,140.0)mm  set_ok=True
+  + *上视 ok @(80.0,80.0)mm
+    set scale top -> 1:5  ok=True
+[refdoc] view 工程图视图2 bound config 默认
+    force position top -> (80.0,80.0)mm  set_ok=True
+  + *右视 ok @(180.0,140.0)mm
+    set scale right -> 1:5  ok=True
+[refdoc] view 工程图视图3 bound config 默认
+    force position right -> (180.0,140.0)mm  set_ok=True
+  + *等轴测 ok @(230.0,180.0)mm
+    set scale iso -> 1:5  ok=True
+[refdoc] view 工程图视图4 bound config 默认
+    force position iso -> (230.0,180.0)mm  set_ok=True
+  ! v6 实测重叠 (#1) [('right', 'iso')], 降至 1:2
+    front ScaleRatio -> 1:2  ok=True
+    top ScaleRatio -> 1:2  ok=True
+    right ScaleRatio -> 1:2  ok=True
+    iso ScaleRatio -> 1:2  ok=True
+  ! v6 实测重叠 (#2) [('front', 'top'), ('front', 'right'), ('front', 'iso'), ('top', 'right'), ('top', 'iso'), ('right', 'iso')], 降至 1:5
+    front ScaleRatio -> 1:5  ok=True
+    top ScaleRatio -> 1:5  ok=True
+    right ScaleRatio -> 1:5  ok=True
+    iso ScaleRatio -> 1:5  ok=True
+  ! v6 实测重叠 (#3) [('right', 'iso')], 降至 1:10
+    front ScaleRatio -> 1:10  ok=True
+    top ScaleRatio -> 1:10  ok=True
+    right ScaleRatio -> 1:10  ok=True
+    iso ScaleRatio -> 1:10  ok=True
+  ✓ v6 比例 1:10 后无重叠
+[5.5/9] view_in_frame 越界检查
+  ! 越界视图: ['iso']
+    relocate iso -> (230.0,176.8)mm  set_ok=True
+[6/9] 导入模型尺寸 RunCommand(826)
+[v6 dim] second RunCommand(826) issued
+[7/9] 创建剖视图 section_helper.create_section_in_active_drawing
+[section] called drw.EditSheet() at entry
+[section] activated sheet 图纸1
+[section] GetFirstView path found nothing, trying Sheet.GetViews fallback...
+[section] sheet_views_count=4
+  sheet_view type=7 name=工程图视图1
+  sheet_view type=7 name=工程图视图2
+  sheet_view type=7 name=工程图视图3
+  sheet_view type=7 name=工程图视图4
+[section] target view name=工程图视图1 type=7
+[section] === Strategy 1: EditSheet + sheet sketch ===
+[section] activated by sheet-name '图纸1'
+[section] line auto-selected (selected=1)
+[section] s1 select_ok=True selected=1
+[section] strategy=1 opt=6 excl=VT_EMPTY line_count=-1 selected=1 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=6 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=6 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] === Strategy 2: SetEditMode(2) + sheet sketch ===
+[section] s2 SetEditMode exc: <unknown>.SetEditMode
+[section] s2 select_ok=False selected=0
+[section] === Strategy 3: view.GetSketch() ===
+[section] s3 view_sketch=False
+[section] s3 select_ok=False selected=0
+[section] === Strategy 4: legacy InsertSectionView2 ===
+[section] s4 line_created=True
+[section] s4 selected=0
+[section] s4 InsertSectionView2 not callable
+[section] s4 InsertSectionView not callable
+[section] s4 InsertCutAlignedSectionView not callable
+[section] s4 CreateSectionView -> view_type=None is_None=True
+[section] s4 CreateSectionViewAt -> view_type=None is_None=True
+[section] === Strategy 5: EditRebuild + CreateSectionViewAt5 ===
+[section] activated by sheet-name '图纸1'
+[section] s5 EditRebuild3 exc: 'bool' object is not callable
+[section] s5 select_ok=False selected=0
+[section] === Strategy 6: RunMacro2(auto_section.swp) ===
+[section] s6 no .swp at c:\Users\Vision\Desktop\SW 相关\.trae\specs\repair-section-and-recompare\auto_section.swp (skip — only .bas present, needs user to compile via SW > Tools > Macro > Save as .swp)
+[section] === Strategy 7: sw.RunCommand(swCommands_SectionView) ===
+[section] activated by sheet-name '图纸1'
+[section] s7 select_ok=False selected=0
+[section] all strategies failed
+[section] fallback to RunMacro2: C:\Users\Vision\Desktop\SW 相关\templates\macros\auto_section.bas
+[section] RunMacro2 failed: (-2147352571, '类型不匹配。', None, 5)
+[8/9] 写 13 项属性 (Add3 + Set2)
+[9/9] 兜底 Notes：技术要求 / Ra / 基准 A（每条 1 次）
+  + 技术要求 Note x1
+  + Ra 3.2 Note x1
+  + 基准 A x1
+[gtol] fallback note '⏥ 0.05 A' inserted
+[9.5/9] SaveAs 前最终强制：字高 + front_view.Position
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.006  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.007  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  强制 front Position=(80,140)mm  set_ok=True  实际=[0.08, 0.14]
+[9.6/9] using template, skip self-drawing frame/titleblock
+[9.7/9] rebound 4 views to part+cfg='默认'
+[save] 保存 SLDDRW / PDF / DXF（_v5 后缀） — part 保持打开
+  SLDDRW: OK  err=0
+  PDF:    OK  err=0
+  DXF:    OK  err=0
+  Warnings: 17 条 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-001_v5_warnings.json
+
+[DONE] {"slddrw": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5.SLDDRW", "pdf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5.PDF", "dxf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5.DXF", "warnings": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5_warnings.json", "scale": "1:10", "section": false, "section_helper_called": true, "centers": {"front": [0.08, 0.14], "top": [0.08, 0.08], "right": [0.18, 0.14], "iso": [0.23, 0.18]}, "real_overlap_pairs": [], "bbox_m": [0.5000000000000001, 0.012593676801498423, 0.31]}

@@ -1,0 +1,179 @@
+{
+  "run_id": "deef9a972365",
+  "started_at": "2026-06-19 23:36:34",
+  "finished_at": "2026-06-19 23:38:36",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-M3x8十字螺丝-1-V3-V02.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\input\\-M3x8十字螺丝-1-V3-V02.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\drawing\\-M3x8十字螺丝-1-V3-V02_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\drawing\\-M3x8十字螺丝-1-V3-V02_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\drawing\\-M3x8十字螺丝-1-V3-V02_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\drawing\\-M3x8十字螺丝-1-V3-V02_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\qc\\-M3x8十字螺丝-1-V3-V02_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\qc\\part_class.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\qc\\dimension_sidecar_result.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\qc\\vision_qc_v2.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\qc\\final_quality.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [],
+  "warnings": [
+    "dim_total_zero_purchased_with_std_anno",
+    "qc_pass_too_low_purchased_c_grade",
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "titlebar_complete"
+  ],
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 9,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 0,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": [],
+  "dimension_grade": "C",
+  "usable_for": [
+    "procurement",
+    "assembly"
+  ],
+  "part_class": "fastener",
+  "standard_annotation_present": true,
+  "has_valid_sidecar_annotation": true,
+  "drawing_accuracy_score": {
+    "total": 71,
+    "layout": {
+      "score": 20,
+      "max": 20,
+      "details": {
+        "view_overlap": 8,
+        "view_in_frame": 7,
+        "scale_in_set": 5
+      }
+    },
+    "dimension": {
+      "score": 23,
+      "max": 35,
+      "details": {
+        "dim_total": 8,
+        "associativity": 8,
+        "overall": 7
+      }
+    },
+    "titlebar": {
+      "score": 6,
+      "max": 10,
+      "details": {
+        "keys": 6,
+        "gb_titlebar": 0
+      }
+    },
+    "annotation": {
+      "score": 5,
+      "max": 15,
+      "details": {
+        "tech_note": 0,
+        "ra_note": 0,
+        "datum_a": 0,
+        "standard_annotation": 5
+      }
+    },
+    "visual_clarity": {
+      "score": 17,
+      "max": 20,
+      "details": {
+        "text_height": 5,
+        "png": 8,
+        "vision": 4
+      }
+    },
+    "grade_label": "B",
+    "reasons": [
+      "dimension.dim_total=0 但有 sidecar/标准标注",
+      "titlebar.gb_titlebar: 不完整",
+      "annotation.tech_note: 缺失",
+      "visual.vision: 未评估"
+    ]
+  },
+  "dimension_sources": {
+    "display_dim_count": 0,
+    "note_dim_count": 5,
+    "standard_annotation_present": true,
+    "sidecar_overall": {
+      "overall_length": 9.776605211664052,
+      "overall_width": 7.0,
+      "overall_height": 7.0,
+      "fastener_spec": "M3x8",
+      "spring_spec": ""
+    },
+    "sources_summary": [
+      "sidecar_note=5",
+      "standard_annotation=true"
+    ]
+  },
+  "final_quality": {
+    "version": "v1.8",
+    "status": "pass_with_warning",
+    "reason": "通过但有 warning (geo=8, vision=5)",
+    "conflict": false,
+    "conflict_reason": "",
+    "geo_qc": {
+      "pass": true,
+      "hard_fail": [],
+      "warnings_count": 8,
+      "drawing_usable_pass": true,
+      "dimension_grade": "C",
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ]
+    },
+    "vision_qc": {
+      "pass": true,
+      "critical": 0,
+      "major": 0,
+      "minor": 5,
+      "total_issues": 5
+    },
+    "drawing_accuracy_score": 71,
+    "recommendation": "图纸达 C 级，仅限采购/装配使用"
+  }
+}

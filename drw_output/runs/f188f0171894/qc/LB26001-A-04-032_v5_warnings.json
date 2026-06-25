@@ -1,0 +1,176 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-032.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [],
+  "scale": "5:1",
+  "bbox_m": [
+    0.1145,
+    0.010000000000000009,
+    0.058
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.051375000000000004,
+      0.1375,
+      0.108625,
+      0.14250000000000002
+    ],
+    "top": [
+      0.051375000000000004,
+      0.0655,
+      0.108625,
+      0.0945
+    ],
+    "right": [
+      0.16549999999999998,
+      0.1375,
+      0.1945,
+      0.14250000000000002
+    ],
+    "iso": [
+      0.2099625,
+      0.1599625,
+      0.2500375,
+      0.20003749999999998
+    ]
+  },
+  "real_outlines_m": {
+    "工程图视图1": [
+      0.047175000000000016,
+      0.1333,
+      0.11282500000000001,
+      0.14670000000000002
+    ],
+    "工程图视图2": [
+      0.018987500000000008,
+      0.0613,
+      0.11282500000000001,
+      0.0987
+    ],
+    "工程图视图3": [
+      0.16129999999999997,
+      0.1333,
+      0.19870000000000002,
+      0.14670000000000002
+    ],
+    "工程图视图4": [
+      0.19530602006133013,
+      0.15030969611821687,
+      0.26469397993866983,
+      0.198
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

@@ -1,0 +1,9 @@
+﻿=== Task 6.4: -M3x8十字螺丝-1-V3-V02.SLDPRT ===
+
+=== RESULT ===
+run_id=cba61245848f
+hard_fail=['dim_total_zero', 'qc_pass_too_low']
+warnings=['refdoc_correct', 'has_datum_a', 'has_ra_note', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped', 'titlebar_complete', 'model_2d_consistency', 'non_model_associative_dimension']
+dim_total=0
+qc_pass=9/12
+drawing_usable={'pass': False, 'criteria': {'files_exported': True, 'view_in_frame': True, 'view_overlap_ok': True, 'dim_total': 0, 'qc_pass_count': 9, 'vision_score': None}}

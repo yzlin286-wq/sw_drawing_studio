@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-06-23 15:48:36",
+  "mode": "dimension_validation_smoke_v3",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\630f87b7e82f",
+  "drawing": "",
+  "png": "",
+  "qc_json": "",
+  "final_quality_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\630f87b7e82f\\qc\\final_quality.json",
+  "source_separation": {
+    "display_dim_source": "qc.display_dim_count / dimension_sources.display_dim_count",
+    "raw_display_dim_source": "qc.display_dim_count / dimension_sources.display_dim_count",
+    "note_dim_source": "qc.note_dim_count / dimension_sources.note_dim_count",
+    "notes_counted_as_display_dim": false,
+    "model_associative_source": "qc.model_associative_dim_count",
+    "source_summary": [],
+    "display_dim_metrics": {
+      "attempted": false,
+      "accepted": false,
+      "reason": "drawing_path_missing"
+    }
+  },
+  "dimension_validation": {
+    "display_dim_count": 0,
+    "raw_display_dim_count": 0,
+    "display_dim_count_source": "qc.display_dim_count / dimension_sources.display_dim_count",
+    "display_dim_metrics": {
+      "attempted": false,
+      "accepted": false,
+      "reason": "drawing_path_missing"
+    },
+    "addin_created_dim_count": 0,
+    "existing_display_dim_count": 0,
+    "model_associative_dim_count": 0,
+    "note_dim_count": 0,
+    "standard_annotation_count": 0,
+    "overall_length": false,
+    "overall_width": false,
+    "overall_height": false,
+    "hole_diameter": false,
+    "hole_location": false,
+    "dimension_text_readable": false,
+    "dimension_overlap": null,
+    "dimension_grade": "",
+    "usable_for": [],
+    "part_class": "",
+    "dimension_evidence_policy": "display_dim_required",
+    "has_dimension_evidence": false,
+    "blocking_reasons": [
+      "qc_json_missing",
+      "slddrw_missing",
+      "display_dim_count_zero",
+      "display_dim_count_below_threshold:0/5"
+    ],
+    "warnings": [
+      "model_associative_dim_count_zero",
+      "standard_annotation_missing"
+    ]
+  },
+  "final_quality_status": "",
+  "final_quality_deliverable": null,
+  "status": "fail",
+  "pass": false,
+  "reasons": [
+    "qc_json_missing",
+    "slddrw_missing",
+    "display_dim_count_zero",
+    "display_dim_count_below_threshold:0/5"
+  ],
+  "fix_suggestions": [
+    "Run Add-in Dimension / associative dimension generation for model_associative_dim_count_zero.",
+    "Add standard annotations or document why they are not required for the part class."
+  ]
+}

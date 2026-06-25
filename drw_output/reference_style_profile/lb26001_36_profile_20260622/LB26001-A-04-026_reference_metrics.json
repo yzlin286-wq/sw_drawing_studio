@@ -1,0 +1,93 @@
+{
+  "schema": "sw_drawing_studio.reference_metrics.v1",
+  "source": "csharp_sidecar",
+  "generated_at": "2026-06-22 17:57:16",
+  "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-026.SLDDRW",
+  "exists": true,
+  "success": true,
+  "status": "ok",
+  "reason": "",
+  "connection_method": "get_active_object",
+  "sw_revision": "33.5.0",
+  "open_errors": 0,
+  "open_warnings": 0,
+  "sheet": {
+    "name": null,
+    "paper_size": [],
+    "properties": [
+      6,
+      13,
+      1,
+      1,
+      1,
+      0.297,
+      0.21,
+      1
+    ]
+  },
+  "view_count": 3,
+  "view_types": {
+    "7": 1,
+    "4": 2
+  },
+  "view_names": [
+    "工程图视图1",
+    "工程图视图2",
+    "工程图视图3"
+  ],
+  "view_outlines": [
+    {
+      "name": "工程图视图1",
+      "type": "7",
+      "outline": [
+        0.040224381625441695,
+        0.10112919378099795,
+        0.1290243816254417,
+        0.17012919378099794
+      ]
+    },
+    {
+      "name": "工程图视图2",
+      "type": "4",
+      "outline": [
+        0.040224381625441695,
+        0.05280419378099786,
+        0.1290243816254417,
+        0.06620419378099808
+      ]
+    },
+    {
+      "name": "工程图视图3",
+      "type": "4",
+      "outline": [
+        0.18725592206877592,
+        0.05994100021244681,
+        0.25604284118210696,
+        0.15268399978755298
+      ]
+    }
+  ],
+  "display_dim_count": 23,
+  "annotation_count": 0,
+  "file_size_bytes": 325406,
+  "warnings": [],
+  "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-026_reference.json",
+  "returncode": 0,
+  "stdout": "{\"success\":true,\"status\":\"ok\",\"out\":\"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\reference_metrics_sidecar\\\\LB26001-A-04-026_reference.json\",\"view_count\":3,\"display_dim_count\":23}",
+  "stderr": "",
+  "annotation_probe": {
+    "source": "pywin32_annotation_probe",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "display_dim_count": 23,
+    "display_dim_annotation_count": 0,
+    "display_dim_count_source": "annotation_type1",
+    "annotation_count": 0,
+    "open_errors": 0,
+    "open_warnings": 128
+  },
+  "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-026_reference_annotation_probe.json",
+  "display_dim_annotation_count": 0,
+  "display_dim_count_source": "display_dimension_api"
+}

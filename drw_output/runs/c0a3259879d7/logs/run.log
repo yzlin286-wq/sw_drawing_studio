@@ -1,0 +1,8 @@
+[2026-06-18 21:26:42] === Full pipeline start ===
+[2026-06-18 21:26:42] strategy=v6_recommended
+[2026-06-18 21:26:42] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LDP2683-55B78-9H_3D.SLDPRT
+[2026-06-18 21:26:42] sw_revision=33.5.0
+[2026-06-18 21:26:42] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 21:28:55] qc_loop exit_code=0
+[2026-06-18 21:28:59] bom rows=1
+[2026-06-18 21:28:59] === Full pipeline done. drawing_usable=False ===

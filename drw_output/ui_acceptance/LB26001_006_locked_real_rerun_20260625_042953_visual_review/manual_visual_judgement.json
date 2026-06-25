@@ -1,0 +1,65 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v4_2",
+  "generated_at": "2026-06-25 04:41:00",
+  "template_status": "completed_human_visual_judgement",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\drawing_visual_review_report.json",
+  "required_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "drw_output\\runs\\03eab4738911\\drawing\\LB26001-A-04-006_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\drawing_visual_review_report.json",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "application_ui_screenshot_review_required": true,
+      "ui_screenshot_is_final_gate": true,
+      "api_only_acceptance_allowed": false,
+      "api_is_not_final_judgement": true,
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
+        "view_layout": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
+        "display_dimensions": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
+        "dimension_readability": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
+        "title_block": "The visible title/data area is positioned and formatted differently from the compact reference style.",
+        "manufacturing_notes": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions."
+      },
+      "findings": [
+        "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
+        "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
+        "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
+        "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
+        "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
+      ],
+      "required_correction": "Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI.",
+      "reviewer": "Codex visual UI review",
+      "reviewed_at": "2026-06-25 04:41:00"
+    }
+  ]
+}

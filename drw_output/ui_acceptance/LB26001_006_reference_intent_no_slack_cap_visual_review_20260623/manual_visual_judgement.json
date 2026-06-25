@@ -1,0 +1,43 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 16:49:30",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/e1feea76ca1b",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_reference_intent_no_slack_cap_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_reference_intent_no_slack_cap_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass_with_warning",
+        "reference_style": "fail",
+        "reference_compare_v4": "fail",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The application Drawing Review screenshot was captured successfully, but the generated drawing remains visually unacceptable against the same-name reference.",
+        "The generated drawing still contains a dense slanted AutoDimension-like callout stack crossing the front/top view area; the reference drawing uses concise separated dimensions and a compact right-side note/callout group.",
+        "The generated DisplayDim count is still below the same-name reference floor in the latest strict/no-slack run, so structural evidence also does not support acceptance.",
+        "The right-side small projected view is clearer than earlier attempts, but the main hole/radius/thread callout group has not been recreated in the reference-style compact leader area.",
+        "The title block and technical notes remain visually different from the reference layout and cannot be accepted by API/style evidence alone."
+      ],
+      "improvement_evidence": {
+        "current_staged_summary": "drw_output/staged_validation/LB26001_006_reference_intent_no_slack_cap_20260623/summary.json",
+        "current_run": "drw_output/runs/e1feea76ca1b",
+        "model_dim_import_skipped": true,
+        "generic_sidecar_skipped_when_floor_reached": true,
+        "display_dim_count": 11,
+        "reference_display_dim_floor": 12
+      },
+      "required_next_action": "Replace the remaining AutoDimension path with explicit reference-intent DisplayDim creation or a model-dimension seed for the input_work copy; keep the compact right-side leader area and rerun 006 through Drawing Review UI screenshot judgement."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

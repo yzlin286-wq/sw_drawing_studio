@@ -1,0 +1,502 @@
+{
+  "version": "v4",
+  "run_id": "v22_core12_LB26001-A-04-005",
+  "timestamp": "2026-06-20 19:52:11",
+  "mode": "production",
+  "dependencies": {
+    "cv2": true,
+    "ultralytics": true,
+    "paddleocr": true,
+    "fitz": true
+  },
+  "pdf_path": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-005_v5.PDF",
+  "success": true,
+  "reason": "Vision QC v4 完成",
+  "checks": {
+    "pdf_render": {
+      "pass": true,
+      "reason": "PyMuPDF 300 DPI 渲染成功",
+      "mode": "production"
+    },
+    "ocr": {
+      "pass": true,
+      "reason": "PaddleOCR: 0 文本块",
+      "mode": "paddleocr"
+    },
+    "symbol_detection": {
+      "pass": true,
+      "reason": "OpenCV: 11 符号",
+      "mode": "opencv"
+    },
+    "yolo_detection": {
+      "pass": true,
+      "reason": "YOLO: 21 检测, method=image_analysis",
+      "mode": "image_analysis"
+    },
+    "llm_review": {
+      "pass": true,
+      "reason": "LLM: unknown",
+      "mode": "unknown"
+    }
+  },
+  "issues": [
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.6607753705815279,
+        0.7359935509875051,
+        0.024230330672748004,
+        0.03426037887948408
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.701539338654504,
+        0.7476823861346231,
+        0.023090079817559863,
+        0.032648125755743655
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.7123717217787914,
+        0.7271261588069327,
+        0.023090079817559863,
+        0.032648125755743655
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.7442987457240593,
+        0.7541313986295849,
+        0.022234891676168756,
+        0.03143893591293833
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.6944127708095781,
+        0.750906892382104,
+        0.01909920182440137,
+        0.027005239822652155
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.6385404789053591,
+        0.7106005642885933,
+        0.022234891676168756,
+        0.03143893591293833
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.7927594070695553,
+        0.7468762595727529,
+        0.022234891676168756,
+        0.03143893591293833
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.7605473204104903,
+        0.7690447400241838,
+        0.013397947548460661,
+        0.01894397420395002
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.6345496009122007,
+        0.7049576783555018,
+        0.011972633979475485,
+        0.016928657799274487
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_center_mark",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.7,
+      "bbox": [
+        0.7517103762827823,
+        0.7480854494155582,
+        0.013397947548460661,
+        0.01894397420395002
+      ],
+      "description": "检测到 center_mark 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "symbol_Ra_3.2",
+      "severity": "info",
+      "source": "symbol_detection",
+      "confidence": 0.85,
+      "bbox": [
+        0,
+        0,
+        0.1,
+        0.1
+      ],
+      "description": "检测到 Ra_3.2 符号",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14965792474344355,
+        0.33978234582829503,
+        0.23888255416191562,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14908779931584948,
+        0.3264812575574365,
+        0.2403078677309008,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14880273660205245,
+        0.32728738411930675,
+        0.24059293044469784,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.6864310148232611,
+        0.08101571946795647,
+        0.17046750285062715,
+        0.13945989520354696
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14908779931584948,
+        0.6126561870213624,
+        0.2403078677309008,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14880273660205245,
+        0.6239419588875453,
+        0.24059293044469784,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.006271379703534778,
+        0.9903264812575574,
+        0.18700114025085518,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14908779931584948,
+        0.3385731559854897,
+        0.24002280501710377,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.686145952109464,
+        0.08222490931076179,
+        0.17046750285062715,
+        0.13905683192261184
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14908779931584948,
+        0.6251511487303507,
+        0.24002280501710377,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.14880273660205245,
+        0.6134623135832326,
+        0.24059293044469784,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.016248574686431014,
+        0.9854897218863361,
+        0.17702394526795895,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.006271379703534778,
+        0.9895203546956872,
+        0.18700114025085518,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.01653363740022805,
+        0.9862958484482064,
+        0.17673888255416192,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.016818700114025087,
+        0.8133817009270455,
+        0.17645381984036487,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.006271379703534778,
+        0.8097541313986296,
+        0.18700114025085518,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.6864310148232611,
+        0.09189842805320435,
+        0.169327251995439,
+        0.13825070536074163
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.6927023945267959,
+        0.0765820233776703,
+        0.169327251995439,
+        0.13825070536074163
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.006271379703534778,
+        0.8089480048367593,
+        0.18700114025085518,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_line",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.6,
+      "bbox": [
+        0.016248574686431014,
+        0.8141878274889157,
+        0.17702394526795895,
+        0.0
+      ],
+      "description": "YOLO 检测: line",
+      "fix_suggestion": ""
+    },
+    {
+      "key": "yolo_rectangle",
+      "severity": "info",
+      "source": "yolo_detection",
+      "confidence": 0.5,
+      "bbox": [
+        0.006271379703534778,
+        0.8089480048367593,
+        0.18728620296465223,
+        0.18178153970173316
+      ],
+      "description": "YOLO 检测: rectangle",
+      "fix_suggestion": ""
+    }
+  ],
+  "summary": {
+    "total_issues": 32,
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "info": 32
+  },
+  "fallback_used": false,
+  "fallback_reasons": [],
+  "duration_ms": 379
+}

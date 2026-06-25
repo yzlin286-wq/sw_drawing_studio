@@ -1,0 +1,176 @@
+{
+  "schema": "sw_drawing_studio.staged_cad_validation.v1",
+  "stage": "LB26001_006",
+  "generated_at": "2026-06-24 21:29:20",
+  "out_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_current_readiness_preflight_20260624",
+  "duration_s": 0.5,
+  "total": 1,
+  "processed": 0,
+  "deliverable_count": 0,
+  "deliverable_target_ratio": 1.0,
+  "required_deliverable_count": 1,
+  "execution_completed": false,
+  "acceptance_pass": false,
+  "need_review_count": 0,
+  "failed_count": 0,
+  "status": "fail",
+  "pass": false,
+  "preflight_pass": false,
+  "readiness_preflight_pass": false,
+  "rerun_packet_preflight_pass": false,
+  "sw_connection_guard_skipped_due_to_readiness": true,
+  "sw_connection_guard_skipped_due_to_006_preflight": true,
+  "lb26001_006_readiness_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_current_readiness_preflight_20260624\\lb26001_006_regression_readiness_v4_2.json",
+  "lb26001_006_readiness_report_md": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_current_readiness_preflight_20260624\\lb26001_006_regression_readiness_v4_2.md",
+  "lb26001_006_rerun_packet_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_current_readiness_preflight_20260624\\lb26001_006_rerun_packet_v4_2.json",
+  "lb26001_006_rerun_packet_status": "blocked_by_solidworks_readiness",
+  "lb26001_006_rerun_packet_build_ready": true,
+  "lb26001_006_rerun_packet_blocked_only_by_readiness": true,
+  "lb26001_006_real_cad_allowed_now": false,
+  "lb26001_006_readiness_status": "blocked",
+  "lb26001_006_ui_visual_review_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\closed_loop_strict_final_20260624\\ui_visual_review_gate_summary.json",
+  "lb26001_006_expansion_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\closed_loop_strict_final_20260624\\lb26001_acceptance_gate_v4_2.json",
+  "lb26001_006_safe_recovery_guidance": {
+    "manual_recovery_required": true,
+    "automatic_restart_allowed": false,
+    "reason": "Automatic restart is forbidden while SolidWorks is unresponsive or an unsaved document marker is visible.",
+    "observed_main_window_title": "",
+    "steps": [
+      "Start SolidWorks manually and leave it responsive with no unsaved document marker in the title bar.",
+      "Rerun this no-COM readiness audit after SolidWorks is responsive.",
+      "Only when readiness is ready, rerun the no-COM 006 rerun packet.",
+      "Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3."
+    ],
+    "do_not": [
+      "Do not kill or restart SLDWORKS.exe from automation while unsaved work may exist.",
+      "Do not start 007/008/009/015/022 acceptance before 006 passes.",
+      "Do not use API or file creation as a substitute for the Drawing Review UI screenshot judgement."
+    ]
+  },
+  "lb26001_006_manual_recovery_required": true,
+  "lb26001_006_automatic_restart_allowed": false,
+  "lb26001_006_solidworks_lock_present": false,
+  "lb26001_006_solidworks_lock_stale": false,
+  "lb26001_006_solidworks_lock_conflict": {},
+  "lb26001_006_solidworks_lock_owner": {},
+  "lb26001_006_solidworks_lock_fix_suggestion": "",
+  "lb26001_006_source_signature_summary": {
+    "cad_job_worker": true,
+    "generator": true,
+    "reference_compare_v4": true,
+    "vision_qc_v6": true,
+    "application_ui_screenshot_validator": true,
+    "dimension_visual_validator": true,
+    "displaydim_lifecycle_audit": true,
+    "staged_cad_validation_v3": true,
+    "real_cad_smoke_v3": true,
+    "drawing_visual_review_suite": true,
+    "manual_visual_judgement_template_v4": true,
+    "lb26001_correction_plan_v4_2": true,
+    "apply_ui_visual_review_v4": true,
+    "lb26001_acceptance_gate_v4_2": true,
+    "lb26001_006_acceptance_proof_v4_2": true
+  },
+  "lb26001_006_offline_prerequisite_summary": {
+    "readiness_report_loaded": true,
+    "requested_six_drawing_ui_status_loaded": true,
+    "six_requested_drawings_recorded_as_ui_failed": true,
+    "006_application_ui_fail_is_latest_gate": true,
+    "correction_plan_ready": true,
+    "correction_plan_matches_current_006_status": true,
+    "006_correction_entry_present": true,
+    "006_effective_ui_corrections_present": true,
+    "006_reference_intent_plan_ready": true,
+    "006_reference_intent_contract_ready": true,
+    "cad_worker_ui_correction_evidence_signatures_present": true,
+    "generator_repair_signatures_present": true,
+    "strict_v4_compare_signatures_present": true,
+    "vision_qc_v6_ui_template_policy_signatures_present": true,
+    "application_ui_screenshot_validator_signatures_present": true,
+    "dimension_visual_readability_signatures_present": true,
+    "displaydim_lifecycle_audit_ready": true,
+    "staged_validation_lifecycle_ui_gate_signatures_present": true,
+    "real_cad_smoke_packet_env_signatures_present": true,
+    "drawing_visual_review_suite_source_signatures_present": true,
+    "manual_visual_judgement_template_signatures_present": true,
+    "correction_plan_source_signatures_present": true,
+    "apply_ui_visual_review_gate_signatures_present": true,
+    "acceptance_gate_manual_ui_signatures_present": true,
+    "006_acceptance_proof_manual_ui_signatures_present": true
+  },
+  "lb26001_006_correction_plan_freshness_pass": true,
+  "lb26001_006_effective_ui_corrections_present": true,
+  "lb26001_006_correction_plan_source_signature_pass": true,
+  "lb26001_006_failed_visual_checks": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "lb26001_006_correction_action_count": 6,
+  "lb26001_006_ui_evidence": {
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\manual_visual_judgement_codex_20260624.json",
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "latest_manual_findings": [
+      "The generated drawing still does not match the reference drawing layout.",
+      "Dimension placement and coverage remain visibly non-reference-like.",
+      "Title block and manufacturing notes are not acceptable for release."
+    ],
+    "latest_manual_visual_checklist": {
+      "reference_match": false,
+      "view_layout": false,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "latest_manual_visual_checklist_notes": {
+      "reference_match": "Generated sheet does not match the learned same-name reference composition.",
+      "view_layout": "Generated views are scattered and use a different layout from the reference.",
+      "display_dimensions": "Visible dimensions are sparse and do not cover the reference-intent dimension set.",
+      "dimension_readability": "Dimension treatment is not reference-like and remains difficult to use for manufacturing.",
+      "title_block": "Generated title block/frame treatment differs from the compact reference standard.",
+      "manufacturing_notes": "Technical notes are not placed or presented like the reference."
+    },
+    "latest_manual_required_correction": "Repair 006 first with explicit reference-intent SolidWorks DisplayDim placement, compact reference-style sheet/title block, and rerun a fresh locked CAD job before the next UI screenshot judgement.",
+    "ui_screenshot_files": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "application_ui_screenshot_paths_existing_application_ui": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+    "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png"
+  },
+  "lb26001_006_comparison_image": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+  "lb26001_006_latest_manual_findings": [
+    "The generated drawing still does not match the reference drawing layout.",
+    "Dimension placement and coverage remain visibly non-reference-like.",
+    "Title block and manufacturing notes are not acceptable for release."
+  ],
+  "lb26001_006_latest_manual_required_correction": "Repair 006 first with explicit reference-intent SolidWorks DisplayDim placement, compact reference-style sheet/title block, and rerun a fresh locked CAD job before the next UI screenshot judgement.",
+  "failure_bucket": [
+    "lb26001_006_readiness_not_ready",
+    "lb26001_006_rerun_packet_blocked_by_readiness",
+    "solidworks_not_running"
+  ],
+  "reasons": [
+    "solidworks_not_running"
+  ],
+  "fix_suggestions": [
+    "Start SolidWorks, open no unsaved work, and rerun this readiness audit before launching locked 006 CAD."
+  ],
+  "cases": [],
+  "remaining_gates": [
+    "core_12",
+    "LB26001_36",
+    "medium_30",
+    "historical_visual_audit_100_percent",
+    "full_129",
+    "final_exe_rebuild_and_release_log"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v4_2",
+  "generated_at": "2026-06-24 14:40:00",
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "reviewer": "Codex visual review from application Drawing Review UI screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "required_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "run_dir": "drw_output\\runs\\9558b08c8f63",
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "The generated drawing does not match the same-name reference layout and callout strategy visible in the application screenshot.",
+        "view_layout": "The generated front/top/right view group is shifted and visually compressed compared with the reference; the right projected view region does not read like the reference.",
+        "display_dimensions": "One required real DisplayDim is still missing against the 12-dimension reference floor, and the visible hole/end-offset/small-projection dimension groups are not reproduced.",
+        "dimension_readability": "Generated dimensions are clustered around the front/right view area and remain AutoDimension-like instead of readable distributed manufacturing callouts.",
+        "title_block": "The generated sheet still contains generic bottom text/title information that does not match the compact reference presentation.",
+        "manufacturing_notes": "The generated bottom notes are generic template/manufacturing text and do not match the reference-style compact callout area."
+      },
+      "findings": [
+        "Application Drawing Review UI screenshot evidence was captured and is readable.",
+        "The generated drawing improved structurally but still fails visual acceptance: final DisplayDim evidence is 11/12 against the reference floor.",
+        "Dimensions remain concentrated near the generated front/right view area instead of matching the reference drawing's distributed end-offset, hole-location, and small projected-view callouts.",
+        "The right-side projected view and small-feature callout region still differ from the same-name reference.",
+        "Generic bottom notes/title information remains visible and does not match the reference sheet presentation.",
+        "API pass_with_warning fields are supporting evidence only and do not override this visual FAIL judgement."
+      ],
+      "improvement_evidence": {
+        "current_staged_summary": "drw_output\\staged_validation\\LB26001_006_explicit_displaydim_visible_entities_20260623\\summary.json",
+        "current_run": "drw_output\\runs\\9558b08c8f63",
+        "pre_saveas_explicit_displaydim_count": 12,
+        "final_display_dim_count": 11,
+        "reference_display_dim_floor": 12,
+        "reference_intent_autodimension_disabled": true,
+        "post_layout_recovery_issue": "post-layout reference-intent view slot rebinding returned target_view_not_found, so the missing DisplayDim could not be restored after reopen/prune."
+      },
+      "required_correction": "Keep 006 scoped first. Preserve all 12 explicit reference-intent SolidWorks DisplayDim targets through SaveAs, Close/Reopen, prune, post-layout repair, and final export; fix post-layout view-slot rebinding and rerun Drawing Review UI screenshot validation before expanding to 007/008/009/015/022."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing with every required visual_checklist item true."
+}

@@ -1,0 +1,73 @@
+{
+  "success": false,
+  "method": "addin",
+  "reason": "Dimension Engine v3 无新增尺寸（所有策略受 SW2025 API 限制）",
+  "timestamp": "2026-06-20 12:40:45",
+  "engine_version": "v3.0",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\v21_002_1781930445",
+  "policy": {
+    "part_class": "feature_part",
+    "dimension_policy": "full",
+    "required_dims": "[\"overall_length"
+  },
+  "dim_before": 12,
+  "dim_after": 12,
+  "existing_display_dim_count": 12,
+  "addin_created_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "note_dim_count": 0,
+  "standard_annotation_count": 0,
+  "strategy_log": [
+    {
+      "strategy": "1_import_pmi_dimxpert",
+      "count": 0,
+      "success": false,
+      "reason": "模型无 PMI/DimXpert 注解"
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图1",
+      "line_count": 0
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图2",
+      "line_count": 0
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图3",
+      "line_count": 0
+    },
+    {
+      "strategy": "2_auto_dimension",
+      "count": 0,
+      "success": false,
+      "reason": "GetLines2+AddDimension5 无法创建尺寸（SW2025 限制：SelectByID2 无法选中 drawing view 中的边）"
+    },
+    {
+      "strategy": "3_visible_entity_dimension",
+      "count": 0,
+      "success": false,
+      "reason": "GetLines2 无可用线段或 AddDimension5 失败"
+    },
+    {
+      "strategy": "4_pmi_seed_copied_model",
+      "count": 0,
+      "success": false,
+      "reason": "PMI Seed 未创建尺寸: OpenDoc6 副本返回 null",
+      "seed_details": {
+        "engine_version": "v3.0",
+        "timestamp": "2026-06-20 12:40:46",
+        "original_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+        "seed_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\v21_002_1781930445\\input_work\\LB26001-A-04-002_seed.SLDPRT",
+        "success": false,
+        "reason": "OpenDoc6 副本返回 null"
+      }
+    }
+  ],
+  "saved": false,
+  "step": "done"
+}

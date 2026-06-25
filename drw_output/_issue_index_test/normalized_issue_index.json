@@ -1,0 +1,145 @@
+{
+  "schema": "sw_drawing_studio.normalized_issue_index.v1",
+  "generated_at": "2026-06-22 11:26:11",
+  "status": "pass",
+  "pass": true,
+  "scan_roots": [
+    "drw_output\\_issue_index_test\\source"
+  ],
+  "scanned_json_files": 1,
+  "files_with_issues": 1,
+  "source_issue_lists": 2,
+  "issue_count": 3,
+  "normalization_warning_count": 11,
+  "normalization_warning_counts": {
+    "severity_missing_default_major": 2,
+    "bbox_missing_or_invalid_default_full_page": 2,
+    "evidence_missing_synthesized_from_legacy_record": 2,
+    "auto_fix_available_missing_or_invalid_default_false": 2,
+    "issue_was_not_object": 1,
+    "confidence_missing_or_invalid_default_zero": 1,
+    "confidence_percent_normalized": 1
+  },
+  "issues": [
+    {
+      "key": "legacy_titlebar_missing",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "historical_visual_audit",
+      "confidence": 0.0,
+      "fix_suggestion": "人工复核原始视觉证据；必要时重新运行 Vision QC v5，生成带 bbox、confidence、evidence 的结构化 issue。",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "legacy_titlebar_missing",
+      "evidence": {
+        "description": "legacy_titlebar_missing",
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.issues[0]",
+        "normalization_warnings": [
+          "issue_was_not_object",
+          "severity_missing_default_major",
+          "bbox_missing_or_invalid_default_full_page",
+          "confidence_missing_or_invalid_default_zero",
+          "evidence_missing_synthesized_from_legacy_record",
+          "auto_fix_available_missing_or_invalid_default_false"
+        ],
+        "raw_issue_json": "\"legacy_titlebar_missing\""
+      },
+      "normalization": {
+        "schema": "sw_drawing_studio.normalized_issue.v1",
+        "status": "normalized_with_warnings",
+        "warnings": [
+          "issue_was_not_object",
+          "severity_missing_default_major",
+          "bbox_missing_or_invalid_default_full_page",
+          "confidence_missing_or_invalid_default_zero",
+          "evidence_missing_synthesized_from_legacy_record",
+          "auto_fix_available_missing_or_invalid_default_false"
+        ],
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.issues[0]"
+      }
+    },
+    {
+      "key": "dimension_overlap",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "score": 82,
+      "severity": "major",
+      "source": "historical_visual_audit",
+      "confidence": 0.82,
+      "fix_suggestion": "人工复核原始视觉证据；必要时重新运行 Vision QC v5，生成带 bbox、confidence、evidence 的结构化 issue。",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "evidence": {
+        "description": "dimension_overlap",
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.issues[1]",
+        "normalization_warnings": [
+          "severity_missing_default_major",
+          "bbox_missing_or_invalid_default_full_page",
+          "confidence_percent_normalized",
+          "auto_fix_available_missing_or_invalid_default_false",
+          "evidence_missing_synthesized_from_legacy_record"
+        ],
+        "raw_issue_json": "{\"bbox\": [0.2, 0.3, 0, 0.1], \"key\": \"dimension_overlap\", \"score\": 82}"
+      },
+      "normalization": {
+        "schema": "sw_drawing_studio.normalized_issue.v1",
+        "status": "normalized_with_warnings",
+        "warnings": [
+          "severity_missing_default_major",
+          "bbox_missing_or_invalid_default_full_page",
+          "confidence_percent_normalized",
+          "auto_fix_available_missing_or_invalid_default_false",
+          "evidence_missing_synthesized_from_legacy_record"
+        ],
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.issues[1]"
+      }
+    },
+    {
+      "description": "视图越框",
+      "severity": "critical",
+      "bbox": [
+        0.7,
+        0.1,
+        0.2,
+        0.2
+      ],
+      "source": "geometry_qc",
+      "confidence": 0.95,
+      "evidence": {
+        "check": "frame_bounds",
+        "description": "视图越框",
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.nested.issues[0]",
+        "raw_issue_json": "{\"auto_fix_available\": true, \"bbox\": [0.7, 0.1, 0.2, 0.2], \"confidence\": 0.95, \"description\": \"视图越框\", \"evidence\": {\"check\": \"frame_bounds\"}, \"fix_suggestion\": \"调整比例或视图位置。\", \"human_review_status\": \"pending\", \"severity\": \"critical\", \"source\": \"geometry_qc\"}"
+      },
+      "fix_suggestion": "调整比例或视图位置。",
+      "auto_fix_available": true,
+      "human_review_status": "pending",
+      "key": "视图越框",
+      "normalization": {
+        "schema": "sw_drawing_studio.normalized_issue.v1",
+        "status": "preserved",
+        "warnings": [],
+        "source_file": "drw_output\\_issue_index_test\\source\\vision_qc_legacy.json",
+        "issue_path": "$.nested.issues[0]"
+      }
+    }
+  ],
+  "notes": [
+    "This index is normalized evidence for review; it does not edit or replace the original historical JSON artifacts.",
+    "Fallback full-page bbox or zero confidence means the legacy source lacked precise evidence and requires human review."
+  ]
+}

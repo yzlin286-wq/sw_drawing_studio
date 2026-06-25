@@ -1,0 +1,44 @@
+{
+  "schema": "sw_drawing_studio.staged_cad_validation.v1",
+  "stage": "LB26001_006",
+  "generated_at": "2026-06-24 11:45:32",
+  "out_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_readiness_preflight_20260624",
+  "duration_s": 0.4,
+  "total": 1,
+  "processed": 0,
+  "deliverable_count": 0,
+  "deliverable_target_ratio": 1.0,
+  "required_deliverable_count": 1,
+  "execution_completed": false,
+  "acceptance_pass": false,
+  "need_review_count": 0,
+  "failed_count": 0,
+  "status": "fail",
+  "pass": false,
+  "preflight_pass": false,
+  "readiness_preflight_pass": false,
+  "sw_connection_guard_skipped_due_to_readiness": true,
+  "lb26001_006_readiness_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_readiness_preflight_20260624\\lb26001_006_regression_readiness_v4_2.json",
+  "failure_bucket": [
+    "lb26001_006_readiness_not_ready",
+    "solidworks_not_responding",
+    "solidworks_unsaved_document_visible"
+  ],
+  "reasons": [
+    "solidworks_not_responding",
+    "solidworks_unsaved_document_visible"
+  ],
+  "fix_suggestions": [
+    "Save any unsaved SolidWorks work manually, close/restart SolidWorks safely, then rerun this readiness audit.",
+    "Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun."
+  ],
+  "cases": [],
+  "remaining_gates": [
+    "core_12",
+    "LB26001_36",
+    "medium_30",
+    "historical_visual_audit_100_percent",
+    "full_129",
+    "final_exe_rebuild_and_release_log"
+  ]
+}

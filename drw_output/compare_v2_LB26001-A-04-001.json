@@ -1,0 +1,240 @@
+{
+  "A": 20,
+  "B": 20,
+  "C": 20,
+  "D": 15.0,
+  "E": 12,
+  "F": 10,
+  "total": 97.0,
+  "detail": {
+    "A": {
+      "paper_code_orig": 6,
+      "paper_code_gen": 6,
+      "first_angle_orig": 1,
+      "first_angle_gen": 1,
+      "scale_orig": [
+        1.0,
+        5.0
+      ],
+      "scale_gen": [
+        1.0,
+        5.0
+      ],
+      "paper_ok": "✅",
+      "angle_ok": "✅",
+      "scale_ok": "✅"
+    },
+    "B": {
+      "front": true,
+      "top": true,
+      "right": true,
+      "iso": true,
+      "count_orig": 2,
+      "count_gen": 4
+    },
+    "C": {
+      "orig_key": 13,
+      "gen_key": 13,
+      "total": 13
+    },
+    "D": {
+      "orig": 44,
+      "gen": 44
+    },
+    "E": {
+      "tech_note": true,
+      "ra_note": true,
+      "datum_note": true,
+      "section": false,
+      "centermark": true,
+      "_noteblocks_count": 5
+    },
+    "F": {
+      ".SLDDRW": [
+        1836.3,
+        1480.2
+      ],
+      ".PDF": [
+        0,
+        129.3
+      ],
+      ".DXF": [
+        0,
+        2432.5
+      ]
+    }
+  },
+  "orig": {
+    "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+    "sheets": [
+      {
+        "name": "图纸1",
+        "paper_code": 6,
+        "scale_num": 1.0,
+        "scale_den": 5.0,
+        "first_angle": 1
+      }
+    ],
+    "views": [
+      {
+        "name": "图纸1",
+        "type": 1,
+        "orient": "",
+        "ann_types": {
+          "View": 1,
+          "NoteBlock": 65,
+          "BlockInst": 2
+        }
+      },
+      {
+        "name": "工程图视图1",
+        "type": 7,
+        "orient": "*上视",
+        "ann_types": {
+          "DisplayDim": 22,
+          "NoteBlock": 78,
+          "CenterMark": 78,
+          "DimLine": 1
+        }
+      },
+      {
+        "name": "工程图视图3",
+        "type": 4,
+        "orient": "",
+        "ann_types": {
+          "DisplayDim": 22,
+          "DatumTag": 1,
+          "AreaHatch": 491
+        }
+      }
+    ],
+    "ann_total": {
+      "View": 1,
+      "NoteBlock": 143,
+      "BlockInst": 2,
+      "DisplayDim": 44,
+      "CenterMark": 78,
+      "DimLine": 1,
+      "DatumTag": 1,
+      "AreaHatch": 491
+    },
+    "note_texts": [],
+    "props": {
+      "SWFormatSize": "",
+      "机型": "",
+      "品名": "",
+      "图号": "",
+      "类别": "",
+      "数量": "",
+      "材质": "",
+      "表面处理": "",
+      "设计": "",
+      "日期": "",
+      "UNIT_OF_MEASURE": "",
+      "Material": "",
+      "重量": ""
+    },
+    "props_key_present": {
+      "SWFormatSize": true,
+      "机型": true,
+      "品名": true,
+      "图号": true,
+      "类别": true,
+      "数量": true,
+      "材质": true,
+      "表面处理": true,
+      "设计": true,
+      "日期": true,
+      "UNIT_OF_MEASURE": true,
+      "Material": true,
+      "重量": true
+    }
+  },
+  "gen": {
+    "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\LB26001-A-04-001.SLDDRW",
+    "sheets": [
+      {
+        "name": "图纸1",
+        "paper_code": 6,
+        "scale_num": 1.0,
+        "scale_den": 5.0,
+        "first_angle": 1
+      }
+    ],
+    "views": [
+      {
+        "name": "图纸1",
+        "type": 1,
+        "orient": "",
+        "ann_types": {
+          "NoteBlock": 5
+        }
+      },
+      {
+        "name": "工程图视图1",
+        "type": 7,
+        "orient": "*前视",
+        "ann_types": {}
+      },
+      {
+        "name": "工程图视图2",
+        "type": 7,
+        "orient": "*上视",
+        "ann_types": {
+          "DisplayDim": 22,
+          "CenterMark": 78
+        }
+      },
+      {
+        "name": "工程图视图3",
+        "type": 7,
+        "orient": "*右视",
+        "ann_types": {}
+      },
+      {
+        "name": "工程图视图4",
+        "type": 7,
+        "orient": "*等轴测",
+        "ann_types": {
+          "DisplayDim": 22
+        }
+      }
+    ],
+    "ann_total": {
+      "NoteBlock": 5,
+      "DisplayDim": 44,
+      "CenterMark": 78
+    },
+    "note_texts": [],
+    "props": {
+      "SWFormatSize": "",
+      "机型": "",
+      "品名": "",
+      "图号": "",
+      "类别": "",
+      "数量": "",
+      "材质": "",
+      "表面处理": "",
+      "设计": "",
+      "日期": "",
+      "UNIT_OF_MEASURE": "",
+      "Material": "",
+      "重量": ""
+    },
+    "props_key_present": {
+      "SWFormatSize": true,
+      "机型": true,
+      "品名": true,
+      "图号": true,
+      "类别": true,
+      "数量": true,
+      "材质": true,
+      "表面处理": true,
+      "设计": true,
+      "日期": true,
+      "UNIT_OF_MEASURE": true,
+      "Material": true,
+      "重量": true
+    }
+  }
+}

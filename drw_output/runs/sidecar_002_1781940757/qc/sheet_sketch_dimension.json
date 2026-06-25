@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "method": "pywin32_sheet_sketch",
+  "timestamp": "2026-06-20 15:32:37",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+  "addin_created_dim_count": 1,
+  "reason": "AddDimension2 成功创建尺寸",
+  "dim_before": 12,
+  "dim_value_set": false,
+  "dim_value_error": "Property '<unknown>.SystemValue' can not be set.",
+  "dim_after": 12,
+  "saved": true
+}

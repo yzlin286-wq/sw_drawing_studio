@@ -1,0 +1,297 @@
+{
+  "built_at": "2026-06-18 19:05:18",
+  "total": 41,
+  "rendered": 41,
+  "skipped": 0,
+  "failed_count": 0,
+  "items": [
+    {
+      "base_name": "LB26001-A-04-001",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-001.png",
+      "file_size": 84196,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-002",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-002.png",
+      "file_size": 36582,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-003",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-003.png",
+      "file_size": 36322,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-004",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-004.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-004.png",
+      "file_size": 59378,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-005",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-005.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-005.png",
+      "file_size": 36209,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-006",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "file_size": 39668,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-007",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-007.png",
+      "file_size": 47795,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-008",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-008.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-008.png",
+      "file_size": 68307,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-009",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-009.png",
+      "file_size": 69280,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-015",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-015.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-015.png",
+      "file_size": 88038,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-016",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-016.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-016.png",
+      "file_size": 54234,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-021",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-021.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-021.png",
+      "file_size": 64544,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-022",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-022.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-022.png",
+      "file_size": 71920,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-023",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-023.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-023.png",
+      "file_size": 88620,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-024",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-024.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-024.png",
+      "file_size": 77703,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-025",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-025.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-025.png",
+      "file_size": 65928,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-026",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-026.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-026.png",
+      "file_size": 69854,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-031",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-031.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-031.png",
+      "file_size": 97524,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-032",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-032.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-032.png",
+      "file_size": 78332,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-033",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-033.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-033.png",
+      "file_size": 108283,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-034",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-034.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-034.png",
+      "file_size": 55243,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-035",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-035.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-035.png",
+      "file_size": 115117,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-036",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-036.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-036.png",
+      "file_size": 99339,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-037",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-037.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-037.png",
+      "file_size": 53386,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-038",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-038.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-038.png",
+      "file_size": 84192,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-039",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-039.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-039.png",
+      "file_size": 127385,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-040",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-040.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-040.png",
+      "file_size": 56349,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-041",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-041.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-041.png",
+      "file_size": 56167,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-042",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-042.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-042.png",
+      "file_size": 67602,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-044",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-044.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-044.png",
+      "file_size": 82865,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-045",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-045.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-045.png",
+      "file_size": 68729,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-046",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-046.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-046.png",
+      "file_size": 92618,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-047",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-047.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-047.png",
+      "file_size": 96995,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-048",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-048.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-048.png",
+      "file_size": 50314,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-049",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-049.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-049.png",
+      "file_size": 67263,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "LB26001-A-04-050",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-050.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-050.png",
+      "file_size": 74844,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02-2",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02-2.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02-2.png",
+      "file_size": 86529,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.png",
+      "file_size": 83082,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "QTN-0488  MCIO 74Pin CABLE改头固定件B-V02-2",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02-2.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02-2.png",
+      "file_size": 175849,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "QTN-0488  MCIO 74Pin CABLE改头固定件B-V02",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02.png",
+      "file_size": 80537,
+      "source": "solidworks"
+    },
+    {
+      "base_name": "昆仑BP_6xU2_NVME-J20仿生头8pin",
+      "slddrw_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\昆仑BP_6xU2_NVME-J20仿生头8pin.SLDDRW",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\昆仑BP_6xU2_NVME-J20仿生头8pin.png",
+      "file_size": 83373,
+      "source": "solidworks"
+    }
+  ],
+  "failed": []
+}

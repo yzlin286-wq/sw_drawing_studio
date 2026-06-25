@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-06-21 19:00:11",
+  "mode": "source_qt_mock_stability",
+  "pass": true,
+  "scenario": "normal_pass",
+  "duration_requested_s": 1200.0,
+  "duration_observed_s": 1205.61,
+  "sample_interval_s": 30.0,
+  "screenshot_interval_s": 300.0,
+  "job_id": "34aa4b82",
+  "final_status": "completed",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\mock_20260621_184005_34aa4b82",
+  "job_event_log": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\mock_20260621_184005_34aa4b82\\job_event_log.jsonl",
+  "samples_jsonl": "drw_output\\ui_acceptance\\mock_stability_20min_source\\stability_samples.jsonl",
+  "screenshots_dir": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots",
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\01_start.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 42,
+      "avg_luma": 239.6,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\02_elapsed_0s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 32,
+      "avg_luma": 242.12,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\03_elapsed_300s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 35,
+      "avg_luma": 241.73,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\04_elapsed_600s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 40,
+      "avg_luma": 240.64,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\05_elapsed_900s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 39,
+      "avg_luma": 241.07,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\06_elapsed_1200s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 34,
+      "avg_luma": 241.61,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_20min_source\\screenshots\\07_final.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 41,
+      "avg_luma": 239.83,
+      "min_bytes": 50000,
+      "pass": true
+    }
+  ],
+  "checks": {
+    "job_started": true,
+    "job_completed": true,
+    "duration_met": true,
+    "sample_count": 41,
+    "samples_written": true,
+    "screenshots_pass": true,
+    "event_log_exists": true,
+    "event_log_count": 13202,
+    "required_events_present": true,
+    "missing_events": [],
+    "window_visible_final": true,
+    "job_queue_page_final": true,
+    "failures": []
+  },
+  "remaining_gates": [
+    "This is source-level Qt stability evidence, not Windows-level EXE click automation.",
+    "The separate 2-hour UI stability gate remains pending.",
+    "Real SolidWorks validation and historical visual audit coverage remain pending."
+  ]
+}

@@ -1,0 +1,55 @@
+﻿Found 9 files:
+  LB26001-A-04-001.SLDPRT
+  LB26001-A-04-002.SLDPRT
+  LB26001-A-04-003.SLDPRT
+  LB26001-A-04-004.SLDPRT
+  LB26001-A-04-005.SLDPRT
+  LB26001-A-04-006.SLDPRT
+  LB26001-A-04-007.SLDPRT
+  LB26001-A-04-008.SLDPRT
+  LB26001-A-04-009.SLDPRT
+
+=== 1/9 LB26001-A-04-001.SLDPRT ===
+  status=warning hard_fail=[] qc_pass=11 dim=44 usable=True
+
+=== 2/9 LB26001-A-04-002.SLDPRT ===
+  status=failed hard_fail=['dim_total_zero', 'qc_pass_too_low'] qc_pass=9 dim=0 usable=False
+
+=== 3/9 LB26001-A-04-003.SLDPRT ===
+[v1.4 PNG fallback] reconciled hard_fail=['dim_total_too_low', 'qc_pass_too_low'], drawing_usable.pass=False
+  status=failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc_pass=9 dim=0 usable=False
+
+=== 4/9 LB26001-A-04-004.SLDPRT ===
+  status=warning hard_fail=[] qc_pass=11 dim=64 usable=True
+
+=== 5/9 LB26001-A-04-005.SLDPRT ===
+  status=warning hard_fail=[] qc_pass=10 dim=8 usable=True
+
+=== 6/9 LB26001-A-04-006.SLDPRT ===
+  status=warning hard_fail=[] qc_pass=10 dim=8 usable=True
+
+=== 7/9 LB26001-A-04-007.SLDPRT ===
+[v1.4 PNG fallback] reconciled hard_fail=['dim_total_too_low', 'qc_pass_too_low'], drawing_usable.pass=False
+  status=failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc_pass=9 dim=0 usable=False
+
+=== 8/9 LB26001-A-04-008.SLDPRT ===
+  status=warning hard_fail=[] qc_pass=11 dim=32 usable=True
+
+=== 9/9 LB26001-A-04-009.SLDPRT ===
+[v1.4 PNG fallback] reconciled hard_fail=['dim_total_too_low', 'qc_pass_too_low'], drawing_usable.pass=False
+  status=failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc_pass=9 dim=0 usable=False
+
+=== SUMMARY ===
+total=9 success=0 warning=5 failed=4
+pass_rate=55.6%
+  LB26001-A-04-001: warning hard_fail=[] qc=11 dim=44
+  LB26001-A-04-002: failed hard_fail=['dim_total_zero', 'qc_pass_too_low'] qc=9 dim=0
+  LB26001-A-04-003: failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc=9 dim=0
+  LB26001-A-04-004: warning hard_fail=[] qc=11 dim=64
+  LB26001-A-04-005: warning hard_fail=[] qc=10 dim=8
+  LB26001-A-04-006: warning hard_fail=[] qc=10 dim=8
+  LB26001-A-04-007: failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc=9 dim=0
+  LB26001-A-04-008: warning hard_fail=[] qc=11 dim=32
+  LB26001-A-04-009: failed hard_fail=['dim_total_too_low', 'qc_pass_too_low'] qc=9 dim=0
+
+Results saved to c:\Users\Vision\Desktop\SW 相关\drw_output\v5\task6_5_results.json

@@ -1,0 +1,10 @@
+[2026-06-19 00:44:16] === Full pipeline start ===
+[2026-06-19 00:44:16] strategy=v6_recommended
+[2026-06-19 00:44:16] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\-AK-15-AC-26-1-V3-V02.SLDPRT
+[2026-06-19 00:44:16] sw_revision=33.5.0
+[2026-06-19 00:44:16] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-19 00:46:18] qc_loop exit_code=0
+[2026-06-19 00:46:18] PNG 回退渲染: PDF→-AK-15-AC-26-1-V3-V02_v5.PNG (85KB)
+[2026-06-19 00:46:18] PNG 回退后重评: png_missing 已从 hard_fail 移除，drawing_usable.pass 已重算
+[2026-06-19 00:46:20] bom rows=1
+[2026-06-19 00:46:20] === Full pipeline done. drawing_usable=False ===

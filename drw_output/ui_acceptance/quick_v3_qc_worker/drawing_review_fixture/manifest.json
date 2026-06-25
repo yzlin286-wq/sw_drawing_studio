@@ -1,0 +1,17 @@
+{
+  "run_id": "ui_acceptance_review",
+  "drawing_usable": {
+    "pass": true
+  },
+  "qc_pass_count": 10,
+  "vision_score": 72,
+  "hard_fail": [],
+  "warnings": [
+    "ui_acceptance_fixture"
+  ],
+  "qc_files": {
+    "human_review": "drw_output\\ui_acceptance\\quick_v3_qc_worker\\drawing_review_fixture\\qc\\human_review.json"
+  },
+  "last_updated": "2026-06-21 05:22:02",
+  "has_manual_review": true
+}

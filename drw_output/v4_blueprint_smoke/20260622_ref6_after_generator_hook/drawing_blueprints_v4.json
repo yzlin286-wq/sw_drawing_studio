@@ -1,0 +1,1829 @@
+{
+  "schema": "sw_drawing_studio.drawing_blueprints_v4.smoke",
+  "generated_at": "2026-06-22 22:57:58",
+  "status": "pass",
+  "pass": true,
+  "bases": [
+    "LB26001-A-04-006",
+    "LB26001-A-04-007",
+    "LB26001-A-04-008",
+    "LB26001-A-04-009",
+    "LB26001-A-04-015",
+    "LB26001-A-04-022"
+  ],
+  "part_class": "machined_part",
+  "reference_profiles_v4": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\reference_profiles_v4.json",
+  "blueprint_count": 6,
+  "blueprints": {
+    "LB26001-A-04-006": {
+      "base": "LB26001-A-04-006",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-006",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3704,
+            0.8074
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.1627,
+            0.7719,
+            0.5781,
+            0.8429
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3704,
+            0.5948
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.1627,
+            0.5605,
+            0.5781,
+            0.6291
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "right",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.7259,
+            0.8074
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.7016,
+            0.7719,
+            0.7501,
+            0.8429
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "iso",
+          "view_type": "iso",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.8025,
+            0.478
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.7164,
+            0.3929,
+            0.8886,
+            0.5631
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 12,
+        "reference_display_dim_count": 12,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=12",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=12",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-006"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3704,
+              0.8074
+            ],
+            "box_norm": [
+              0.1627,
+              0.7719,
+              0.5781,
+              0.8429
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3704,
+              0.5948
+            ],
+            "box_norm": [
+              0.1627,
+              0.5605,
+              0.5781,
+              0.6291
+            ]
+          },
+          {
+            "slot": "right",
+            "view_type": "projected",
+            "center_norm": [
+              0.7259,
+              0.8074
+            ],
+            "box_norm": [
+              0.7016,
+              0.7719,
+              0.7501,
+              0.8429
+            ]
+          },
+          {
+            "slot": "iso",
+            "view_type": "iso",
+            "center_norm": [
+              0.8025,
+              0.478
+            ],
+            "box_norm": [
+              0.7164,
+              0.3929,
+              0.8886,
+              0.5631
+            ]
+          }
+        ],
+        "view_overlap": false,
+        "overlap_pairs": [],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": false,
+        "notes_collision_slots": [],
+        "dimension_collision": null,
+        "utilization": 0.0907,
+        "readability_score": 1.0
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    },
+    "LB26001-A-04-007": {
+      "base": "LB26001-A-04-007",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-007",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3196,
+            0.7326
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.2853,
+            0.6773,
+            0.3539,
+            0.788
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3196,
+            0.3947
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.2853,
+            0.3393,
+            0.3539,
+            0.4501
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "right",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.4992,
+            0.7326
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.46,
+            0.6773,
+            0.5383,
+            0.788
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "iso",
+          "view_type": "iso",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.6444,
+            0.4988
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.5983,
+            0.4239,
+            0.6905,
+            0.5737
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 8,
+        "reference_display_dim_count": 8,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=8",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=8",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-007"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3196,
+              0.7326
+            ],
+            "box_norm": [
+              0.2853,
+              0.6773,
+              0.3539,
+              0.788
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3196,
+              0.3947
+            ],
+            "box_norm": [
+              0.2853,
+              0.3393,
+              0.3539,
+              0.4501
+            ]
+          },
+          {
+            "slot": "right",
+            "view_type": "projected",
+            "center_norm": [
+              0.4992,
+              0.7326
+            ],
+            "box_norm": [
+              0.46,
+              0.6773,
+              0.5383,
+              0.788
+            ]
+          },
+          {
+            "slot": "iso",
+            "view_type": "iso",
+            "center_norm": [
+              0.6444,
+              0.4988
+            ],
+            "box_norm": [
+              0.5983,
+              0.4239,
+              0.6905,
+              0.5737
+            ]
+          }
+        ],
+        "view_overlap": false,
+        "overlap_pairs": [],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": false,
+        "notes_collision_slots": [],
+        "dimension_collision": null,
+        "utilization": 0.0377,
+        "readability_score": 0.9
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    },
+    "LB26001-A-04-008": {
+      "base": "LB26001-A-04-008",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-008",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3037,
+            0.7061
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.1381,
+            0.5527,
+            0.4694,
+            0.8594
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3037,
+            0.424
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.1381,
+            0.3983,
+            0.4694,
+            0.4497
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 2,
+        "reference_display_dim_count": 2,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=2",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=2",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-008"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3037,
+              0.7061
+            ],
+            "box_norm": [
+              0.1381,
+              0.5527,
+              0.4694,
+              0.8594
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3037,
+              0.424
+            ],
+            "box_norm": [
+              0.1381,
+              0.3983,
+              0.4694,
+              0.4497
+            ]
+          }
+        ],
+        "view_overlap": false,
+        "overlap_pairs": [],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": false,
+        "notes_collision_slots": [],
+        "dimension_collision": null,
+        "utilization": 0.1186,
+        "readability_score": 1.0
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    },
+    "LB26001-A-04-009": {
+      "base": "LB26001-A-04-009",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-009",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3514,
+            0.6819
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.2632,
+            0.5571,
+            0.4396,
+            0.8066
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3514,
+            0.4114
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.2632,
+            0.3438,
+            0.4396,
+            0.479
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "right",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.8329,
+            0.5644
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.7425,
+            0.3967,
+            0.9233,
+            0.7322
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 4,
+        "reference_display_dim_count": 4,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=4",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=4",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-009"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3514,
+              0.6819
+            ],
+            "box_norm": [
+              0.2632,
+              0.5571,
+              0.4396,
+              0.8066
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3514,
+              0.4114
+            ],
+            "box_norm": [
+              0.2632,
+              0.3438,
+              0.4396,
+              0.479
+            ]
+          },
+          {
+            "slot": "right",
+            "view_type": "projected",
+            "center_norm": [
+              0.8329,
+              0.5644
+            ],
+            "box_norm": [
+              0.7425,
+              0.3967,
+              0.9233,
+              0.7322
+            ]
+          }
+        ],
+        "view_overlap": false,
+        "overlap_pairs": [],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": false,
+        "notes_collision_slots": [],
+        "dimension_collision": null,
+        "utilization": 0.1285,
+        "readability_score": 1.0
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    },
+    "LB26001-A-04-015": {
+      "base": "LB26001-A-04-015",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-015",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3535,
+            0.7419
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.1373,
+            0.5934,
+            0.5696,
+            0.8904
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3535,
+            0.3734
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.1373,
+            0.3296,
+            0.5696,
+            0.4172
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 14,
+        "reference_display_dim_count": 14,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=14",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=14",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-015"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3535,
+              0.7419
+            ],
+            "box_norm": [
+              0.1373,
+              0.5934,
+              0.5696,
+              0.8904
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3535,
+              0.3734
+            ],
+            "box_norm": [
+              0.1373,
+              0.3296,
+              0.5696,
+              0.4172
+            ]
+          }
+        ],
+        "view_overlap": false,
+        "overlap_pairs": [],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": false,
+        "notes_collision_slots": [],
+        "dimension_collision": null,
+        "utilization": 0.1663,
+        "readability_score": 1.0
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    },
+    "LB26001-A-04-022": {
+      "base": "LB26001-A-04-022",
+      "part_class": "machined_part",
+      "drawing_purpose": "manufacturing",
+      "manufacturing_intent": "make_or_inspect",
+      "reference_base": "LB26001-A-04-022",
+      "schema": "sw_drawing_studio.drawing_blueprint.v4",
+      "version": "v4.0",
+      "generated_at": "2026-06-22 22:57:58",
+      "view_plan": [
+        {
+          "slot": "front",
+          "view_type": "named",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3704,
+            0.6895
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.2552,
+            0.5362,
+            0.4856,
+            0.8428
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        },
+        {
+          "slot": "top",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.3704,
+            0.3495
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.2552,
+            0.3057,
+            0.4856,
+            0.3933
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "right",
+          "view_type": "projected",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.7071,
+            0.6895
+          ],
+          "scale": "reference",
+          "sw_view_type": "4",
+          "create_method": "projection_api",
+          "projected_from": "front",
+          "outline_norm": [
+            0.6761,
+            0.5362,
+            0.7381,
+            0.8428
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "projected_view_requires_projection_api"
+          ]
+        },
+        {
+          "slot": "iso",
+          "view_type": "iso",
+          "required": true,
+          "source": "reference_profile",
+          "center_norm": [
+            0.8324,
+            0.4536
+          ],
+          "scale": "reference",
+          "sw_view_type": "7",
+          "create_method": "named_view",
+          "projected_from": "",
+          "outline_norm": [
+            0.7349,
+            0.2567,
+            0.9299,
+            0.6505
+          ],
+          "reasons": [
+            "same_name_reference_view_position",
+            "named_or_model_view_from_reference"
+          ]
+        }
+      ],
+      "dimension_plan": {
+        "required_display_dim_count": 25,
+        "reference_display_dim_count": 25,
+        "required_overall_dims": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "hole_dims": [],
+        "slot_dims": [],
+        "radius_dims": [],
+        "thread_dims": [],
+        "datum_dims": [],
+        "inspection_dims": [],
+        "dimension_priority": [
+          "overall_length",
+          "overall_width",
+          "overall_height"
+        ],
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "allow_note_substitution": false,
+        "source": "reference_dimension_profile",
+        "reasons": [
+          "part_class=machined_part",
+          "reference_display_dim_count=25",
+          "part_class_default_display_dim_floor=5",
+          "required_display_dim_count=25",
+          "notes_do_not_count_as_display_dim",
+          "reference_profile_controls_display_dim_floor"
+        ]
+      },
+      "annotation_plan": {
+        "roughness_required": false,
+        "datum_required": false,
+        "center_marks_required": false,
+        "centerlines_required": false,
+        "section_arrows_required": false,
+        "symbols": [],
+        "source": "reference_profile",
+        "reasons": [
+          "reference_symbols_preserved"
+        ]
+      },
+      "titlebar_plan": {
+        "required_fields": [
+          "drawing_no",
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "fields": {
+          "drawing_no": "LB26001-A-04-022"
+        },
+        "missing_fields": [
+          "name",
+          "material",
+          "scale",
+          "date"
+        ],
+        "source_priority": [
+          "ui_input",
+          "custom_property",
+          "reference_titlebar",
+          "filename",
+          "default"
+        ],
+        "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+      },
+      "notes_plan": {
+        "part_class": "machined_part",
+        "required_notes": [
+          "技术要求：",
+          "未注倒角 C0.5。",
+          "未注粗糙度 Ra3.2。",
+          "去毛刺，锐边倒钝。"
+        ],
+        "optional_notes": [
+          "未注线性尺寸公差按 GB/T 1804-m。",
+          "表面不得有划伤、裂纹、压痕。"
+        ],
+        "raw_reference_notes": [],
+        "normalized_notes": [],
+        "warning_notes": [],
+        "note_box_norm": [],
+        "source": "part_class_default",
+        "reasons": [
+          "part_class=machined_part",
+          "required_notes=4",
+          "optional_notes=2",
+          "no_reference_notes_profile_available"
+        ]
+      },
+      "validation_plan": {
+        "required_artifacts": [
+          "SLDDRW",
+          "PDF",
+          "DXF",
+          "PNG",
+          "drawing_blueprint.json",
+          "dimension_validation.json",
+          "reference_compare.json",
+          "vision_qc.json"
+        ],
+        "view_match_min": 0.9,
+        "dimension_match_min": 0.8,
+        "titlebar_match_min": 0.85,
+        "notes_match_min": 0.85,
+        "layout_match_min": 0.8,
+        "require_true_display_dim": true,
+        "forbid_note_as_display_dim": true,
+        "forbid_named_view_as_projected": true,
+        "require_ui_visual_review": true,
+        "failure_bucket_required": true,
+        "reasons": [
+          "ui_screenshot_is_final_visual_gate",
+          "api_metrics_are_supporting_evidence_only"
+        ]
+      },
+      "layout_plan": {
+        "schema": "sw_drawing_studio.layout_composition.v4",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "titlebar_box_norm": [
+          0.68,
+          0.0,
+          1.0,
+          0.18
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.18,
+          0.98,
+          0.35
+        ],
+        "views": [
+          {
+            "slot": "front",
+            "view_type": "named",
+            "center_norm": [
+              0.3704,
+              0.6895
+            ],
+            "box_norm": [
+              0.2552,
+              0.5362,
+              0.4856,
+              0.8428
+            ]
+          },
+          {
+            "slot": "top",
+            "view_type": "projected",
+            "center_norm": [
+              0.3704,
+              0.3495
+            ],
+            "box_norm": [
+              0.2552,
+              0.3057,
+              0.4856,
+              0.3933
+            ]
+          },
+          {
+            "slot": "right",
+            "view_type": "projected",
+            "center_norm": [
+              0.7071,
+              0.6895
+            ],
+            "box_norm": [
+              0.6761,
+              0.5362,
+              0.7381,
+              0.8428
+            ]
+          },
+          {
+            "slot": "iso",
+            "view_type": "iso",
+            "center_norm": [
+              0.8324,
+              0.4536
+            ],
+            "box_norm": [
+              0.7349,
+              0.2567,
+              0.9299,
+              0.6505
+            ]
+          }
+        ],
+        "view_overlap": true,
+        "overlap_pairs": [
+          [
+            "right",
+            "iso"
+          ]
+        ],
+        "out_of_frame": false,
+        "out_of_frame_slots": [],
+        "titlebar_collision": false,
+        "titlebar_collision_slots": [],
+        "notes_collision": true,
+        "notes_collision_slots": [
+          "iso"
+        ],
+        "dimension_collision": null,
+        "utilization": 0.1866,
+        "readability_score": 0.77
+      },
+      "source_inputs": {
+        "part_understanding": {},
+        "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+        "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+        "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4"
+      },
+      "warnings": [
+        "titlebar_missing:name",
+        "titlebar_missing:material",
+        "titlebar_missing:scale",
+        "titlebar_missing:date"
+      ],
+      "reasons": [
+        "reference_profile_preferred",
+        "note_annotations_do_not_count_as_displaydim",
+        "projected_views_must_use_projection_api"
+      ]
+    }
+  },
+  "reasons": []
+}

@@ -1,0 +1,4741 @@
+{
+  "schema": "sw_drawing_studio.vision_qc_v6",
+  "version": "v6",
+  "generated_at": "2026-06-24 20:13:23",
+  "base": "LB26001-A-04-006",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+  "manual_review": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\manual_visual_judgement_codex_20260624.json",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e",
+  "drawing_blueprint": "",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\qc\\LB26001-A-04-006_v5_qc.json",
+  "success": true,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "issues": [
+    {
+      "key": "drawing_blueprint_missing",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "drawing_blueprint",
+      "confidence": 0.95,
+      "evidence": {
+        "blueprint_path": "",
+        "read_error": "path_missing"
+      },
+      "fix_suggestion": "Create drawing_blueprint.json before accepting the generated drawing.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "DrawingBlueprint is missing or unreadable."
+    },
+    {
+      "key": "titlebar_missing_or_empty",
+      "severity": "major",
+      "bbox": [
+        0.68,
+        0.82,
+        0.32,
+        0.18
+      ],
+      "source": "titlebar_detector",
+      "confidence": 0.7,
+      "evidence": {
+        "success": true,
+        "box_norm": [
+          0.68,
+          0.82,
+          0.32,
+          0.18
+        ],
+        "detected": false,
+        "ink_density": 0.0,
+        "line_candidate_count": 0,
+        "component_count": 0,
+        "source": "titlebar_region_ink_density"
+      },
+      "fix_suggestion": "Fill or render the titlebar from DrawingBlueprint.titlebar_plan before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Titlebar region has too little visual evidence."
+    },
+    {
+      "key": "reference_visual_layout_mismatch",
+      "severity": "major",
+      "bbox": [
+        0.0162,
+        0.0901,
+        0.9192,
+        0.8863
+      ],
+      "source": "reference_visual_compare",
+      "confidence": 0.6,
+      "evidence": {
+        "success": true,
+        "generated_ink_bbox": [
+          0.016246,
+          0.090085,
+          0.919196,
+          0.886336
+        ],
+        "reference_ink_bbox": [
+          0.143705,
+          0.039463,
+          0.731591,
+          0.766583
+        ],
+        "center_delta": 0.1442,
+        "area_ratio": 1.4527,
+        "bbox_layout_match": true,
+        "grid_rows": 3,
+        "grid_cols": 4,
+        "generated_grid_ink_shares": [
+          0.00693,
+          0.011,
+          0.0212,
+          0.0668,
+          0.11825,
+          0.12191,
+          0.00382,
+          0.0,
+          0.14258,
+          0.20327,
+          0.17519,
+          0.12904
+        ],
+        "reference_grid_ink_shares": [
+          0.05748,
+          0.12397,
+          0.09517,
+          0.02261,
+          0.08257,
+          0.17945,
+          0.21113,
+          0.13875,
+          0.0,
+          0.08887,
+          0.0,
+          0.0
+        ],
+        "generated_occupied_cells": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "reference_occupied_cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "grid_l1_delta": 1.2822,
+        "occupied_cell_jaccard": 0.25,
+        "grid_layout_match": false,
+        "coarse_layout_match": false
+      },
+      "fix_suggestion": "Align generated layout to the same-name reference and rerun application UI screenshot review.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Generated PNG screenshot-grid ink layout differs from the same-name reference PNG."
+    },
+    {
+      "key": "manual_ui_screenshot_review_required",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "ui_screenshot_review",
+      "confidence": 1.0,
+      "evidence": {
+        "required": true,
+        "pass": false,
+        "manual_review_status": "fail",
+        "manual_review_error": "",
+        "manual_review_method": "application_drawing_review_ui_screenshot",
+        "manual_review_method_ok": true,
+        "ui_screenshot_evidence_present": true,
+        "ui_screenshot_paths": [
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+        ],
+        "ui_screenshot_paths_existing": [
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+        ],
+        "ui_screenshot_paths_existing_application_ui": [
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+        ],
+        "ui_screenshot_content_check_pass": true,
+        "ui_screenshot_content_checks": [
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          },
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          },
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          },
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          },
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          },
+          {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+            "pass": true,
+            "exists": true,
+            "width": 2600,
+            "height": 1400,
+            "reasons": [],
+            "checks": {
+              "min_size_pass": true,
+              "aspect_pass": true,
+              "top_chrome_pass": true,
+              "left_nav_pass": true,
+              "bottom_log_pass": true,
+              "side_by_side_review_region_pass": true
+            }
+          }
+        ],
+        "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\drawing_visual_review_report.json",
+        "source_ui_report_exists": true,
+        "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+        "source_ui_report_mode": "source_qt_application_ui_screenshot",
+        "source_ui_report_application_ui_ok": true,
+        "case_match": {
+          "required": true,
+          "pass": false,
+          "base": "LB26001-A-04-006",
+          "matching_count": 1,
+          "manual_case_status_pass": false,
+          "visual_checklist_required": true,
+          "visual_checklist_pass": false,
+          "required_visual_checklist_items": [
+            "reference_match",
+            "view_layout",
+            "display_dimensions",
+            "dimension_readability",
+            "title_block",
+            "manufacturing_notes"
+          ],
+          "missing_visual_checklist_items": [],
+          "failed_visual_checklist_items": [
+            "reference_match",
+            "view_layout",
+            "display_dimensions",
+            "dimension_readability",
+            "title_block",
+            "manufacturing_notes"
+          ],
+          "not_passed_visual_checklist_items": [
+            "dimension_readability",
+            "display_dimensions",
+            "manufacturing_notes",
+            "reference_match",
+            "title_block",
+            "view_layout"
+          ]
+        },
+        "generated_png_source_required": true,
+        "generated_png_source_pass": true,
+        "generated_png_source_evidence": {
+          "base": "LB26001-A-04-006",
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+          "source": "run_dir",
+          "exists": true,
+          "strict_sample": true,
+          "under_run_dir": true,
+          "under_legacy_v5": false,
+          "strict_source_pass": true,
+          "reasons": [],
+          "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+        },
+        "source": "application_ui_screenshot_review",
+        "api_is_not_final_judgement": true
+      },
+      "fix_suggestion": "Open the generated and same-name reference drawings in the application Drawing Review UI, capture a screenshot, and record a passing manual judgement before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "DrawingBlueprint requires application UI screenshot review; no passing manual UI judgement is attached."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "critical": 0,
+    "major": 4,
+    "minor": 0,
+    "info": 0
+  },
+  "checks": {
+    "drawing_objects": {
+      "success": true,
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+      "width": 2339,
+      "height": 1654,
+      "ink_present": true,
+      "ink_ratio": 0.011303,
+      "ink_bbox": [
+        0.016246,
+        0.090085,
+        0.919196,
+        0.886336
+      ],
+      "component_count": 130,
+      "components": [
+        {
+          "bbox": [
+            0.041471,
+            0.529021,
+            0.433519,
+            0.437122
+          ],
+          "area": 13748,
+          "area_norm": 0.00355364,
+          "aspect": 1.402
+        },
+        {
+          "bbox": [
+            0.016246,
+            0.522975,
+            0.467294,
+            0.453446
+          ],
+          "area": 7354,
+          "area_norm": 0.00190089,
+          "aspect": 1.457
+        },
+        {
+          "bbox": [
+            0.716118,
+            0.090085,
+            0.116289,
+            0.1052
+          ],
+          "area": 2753,
+          "area_norm": 0.00071161,
+          "aspect": 1.563
+        },
+        {
+          "bbox": [
+            0.191107,
+            0.612455,
+            0.15605,
+            0.013301
+          ],
+          "area": 2283,
+          "area_norm": 0.00059012,
+          "aspect": 16.591
+        },
+        {
+          "bbox": [
+            0.191107,
+            0.326481,
+            0.15605,
+            0.013906
+          ],
+          "area": 1925,
+          "area_norm": 0.00049758,
+          "aspect": 15.87
+        },
+        {
+          "bbox": [
+            0.079949,
+            0.665659,
+            0.109448,
+            0.001814
+          ],
+          "area": 764,
+          "area_norm": 0.00019748,
+          "aspect": 85.333
+        },
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.74607,
+            0.008978,
+            0.019347
+          ],
+          "area": 274,
+          "area_norm": 7.082e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.601112,
+            0.326481,
+            0.009406,
+            0.013906
+          ],
+          "area": 264,
+          "area_norm": 6.824e-05,
+          "aspect": 0.957
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.843095,
+            0.767836,
+            0.007268,
+            0.019347
+          ],
+          "area": 254,
+          "area_norm": 6.566e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.851218,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.702539,
+            0.009406,
+            0.020556
+          ],
+          "area": 235,
+          "area_norm": 6.074e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.747279,
+            0.008978,
+            0.018138
+          ],
+          "area": 229,
+          "area_norm": 5.919e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 228,
+          "area_norm": 5.893e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.821291,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 224,
+          "area_norm": 5.79e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.724305,
+            0.008551,
+            0.018742
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.745466,
+            0.009406,
+            0.021161
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.70885,
+            0.724305,
+            0.007268,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.515
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.767231,
+            0.007268,
+            0.019347
+          ],
+          "area": 209,
+          "area_norm": 5.402e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.656691,
+            0.767231,
+            0.008978,
+            0.019952
+          ],
+          "area": 204,
+          "area_norm": 5.273e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.718683,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 203,
+          "area_norm": 5.247e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.668234,
+            0.724305,
+            0.007696,
+            0.019952
+          ],
+          "area": 197,
+          "area_norm": 5.092e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.876015,
+            0.098549,
+            0.008551,
+            0.019952
+          ],
+          "area": 195,
+          "area_norm": 5.04e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.790936,
+            0.767231,
+            0.008978,
+            0.020556
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.767231,
+            0.008551,
+            0.019347
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.885849,
+            0.097944,
+            0.009833,
+            0.020556
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.7237,
+            0.009406,
+            0.021161
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.74607,
+            0.008123,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.576
+        },
+        {
+          "bbox": [
+            0.832407,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.67764,
+            0.74607,
+            0.006413,
+            0.019347
+          ],
+          "area": 187,
+          "area_norm": 4.834e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.74607,
+            0.009406,
+            0.019347
+          ],
+          "area": 184,
+          "area_norm": 4.756e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.724909,
+            0.008978,
+            0.018138
+          ],
+          "area": 183,
+          "area_norm": 4.73e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.747884,
+            0.008551,
+            0.017533
+          ],
+          "area": 181,
+          "area_norm": 4.679e-05,
+          "aspect": 0.69
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.74607,
+            0.008551,
+            0.019952
+          ],
+          "area": 179,
+          "area_norm": 4.627e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.666952,
+            0.746675,
+            0.008551,
+            0.018742
+          ],
+          "area": 176,
+          "area_norm": 4.549e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.64643,
+            0.724909,
+            0.008551,
+            0.018742
+          ],
+          "area": 173,
+          "area_norm": 4.472e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.74607,
+            0.008123,
+            0.019347
+          ],
+          "area": 171,
+          "area_norm": 4.42e-05,
+          "aspect": 0.594
+        },
+        {
+          "bbox": [
+            0.631039,
+            0.703144,
+            0.008978,
+            0.019952
+          ],
+          "area": 166,
+          "area_norm": 4.291e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.651988,
+            0.703144,
+            0.008978,
+            0.019952
+          ],
+          "area": 164,
+          "area_norm": 4.239e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.822146,
+            0.767231,
+            0.007696,
+            0.019952
+          ],
+          "area": 160,
+          "area_norm": 4.136e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.702437,
+            0.767231,
+            0.004275,
+            0.019952
+          ],
+          "area": 153,
+          "area_norm": 3.955e-05,
+          "aspect": 0.303
+        },
+        {
+          "bbox": [
+            0.780248,
+            0.746675,
+            0.008978,
+            0.019347
+          ],
+          "area": 150,
+          "area_norm": 3.877e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.724909,
+            0.009406,
+            0.018138
+          ],
+          "area": 146,
+          "area_norm": 3.774e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.677212,
+            0.724909,
+            0.009406,
+            0.018138
+          ],
+          "area": 145,
+          "area_norm": 3.748e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.767836,
+            0.004275,
+            0.018742
+          ],
+          "area": 130,
+          "area_norm": 3.36e-05,
+          "aspect": 0.323
+        },
+        {
+          "bbox": [
+            0.687473,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 114,
+          "area_norm": 2.947e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.739205,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 111,
+          "area_norm": 2.869e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.840103,
+            0.729141,
+            0.00513,
+            0.010883
+          ],
+          "area": 109,
+          "area_norm": 2.817e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.726119,
+            0.004275,
+            0.013301
+          ],
+          "area": 108,
+          "area_norm": 2.792e-05,
+          "aspect": 0.455
+        },
+        {
+          "bbox": [
+            0.861479,
+            0.729141,
+            0.008978,
+            0.015115
+          ],
+          "area": 105,
+          "area_norm": 2.714e-05,
+          "aspect": 0.84
+        },
+        {
+          "bbox": [
+            0.911501,
+            0.100363,
+            0.004703,
+            0.013906
+          ],
+          "area": 102,
+          "area_norm": 2.637e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.767231,
+            0.008551,
+            0.018742
+          ],
+          "area": 102,
+          "area_norm": 2.637e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.784951,
+            0.726119,
+            0.004703,
+            0.013301
+          ],
+          "area": 100,
+          "area_norm": 2.585e-05,
+          "aspect": 0.5
+        },
+        {
+          "bbox": [
+            0.817443,
+            0.726119,
+            0.004275,
+            0.013301
+          ],
+          "area": 96,
+          "area_norm": 2.481e-05,
+          "aspect": 0.455
+        },
+        {
+          "bbox": [
+            0.289867,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 86,
+          "area_norm": 2.223e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.931595,
+            0.100363,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.823001,
+            0.726119,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.747884,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.19581,
+            0.614873,
+            0.005558,
+            0.008464
+          ],
+          "area": 84,
+          "area_norm": 2.171e-05,
+          "aspect": 0.929
+        },
+        {
+          "bbox": [
+            0.336896,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 84,
+          "area_norm": 2.171e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.827704,
+            0.726119,
+            0.004703,
+            0.013906
+          ],
+          "area": 83,
+          "area_norm": 2.145e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.242839,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 82,
+          "area_norm": 2.12e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.73156,
+            0.005985,
+            0.011487
+          ],
+          "area": 76,
+          "area_norm": 1.964e-05,
+          "aspect": 0.737
+        },
+        {
+          "bbox": [
+            0.916631,
+            0.10399,
+            0.003848,
+            0.009674
+          ],
+          "area": 75,
+          "area_norm": 1.939e-05,
+          "aspect": 0.562
+        },
+        {
+          "bbox": [
+            0.731509,
+            0.776904,
+            0.004703,
+            0.009069
+          ],
+          "area": 75,
+          "area_norm": 1.939e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.902095,
+            0.101572,
+            0.008123,
+            0.013906
+          ],
+          "area": 74,
+          "area_norm": 1.913e-05,
+          "aspect": 0.826
+        },
+        {
+          "bbox": [
+            0.921761,
+            0.100363,
+            0.00342,
+            0.013301
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.364
+        },
+        {
+          "bbox": [
+            0.683198,
+            0.74607,
+            0.002565,
+            0.019952
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.182
+        },
+        {
+          "bbox": [
+            0.620778,
+            0.769045,
+            0.00342,
+            0.013301
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.364
+        },
+        {
+          "bbox": [
+            0.802052,
+            0.726119,
+            0.004703,
+            0.013906
+          ],
+          "area": 60,
+          "area_norm": 1.551e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.795639,
+            0.725514,
+            0.005558,
+            0.017533
+          ],
+          "area": 53,
+          "area_norm": 1.37e-05,
+          "aspect": 0.448
+        },
+        {
+          "bbox": [
+            0.621206,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.813168,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.753741,
+            0.725514,
+            0.00513,
+            0.010883
+          ],
+          "area": 46,
+          "area_norm": 1.189e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.755879,
+            0.122733,
+            0.00342,
+            0.003628
+          ],
+          "area": 39,
+          "area_norm": 1.008e-05,
+          "aspect": 1.333
+        },
+        {
+          "bbox": [
+            0.789226,
+            0.14994,
+            0.00342,
+            0.003628
+          ],
+          "area": 39,
+          "area_norm": 1.008e-05,
+          "aspect": 1.333
+        },
+        {
+          "bbox": [
+            0.722531,
+            0.095526,
+            0.00342,
+            0.003628
+          ],
+          "area": 38,
+          "area_norm": 9.82e-06,
+          "aspect": 1.333
+        },
+        {
+          "bbox": [
+            0.822574,
+            0.177146,
+            0.00342,
+            0.003628
+          ],
+          "area": 37,
+          "area_norm": 9.56e-06,
+          "aspect": 1.333
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.726723,
+            0.004275,
+            0.010278
+          ],
+          "area": 36,
+          "area_norm": 9.31e-06,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.832835,
+            0.733978,
+            0.006841,
+            0.001209
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 8.0
+        },
+        {
+          "bbox": [
+            0.872595,
+            0.73942,
+            0.002565,
+            0.004837
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.817016,
+            0.750302,
+            0.000855,
+            0.009674
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 0.125
+        },
+        {
+          "bbox": [
+            0.832407,
+            0.761185,
+            0.002565,
+            0.004837
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.852929,
+            0.782346,
+            0.002565,
+            0.004837
+          ],
+          "area": 27,
+          "area_norm": 6.98e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.861907,
+            0.724305,
+            0.00342,
+            0.007255
+          ],
+          "area": 24,
+          "area_norm": 6.2e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.880718,
+            0.113059,
+            0.002993,
+            0.005441
+          ],
+          "area": 23,
+          "area_norm": 5.95e-06,
+          "aspect": 0.778
+        },
+        {
+          "bbox": [
+            0.687901,
+            0.761185,
+            0.002565,
+            0.004232
+          ],
+          "area": 22,
+          "area_norm": 5.69e-06,
+          "aspect": 0.857
+        },
+        {
+          "bbox": [
+            0.80419,
+            0.774486,
+            0.004275,
+            0.002418
+          ],
+          "area": 21,
+          "area_norm": 5.43e-06,
+          "aspect": 2.5
+        },
+        {
+          "bbox": [
+            0.666952,
+            0.729746,
+            0.001283,
+            0.006046
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.3
+        },
+        {
+          "bbox": [
+            0.656691,
+            0.73821,
+            0.003848,
+            0.003628
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 1.5
+        },
+        {
+          "bbox": [
+            0.774263,
+            0.752721,
+            0.001283,
+            0.006651
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.273
+        },
+        {
+          "bbox": [
+            0.865755,
+            0.726119,
+            0.003848,
+            0.002418
+          ],
+          "area": 18,
+          "area_norm": 4.65e-06,
+          "aspect": 2.25
+        },
+        {
+          "bbox": [
+            0.891407,
+            0.111245,
+            0.002565,
+            0.004837
+          ],
+          "area": 17,
+          "area_norm": 4.39e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.781531,
+            0.781741,
+            0.001283,
+            0.004837
+          ],
+          "area": 17,
+          "area_norm": 4.39e-06,
+          "aspect": 0.375
+        },
+        {
+          "bbox": [
+            0.729799,
+            0.747884,
+            0.002138,
+            0.004232
+          ],
+          "area": 16,
+          "area_norm": 4.14e-06,
+          "aspect": 0.714
+        },
+        {
+          "bbox": [
+            0.74006,
+            0.76058,
+            0.001283,
+            0.004837
+          ],
+          "area": 16,
+          "area_norm": 4.14e-06,
+          "aspect": 0.375
+        },
+        {
+          "bbox": [
+            0.796922,
+            0.780532,
+            0.002138,
+            0.004232
+          ],
+          "area": 16,
+          "area_norm": 4.14e-06,
+          "aspect": 0.714
+        },
+        {
+          "bbox": [
+            0.741342,
+            0.733374,
+            0.00171,
+            0.004232
+          ],
+          "area": 15,
+          "area_norm": 3.88e-06,
+          "aspect": 0.571
+        },
+        {
+          "bbox": [
+            0.689611,
+            0.733374,
+            0.00171,
+            0.004232
+          ],
+          "area": 14,
+          "area_norm": 3.62e-06,
+          "aspect": 0.571
+        },
+        {
+          "bbox": [
+            0.64643,
+            0.730955,
+            0.00171,
+            0.003628
+          ],
+          "area": 12,
+          "area_norm": 3.1e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.782386,
+            0.750907,
+            0.001283,
+            0.004232
+          ],
+          "area": 12,
+          "area_norm": 3.1e-06,
+          "aspect": 0.429
+        },
+        {
+          "bbox": [
+            0.791791,
+            0.76844,
+            0.00171,
+            0.003628
+          ],
+          "area": 12,
+          "area_norm": 3.1e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.636169,
+            0.704958,
+            0.00171,
+            0.003023
+          ],
+          "area": 11,
+          "area_norm": 2.84e-06,
+          "aspect": 0.8
+        },
+        {
+          "bbox": [
+            0.814451,
+            0.747884,
+            0.00171,
+            0.003023
+          ],
+          "area": 11,
+          "area_norm": 2.84e-06,
+          "aspect": 0.8
+        },
+        {
+          "bbox": [
+            0.790936,
+            0.773277,
+            0.001283,
+            0.003628
+          ],
+          "area": 11,
+          "area_norm": 2.84e-06,
+          "aspect": 0.5
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.704353,
+            0.00171,
+            0.003023
+          ],
+          "area": 10,
+          "area_norm": 2.58e-06,
+          "aspect": 0.8
+        },
+        {
+          "bbox": [
+            0.927747,
+            0.113059,
+            0.001283,
+            0.002418
+          ],
+          "area": 9,
+          "area_norm": 2.33e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.626764,
+            0.738815,
+            0.001283,
+            0.002418
+          ],
+          "area": 9,
+          "area_norm": 2.33e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.626764,
+            0.76058,
+            0.001283,
+            0.002418
+          ],
+          "area": 9,
+          "area_norm": 2.33e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.626764,
+            0.781741,
+            0.001283,
+            0.002418
+          ],
+          "area": 9,
+          "area_norm": 2.33e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.663104,
+            0.71584,
+            0.001283,
+            0.001814
+          ],
+          "area": 8,
+          "area_norm": 2.07e-06,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.663104,
+            0.720073,
+            0.001283,
+            0.001814
+          ],
+          "area": 8,
+          "area_norm": 2.07e-06,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.678495,
+            0.779927,
+            0.001283,
+            0.001814
+          ],
+          "area": 8,
+          "area_norm": 2.07e-06,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.678495,
+            0.78416,
+            0.001283,
+            0.001814
+          ],
+          "area": 8,
+          "area_norm": 2.07e-06,
+          "aspect": 1.0
+        }
+      ],
+      "view_frame_count": 3,
+      "view_frames": [
+        {
+          "bbox": [
+            0.041471,
+            0.529021,
+            0.433519,
+            0.437122
+          ],
+          "area": 13748,
+          "area_norm": 0.00355364,
+          "aspect": 1.402
+        },
+        {
+          "bbox": [
+            0.016246,
+            0.522975,
+            0.467294,
+            0.453446
+          ],
+          "area": 7354,
+          "area_norm": 0.00190089,
+          "aspect": 1.457
+        },
+        {
+          "bbox": [
+            0.716118,
+            0.090085,
+            0.116289,
+            0.1052
+          ],
+          "area": 2753,
+          "area_norm": 0.00071161,
+          "aspect": 1.563
+        }
+      ],
+      "dimension_text_candidate_count": 98,
+      "dimension_text_candidates": [
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.74607,
+            0.008978,
+            0.019347
+          ],
+          "area": 274,
+          "area_norm": 7.082e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.601112,
+            0.326481,
+            0.009406,
+            0.013906
+          ],
+          "area": 264,
+          "area_norm": 6.824e-05,
+          "aspect": 0.957
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.843095,
+            0.767836,
+            0.007268,
+            0.019347
+          ],
+          "area": 254,
+          "area_norm": 6.566e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.851218,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.702539,
+            0.009406,
+            0.020556
+          ],
+          "area": 235,
+          "area_norm": 6.074e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.747279,
+            0.008978,
+            0.018138
+          ],
+          "area": 229,
+          "area_norm": 5.919e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 228,
+          "area_norm": 5.893e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.821291,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 224,
+          "area_norm": 5.79e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.724305,
+            0.008551,
+            0.018742
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.745466,
+            0.009406,
+            0.021161
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.70885,
+            0.724305,
+            0.007268,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.515
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.767231,
+            0.007268,
+            0.019347
+          ],
+          "area": 209,
+          "area_norm": 5.402e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.656691,
+            0.767231,
+            0.008978,
+            0.019952
+          ],
+          "area": 204,
+          "area_norm": 5.273e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.718683,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 203,
+          "area_norm": 5.247e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.668234,
+            0.724305,
+            0.007696,
+            0.019952
+          ],
+          "area": 197,
+          "area_norm": 5.092e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.876015,
+            0.098549,
+            0.008551,
+            0.019952
+          ],
+          "area": 195,
+          "area_norm": 5.04e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.790936,
+            0.767231,
+            0.008978,
+            0.020556
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.767231,
+            0.008551,
+            0.019347
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.885849,
+            0.097944,
+            0.009833,
+            0.020556
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.7237,
+            0.009406,
+            0.021161
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.74607,
+            0.008123,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.576
+        },
+        {
+          "bbox": [
+            0.832407,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.67764,
+            0.74607,
+            0.006413,
+            0.019347
+          ],
+          "area": 187,
+          "area_norm": 4.834e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.74607,
+            0.009406,
+            0.019347
+          ],
+          "area": 184,
+          "area_norm": 4.756e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.724909,
+            0.008978,
+            0.018138
+          ],
+          "area": 183,
+          "area_norm": 4.73e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.747884,
+            0.008551,
+            0.017533
+          ],
+          "area": 181,
+          "area_norm": 4.679e-05,
+          "aspect": 0.69
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.74607,
+            0.008551,
+            0.019952
+          ],
+          "area": 179,
+          "area_norm": 4.627e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.666952,
+            0.746675,
+            0.008551,
+            0.018742
+          ],
+          "area": 176,
+          "area_norm": 4.549e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.64643,
+            0.724909,
+            0.008551,
+            0.018742
+          ],
+          "area": 173,
+          "area_norm": 4.472e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.74607,
+            0.008123,
+            0.019347
+          ],
+          "area": 171,
+          "area_norm": 4.42e-05,
+          "aspect": 0.594
+        },
+        {
+          "bbox": [
+            0.631039,
+            0.703144,
+            0.008978,
+            0.019952
+          ],
+          "area": 166,
+          "area_norm": 4.291e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.651988,
+            0.703144,
+            0.008978,
+            0.019952
+          ],
+          "area": 164,
+          "area_norm": 4.239e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.822146,
+            0.767231,
+            0.007696,
+            0.019952
+          ],
+          "area": 160,
+          "area_norm": 4.136e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.702437,
+            0.767231,
+            0.004275,
+            0.019952
+          ],
+          "area": 153,
+          "area_norm": 3.955e-05,
+          "aspect": 0.303
+        },
+        {
+          "bbox": [
+            0.780248,
+            0.746675,
+            0.008978,
+            0.019347
+          ],
+          "area": 150,
+          "area_norm": 3.877e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.724909,
+            0.009406,
+            0.018138
+          ],
+          "area": 146,
+          "area_norm": 3.774e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.677212,
+            0.724909,
+            0.009406,
+            0.018138
+          ],
+          "area": 145,
+          "area_norm": 3.748e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.767836,
+            0.004275,
+            0.018742
+          ],
+          "area": 130,
+          "area_norm": 3.36e-05,
+          "aspect": 0.323
+        },
+        {
+          "bbox": [
+            0.687473,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 114,
+          "area_norm": 2.947e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.739205,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 111,
+          "area_norm": 2.869e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.840103,
+            0.729141,
+            0.00513,
+            0.010883
+          ],
+          "area": 109,
+          "area_norm": 2.817e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.726119,
+            0.004275,
+            0.013301
+          ],
+          "area": 108,
+          "area_norm": 2.792e-05,
+          "aspect": 0.455
+        },
+        {
+          "bbox": [
+            0.861479,
+            0.729141,
+            0.008978,
+            0.015115
+          ],
+          "area": 105,
+          "area_norm": 2.714e-05,
+          "aspect": 0.84
+        },
+        {
+          "bbox": [
+            0.911501,
+            0.100363,
+            0.004703,
+            0.013906
+          ],
+          "area": 102,
+          "area_norm": 2.637e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.728516,
+            0.767231,
+            0.008551,
+            0.018742
+          ],
+          "area": 102,
+          "area_norm": 2.637e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.784951,
+            0.726119,
+            0.004703,
+            0.013301
+          ],
+          "area": 100,
+          "area_norm": 2.585e-05,
+          "aspect": 0.5
+        },
+        {
+          "bbox": [
+            0.817443,
+            0.726119,
+            0.004275,
+            0.013301
+          ],
+          "area": 96,
+          "area_norm": 2.481e-05,
+          "aspect": 0.455
+        },
+        {
+          "bbox": [
+            0.289867,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 86,
+          "area_norm": 2.223e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.931595,
+            0.100363,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.823001,
+            0.726119,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.747884,
+            0.003848,
+            0.013301
+          ],
+          "area": 85,
+          "area_norm": 2.197e-05,
+          "aspect": 0.409
+        },
+        {
+          "bbox": [
+            0.19581,
+            0.614873,
+            0.005558,
+            0.008464
+          ],
+          "area": 84,
+          "area_norm": 2.171e-05,
+          "aspect": 0.929
+        },
+        {
+          "bbox": [
+            0.336896,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 84,
+          "area_norm": 2.171e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.827704,
+            0.726119,
+            0.004703,
+            0.013906
+          ],
+          "area": 83,
+          "area_norm": 2.145e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.242839,
+            0.614873,
+            0.005985,
+            0.008464
+          ],
+          "area": 82,
+          "area_norm": 2.12e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.73156,
+            0.005985,
+            0.011487
+          ],
+          "area": 76,
+          "area_norm": 1.964e-05,
+          "aspect": 0.737
+        },
+        {
+          "bbox": [
+            0.916631,
+            0.10399,
+            0.003848,
+            0.009674
+          ],
+          "area": 75,
+          "area_norm": 1.939e-05,
+          "aspect": 0.562
+        },
+        {
+          "bbox": [
+            0.731509,
+            0.776904,
+            0.004703,
+            0.009069
+          ],
+          "area": 75,
+          "area_norm": 1.939e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.902095,
+            0.101572,
+            0.008123,
+            0.013906
+          ],
+          "area": 74,
+          "area_norm": 1.913e-05,
+          "aspect": 0.826
+        },
+        {
+          "bbox": [
+            0.921761,
+            0.100363,
+            0.00342,
+            0.013301
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.364
+        },
+        {
+          "bbox": [
+            0.620778,
+            0.769045,
+            0.00342,
+            0.013301
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.364
+        },
+        {
+          "bbox": [
+            0.802052,
+            0.726119,
+            0.004703,
+            0.013906
+          ],
+          "area": 60,
+          "area_norm": 1.551e-05,
+          "aspect": 0.478
+        },
+        {
+          "bbox": [
+            0.795639,
+            0.725514,
+            0.005558,
+            0.017533
+          ],
+          "area": 53,
+          "area_norm": 1.37e-05,
+          "aspect": 0.448
+        }
+      ],
+      "dimension_arrow_candidate_count": 9,
+      "dimension_arrow_candidates": [
+        {
+          "bbox": [
+            0.702437,
+            0.767231,
+            0.004275,
+            0.019952
+          ],
+          "area": 153,
+          "area_norm": 3.955e-05,
+          "aspect": 0.303
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.767836,
+            0.004275,
+            0.018742
+          ],
+          "area": 130,
+          "area_norm": 3.36e-05,
+          "aspect": 0.323
+        },
+        {
+          "bbox": [
+            0.683198,
+            0.74607,
+            0.002565,
+            0.019952
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.182
+        },
+        {
+          "bbox": [
+            0.621206,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.813168,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.832835,
+            0.733978,
+            0.006841,
+            0.001209
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 8.0
+        },
+        {
+          "bbox": [
+            0.817016,
+            0.750302,
+            0.000855,
+            0.009674
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 0.125
+        },
+        {
+          "bbox": [
+            0.666952,
+            0.729746,
+            0.001283,
+            0.006046
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.3
+        },
+        {
+          "bbox": [
+            0.774263,
+            0.752721,
+            0.001283,
+            0.006651
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.273
+        }
+      ],
+      "centerline_candidate_count": 3,
+      "centerline_candidates": [
+        {
+          "bbox": [
+            0.191107,
+            0.612455,
+            0.15605,
+            0.013301
+          ],
+          "area": 2283,
+          "area_norm": 0.00059012,
+          "aspect": 16.591
+        },
+        {
+          "bbox": [
+            0.191107,
+            0.326481,
+            0.15605,
+            0.013906
+          ],
+          "area": 1925,
+          "area_norm": 0.00049758,
+          "aspect": 15.87
+        },
+        {
+          "bbox": [
+            0.079949,
+            0.665659,
+            0.109448,
+            0.001814
+          ],
+          "area": 764,
+          "area_norm": 0.00019748,
+          "aspect": 85.333
+        }
+      ],
+      "center_mark_candidate_count": 58,
+      "center_mark_candidates": [
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.74607,
+            0.008978,
+            0.019347
+          ],
+          "area": 274,
+          "area_norm": 7.082e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.601112,
+            0.326481,
+            0.009406,
+            0.013906
+          ],
+          "area": 264,
+          "area_norm": 6.824e-05,
+          "aspect": 0.957
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.843095,
+            0.767836,
+            0.007268,
+            0.019347
+          ],
+          "area": 254,
+          "area_norm": 6.566e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.851218,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.702539,
+            0.009406,
+            0.020556
+          ],
+          "area": 235,
+          "area_norm": 6.074e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.747279,
+            0.008978,
+            0.018138
+          ],
+          "area": 229,
+          "area_norm": 5.919e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 228,
+          "area_norm": 5.893e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.821291,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 224,
+          "area_norm": 5.79e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.724305,
+            0.008551,
+            0.018742
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.745466,
+            0.009406,
+            0.021161
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.70885,
+            0.724305,
+            0.007268,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.515
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.767231,
+            0.007268,
+            0.019347
+          ],
+          "area": 209,
+          "area_norm": 5.402e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.656691,
+            0.767231,
+            0.008978,
+            0.019952
+          ],
+          "area": 204,
+          "area_norm": 5.273e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.718683,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 203,
+          "area_norm": 5.247e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.668234,
+            0.724305,
+            0.007696,
+            0.019952
+          ],
+          "area": 197,
+          "area_norm": 5.092e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.876015,
+            0.098549,
+            0.008551,
+            0.019952
+          ],
+          "area": 195,
+          "area_norm": 5.04e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.790936,
+            0.767231,
+            0.008978,
+            0.020556
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.767231,
+            0.008551,
+            0.019347
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.885849,
+            0.097944,
+            0.009833,
+            0.020556
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.7237,
+            0.009406,
+            0.021161
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.74607,
+            0.008123,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.576
+        },
+        {
+          "bbox": [
+            0.832407,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.67764,
+            0.74607,
+            0.006413,
+            0.019347
+          ],
+          "area": 187,
+          "area_norm": 4.834e-05,
+          "aspect": 0.469
+        }
+      ],
+      "section_arrow_candidate_count": 105,
+      "section_arrow_candidates": [
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.74607,
+            0.008978,
+            0.019347
+          ],
+          "area": 274,
+          "area_norm": 7.082e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.601112,
+            0.326481,
+            0.009406,
+            0.013906
+          ],
+          "area": 264,
+          "area_norm": 6.824e-05,
+          "aspect": 0.957
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.843095,
+            0.767836,
+            0.007268,
+            0.019347
+          ],
+          "area": 254,
+          "area_norm": 6.566e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.851218,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.702539,
+            0.009406,
+            0.020556
+          ],
+          "area": 235,
+          "area_norm": 6.074e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.747279,
+            0.008978,
+            0.018138
+          ],
+          "area": 229,
+          "area_norm": 5.919e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 228,
+          "area_norm": 5.893e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.821291,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 224,
+          "area_norm": 5.79e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.724305,
+            0.008551,
+            0.018742
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.745466,
+            0.009406,
+            0.021161
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.70885,
+            0.724305,
+            0.007268,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.515
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.750748,
+            0.767231,
+            0.007268,
+            0.019347
+          ],
+          "area": 209,
+          "area_norm": 5.402e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.656691,
+            0.767231,
+            0.008978,
+            0.019952
+          ],
+          "area": 204,
+          "area_norm": 5.273e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.718683,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 203,
+          "area_norm": 5.247e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.668234,
+            0.724305,
+            0.007696,
+            0.019952
+          ],
+          "area": 197,
+          "area_norm": 5.092e-05,
+          "aspect": 0.545
+        },
+        {
+          "bbox": [
+            0.876015,
+            0.098549,
+            0.008551,
+            0.019952
+          ],
+          "area": 195,
+          "area_norm": 5.04e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.790936,
+            0.767231,
+            0.008978,
+            0.020556
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.801197,
+            0.767231,
+            0.008551,
+            0.019347
+          ],
+          "area": 194,
+          "area_norm": 5.015e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.885849,
+            0.097944,
+            0.009833,
+            0.020556
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.7237,
+            0.009406,
+            0.021161
+          ],
+          "area": 192,
+          "area_norm": 4.963e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.811458,
+            0.74607,
+            0.008123,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.576
+        },
+        {
+          "bbox": [
+            0.832407,
+            0.767231,
+            0.008551,
+            0.019952
+          ],
+          "area": 190,
+          "area_norm": 4.911e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.67764,
+            0.74607,
+            0.006413,
+            0.019347
+          ],
+          "area": 187,
+          "area_norm": 4.834e-05,
+          "aspect": 0.469
+        }
+      ]
+    },
+    "titlebar": {
+      "success": true,
+      "box_norm": [
+        0.68,
+        0.82,
+        0.32,
+        0.18
+      ],
+      "detected": false,
+      "ink_density": 0.0,
+      "line_candidate_count": 0,
+      "component_count": 0,
+      "source": "titlebar_region_ink_density"
+    },
+    "reference_sheet_template_artifacts": {
+      "source": "DrawingBlueprint.layout_plan.sheet_template_policy",
+      "policy": "",
+      "visible_titlebar_mode": "",
+      "default_template_artifacts_forbidden": false,
+      "default_template_artifacts_present": false,
+      "titlebar_detected": false,
+      "titlebar_line_candidate_count": 0,
+      "titlebar_ink_density": 0.0,
+      "api_is_not_final_judgement": true
+    },
+    "notes": {
+      "success": true,
+      "box_norm": [
+        0.58,
+        0.65,
+        0.4,
+        0.17
+      ],
+      "detected": true,
+      "technical_requirements_detected": false,
+      "requires_technical_requirements": false,
+      "required_notes": [],
+      "raw_reference_note_count": 0,
+      "warning_note_count": 0,
+      "ink_density": 0.050637,
+      "component_count": 105,
+      "source": "notes_region_ink_density"
+    },
+    "dimension_visuals": {
+      "success": true,
+      "required_display_dim_count": 0,
+      "dimension_text_candidate_count": 98,
+      "dimension_arrow_candidate_count": 9,
+      "min_visual_candidate_count": 0,
+      "visual_dimension_coverage_pass": true,
+      "visual_dimension_density_pass": true,
+      "visual_dimension_cluster_pass": true,
+      "reference_style_dimension_readability_required": false,
+      "dimension_text_cluster_window_norm": [
+        0.075,
+        0.06
+      ],
+      "max_local_dimension_text_cluster_count": 45,
+      "dimension_text_cluster_threshold": 999999,
+      "dimension_text_clustered": false,
+      "dimension_text_cluster_bbox_norm": [
+        0.635742,
+        0.703144,
+        0.153912,
+        0.084039
+      ],
+      "dimension_text_cluster_examples": [
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.747279,
+            0.008978,
+            0.018138
+          ],
+          "area": 229,
+          "area_norm": 5.919e-05,
+          "aspect": 0.7
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 228,
+          "area_norm": 5.893e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.759726,
+            0.724305,
+            0.008551,
+            0.018742
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.745466,
+            0.009406,
+            0.021161
+          ],
+          "area": 221,
+          "area_norm": 5.713e-05,
+          "aspect": 0.629
+        },
+        {
+          "bbox": [
+            0.657118,
+            0.724305,
+            0.008551,
+            0.019952
+          ],
+          "area": 219,
+          "area_norm": 5.661e-05,
+          "aspect": 0.606
+        }
+      ],
+      "text_candidate_examples": [
+        {
+          "bbox": [
+            0.707995,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 309,
+          "area_norm": 7.987e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.738777,
+            0.766626,
+            0.009406,
+            0.020556
+          ],
+          "area": 287,
+          "area_norm": 7.419e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.76956,
+            0.766626,
+            0.009833,
+            0.020556
+          ],
+          "area": 279,
+          "area_norm": 7.212e-05,
+          "aspect": 0.676
+        },
+        {
+          "bbox": [
+            0.790509,
+            0.74607,
+            0.008978,
+            0.019347
+          ],
+          "area": 274,
+          "area_norm": 7.082e-05,
+          "aspect": 0.656
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 272,
+          "area_norm": 7.031e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.601112,
+            0.326481,
+            0.009406,
+            0.013906
+          ],
+          "area": 264,
+          "area_norm": 6.824e-05,
+          "aspect": 0.957
+        },
+        {
+          "bbox": [
+            0.687046,
+            0.767231,
+            0.009406,
+            0.019952
+          ],
+          "area": 260,
+          "area_norm": 6.721e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.666524,
+            0.76844,
+            0.009406,
+            0.017533
+          ],
+          "area": 258,
+          "area_norm": 6.669e-05,
+          "aspect": 0.759
+        },
+        {
+          "bbox": [
+            0.843095,
+            0.767836,
+            0.007268,
+            0.019347
+          ],
+          "area": 254,
+          "area_norm": 6.566e-05,
+          "aspect": 0.531
+        },
+        {
+          "bbox": [
+            0.769987,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 253,
+          "area_norm": 6.54e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.708422,
+            0.74607,
+            0.008978,
+            0.020556
+          ],
+          "area": 252,
+          "area_norm": 6.514e-05,
+          "aspect": 0.618
+        },
+        {
+          "bbox": [
+            0.760154,
+            0.766626,
+            0.008551,
+            0.020556
+          ],
+          "area": 251,
+          "area_norm": 6.488e-05,
+          "aspect": 0.588
+        },
+        {
+          "bbox": [
+            0.718256,
+            0.7237,
+            0.009406,
+            0.020556
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.74607,
+            0.008978,
+            0.019952
+          ],
+          "area": 250,
+          "area_norm": 6.462e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.851218,
+            0.724305,
+            0.008978,
+            0.019952
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.636
+        },
+        {
+          "bbox": [
+            0.635742,
+            0.746675,
+            0.009406,
+            0.019347
+          ],
+          "area": 248,
+          "area_norm": 6.41e-05,
+          "aspect": 0.688
+        },
+        {
+          "bbox": [
+            0.6413,
+            0.704353,
+            0.008551,
+            0.018742
+          ],
+          "area": 245,
+          "area_norm": 6.333e-05,
+          "aspect": 0.645
+        },
+        {
+          "bbox": [
+            0.620351,
+            0.702539,
+            0.009406,
+            0.020556
+          ],
+          "area": 235,
+          "area_norm": 6.074e-05,
+          "aspect": 0.647
+        },
+        {
+          "bbox": [
+            0.749038,
+            0.74607,
+            0.009406,
+            0.019952
+          ],
+          "area": 232,
+          "area_norm": 5.997e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.646003,
+            0.76844,
+            0.008978,
+            0.018138
+          ],
+          "area": 230,
+          "area_norm": 5.945e-05,
+          "aspect": 0.7
+        }
+      ],
+      "arrow_candidate_examples": [
+        {
+          "bbox": [
+            0.702437,
+            0.767231,
+            0.004275,
+            0.019952
+          ],
+          "area": 153,
+          "area_norm": 3.955e-05,
+          "aspect": 0.303
+        },
+        {
+          "bbox": [
+            0.697734,
+            0.767836,
+            0.004275,
+            0.018742
+          ],
+          "area": 130,
+          "area_norm": 3.36e-05,
+          "aspect": 0.323
+        },
+        {
+          "bbox": [
+            0.683198,
+            0.74607,
+            0.002565,
+            0.019952
+          ],
+          "area": 73,
+          "area_norm": 1.887e-05,
+          "aspect": 0.182
+        },
+        {
+          "bbox": [
+            0.621206,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.813168,
+            0.726119,
+            0.00171,
+            0.013906
+          ],
+          "area": 49,
+          "area_norm": 1.267e-05,
+          "aspect": 0.174
+        },
+        {
+          "bbox": [
+            0.832835,
+            0.733978,
+            0.006841,
+            0.001209
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 8.0
+        },
+        {
+          "bbox": [
+            0.817016,
+            0.750302,
+            0.000855,
+            0.009674
+          ],
+          "area": 31,
+          "area_norm": 8.01e-06,
+          "aspect": 0.125
+        },
+        {
+          "bbox": [
+            0.666952,
+            0.729746,
+            0.001283,
+            0.006046
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.3
+        },
+        {
+          "bbox": [
+            0.774263,
+            0.752721,
+            0.001283,
+            0.006651
+          ],
+          "area": 20,
+          "area_norm": 5.17e-06,
+          "aspect": 0.273
+        }
+      ],
+      "source": "dimension_visual_candidates"
+    },
+    "symbols": {
+      "centerline_candidate_count": 3,
+      "center_mark_candidate_count": 58,
+      "section_arrow_candidate_count": 105,
+      "missing": []
+    },
+    "reference_visual_compare": {
+      "success": true,
+      "generated_ink_bbox": [
+        0.016246,
+        0.090085,
+        0.919196,
+        0.886336
+      ],
+      "reference_ink_bbox": [
+        0.143705,
+        0.039463,
+        0.731591,
+        0.766583
+      ],
+      "center_delta": 0.1442,
+      "area_ratio": 1.4527,
+      "bbox_layout_match": true,
+      "grid_rows": 3,
+      "grid_cols": 4,
+      "generated_grid_ink_shares": [
+        0.00693,
+        0.011,
+        0.0212,
+        0.0668,
+        0.11825,
+        0.12191,
+        0.00382,
+        0.0,
+        0.14258,
+        0.20327,
+        0.17519,
+        0.12904
+      ],
+      "reference_grid_ink_shares": [
+        0.05748,
+        0.12397,
+        0.09517,
+        0.02261,
+        0.08257,
+        0.17945,
+        0.21113,
+        0.13875,
+        0.0,
+        0.08887,
+        0.0,
+        0.0
+      ],
+      "generated_occupied_cells": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "reference_occupied_cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "grid_l1_delta": 1.2822,
+      "occupied_cell_jaccard": 0.25,
+      "grid_layout_match": false,
+      "coarse_layout_match": false
+    },
+    "ui_screenshot_review": {
+      "required": true,
+      "pass": false,
+      "manual_review_status": "fail",
+      "manual_review_error": "",
+      "manual_review_method": "application_drawing_review_ui_screenshot",
+      "manual_review_method_ok": true,
+      "ui_screenshot_evidence_present": true,
+      "ui_screenshot_paths": [
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+      ],
+      "ui_screenshot_paths_existing": [
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+        "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+      ],
+      "ui_screenshot_paths_existing_application_ui": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+      ],
+      "ui_screenshot_content_check_pass": true,
+      "ui_screenshot_content_checks": [
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        },
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        },
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        },
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        },
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        },
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        }
+      ],
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\drawing_visual_review_report.json",
+      "source_ui_report_exists": true,
+      "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+      "source_ui_report_mode": "source_qt_application_ui_screenshot",
+      "source_ui_report_application_ui_ok": true,
+      "case_match": {
+        "required": true,
+        "pass": false,
+        "base": "LB26001-A-04-006",
+        "matching_count": 1,
+        "manual_case_status_pass": false,
+        "visual_checklist_required": true,
+        "visual_checklist_pass": false,
+        "required_visual_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "missing_visual_checklist_items": [],
+        "failed_visual_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "not_passed_visual_checklist_items": [
+          "dimension_readability",
+          "display_dimensions",
+          "manufacturing_notes",
+          "reference_match",
+          "title_block",
+          "view_layout"
+        ]
+      },
+      "generated_png_source_required": true,
+      "generated_png_source_pass": true,
+      "generated_png_source_evidence": {
+        "base": "LB26001-A-04-006",
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+        "source": "run_dir",
+        "exists": true,
+        "strict_sample": true,
+        "under_run_dir": true,
+        "under_legacy_v5": false,
+        "strict_source_pass": true,
+        "reasons": [],
+        "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+      },
+      "source": "application_ui_screenshot_review",
+      "api_is_not_final_judgement": true
+    },
+    "geometry_qc_supporting": {
+      "source": "geometry_qc_supporting_only",
+      "pass": false,
+      "display_dim_count": 8,
+      "dimension_grade": "A",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "api_is_not_final_judgement": true
+    }
+  },
+  "duration_s": 1.291,
+  "status": "need_review"
+}

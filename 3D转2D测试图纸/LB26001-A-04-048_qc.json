@@ -1,0 +1,159 @@
+{
+  "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-048.SLDDRW",
+  "pass": false,
+  "score_pass_count": 7,
+  "issues": [
+    "front_view_position: 未找到前视图",
+    "text_height_ge_3_5mm: 文字高度 0.0003m < 0.0035m",
+    "dim_count_sufficient: DisplayDim=4 < 10.55",
+    "centermark_count_sufficient: CenterMark=4 < 5.0",
+    "refdoc_correct: 4 个视图缺失模型引用"
+  ],
+  "checks": {
+    "view_overlap": {
+      "pass": true,
+      "overlap_pairs": [],
+      "real_view_count": 4
+    },
+    "view_in_frame": {
+      "pass": true,
+      "frame": [
+        0.01,
+        0.01,
+        0.287,
+        0.2
+      ],
+      "out_of_frame": []
+    },
+    "front_view_position": {
+      "pass": false,
+      "detail": {
+        "found": 0,
+        "candidates": []
+      }
+    },
+    "scale_in_set": {
+      "pass": true,
+      "scale": [
+        1,
+        1
+      ],
+      "allowed": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "text_height_ge_3_5mm": {
+      "pass": false,
+      "text_height_m": 0.0003000000142492354,
+      "threshold_m": 0.0035
+    },
+    "all_13_keys_present": {
+      "pass": true,
+      "missing": [],
+      "present_count": 13,
+      "total": 13
+    },
+    "dim_count_sufficient": {
+      "pass": false,
+      "dim_total": 4,
+      "threshold": 10.55,
+      "baseline_avg_dim": 21.1
+    },
+    "centermark_count_sufficient": {
+      "pass": false,
+      "centermark_total": 4,
+      "threshold": 5.0,
+      "baseline_avg_centermark": 10
+    },
+    "has_tech_note": {
+      "pass": true,
+      "noteblock_total": 65,
+      "threshold": 4
+    },
+    "has_ra_note": {
+      "pass": true,
+      "noteblock_total": 65,
+      "threshold": 4
+    },
+    "has_datum_a": {
+      "pass": true,
+      "noteblock_total": 65,
+      "threshold": 4
+    },
+    "refdoc_correct": {
+      "pass": false,
+      "checked_count": 4,
+      "bad_ref": [
+        {
+          "name": "工程图视图1",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图2",
+          "type": 4,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图3",
+          "type": 4,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图4",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        }
+      ]
+    }
+  },
+  "_check_order": [
+    "view_overlap",
+    "view_in_frame",
+    "front_view_position",
+    "scale_in_set",
+    "text_height_ge_3_5mm",
+    "all_13_keys_present",
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct"
+  ]
+}

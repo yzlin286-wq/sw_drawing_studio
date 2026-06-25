@@ -1,0 +1,278 @@
+{
+  "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
+  "generated_at": "2026-06-25T04:34:19",
+  "level": "WARNING",
+  "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+  "lock": null,
+  "lock_owner": {},
+  "lock_reason": "no_active_solidworks_lock",
+  "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+  "counts": {
+    "solidworks_processes": 1,
+    "cad_job_workers": 0,
+    "batch_job_workers": 0,
+    "waiting_jobs": 0,
+    "smoke_leftovers": 0,
+    "dialog_guards": 0
+  },
+  "solidworks_processes": [
+    {
+      "pid": 25040,
+      "name": "SLDWORKS.exe",
+      "command_line": "\"C:\\Program Files\\SOLIDWORKS Corp25\\SOLIDWORKS\\SLDWORKS.exe\" ",
+      "responding": null,
+      "main_window_title": "",
+      "workspace_hint": ""
+    }
+  ],
+  "cad_workers": [],
+  "batch_workers": [],
+  "waiting_jobs": [],
+  "smoke_leftovers": [],
+  "dialog_guards": [],
+  "findings": [
+    {
+      "severity": "WARNING",
+      "key": "solidworks_running_without_lock",
+      "message": "SW running 但无 SolidWorks 全局锁",
+      "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+      "details": {
+        "processes": [
+          {
+            "pid": 25040,
+            "name": "SLDWORKS.exe",
+            "command_line": "\"C:\\Program Files\\SOLIDWORKS Corp25\\SOLIDWORKS\\SLDWORKS.exe\" ",
+            "responding": null,
+            "main_window_title": "",
+            "workspace_hint": ""
+          }
+        ]
+      }
+    }
+  ],
+  "conflict_log_tail": [
+    {
+      "timestamp": "2026-06-25T04:33:58",
+      "event_type": "lock_released",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "solidworks_probe_18680",
+        "owner_run_id": "",
+        "owner_pid": 18680,
+        "owner_worker_pid": 18680,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:33:57",
+        "heartbeat_age_s": 1.036,
+        "stale_lock": false
+      },
+      "extra": {
+        "reason": "solidworks_com_probe_finished"
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:17",
+      "event_type": "lock_acquired",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "ec789587",
+        "owner_run_id": "system_health_ec789587",
+        "owner_pid": 29772,
+        "owner_worker_pid": 29772,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:17",
+        "heartbeat_age_s": 0.598,
+        "stale_lock": false
+      },
+      "extra": {}
+    },
+    {
+      "timestamp": "2026-06-25T04:34:17",
+      "event_type": "lock_released",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "ec789587",
+        "owner_run_id": "system_health_ec789587",
+        "owner_pid": 29772,
+        "owner_worker_pid": 29772,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:17",
+        "heartbeat_age_s": 0.77,
+        "stale_lock": false
+      },
+      "extra": {
+        "reason": "solidworks_com_probe_finished"
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:17",
+      "event_type": "lock_acquired",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 19352,
+        "owner_worker_pid": 19352,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:17",
+        "heartbeat_age_s": 0.831,
+        "stale_lock": false
+      },
+      "extra": {}
+    },
+    {
+      "timestamp": "2026-06-25T04:34:17",
+      "event_type": "lock_conflict",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 19352,
+        "owner_worker_pid": 19352,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:17",
+        "heartbeat_age_s": 0.938,
+        "stale_lock": false
+      },
+      "extra": {
+        "requested_by_job_id": "ec789587",
+        "requested_operation": "system_health.addin_ping",
+        "requested_part_path": "",
+        "timeout_sec": 0.5
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:17",
+      "event_type": "lock_released",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 19352,
+        "owner_worker_pid": 19352,
+        "operation": "solidworks_com_probe:get_active_object",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:17",
+        "heartbeat_age_s": 0.991,
+        "stale_lock": false
+      },
+      "extra": {
+        "reason": "solidworks_com_probe_finished"
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:18",
+      "event_type": "lock_acquired",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 20200,
+        "owner_worker_pid": 20200,
+        "operation": "system_health.addin_ping",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:18",
+        "heartbeat_age_s": 0.151,
+        "stale_lock": false
+      },
+      "extra": {}
+    },
+    {
+      "timestamp": "2026-06-25T04:34:18",
+      "event_type": "lock_conflict",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 20200,
+        "owner_worker_pid": 20200,
+        "operation": "system_health.addin_ping",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:18",
+        "heartbeat_age_s": 0.194,
+        "stale_lock": false
+      },
+      "extra": {
+        "requested_by_job_id": "ec789587",
+        "requested_operation": "system_health.addin_ping",
+        "requested_part_path": "",
+        "timeout_sec": 0.5
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:18",
+      "event_type": "lock_conflict",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 20200,
+        "owner_worker_pid": 20200,
+        "operation": "system_health.addin_ping",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:18",
+        "heartbeat_age_s": 0.449,
+        "stale_lock": false
+      },
+      "extra": {
+        "requested_by_job_id": "ec789587",
+        "requested_operation": "system_health.addin_ping",
+        "requested_part_path": "",
+        "timeout_sec": 0.5
+      }
+    },
+    {
+      "timestamp": "2026-06-25T04:34:18",
+      "event_type": "lock_released",
+      "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
+      "lock": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "fe6be892",
+        "owner_run_id": "system_health_fe6be892",
+        "owner_pid": 20200,
+        "owner_worker_pid": 20200,
+        "operation": "system_health.addin_ping",
+        "part_path": "",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-25T04:34:18",
+        "heartbeat_age_s": 0.535,
+        "stale_lock": false
+      },
+      "extra": {
+        "reason": "system_health_probe_finished"
+      }
+    }
+  ]
+}

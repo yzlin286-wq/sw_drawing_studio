@@ -1,0 +1,440 @@
+[
+  {
+    "file": "3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "LB26001-A-04-001 - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  },
+  {
+    "file": "3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "LB26001-A-04-002 - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  },
+  {
+    "file": "3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "LB26001-A-04-006 - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  },
+  {
+    "file": "3D转2D测试图纸\\LB26001-A-04-050.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "LB26001-A-04-050 - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-050.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  },
+  {
+    "file": "3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02 - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  },
+  {
+    "file": "3D转2D测试图纸\\昆仑BP_6xU2_NVME-J20仿生头8pin.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "title": "昆仑BP_6xU2_NVME-J20仿生头8pin - 图纸1",
+    "path": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\昆仑BP_6xU2_NVME-J20仿生头8pin.SLDDRW",
+    "unit_system": -1,
+    "length_unit_code": 2,
+    "decimal_places": 0,
+    "dual_dim": false,
+    "text_height_m": 0.0003000000142492354,
+    "arrow_size_m": 0.0,
+    "sheet_names": [
+      "图纸1"
+    ],
+    "sheets": [],
+    "views": [],
+    "custom_properties": {
+      "SWFormatSize": {
+        "value": "210mm*297mm",
+        "resolved": "210mm*297mm"
+      },
+      "机型": {
+        "value": "",
+        "resolved": ""
+      },
+      "品名": {
+        "value": "",
+        "resolved": ""
+      },
+      "图号": {
+        "value": "",
+        "resolved": ""
+      },
+      "类别": {
+        "value": "机加工",
+        "resolved": "机加工"
+      },
+      "数量": {
+        "value": "1",
+        "resolved": "1"
+      },
+      "材质": {
+        "value": "",
+        "resolved": ""
+      },
+      "表面处理": {
+        "value": "",
+        "resolved": ""
+      },
+      "设计": {
+        "value": "",
+        "resolved": ""
+      },
+      "日期": {
+        "value": "",
+        "resolved": ""
+      },
+      "UNIT_OF_MEASURE": {
+        "value": "材质",
+        "resolved": "材质"
+      },
+      "Material": {
+        "value": "",
+        "resolved": ""
+      },
+      "重量": {
+        "value": "",
+        "resolved": ""
+      }
+    },
+    "tables": []
+  }
+]

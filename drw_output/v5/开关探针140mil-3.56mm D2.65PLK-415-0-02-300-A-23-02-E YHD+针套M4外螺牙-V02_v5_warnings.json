@@ -1,0 +1,177 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\开关探针140mil-3.56mm D2.65PLK-415-0-02-300-A-23-02-E YHD+针套M4外螺牙-V02.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    }
+  ],
+  "issues_in": [
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "scale": "2:1",
+  "bbox_m": [
+    0.04329999999994306,
+    0.004,
+    0.004
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.036700000000056944,
+      0.136,
+      0.12329999999994307,
+      0.14400000000000002
+    ],
+    "top": [
+      0.036700000000056944,
+      0.076,
+      0.12329999999994307,
+      0.084
+    ],
+    "right": [
+      0.176,
+      0.136,
+      0.184,
+      0.14400000000000002
+    ],
+    "iso": [
+      0.19969000000003986,
+      0.14969000000003985,
+      0.26030999999996013,
+      0.21030999999996014
+    ]
+  },
+  "real_outlines_m": {
+    "front": [
+      0.03250000000005696,
+      0.1318,
+      0.12749999999994308,
+      0.14820000000000003
+    ],
+    "top": [
+      0.03250000000005696,
+      0.0718,
+      0.12749999999994308,
+      0.0882
+    ],
+    "right": [
+      0.17179999999999998,
+      0.1318,
+      0.1882,
+      0.14820000000000003
+    ],
+    "iso": [
+      0.19235384924991664,
+      0.15322578490787314,
+      0.26764615075008336,
+      0.20677421509212685
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

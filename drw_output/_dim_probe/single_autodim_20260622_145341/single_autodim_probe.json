@@ -1,0 +1,144 @@
+{
+  "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\eacfb3cbe84b\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "out_root": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\single_autodim_20260622_145341",
+  "initial_views": [
+    {
+      "name": "工程图视图1",
+      "type": "7",
+      "outline": [
+        0.0828,
+        0.16405,
+        0.13720000000000002,
+        0.17505
+      ]
+    },
+    {
+      "name": "工程图视图2",
+      "type": "4",
+      "outline": [
+        0.0828,
+        0.1195,
+        0.13720000000000002,
+        0.1303
+      ]
+    },
+    {
+      "name": "工程图视图3",
+      "type": "4",
+      "outline": [
+        0.21019999999999991,
+        0.16405,
+        0.2210000000000001,
+        0.17505
+      ]
+    },
+    {
+      "name": "工程图视图4",
+      "type": "7",
+      "outline": [
+        0.21703401589528556,
+        0.08524195879149374,
+        0.2596579841047144,
+        0.11552204120850626
+      ]
+    }
+  ],
+  "results": [
+    {
+      "idx": 0,
+      "view": {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline": [
+          0.0828,
+          0.16405,
+          0.13720000000000002,
+          0.17505
+        ]
+      },
+      "open_errors": 0,
+      "open_warnings": 0,
+      "selected": true,
+      "select_reason": "工程图视图1:DRAWINGVIEW:0.11,0.16955",
+      "returned": "1",
+      "save": true,
+      "save_errors": 0,
+      "save_warnings": 0,
+      "reopen_display_dim_count": 6,
+      "reopen_view_count": 5,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\single_autodim_20260622_145341\\view1_once.SLDDRW"
+    },
+    {
+      "idx": 1,
+      "view": {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline": [
+          0.0828,
+          0.1195,
+          0.13720000000000002,
+          0.1303
+        ]
+      },
+      "open_errors": 0,
+      "open_warnings": 0,
+      "selected": true,
+      "select_reason": "工程图视图2:DRAWINGVIEW:0.11,0.1249",
+      "returned": "1",
+      "save": true,
+      "save_errors": 0,
+      "save_warnings": 0,
+      "reopen_display_dim_count": 8,
+      "reopen_view_count": 5,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\single_autodim_20260622_145341\\view2_once.SLDDRW"
+    },
+    {
+      "idx": 2,
+      "view": {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline": [
+          0.21019999999999991,
+          0.16405,
+          0.2210000000000001,
+          0.17505
+        ]
+      },
+      "open_errors": 0,
+      "open_warnings": 0,
+      "selected": true,
+      "select_reason": "工程图视图3:DRAWINGVIEW:0.2156,0.16955",
+      "returned": "1",
+      "save": true,
+      "save_errors": 0,
+      "save_warnings": 0,
+      "reopen_display_dim_count": 3,
+      "reopen_view_count": 5,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\single_autodim_20260622_145341\\view3_once.SLDDRW"
+    },
+    {
+      "idx": 3,
+      "view": {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline": [
+          0.21703401589528556,
+          0.08524195879149374,
+          0.2596579841047144,
+          0.11552204120850626
+        ]
+      },
+      "open_errors": 0,
+      "open_warnings": 0,
+      "selected": true,
+      "select_reason": "工程图视图4:DRAWINGVIEW:0.238346,0.100382",
+      "returned": "1",
+      "save": true,
+      "save_errors": 0,
+      "save_warnings": 0,
+      "reopen_display_dim_count": 20,
+      "reopen_view_count": 5,
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\single_autodim_20260622_145341\\view4_once.SLDDRW"
+    }
+  ]
+}

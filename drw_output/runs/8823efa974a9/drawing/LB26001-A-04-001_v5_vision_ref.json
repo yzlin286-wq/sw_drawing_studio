@@ -1,0 +1,62 @@
+{
+  "score": 55,
+  "issues": [
+    {
+      "key": "gb_titlebar_complete",
+      "severity": "warning",
+      "description": "标题栏缺失6组国标要求的核心字段：品名/机型、图号、材质、数量、设计、日期",
+      "fix_suggestion": "按照GB/T 14689要求补齐标题栏所有核心必填字段，放置于图纸右下角"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "severity": "warning",
+      "description": "未绘制必要的剖视图，无法清晰表达零件内部结构特征",
+      "fix_suggestion": "补充对应剖切位置的剖视图，明确零件内部构造与装配特征"
+    },
+    {
+      "key": "has_datum_a",
+      "severity": "warning",
+      "description": "未标注基准A标识，无形位公差对应的基准定义",
+      "fix_suggestion": "按照GB/T 1182-2008要求添加基准三角符号，明确基准A的定位"
+    },
+    {
+      "key": "refdoc_correct",
+      "severity": "warning",
+      "description": "引用文档名称匹配度为0，存在4处错误引用，缺少必要引用文件",
+      "fix_suggestion": "核对设计输入，修正错误引用，补充所有必要的引用技术文档"
+    },
+    {
+      "key": "has_tech_note",
+      "severity": "warning",
+      "description": "技术要求区块未包含规定关键字，表述不符合国标要求",
+      "fix_suggestion": "规范技术要求条目表述，补充国标要求的关键字，逐条以阿拉伯数字编号"
+    },
+    {
+      "key": "has_ra_note",
+      "severity": "warning",
+      "description": "粗糙度统一标注不符合GB/T 131-2006关键字要求",
+      "fix_suggestion": "按照国标规范调整粗糙度标注格式，明确其余表面粗糙度要求的表述"
+    }
+  ],
+  "summary": "本图基础视图布局合规，但存在标题栏核心字段缺失、无剖视图、基准标识缺失、引用文档错误等多项国标合规问题，需整改后使用",
+  "png": "drw_output\\runs\\8823efa974a9\\drawing\\LB26001-A-04-001_v5_vision_ref.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":55,\"issues\":[{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失6组国标要求的核心字段：品名/机型、图号、材质、数量、设计、日期\",\"fix\":\"按照GB/T 14689要求补齐标题栏所有核心必填字段，放置于图纸右下角\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"未绘制必要的剖视图，无法清晰表达零件内部结构特征\",\"fix\":\"补充对应剖切位置的剖视图，明确零件内部构造与装配特征\"},{\"key\":\"has_datum_a\",\"desc\":\"未标注基准A标识，无形位公差对应的基准定义\",\"fix\":\"按照GB/T 1182-2008要求添加基准三角符号，明确基准A的定位\"},{\"key\":\"refdoc_correct\",\"desc\":\"引用文档名称匹配度为0，存在4处错误引用，缺少必要引用文件\",\"fix\":\"核对设计输入，修正错误引用，补充所有必要的引用技术文档\"},{\"key\":\"has_tech_note\",\"desc\":\"技术要求区块未包含规定关键字，表述不符合国标要求\",\"fix\":\"规范技术要求条目表述，补充国标要求的关键字，逐条以阿拉伯数字编号\"},{\"key\":\"has_ra_note\",\"desc\":\"粗糙度统一标注不符合GB/T 131-2006关键字要求\",\"fix\":\"按照国标规范调整粗糙度标注格式，明确其余表面粗糙度要求的表述\"}],\"summary\":\"本图基础视图布局合规，但存在标题栏核心字段缺失、无剖视图、基准标识缺失、引用文档错误等多项国标合规问题，需整改后使用\",\"reference_diff\":{\"similarity\":40,\"structural_diff\":\"生成图采用轴测图+双侧视图+俯视图+空白标题栏的分散布局；参考案例仅保留主俯视图与单一侧视图，聚焦孔位标识与附加说明，无轴测图与空白标题栏区块\",\"missing_elements\":[\"孔位基准标签(A/B/C/D/E/F/G/H)\",\"X/Y/0坐标轴定位标注\",\"\\\"未标注尺寸按3D加工\\\"提示文本\",\"硬盘槽位更新说明文本\",\"\\\"未注尺寸请核对3D图档\\\"提示文本\"]}}",
+  "error": "",
+  "reference_diff": {
+    "similarity": 40,
+    "structural_diff": "生成图采用轴测图+双侧视图+俯视图+空白标题栏的分散布局；参考案例仅保留主俯视图与单一侧视图，聚焦孔位标识与附加说明，无轴测图与空白标题栏区块",
+    "missing_elements": [
+      "孔位基准标签(A/B/C/D/E/F/G/H)",
+      "X/Y/0坐标轴定位标注",
+      "\"未标注尺寸按3D加工\"提示文本",
+      "硬盘槽位更新说明文本",
+      "\"未注尺寸请核对3D图档\"提示文本"
+    ]
+  },
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-001.png",
+  "threshold": 60,
+  "pass": false,
+  "image_path": "drw_output\\runs\\8823efa974a9\\drawing\\LB26001-A-04-001_v5_vision_ref.png",
+  "model": "doubao-seed-2.0-pro"
+}

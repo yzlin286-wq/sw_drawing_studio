@@ -1,0 +1,172 @@
+{
+  "summary": {
+    "paper_codes": [
+      6
+    ],
+    "angles": [
+      1
+    ],
+    "scales": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        5
+      ]
+    ],
+    "dim_counts": [
+      4,
+      64,
+      44,
+      0,
+      16,
+      12,
+      8
+    ],
+    "avg_dim": 21.1,
+    "max_dim": 64,
+    "key_present_max": 13,
+    "section_any": true,
+    "section_ratio": 1.0,
+    "per_file": [
+      {
+        "file": "LB26001-A-04-048.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          1
+        ],
+        "DisplayDim": 4,
+        "key_present": 13,
+        "section": true,
+        "views_count": 4,
+        "front": false,
+        "top": false,
+        "right": false,
+        "iso": true
+      },
+      {
+        "file": "LB26001-A-04-004.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          5
+        ],
+        "DisplayDim": 64,
+        "key_present": 13,
+        "section": true,
+        "views_count": 2,
+        "front": false,
+        "top": true,
+        "right": false,
+        "iso": false
+      },
+      {
+        "file": "LB26001-A-04-001.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          5
+        ],
+        "DisplayDim": 44,
+        "key_present": 13,
+        "section": true,
+        "views_count": 2,
+        "front": false,
+        "top": true,
+        "right": false,
+        "iso": false
+      },
+      {
+        "file": "LB26001-A-04-002.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          4
+        ],
+        "DisplayDim": 0,
+        "key_present": 13,
+        "section": true,
+        "views_count": 4,
+        "front": false,
+        "top": false,
+        "right": false,
+        "iso": true
+      },
+      {
+        "file": "LB26001-A-04-006.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          2
+        ],
+        "DisplayDim": 16,
+        "key_present": 13,
+        "section": true,
+        "views_count": 4,
+        "front": false,
+        "top": false,
+        "right": false,
+        "iso": true
+      },
+      {
+        "file": "LB26001-A-04-050.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          1
+        ],
+        "DisplayDim": 12,
+        "key_present": 13,
+        "section": true,
+        "views_count": 3,
+        "front": true,
+        "top": false,
+        "right": false,
+        "iso": false
+      },
+      {
+        "file": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDDRW",
+        "paper_code": 6,
+        "first_angle": 1,
+        "scale": [
+          1,
+          1
+        ],
+        "DisplayDim": 8,
+        "key_present": 13,
+        "section": true,
+        "views_count": 4,
+        "front": false,
+        "top": false,
+        "right": false,
+        "iso": true
+      }
+    ]
+  },
+  "files": [
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-048.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-004.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-050.SLDDRW",
+    "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDDRW"
+  ]
+}

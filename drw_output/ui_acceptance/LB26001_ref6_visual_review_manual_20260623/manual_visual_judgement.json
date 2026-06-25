@@ -1,0 +1,132 @@
+{
+  "schema": "sw_drawing_studio.manual_ui_visual_judgement.v4_2",
+  "generated_at": "2026-06-23 03:16:00",
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "source_ui_report": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/drawing_visual_review_report.json",
+  "overall_status": "FAIL",
+  "status": "fail",
+  "verdict": "fail",
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "total": 6,
+  "fail_count": 6,
+  "pass_count": 0,
+  "need_review_count": 6,
+  "expansion_gate": {
+    "lb26001_006_required_before_007_008_009_015_022": true,
+    "lb26001_006_visual_acceptance_pass": false,
+    "remaining_five_are_learning_samples_only": true,
+    "reason": "006 has not passed application UI screenshot judgement; do not expand to the remaining five as acceptance work."
+  },
+  "reference_intent_standard": {
+    "summary": "The six references use drafter-intent dimension groups, compact view placement, reference-specific projected views, and concise notes/title areas. Current generated drawings still look like generic AutoDimension/template output.",
+    "rules": [
+      "Use the same-name reference drawing as the visual standard; API and DisplayDim counts are supporting evidence only.",
+      "Keep view count, view family, scale, and semantic placement close to the reference before judging dimensions.",
+      "Create real SolidWorks DisplayDim objects; Notes, OCR text, and sidecar text must not replace DisplayDim evidence.",
+      "Dimensions must be grouped by manufacturing intent: overall envelope, end offsets, hole/slot position, projected-view size, radius/chamfer/thread callouts when present.",
+      "Avoid generic all-view AutoDimension output, dense baseline stacks, stray leader groups, and oversized default titleblock/template frames.",
+      "Title block, notes, roughness text, and border use must visually match the reference sheet style for the same part family."
+    ]
+  },
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/63d9a9a6bb8e/drawing/LB26001-A-04-006_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-006.png",
+      "findings": [
+        "Generated sheet still carries a large default titleblock/frame area that is absent from the concise reference layout.",
+        "Long-thin front/top views are not arranged like the reference; the generated isometric view and small projected view are misplaced relative to the reference intent.",
+        "The visible dimension scheme is sparse/generic and does not reproduce the reference's end-offset, hole-location, and right-side small projection dimension grouping.",
+        "Notes and roughness text are placed as generic template text instead of the reference-style compact callout area."
+      ],
+      "required_correction": "Implement explicit reference-intent dimension groups for 006 first; do not use generic AutoDimension as the final visual output."
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/02_LB26001-A-04-007_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/02_LB26001-A-04-007_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/5f4ad69a6442/drawing/LB26001-A-04-007_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-007.png",
+      "findings": [
+        "Generated view placement uses a default large sheet/titleblock layout; reference is compact with orthographic views and isometric view distributed without a large template block.",
+        "Critical diameter/tolerance/thread callouts visible in the reference are not reproduced as readable reference-style dimensions.",
+        "Side/front view sizing and spacing differ enough that the drawing does not read like the same drafting standard."
+      ],
+      "required_correction": "After 006 is accepted, create a 007-specific reference-intent plan for cylinder/end features and compact diameter callouts."
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/03_LB26001-A-04-008_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/03_LB26001-A-04-008_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/17a3afd0ad43/drawing/LB26001-A-04-008_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-008.png",
+      "findings": [
+        "Reference has a dominant plate face view with concise dimensioning and a red manufacturing note; generated output spreads generic orthographic/isometric views and omits the visible note intent.",
+        "Generated drawing includes a large default titleblock and notes area that does not match the reference sheet style.",
+        "Hole/feature callouts are under-controlled visually; API/style warnings already include fallback DisplayDim uncertainty."
+      ],
+      "required_correction": "Treat 008 as a plate-layout reference after 006 passes; preserve the large face view and explicit note/dimension strategy."
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/04_LB26001-A-04-009_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/04_LB26001-A-04-009_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/fca65cb67b3d/drawing/LB26001-A-04-009_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-009.png",
+      "findings": [
+        "Reference emphasizes diameter and internal feature callouts; generated output shows mostly geometry with missing/weak visible dimensions.",
+        "The default titleblock/notes frame occupies too much sheet space and does not match the reference presentation.",
+        "The generated side and isometric views are positioned and scaled differently from the compact reference composition."
+      ],
+      "required_correction": "After 006 acceptance, build cylinder-specific diameter/thread/length callout groups before UI review."
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/05_LB26001-A-04-015_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/05_LB26001-A-04-015_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/5519ec098ec6/drawing/LB26001-A-04-015_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-015.png",
+      "findings": [
+        "Reference has dense but intentional hole/slot and fastener callouts around a large face view; generated output shrinks the main view and loses most callout intent.",
+        "Bottom projection and title/notes area do not follow the reference balance; generated titleblock dominates the lower-right sheet.",
+        "Dimensions are visibly insufficient for manufacturing review even though structured reports claim support."
+      ],
+      "required_correction": "Use 015 as a later high-density plate sample; it requires a learned callout map, not generic view auto-placement."
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/06_LB26001-A-04-022_ui_visual_review.png",
+      "comparison_image": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/06_LB26001-A-04-022_reference_vs_generated.png",
+      "generated_png": "drw_output/runs/90f4733ef751/drawing/LB26001-A-04-022_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-022.png",
+      "findings": [
+        "Reference shows a bracket with multiple orthographic views and many height/hole/slot dimensions; generated output is mostly undimensioned geometry plus generic template notes.",
+        "Critical hole-position and stepped-height dimension groups visible in the reference are missing or not readable in generated output.",
+        "The generated titleblock and border treatment do not match the reference style."
+      ],
+      "required_correction": "Use 022 later as a bracket intent-plan sample with explicit stepped-height and hole-location groups."
+    }
+  ],
+  "next_actions": [
+    "Do not expand acceptance to 007/008/009/015/022 until 006 passes application UI screenshot judgement.",
+    "For 006, replace generic AutoDimension reliance with explicit reference-intent DisplayDim groups: overall envelope, end offsets, hole positions, right projected view size, radius/chamfer/thread callouts when present.",
+    "Keep SolidWorks work behind the global lock; no real CAD rerun should start while unguarded production COM entrypoints remain unresolved.",
+    "After the next fresh 006 run, rerun Drawing Review UI screenshot capture and attach this manual judgement to vision_qc_v6/reference_compare_v4.",
+    "Treat API, DisplayDim count, strict style, and reference_compare scores as supporting evidence only; the drawing is accepted only when the UI screenshot judgement is accepted."
+  ]
+}

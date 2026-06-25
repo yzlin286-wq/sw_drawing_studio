@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "same_process_acquire",
+    "second_job_blocked",
+    "heartbeat_and_release",
+    "alive_owner_not_stolen",
+    "stale_owner_released"
+  ],
+  "status": "pass",
+  "conflict_log_exists": true
+}

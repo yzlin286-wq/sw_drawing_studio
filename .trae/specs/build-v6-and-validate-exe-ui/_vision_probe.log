@@ -1,0 +1,38 @@
+﻿png_render_ok: True -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-001_v5.PNG
+LLM: LLMClient(base_url='https://api.ccagent.cn/v1', model='glm-5.1', vision_model='doubao-seed-2.0-pro', api_key=sk-r***, temperature=0.2, timeout=60.0)
+{
+  "score": 65,
+  "issues": [
+    {
+      "key": "gb_titlebar_complete",
+      "desc": "标题栏缺失品名/机型、图号、材质、数量、设计、日期共6项核心必填字段，不符合GB标题栏规范要求",
+      "fix": "补全上述所有核心字段，将标题栏正确放置在图框右下角"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "desc": "未绘制必要剖视图，无法完整表达零件内部结构，不符合GB视图表达要求",
+      "fix": "添加对应零件内部结构的剖视图（如A-A剖），完整表达零件构造"
+    },
+    {
+      "key": "refdoc_correct",
+      "desc": "共4个视图缺失对应零件模型引用，视图关联无效",
+      "fix": "将所有视图关联到正确的LB26001-A-04-001零件模型，确保视图关联有效"
+    },
+    {
+      "key": "has_datum_a",
+      "desc": "仅标注△A标记，无符合GB的标准基准符号，也未关联形位公差定义",
+      "fix": "绘制符合GB/T 1182-2008的基准A符号，补全对应形位公差要求"
+    },
+    {
+      "key": "has_ra_note",
+      "desc": "右上角其余粗糙度标注不符合GB/T 131-2006标注规范",
+      "fix": "修正粗糙度标注格式，确保符号、标注位置符合国标要求"
+    }
+  ],
+  "summary": "本图17项检查通过11项，存在标题栏字段缺失、无剖视图、视图无模型引用、基准标注不规范等问题，整体合规性一般，需重点整改标题栏与视图表达问题",
+  "png": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5_vision.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":65,\"issues\":[{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失品名/机型、图号、材质、数量、设计、日期共6项核心必填字段，不符合GB标题栏规范要求\",\"fix\":\"补全上述所有核心字段，将标题栏正确放置在图框右下角\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"未绘制必要剖视图，无法完整表达零件内部结构，不符合GB视图表达要求\",\"fix\":\"添加对应零件内部结构的剖视图（如A-A剖），完整表达零件构造\"},{\"key\":\"refdoc_correct\",\"desc\":\"共4个视图缺失对应零件模型引用，视图关联无效\",\"fix\":\"将所有视图关联到正确的LB26001-A-04-001零件模型，确保视图关联有效\"},{\"key\":\"has_datum_a\",\"desc\":\"仅标注△A标记，无符合GB的标准基准符号，也未关联形位公差定义\",\"fix\":\"绘制符合GB/T 1182-2008的基准A符号，补全对应形位公差要求\"},{\"key\":\"has_ra_note\",\"desc\":\"右上角其余粗糙度标注不符合GB/T 131-2006标注规范\",\"fix\":\"修正粗糙度标注格式，确保符号、标注位置符合国标要求\"}],\"summary\":\"本图17项检查通过11项，存在标题栏字段缺失、无剖视图、视图无模型引用、基准标注不规范等问题，整体合规性一般，需重点整改标题栏与视图表达问题\"}",
+  "error": "",
+  "vision_json": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5_vision.json"
+}

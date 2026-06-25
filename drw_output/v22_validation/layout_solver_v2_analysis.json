@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-06-20 20:15:32",
+  "titlebar_box": [
+    0.102,
+    0.005,
+    0.282,
+    0.095
+  ],
+  "frame_box": [
+    0.01,
+    0.01,
+    0.287,
+    0.2
+  ],
+  "t4_centers": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "sample_count": 1,
+  "titlebar_collision_total": 1,
+  "out_of_frame_total": 0,
+  "view_overlap_total": 0,
+  "results": [
+    {
+      "base": "LB26001-A-04-040",
+      "outlines": {
+        "工程图视图1": [
+          0.0563,
+          0.1068,
+          0.1037,
+          0.1732
+        ],
+        "工程图视图2": [
+          0.0563,
+          0.0678,
+          0.1037,
+          0.0922
+        ],
+        "工程图视图3": [
+          0.1678,
+          0.1068,
+          0.1922,
+          0.1732
+        ],
+        "工程图视图4": [
+          0.2064,
+          0.1197,
+          0.2536,
+          0.198
+        ]
+      },
+      "titlebar_collisions": [
+        {
+          "view": "工程图视图2",
+          "view_outline": [
+            0.0563,
+            0.0678,
+            0.1037,
+            0.0922
+          ],
+          "overlap_x_mm": 1.7,
+          "overlap_y_mm": 24.4,
+          "overlap_area_mm2": 41.48
+        }
+      ],
+      "out_of_frame": [],
+      "view_overlaps": []
+    }
+  ],
+  "note": "titlebar_collision ≤2mm 为边缘碰撞, 非视觉性问题; layout_solver_v2 集成后可自动避免"
+}

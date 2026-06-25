@@ -1,0 +1,26 @@
+{
+  "version": "v5",
+  "status": "need_review",
+  "issues": [
+    {
+      "key": "diagnostics_sample_issue",
+      "severity": "info",
+      "bbox": [
+        0.1,
+        0.1,
+        0.4,
+        0.3
+      ],
+      "source": "sample_fixture",
+      "confidence": 0.99,
+      "evidence": "Synthetic issue used only to prove diagnostics packaging.",
+      "fix_suggestion": "Replace the sample run with a real failed run when debugging a user case.",
+      "auto_fix_available": false,
+      "human_review_status": "unreviewed"
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "info": 1
+  }
+}

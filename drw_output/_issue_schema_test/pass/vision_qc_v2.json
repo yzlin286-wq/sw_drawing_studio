@@ -1,0 +1,15 @@
+{
+  "issues": [
+    {
+      "key": "titlebar_missing",
+      "severity": "minor",
+      "bbox": [0.7, 0.85, 0.2, 0.1],
+      "source": "geometry_qc",
+      "confidence": 0.82,
+      "evidence": {"field": "图号"},
+      "fix_suggestion": "补齐标题栏图号。",
+      "auto_fix_available": true,
+      "human_review_status": "pending"
+    }
+  ]
+}

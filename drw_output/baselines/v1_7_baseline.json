@@ -1,0 +1,384 @@
+{
+  "version": "v1.7",
+  "frozen_at": "2026-06-19",
+  "source": "drw_output/v1_7_core_validation.json",
+  "summary": {
+    "total": 12,
+    "success": 0,
+    "warning": 12,
+    "failed": 0
+  },
+  "items": [
+    {
+      "base": "LB26001-A-04-001",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-001.SLDPRT",
+      "run_id": "c606ca50ba18",
+      "grade": "B",
+      "dim_total": 44,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "part_class": "feature_part",
+      "sidecar_used": false,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 11,
+      "usable_for": [
+        "manufacturing",
+        "assembly",
+        "procurement"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c606ca50ba18\\qc\\LB26001-A-04-001_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c606ca50ba18\\drawing\\LB26001-A-04-001_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-002.SLDPRT",
+      "run_id": "523fd8848b51",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_with_sidecar_annotation",
+        "qc_pass_too_low_sidecar_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "long_thin",
+      "sidecar_used": true,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\523fd8848b51\\qc\\LB26001-A-04-002_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\523fd8848b51\\drawing\\LB26001-A-04-002_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-003.SLDPRT",
+      "run_id": "2dd13e243f90",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_with_sidecar_annotation",
+        "qc_pass_too_low_sidecar_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "long_thin",
+      "sidecar_used": true,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2dd13e243f90\\qc\\LB26001-A-04-003_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2dd13e243f90\\drawing\\LB26001-A-04-003_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-004.SLDPRT",
+      "run_id": "9cea763a7a66",
+      "grade": "B",
+      "dim_total": 64,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "part_class": "feature_part",
+      "sidecar_used": false,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 11,
+      "usable_for": [
+        "manufacturing",
+        "assembly",
+        "procurement"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9cea763a7a66\\qc\\LB26001-A-04-004_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9cea763a7a66\\drawing\\LB26001-A-04-004_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-005.SLDPRT",
+      "run_id": "cb7187701300",
+      "grade": "B",
+      "dim_total": 8,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "part_class": "feature_part",
+      "sidecar_used": false,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 10,
+      "usable_for": [
+        "manufacturing",
+        "assembly",
+        "procurement"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cb7187701300\\qc\\LB26001-A-04-005_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cb7187701300\\drawing\\LB26001-A-04-005_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-007.SLDPRT",
+      "run_id": "88bd96d4fb50",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_with_sidecar_annotation",
+        "qc_pass_too_low_sidecar_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "tiny_part",
+      "sidecar_used": true,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\88bd96d4fb50\\qc\\LB26001-A-04-007_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\88bd96d4fb50\\drawing\\LB26001-A-04-007_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "part_path": "3D转2D测试图纸/LB26001-A-04-009.SLDPRT",
+      "run_id": "d950a3da885b",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_with_sidecar_annotation",
+        "qc_pass_too_low_sidecar_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "tiny_part",
+      "sidecar_used": true,
+      "standard_annotation_present": false,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d950a3da885b\\qc\\LB26001-A-04-009_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d950a3da885b\\drawing\\LB26001-A-04-009_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "part_path": "3D转2D测试图纸/-M3x8十字螺丝-1-V3-V02.SLDPRT",
+      "run_id": "ce058d9643fd",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_purchased_with_std_anno",
+        "qc_pass_too_low_purchased_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "fastener",
+      "sidecar_used": true,
+      "standard_annotation_present": true,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ce058d9643fd\\qc\\-M3x8十字螺丝-1-V3-V02_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ce058d9643fd\\drawing\\-M3x8十字螺丝-1-V3-V02_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "part_path": "3D转2D测试图纸/-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+      "run_id": "db8c2a3df037",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_purchased_with_std_anno",
+        "qc_pass_too_low_purchased_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "spring",
+      "sidecar_used": true,
+      "standard_annotation_present": true,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\db8c2a3df037\\qc\\-弹簧压棒弹簧-1-V3-V02_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\db8c2a3df037\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "part_path": "3D转2D测试图纸/-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "run_id": "c9c53e31be9f",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_purchased_with_std_anno",
+        "qc_pass_too_low_purchased_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "purchased_part",
+      "sidecar_used": true,
+      "standard_annotation_present": true,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c9c53e31be9f\\qc\\-AK-15-AC-25-1-V3-V02_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c9c53e31be9f\\drawing\\-AK-15-AC-25-1-V3-V02_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "part_path": "3D转2D测试图纸/-AK-15-AC-26-1-V3-V02.SLDPRT",
+      "run_id": "763bc9788416",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_purchased_with_std_anno",
+        "qc_pass_too_low_purchased_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "purchased_part",
+      "sidecar_used": true,
+      "standard_annotation_present": true,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\qc\\-AK-15-AC-26-1-V3-V02_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\drawing\\-AK-15-AC-26-1-V3-V02_v5.PNG",
+      "status": "warning"
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "part_path": "3D转2D测试图纸/-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "run_id": "68902560345c",
+      "grade": "C",
+      "dim_total": 0,
+      "hard_fail": [],
+      "warnings": [
+        "dim_total_zero_purchased_with_std_anno",
+        "qc_pass_too_low_purchased_c_grade",
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "part_class": "purchased_part",
+      "sidecar_used": true,
+      "standard_annotation_present": true,
+      "vision_score": null,
+      "drawing_usable_pass": true,
+      "qc_pass_count": 9,
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ],
+      "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\68902560345c\\qc\\-AK-15-AC-27-1-V3-V02_v5_qc.json",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\68902560345c\\drawing\\-AK-15-AC-27-1-V3-V02_v5.PNG",
+      "status": "warning"
+    }
+  ]
+}

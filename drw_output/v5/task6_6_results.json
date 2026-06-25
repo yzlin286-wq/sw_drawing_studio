@@ -1,0 +1,72 @@
+[
+  {
+    "base": "-AK-15-AC-25-1-V3-V02",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_too_low",
+      "qc_pass_too_low"
+    ],
+    "png_missing": false,
+    "dim_total_zero": false,
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "e62d8da543ea"
+  },
+  {
+    "base": "-AK-15-AC-26-1-V3-V02",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_too_low",
+      "qc_pass_too_low"
+    ],
+    "png_missing": false,
+    "dim_total_zero": false,
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "b1ef6cc63494"
+  },
+  {
+    "base": "-AK-15-AC-27-1-V3-V02",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_zero",
+      "qc_pass_too_low"
+    ],
+    "png_missing": false,
+    "dim_total_zero": true,
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "24274c497abb"
+  },
+  {
+    "base": "-M3x8十字螺丝-1-V3-V02",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_zero",
+      "qc_pass_too_low"
+    ],
+    "png_missing": false,
+    "dim_total_zero": true,
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "6bfc9fb61abe"
+  },
+  {
+    "base": "-弹簧压棒弹簧-1-V3-V02",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_zero",
+      "qc_pass_too_low"
+    ],
+    "png_missing": false,
+    "dim_total_zero": true,
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "1c609f89ccf2"
+  }
+]

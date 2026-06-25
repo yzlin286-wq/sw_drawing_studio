@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-06-22 08:34:34",
+  "mode": "reference_compare_smoke_v3",
+  "metrics_mode": "sidecar_first",
+  "sidecar_timeout_s": 5,
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+  "generated_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a",
+  "connection_method": "sidecar_subprocess",
+  "reference_metrics": {
+    "schema": "sw_drawing_studio.reference_metrics.v1",
+    "source": "csharp_sidecar",
+    "generated_at": "2026-06-22 08:34:24",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "exists": true,
+    "success": false,
+    "status": "error",
+    "reason": "sidecar_timeout_after_5s",
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference.json",
+    "view_count": 0,
+    "view_types": {},
+    "view_names": [],
+    "view_outlines": [],
+    "display_dim_count": 0,
+    "annotation_count": 0,
+    "file_size_bytes": 289467,
+    "warnings": [],
+    "stdout": "",
+    "stderr": ""
+  },
+  "generated_metrics": {
+    "schema": "sw_drawing_studio.reference_metrics.v1",
+    "source": "csharp_sidecar",
+    "generated_at": "2026-06-22 08:34:29",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+    "exists": true,
+    "success": false,
+    "status": "error",
+    "reason": "sidecar_timeout_after_5s",
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_generated.json",
+    "view_count": 0,
+    "view_types": {},
+    "view_names": [],
+    "view_outlines": [],
+    "display_dim_count": 0,
+    "annotation_count": 0,
+    "file_size_bytes": 71358,
+    "warnings": [],
+    "stdout": "",
+    "stderr": ""
+  },
+  "sidecar_artifacts": {
+    "reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference.json",
+    "generated": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_generated.json"
+  },
+  "view_match_score": 0.0,
+  "dimension_match_score": 0.0,
+  "titlebar_match_score": 1.0,
+  "annotation_match_score": 1.0,
+  "layout_match_score": 1.0,
+  "overall_score": 0.5,
+  "status": "fail",
+  "differences": [
+    {
+      "key": "reference_metrics_unavailable",
+      "severity": "need_review",
+      "reference": "sidecar_timeout_after_5s",
+      "generated": "",
+      "fix_suggestion": "Verify SolidWorks can open the reference SLDDRW and extract drawing views."
+    },
+    {
+      "key": "generated_metrics_unavailable",
+      "severity": "fail",
+      "reference": "",
+      "generated": "sidecar_timeout_after_5s",
+      "fix_suggestion": "Regenerate the smoke drawing and rerun comparison."
+    }
+  ],
+  "metric_quality": {
+    "reference": {
+      "usable": false,
+      "weak_reasons": [
+        "reference_metrics_unavailable"
+      ],
+      "annotation_evidence_skipped": [
+        "has_ra_note",
+        "has_datum_a",
+        "gb_has_section_view_or_skipped"
+      ]
+    },
+    "generated": {
+      "usable": false,
+      "weak_reasons": [
+        "generated_metrics_unavailable"
+      ],
+      "fallbacks": [
+        "qc.view_overlap.real_view_count",
+        "qc.display_dim_count"
+      ]
+    }
+  },
+  "pass": false,
+  "reasons": [
+    "reference_metrics_unavailable",
+    "generated_metrics_unavailable"
+  ],
+  "fix_suggestions": [
+    "Verify SolidWorks can open the reference SLDDRW and extract drawing views.",
+    "Regenerate the smoke drawing and rerun comparison."
+  ]
+}

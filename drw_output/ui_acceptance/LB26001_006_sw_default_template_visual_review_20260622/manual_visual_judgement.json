@@ -1,0 +1,23 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "generated_at": "2026-06-22 21:30:00",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "source": "application_ui_screenshot",
+  "summary": "drw_output/staged_validation/LB26001_006_sw_default_template_probe_20260622/summary.json",
+  "ui_report": "drw_output/ui_acceptance/LB26001_006_sw_default_template_visual_review_20260622/drawing_visual_review_report.json",
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "drw_output/runs/337073e77a00",
+      "status": "FAIL",
+      "blocking_reasons": [
+        "generated drawing still contains a large lower-left default frame/title block that is absent from the same-name reference screenshot",
+        "generated dimension placement and coverage do not match the reference drawing",
+        "generated technical notes are present in a different position/style than the reference note area",
+        "structured API gates reported pass/pass_with_warning, but UI screenshot evidence proves the drawing is visually nonconforming"
+      ],
+      "screenshot": "drw_output/ui_acceptance/LB26001_006_sw_default_template_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png"
+    }
+  ]
+}

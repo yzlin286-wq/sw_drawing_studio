@@ -1,0 +1,517 @@
+{
+  "version": "v1.6",
+  "description": "QC 结果汇总",
+  "results": [
+    {
+      "base": "LB26001-A-04-001",
+      "run_id": "06b8946148bb",
+      "pass": false,
+      "score_pass_count": 11,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 44,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 44,
+        "source": "drawing_sketch_fallback",
+        "overall_length": 0.5000000000000001,
+        "overall_width": 0.012593676801498423,
+        "overall_height": 0.31,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "non_model"
+      }
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "run_id": "3a8658acc506",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 0,
+        "source": "none",
+        "overall_length": 0.41,
+        "overall_width": 0.015,
+        "overall_height": 0.012,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "none"
+      }
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "run_id": "fc371fda6331",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": false,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {}
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "run_id": "e09401b21ac9",
+      "pass": false,
+      "score_pass_count": 11,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 64,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 64,
+        "source": "drawing_sketch_fallback",
+        "overall_length": 0.4,
+        "overall_width": 0.012000000000000002,
+        "overall_height": 0.23,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "non_model"
+      }
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "run_id": "8bddde7a78d5",
+      "pass": false,
+      "score_pass_count": 10,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 8,
+          "qc_pass_count": 10,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 8,
+        "source": "drawing_sketch_fallback",
+        "overall_length": 0.356,
+        "overall_width": 0.013000000000000001,
+        "overall_height": 0.012,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "non_model"
+      }
+    },
+    {
+      "base": "LB26001-A-04-006",
+      "run_id": "51df09710df0",
+      "pass": false,
+      "score_pass_count": 10,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 8,
+          "qc_pass_count": 10,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 8,
+        "source": "drawing_sketch_fallback",
+        "overall_length": 0.23,
+        "overall_width": 0.013000000000000001,
+        "overall_height": 0.012,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "non_model"
+      }
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_id": "84d85f127fd6",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": false,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {}
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_id": "f4a58eba8ddd",
+      "pass": false,
+      "score_pass_count": 11,
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 32,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 32,
+        "source": "drawing_sketch_fallback",
+        "overall_length": 0.45,
+        "overall_width": 0.28,
+        "overall_height": 0.012000000000000007,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "non_model"
+      }
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_id": "331d185b8e5d",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": false,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {}
+    },
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "run_id": "e62d8da543ea",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": false,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {}
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "run_id": "b1ef6cc63494",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": false,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {}
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "run_id": "24274c497abb",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 0,
+        "source": "none",
+        "overall_length": 0.006,
+        "overall_width": 0.017,
+        "overall_height": 0.006,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "none"
+      }
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "run_id": "6bfc9fb61abe",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 0,
+        "source": "none",
+        "overall_length": 0.007,
+        "overall_width": 0.009776605211664052,
+        "overall_height": 0.007,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "none"
+      }
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "run_id": "1c609f89ccf2",
+      "pass": false,
+      "score_pass_count": 9,
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "dimension_coverage": {
+        "dim_total": 0,
+        "source": "none",
+        "overall_length": 0.007146085192610289,
+        "overall_width": 0.030840526534821843,
+        "overall_height": 0.007305271576892747,
+        "hole_diameter": null,
+        "hole_location": null,
+        "associativity": "none"
+      }
+    }
+  ]
+}

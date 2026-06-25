@@ -1,0 +1,28 @@
+# 标题栏模板配置（Spec improve-drawing-scale-titlebar-inspection Task 2）
+# 用户可配置公司/制图人等默认值，出图时自动填充
+# SLDPRT 自定义属性会覆盖这些默认值
+
+company:
+  name: "深圳市XX科技有限公司"
+  address: "广东省深圳市宝安区XX路XX号"
+  phone: "0755-XXXXXXXX"
+
+drawing:
+  designer: "张三"
+  reviewer: "李四"
+  approver: "王五"
+  date: ""  # 留空则自动填今天
+
+technical:
+  requirements: |
+    1. 未注尺寸公差按 GB/T 1804-m 执行。
+    2. 未注形位公差按 GB/T 1184-K 执行。
+    3. 锐边倒钝，去毛刺。
+    4. 表面处理：发黑。
+  process_info: "钣金件 / 冲压 / 折弯"
+
+delivery:
+  customer: ""
+  delivery_date: ""
+  remark: ""
+  source_file: ""  # 留空则自动填 SLDPRT 文件名

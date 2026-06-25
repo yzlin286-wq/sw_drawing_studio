@@ -1,0 +1,152 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "first_angle_views_pending_unbound",
+      "method": "Create1stAngleViews2",
+      "msg": "method succeeded but bind delayed; views=0 before=0 projected=0"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "first_angle_views_still_unbound",
+      "msg": "views=0 projected=0"
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [],
+  "scale": "1:5",
+  "bbox_m": [
+    0.23,
+    0.013000000000000001,
+    0.012
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.056999999999999995,
+      0.13870000000000002,
+      0.10300000000000001,
+      0.1413
+    ],
+    "top": [
+      0.056999999999999995,
+      0.0788,
+      0.10300000000000001,
+      0.08120000000000001
+    ],
+    "right": [
+      0.1788,
+      0.13870000000000002,
+      0.1812,
+      0.1413
+    ],
+    "iso": [
+      0.2139,
+      0.1639,
+      0.2461,
+      0.1961
+    ]
+  },
+  "real_outlines_m": {
+    "iso": [
+      0.20868801589528557,
+      0.1648599587914937,
+      0.25131198410471445,
+      0.19514004120850628
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

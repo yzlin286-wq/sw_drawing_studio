@@ -1,0 +1,19 @@
+{
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-M3x8十字螺丝-1-V3-V02.SLDPRT",
+  "part_name": "-M3x8十字螺丝-1-V3-V02.SLDPRT",
+  "part_class": "fastener",
+  "reason": "filename match: M3x8",
+  "bbox_mm": [
+    7.0,
+    9.776605211664052,
+    7.0
+  ],
+  "is_standard": true,
+  "std_no": "GB/T 5783 或 GB/T 70.1",
+  "std_spec": "M3x8",
+  "long_thin_ratio": 0.72,
+  "is_tiny": true,
+  "is_sheet_like": false,
+  "has_features": null,
+  "history_dim_total": 0
+}

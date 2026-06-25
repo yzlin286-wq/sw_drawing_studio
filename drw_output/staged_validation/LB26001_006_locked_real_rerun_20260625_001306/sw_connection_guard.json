@@ -1,0 +1,44 @@
+{
+  "schema": "sw_drawing_studio.sw_connection_guard.v4",
+  "status": "pass",
+  "connected": true,
+  "failure_bucket": "",
+  "reason": "",
+  "elapsed_ms": 1031,
+  "probe": {
+    "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+    "method": "get_active_object",
+    "status": "connected",
+    "reason": "",
+    "sw_revision": "33.5.0",
+    "sw_pid": 25040,
+    "visible": true,
+    "elapsed_ms": 1031,
+    "solidworks_lock": {
+      "status": "acquired",
+      "owner_job_id": "solidworks_probe_35536"
+    },
+    "returncode": 0,
+    "attempts": [
+      {
+        "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+        "method": "get_active_object",
+        "status": "connected",
+        "reason": "",
+        "sw_revision": "33.5.0",
+        "sw_pid": 25040,
+        "visible": true,
+        "elapsed_ms": 1031,
+        "solidworks_lock": {
+          "status": "acquired",
+          "owner_job_id": "solidworks_probe_35536"
+        },
+        "returncode": 0
+      }
+    ],
+    "connection_method": "get_active_object"
+  },
+  "safe_to_start_cad_job": true,
+  "user_action_required": "",
+  "do_not_continue_batch": false
+}

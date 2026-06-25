@@ -1,0 +1,43 @@
+{"ts": "2026-06-23T02:20:37", "epoch": 1782152437.7394722, "stage": "parent_start", "guard_timeout_s": 960, "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_horizontal_text_v2_20260623\\01_LB26001-A-04-006\\cad_smoke.json"}
+{"ts": "2026-06-23T02:20:37", "epoch": 1782152437.7561333, "stage": "parent_child_started", "child_pid": 18352}
+{"ts": "2026-06-23T02:20:37", "epoch": 1782152437.9362712, "stage": "child_started", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_horizontal_text_v2_20260623\\01_LB26001-A-04-006\\cad_smoke.json"}
+{"ts": "2026-06-23T02:20:37", "epoch": 1782152437.9362712, "stage": "child_run_smoke_call"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.3972514, "stage": "run_smoke_enter", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "timeout_s": 900, "max_rounds": 1}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4428208, "stage": "qcore_ready"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4428208, "stage": "facade_construct_start"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.445247, "stage": "facade_construct_done"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.445247, "stage": "signals_connected"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.445247, "stage": "start_cad_job_call_start"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.445247, "stage": "facade_start_cad_job_enter", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "timeout_s": 900, "max_rounds": 1}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.445247, "stage": "facade_ensure_initialized_start"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4543996, "stage": "facade_ensure_initialized_done"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4543996, "stage": "facade_new_run_import_start", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4543996, "stage": "facade_new_run_call_start", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4622018, "stage": "facade_new_run_call_done", "job_id": "168a3c2a", "run_id": "fa4dc32659bd", "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.463202, "stage": "facade_manifest_written", "job_id": "168a3c2a", "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4655037, "stage": "facade_job_record_import_start", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4665036, "stage": "facade_queue_add_start", "job_id": "168a3c2a", "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4665036, "stage": "facade_queue_add_done", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4705029, "stage": "facade_runner_start_job_start", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4705029, "stage": "runner_start_job_enter", "job_id": "168a3c2a", "job_type": "cad", "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.471629, "stage": "runner_worker_script_resolved", "job_id": "168a3c2a", "worker_script": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.471629, "stage": "runner_qprocess_created", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4736335, "stage": "runner_environment_set", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4746356, "stage": "runner_worker_args_built", "job_id": "168a3c2a", "args": ["--job-id", "168a3c2a", "--part-path", "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "--output-dir", "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd", "--max-rounds", "1", "--timeout-s", "900"]}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4766374, "stage": "runner_worker_command_built", "job_id": "168a3c2a", "program": "C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", "worker_args": ["C:\\Users\\Vision\\Desktop\\SW 相关\\app\\workers\\cad_job_worker.py", "--job-id", "168a3c2a", "--part-path", "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "--output-dir", "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd", "--max-rounds", "1", "--timeout-s", "900"]}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4776402, "stage": "runner_qprocess_start_call", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4856327, "stage": "runner_qprocess_wait_for_started_enter", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4869616, "stage": "runner_qprocess_wait_for_started_exit", "job_id": "168a3c2a", "started": true, "state": "ProcessState.Running"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4869616, "stage": "runner_process_stored", "job_id": "168a3c2a", "pid": 28608}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.488241, "stage": "runner_status_running", "job_id": "168a3c2a", "pid": 28608}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.488241, "stage": "runner_job_started_event_published", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.489247, "stage": "facade_runner_start_job_done", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.489247, "stage": "facade_start_cad_job_return", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.489247, "stage": "start_cad_job_call_done", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:20:38", "epoch": 1782152438.4902499, "stage": "app_exec_enter", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.6478238, "stage": "app_exec_exit", "job_id": "168a3c2a", "terminal": {"finished": false, "failed": true, "job_id": "168a3c2a", "error": {"error": "子进程退出码: 1", "failure_bucket": "cad_subprocess_failed", "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。", "reason": "subprocess_exit_code_1", "recoverable": true, "returncode": 1}}}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.6478238, "stage": "collect_status_start", "job_id": "168a3c2a"}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.6488233, "stage": "collect_status_done", "status": {"job_id": "168a3c2a", "part_name": "LB26001-A-04-006", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "job_type": "cad", "status": "failed", "priority": 1, "created_at": "2026-06-23T02:20:38", "started_at": "2026-06-23T02:20:38", "finished_at": "2026-06-23T02:22:35", "duration_s": 117.0, "retry_count": 0, "max_retries": 3, "timeout_s": 900, "sw_pid": 28608, "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd", "run_id": "fa4dc32659bd", "error": "子进程退出码: 1", "progress": 0.3, "stage": "出图中 (lines=50)", "result": {"max_rounds": 1, "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fa4dc32659bd", "titlebar_overrides": {}, "strategy": "v6_recommended"}, "last_event": "job_failed"}}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.6746054, "stage": "report_written", "report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_horizontal_text_v2_20260623\\01_LB26001-A-04-006\\cad_smoke.json", "passed": false}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.6746054, "stage": "child_run_smoke_return"}
+{"ts": "2026-06-23T02:22:35", "epoch": 1782152555.7955375, "stage": "parent_child_report_found", "child_exitcode": 0}

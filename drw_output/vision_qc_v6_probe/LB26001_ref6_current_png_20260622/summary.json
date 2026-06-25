@@ -1,0 +1,115 @@
+{
+  "schema": "sw_drawing_studio.vision_qc_v6_probe.v1",
+  "status": "need_review",
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_id": "97691dfbacc7",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\97691dfbacc7\\drawing\\LB26001-A-04-006_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-006\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 4,
+      "major": 3,
+      "critical": 0,
+      "issue_keys": [
+        "titlebar_missing_or_empty",
+        "dimension_visual_overdense",
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_id": "7786247413ed",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7786247413ed\\drawing\\LB26001-A-04-007_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-007.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-007\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 3,
+      "major": 2,
+      "critical": 0,
+      "issue_keys": [
+        "dimension_visual_overdense",
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_id": "3731f36b1259",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3731f36b1259\\drawing\\LB26001-A-04-008_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-008.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-008\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 5,
+      "major": 4,
+      "critical": 0,
+      "issue_keys": [
+        "view_frames_lower_than_blueprint",
+        "titlebar_missing_or_empty",
+        "dimension_visual_overdense",
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_id": "c6151f29704b",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c6151f29704b\\drawing\\LB26001-A-04-009_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-009.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-009\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 3,
+      "major": 2,
+      "critical": 0,
+      "issue_keys": [
+        "dimension_visual_overdense",
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_id": "8453d3aa8d49",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8453d3aa8d49\\drawing\\LB26001-A-04-015_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-015.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-015\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 4,
+      "major": 3,
+      "critical": 0,
+      "issue_keys": [
+        "view_frames_lower_than_blueprint",
+        "titlebar_missing_or_empty",
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "run_id": "a6f2d315a39e",
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a6f2d315a39e\\drawing\\LB26001-A-04-022_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-022.png",
+      "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-022\\vision_qc_v6.json",
+      "status": "need_review",
+      "visual_acceptance_pass": false,
+      "issue_count": 2,
+      "major": 1,
+      "critical": 0,
+      "issue_keys": [
+        "roughness_plan_not_marked_required",
+        "manual_ui_screenshot_review_required"
+      ]
+    }
+  ],
+  "fail_count": 6,
+  "pass_count": 0
+}

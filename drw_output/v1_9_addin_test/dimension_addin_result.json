@@ -1,0 +1,106 @@
+{
+  "version": "v1.9",
+  "task": "Task 3 Add-in Dimension Repair",
+  "timestamp": "2026-06-20 03:37:25",
+  "targets": [
+    {
+      "success": true,
+      "method": "addin",
+      "display_dim_count": 12,
+      "model_annotations_count": 0,
+      "visible_entities_count": 0,
+      "reason": "无新增尺寸",
+      "timestamp": "2026-06-20 03:37:25",
+      "step": "done",
+      "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+      "dim_before": 12,
+      "model_annotations_count_v4": 0,
+      "visible_entities": {
+        "views_processed": 14,
+        "edges_count": 0,
+        "circles_count": 0,
+        "arcs_count": 0
+      },
+      "dim_after": 12,
+      "saved": false,
+      "base": "LB26001-A-04-002"
+    },
+    {
+      "success": true,
+      "method": "addin",
+      "display_dim_count": 6,
+      "model_annotations_count": 0,
+      "visible_entities_count": 0,
+      "reason": "无新增尺寸",
+      "timestamp": "2026-06-20 03:37:36",
+      "step": "done",
+      "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDDRW",
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+      "dim_before": 6,
+      "model_annotations_count_v4": 0,
+      "visible_entities": {
+        "views_processed": 14,
+        "edges_count": 0,
+        "circles_count": 0,
+        "arcs_count": 0
+      },
+      "dim_after": 6,
+      "saved": false,
+      "base": "LB26001-A-04-003"
+    },
+    {
+      "success": true,
+      "method": "addin",
+      "display_dim_count": 8,
+      "model_annotations_count": 0,
+      "visible_entities_count": 0,
+      "reason": "无新增尺寸",
+      "timestamp": "2026-06-20 03:44:15",
+      "step": "done",
+      "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDDRW",
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDPRT",
+      "dim_before": 8,
+      "model_annotations_count_v4": 0,
+      "visible_entities": {
+        "views_processed": 14,
+        "edges_count": 0,
+        "circles_count": 0,
+        "arcs_count": 0
+      },
+      "dim_after": 8,
+      "saved": false,
+      "base": "LB26001-A-04-007"
+    },
+    {
+      "success": true,
+      "method": "addin",
+      "display_dim_count": 4,
+      "model_annotations_count": 0,
+      "visible_entities_count": 0,
+      "reason": "无新增尺寸",
+      "timestamp": "2026-06-20 03:44:25",
+      "step": "done",
+      "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDDRW",
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT",
+      "dim_before": 4,
+      "model_annotations_count_v4": 0,
+      "visible_entities": {
+        "views_processed": 13,
+        "edges_count": 0,
+        "circles_count": 0,
+        "arcs_count": 0
+      },
+      "dim_after": 4,
+      "saved": false,
+      "base": "LB26001-A-04-009"
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "success": 4,
+    "display_dim_improved": 0,
+    "display_dim_positive": 4,
+    "model_annotations_inserted": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "generated_png": "drw_output\\_apply_ui_visual_review_debug\\runs\\case\\drawing\\LB26001-A-04-006_v5.PNG",
+      "ui_screenshot": {
+        "path": "drw_output\\_apply_ui_visual_review_debug\\ui\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "pass": true
+      }
+    }
+  ]
+}

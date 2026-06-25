@@ -1,0 +1,61 @@
+{
+  "version": "v1.8",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_vision_qc_v2_policy_test\\feature_part_shortfall\\qc\\fixture_qc.json",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_vision_qc_v2_policy_test\\feature_part_shortfall\\drawing\\fixture.png",
+  "issues": [
+    {
+      "key": "dimension_insufficient",
+      "severity": "major",
+      "bbox": [
+        0.1,
+        0.1,
+        0.8,
+        0.7
+      ],
+      "description": "尺寸数量不足: 4/5",
+      "fix_suggestion": "补充关键尺寸标注（总长/总宽/总高/孔/槽）",
+      "auto_fix_available": true,
+      "source": "geometry_qc",
+      "confidence": 0.9,
+      "evidence": {
+        "part_class": "feature_part",
+        "dimension_grade": "D",
+        "display_dim_count": 4,
+        "has_sidecar_evidence": false,
+        "policy": "manufacturing_display_dim_threshold"
+      },
+      "human_review_status": "pending"
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 0,
+    "major": 1,
+    "minor": 0,
+    "info": 0
+  },
+  "checks": {
+    "titlebar": {
+      "pass": true,
+      "issues": []
+    },
+    "layout": {
+      "pass": true,
+      "issues": []
+    },
+    "dimension": {
+      "pass": true,
+      "issues": [
+        "dimension_insufficient"
+      ]
+    },
+    "annotation": {
+      "pass": true,
+      "issues": []
+    },
+    "readability": {
+      "pass": true,
+      "issues": []
+    }
+  }
+}

@@ -1,0 +1,552 @@
+{
+  "tool": "dimension_api_probe_v3",
+  "started_at": "2026-06-22T14:36:21",
+  "source_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\eacfb3cbe84b\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "probe_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\LB26001-A-04-006_v5_autodim_20260622_143621\\LB26001-A-04-006_v5_autodim_probe.SLDDRW",
+  "target_display_dim_count": 12,
+  "max_views": 4,
+  "success": false,
+  "status": "fail",
+  "reason": "autodimension_did_not_increase_persisted_display_dim",
+  "connection": {
+    "method": "dispatch",
+    "success": true,
+    "reason": ""
+  },
+  "open": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\LB26001-A-04-006_v5_autodim_20260622_143621\\LB26001-A-04-006_v5_autodim_probe.SLDDRW",
+    "errors": 0,
+    "warnings": 0,
+    "reason": ""
+  },
+  "before_metrics": {
+    "sheet_name": "",
+    "view_count": 5,
+    "views": [
+      {
+        "name": "图纸1",
+        "type": "1",
+        "outline": [
+          0.0,
+          0.0,
+          0.297,
+          0.21
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline": [
+          0.0828,
+          0.16405,
+          0.13720000000000002,
+          0.17505
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline": [
+          0.0828,
+          0.1195,
+          0.13720000000000002,
+          0.1303
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 4
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline": [
+          0.21019999999999991,
+          0.16405,
+          0.2210000000000001,
+          0.17505
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline": [
+          0.21703401589528556,
+          0.08524195879149374,
+          0.2596579841047144,
+          0.11552204120850626
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 4
+      }
+    ],
+    "display_dim_count": 0,
+    "display_dim_annotation_count": 8,
+    "annotation_count": 0
+  },
+  "attempts": [
+    {
+      "view_index": 0,
+      "view_name": "图纸1",
+      "view_type": "1",
+      "outline": [
+        0.0,
+        0.0,
+        0.297,
+        0.21
+      ],
+      "selection": {
+        "success": false,
+        "method": "",
+        "attempts": [
+          {
+            "method": "ActivateView",
+            "ok": false
+          },
+          {
+            "method": "ActiveDrawingView",
+            "ok": false,
+            "reason": "Property '<unknown>.ActiveDrawingView' can not be set."
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              false
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              true
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [],
+            "ok": false,
+            "reason": "(-2147352561, '非选择性的参数。', None, None)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "图纸1",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "图纸1",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "图纸1",
+            "type": "",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "图纸1",
+            "type": "",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          }
+        ]
+      },
+      "candidate_results": []
+    },
+    {
+      "view_index": 1,
+      "view_name": "工程图视图1",
+      "view_type": "7",
+      "outline": [
+        0.0828,
+        0.16405,
+        0.13720000000000002,
+        0.17505
+      ],
+      "selection": {
+        "success": false,
+        "method": "",
+        "attempts": [
+          {
+            "method": "ActivateView",
+            "ok": true
+          },
+          {
+            "method": "ActiveDrawingView",
+            "ok": false,
+            "reason": "Property '<unknown>.ActiveDrawingView' can not be set."
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              false
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              true
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [],
+            "ok": false,
+            "reason": "(-2147352561, '非选择性的参数。', None, None)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图1",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.11,
+              0.16955
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图1",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图1",
+            "type": "",
+            "point": [
+              0.11,
+              0.16955
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图1",
+            "type": "",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          }
+        ]
+      },
+      "candidate_results": []
+    },
+    {
+      "view_index": 2,
+      "view_name": "工程图视图2",
+      "view_type": "4",
+      "outline": [
+        0.0828,
+        0.1195,
+        0.13720000000000002,
+        0.1303
+      ],
+      "selection": {
+        "success": false,
+        "method": "",
+        "attempts": [
+          {
+            "method": "ActivateView",
+            "ok": true
+          },
+          {
+            "method": "ActiveDrawingView",
+            "ok": false,
+            "reason": "Property '<unknown>.ActiveDrawingView' can not be set."
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              false
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              true
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [],
+            "ok": false,
+            "reason": "(-2147352561, '非选择性的参数。', None, None)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图2",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.11,
+              0.1249
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图2",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图2",
+            "type": "",
+            "point": [
+              0.11,
+              0.1249
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图2",
+            "type": "",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          }
+        ]
+      },
+      "candidate_results": []
+    },
+    {
+      "view_index": 3,
+      "view_name": "工程图视图3",
+      "view_type": "4",
+      "outline": [
+        0.21019999999999991,
+        0.16405,
+        0.2210000000000001,
+        0.17505
+      ],
+      "selection": {
+        "success": false,
+        "method": "",
+        "attempts": [
+          {
+            "method": "ActivateView",
+            "ok": true
+          },
+          {
+            "method": "ActiveDrawingView",
+            "ok": false,
+            "reason": "Property '<unknown>.ActiveDrawingView' can not be set."
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              false
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [
+              true
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 1)"
+          },
+          {
+            "method": "SelectEntity",
+            "args": [],
+            "ok": false,
+            "reason": "(-2147352561, '非选择性的参数。', None, None)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图3",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.2156,
+              0.16955
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图3",
+            "type": "DRAWINGVIEW",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图3",
+            "type": "",
+            "point": [
+              0.2156,
+              0.16955
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          },
+          {
+            "method": "Extension.SelectByID2",
+            "name": "工程图视图3",
+            "type": "",
+            "point": [
+              0.0,
+              0.0
+            ],
+            "ok": false,
+            "reason": "(-2147352571, '类型不匹配。', None, 8)"
+          }
+        ]
+      },
+      "candidate_results": []
+    }
+  ],
+  "after_metrics": {
+    "sheet_name": "",
+    "view_count": 5,
+    "views": [
+      {
+        "name": "图纸1",
+        "type": "1",
+        "outline": [
+          0.0,
+          0.0,
+          0.297,
+          0.21
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline": [
+          0.0828,
+          0.16405,
+          0.13720000000000002,
+          0.17505
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline": [
+          0.0828,
+          0.1195,
+          0.13720000000000002,
+          0.1303
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 4
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline": [
+          0.21019999999999991,
+          0.16405,
+          0.2210000000000001,
+          0.17505
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 0
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline": [
+          0.21703401589528556,
+          0.08524195879149374,
+          0.2596579841047144,
+          0.11552204120850626
+        ],
+        "display_dim_count": 0,
+        "display_dim_annotation_count": 4
+      }
+    ],
+    "display_dim_count": 0,
+    "display_dim_annotation_count": 8,
+    "annotation_count": 0
+  },
+  "save": {
+    "success": true,
+    "errors": 0,
+    "warnings": 0,
+    "reason": ""
+  },
+  "reopened_metrics": {
+    "success": true,
+    "reason": "",
+    "open_errors": 0,
+    "open_warnings": 0,
+    "view_count": 5,
+    "display_dim_count": 0,
+    "display_dim_annotation_count": 8,
+    "display_dim_count_source": "display_dimension_api",
+    "annotation_count": 0
+  },
+  "elapsed_s": 10.231
+}

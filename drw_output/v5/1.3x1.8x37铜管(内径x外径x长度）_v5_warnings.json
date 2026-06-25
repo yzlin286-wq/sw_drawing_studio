@@ -1,0 +1,177 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\1.3x1.8x37铜管(内径x外径x长度）.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    }
+  ],
+  "issues_in": [
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "scale": "2:1",
+  "bbox_m": [
+    0.0018,
+    0.044122490339458226,
+    0.004481551376869549
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.0782,
+      0.09587750966054179,
+      0.0818,
+      0.18412249033945824
+    ],
+    "top": [
+      0.0782,
+      0.07551844862313045,
+      0.0818,
+      0.08448155137686955
+    ],
+    "right": [
+      0.17551844862313046,
+      0.09587750966054179,
+      0.18448155137686953,
+      0.18412249033945824
+    ],
+    "iso": [
+      0.19911425676237926,
+      0.14911425676237924,
+      0.26088574323762076,
+      0.21088574323762074
+    ]
+  },
+  "real_outlines_m": {
+    "front": [
+      0.07400000000000001,
+      0.09167750966054179,
+      0.086,
+      0.18832249033945825
+    ],
+    "top": [
+      0.07400000000000001,
+      0.07131844862313046,
+      0.086,
+      0.08868155137686955
+    ],
+    "right": [
+      0.17131844862313042,
+      0.09167750966054179,
+      0.18868155137686957,
+      0.18832249033945825
+    ],
+    "iso": [
+      0.22135827242504386,
+      0.13720803116634392,
+      0.23864172757495616,
+      0.22279196883365607
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "sw_drawing_studio.final_display_dim_floor_probe.v1",
+  "status": "source_probe_pass",
+  "cases": {
+    "initial_low_final_meets_floor": {
+      "imported": true,
+      "initial_count": 8,
+      "final_count": 12,
+      "floor": 12,
+      "sidecar_needed_using_initial_count": true,
+      "sidecar_needed_using_final_count": false,
+      "floor_gap_using_initial_count": {
+        "gap": 4,
+        "reference_display_dim_floor": 12,
+        "generated_display_dim_count": 8
+      },
+      "floor_gap_using_final_count": null
+    },
+    "final_still_below_floor": {
+      "imported": true,
+      "initial_count": 8,
+      "final_count": 10,
+      "floor": 12,
+      "sidecar_needed_using_initial_count": true,
+      "sidecar_needed_using_final_count": true,
+      "floor_gap_using_initial_count": {
+        "gap": 4,
+        "reference_display_dim_floor": 12,
+        "generated_display_dim_count": 8
+      },
+      "floor_gap_using_final_count": {
+        "gap": 2,
+        "reference_display_dim_floor": 12,
+        "generated_display_dim_count": 10
+      }
+    },
+    "import_failed_even_when_count_meets_floor": {
+      "imported": false,
+      "initial_count": 12,
+      "final_count": 12,
+      "floor": 12,
+      "sidecar_needed_using_initial_count": true,
+      "sidecar_needed_using_final_count": true,
+      "floor_gap_using_initial_count": null,
+      "floor_gap_using_final_count": null
+    }
+  }
+}

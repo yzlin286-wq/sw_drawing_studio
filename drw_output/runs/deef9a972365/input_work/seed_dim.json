@@ -1,0 +1,17 @@
+{
+  "work_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\deef9a972365\\input_work\\-M3x8十字螺丝-1-V3-V02_seed.SLDPRT",
+  "seed_dim_count": 0,
+  "bbox": {
+    "xmin": -0.0035,
+    "ymin": -0.008,
+    "zmin": -0.0035,
+    "xmax": 0.0035,
+    "ymax": 0.0017766052116640514,
+    "zmax": 0.0035
+  },
+  "overall_length": 0.007,
+  "overall_width": 0.009776605211664052,
+  "overall_height": 0.007,
+  "success": true,
+  "error": ""
+}

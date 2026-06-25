@@ -1,0 +1,51 @@
+{
+  "version": "v1.8",
+  "source_qc": "drw_output\\ui_acceptance\\exe_v3_smoke\\qc_action_fixture\\run\\qc\\fixture_qc.json",
+  "source_png": "drw_output\\ui_acceptance\\exe_v3_smoke\\qc_action_fixture\\run\\drawing\\fixture.png",
+  "issues": [
+    {
+      "key": "dimension_no_associativity",
+      "severity": "minor",
+      "bbox": [
+        0.1,
+        0.1,
+        0.8,
+        0.7
+      ],
+      "description": "尺寸关联性: unknown",
+      "fix_suggestion": "使用模型关联尺寸而非手动标注",
+      "auto_fix_available": false
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 0,
+    "major": 0,
+    "minor": 1,
+    "info": 0
+  },
+  "checks": {
+    "titlebar": {
+      "pass": true,
+      "issues": []
+    },
+    "layout": {
+      "pass": true,
+      "issues": []
+    },
+    "dimension": {
+      "pass": true,
+      "issues": [
+        "dimension_no_associativity"
+      ]
+    },
+    "annotation": {
+      "pass": true,
+      "issues": []
+    },
+    "readability": {
+      "pass": true,
+      "issues": []
+    }
+  }
+}

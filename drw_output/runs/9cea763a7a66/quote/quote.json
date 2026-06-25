@@ -1,0 +1,18 @@
+{
+  "total_cny": 21.15,
+  "breakdown": {
+    "material_cny": 0.0,
+    "process_cny": 12.5,
+    "surface_cny": 0.8,
+    "packing_cny": 0.27,
+    "subtotal_cny": 16.28,
+    "profit_rate": 0.15,
+    "tax_rate": 0.13,
+    "moq_applied": true
+  },
+  "input": {
+    "bom_count": 1,
+    "route_count": 5
+  },
+  "generated_at": "2026-06-19T20:23:50"
+}

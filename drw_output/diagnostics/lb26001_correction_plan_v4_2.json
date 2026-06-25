@@ -1,0 +1,276 @@
+{
+  "schema": "sw_drawing_studio.lb26001_correction_plan.v4_2",
+  "generated_at": "2026-06-25 02:49:02",
+  "status": "blocked_by_006",
+  "pass": false,
+  "report_is_acceptance_evidence": false,
+  "correction_plan_ready": true,
+  "requested_status": "blocked_by_006",
+  "readiness_status": "ready",
+  "readiness_blocking_issue_keys": [],
+  "requested_bases": [
+    "LB26001-A-04-006"
+  ],
+  "primary_base": "LB26001-A-04-006",
+  "pilot_first_policy": "Do not expand acceptance to 007/008/009/015/022 until 006 passes real CAD, strict v4/v6, and application UI screenshot manual judgement.",
+  "expansion_allowed_after_006": false,
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "visual_validation_policy": {
+    "per_drawing_application_ui_screenshot_required": true,
+    "required_bases": [
+      "LB26001-A-04-006"
+    ],
+    "required_review_mode": "application_drawing_review_ui_screenshot",
+    "final_judgement_source": "application_drawing_review_ui_screenshot_manual_visual_judgement",
+    "manual_visual_judgement_required": true,
+    "manual_visual_checklist_required": true,
+    "same_name_reference_screenshot_comparison_required": true,
+    "api_metrics_role": "supporting_evidence_only",
+    "api_only_acceptance_allowed": false,
+    "supporting_api_metrics_do_not_override_visual_fail": true
+  },
+  "source_standard": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_drawing_standard_v3_0.json",
+  "source_requested_status": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
+  "source_readiness": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+  "missing_reference_rules": [],
+  "missing_status_entries": [],
+  "preconditions": [
+    "SolidWorks must be responsive and unsaved-document risk must be cleared before real CAD rerun.",
+    "Only the 006 pilot may run first, and it must run through JobRuntimeFacade/QProcess with the global SolidWorks lock.",
+    "Original SLDPRT/SLDASM files must not be modified; use run_dir/input_work copies.",
+    "Do not lower QC thresholds and do not count Note/OCR/QC sidecar text as DisplayDim.",
+    "Every accepted drawing needs application Drawing Review UI screenshot evidence and a complete manual visual checklist."
+  ],
+  "entries": [
+    {
+      "sequence": 1,
+      "base": "LB26001-A-04-006",
+      "correction_stage": "pilot_006_first",
+      "real_cad_regression_allowed_now": true,
+      "blocked_by_readiness": false,
+      "blocked_until_006_passes": false,
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+      "part_exists": true,
+      "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_drawing_exists": true,
+      "must_not_modify_original_part": true,
+      "reference_standard": {
+        "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "sheet_size_mm": {
+          "width": 297.0,
+          "height": 210.0
+        },
+        "required_view_count": 4,
+        "required_view_types": {
+          "7": 2,
+          "4": 2
+        },
+        "required_projected_view_count": 2,
+        "display_dim_floor": 12,
+        "layout_slots_center_norm": {
+          "front": [
+            0.3704,
+            0.8074
+          ],
+          "iso": [
+            0.8025,
+            0.478
+          ],
+          "right": [
+            0.7259,
+            0.8074
+          ],
+          "top": [
+            0.3704,
+            0.5948
+          ]
+        },
+        "layout_tolerance_norm": 0.08,
+        "section_policy": {
+          "automatic_section_or_detail_allowed": false,
+          "reason": "same-name reference uses only standard/named and projected views"
+        },
+        "sheet_template_policy": {
+          "policy": "strip_default_template_artifacts",
+          "default_template_artifacts_allowed": false,
+          "skip_builtin_gb_frame_titleblock": true,
+          "visible_titlebar_mode": "compact_reference_fields",
+          "reason": "same-name reference controls visible sheet/titleblock style"
+        },
+        "must_not_count_as_display_dim": [
+          "Note",
+          "OCR text",
+          "QC sidecar",
+          "visual-only text"
+        ],
+        "correction_checks": [
+          "generated view_count must equal required_view_count",
+          "generated view_types must equal required_view_types",
+          "generated real DisplayDim count must be >= display_dim_floor",
+          "generated semantic layout centers must stay within layout_tolerance_norm",
+          "automatic section/detail views must remain disabled when section_policy forbids them"
+        ]
+      },
+      "current_ui_status": {
+        "status": "manual_visual_checklist_failed",
+        "pass": false,
+        "application_ui_screenshot_review_required": true,
+        "application_ui_screenshot_review_present": true,
+        "application_ui_screenshot_review_method_ok": true,
+        "application_ui_screenshot_gate_pass": false,
+        "application_ui_screenshot_content_check_pass": true,
+        "ui_screenshot_file_count": 1,
+        "application_ui_screenshot_paths_existing_application_ui": [
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        ],
+        "ui_visual_review_status": "manual_visual_checklist_failed",
+        "ui_screenshot_review_is_final_gate": true,
+        "api_is_not_final_judgement": true,
+        "api_only_acceptance_allowed": false,
+        "missing_ui_acceptance_requirements": [
+          "manual_case_pass"
+        ],
+        "generated_png_source_pass": true,
+        "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\drawing_visual_review_report.json",
+        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\manual_visual_judgement.json",
+        "latest_manual_status": "fail",
+        "latest_manual_required_correction": "Fix the 006 reference-outline scale solver so it chooses larger, reference-matching outlines instead of shrinking through 1:10/1:20/1:50; preserve hole_diameter and hole_pitch through final arrange/reopen; then regenerate title block and manufacturing notes in the compact reference style before another locked 006-only CAD rerun."
+      },
+      "visual_validation_required": {
+        "application_drawing_review_ui_screenshot_required": true,
+        "manual_visual_judgement_required": true,
+        "manual_visual_checklist_required": true,
+        "same_name_reference_screenshot_comparison_required": true,
+        "current_ui_screenshot_file_count": 1,
+        "current_missing_ui_acceptance_requirements": [
+          "manual_case_pass"
+        ],
+        "final_judgement_source": "application_drawing_review_ui_screenshot_manual_visual_judgement",
+        "api_is_not_final_judgement": true,
+        "api_only_acceptance_allowed": false
+      },
+      "reference_intent_trace_policy": {
+        "required": true,
+        "source_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+        "required_fields": [
+          "target_key",
+          "view_slot",
+          "selected_entity",
+          "add_method",
+          "display_dim_count_before",
+          "display_dim_count_after",
+          "target_covered_after_attempt",
+          "persisted_after_reopen"
+        ],
+        "required_stages": [
+          "pre_saveas",
+          "post_saveas_reopen_prune",
+          "pre_export_final",
+          "post_layout_final"
+        ],
+        "final_stage_required": "post_layout_final",
+        "generic_autodimension_acceptance_allowed": false,
+        "expected_add_methods_by_type": {
+          "diameter": "AddDiameterDimension2",
+          "linear_horizontal": "AddHorizontalDimension2",
+          "linear_vertical": "AddVerticalDimension2"
+        }
+      },
+      "ui_visual_failures": {
+        "failed_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "missing_checklist_items": [],
+        "inferred_failed_checklist_items": [],
+        "effective_failed_visual_checks": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "direct_ui_findings_used_for_correction": false,
+        "checklist_notes": {
+          "reference_match": "The generated drawing does not visually match the same-name reference: view outlines, dimensional scheme, title block, and note placement differ substantially.",
+          "view_layout": "Four views are visible, but the generated views are bunched and scaled/positioned unlike the reference; the main long views no longer read as the reference front/top layout.",
+          "display_dimensions": "The screenshot shows many dimensions, but the visible dimension scheme is not reference-like and the latest trace still loses semantic coverage after final arrange/reopen.",
+          "dimension_readability": "Dimensions, leaders, arrows, and text are clustered around the central views; several labels overlap visually or are too dense for manufacturing review.",
+          "title_block": "The generated lower-right title/data area is not equivalent to the compact reference title block and remains structurally incomplete.",
+          "manufacturing_notes": "Notes are present, but they do not match the reference note style/placement and are not visually sufficient as manufacturing instructions."
+        },
+        "inferred_check_notes": {},
+        "findings": [
+          "Application Drawing Review UI screenshot was inspected side by side with the reference image.",
+          "The new run improved live DrawingView recovery and produced current-run SLDDRW/PDF/DXF/PNG artifacts, but visual acceptance still fails.",
+          "Layout scale solving moved in the wrong direction and exhausted the scale ladder; the final generated views are much smaller/bunched compared with the reference.",
+          "DisplayDim count reached 21, but the visual result remains unreadable/crowded and semantic target coverage still regressed after the final arrange pass.",
+          "API/reference metrics are supporting evidence only; the UI screenshot review is the final gate and remains FAIL."
+        ]
+      },
+      "correction_actions": [
+        {
+          "check": "reference_match",
+          "source_note": "The generated drawing does not visually match the same-name reference: view outlines, dimensional scheme, title block, and note placement differ substantially.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+        },
+        {
+          "check": "view_layout",
+          "source_note": "Four views are visible, but the generated views are bunched and scaled/positioned unlike the reference; the main long views no longer read as the reference front/top layout.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
+        },
+        {
+          "check": "display_dimensions",
+          "source_note": "The screenshot shows many dimensions, but the visible dimension scheme is not reference-like and the latest trace still loses semantic coverage after final arrange/reopen.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+        },
+        {
+          "check": "dimension_readability",
+          "source_note": "Dimensions, leaders, arrows, and text are clustered around the central views; several labels overlap visually or are too dense for manufacturing review.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+        },
+        {
+          "check": "title_block",
+          "source_note": "The generated lower-right title/data area is not equivalent to the compact reference title block and remains structurally incomplete.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+        },
+        {
+          "check": "manufacturing_notes",
+          "source_note": "Notes are present, but they do not match the reference note style/placement and are not visually sufficient as manufacturing instructions.",
+          "source_type": "manual_visual_checklist",
+          "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+        }
+      ],
+      "acceptance_requirements": [
+        "Fresh run artifacts must be under drw_output/runs/<run_id>/ and must include SLDDRW/PDF/DXF/PNG plus manifest and event log.",
+        "Worker stdout/event logs must include job_started, progress, heartbeat, and job_finished or job_failed with reason.",
+        "Generated view count and view type counts must match the same-name reference standard.",
+        "Projected views must be true projected views, not independent named-view substitutes.",
+        "Final persisted/exported real SolidWorks DisplayDim count must meet or exceed the same-name reference floor.",
+        "006 reference-intent dimensions must record target key, view slot, selected entity, add method, before/after count, target coverage, and persisted-after-reopen evidence.",
+        "Note/OCR/QC sidecar/visual-only text must not be counted as DisplayDim.",
+        "Application Drawing Review UI screenshot review must pass with every required manual visual checklist item true."
+      ],
+      "validation_commands": {
+        "readiness_check": "python tools\\validation\\lb26001_006_regression_readiness_v4_2.py --out drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+        "locked_real_cad_regression": "Run one JobRuntimeFacade/QProcess CAD job for \"LB26001-A-04-006\" only after readiness is clear; do not call SolidWorks from the UI thread.",
+        "dimension_validation": "python tools\\validation\\dimension_validation_smoke_v3.py --run-dir <fresh_run_dir> --out drw_output\\dimension_validation_006_v4_2.json",
+        "strict_reference_compare": "python tools\\validation\\reference_compare_v4.py --run-dir <fresh_run_dir> --base LB26001-A-04-006 --out drw_output\\reference_compare_v4_006_v4_2.json",
+        "drawing_review_ui_screenshot": "python tools\\ui_robot\\drawing_visual_review_suite.py --base LB26001-A-04-006 --out-dir drw_output\\ui_acceptance\\<fresh_006_ui_review>",
+        "ui_closure": "python tools\\validation\\apply_ui_visual_review_v4.py --summary <fresh_staged_summary.json> --ui-report <fresh_drawing_visual_review_report.json> --manual-review <fresh_manual_visual_judgement.json> --out-dir <fresh_closed_loop_dir> --base LB26001-A-04-006"
+      }
+    }
+  ]
+}

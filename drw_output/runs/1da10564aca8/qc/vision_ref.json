@@ -1,0 +1,65 @@
+{
+  "score": 35,
+  "issues": [
+    {
+      "key": "dim_count_sufficient",
+      "severity": "warning",
+      "description": "全图未标注任何尺寸，远低于最低要求数量，不符合GB/T 4458.4要求，无法指导生产",
+      "fix_suggestion": "补充零件所有必要的外形、长度、孔径等尺寸标注，满足加工需求"
+    },
+    {
+      "key": "centermark_count_sufficient",
+      "severity": "warning",
+      "description": "圆心标记仅1个，数量不足，圆形特征表达不完整",
+      "fix_suggestion": "为所有圆形特征补充符合国标的圆心标记"
+    },
+    {
+      "key": "has_tech_note",
+      "severity": "warning",
+      "description": "技术要求文本跨到标题栏区域，被标题栏边框截断，排版不符合国标要求",
+      "fix_suggestion": "将技术要求整体移动到标题栏左侧或图纸下方空白区域，避免与标题栏重叠"
+    },
+    {
+      "key": "has_ra_note",
+      "severity": "warning",
+      "description": "统一粗糙度标注在图纸右上角，未放置在标题栏右上角，不符合GB/T 131-2006要求",
+      "fix_suggestion": "将“其余Ra3.2”标注移动到标题栏右上角位置"
+    },
+    {
+      "key": "has_datum_a",
+      "severity": "warning",
+      "description": "图框外标注了基准A，但视图内零件无对应基准特征标注，基准定义无效",
+      "fix_suggestion": "在零件对应基准特征处标注基准A符号，移除图框外的冗余基准标记"
+    },
+    {
+      "key": "refdoc_correct",
+      "severity": "warning",
+      "description": "引用文档名称匹配度为0，存在4项错误关联",
+      "fix_suggestion": "核对并修正引用文档，移除错误关联的文档条目"
+    },
+    {
+      "key": "gb_titlebar_complete",
+      "severity": "warning",
+      "description": "标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段，不符合国标要求",
+      "fix_suggestion": "按照GB要求补全标题栏所有核心必填字段"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "severity": "warning",
+      "description": "无剖视图，零件内部结构未得到表达",
+      "fix_suggestion": "添加必要的剖视图，完整表达零件内部结构"
+    }
+  ],
+  "summary": "本工程图存在零尺寸标注、标题栏核心字段缺失、无剖视图等严重问题，多项国标要求不满足，不符合生产出图要求，需全面整改",
+  "png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\1da10564aca8\\drawing\\-AK-15-AC-26-1-V3-V02_v5_vision_ref.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":35,\"issues\":[{\"key\":\"dim_count_sufficient\",\"desc\":\"全图未标注任何尺寸，远低于最低要求数量，不符合GB/T 4458.4要求，无法指导生产\",\"fix\":\"补充零件所有必要的外形、长度、孔径等尺寸标注，满足加工需求\"},{\"key\":\"centermark_count_sufficient\",\"desc\":\"圆心标记仅1个，数量不足，圆形特征表达不完整\",\"fix\":\"为所有圆形特征补充符合国标的圆心标记\"},{\"key\":\"has_tech_note\",\"desc\":\"技术要求文本跨到标题栏区域，被标题栏边框截断，排版不符合国标要求\",\"fix\":\"将技术要求整体移动到标题栏左侧或图纸下方空白区域，避免与标题栏重叠\"},{\"key\":\"has_ra_note\",\"desc\":\"统一粗糙度标注在图纸右上角，未放置在标题栏右上角，不符合GB/T 131-2006要求\",\"fix\":\"将“其余Ra3.2”标注移动到标题栏右上角位置\"},{\"key\":\"has_datum_a\",\"desc\":\"图框外标注了基准A，但视图内零件无对应基准特征标注，基准定义无效\",\"fix\":\"在零件对应基准特征处标注基准A符号，移除图框外的冗余基准标记\"},{\"key\":\"refdoc_correct\",\"desc\":\"引用文档名称匹配度为0，存在4项错误关联\",\"fix\":\"核对并修正引用文档，移除错误关联的文档条目\"},{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段，不符合国标要求\",\"fix\":\"按照GB要求补全标题栏所有核心必填字段\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"无剖视图，零件内部结构未得到表达\",\"fix\":\"添加必要的剖视图，完整表达零件内部结构\"}],\"summary\":\"本工程图存在零尺寸标注、标题栏核心字段缺失、无剖视图等严重问题，多项国标要求不满足，不符合生产出图要求，需全面整改\",\"reference_diff\":null}",
+  "error": "",
+  "reference_diff": null,
+  "reference_png": null,
+  "threshold": 60,
+  "pass": false,
+  "image_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\1da10564aca8\\drawing\\-AK-15-AC-26-1-V3-V02_v5_vision_ref.png",
+  "model": "doubao-seed-2.0-pro",
+  "vision_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\1da10564aca8\\drawing\\-AK-15-AC-26-1-V3-V02_v5_vision_ref.json"
+}

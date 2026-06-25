@@ -1,0 +1,20 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 09:36:49",
+  "source": "cad_job_worker",
+  "status": "not_collected",
+  "connection_method": "skipped_on_worker_failure",
+  "sw_pid": null,
+  "sw_revision": "",
+  "visible": null,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": "SolidWorks COM active object did not respond within the bounded probe.",
+  "failure_bucket": "solidworks_com_active_object_timeout",
+  "fix_suggestion": "请先保存 SolidWorks 中的未保存文档，关闭可能阻塞的对话框；如仍不响应，请重启 SolidWorks 后重新运行 006 样张修正测试。",
+  "recoverable": true,
+  "evidence": [
+    "[sw_connect] active probe status=timeout reason=GetActiveObject probe timed out after 15s revision=",
+    "solidworks_active_object_timeout: GetActiveObject probe timed out after 15s"
+  ]
+}

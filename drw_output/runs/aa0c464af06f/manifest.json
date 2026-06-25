@@ -1,0 +1,69 @@
+{
+  "run_id": "aa0c464af06f",
+  "started_at": "2026-06-18 22:08:05",
+  "finished_at": "2026-06-18 22:09:15",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\input\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\drawing\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\drawing\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\drawing\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2_v5.DXF"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\qc\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2_v5_qc.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\aa0c464af06f\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [
+    "png_missing",
+    "dim_total_too_low",
+    "qc_pass_too_low"
+  ],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": false,
+    "criteria": {
+      "files_exported": false,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 4,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 9,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 4,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

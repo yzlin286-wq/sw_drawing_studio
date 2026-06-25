@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-06-22 07:14:15",
+  "mode": "dimension_validation_smoke_v3",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\056e16f3d40f",
+  "drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\056e16f3d40f\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\056e16f3d40f\\drawing\\LB26001-A-04-006_v5.PNG",
+  "qc_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\056e16f3d40f\\qc\\LB26001-A-04-006_v5_qc.json",
+  "final_quality_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\056e16f3d40f\\qc\\final_quality.json",
+  "source_separation": {
+    "display_dim_source": "qc.display_dim_count / dimension_sources.display_dim_count",
+    "note_dim_source": "qc.note_dim_count / dimension_sources.note_dim_count",
+    "notes_counted_as_display_dim": false,
+    "model_associative_source": "qc.model_associative_dim_count",
+    "source_summary": [
+      "model_display_dim=8"
+    ]
+  },
+  "dimension_validation": {
+    "display_dim_count": 8,
+    "addin_created_dim_count": 0,
+    "existing_display_dim_count": 8,
+    "model_associative_dim_count": 0,
+    "note_dim_count": 0,
+    "standard_annotation_count": 0,
+    "overall_length": true,
+    "overall_width": true,
+    "overall_height": true,
+    "hole_diameter": false,
+    "hole_location": false,
+    "dimension_text_readable": true,
+    "dimension_overlap": false,
+    "dimension_grade": "B",
+    "usable_for": [
+      "manufacturing",
+      "assembly",
+      "procurement"
+    ],
+    "part_class": "feature_part",
+    "dimension_evidence_policy": "display_dim",
+    "has_dimension_evidence": true,
+    "blocking_reasons": [],
+    "warnings": [
+      "gb_has_section_view_or_skipped",
+      "gb_titlebar_complete",
+      "has_datum_a",
+      "has_ra_note",
+      "model_associative_dim_count_zero",
+      "non_model_associative_dimension",
+      "standard_annotation_missing",
+      "titlebar_complete"
+    ]
+  },
+  "final_quality_status": "pass_with_warning",
+  "final_quality_deliverable": true,
+  "status": "pass_with_warning",
+  "pass": true,
+  "reasons": [],
+  "fix_suggestions": [
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Run Add-in Dimension / associative dimension generation for model_associative_dim_count_zero.",
+    "Review warning and either fix the drawing or record human_review.json.",
+    "Add standard annotations or document why they are not required for the part class.",
+    "Review warning and either fix the drawing or record human_review.json."
+  ]
+}

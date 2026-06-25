@@ -1,0 +1,26 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 21:39:17",
+  "source": "cad_job_worker",
+  "status": "not_collected",
+  "connection_method": "skipped_on_worker_failure",
+  "sw_pid": null,
+  "sw_revision": "",
+  "visible": null,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": "subprocess_exit_code_1",
+  "failure_bucket": "cad_subprocess_failed",
+  "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+  "recoverable": true,
+  "evidence": [
+    "[DONE] {\"slddrw\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.SLDDRW\", \"pdf\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.PDF\", \"dxf\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.DXF\", \"png\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.PNG\", \"warnings\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5_warnings.json\", \"scale\": \"1:5\", \"section\": false, \"section_helper_called\": false, \"centers\": {\"front\": [0.11, 0.16955], \"top\": [0.11, 0.1249], \"right\": [0.2156, 0.16955], \"iso\": [0.238346, 0.100382]}, \"real_overlap_pairs\": [], \"bbox_m\": [0.23, 0.013000000000000001, 0.012]}",
+    "[loop] 等待 1.5s 让 SolidWorks 完成异步刷盘...",
+    "[loop] qc_log.md 已写: C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md",
+    "========== 汇总 ==========",
+    "final_pass = False",
+    "final_path = ",
+    "  round 1: pass=False pass_count=0/12 issues=['__file_missing__']",
+    "qc_log.md = C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md"
+  ]
+}

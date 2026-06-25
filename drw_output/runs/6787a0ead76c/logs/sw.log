@@ -1,0 +1,100 @@
+[qc_loop_v6] absolute part_path=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[main] part_path = C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[loop] part_path = C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[loop] max_rounds = 3
+
+========== 第 1/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT']
+[loop] v5 returncode=0  耗时 13.3s
+[loop] v5 stdout(tail):
+  + Ra 3.2 Note x1
+  + 基准 A x1
+[gtol] fallback note '⏥ 0.05 A' inserted
+[9.5/9] SaveAs 前最终强制：字高 + front_view.Position
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.006  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.007  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  强制 front Position=(80,140)mm  set_ok=True  实际=[0.08, 0.14]
+[9.6/9] using template, skip self-drawing frame/titleblock
+[9.7/9] rebound 4 views to part+cfg='默认', names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4']
+[v6 replace] view_names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4'], part_abs=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[v6 replace] ReplaceViewModel(4 views) -> False
+[save] 保存 SLDDRW / PDF / DXF（_v5 后缀） — part 保持打开
+  SLDDRW: OK  err=0
+  PDF:    OK  err=0
+  DXF:    OK  err=0
+  Warnings: 17 条 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_warnings.json
+
+[DONE] {"slddrw": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.SLDDRW", "pdf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.PDF", "dxf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.DXF", "warnings": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5_warnings.json", "scale": "1:5", "section": false, "section_helper_called": true, "centers": {"front": [0.08, 0.14], "top": [0.08, 0.08], "right": [0.18, 0.14], "iso": [0.23, 0.18]}, "real_overlap_pairs": [], "bbox_m": [0.41, 0.015, 0.012]}
+[loop] 等待 1.5s 让 SolidWorks 完成异步刷盘...
+[loop] qc 写盘 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_qc.json
+[loop] 第 1 轮 QC: pass=False  pass_count=9/12  issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+
+========== 第 2/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT', 'c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\issues_to_fix.json']
+[loop] v5 returncode=0  耗时 13.1s
+[loop] v5 stdout(tail):
+  + Ra 3.2 Note x1
+  + 基准 A x1
+[gtol] fallback note '⏥ 0.05 A' inserted
+[9.5/9] SaveAs 前最终强制：字高 + front_view.Position
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.006  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.007  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  强制 front Position=(80,140)mm  set_ok=True  实际=[0.08, 0.14]
+[9.6/9] using template, skip self-drawing frame/titleblock
+[9.7/9] rebound 4 views to part+cfg='默认', names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4']
+[v6 replace] view_names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4'], part_abs=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[v6 replace] ReplaceViewModel(4 views) -> False
+[save] 保存 SLDDRW / PDF / DXF（_v5 后缀） — part 保持打开
+  SLDDRW: OK  err=0
+  PDF:    OK  err=0
+  DXF:    OK  err=0
+  Warnings: 17 条 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_warnings.json
+
+[DONE] {"slddrw": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.SLDDRW", "pdf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.PDF", "dxf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.DXF", "warnings": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5_warnings.json", "scale": "1:5", "section": false, "section_helper_called": true, "centers": {"front": [0.08, 0.14], "top": [0.08, 0.08], "right": [0.18, 0.14], "iso": [0.23, 0.18]}, "real_overlap_pairs": [], "bbox_m": [0.41, 0.015, 0.012]}
+[loop] 等待 1.5s 让 SolidWorks 完成异步刷盘...
+[loop] qc 写盘 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_qc.json
+[loop] 第 2 轮 QC: pass=False  pass_count=9/12  issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+
+========== 第 3/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT', 'c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\issues_to_fix.json']
+[loop] v5 returncode=0  耗时 13.2s
+[loop] v5 stdout(tail):
+  + Ra 3.2 Note x1
+  + 基准 A x1
+[gtol] fallback note '⏥ 0.05 A' inserted
+[9.5/9] SaveAs 前最终强制：字高 + front_view.Position
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.006  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.007  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  字高强制 try=0.005  drw_ok=False sw_ok=False  drw=0.0002500000118743628 sw=0.0
+  强制 front Position=(80,140)mm  set_ok=True  实际=[0.08, 0.14]
+[9.6/9] using template, skip self-drawing frame/titleblock
+[9.7/9] rebound 4 views to part+cfg='默认', names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4']
+[v6 replace] view_names=['工程图视图1', '工程图视图2', '工程图视图3', '工程图视图4'], part_abs=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-002.SLDPRT
+[v6 replace] ReplaceViewModel(4 views) -> False
+[save] 保存 SLDDRW / PDF / DXF（_v5 后缀） — part 保持打开
+  SLDDRW: OK  err=0
+  PDF:    OK  err=0
+  DXF:    OK  err=0
+  Warnings: 17 条 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_warnings.json
+
+[DONE] {"slddrw": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.SLDDRW", "pdf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.PDF", "dxf": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.DXF", "warnings": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5_warnings.json", "scale": "1:5", "section": false, "section_helper_called": true, "centers": {"front": [0.08, 0.14], "top": [0.08, 0.08], "right": [0.18, 0.14], "iso": [0.23, 0.18]}, "real_overlap_pairs": [], "bbox_m": [0.41, 0.015, 0.012]}
+[loop] 等待 1.5s 让 SolidWorks 完成异步刷盘...
+[loop] qc 写盘 -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5_qc.json
+[loop] 第 3 轮 QC: pass=False  pass_count=9/12  issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+[loop] qc_log.md 已写: c:\Users\Vision\Desktop\SW 相关\.trae\specs\enforce-drawing-quality\qc_log.md
+
+========== 汇总 ==========
+final_pass = False
+final_path = c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-002_v5.SLDDRW
+  round 1: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+  round 2: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']
+qc_log.md = c:\Users\Vision\Desktop\SW 相关\.trae\specs\enforce-drawing-quality\qc_log.md
+[runner] using v6
+
+[runner] exit_code=0

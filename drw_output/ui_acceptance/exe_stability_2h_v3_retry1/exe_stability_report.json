@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-06-21 22:39:14",
+  "mode": "windows_exe_navigation_stability",
+  "exe": "dist_v3_smoke\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1",
+  "pass": true,
+  "duration_requested_s": 7200.0,
+  "duration_observed_s": 7203.5,
+  "sample_interval_s": 30.0,
+  "screenshot_interval_s": 600.0,
+  "page_wait_s": 0.5,
+  "sample_count": 231,
+  "screenshot_count": 13,
+  "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\stability_samples.jsonl",
+  "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots",
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\001_elapsed_4s_01_dashboard.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 16,
+      "avg_luma": 237.83,
+      "page": "Dashboard",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\002_elapsed_607s_03_job_queue.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 28,
+      "avg_luma": 232.16,
+      "page": "Job Queue",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\003_elapsed_1208s_04_visual_audit.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 232.54,
+      "page": "Visual Audit",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\004_elapsed_1810s_06_batch_validation.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 8,
+      "avg_luma": 239.81,
+      "page": "Batch Validation",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\005_elapsed_2412s_08_logs_diagnostics.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 9,
+      "avg_luma": 238.14,
+      "page": "Logs & Diagnostics",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\006_elapsed_3012s_07_system_health.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 17,
+      "avg_luma": 233.0,
+      "page": "System Health",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\007_elapsed_3615s_03_job_queue.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 28,
+      "avg_luma": 232.16,
+      "page": "Job Queue",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\008_elapsed_4217s_05_drawing_review.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 13,
+      "avg_luma": 239.14,
+      "page": "Drawing Review",
+      "min_bytes": 70000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\009_elapsed_4819s_04_visual_audit.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 232.54,
+      "page": "Visual Audit",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\010_elapsed_5421s_06_batch_validation.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 8,
+      "avg_luma": 239.81,
+      "page": "Batch Validation",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\011_elapsed_6024s_03_job_queue.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 28,
+      "avg_luma": 232.16,
+      "page": "Job Queue",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\012_elapsed_6626s_05_drawing_review.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 13,
+      "avg_luma": 239.14,
+      "page": "Drawing Review",
+      "min_bytes": 70000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots\\013_final.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 17,
+      "avg_luma": 233.0,
+      "page": "System Health",
+      "min_bytes": 50000,
+      "pass": true
+    }
+  ],
+  "checks": {
+    "duration_met": true,
+    "process_alive_final": true,
+    "samples_written": true,
+    "sample_count": 231,
+    "screenshots_pass": true,
+    "full_cycle_required": true,
+    "all_pages_visited": true,
+    "page_counts": {
+      "Dashboard": 204,
+      "Single Drawing": 204,
+      "Job Queue": 204,
+      "Visual Audit": 204,
+      "Drawing Review": 204,
+      "Batch Validation": 204,
+      "System Health": 204,
+      "Logs & Diagnostics": 203,
+      "Settings": 203
+    },
+    "failure_count": 0
+  },
+  "failures": [],
+  "artifacts": {
+    "ui_events": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\ui_events.jsonl",
+    "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\stability_samples.jsonl",
+    "report_json": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\exe_stability_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\exe_stability_report.md",
+    "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_retry1\\screenshots"
+  },
+  "remaining_gates": [
+    "This validates EXE navigation stability; staged real CAD validation remains separate.",
+    "Historical visual audit 100 percent coverage remains pending."
+  ]
+}

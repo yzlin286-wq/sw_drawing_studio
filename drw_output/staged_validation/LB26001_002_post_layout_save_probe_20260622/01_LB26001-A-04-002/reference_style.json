@@ -1,0 +1,277 @@
+{
+  "base": "LB26001-A-04-002",
+  "status": "fail",
+  "pass": false,
+  "view_style_score": 1.0,
+  "dimension_style_score": 0.833,
+  "layout_style_score": 1.0,
+  "overall_style_score": 0.925,
+  "reference": {
+    "base": "LB26001-A-04-002",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 12,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.05455,
+          0.16485,
+          0.16545,
+          0.177
+        ],
+        "center_m": [
+          0.11,
+          0.170925
+        ],
+        "size_m": [
+          0.1109,
+          0.01215
+        ],
+        "center_norm": [
+          0.3704,
+          0.8139
+        ],
+        "size_norm": [
+          0.3734,
+          0.0579
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.2043,
+          0.16485,
+          0.2157,
+          0.177
+        ],
+        "center_m": [
+          0.21,
+          0.170925
+        ],
+        "size_m": [
+          0.0114,
+          0.01215
+        ],
+        "center_norm": [
+          0.7071,
+          0.8139
+        ],
+        "size_norm": [
+          0.0384,
+          0.0579
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline_m": [
+          0.05455,
+          0.12345,
+          0.16545,
+          0.13485
+        ],
+        "center_m": [
+          0.11,
+          0.12915
+        ],
+        "size_m": [
+          0.1109,
+          0.0114
+        ],
+        "center_norm": [
+          0.3704,
+          0.615
+        ],
+        "size_norm": [
+          0.3734,
+          0.0543
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline_m": [
+          0.220235,
+          0.085946,
+          0.265935,
+          0.11741
+        ],
+        "center_m": [
+          0.243085,
+          0.101678
+        ],
+        "size_m": [
+          0.0457,
+          0.031464
+        ],
+        "center_norm": [
+          0.8185,
+          0.4842
+        ],
+        "size_norm": [
+          0.1539,
+          0.1498
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-002_reference.json",
+    "source": "csharp_sidecar"
+  },
+  "generated": {
+    "base": "LB26001-A-04-002",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7a83357736e6\\drawing\\LB26001-A-04-002_v5.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 10,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.0648,
+          0.165225,
+          0.1552,
+          0.176625
+        ],
+        "center_m": [
+          0.11,
+          0.170925
+        ],
+        "size_m": [
+          0.0904,
+          0.0114
+        ],
+        "center_norm": [
+          0.3704,
+          0.8139
+        ],
+        "size_norm": [
+          0.3044,
+          0.0543
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.0648,
+          0.12375,
+          0.1552,
+          0.13455
+        ],
+        "center_m": [
+          0.11,
+          0.12915
+        ],
+        "size_m": [
+          0.0904,
+          0.0108
+        ],
+        "center_norm": [
+          0.3704,
+          0.615
+        ],
+        "size_norm": [
+          0.3044,
+          0.0514
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline_m": [
+          0.2046,
+          0.165225,
+          0.2154,
+          0.176625
+        ],
+        "center_m": [
+          0.21,
+          0.170925
+        ],
+        "size_m": [
+          0.0108,
+          0.0114
+        ],
+        "center_norm": [
+          0.7071,
+          0.8139
+        ],
+        "size_norm": [
+          0.0364,
+          0.0543
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "7",
+        "outline_m": [
+          0.209045,
+          0.079027,
+          0.277125,
+          0.124329
+        ],
+        "center_m": [
+          0.243085,
+          0.101678
+        ],
+        "size_m": [
+          0.06808,
+          0.045302
+        ],
+        "center_norm": [
+          0.8185,
+          0.4842
+        ],
+        "size_norm": [
+          0.2292,
+          0.2157
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-002_generated.json",
+    "source": "csharp_sidecar"
+  },
+  "qc_display_dim_count": 10,
+  "differences": [
+    {
+      "key": "display_dim_count_lower_than_reference",
+      "severity": "fail",
+      "reference": 12,
+      "generated": 10,
+      "fix_suggestion": "Bring generated DisplayDim coverage up to the same-name reference drawing baseline."
+    }
+  ],
+  "reasons": [
+    "display_dim_count_lower_than_reference"
+  ],
+  "schema": "sw_drawing_studio.reference_style_case.v1",
+  "generated_at": "2026-06-22 20:32:12",
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+  "reference_compare_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_002_post_layout_save_probe_20260622\\01_LB26001-A-04-002\\reference_compare.json",
+  "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_002_post_layout_save_probe_20260622\\01_LB26001-A-04-002\\dimension_validation.json"
+}

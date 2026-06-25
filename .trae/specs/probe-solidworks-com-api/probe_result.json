@@ -1,0 +1,853 @@
+{
+  "env": {
+    "ts": "2026-06-18 16:42:49",
+    "python": "3.11.4",
+    "platform": "win32",
+    "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+    "write": false,
+    "groups_filter": [],
+    "connect_msg": "GetActiveObject fallback (gencache failed: This COM object can not automate the makepy process - please run makepy manually for this object)",
+    "doc_msg": "ActiveDoc reused"
+  },
+  "entries": [
+    {
+      "group": "01_ISldWorks",
+      "name": "RevisionNumber",
+      "ok": true,
+      "status": "pass",
+      "summary": "'33.5.0'",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "Visible",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "FrameLeft",
+      "ok": true,
+      "status": "pass",
+      "summary": "0",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "FrameWidth",
+      "ok": true,
+      "status": "pass",
+      "summary": "2048",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "ActiveDoc(ref)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 29
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "EnumDocuments2",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352567, '发生意外。', (61836, 'SOLIDWORKS', '无法读只写属性。', 'C:\\\\PROGRA~1\\\\SOLIDW~1\\\\SOLIDW~1\\\\lang\\\\chinese-simplified\\\\sldworks.chm', 455052, 0), None)",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetUserPreferenceDoubleValue(89)",
+      "ok": true,
+      "status": "pass",
+      "summary": "0.0",
+      "error": "",
+      "elapsed_ms": 11
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetUserPreferenceIntegerValue(0)",
+      "ok": true,
+      "status": "pass",
+      "summary": "3",
+      "error": "",
+      "elapsed_ms": 11
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetUserPreferenceToggle(0)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 10
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetCurrentLanguage",
+      "ok": true,
+      "status": "pass",
+      "summary": "'chinese-simplified'",
+      "error": "",
+      "elapsed_ms": 4
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetExecutablePath",
+      "ok": true,
+      "status": "pass",
+      "summary": "'C:\\\\PROGRA~1\\\\SOLIDW~1\\\\SOLIDW~1'",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "01_ISldWorks",
+      "name": "GetMathUtility",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352573, '找不到成员。', None, None)",
+      "elapsed_ms": 21
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "GetType",
+      "ok": true,
+      "status": "pass",
+      "summary": "1",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "GetTitle",
+      "ok": true,
+      "status": "pass",
+      "summary": "'LB26001-A-04-001.SLDPRT'",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "GetPathName",
+      "ok": true,
+      "status": "pass",
+      "summary": "'C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\3D转2D测试图纸\\\\LB26001-A-04-001.SLDPRT'",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "Extension",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 17
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "GetActiveConfiguration",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352573, '找不到成员。', None, None)",
+      "elapsed_ms": 21
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "FeatureManager",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 22
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "SketchManager",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 21
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "ConfigurationManager",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 20
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "GetEquationMgr",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352573, '找不到成员。', None, None)",
+      "elapsed_ms": 20
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "ClearSelection2(True)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 11
+    },
+    {
+      "group": "02_IModelDoc2",
+      "name": "EditRebuild3",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 266
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "GetBodies2(any, visible_only)",
+      "ok": true,
+      "status": "pass",
+      "summary": "1",
+      "error": "",
+      "elapsed_ms": 97
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "EnumBodies3",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352567, '发生意外。', (61836, 'SOLIDWORKS', '无法读只写属性。', 'C:\\\\PROGRA~1\\\\SOLIDW~1\\\\SOLIDW~1\\\\lang\\\\chinese-simplified\\\\sldworks.chm', 455052, 0), None)",
+      "elapsed_ms": 11
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "MaterialIdName",
+      "ok": true,
+      "status": "pass",
+      "summary": "'材料库|防静电研磨黑纤|502'",
+      "error": "",
+      "elapsed_ms": 8
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "GetPartBox",
+      "ok": true,
+      "status": "pass",
+      "summary": "'(-0.25000000000000006, -0.000593576801498424, -0.15499999999999997, 0.25000000000000006, 0.0120001, 0.15500000000000003)'",
+      "error": "",
+      "elapsed_ms": 12
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "FirstFeature",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352573, '找不到成员。', None, None)",
+      "elapsed_ms": 22
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "FeatureByName('Sketch1')",
+      "ok": true,
+      "status": "pass",
+      "summary": "None",
+      "error": "",
+      "elapsed_ms": 10
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "IsWeldment",
+      "ok": true,
+      "status": "pass",
+      "summary": "False",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "Extension.IsSheetMetal",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "AttributeError: <unknown>.IsSheetMetal",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "ExportToDWG2(skip_unless_write)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive: 需 --write 才执行",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "03_IPartDoc",
+      "name": "MirrorPart3(skip_unless_write)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "04_IAssemblyDoc",
+      "name": "(not_assembly)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "GetType=1",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "05_IDrawingDoc",
+      "name": "(not_drawing)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "GetType=1",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "ActiveSketch(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 4
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "AddToDB(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "False",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "DisplayWhenAdded(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 7
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "InsertSketch(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "enters edit mode",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "Insert3DSketch(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "enters edit mode",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "CreateLine(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "CreateCircle(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "CreateCornerRectangle(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "CreateSpline(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "06_ISketchManager",
+      "name": "CreateCenterLine(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "07_IFeatureManager",
+      "name": "FeatureManager(ref)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 0
+    },
+    {
+      "group": "07_IFeatureManager",
+      "name": "(group_crash:07_IFeatureManager)",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "com_error: (-2147352573, '找不到成员。', None, None)",
+      "elapsed_ms": 0
+    },
+    {
+      "group": "08_IComponent2",
+      "name": "(not_assembly)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "非装配体，跳过",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "ConfigurationManager.ActiveConfiguration",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 19
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "IModelDoc2.GetConfigurationNames",
+      "ok": true,
+      "status": "pass",
+      "summary": "['默认']",
+      "error": "",
+      "elapsed_ms": 3
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.Name",
+      "ok": true,
+      "status": "pass",
+      "summary": "'默认'",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.Description",
+      "ok": true,
+      "status": "pass",
+      "summary": "'默认'",
+      "error": "",
+      "elapsed_ms": 3
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.Comment",
+      "ok": true,
+      "status": "pass",
+      "summary": "''",
+      "error": "",
+      "elapsed_ms": 4
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.AlternateName",
+      "ok": true,
+      "status": "pass",
+      "summary": "''",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.GetParameters(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "多数版本必须传 BSTR 参数；属于已知 marshaling 限制",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "Configuration.CustomPropertyManager",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 18
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "AddConfiguration2(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "09_IConfiguration",
+      "name": "ShowConfiguration2(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "可能改写状态",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "CustomPropertyManager('').Count",
+      "ok": true,
+      "status": "pass",
+      "summary": "43",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "CustomPropertyManager('').GetNames",
+      "ok": true,
+      "status": "pass",
+      "summary": "['Description', 'Weight', 'Material', '质量', '材料', '单重', '零件号', '设计', '审核', '标准审查', '工艺审查', '批准', '日期', '校核', '主管设计', '校对', '审定', '阶段标记S', '阶段标记A', '阶段标记B', '替代', '图幅', '版本', '备注', '名称', '代号', '共X张', '...",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "CustomPropertyManager('').LinkAll(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 6
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "CustomProp.Get(Description)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'all_methods_failed'",
+      "error": "",
+      "elapsed_ms": 43
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "CustomProp.Get(Material)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'all_methods_failed'",
+      "error": "",
+      "elapsed_ms": 15
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "GetType2('Description')",
+      "ok": true,
+      "status": "pass",
+      "summary": "30",
+      "error": "",
+      "elapsed_ms": 10
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "Add3(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "Set2(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "10_ICustomPropertyManager",
+      "name": "Delete2(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.MassProperty(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'str'",
+      "error": "",
+      "elapsed_ms": 5
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.SelectionManager(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'str'",
+      "error": "",
+      "elapsed_ms": 8
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.LayerMgr(read)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'str'",
+      "error": "",
+      "elapsed_ms": 4
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.Document(==model)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 15
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.IsSheetMetal",
+      "ok": false,
+      "status": "fail",
+      "summary": "",
+      "error": "AttributeError: <unknown>.IsSheetMetal",
+      "elapsed_ms": 4
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.RunCommand(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "可能弹出命令",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.SaveAs3(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.MultiSelect2(skip)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "改写选择集",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "11_IModelDocExtension",
+      "name": "Extension.Rebuild(0)",
+      "ok": true,
+      "status": "pass",
+      "summary": "True",
+      "error": "",
+      "elapsed_ms": 11
+    },
+    {
+      "group": "12_ILayerMgr",
+      "name": "(not_drawing)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "LayerMgr 主要用于工程图",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "13_IMassProperty",
+      "name": "Extension.MassProperty is None",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "MassProperty 取不到",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "14_Export_SaveAs",
+      "name": "IExportPdfData = sw.GetExportFileData(1)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'CDispatch'",
+      "error": "",
+      "elapsed_ms": 27
+    },
+    {
+      "group": "14_Export_SaveAs",
+      "name": "ExtraSaveAs3(skip_unless_write)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "14_Export_SaveAs",
+      "name": "Save3(skip_unless_write)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "14_Export_SaveAs",
+      "name": "ExportToDWG2(skip_unless_write)",
+      "ok": null,
+      "status": "skip",
+      "skip_reason": "destructive",
+      "summary": "",
+      "error": ""
+    },
+    {
+      "group": "14_Export_SaveAs",
+      "name": "BuildAdvancedSaveAsOptions(read-only)",
+      "ok": true,
+      "status": "pass",
+      "summary": "'NoneType'",
+      "error": "",
+      "elapsed_ms": 3
+    }
+  ],
+  "stats": {
+    "pass": 48,
+    "fail": 9,
+    "skip": 26,
+    "total": 83,
+    "by_group": {
+      "01_ISldWorks": {
+        "pass": 10,
+        "fail": 2,
+        "skip": 0,
+        "total": 12
+      },
+      "02_IModelDoc2": {
+        "pass": 9,
+        "fail": 2,
+        "skip": 0,
+        "total": 11
+      },
+      "03_IPartDoc": {
+        "pass": 5,
+        "fail": 3,
+        "skip": 2,
+        "total": 10
+      },
+      "04_IAssemblyDoc": {
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "total": 1
+      },
+      "05_IDrawingDoc": {
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "total": 1
+      },
+      "06_ISketchManager": {
+        "pass": 3,
+        "fail": 0,
+        "skip": 7,
+        "total": 10
+      },
+      "07_IFeatureManager": {
+        "pass": 1,
+        "fail": 1,
+        "skip": 0,
+        "total": 2
+      },
+      "08_IComponent2": {
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "total": 1
+      },
+      "09_IConfiguration": {
+        "pass": 7,
+        "fail": 0,
+        "skip": 3,
+        "total": 10
+      },
+      "10_ICustomPropertyManager": {
+        "pass": 6,
+        "fail": 0,
+        "skip": 3,
+        "total": 9
+      },
+      "11_IModelDocExtension": {
+        "pass": 5,
+        "fail": 1,
+        "skip": 3,
+        "total": 9
+      },
+      "12_ILayerMgr": {
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "total": 1
+      },
+      "13_IMassProperty": {
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "total": 1
+      },
+      "14_Export_SaveAs": {
+        "pass": 2,
+        "fail": 0,
+        "skip": 3,
+        "total": 5
+      }
+    }
+  }
+}

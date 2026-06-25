@@ -1,0 +1,17 @@
+{
+  "work_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\db8c2a3df037\\input_work\\-弹簧压棒弹簧-1-V3-V02_seed.SLDPRT",
+  "seed_dim_count": 0,
+  "bbox": {
+    "xmin": -0.003574025988424843,
+    "ymin": -0.0004196589526634896,
+    "zmin": -0.0037216401980820378,
+    "xmax": 0.0035720592041854457,
+    "ymax": 0.030420867582158354,
+    "zmax": 0.003583631378810709
+  },
+  "overall_length": 0.007146085192610289,
+  "overall_width": 0.030840526534821843,
+  "overall_height": 0.007305271576892747,
+  "success": true,
+  "error": ""
+}

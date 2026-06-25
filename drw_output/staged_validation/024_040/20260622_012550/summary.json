@@ -1,0 +1,191 @@
+{
+  "schema": "sw_drawing_studio.staged_cad_validation.v1",
+  "stage": "024_040",
+  "generated_at": "2026-06-22 03:53:50",
+  "out_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550",
+  "duration_s": 1102.4,
+  "total": 2,
+  "processed": 2,
+  "deliverable_count": 2,
+  "need_review_count": 0,
+  "failed_count": 0,
+  "status": "pass",
+  "pass": true,
+  "cases": [
+    {
+      "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-024.SLDPRT",
+      "part_name": "LB26001-A-04-024",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a14f5551a7c3",
+      "cad_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\cad_smoke.json",
+      "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\dimension_validation.json",
+      "reference_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\reference_compare.json",
+      "cad_pass": true,
+      "dimension_pass": true,
+      "reference_pass": true,
+      "deliverable": true,
+      "status": "pass",
+      "failure_bucket": [],
+      "reasons": [
+        "view_type_mismatch",
+        "generated_display_dim_zero_with_part_class_policy",
+        "display_dim_count_lower_than_reference"
+      ],
+      "final_quality_status": "pass_with_warning",
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass_with_warning",
+      "commands": {
+        "cad": {
+          "cmd": [
+            "C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+            "tools/validation/real_cad_smoke_v3.py",
+            "--part",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-024.SLDPRT",
+            "--timeout-s",
+            "900",
+            "--max-rounds",
+            "1",
+            "--out",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\cad_smoke.json"
+          ],
+          "returncode": 0,
+          "duration_s": 1050.6,
+          "stdout": "{\"pass\": true, \"report\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW ���\\\\drw_output\\\\staged_validation\\\\024_040\\\\20260622_012550\\\\01_LB26001-A-04-024\\\\cad_smoke.json\", \"run_dir\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW ���\\\\drw_output\\\\runs\\\\a14f5551a7c3\", \"reasons\": []}",
+          "stderr": "",
+          "timeout": false
+        },
+        "dimension": {
+          "cmd": [
+            "C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+            "tools/validation/dimension_validation_smoke_v3.py",
+            "--run-dir",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a14f5551a7c3",
+            "--cad-smoke",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\cad_smoke.json",
+            "--out",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\01_LB26001-A-04-024\\dimension_validation.json"
+          ],
+          "returncode": 1,
+          "duration_s": 0.1,
+          "stdout": "{\"pass\": false, \"status\": \"fail\", \"report\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW ���\\\\drw_output\\\\staged_validation\\\\024_040\\\\20260622_012550\\\\01_LB26001-A-04-024\\\\dimension_validation.json\", \"run_dir\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW ���\\\\drw_output\\\\runs\\\\a14f5551a7c3\", \"reasons\": [\"display_dim_count_zero\"]}",
+          "stderr": "",
+          "timeout": false
+        },
+        "reference": {
+          "cmd": [
+            "python",
+            "direct compare refresh with evidence-bound annotation comparison; no CAD rerun"
+          ],
+          "returncode": 0,
+          "duration_s": 5.7,
+          "stdout": "{\"pass\": true, \"status\": \"pass_with_warning\", \"overall_score\": 0.9, \"report\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\staged_validation\\\\024_040\\\\20260622_012550\\\\01_LB26001-A-04-024\\\\reference_compare.json\", \"reasons\": [\"view_type_mismatch\", \"generated_display_dim_zero_with_part_class_policy\", \"display_dim_count_lower_than_reference\"]}",
+          "stderr": "",
+          "timeout": false,
+          "note": "reference report refreshed only; existing CAD run_dir reused"
+        }
+      }
+    },
+    {
+      "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-040.SLDPRT",
+      "part_name": "LB26001-A-04-040",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4109ed799304",
+      "cad_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\cad_smoke_vqc_policy.json",
+      "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\dimension_validation_vqc_policy.json",
+      "reference_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\reference_compare_vqc_policy.json",
+      "cad_pass": true,
+      "dimension_pass": true,
+      "reference_pass": true,
+      "deliverable": true,
+      "status": "pass",
+      "failure_bucket": [],
+      "reasons": [
+        "view_type_mismatch",
+        "display_dim_count_lower_than_reference",
+        "dimension_insufficient_tiny_part_sidecar_warning"
+      ],
+      "final_quality_status": "pass_with_warning",
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass_with_warning",
+      "commands": {
+        "cad": {
+          "cmd": [
+            "python",
+            "tools/validation/real_cad_smoke_v3.py",
+            "--part",
+            "3D?2D????/LB26001-A-04-040.SLDPRT",
+            "--timeout-s",
+            "900",
+            "--max-rounds",
+            "1",
+            "--out",
+            "drw_output/cad_smoke_024_040_040_vqc_policy.json"
+          ],
+          "returncode": 0,
+          "duration_s": 69.8,
+          "stdout": "{\"pass\": true, \"run_dir\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\runs\\\\4109ed799304\"}",
+          "stderr": "",
+          "timeout": false,
+          "note": "fresh CAD rerun after vision_qc_v2 part-class sidecar policy hardening"
+        },
+        "dimension": {
+          "cmd": [
+            "python",
+            "tools/validation/dimension_validation_smoke_v3.py",
+            "--run-dir",
+            "drw_output/runs/4109ed799304",
+            "--cad-smoke",
+            "drw_output/cad_smoke_024_040_040_vqc_policy.json",
+            "--out",
+            "drw_output/staged_validation/024_040/20260622_012550/02_LB26001-A-04-040/dimension_validation_vqc_policy.json"
+          ],
+          "returncode": 0,
+          "duration_s": null,
+          "stdout": "{\"pass\": true, \"status\": \"pass_with_warning\"}",
+          "stderr": "",
+          "timeout": false
+        },
+        "reference": {
+          "cmd": [
+            "python",
+            "tools/validation/reference_compare_smoke_v3.py",
+            "--run-dir",
+            "drw_output/runs/4109ed799304",
+            "--part",
+            "3D?2D????/LB26001-A-04-040.SLDPRT",
+            "--cad-smoke",
+            "drw_output/cad_smoke_024_040_040_vqc_policy.json",
+            "--out",
+            "drw_output/staged_validation/024_040/20260622_012550/02_LB26001-A-04-040/reference_compare_vqc_policy.json"
+          ],
+          "returncode": 0,
+          "duration_s": null,
+          "stdout": "{\"pass\": true, \"status\": \"pass_with_warning\", \"overall_score\": 0.8}",
+          "stderr": "",
+          "timeout": false
+        }
+      }
+    }
+  ],
+  "remaining_gates": [
+    "LB26001_36",
+    "medium_30",
+    "historical_visual_audit_100_percent",
+    "full_129",
+    "final_exe_rebuild_and_release_log"
+  ],
+  "reference_refresh_duration_s": 11.3,
+  "reference_refreshed_at": "2026-06-22 03:41:29",
+  "cad_rerun": true,
+  "refresh_note": "024/040 summary refreshed after fresh 040 CAD rerun 4109ed799304. Old summary preserved as summary_before_vqc_policy_040.json; no original CAD files were modified.",
+  "previous_reference_refreshed_at": "2026-06-22 03:33:54",
+  "partial_rerun": {
+    "part_name": "LB26001-A-04-040",
+    "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4109ed799304",
+    "cad_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\cad_smoke_vqc_policy.json",
+    "dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\dimension_validation_vqc_policy.json",
+    "reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\02_LB26001-A-04-040\\reference_compare_vqc_policy.json",
+    "reason": "vision_qc_v2 now applies tiny_part sidecar evidence policy instead of blocking B-grade sidecar drawings as major dimension_insufficient"
+  },
+  "previous_summary_backup": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\024_040\\20260622_012550\\summary_before_vqc_policy_040.json"
+}

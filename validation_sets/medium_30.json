@@ -1,0 +1,187 @@
+{
+  "version": "v2.2",
+  "description": "v2.2 medium_30 验证集 30 件",
+  "created_at": "2026-06-20",
+  "items": [
+    {
+      "index": 1,
+      "part_path": "3D转2D测试图纸/0.6X5X10压缩弹簧(线径x外径x长度)-V02-2.SLDPRT",
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)-V02-2",
+      "category": "medium"
+    },
+    {
+      "index": 2,
+      "part_path": "3D转2D测试图纸/0.6X5X10压缩弹簧(线径x外径x长度)-V02.SLDPRT",
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)-V02",
+      "category": "medium"
+    },
+    {
+      "index": 3,
+      "part_path": "3D转2D测试图纸/0.6X5X10压缩弹簧(线径x外径x长度).SLDPRT",
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)",
+      "category": "medium"
+    },
+    {
+      "index": 4,
+      "part_path": "3D转2D测试图纸/1.3x1.8x37铜管(内径x外径x长度）.SLDPRT",
+      "base": "1.3x1.8x37铜管(内径x外径x长度）",
+      "category": "medium"
+    },
+    {
+      "index": 5,
+      "part_path": "3D转2D测试图纸/1.55x18xL20压缩弹簧 线径1.55外径D18内径14.7-ICT-V02.SLDPRT",
+      "base": "1.55x18xL20压缩弹簧 线径1.55外径D18内径14.7-ICT-V02",
+      "category": "medium"
+    },
+    {
+      "index": 6,
+      "part_path": "3D转2D测试图纸/230012 扫码枪 VF4160 万酷-V02.SLDPRT",
+      "base": "230012 扫码枪 VF4160 万酷-V02",
+      "category": "medium"
+    },
+    {
+      "index": 7,
+      "part_path": "3D转2D测试图纸/230023-230017-QTN-0076 SAS-PICE ADAPTER-V02.SLDPRT",
+      "base": "230023-230017-QTN-0076 SAS-PICE ADAPTER-V02",
+      "category": "medium"
+    },
+    {
+      "index": 8,
+      "part_path": "3D转2D测试图纸/3x10（圆头销钉）.SLDPRT",
+      "base": "3x10（圆头销钉）",
+      "category": "medium"
+    },
+    {
+      "index": 9,
+      "part_path": "3D转2D测试图纸/4-U_2-6NVME-BP-PCB-CHANGSHA.SLDPRT",
+      "base": "4-U_2-6NVME-BP-PCB-CHANGSHA",
+      "category": "medium"
+    },
+    {
+      "index": 10,
+      "part_path": "3D转2D测试图纸/4-U_2-BP-PCB-CHANGSHA.SLDPRT",
+      "base": "4-U_2-BP-PCB-CHANGSHA",
+      "category": "medium"
+    },
+    {
+      "index": 11,
+      "part_path": "3D转2D测试图纸/6-LED-YDL0-00135-100-HSG7_2.SLDPRT",
+      "base": "6-LED-YDL0-00135-100-HSG7_2",
+      "category": "medium"
+    },
+    {
+      "index": 12,
+      "part_path": "3D转2D测试图纸/6-LED-YDL0-00256-100-HSG7_2.SLDPRT",
+      "base": "6-LED-YDL0-00256-100-HSG7_2",
+      "category": "medium"
+    },
+    {
+      "index": 13,
+      "part_path": "3D转2D测试图纸/6x10xM3(防静电赛钢).SLDPRT",
+      "base": "6x10xM3(防静电赛钢)",
+      "category": "medium"
+    },
+    {
+      "index": 14,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID10.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID10",
+      "category": "medium"
+    },
+    {
+      "index": 15,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID11.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID11",
+      "category": "medium"
+    },
+    {
+      "index": 16,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID13.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID13",
+      "category": "medium"
+    },
+    {
+      "index": 17,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID14.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID14",
+      "category": "medium"
+    },
+    {
+      "index": 18,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID16.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID16",
+      "category": "medium"
+    },
+    {
+      "index": 19,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID18.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID18",
+      "category": "medium"
+    },
+    {
+      "index": 20,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID2.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID2",
+      "category": "medium"
+    },
+    {
+      "index": 21,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID5.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID5",
+      "category": "medium"
+    },
+    {
+      "index": 22,
+      "part_path": "3D转2D测试图纸/ABSORBER_2-1-SOLID9.SLDPRT",
+      "base": "ABSORBER_2-1-SOLID9",
+      "category": "medium"
+    },
+    {
+      "index": 23,
+      "part_path": "3D转2D测试图纸/B5-PH-11M30-1653407-16-C01_FAST.SLDPRT",
+      "base": "B5-PH-11M30-1653407-16-C01_FAST",
+      "category": "medium"
+    },
+    {
+      "index": 24,
+      "part_path": "3D转2D测试图纸/CP-30A0.6-2R2.0行程杯头探针组件.SLDPRT",
+      "base": "CP-30A0.6-2R2.0行程杯头探针组件",
+      "category": "medium"
+    },
+    {
+      "index": 25,
+      "part_path": "3D转2D测试图纸/DEFAULT-10059.SLDPRT",
+      "base": "DEFAULT-10059",
+      "category": "medium"
+    },
+    {
+      "index": 26,
+      "part_path": "3D转2D测试图纸/DEFAULT-3133.SLDPRT",
+      "base": "DEFAULT-3133",
+      "category": "medium"
+    },
+    {
+      "index": 27,
+      "part_path": "3D转2D测试图纸/DEFAULT-6045.SLDPRT",
+      "base": "DEFAULT-6045",
+      "category": "medium"
+    },
+    {
+      "index": 28,
+      "part_path": "3D转2D测试图纸/DEFAULT-8657.SLDPRT",
+      "base": "DEFAULT-8657",
+      "category": "medium"
+    },
+    {
+      "index": 29,
+      "part_path": "3D转2D测试图纸/G846A082XXXT4EU.SLDPRT",
+      "base": "G846A082XXXT4EU",
+      "category": "medium"
+    },
+    {
+      "index": 30,
+      "part_path": "3D转2D测试图纸/G846A082XXXT4EU_3.SLDPRT",
+      "base": "G846A082XXXT4EU_3",
+      "category": "medium"
+    }
+  ]
+}

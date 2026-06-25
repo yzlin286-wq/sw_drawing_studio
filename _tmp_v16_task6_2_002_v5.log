@@ -1,0 +1,13 @@
+﻿=== Task 6.2: LB26001-A-04-002.SLDPRT ===
+
+=== RESULT ===
+run_id=88af2d00e7f4
+hard_fail=['dim_total_zero', 'qc_pass_too_low']
+warnings=['refdoc_correct', 'has_datum_a', 'has_ra_note', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped', 'titlebar_complete', 'non_model_associative_dimension']
+dim_total=0
+qc_pass=9/12
+drawing_usable={'pass': False, 'criteria': {'files_exported': True, 'view_in_frame': True, 'view_overlap_ok': True, 'dim_total': 0, 'qc_pass_count': 9, 'vision_score': None}}
+
+annotate_result.json NOT FOUND at C:\Users\Vision\Desktop\SW 相关\drw_output\runs\88af2d00e7f4\qc\annotate_result.json
+
+seed_dim.json NOT FOUND at C:\Users\Vision\Desktop\SW 相关\drw_output\runs\88af2d00e7f4\input_work\seed_dim.json

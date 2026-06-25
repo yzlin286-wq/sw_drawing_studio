@@ -1,0 +1,76 @@
+﻿[section] connecting to SolidWorks...
+[section] Before: drw_type=3
+[section] called drw.EditSheet() at entry
+[section] activated sheet 图纸1
+[section] GetFirstView path found nothing, trying Sheet.GetViews fallback...
+[section] sheet_views_count=4
+  sheet_view type=7 name=工程图视图1
+  sheet_view type=7 name=工程图视图2
+  sheet_view type=7 name=工程图视图3
+  sheet_view type=7 name=工程图视图4
+[section] target view name=工程图视图1 type=7
+[section] === Strategy 1: EditSheet + sheet sketch ===
+[section] activated by sheet-name '图纸1'
+[section] line auto-selected (selected=1)
+[section] s1 select_ok=True selected=1
+[section] strategy=1 opt=6 excl=VT_EMPTY line_count=-1 selected=1 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=6 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=6 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=0 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=1 opt=4 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] === Strategy 2: SetEditMode(2) + sheet sketch ===
+[section] s2 SetEditMode exc: <unknown>.SetEditMode
+[section] SelectByID2 ok mark=4
+[section] s2 select_ok=True selected=1
+[section] strategy=2 opt=6 excl=VT_EMPTY line_count=-1 selected=1 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=6 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=6 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=0 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=0 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=0 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=4 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=4 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=2 opt=4 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] === Strategy 3: view.GetSketch() ===
+[section] s3 view_sketch=False
+[section] SelectByID2 ok mark=4
+[section] s3 select_ok=True selected=1
+[section] strategy=3 opt=6 excl=VT_EMPTY line_count=-1 selected=1 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=6 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=6 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=0 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=0 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=0 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=4 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=4 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=3 opt=4 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] === Strategy 4: legacy InsertSectionView2 ===
+[section] s4 line_created=True
+[section] s4 selected=1
+[section] s4 InsertSectionView2 not callable
+[section] s4 InsertSectionView not callable
+[section] s4 InsertCutAlignedSectionView not callable
+[section] s4 CreateSectionView -> view_type=None is_None=True
+[section] s4 CreateSectionViewAt -> view_type=None is_None=True
+[section] === Strategy 5: EditRebuild + CreateSectionViewAt5 ===
+[section] activated by sheet-name '图纸1'
+[section] s5 EditRebuild3 exc: 'bool' object is not callable
+[section] SelectByID2 ok mark=4
+[section] s5 select_ok=True selected=1
+[section] strategy=5 opt=6 excl=VT_EMPTY line_count=-1 selected=1 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=6 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=6 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=0 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=0 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=0 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=4 excl=VT_EMPTY line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=4 excl=VT_ERROR_PNF line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] strategy=5 opt=4 excl=VT_DISPATCH line_count=-1 selected=0 view_type=None view_is_None=True type4_after=0
+[section] === Strategy 6: RunMacro2(auto_section.swp) ===
+[section] s6 no .swp at C:\Users\Vision\Desktop\SW 相关\.trae\specs\repair-section-and-recompare\auto_section.swp (skip — only .bas present, needs user to compile via SW > Tools > Macro > Save as .swp)
+[section] all strategies failed
+[section] create_section -> False

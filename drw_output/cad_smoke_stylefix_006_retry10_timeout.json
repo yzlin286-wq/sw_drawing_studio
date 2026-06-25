@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-06-22 08:23:31",
+  "mode": "real_cad_smoke_v3_timeout_record",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D?2D????\\LB26001-A-04-006.SLDPRT",
+  "status": "fail",
+  "pass": false,
+  "timeout_s": 484,
+  "run_dir": "",
+  "reasons": [
+    "real_cad_smoke_retry10_parent_process_timeout",
+    "no_new_run_dir_created",
+    "no_cad_smoke_report_written"
+  ],
+  "notes": [
+    "retry10 was executed after removing the risky GetViews fallback, but the outer real_cad_smoke_v3.py process still timed out.",
+    "Latest proven successful run remains retry8: drw_output/runs/31fb5c9abb8a.",
+    "No original CAD files were modified."
+  ]
+}

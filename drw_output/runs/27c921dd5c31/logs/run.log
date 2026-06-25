@@ -1,0 +1,10 @@
+[2026-06-19 01:03:24] === Full pipeline start ===
+[2026-06-19 01:03:24] strategy=v6_recommended
+[2026-06-19 01:03:24] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-004.SLDPRT
+[2026-06-19 01:03:24] sw_revision=33.5.0
+[2026-06-19 01:03:24] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-19 01:04:51] qc_loop exit_code=0
+[2026-06-19 01:04:51] PNG 回退渲染: PDF→LB26001-A-04-004_v5.PNG (152KB)
+[2026-06-19 01:04:51] PNG 回退后重评: png_missing 已从 hard_fail 移除，drawing_usable.pass 已重算
+[2026-06-19 01:04:54] bom rows=1
+[2026-06-19 01:04:54] === Full pipeline done. drawing_usable=False ===

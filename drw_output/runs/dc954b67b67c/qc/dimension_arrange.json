@@ -1,0 +1,427 @@
+{
+  "run_id": "LB26001-A-04-006",
+  "timestamp": "2026-06-25 02:45:36",
+  "stage": "post_layout_prune_guard",
+  "attempted": true,
+  "success": true,
+  "source": "generator_display_dim_annotation_chain",
+  "total_dimensions": 22,
+  "adjusted_dimensions": 20,
+  "callout_lane_applied": true,
+  "callout_lane_count": 9,
+  "overlap_before": 3,
+  "overlap_after": 0,
+  "titlebar_collision_before": 0,
+  "titlebar_collision_after": 0,
+  "avoid_collision_before": 0,
+  "avoid_collision_after": 0,
+  "line_crossing_before": 0,
+  "line_crossing_after": 0,
+  "reason": "fallback_used",
+  "sheet_size": [
+    0.297,
+    0.21
+  ],
+  "titlebar_box": [
+    0.20196,
+    0.0,
+    0.297,
+    0.0378
+  ],
+  "notes_box": [
+    0.17225999999999997,
+    0.0378,
+    0.29106,
+    0.0735
+  ],
+  "avoid_boxes": [
+    [
+      0.20196,
+      0.0,
+      0.297,
+      0.0378
+    ],
+    [
+      0.17225999999999997,
+      0.0378,
+      0.29106,
+      0.0735
+    ]
+  ],
+  "dimensions": [
+    {
+      "index": 0,
+      "view": "工程图视图1",
+      "source": "GetDisplayDimensions",
+      "slot": "front",
+      "side": "bottom",
+      "lane_role": "standard",
+      "original_position": [
+        0.11217546666666667,
+        0.15522399999999997
+      ],
+      "new_position": [
+        0.10784213333333334,
+        0.15522399999999997
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 1,
+      "view": "工程图视图1",
+      "source": "GetFirstDisplayDimension",
+      "slot": "front",
+      "side": "bottom",
+      "lane_role": "standard",
+      "original_position": [
+        0.11217546666666667,
+        0.15522399999999997
+      ],
+      "new_position": [
+        0.11217546666666667,
+        0.183884
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 4,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "left",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.08550880000000001,
+        0.12346800000000001
+      ],
+      "new_position": [
+        0.13650879999999999,
+        0.133228
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 10,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "bottom",
+      "lane_role": "standard",
+      "original_position": [
+        0.10459213333333334,
+        0.102588
+      ],
+      "new_position": [
+        0.10459213333333334,
+        0.102588
+      ],
+      "adjusted": false
+    },
+    {
+      "index": 3,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "top",
+      "lane_role": "standard",
+      "original_position": [
+        0.10567546666666666,
+        0.147228
+      ],
+      "new_position": [
+        0.10567546666666666,
+        0.147228
+      ],
+      "adjusted": false
+    },
+    {
+      "index": 13,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "top",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.1126088,
+        0.13922800000000002
+      ],
+      "new_position": [
+        0.1485088,
+        0.133228
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 12,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "right",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.1265088,
+        0.1252536
+      ],
+      "new_position": [
+        0.13450879999999998,
+        0.12367371428571429
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 6,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "right",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.13450879999999998,
+        0.12274799999999998
+      ],
+      "new_position": [
+        0.08550880000000001,
+        0.12429085714285715
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 7,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "bottom",
+      "lane_role": "standard",
+      "original_position": [
+        0.13650879999999999,
+        0.11122800000000002
+      ],
+      "new_position": [
+        0.1100088,
+        0.093588
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 5,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "bottom",
+      "lane_role": "standard",
+      "original_position": [
+        0.13650879999999999,
+        0.10022800000000001
+      ],
+      "new_position": [
+        0.1435088,
+        0.12552514285714286
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 8,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "right",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.1425088,
+        0.12222800000000002
+      ],
+      "new_position": [
+        0.1545088,
+        0.12222800000000002
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 2,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "top",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.1485088,
+        0.133228
+      ],
+      "new_position": [
+        0.11279451428571428,
+        0.102588
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 14,
+      "view": "工程图视图2",
+      "source": "GetFirstDisplayDimension",
+      "slot": "top",
+      "side": "top",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.1485088,
+        0.133228
+      ],
+      "new_position": [
+        0.13650879999999999,
+        0.11122800000000002
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 11,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "right",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.15450879999999997,
+        0.12222800000000002
+      ],
+      "new_position": [
+        0.1485088,
+        0.11122800000000002
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 9,
+      "view": "工程图视图2",
+      "source": "GetDisplayDimensions",
+      "slot": "top",
+      "side": "top",
+      "lane_role": "right_callout",
+      "original_position": [
+        0.16050879999999998,
+        0.133228
+      ],
+      "new_position": [
+        0.13650879999999999,
+        0.10022800000000001
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 15,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "left",
+      "lane_role": "standard",
+      "original_position": [
+        0.19427229999999995,
+        0.17063649999999997
+      ],
+      "new_position": [
+        0.20127229999999996,
+        0.16630649999999997
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 21,
+      "view": "工程图视图3",
+      "source": "GetFirstDisplayDimension",
+      "slot": "right",
+      "side": "left",
+      "lane_role": "standard",
+      "original_position": [
+        0.19427229999999995,
+        0.17063649999999997
+      ],
+      "new_position": [
+        0.2299123,
+        0.16738899999999998
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 17,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "left",
+      "lane_role": "standard",
+      "original_position": [
+        0.20127229999999996,
+        0.16630649999999997
+      ],
+      "new_position": [
+        0.2145123,
+        0.183884
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 16,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "top",
+      "lane_role": "standard",
+      "original_position": [
+        0.2145123,
+        0.183884
+      ],
+      "new_position": [
+        0.2155923,
+        0.15522399999999997
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 20,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "top",
+      "lane_role": "standard",
+      "original_position": [
+        0.2188323,
+        0.190884
+      ],
+      "new_position": [
+        0.19427229999999995,
+        0.17063649999999997
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 18,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "right",
+      "lane_role": "standard",
+      "original_position": [
+        0.2299123,
+        0.16738899999999998
+      ],
+      "new_position": [
+        0.23691230000000002,
+        0.17171899999999998
+      ],
+      "adjusted": true
+    },
+    {
+      "index": 19,
+      "view": "工程图视图3",
+      "source": "GetDisplayDimensions",
+      "slot": "right",
+      "side": "right",
+      "lane_role": "standard",
+      "original_position": [
+        0.23691230000000002,
+        0.17171899999999998
+      ],
+      "new_position": [
+        0.2188323,
+        0.190884
+      ],
+      "adjusted": true
+    }
+  ]
+}

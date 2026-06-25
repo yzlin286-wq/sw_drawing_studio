@@ -1,0 +1,138 @@
+{
+  "success": false,
+  "method": "addin",
+  "reason": "Dimension Engine v3 无新增尺寸（所有策略受 SW2025 API 限制）",
+  "timestamp": "2026-06-20 14:16:22",
+  "engine_version": "v3.0",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\v21_diag_1781936182",
+  "policy": {
+    "part_class": "feature_part",
+    "dimension_policy": "full",
+    "required_dims": "[\"overall_length"
+  },
+  "dim_before": 12,
+  "dim_after": 12,
+  "existing_display_dim_count": 12,
+  "addin_created_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "note_dim_count": 0,
+  "standard_annotation_count": 0,
+  "strategy_log": [
+    {
+      "strategy": "1_import_pmi_dimxpert",
+      "count": 0,
+      "success": false,
+      "reason": "模型无 PMI/DimXpert 注解"
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图1",
+      "line_count": 0
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图2",
+      "line_count": 0
+    },
+    {
+      "action": "strategy2_no_lines",
+      "view": "工程图视图3",
+      "line_count": 0
+    },
+    {
+      "strategy": "2_auto_dimension",
+      "count": 0,
+      "success": false,
+      "reason": "GetLines2+AddDimension5 无法创建尺寸（SW2025 限制：SelectByID2 无法选中 drawing view 中的边）"
+    },
+    {
+      "strategy": "3_visible_entity_dimension",
+      "count": 0,
+      "success": false,
+      "reason": "GetLines2 无可用线段或 AddDimension5 失败"
+    },
+    {
+      "strategy": "4_pmi_seed_copied_model",
+      "count": 0,
+      "success": false,
+      "reason": "PMI Seed 创建了尺寸但 InsertModelAnnotations 仍返回 0（SW2025 限制）",
+      "seed_details": {
+        "engine_version": "v3.2",
+        "timestamp": "2026-06-20 14:16:23",
+        "original_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+        "open_method": "opendoc6",
+        "original_opened": true,
+        "bbox": {
+          "min_x": 0,
+          "min_y": 0,
+          "min_z": 0,
+          "max_x": 0,
+          "max_y": 0,
+          "max_z": 0
+        },
+        "overall_length": 0,
+        "overall_width": 0,
+        "overall_height": 0,
+        "strategy_d_log": [
+          {
+            "step": "select_plane",
+            "success": false,
+            "plane_name": ""
+          }
+        ],
+        "seed_dim_count_before_saveas": 1,
+        "seed_details": [
+          {
+            "strategy": "annotation_pmi",
+            "count": 1
+          }
+        ],
+        "seed_part_path": "C:\\Temp\\SwAddin\\seed_parts\\LB26001-A-04-002_seed_v21_diag_1781936182.SLDPRT",
+        "saveas3_error": "调用的目标发生了异常。",
+        "saved": true,
+        "doc_closed": true,
+        "seed_reopened": true,
+        "seed_dim_count": 1,
+        "success": true,
+        "reason": "PMI Seed 成功创建 1 个尺寸并 SaveAs3 到副本"
+      }
+    },
+    {
+      "action": "strategy4b_insert_sketch",
+      "success": true
+    },
+    {
+      "action": "strategy4b_create_line",
+      "success": true,
+      "start_x": 0.1,
+      "start_y": 0.1,
+      "line_len": 0.05
+    },
+    {
+      "action": "strategy4b_add_dimension5_auto",
+      "error": "未知名称。 (异常来自 HRESULT:0x80020006 (DISP_E_UNKNOWNNAME))"
+    },
+    {
+      "action": "strategy4b_select_line",
+      "success": true
+    },
+    {
+      "action": "strategy4b_add_dimension5",
+      "error": "未知名称。 (异常来自 HRESULT:0x80020006 (DISP_E_UNKNOWNNAME))"
+    },
+    {
+      "action": "strategy4b_exit_sketch",
+      "success": true
+    },
+    {
+      "strategy": "4b_sheet_sketch_dimension",
+      "count": 0,
+      "success": false,
+      "reason": "Sheet 草图尺寸创建失败（SW2025 限制：无法在 sheet 上进入草图模式或 AddDimension5 失败）"
+    }
+  ],
+  "saved": false,
+  "step": "done"
+}

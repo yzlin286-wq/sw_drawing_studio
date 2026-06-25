@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "method": "exception",
+  "timestamp": "2026-06-20 15:24:36",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+  "addin_created_dim_count": 0,
+  "reason": "异常: (-2147352571, '类型不匹配。', None, 5)"
+}

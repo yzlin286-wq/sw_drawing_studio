@@ -1,0 +1,8 @@
+[2026-06-18 20:23:12] === Full pipeline start ===
+[2026-06-18 20:23:12] strategy=v6_recommended
+[2026-06-18 20:23:12] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\INGUN_GKS 050 201 050 A2000 尖针.SLDPRT
+[2026-06-18 20:23:12] sw_revision=33.5.0
+[2026-06-18 20:23:12] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 20:25:19] qc_loop exit_code=0
+[2026-06-18 20:25:21] bom rows=1
+[2026-06-18 20:25:21] === Full pipeline done. drawing_usable=False ===

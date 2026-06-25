@@ -1,0 +1,37 @@
+{
+  "issues": [
+    "legacy_titlebar_missing",
+    {
+      "key": "dimension_overlap",
+      "bbox": [
+        0.2,
+        0.3,
+        0,
+        0.1
+      ],
+      "score": 82
+    }
+  ],
+  "nested": {
+    "issues": [
+      {
+        "description": "视图越框",
+        "severity": "critical",
+        "bbox": [
+          0.7,
+          0.1,
+          0.2,
+          0.2
+        ],
+        "source": "geometry_qc",
+        "confidence": 0.95,
+        "evidence": {
+          "check": "frame_bounds"
+        },
+        "fix_suggestion": "调整比例或视图位置。",
+        "auto_fix_available": true,
+        "human_review_status": "pending"
+      }
+    ]
+  }
+}

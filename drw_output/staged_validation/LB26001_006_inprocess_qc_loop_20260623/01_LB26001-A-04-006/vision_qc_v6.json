@@ -1,0 +1,45 @@
+{
+  "schema": "sw_drawing_studio.vision_qc_v6",
+  "version": "v6",
+  "generated_at": "2026-06-23 15:48:41",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\630f87b7e82f\\drawing\\LB26001-A-04-006_v5.PNG",
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+  "manual_review": "",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\630f87b7e82f",
+  "drawing_blueprint": "",
+  "source_qc": "",
+  "success": true,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "issues": [
+    {
+      "key": "png_missing",
+      "severity": "critical",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "vision_qc_v6",
+      "confidence": 1.0,
+      "evidence": {
+        "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\630f87b7e82f\\drawing\\LB26001-A-04-006_v5.PNG"
+      },
+      "fix_suggestion": "Generate a fresh PNG from the current PDF/SLDDRW before visual acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "PNG preview is missing; visual review cannot proceed."
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 1,
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "checks": {},
+  "duration_s": 0.0,
+  "status": "need_review"
+}

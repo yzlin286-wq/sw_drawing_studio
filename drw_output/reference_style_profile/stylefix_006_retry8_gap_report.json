@@ -1,0 +1,87 @@
+{
+  "schema": "sw_drawing_studio.reference_style_single_gap.v1",
+  "source_reference_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+  "source_reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_compare_stylefix_006_retry8.json",
+  "source_dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\dimension_validation_stylefix_006_retry8.json",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a\\qc\\LB26001-A-04-006_v5_qc.json",
+  "source_cad_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_stylefix_006_retry8.json",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a",
+  "case": {
+    "base": "LB26001-A-04-006",
+    "status": "fail",
+    "pass": false,
+    "view_style_score": 0.45,
+    "dimension_style_score": 0.667,
+    "overall_style_score": 0.569,
+    "reference": {
+      "base": "LB26001-A-04-006",
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "success": true,
+      "reason": "",
+      "view_count": 4,
+      "view_types": {
+        "7": 2,
+        "4": 2
+      },
+      "display_dim_count": 12,
+      "annotation_count": 0,
+      "sheet_size_m": {},
+      "view_layout": [],
+      "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference.json",
+      "source": "csharp_sidecar"
+    },
+    "generated": {
+      "base": "LB26001-A-04-006",
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31fb5c9abb8a\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+      "success": false,
+      "reason": "reference_compare_timeout_and_generated_sidecar_timeout",
+      "view_count": 4,
+      "view_types": {},
+      "display_dim_count": 8,
+      "annotation_count": 0,
+      "sheet_size_m": {},
+      "view_layout": [],
+      "sidecar_report": null,
+      "source": "qc_dimension_validation_without_sidecar_view_type_evidence"
+    },
+    "qc_display_dim_count": 8,
+    "differences": [
+      {
+        "key": "projected_view_count_lower_than_reference",
+        "severity": "need_review",
+        "reference": 2,
+        "generated": 0,
+        "fix_suggestion": "Use real projected views for the orthographic top/right views."
+      },
+      {
+        "key": "display_dim_count_lower_than_reference",
+        "severity": "fail",
+        "reference": 12,
+        "generated": 8,
+        "fix_suggestion": "Bring generated DisplayDim coverage up to the same-name reference drawing baseline."
+      },
+      {
+        "key": "reference_compare_timeout",
+        "severity": "need_review",
+        "reference": "reference_compare_smoke_v3.py should finish and write metrics",
+        "generated": "timed out after 304s; no retry8 reference_compare JSON was produced by the script",
+        "fix_suggestion": "Make reference metric extraction run in a bounded worker or sidecar path before counting reference comparison as passed."
+      },
+      {
+        "key": "generated_reference_metrics_sidecar_timeout",
+        "severity": "need_review",
+        "reference": "sidecar extracts generated SLDDRW view_types/display_dim_count",
+        "generated": "SwReferenceMetricsSidecar.exe timed out after 244s on retry8 generated SLDDRW",
+        "fix_suggestion": "Stabilize generated SLDDRW references or add a timeout-safe metric extraction fallback that records failure reasons."
+      }
+    ],
+    "reasons": [
+      "projected_view_count_lower_than_reference",
+      "display_dim_count_lower_than_reference",
+      "reference_compare_timeout",
+      "generated_reference_metrics_sidecar_timeout"
+    ]
+  },
+  "status": "fail",
+  "pass": false
+}

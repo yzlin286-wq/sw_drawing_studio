@@ -1,0 +1,12 @@
+{
+  "saved_at": "2026-06-21 03:55:02",
+  "decisions": {
+    "titlebar_missing_fields::LB26001-A-04-040_v5": {
+      "issue_key": "titlebar_missing_fields",
+      "base_name": "LB26001-A-04-040_v5",
+      "human_review": "confirmed_issue",
+      "reason": "marked in DrawingReviewWorkbench",
+      "timestamp": "2026-06-21 03:55:02"
+    }
+  }
+}

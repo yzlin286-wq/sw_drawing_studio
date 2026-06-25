@@ -1,0 +1,26 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 12:14:06",
+  "source": "cad_job_worker",
+  "status": "not_collected",
+  "connection_method": "skipped_on_worker_failure",
+  "sw_pid": null,
+  "sw_revision": "",
+  "visible": null,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": "subprocess_exit_code_1",
+  "failure_bucket": "cad_subprocess_failed",
+  "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+  "recoverable": true,
+  "evidence": [
+    "  [seed] SelectByID2 EXTSKETCHPOINT 异常: (-2147352571, '类型不匹配。', None, 8)",
+    "  [seed] line.Select4 异常: (-2147352571, '类型不匹配。', None, 2)",
+    "[loop] qc_log.md 已写: C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md",
+    "========== 汇总 ==========",
+    "final_pass = False",
+    "final_path = ",
+    "  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']",
+    "qc_log.md = C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md"
+  ]
+}

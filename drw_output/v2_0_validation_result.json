@@ -1,0 +1,172 @@
+{
+  "version": "v2.0",
+  "timestamp": "2026-06-20 04:45:25",
+  "checks": {
+    "addin_ping": {
+      "pass": true,
+      "ping": true,
+      "probe_context": true,
+      "method": "dispatch",
+      "active_doc": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "view_count": 0
+    },
+    "docmgr_probe": {
+      "pass": true,
+      "dll_found": true,
+      "license_key_present": false,
+      "available": false,
+      "reason": "SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key）"
+    },
+    "blueprint_rules": {
+      "pass": true,
+      "expected": [
+        "default",
+        "feature_part",
+        "long_thin",
+        "tiny_part",
+        "fastener",
+        "spring",
+        "purchased_part",
+        "sheet_metal",
+        "weldment"
+      ],
+      "found": [
+        "default",
+        "feature_part",
+        "long_thin",
+        "tiny_part",
+        "fastener",
+        "spring",
+        "purchased_part",
+        "sheet_metal",
+        "weldment"
+      ],
+      "count": 9
+    },
+    "vision_qc_v3_modules": {
+      "pass": true,
+      "modules": [
+        "app.services.pdf_render_service",
+        "app.services.ocr_qc_service",
+        "app.services.template_symbol_detector",
+        "app.services.yolo_drawing_detector",
+        "app.services.llm_visual_reviewer",
+        "app.services.vision_qc_v3"
+      ]
+    },
+    "ui_workbench": {
+      "pass": true,
+      "class": "DrawingReviewWorkbench"
+    },
+    "core_12": {
+      "pass": true,
+      "total_runs": 50,
+      "deliverable": 33,
+      "png_missing": 0,
+      "small_parts_c": 10
+    },
+    "display_dim": {
+      "pass": true,
+      "targets": [
+        {
+          "success": true,
+          "method": "addin",
+          "display_dim_count": 12,
+          "model_annotations_count": 0,
+          "visible_entities_count": 0,
+          "reason": "无新增尺寸",
+          "timestamp": "2026-06-20 03:37:25",
+          "step": "done",
+          "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+          "dim_before": 12,
+          "model_annotations_count_v4": 0,
+          "visible_entities": {
+            "views_processed": 14,
+            "edges_count": 0,
+            "circles_count": 0,
+            "arcs_count": 0
+          },
+          "dim_after": 12,
+          "saved": false,
+          "base": "LB26001-A-04-002"
+        },
+        {
+          "success": true,
+          "method": "addin",
+          "display_dim_count": 6,
+          "model_annotations_count": 0,
+          "visible_entities_count": 0,
+          "reason": "无新增尺寸",
+          "timestamp": "2026-06-20 03:37:36",
+          "step": "done",
+          "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDDRW",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+          "dim_before": 6,
+          "model_annotations_count_v4": 0,
+          "visible_entities": {
+            "views_processed": 14,
+            "edges_count": 0,
+            "circles_count": 0,
+            "arcs_count": 0
+          },
+          "dim_after": 6,
+          "saved": false,
+          "base": "LB26001-A-04-003"
+        },
+        {
+          "success": true,
+          "method": "addin",
+          "display_dim_count": 8,
+          "model_annotations_count": 0,
+          "visible_entities_count": 0,
+          "reason": "无新增尺寸",
+          "timestamp": "2026-06-20 03:44:15",
+          "step": "done",
+          "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDDRW",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDPRT",
+          "dim_before": 8,
+          "model_annotations_count_v4": 0,
+          "visible_entities": {
+            "views_processed": 14,
+            "edges_count": 0,
+            "circles_count": 0,
+            "arcs_count": 0
+          },
+          "dim_after": 8,
+          "saved": false,
+          "base": "LB26001-A-04-007"
+        },
+        {
+          "success": true,
+          "method": "addin",
+          "display_dim_count": 4,
+          "model_annotations_count": 0,
+          "visible_entities_count": 0,
+          "reason": "无新增尺寸",
+          "timestamp": "2026-06-20 03:44:25",
+          "step": "done",
+          "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDDRW",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT",
+          "dim_before": 4,
+          "model_annotations_count_v4": 0,
+          "visible_entities": {
+            "views_processed": 13,
+            "edges_count": 0,
+            "circles_count": 0,
+            "arcs_count": 0
+          },
+          "dim_after": 4,
+          "saved": false,
+          "base": "LB26001-A-04-009"
+        }
+      ],
+      "display_dim_positive": 4
+    },
+    "final_quality": {
+      "pass": true,
+      "module": "app.services.final_quality"
+    }
+  },
+  "overall_pass": true
+}

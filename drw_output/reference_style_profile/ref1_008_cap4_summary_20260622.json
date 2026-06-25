@@ -1,0 +1,67 @@
+{
+  "summary": "drw_output\\staged_validation\\LB26001_ref1_008_cap4_20260622\\summary.json",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2e89a93c4473",
+  "style_status": "pass_with_warning",
+  "style_pass": true,
+  "ref_dims": 2,
+  "gen_dims": 3,
+  "prune": {
+    "enabled": true,
+    "cap": 4,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": true,
+        "errors": 0,
+        "warnings": 0,
+        "method": "Extension.SaveAs"
+      },
+      "open_errors": 0,
+      "open_warnings": 0
+    },
+    "prune": {
+      "cap": 4,
+      "before": 294,
+      "after": 4,
+      "deleted": 290,
+      "attempted": 290,
+      "success": true,
+      "reasons": []
+    },
+    "save": {
+      "success": true,
+      "errors": 0,
+      "warnings": 0,
+      "method": "Extension.SaveAs"
+    },
+    "success": true
+  },
+  "autodim": {
+    "applied": false,
+    "before": 0,
+    "after": 0,
+    "calls_used": 1,
+    "attempts": [
+      {
+        "view": "front",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.090208,
+          0.148283
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.090208,0.148283",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 0,
+            "after": 0,
+            "delta": 0
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,596 @@
+{
+  "source_summary": "drw_output\\staged_validation\\LB26001_ref5_autodim_prune_20260622\\summary.json",
+  "stage_status": "need_review",
+  "deliverable_count": 3,
+  "total": 5,
+  "rows": [
+    {
+      "base": "LB26001-A-04-007",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\59cc609ca7c5",
+      "status": "pass",
+      "deliverable": true,
+      "reasons": [],
+      "style_status": "pass",
+      "style_pass": true,
+      "style_reasons": [],
+      "reference_dims": 8,
+      "generated_dims": 10,
+      "reference_views": 4,
+      "generated_views": 4,
+      "reference_types": {
+        "7": 2,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 2,
+        "4": 2
+      },
+      "display_dim_before_sidecar": 0,
+      "display_dim_final_memory": 0,
+      "reference_autodim": {
+        "applied": false,
+        "before": 0,
+        "after": 0,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.094935,
+              0.153854
+            ],
+            "selected": true,
+            "select_reason": "工程图视图1:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.094935,
+              0.08288
+            ],
+            "selected": true,
+            "select_reason": "工程图视图2:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "reference_dim_prune": {
+        "enabled": true,
+        "cap": 8,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 8,
+          "before": 0,
+          "after": 0,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "first_angle_views_pending_unbound",
+        "display_mode_fail",
+        "first_angle_views_still_unbound",
+        "dim_import3_exc",
+        "OK",
+        "reference_autodim_no_increase",
+        "part_class",
+        "dim_via_sidecar",
+        "reference_display_dim_floor_unmet",
+        "png_fallback_to_pdf"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\c24d4ccd1983",
+      "status": "need_review",
+      "deliverable": false,
+      "reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "style_status": "need_review",
+      "style_pass": false,
+      "style_reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "reference_dims": 2,
+      "generated_dims": 16,
+      "reference_views": 2,
+      "generated_views": 2,
+      "reference_types": {
+        "7": 1,
+        "4": 1
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 1
+      },
+      "display_dim_before_sidecar": 16,
+      "display_dim_final_memory": 16,
+      "reference_autodim": {
+        "applied": false,
+        "before": null,
+        "after": null,
+        "attempts": []
+      },
+      "reference_dim_prune": {
+        "enabled": true,
+        "cap": 2,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 2,
+          "before": 16,
+          "after": 16,
+          "deleted": 0,
+          "attempted": 14,
+          "success": false,
+          "reasons": [
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed",
+            "工程图视图1: delete_selection_failed"
+          ]
+        },
+        "save": {},
+        "success": false
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "display_mode_fail",
+        "display_mode_fail",
+        "dim_import3_exc",
+        "OK",
+        "reference_display_dim_prune_failed",
+        "png_fallback_to_pdf"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aedb416e28d",
+      "status": "pass",
+      "deliverable": true,
+      "reasons": [],
+      "style_status": "pass",
+      "style_pass": true,
+      "style_reasons": [],
+      "reference_dims": 4,
+      "generated_dims": 6,
+      "reference_views": 3,
+      "generated_views": 3,
+      "reference_types": {
+        "7": 1,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 2
+      },
+      "display_dim_before_sidecar": 0,
+      "display_dim_final_memory": 0,
+      "reference_autodim": {
+        "applied": false,
+        "before": 0,
+        "after": 0,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104362,
+              0.143196
+            ],
+            "selected": true,
+            "select_reason": "工程图视图1:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104362,
+              0.086384
+            ],
+            "selected": true,
+            "select_reason": "工程图视图2:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "reference_dim_prune": {
+        "enabled": true,
+        "cap": 4,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 4,
+          "before": 0,
+          "after": 0,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "first_angle_views_pending_unbound",
+        "first_angle_views_still_unbound",
+        "dim_import3_exc",
+        "OK",
+        "reference_autodim_no_increase",
+        "part_class",
+        "dim_via_sidecar",
+        "reference_display_dim_floor_unmet",
+        "png_fallback_to_pdf"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\33d064adfac8",
+      "status": "need_review",
+      "deliverable": false,
+      "reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "style_status": "need_review",
+      "style_pass": false,
+      "style_reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "reference_dims": 14,
+      "generated_dims": 85,
+      "reference_views": 2,
+      "generated_views": 2,
+      "reference_types": {
+        "7": 1,
+        "4": 1
+      },
+      "generated_types": {
+        "7": 1,
+        "4": 1
+      },
+      "display_dim_before_sidecar": 8,
+      "display_dim_final_memory": 8,
+      "reference_autodim": {
+        "applied": false,
+        "before": 8,
+        "after": 8,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.155809
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.155809",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.078414
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.078414",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "reference_dim_prune": {
+        "enabled": true,
+        "cap": 14,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 14,
+          "before": 8,
+          "after": 8,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "display_mode_fail",
+        "display_mode_fail",
+        "dim_import3_exc",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "OK",
+        "reference_autodim_no_increase",
+        "part_class",
+        "dim_via_sidecar",
+        "reference_display_dim_floor_unmet",
+        "png_fallback_to_pdf"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\e510944fad05",
+      "status": "pass",
+      "deliverable": true,
+      "reasons": [],
+      "style_status": "pass",
+      "style_pass": true,
+      "style_reasons": [],
+      "reference_dims": 25,
+      "generated_dims": 34,
+      "reference_views": 4,
+      "generated_views": 4,
+      "reference_types": {
+        "7": 2,
+        "4": 2
+      },
+      "generated_types": {
+        "7": 2,
+        "4": 2
+      },
+      "display_dim_before_sidecar": 8,
+      "display_dim_final_memory": 8,
+      "reference_autodim": {
+        "applied": false,
+        "before": 8,
+        "after": 8,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.11,
+              0.1448
+            ],
+            "selected": true,
+            "select_reason": "工程图视图1:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.11,
+              0.0734
+            ],
+            "selected": true,
+            "select_reason": "工程图视图2:DRAWINGVIEW",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "reference_dim_prune": {
+        "enabled": true,
+        "cap": 25,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 25,
+          "before": 8,
+          "after": 8,
+          "deleted": 0,
+          "attempted": 0,
+          "success": true,
+          "reasons": []
+        },
+        "save": {},
+        "success": true
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "first_angle_views_pending_unbound",
+        "display_mode_fail",
+        "first_angle_views_still_unbound",
+        "dim_import3_exc",
+        "OK",
+        "reference_autodim_no_increase",
+        "part_class",
+        "dim_via_sidecar",
+        "reference_display_dim_floor_unmet",
+        "png_fallback_to_pdf"
+      ]
+    }
+  ]
+}

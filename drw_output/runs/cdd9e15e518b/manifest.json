@@ -1,0 +1,41 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "part_base": "LB26001-A-04-006",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cdd9e15e518b",
+  "generated_at": "2026-06-22 09:26:21",
+  "returncode": 1,
+  "line_count": 22,
+  "core_files_ok": false,
+  "drawing_usable": {
+    "pass": false,
+    "reason": "subprocess_exit_code_1"
+  },
+  "hard_fail": [
+    "subprocess_failed"
+  ],
+  "warnings": [],
+  "qc_pass": false,
+  "qc_score_pass_count": 0,
+  "dimension_grade": "",
+  "dimension_sources": {},
+  "display_dim_count": 0,
+  "note_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {},
+  "final_quality": {},
+  "vision_final_quality_error": "skipped_on_worker_failure",
+  "output_files": {
+    "drawing": [],
+    "qc": [],
+    "logs": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cdd9e15e518b\\manifest.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cdd9e15e518b\\sw_session.json"
+    ]
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cdd9e15e518b\\sw_session.json",
+  "failure_reason": "subprocess_exit_code_1"
+}

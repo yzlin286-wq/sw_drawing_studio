@@ -1,0 +1,87 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-22 20:52:00",
+  "scope": "User-requested LB26001 reference drawings: 006, 007, 008, 009, 015, 022",
+  "method": "Inspected application Drawing Review UI screenshots side-by-side: same-name reference drawing on the left, generated drawing on the right.",
+  "api_results_used_as_final_judgement": false,
+  "overall_status": "FAIL",
+  "total": 6,
+  "pass_count": 0,
+  "warning_count": 0,
+  "fail_count": 6,
+  "common_failure_buckets": [
+    "title_block_or_border_intrudes_main_drawing_area",
+    "generated_layout_does_not_match_same_name_reference",
+    "dimension_coverage_and_dimension_style_do_not_match_reference",
+    "technical_notes_and_reference_note_style_missing_or_misplaced",
+    "api_pass_is_not_reliable_without_visual_screenshot_review"
+  ],
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "visual_findings": [
+        "Reference uses long horizontal views plus a right-side small view and isometric view; generated layout does not preserve that structure.",
+        "Generated drawing contains title block or drawing frame geometry inside the drawing area.",
+        "Dimension placement and technical note placement differ materially from the reference."
+      ],
+      "recommended_fix": "Preserve the reference long-thin view slots and keep the title block/frame outside the model view area before rerunning CAD generation."
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/02_LB26001-A-04-007_ui_visual_review.png",
+      "visual_findings": [
+        "Generated view scale and placement do not match the compact reference layout.",
+        "Large title block/frame lines intrude into the right-hand generated drawing area.",
+        "Dimension annotation style and density do not match the reference drawing."
+      ],
+      "recommended_fix": "Reduce generated frame/title geometry intrusion, align the three-view/isometric layout to the reference, and regenerate dimensions from the reference style."
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/03_LB26001-A-04-008_ui_visual_review.png",
+      "visual_findings": [
+        "Reference emphasizes a plate top view, bottom thin view, and a red machining note; generated drawing changes the view arrangement.",
+        "Generated drawing adds or relocates side/isometric views compared with the reference composition.",
+        "Reference warning/note style is not reproduced, and frame/title elements appear in the main drawing region."
+      ],
+      "recommended_fix": "Treat the red reference note and plate-view layout as hard visual style inputs, then rerun layout and notes placement."
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/04_LB26001-A-04-009_ui_visual_review.png",
+      "visual_findings": [
+        "Generated front/side/isometric view proportions and positions differ from the reference.",
+        "Title block/frame linework intrudes into the generated drawing's model area.",
+        "Reference dimension cluster style is not reproduced in the generated drawing."
+      ],
+      "recommended_fix": "Anchor circular-part view positions to the same-name reference and prevent title block linework from being included in the preview/model area."
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/05_LB26001-A-04-015_ui_visual_review.png",
+      "visual_findings": [
+        "Reference is a dense machined-plate drawing with many hole and contour dimensions; generated drawing is under-dimensioned.",
+        "Generated main view is too small and does not preserve the reference dimension density.",
+        "Title block/table linework occupies a large portion of the drawing area."
+      ],
+      "recommended_fix": "Raise feature/hole dimension extraction coverage for dense machined plates and reserve sheet title/table regions before view placement."
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/06_LB26001-A-04-022_ui_visual_review.png",
+      "visual_findings": [
+        "Reference contains complete multi-view dimensions; generated drawing lacks most visible blue dimension annotations.",
+        "Generated views are roughly similar in type but not in scale, position, or dimension coverage.",
+        "Title block/table linework appears inside the generated drawing area and reduces usable drawing space."
+      ],
+      "recommended_fix": "Keep the reference multi-view layout, restore full dimension coverage, and exclude title/table geometry from the model comparison area."
+    }
+  ]
+}

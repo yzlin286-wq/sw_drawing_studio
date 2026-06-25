@@ -1,0 +1,390 @@
+{
+  "total_parts": 36,
+  "deliverable": 34,
+  "not_deliverable": 2,
+  "deliverable_rate": "34/36",
+  "deliverable_rate_pct": 94,
+  "not_deliverable_list": [
+    "LB26001-A-04-024",
+    "LB26001-A-04-040"
+  ],
+  "part_status": {
+    "LB26001-A-04-001": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "2189cc4922b5",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-002": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "e37f286e4ab0",
+      "grade": "B",
+      "part_class": "long_thin"
+    },
+    "LB26001-A-04-003": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "9d1462be4c82",
+      "grade": "B",
+      "part_class": "long_thin"
+    },
+    "LB26001-A-04-004": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "f5ef81a68301",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-005": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "b9cdef37e01e",
+      "grade": "B",
+      "part_class": "feature_part"
+    },
+    "LB26001-A-04-006": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "51df09710df0",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-007": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "54dad5f4ff40",
+      "grade": "B",
+      "part_class": "tiny_part"
+    },
+    "LB26001-A-04-008": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "f4a58eba8ddd",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-009": {
+      "deliverable": true,
+      "source": "runs_manifest",
+      "run_id": "0bf957d377b5",
+      "grade": "B",
+      "part_class": "tiny_part"
+    },
+    "LB26001-A-04-015": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-016": {
+      "files_ok": true,
+      "v6_success": false,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-021": {
+      "files_ok": true,
+      "v6_success": false,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-022": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-023": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-024": {
+      "deliverable": false,
+      "source": "runs_manifest",
+      "run_id": "ddf6029dc7d6",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-025": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-026": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-031": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-032": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-033": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-034": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-035": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-036": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-037": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-038": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-039": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-040": {
+      "deliverable": false,
+      "source": "runs_manifest",
+      "run_id": "5a3e6282cc10",
+      "grade": "",
+      "part_class": ""
+    },
+    "LB26001-A-04-041": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-042": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-044": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-045": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-046": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-047": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-048": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-049": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    },
+    "LB26001-A-04-050": {
+      "files_ok": true,
+      "v6_success": true,
+      "deliverable": true,
+      "source": "v5_files",
+      "files": {
+        "SLDDRW": true,
+        "PDF": true,
+        "DXF": true,
+        "PNG": true
+      }
+    }
+  }
+}

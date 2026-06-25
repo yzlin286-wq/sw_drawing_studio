@@ -1,0 +1,191 @@
+{
+  "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\LB26001-A-04-001_v4.SLDDRW",
+  "pass": false,
+  "score_pass_count": 9,
+  "issues": [
+    "view_overlap: 1 对视图重叠",
+    "view_in_frame: 1 个视图越界",
+    "refdoc_correct: 4 个视图缺失模型引用"
+  ],
+  "checks": {
+    "view_overlap": {
+      "pass": false,
+      "overlap_pairs": [
+        {
+          "a": "工程图视图1",
+          "b": "工程图视图2",
+          "a_outline": [
+            0.04649999999999998,
+            0.15364063231985015,
+            0.1549,
+            0.16455936768014984
+          ],
+          "b_outline": [
+            0.04349999999999999,
+            0.11470000000000001,
+            0.15190000000000003,
+            0.18510000000000001
+          ]
+        }
+      ],
+      "real_view_count": 4
+    },
+    "view_in_frame": {
+      "pass": false,
+      "frame": [
+        0.01,
+        0.01,
+        0.287,
+        0.2
+      ],
+      "out_of_frame": [
+        {
+          "name": "工程图视图4",
+          "outline": [
+            0.16932435072388966,
+            0.06220714636316805,
+            0.2922756492761103,
+            0.13879285363683197
+          ]
+        }
+      ]
+    },
+    "front_view_position": {
+      "pass": true,
+      "detail": {
+        "found": 1,
+        "candidates": [
+          {
+            "name": "工程图视图1",
+            "cx_mm": 100.7,
+            "cy_mm": 159.1,
+            "in_zone": true
+          }
+        ]
+      }
+    },
+    "scale_in_set": {
+      "pass": true,
+      "scale": [
+        1,
+        5
+      ],
+      "allowed": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true,
+      "text_height_m": 0.0035000001080334187,
+      "threshold_m": 0.0035
+    },
+    "all_13_keys_present": {
+      "pass": true,
+      "missing": [],
+      "present_count": 13,
+      "total": 13
+    },
+    "dim_count_sufficient": {
+      "pass": true,
+      "dim_total": 44,
+      "threshold": 10.55,
+      "baseline_avg_dim": 21.1
+    },
+    "centermark_count_sufficient": {
+      "pass": true,
+      "centermark_total": 78,
+      "threshold": 5.0,
+      "baseline_avg_centermark": 10
+    },
+    "has_tech_note": {
+      "pass": true,
+      "noteblock_total": 5,
+      "threshold": 4
+    },
+    "has_ra_note": {
+      "pass": true,
+      "noteblock_total": 5,
+      "threshold": 4
+    },
+    "has_datum_a": {
+      "pass": true,
+      "noteblock_total": 5,
+      "threshold": 4
+    },
+    "refdoc_correct": {
+      "pass": false,
+      "checked_count": 4,
+      "bad_ref": [
+        {
+          "name": "工程图视图1",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图2",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图3",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        },
+        {
+          "name": "工程图视图4",
+          "type": 7,
+          "ref_doc_present": false,
+          "ref_doc": ""
+        }
+      ]
+    }
+  },
+  "_check_order": [
+    "view_overlap",
+    "view_in_frame",
+    "front_view_position",
+    "scale_in_set",
+    "text_height_ge_3_5mm",
+    "all_13_keys_present",
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct"
+  ]
+}

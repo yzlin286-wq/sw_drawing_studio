@@ -1,0 +1,513 @@
+{
+  "schema": "sw_drawing_studio.reference_compare.v4",
+  "version": "v4.0",
+  "generated_at": "2026-06-24 20:13:28",
+  "base": "LB26001-A-04-008",
+  "mode": "reference_compare_v4",
+  "thresholds": {
+    "view_match": 0.9,
+    "dimension_match": 0.8,
+    "titlebar_match": 0.85,
+    "notes_match": 0.85,
+    "layout_match": 0.8
+  },
+  "artifacts": {
+    "drawing_blueprint": "missing",
+    "reference_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\reference_profiles_v4.json",
+    "dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_ref6_current_20260622\\03_LB26001-A-04-008\\dimension_validation.json",
+    "vision_qc_v6": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\closed_loop_codex_fail_20260624\\vision_qc_v6_with_ui_review\\LB26001-A-04-008.json",
+    "generator_warnings": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43\\qc\\LB26001-A-04-008_v5_warnings.json",
+    "legacy_reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_ref6_current_20260622\\03_LB26001-A-04-008\\reference_compare.json",
+    "legacy_reference_style": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_ref6_current_20260622\\03_LB26001-A-04-008\\reference_style.json"
+  },
+  "status": "fail",
+  "pass": false,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "scores": {
+    "view_match": 0.0,
+    "dimension_match": 1.0,
+    "titlebar_match": 0.0,
+    "notes_match": 1.0,
+    "layout_match": 0.0,
+    "symbol_match": 1.0,
+    "drawing_purpose_match": 0.0,
+    "overall_score": 0.46
+  },
+  "view_match_score": 0.0,
+  "dimension_match_score": 1.0,
+  "titlebar_match_score": 0.0,
+  "notes_match_score": 1.0,
+  "layout_match_score": 0.0,
+  "symbol_match_score": 1.0,
+  "drawing_purpose_match_score": 0.0,
+  "overall_score": 0.46,
+  "reference": {
+    "base": "LB26001-A-04-008",
+    "view_count": 2,
+    "view_types": {
+      "7": 1,
+      "4": 1
+    },
+    "display_dim_count": 2,
+    "sheet_size": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "scale": "reference",
+    "roughness_symbol_count": 0,
+    "datum_symbol_count": 0,
+    "notes_count": 0
+  },
+  "generated": {
+    "base": "LB26001-A-04-008",
+    "view_count": 0,
+    "view_types": {},
+    "display_dim_count": 16,
+    "display_dim_count_source": "dimension_validation.dimension_validation.display_dim_count",
+    "note_dim_count": 3,
+    "reference_intent_target_coverage": {
+      "required": false,
+      "expected_target_count": 0,
+      "latest_stage": "",
+      "covered_target_keys": [],
+      "missing_target_keys": [],
+      "coverage_present": false
+    },
+    "drawing_purpose": "",
+    "part_class": "",
+    "projected_view_methods": []
+  },
+  "differences": [
+    {
+      "key": "drawing_blueprint_missing",
+      "severity": "critical",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4",
+      "confidence": 1.0,
+      "evidence": {
+        "source": "missing"
+      },
+      "fix_suggestion": "Generate drawing_blueprint.json before accepting the drawing.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_count_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_count",
+      "confidence": 1.0,
+      "evidence": {
+        "reference": 2,
+        "generated": 0
+      },
+      "fix_suggestion": "Create every required view from DrawingBlueprint.view_plan before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_type_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_types",
+      "confidence": 1.0,
+      "evidence": {
+        "view_type": "7",
+        "reference": 1,
+        "generated": 0
+      },
+      "fix_suggestion": "Match the reference drawing view type family before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_type_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_types",
+      "confidence": 1.0,
+      "evidence": {
+        "view_type": "4",
+        "reference": 1,
+        "generated": 0
+      },
+      "fix_suggestion": "Match the reference drawing view type family before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "note_dimensions_not_counted_as_display_dim",
+      "severity": "minor",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.dimension",
+      "confidence": 1.0,
+      "evidence": {
+        "note_dim_count": 3,
+        "generated_display_dim_count": 16
+      },
+      "fix_suggestion": "Keep Note annotations separate; only real DisplayDim objects count toward the reference dimension baseline.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "ui_screenshot_visual_acceptance_not_passed",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "application_ui_screenshot_review",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_status": "need_review",
+        "visual_acceptance_pass": false,
+        "ui_screenshot_review": {
+          "required": true,
+          "pass": false,
+          "manual_review_status": "fail",
+          "manual_review_error": "",
+          "manual_review_method": "application_drawing_review_ui_screenshot",
+          "manual_review_method_ok": true,
+          "ui_screenshot_evidence_present": true,
+          "ui_screenshot_paths": [
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+          ],
+          "ui_screenshot_paths_existing": [
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+          ],
+          "ui_screenshot_paths_existing_application_ui": [
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png"
+          ],
+          "ui_screenshot_content_check_pass": true,
+          "ui_screenshot_content_checks": [
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            },
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            },
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            },
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            },
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            },
+            {
+              "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+              "pass": true,
+              "exists": true,
+              "width": 2600,
+              "height": 1400,
+              "reasons": [],
+              "checks": {
+                "min_size_pass": true,
+                "aspect_pass": true,
+                "top_chrome_pass": true,
+                "left_nav_pass": true,
+                "bottom_log_pass": true,
+                "side_by_side_review_region_pass": true
+              }
+            }
+          ],
+          "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\drawing_visual_review_report.json",
+          "source_ui_report_exists": true,
+          "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+          "source_ui_report_mode": "source_qt_application_ui_screenshot",
+          "source_ui_report_application_ui_ok": true,
+          "case_match": {
+            "required": true,
+            "pass": false,
+            "base": "LB26001-A-04-008",
+            "matching_count": 1,
+            "manual_case_status_pass": false,
+            "visual_checklist_required": true,
+            "visual_checklist_pass": false,
+            "required_visual_checklist_items": [
+              "reference_match",
+              "view_layout",
+              "display_dimensions",
+              "dimension_readability",
+              "title_block",
+              "manufacturing_notes"
+            ],
+            "missing_visual_checklist_items": [],
+            "failed_visual_checklist_items": [
+              "reference_match",
+              "view_layout",
+              "display_dimensions",
+              "dimension_readability",
+              "title_block",
+              "manufacturing_notes"
+            ],
+            "not_passed_visual_checklist_items": [
+              "dimension_readability",
+              "display_dimensions",
+              "manufacturing_notes",
+              "reference_match",
+              "title_block",
+              "view_layout"
+            ]
+          },
+          "generated_png_source_required": true,
+          "generated_png_source_pass": true,
+          "generated_png_source_evidence": {
+            "base": "LB26001-A-04-008",
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43\\drawing\\LB26001-A-04-008_v5.PNG",
+            "source": "run_dir",
+            "exists": true,
+            "strict_sample": true,
+            "under_run_dir": true,
+            "under_legacy_v5": false,
+            "strict_source_pass": true,
+            "reasons": [],
+            "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+          },
+          "source": "application_ui_screenshot_review",
+          "api_is_not_final_judgement": true
+        },
+        "api_is_not_final_judgement": true
+      },
+      "fix_suggestion": "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "titlebar_match_below_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "vision_qc_v6.titlebar",
+      "confidence": 1.0,
+      "evidence": {
+        "titlebar_match": 0.0
+      },
+      "fix_suggestion": "Fill and visually render the titlebar fields from DrawingBlueprint.titlebar_plan.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "layout_match_below_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "vision_qc_v6.layout",
+      "confidence": 1.0,
+      "evidence": {
+        "layout_match": 0.0
+      },
+      "fix_suggestion": "Align view placement, titlebar, notes, and coarse ink layout with the same-name reference.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_match_score_below_v4_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.score",
+      "confidence": 1.0,
+      "evidence": {
+        "score": 0.0,
+        "threshold": 0.9
+      },
+      "fix_suggestion": "Correct the drawing against the same-name reference before accepting the staged case.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "titlebar_match_score_below_v4_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.score",
+      "confidence": 1.0,
+      "evidence": {
+        "score": 0.0,
+        "threshold": 0.85
+      },
+      "fix_suggestion": "Correct the drawing against the same-name reference before accepting the staged case.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "layout_match_score_below_v4_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.score",
+      "confidence": 1.0,
+      "evidence": {
+        "score": 0.0,
+        "threshold": 0.8
+      },
+      "fix_suggestion": "Correct the drawing against the same-name reference before accepting the staged case.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    }
+  ],
+  "reasons": [
+    "drawing_blueprint_missing",
+    "view_count_lower_than_reference",
+    "view_type_lower_than_reference",
+    "view_type_lower_than_reference",
+    "ui_screenshot_visual_acceptance_not_passed",
+    "titlebar_match_below_threshold",
+    "layout_match_below_threshold",
+    "view_match_score_below_v4_threshold",
+    "titlebar_match_score_below_v4_threshold",
+    "layout_match_score_below_v4_threshold"
+  ],
+  "failure_bucket": [
+    "drawing_blueprint_missing",
+    "layout_match_below_threshold",
+    "layout_match_score_below_v4_threshold",
+    "note_dimensions_not_counted_as_display_dim",
+    "titlebar_match_below_threshold",
+    "titlebar_match_score_below_v4_threshold",
+    "ui_screenshot_visual_acceptance_not_passed",
+    "view_count_lower_than_reference",
+    "view_match_score_below_v4_threshold",
+    "view_type_lower_than_reference"
+  ],
+  "fix_suggestions": [
+    "Generate drawing_blueprint.json before accepting the drawing.",
+    "Create every required view from DrawingBlueprint.view_plan before acceptance.",
+    "Match the reference drawing view type family before acceptance.",
+    "Keep Note annotations separate; only real DisplayDim objects count toward the reference dimension baseline.",
+    "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance.",
+    "Fill and visually render the titlebar fields from DrawingBlueprint.titlebar_plan.",
+    "Align view placement, titlebar, notes, and coarse ink layout with the same-name reference.",
+    "Correct the drawing against the same-name reference before accepting the staged case."
+  ]
+}

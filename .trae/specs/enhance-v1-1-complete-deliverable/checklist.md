@@ -1,0 +1,22 @@
+# Checklist
+
+- [x] `app/services/run_manager.py` 提供 RunContext + new_run + write_manifest
+- [x] 单件 run 后 `drw_output/runs/<run_id>/manifest.json` 存在，含 run_id / sw_revision / output_files / hard_fail / drawing_usable（验证 run_id=b84a04edfd46）
+- [x] `app/services/health_check.py` 输出 12 项，每项含 key/status/msg/fix
+- [x] health_check 返回顶层 {all_ok, pass, warning, fail}
+- [x] sw_runner 强制绝对路径；fallback_used 写入 manifest
+- [x] `drw_quality_check.py` 输出含 diagnostics 字段（4 子项）
+- [x] hard_fail 仅含 12 项白名单；refdoc_correct 严格 warning
+- [x] `vision.json` 含 threshold / image_path / model + issues[].fix_suggestion
+- [x] BOM/工艺/报价 6 产物（json + xlsx 各 3）写入 run_id 子目录
+- [x] 缺数据进入 assumptions/warnings；不阻断 drawing_usable
+- [x] UI 七页能在 EXE 中切换 + 7 张截图 ≥ 30KB（全部 PASS，最小 32.3KB）
+- [x] `app/services/diagnostics.py` 提供 build_diagnostics_zip（验证 zip 125KB / 9 文件）
+- [x] 诊断 zip 含 9 文件
+- [x] `app/services/refdoc_relink_service.py` 提供 5 策略接口（pywin32_late 已实现）
+- [x] 设置页含「实验性 refdoc 强修」开关，默认关闭
+- [x] EXE 重打成功，体积 135.3 MB（≤ 200 MB），smoke alive 8s（pid=2804）
+- [x] 真实闭环：hard_fail=[] / drawing_usable.pass=True / qc_pass=11/12 / vision_score=65
+- [x] release_log_v1_1.md 含 14 节 + v1.1 发布判定 PASS
+- [x] 不退化：qc_pass=11/12（与 v1.0 持平），vision_score=65（与 v1.0 持平），drawing_usable.pass=True，hard_fail=[]
+- [x] 原 `3D转2D测试图纸/` 目录文件未改动

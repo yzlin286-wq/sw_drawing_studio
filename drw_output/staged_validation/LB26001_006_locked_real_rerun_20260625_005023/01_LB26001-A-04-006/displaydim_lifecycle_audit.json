@@ -1,0 +1,3615 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_displaydim_lifecycle_audit.v4_2",
+  "generated_at": "2026-06-25 00:56:50",
+  "base": "LB26001-A-04-006",
+  "status": "fail",
+  "pass": false,
+  "warnings_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3007ca30db30\\qc\\LB26001-A-04-006_v5_warnings.json",
+  "cad_smoke_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_005023\\01_LB26001-A-04-006\\cad_smoke.json",
+  "dimension_validation_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_005023\\01_LB26001-A-04-006\\dimension_validation.json",
+  "reference_intent_plan_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+  "required_display_dim_floor": 12,
+  "stage_counts": [
+    {
+      "stage": "pre_saveas_explicit_before",
+      "display_dim_count": 12,
+      "source": "warnings.reference_autodim.before",
+      "evidence": {}
+    },
+    {
+      "stage": "pre_saveas_explicit_after",
+      "display_dim_count": 12,
+      "source": "warnings.reference_autodim.after",
+      "evidence": {}
+    },
+    {
+      "stage": "post_saveas_reopen_prune_before",
+      "display_dim_count": 15,
+      "source": "warnings.reference_dim_prune.prune.before",
+      "evidence": {}
+    },
+    {
+      "stage": "post_saveas_reopen_prune_after",
+      "display_dim_count": 14,
+      "source": "warnings.reference_dim_prune.prune.after",
+      "evidence": {}
+    },
+    {
+      "stage": "post_prune_guard_before",
+      "display_dim_count": 11,
+      "source": "warnings.post_prune_dim_guard.before",
+      "evidence": {}
+    },
+    {
+      "stage": "post_prune_guard_after",
+      "display_dim_count": 12,
+      "source": "warnings.post_prune_dim_guard.after",
+      "evidence": {}
+    },
+    {
+      "stage": "before_sidecar_diagnostic",
+      "display_dim_count": 12,
+      "source": "warnings.display_dim_count_before_sidecar",
+      "evidence": {}
+    },
+    {
+      "stage": "pre_export_final",
+      "display_dim_count": 11,
+      "source": "warnings.display_dim_count_final",
+      "evidence": {}
+    },
+    {
+      "stage": "post_layout_before_repair",
+      "display_dim_count": 12,
+      "source": "warnings.post_layout_dim_repair.before",
+      "evidence": {}
+    },
+    {
+      "stage": "post_layout_explicit_after",
+      "display_dim_count": 12,
+      "source": "warnings.post_layout_dim_repair.explicit_display_dims.after",
+      "evidence": {}
+    },
+    {
+      "stage": "post_layout_final",
+      "display_dim_count": 12,
+      "source": "warnings.post_layout_dim_repair.after",
+      "evidence": {}
+    },
+    {
+      "stage": "dimension_validation_final",
+      "display_dim_count": 11,
+      "source": "dimension_validation.display_dim_count",
+      "evidence": {}
+    }
+  ],
+  "loss_events": [
+    {
+      "from_stage": "post_saveas_reopen_prune_before",
+      "to_stage": "post_saveas_reopen_prune_after",
+      "from_count": 15,
+      "to_count": 14,
+      "lost_count": 1
+    },
+    {
+      "from_stage": "post_saveas_reopen_prune_after",
+      "to_stage": "post_prune_guard_before",
+      "from_count": 14,
+      "to_count": 11,
+      "lost_count": 3
+    },
+    {
+      "from_stage": "before_sidecar_diagnostic",
+      "to_stage": "pre_export_final",
+      "from_count": 12,
+      "to_count": 11,
+      "lost_count": 1
+    },
+    {
+      "from_stage": "post_layout_final",
+      "to_stage": "dimension_validation_final",
+      "from_count": 12,
+      "to_count": 11,
+      "lost_count": 1
+    }
+  ],
+  "coverage_summary": {
+    "snapshot_count": 6,
+    "stages": [
+      "pre_saveas",
+      "post_saveas_reopen_prune",
+      "post_saveas_reopen_prune_guard",
+      "pre_export_final",
+      "post_layout_reopen_before_repair",
+      "post_layout_final"
+    ],
+    "post_prune_guard_present": true,
+    "post_layout_final_present": true,
+    "post_layout_final_missing_target_keys": [
+      "right_end_offset",
+      "hole_diameter",
+      "hole_pitch",
+      "projection_view_height"
+    ],
+    "coverage_delta_present": true
+  },
+  "prune_log_summary": {
+    "stages": [
+      {
+        "stage": "post_saveas_reopen_prune",
+        "deleted": 1,
+        "delete_plan_count": 1,
+        "deleted_item_count": 1,
+        "deleted_items": [
+          {
+            "slot": "top",
+            "view": "工程图视图2",
+            "source": "GetFirstDisplayDimension",
+            "score": 6.5,
+            "target_key": "overall_width",
+            "target_group": "overall_envelope",
+            "expected_type": "linear_vertical",
+            "preferred_side": "right",
+            "target_match": {
+              "target_key": "overall_width",
+              "target_group": "overall_envelope",
+              "functional_role": "",
+              "reading_group": "",
+              "readability_group": "",
+              "target_view": "top",
+              "expected_type": "linear_vertical",
+              "preferred_side": "right",
+              "placement_lane": {},
+              "allowed_witness_entity": {},
+              "prune_protection_policy": {},
+              "matched_side": "right",
+              "station": 0.58,
+              "target_fraction": 0.58,
+              "station_delta": 0.0,
+              "match_score": 5.2225
+            },
+            "select_method": "annotation.Select3",
+            "delete_method": "EditDelete",
+            "reason": "over_quota_or_low_reference_intent_score"
+          }
+        ],
+        "delete_plan": [
+          {
+            "slot": "top",
+            "view": "工程图视图2",
+            "source": "GetFirstDisplayDimension",
+            "score": 6.5,
+            "target_key": "overall_width",
+            "target_group": "overall_envelope",
+            "expected_type": "linear_vertical",
+            "preferred_side": "right",
+            "target_match": {
+              "target_key": "overall_width",
+              "target_group": "overall_envelope",
+              "functional_role": "",
+              "reading_group": "",
+              "readability_group": "",
+              "target_view": "top",
+              "expected_type": "linear_vertical",
+              "preferred_side": "right",
+              "placement_lane": {},
+              "allowed_witness_entity": {},
+              "prune_protection_policy": {},
+              "matched_side": "right",
+              "station": 0.58,
+              "target_fraction": 0.58,
+              "station_delta": 0.0,
+              "match_score": 5.2225
+            },
+            "reason": "over_quota_or_low_reference_intent_score"
+          }
+        ],
+        "detail_present": true,
+        "required_fields": [
+          "target_key",
+          "slot",
+          "reason"
+        ]
+      },
+      {
+        "stage": "post_layout_reference_prune",
+        "deleted": 1,
+        "delete_plan_count": 1,
+        "deleted_item_count": 1,
+        "deleted_items": [
+          {
+            "slot": "top",
+            "view": "工程图视图2",
+            "source": "GetDisplayDimensions",
+            "score": 4.0,
+            "target_key": "overall_width",
+            "target_group": "overall_envelope",
+            "expected_type": "linear_vertical",
+            "preferred_side": "right",
+            "target_match": {
+              "target_key": "overall_width",
+              "target_group": "overall_envelope",
+              "functional_role": "",
+              "reading_group": "",
+              "readability_group": "",
+              "target_view": "top",
+              "expected_type": "linear_vertical",
+              "preferred_side": "right",
+              "placement_lane": {},
+              "allowed_witness_entity": {},
+              "prune_protection_policy": {},
+              "matched_side": "right",
+              "station": 1.0,
+              "target_fraction": 0.58,
+              "station_delta": 0.42,
+              "match_score": 3.2225
+            },
+            "select_method": "annotation.Select3",
+            "delete_method": "EditDelete",
+            "reason": "over_quota_or_low_reference_intent_score"
+          }
+        ],
+        "delete_plan": [
+          {
+            "slot": "top",
+            "view": "工程图视图2",
+            "source": "GetDisplayDimensions",
+            "score": 4.0,
+            "target_key": "overall_width",
+            "target_group": "overall_envelope",
+            "expected_type": "linear_vertical",
+            "preferred_side": "right",
+            "target_match": {
+              "target_key": "overall_width",
+              "target_group": "overall_envelope",
+              "functional_role": "",
+              "reading_group": "",
+              "readability_group": "",
+              "target_view": "top",
+              "expected_type": "linear_vertical",
+              "preferred_side": "right",
+              "placement_lane": {},
+              "allowed_witness_entity": {},
+              "prune_protection_policy": {},
+              "matched_side": "right",
+              "station": 1.0,
+              "target_fraction": 0.58,
+              "station_delta": 0.42,
+              "match_score": 3.2225
+            },
+            "reason": "over_quota_or_low_reference_intent_score"
+          }
+        ],
+        "detail_present": true,
+        "required_fields": [
+          "target_key",
+          "slot",
+          "reason"
+        ]
+      }
+    ],
+    "deleted_total": 2,
+    "detail_missing_stages": [],
+    "missing_required_field_items": [],
+    "deleted_target_keys": [
+      "overall_width"
+    ],
+    "pass": true
+  },
+  "sidecar_policy_summary": {
+    "strict_reference_intent": true,
+    "mode_present": true,
+    "mode": {
+      "run_sidecar": false,
+      "diagnostic_only": true,
+      "reason": "display_dim_floor_satisfied"
+    },
+    "event_codes": [
+      "reference_intent_dimension_sidecar_skipped"
+    ],
+    "run_event_codes": [],
+    "events": [
+      {
+        "code": "reference_intent_dimension_sidecar_skipped",
+        "display_dim_count": 12,
+        "reference_display_dim_floor": 12,
+        "run_sidecar": false,
+        "diagnostic_only": false,
+        "acceptance_allowed": false,
+        "msg": "Reference-intent path reached the DisplayDim floor without running the generic dimension sidecar."
+      }
+    ],
+    "diagnostic_only_event_present": false,
+    "skipped_event_present": true,
+    "stale_or_outside_run_dir_path_events": [],
+    "missing_drawing_path_events": [],
+    "acceptance_disallowed_events": [],
+    "pass": true
+  },
+  "post_prune_guard_summary": {
+    "present": true,
+    "attempted": true,
+    "before": 11,
+    "after": 12,
+    "repair_reason": "display_dim_floor_gap",
+    "explicit_created": 1,
+    "missing_target_keys_after_repair": [],
+    "target_coverage_after_guard_present": true,
+    "missing_target_keys_after_guard": [
+      "hole_diameter",
+      "overall_height",
+      "projection_view_height"
+    ],
+    "slot_rebind_diagnostics_present": true,
+    "slot_view_sources_present": true,
+    "save_success": true
+  },
+  "post_layout_repair_summary": {
+    "attempted": true,
+    "before": 12,
+    "after": 12,
+    "explicit_attempted": true,
+    "explicit_created": 0,
+    "live_view_recovery_failed": true,
+    "live_view_recovery_unbound_slots": [
+      "front",
+      "right",
+      "top"
+    ],
+    "created_views_refresh": {
+      "code": "reference_intent_created_views_refreshed",
+      "stage": "post_layout_reopen",
+      "source": "post_layout_reopen_getviews_refresh",
+      "expected_slots": [
+        "front",
+        "iso",
+        "right",
+        "top"
+      ],
+      "record_count": 0,
+      "current_doc_view_count": 0,
+      "getviews_count": 0,
+      "current_sheet_getviews_count": 0,
+      "current_doc_usable_view_count": 0,
+      "getviews_usable_count": 0,
+      "current_sheet_getviews_usable_count": 0,
+      "active_doc_title": "LB26001-A-04-006_v5 - 图纸1",
+      "active_doc_type": "3",
+      "sheet_name": "图纸1",
+      "live_view_records": [],
+      "refresh_actions": [
+        {
+          "action": "ActivateSheet",
+          "ok": true
+        },
+        {
+          "action": "ForceRebuild3",
+          "ok": true
+        },
+        {
+          "action": "GraphicsRedraw2",
+          "ok": true
+        },
+        {
+          "action": "post_layout_reopen_force_rebuild_wait",
+          "ok": true
+        }
+      ],
+      "refreshed_slots": [],
+      "matched_slots": [],
+      "unbound_slots": [
+        "front",
+        "iso",
+        "right",
+        "top"
+      ],
+      "details": {}
+    },
+    "current_drawing_doc_refresh": {
+      "stage": "post_layout_reopen",
+      "candidates": [
+        {
+          "source": "reopened_doc",
+          "present": true,
+          "title": "LB26001-A-04-006_v5 - 图纸1",
+          "doc_type": "3",
+          "sheet_name": "图纸1",
+          "has_get_first_view": true
+        }
+      ],
+      "selected_source": "reopened_doc",
+      "selected_title": "LB26001-A-04-006_v5 - 图纸1",
+      "selected_doc_type": "3",
+      "selected_sheet_name": "图纸1",
+      "activate_attempt": {
+        "method": "ActivateDoc3",
+        "title": "LB26001-A-04-006_v5 - 图纸1",
+        "ok": true,
+        "errors": 0
+      }
+    },
+    "current_doc_view_count": 0,
+    "getviews_count": 0,
+    "current_sheet_getviews_count": 0,
+    "target_result_count": 12,
+    "target_reason_counts": {
+      "post_layout_live_view_recovery_failed": 12
+    },
+    "slot_rebind_diagnostics_present": true,
+    "slot_view_sources_present": false,
+    "final_acceptance_blockers": [
+      {
+        "key": "display_dim_floor_gap",
+        "display_dim_count": 11,
+        "reference_display_dim_floor": 12,
+        "gap": 1
+      },
+      {
+        "key": "reference_intent_targets_missing",
+        "missing_target_keys": [
+          "hole_diameter",
+          "hole_pitch",
+          "projection_view_height",
+          "right_end_offset"
+        ],
+        "missing_count": 4
+      }
+    ],
+    "slot_rebind_diagnostic_count": 22,
+    "direct_accept_failed_count": 0,
+    "direct_accept_recovered_by_persisted_name_count": 0,
+    "direct_accept_persisted_name_failed_count": 0,
+    "direct_accept_rebind_details": [],
+    "slot_rebind_summary_present": true,
+    "slot_rebind_summary": {
+      "expected_slots": [
+        "front",
+        "right",
+        "top"
+      ],
+      "bound_slots": [],
+      "unbound_slots": [
+        "front",
+        "right",
+        "top"
+      ],
+      "current_view_record_count": 1,
+      "persisted_view_record_count": 4,
+      "match_threshold": 0.035,
+      "slot_results": {
+        "front": {
+          "bound": false,
+          "reason": "all_rebind_attempts_failed",
+          "source": "",
+          "layout_center_present": true,
+          "layout_center": [
+            0.1100088,
+            0.16955399999999998
+          ],
+          "name_candidates": [
+            "工程图视图1",
+            "工程图 视图1",
+            "Drawing View1",
+            "Drawing View 1",
+            "Front View",
+            "前视图"
+          ],
+          "diagnostic_attempt_count": 7,
+          "accepted_attempt_count": 0,
+          "nearest_candidates": [
+            {
+              "view_name": "工程图视图1",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.0,
+              "outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图2",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.04465,
+              "outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ]
+            },
+            {
+              "view_name": "工程图视图3",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.10558,
+              "outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图4",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.14579,
+              "outline": [
+                0.21703051589528555,
+                0.08523995879149374,
+                0.25965448410471437,
+                0.11552004120850626
+              ]
+            }
+          ]
+        },
+        "right": {
+          "bound": false,
+          "reason": "all_rebind_attempts_failed",
+          "source": "",
+          "layout_center_present": true,
+          "layout_center": [
+            0.2155923,
+            0.16955399999999998
+          ],
+          "name_candidates": [
+            "工程图视图2",
+            "工程图 视图2",
+            "Drawing View2",
+            "Drawing View 2",
+            "Right View",
+            "右视图"
+          ],
+          "diagnostic_attempt_count": 7,
+          "accepted_attempt_count": 0,
+          "nearest_candidates": [
+            {
+              "view_name": "工程图视图3",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.0,
+              "outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图4",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.07282,
+              "outline": [
+                0.21703051589528555,
+                0.08523995879149374,
+                0.25965448410471437,
+                0.11552004120850626
+              ]
+            },
+            {
+              "view_name": "工程图视图1",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.10558,
+              "outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图2",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.11463,
+              "outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ]
+            }
+          ]
+        },
+        "top": {
+          "bound": false,
+          "reason": "all_rebind_attempts_failed",
+          "source": "",
+          "layout_center_present": true,
+          "layout_center": [
+            0.1100088,
+            0.12490799999999999
+          ],
+          "name_candidates": [
+            "工程图视图3",
+            "工程图 视图3",
+            "Drawing View3",
+            "Drawing View 3",
+            "Top View",
+            "俯视图",
+            "上视图"
+          ],
+          "diagnostic_attempt_count": 8,
+          "accepted_attempt_count": 0,
+          "nearest_candidates": [
+            {
+              "view_name": "工程图视图2",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.0,
+              "outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ]
+            },
+            {
+              "view_name": "工程图视图1",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.04465,
+              "outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图3",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.11463,
+              "outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ]
+            },
+            {
+              "view_name": "工程图视图4",
+              "view_type": "",
+              "source": "persisted_real_outlines",
+              "distance": 0.13066,
+              "outline": [
+                0.21703051589528555,
+                0.08523995879149374,
+                0.25965448410471437,
+                0.11552004120850626
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "slot_rebind_unbound_slots": [
+      "front",
+      "right",
+      "top"
+    ],
+    "slot_rebind_failure_reason_counts": {
+      "all_rebind_attempts_failed": 3
+    },
+    "slot_rebind_no_view_record_slots": [],
+    "slot_rebind_no_candidate_slots": []
+  },
+  "target_stage_matrix": {
+    "target_count": 12,
+    "required_stage_order": [
+      "pre_saveas",
+      "post_saveas_reopen_prune",
+      "post_saveas_reopen_prune_guard",
+      "pre_export_final",
+      "post_layout_final"
+    ],
+    "required_trace_fields": [
+      "target_key",
+      "view_slot",
+      "selected_entity",
+      "add_method",
+      "display_dim_count_before",
+      "display_dim_count_after",
+      "target_covered_after_attempt",
+      "persisted_after_reopen"
+    ],
+    "missing_snapshot_stages": [],
+    "post_layout_final_missing_target_keys": [
+      "right_end_offset",
+      "hole_diameter",
+      "hole_pitch",
+      "projection_view_height"
+    ],
+    "target_trace_incomplete_keys": [
+      "overall_length",
+      "overall_width",
+      "overall_height",
+      "left_end_offset",
+      "right_end_offset",
+      "hole_diameter",
+      "hole_x_location",
+      "hole_y_location",
+      "hole_pitch",
+      "projection_view_width",
+      "projection_view_height",
+      "small_feature_location"
+    ],
+    "target_view_not_found_keys": [],
+    "target_keys_inferred_from_plan_order": [],
+    "rows": [
+      {
+        "target_key": "overall_length",
+        "group": "overall_envelope",
+        "view_slot": "front",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 10,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.225,
+            "best_display_dim": {
+              "ordinal": 1,
+              "slot": "front",
+              "view": "工程图视图1",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.11000880000000002,
+                0.185054
+              ],
+              "view_outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ],
+              "score": 9.5,
+              "side": "top",
+              "reason": "slot=front;side=top;compact_lane;long_axis_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_length",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.225
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.225,
+            "best_display_dim": {
+              "ordinal": 1,
+              "slot": "front",
+              "view": "工程图视图1",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.11000880000000002,
+                0.185054
+              ],
+              "view_outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ],
+              "score": 9.5,
+              "side": "top",
+              "reason": "slot=front;side=top;compact_lane;long_axis_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_length",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.225
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3917,
+            "best_display_dim": {
+              "ordinal": 1,
+              "slot": "front",
+              "view": "工程图视图1",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.11907546666666669,
+                0.185054
+              ],
+              "view_outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ],
+              "score": 9.5,
+              "side": "top",
+              "reason": "slot=front;side=top;compact_lane;long_axis_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_length",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.6667,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3917
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3917,
+            "best_display_dim": {
+              "ordinal": 1,
+              "slot": "front",
+              "view": "工程图视图1",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.11907546666666669,
+                0.185054
+              ],
+              "view_outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ],
+              "score": 9.5,
+              "side": "top",
+              "reason": "slot=front;side=top;compact_lane;long_axis_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_length",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.6667,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3917
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3917,
+            "best_display_dim": {
+              "ordinal": 1,
+              "slot": "front",
+              "view": "工程图视图1",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.10094213333333334,
+                0.185054
+              ],
+              "view_outline": [
+                0.0828088,
+                0.16405399999999998,
+                0.13720880000000002,
+                0.175054
+              ],
+              "score": 9.5,
+              "side": "top",
+              "reason": "slot=front;side=top;compact_lane;long_axis_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_length",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.3333,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3917
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "overall_length",
+          "view_slot": "front",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      },
+      {
+        "target_key": "overall_width",
+        "group": "overall_envelope",
+        "view_slot": "top",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "priority": 11,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.2225,
+            "best_display_dim": {
+              "ordinal": 9,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.14720880000000003,
+                0.125772
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_width",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.58,
+                "target_fraction": 0.58,
+                "station_delta": 0.0,
+                "match_score": 5.2225
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 3.2225,
+            "best_display_dim": {
+              "ordinal": 8,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.16920880000000005,
+                0.134308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 4.0,
+              "side": "right",
+              "reason": "slot=top;side=right;outer_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_width",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 1.0,
+                "target_fraction": 0.58,
+                "station_delta": 0.42,
+                "match_score": 3.2225
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 3.2225,
+            "best_display_dim": {
+              "ordinal": 8,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.16920880000000005,
+                0.134308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 4.0,
+              "side": "right",
+              "reason": "slot=top;side=right;outer_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_width",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 1.0,
+                "target_fraction": 0.58,
+                "station_delta": 0.42,
+                "match_score": 3.2225
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 4,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 3.2225,
+            "best_display_dim": {
+              "ordinal": 8,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.1572088,
+                0.134308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 5.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "overall_width",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 1.0,
+                "target_fraction": 0.58,
+                "station_delta": 0.42,
+                "match_score": 3.2225
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": true,
+          "success": true,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "overall_width",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddVerticalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_saveas_reopen_prune",
+        "blocking": true
+      },
+      {
+        "target_key": "overall_height",
+        "group": "overall_envelope",
+        "view_slot": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "priority": 12,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.22,
+            "best_display_dim": {
+              "ordinal": 14,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.23099230000000007,
+                0.17021399999999998
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "right",
+              "reason": "slot=right;side=right;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "overall_height",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.56,
+                "target_fraction": 0.56,
+                "station_delta": 0.0,
+                "match_score": 5.22
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.22,
+            "best_display_dim": {
+              "ordinal": 13,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.23099230000000007,
+                0.17021399999999998
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "right",
+              "reason": "slot=right;side=right;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "overall_height",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.56,
+                "target_fraction": 0.56,
+                "station_delta": 0.0,
+                "match_score": 5.22
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.6867,
+            "best_display_dim": {
+              "ordinal": 13,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.2309923000000001,
+                0.1713873333333333
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "right",
+              "reason": "slot=right;side=right;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "overall_height",
+                "target_group": "overall_envelope",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.6667,
+                "target_fraction": 0.56,
+                "station_delta": 0.1067,
+                "match_score": 4.6867
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "overall_height",
+          "view_slot": "right",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddVerticalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_saveas_reopen_prune_guard",
+        "blocking": true
+      },
+      {
+        "target_key": "left_end_offset",
+        "group": "end_offsets",
+        "view_slot": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 20,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.2,
+            "best_display_dim": {
+              "ordinal": 3,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.09260080000000002,
+                0.10950799999999997
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 5.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "left_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.18,
+                "target_fraction": 0.18,
+                "station_delta": 0.0,
+                "match_score": 5.2
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.2,
+            "best_display_dim": {
+              "ordinal": 8,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.09260080000000002,
+                0.10950799999999997
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 5.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "left_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.18,
+                "target_fraction": 0.18,
+                "station_delta": 0.0,
+                "match_score": 5.2
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.4333,
+            "best_display_dim": {
+              "ordinal": 5,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10094213333333334,
+                0.101508
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "left_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.3333,
+                "target_fraction": 0.18,
+                "station_delta": 0.1533,
+                "match_score": 4.4333
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.4333,
+            "best_display_dim": {
+              "ordinal": 5,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10094213333333334,
+                0.101508
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "left_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.3333,
+                "target_fraction": 0.18,
+                "station_delta": 0.1533,
+                "match_score": 4.4333
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.4333,
+            "best_display_dim": {
+              "ordinal": 5,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10094213333333334,
+                0.101508
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "left_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.3333,
+                "target_fraction": 0.18,
+                "station_delta": 0.1533,
+                "match_score": 4.4333
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "left_end_offset",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      },
+      {
+        "target_key": "right_end_offset",
+        "group": "end_offsets",
+        "view_slot": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 21,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1975,
+            "best_display_dim": {
+              "ordinal": 4,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.1274168,
+                0.10550799999999996
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "right_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.82,
+                "target_fraction": 0.82,
+                "station_delta": 0.0,
+                "match_score": 5.1975
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1975,
+            "best_display_dim": {
+              "ordinal": 3,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.1274168,
+                0.10550799999999996
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "right_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.82,
+                "target_fraction": 0.82,
+                "station_delta": 0.0,
+                "match_score": 5.1975
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 3.8753,
+            "best_display_dim": {
+              "ordinal": 3,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.11303102222222224,
+                0.10150799999999999
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "right_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.5556,
+                "target_fraction": 0.82,
+                "station_delta": 0.2644,
+                "match_score": 3.8753
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 3.8753,
+            "best_display_dim": {
+              "ordinal": 3,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.11303102222222224,
+                0.10150799999999999
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.0,
+              "side": "bottom",
+              "reason": "slot=top;side=bottom;compact_lane;long_axis_station;hole_position_lane",
+              "target_match": {
+                "target_key": "right_end_offset",
+                "target_group": "end_offsets",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "below",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "bottom",
+                "station": 0.5556,
+                "target_fraction": 0.82,
+                "station_delta": 0.2644,
+                "match_score": 3.8753
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "right_end_offset",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_layout_final",
+        "blocking": true
+      },
+      {
+        "target_key": "hole_diameter",
+        "group": "hole_locations",
+        "view_slot": "top",
+        "expected_type": "diameter",
+        "expected_add_method": "AddDiameterDimension2",
+        "priority": 30,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.175,
+            "best_display_dim": {
+              "ordinal": 5,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.14720880000000003,
+                0.12534
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_diameter",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "diameter",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.54,
+                "target_fraction": 0.54,
+                "station_delta": 0.0,
+                "match_score": 5.175
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.175,
+            "best_display_dim": {
+              "ordinal": 4,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.14720880000000003,
+                0.12534
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_diameter",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "diameter",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.54,
+                "target_fraction": 0.54,
+                "station_delta": 0.0,
+                "match_score": 5.175
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "hole_diameter",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddDiameterDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_saveas_reopen_prune_guard",
+        "blocking": true
+      },
+      {
+        "target_key": "hole_x_location",
+        "group": "hole_locations",
+        "view_slot": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 31,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1725,
+            "best_display_dim": {
+              "ordinal": 6,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10348080000000003,
+                0.140308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_x_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.38,
+                "target_fraction": 0.38,
+                "station_delta": 0.0,
+                "match_score": 5.1725
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1725,
+            "best_display_dim": {
+              "ordinal": 5,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10348080000000003,
+                0.140308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_x_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.38,
+                "target_fraction": 0.38,
+                "station_delta": 0.0,
+                "match_score": 5.1725
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3836,
+            "best_display_dim": {
+              "ordinal": 9,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.09489768888888889,
+                0.148308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_x_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.2222,
+                "target_fraction": 0.38,
+                "station_delta": 0.1578,
+                "match_score": 4.3836
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3836,
+            "best_display_dim": {
+              "ordinal": 9,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetFirstDisplayDimension",
+              "position": [
+                0.09489768888888889,
+                0.148308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_x_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.2222,
+                "target_fraction": 0.38,
+                "station_delta": 0.1578,
+                "match_score": 4.3836
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.8503,
+            "best_display_dim": {
+              "ordinal": 3,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.10698657777777779,
+                0.148308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_x_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.4444,
+                "target_fraction": 0.38,
+                "station_delta": 0.0644,
+                "match_score": 4.8503
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "hole_x_location",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      },
+      {
+        "target_key": "hole_y_location",
+        "group": "hole_locations",
+        "view_slot": "top",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "priority": 32,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.17,
+            "best_display_dim": {
+              "ordinal": 7,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.15120880000000003,
+                0.124476
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_y_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.46,
+                "target_fraction": 0.46,
+                "station_delta": 0.0,
+                "match_score": 5.17
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.17,
+            "best_display_dim": {
+              "ordinal": 6,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.15120880000000003,
+                0.124476
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_y_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.46,
+                "target_fraction": 0.46,
+                "station_delta": 0.0,
+                "match_score": 5.17
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.6293,
+            "best_display_dim": {
+              "ordinal": 6,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.1572088,
+                0.12330800000000001
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_y_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.3519,
+                "target_fraction": 0.46,
+                "station_delta": 0.1081,
+                "match_score": 4.6293
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.6293,
+            "best_display_dim": {
+              "ordinal": 6,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.1572088,
+                0.12330800000000001
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_y_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.3519,
+                "target_fraction": 0.46,
+                "station_delta": 0.1081,
+                "match_score": 4.6293
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.6293,
+            "best_display_dim": {
+              "ordinal": 4,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.1572088,
+                0.123308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 6.5,
+              "side": "right",
+              "reason": "slot=top;side=right;compact_lane;transverse_station;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_y_location",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.3519,
+                "target_fraction": 0.46,
+                "station_delta": 0.1081,
+                "match_score": 4.6293
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "hole_y_location",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddVerticalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      },
+      {
+        "target_key": "hole_pitch",
+        "group": "hole_locations",
+        "view_slot": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 33,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1675,
+            "best_display_dim": {
+              "ordinal": 8,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.12088880000000002,
+                0.144308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_pitch",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.7,
+                "target_fraction": 0.7,
+                "station_delta": 0.0,
+                "match_score": 5.1675
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1675,
+            "best_display_dim": {
+              "ordinal": 7,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.12088880000000002,
+                0.144308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_pitch",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.7,
+                "target_fraction": 0.7,
+                "station_delta": 0.0,
+                "match_score": 5.1675
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.7786,
+            "best_display_dim": {
+              "ordinal": 4,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.12511991111111112,
+                0.148308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_pitch",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.7778,
+                "target_fraction": 0.7,
+                "station_delta": 0.0778,
+                "match_score": 4.7786
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.7786,
+            "best_display_dim": {
+              "ordinal": 4,
+              "slot": "top",
+              "view": "工程图视图2",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.12511991111111112,
+                0.148308
+              ],
+              "view_outline": [
+                0.0828088,
+                0.11950799999999999,
+                0.13720880000000002,
+                0.130308
+              ],
+              "score": 11.5,
+              "side": "top",
+              "reason": "slot=top;side=top;compact_lane;long_axis_station;hole_position_lane;long_thin_reference_lane",
+              "target_match": {
+                "target_key": "hole_pitch",
+                "target_group": "hole_locations",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.7778,
+                "target_fraction": 0.7,
+                "station_delta": 0.0778,
+                "match_score": 4.7786
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "hole_pitch",
+          "view_slot": "top",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_layout_final",
+        "blocking": true
+      },
+      {
+        "target_key": "projection_view_width",
+        "group": "small_projected_view",
+        "view_slot": "right",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "priority": 40,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.15,
+            "best_display_dim": {
+              "ordinal": 11,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.2155923,
+                0.185054
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 6.5,
+              "side": "top",
+              "reason": "slot=right;side=top;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "projection_view_width",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.15
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.15,
+            "best_display_dim": {
+              "ordinal": 10,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.2155923,
+                0.185054
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 6.5,
+              "side": "top",
+              "reason": "slot=right;side=top;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "projection_view_width",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.15
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 4,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3167,
+            "best_display_dim": {
+              "ordinal": 11,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.21379229999999996,
+                0.185054
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 6.5,
+              "side": "top",
+              "reason": "slot=right;side=top;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "projection_view_width",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.3333,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3167
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 4,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3167,
+            "best_display_dim": {
+              "ordinal": 11,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.21379229999999996,
+                0.185054
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 6.5,
+              "side": "top",
+              "reason": "slot=right;side=top;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "projection_view_width",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.3333,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3167
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 2,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.3167,
+            "best_display_dim": {
+              "ordinal": 10,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.21379229999999996,
+                0.185054
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 6.5,
+              "side": "top",
+              "reason": "slot=right;side=top;compact_lane;long_axis_station",
+              "target_match": {
+                "target_key": "projection_view_width",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "top",
+                "station": 0.3333,
+                "target_fraction": 0.5,
+                "station_delta": 0.1667,
+                "match_score": 4.3167
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "projection_view_width",
+          "view_slot": "right",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddHorizontalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      },
+      {
+        "target_key": "projection_view_height",
+        "group": "small_projected_view",
+        "view_slot": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "priority": 41,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1475,
+            "best_display_dim": {
+              "ordinal": 12,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.23499230000000007,
+                0.16955399999999998
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "right",
+              "reason": "slot=right;side=right;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "projection_view_height",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.1475
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.1475,
+            "best_display_dim": {
+              "ordinal": 11,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.23499230000000007,
+                0.16955399999999998
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "right",
+              "reason": "slot=right;side=right;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "projection_view_height",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "right",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "right",
+                "station": 0.5,
+                "target_fraction": 0.5,
+                "station_delta": 0.0,
+                "match_score": 5.1475
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": false,
+            "matched_count": 0,
+            "persisted_after_reopen": false,
+            "source": "target_results.matched_count",
+            "best_match_score": 0.0,
+            "best_display_dim": {},
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "projection_view_height",
+          "view_slot": "right",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddVerticalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "post_saveas_reopen_prune_guard",
+        "blocking": true
+      },
+      {
+        "target_key": "small_feature_location",
+        "group": "small_projected_view",
+        "view_slot": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "priority": 42,
+        "required": true,
+        "stage_states": [
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.145,
+            "best_display_dim": {
+              "ordinal": 13,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.20019229999999985,
+                0.16790399999999997
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "left",
+              "reason": "slot=right;side=left;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "small_feature_location",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "left",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "left",
+                "station": 0.35,
+                "target_fraction": 0.35,
+                "station_delta": 0.0,
+                "match_score": 5.145
+              }
+            },
+            "stage": "pre_saveas"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 5.145,
+            "best_display_dim": {
+              "ordinal": 12,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.20019229999999985,
+                0.16790399999999997
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "left",
+              "reason": "slot=right;side=left;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "small_feature_location",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "left",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "left",
+                "station": 0.35,
+                "target_fraction": 0.35,
+                "station_delta": 0.0,
+                "match_score": 5.145
+              }
+            },
+            "stage": "post_saveas_reopen_prune"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.2283,
+            "best_display_dim": {
+              "ordinal": 13,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.20019229999999988,
+                0.1658873333333333
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "left",
+              "reason": "slot=right;side=left;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "small_feature_location",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "left",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "left",
+                "station": 0.1667,
+                "target_fraction": 0.35,
+                "station_delta": 0.1833,
+                "match_score": 4.2283
+              }
+            },
+            "stage": "post_saveas_reopen_prune_guard"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.2283,
+            "best_display_dim": {
+              "ordinal": 13,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.20019229999999988,
+                0.1658873333333333
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "left",
+              "reason": "slot=right;side=left;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "small_feature_location",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "left",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "left",
+                "station": 0.1667,
+                "target_fraction": 0.35,
+                "station_delta": 0.1833,
+                "match_score": 4.2283
+              }
+            },
+            "stage": "pre_export_final"
+          },
+          {
+            "observed": true,
+            "covered": true,
+            "matched_count": 1,
+            "persisted_after_reopen": true,
+            "source": "target_results.matched_count",
+            "best_match_score": 4.2283,
+            "best_display_dim": {
+              "ordinal": 12,
+              "slot": "right",
+              "view": "工程图视图3",
+              "source": "GetDisplayDimensions",
+              "position": [
+                0.20019229999999988,
+                0.1658873333333333
+              ],
+              "view_outline": [
+                0.2101922999999999,
+                0.16405399999999998,
+                0.22099230000000009,
+                0.175054
+              ],
+              "score": 8.0,
+              "side": "left",
+              "reason": "slot=right;side=left;compact_lane;transverse_station",
+              "target_match": {
+                "target_key": "small_feature_location",
+                "target_group": "small_projected_view",
+                "functional_role": "",
+                "reading_group": "",
+                "readability_group": "",
+                "target_view": "right",
+                "expected_type": "linear_vertical",
+                "preferred_side": "left",
+                "placement_lane": {},
+                "allowed_witness_entity": {},
+                "prune_protection_policy": {},
+                "matched_side": "left",
+                "station": 0.1667,
+                "target_fraction": 0.35,
+                "station_delta": 0.1833,
+                "match_score": 4.2283
+              }
+            },
+            "stage": "post_layout_final"
+          }
+        ],
+        "post_prune_guard_attempt": {
+          "present": false,
+          "success": null,
+          "reason": null
+        },
+        "post_layout_attempt": {
+          "present": true,
+          "success": false,
+          "reason": "post_layout_live_view_recovery_failed",
+          "view_source": null
+        },
+        "trace": {
+          "target_key": "small_feature_location",
+          "view_slot": "right",
+          "selected_entity": null,
+          "add_method": null,
+          "expected_add_method": "AddVerticalDimension2",
+          "display_dim_count_before": 12,
+          "display_dim_count_after": 12,
+          "target_covered_after_attempt": false,
+          "persisted_after_reopen": false,
+          "target_trace_missing_fields": [
+            "selected_entity",
+            "add_method"
+          ],
+          "target_trace_complete": false
+        },
+        "lost_stage": "",
+        "blocking": true
+      }
+    ],
+    "pass": false
+  },
+  "blocking_issue_keys": [
+    "final_display_dim_below_reference_floor",
+    "display_dim_lifecycle_count_regression",
+    "post_layout_final_targets_missing",
+    "post_layout_live_view_recovery_failed",
+    "post_layout_slot_rebind_unbound_slots",
+    "post_prune_guard_targets_still_missing",
+    "target_stage_matrix_post_layout_final_missing",
+    "target_trace_missing_fields"
+  ],
+  "api_is_not_final_judgement": true,
+  "ui_screenshot_review_is_final_gate": true,
+  "next_actions": [
+    "Require slot_rebind_summary with bound/unbound slots, nearest candidates, and failure reasons for the next post-layout repair attempt.",
+    "Refresh the next 006 CAD run with per-target trace fields: target_key, view_slot, selected_entity, add_method, before/after counts, coverage, and persisted_after_reopen.",
+    "Use the target_stage_matrix rows to repair the exact reference-intent targets lost before post_layout_final.",
+    "After SolidWorks readiness clears, rerun only LB26001-A-04-006 through the locked CAD path and refresh this lifecycle audit."
+  ],
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3007ca30db30",
+  "applicable": true
+}

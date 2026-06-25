@@ -1,0 +1,134 @@
+[
+  {
+    "base": "LB26001-A-04-001",
+    "total": 76,
+    "layout": 20,
+    "dimension": 31,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-002",
+    "total": 68,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "C",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-003",
+    "total": 68,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "C",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-004",
+    "total": 76,
+    "layout": 20,
+    "dimension": 31,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-005",
+    "total": 76,
+    "layout": 20,
+    "dimension": 31,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-007",
+    "total": 68,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "C",
+    "reasons_count": 4
+  },
+  {
+    "base": "LB26001-A-04-009",
+    "total": 68,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 2,
+    "visual_clarity": 17,
+    "grade_label": "C",
+    "reasons_count": 4
+  },
+  {
+    "base": "-M3x8十字螺丝-1-V3-V02",
+    "total": 71,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 5,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "-弹簧压棒弹簧-1-V3-V02",
+    "total": 71,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 5,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "-AK-15-AC-25-1-V3-V02",
+    "total": 71,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 5,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "-AK-15-AC-26-1-V3-V02",
+    "total": 71,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 5,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  },
+  {
+    "base": "-AK-15-AC-27-1-V3-V02",
+    "total": 71,
+    "layout": 20,
+    "dimension": 23,
+    "titlebar": 6,
+    "annotation": 5,
+    "visual_clarity": 17,
+    "grade_label": "B",
+    "reasons_count": 4
+  }
+]

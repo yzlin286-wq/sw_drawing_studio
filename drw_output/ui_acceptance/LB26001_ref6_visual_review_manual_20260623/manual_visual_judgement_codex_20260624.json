@@ -1,0 +1,204 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v4_2",
+  "generated_at": "2026-06-24 00:00:00",
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "reviewer": "Codex visual review from application UI screenshots",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "required_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not match the same-name reference style; the visible sheet composition and callout strategy differ.",
+        "view_layout": "Reference uses a compact long-part layout; generated output includes misplaced long views, a separate title-frame region, and shifted isometric/projected views.",
+        "display_dimensions": "Reference end-offset, hole-location, right-side small projection, and grouping dimensions are not reproduced.",
+        "dimension_readability": "Visible dimensions are sparse/generic relative to the reference and cannot support manufacturing acceptance.",
+        "title_block": "Generated drawing carries a large default titleblock/frame that is absent from the concise reference layout.",
+        "manufacturing_notes": "Generated notes/roughness area is generic and does not match the compact reference-style callout area."
+      },
+      "findings": [
+        "Generated sheet still carries a large default titleblock/frame area that is absent from the concise reference layout.",
+        "Long-thin front/top views are not arranged like the reference; the generated isometric view and small projected view are misplaced relative to the reference intent.",
+        "The visible dimension scheme is sparse/generic and does not reproduce the reference's end-offset, hole-location, and right-side small projection dimension grouping.",
+        "Notes and roughness text are placed as generic template text instead of the reference-style compact callout area."
+      ],
+      "required_correction": "Implement explicit reference-intent dimension groups for 006 first; do not use generic AutoDimension as the final visual output."
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not reproduce the compact cylinder/end-feature reference presentation.",
+        "view_layout": "Generated views are arranged inside a default large sheet/titleblock layout instead of the compact reference distribution.",
+        "display_dimensions": "Diameter, tolerance, and thread/end-feature callouts visible in the reference are missing or not reproduced.",
+        "dimension_readability": "Generated dimensions are too sparse and not organized as readable reference-style callout groups.",
+        "title_block": "Generated titleblock/frame dominates the lower sheet and does not match the reference.",
+        "manufacturing_notes": "Generic notes replace the concise reference manufacturing annotation style."
+      },
+      "findings": [
+        "Generated view placement uses a default large sheet/titleblock layout; reference is compact with orthographic views and isometric view distributed without a large template block.",
+        "Critical diameter/tolerance/thread callouts visible in the reference are not reproduced as readable reference-style dimensions.",
+        "Side/front view sizing and spacing differ enough that the drawing does not read like the same drafting standard."
+      ],
+      "required_correction": "After 006 is accepted, create a 007-specific reference-intent plan for cylinder/end features and compact diameter callouts."
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated plate views do not match the reference's dominant face-view and concise note/dimension treatment.",
+        "view_layout": "Generated output spreads views and adds a default titleblock; reference is centered around the large face view with a compact secondary view.",
+        "display_dimensions": "Reference dimensions and the visible red manufacturing note are not faithfully represented.",
+        "dimension_readability": "Feature and hole callouts are under-controlled visually; existing style evidence also reports DisplayDim uncertainty.",
+        "title_block": "Generated large titleblock and notes region do not match the reference sheet style.",
+        "manufacturing_notes": "The reference's visible red manufacturing warning/note intent is not preserved in the generated drawing."
+      },
+      "findings": [
+        "Reference has a dominant plate face view with concise dimensioning and a red manufacturing note; generated output spreads generic orthographic/isometric views and omits the visible note intent.",
+        "Generated drawing includes a large default titleblock and notes area that does not match the reference sheet style.",
+        "Hole/feature callouts are under-controlled visually; API/style warnings already include fallback DisplayDim uncertainty."
+      ],
+      "required_correction": "Treat 008 as a plate-layout reference after 006 passes; preserve the large face view and explicit note/dimension strategy."
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not match the reference's diameter/internal-feature callout focus.",
+        "view_layout": "Side and isometric views are placed/scaled differently and the default frame changes the composition.",
+        "display_dimensions": "Diameter and internal feature dimensions visible in the reference are missing or too weak in the generated output.",
+        "dimension_readability": "Generated dimensions are sparse and do not form readable manufacturing callout groups.",
+        "title_block": "Generated default titleblock/notes frame occupies too much sheet space.",
+        "manufacturing_notes": "Reference-style concise manufacturing annotation is replaced by generic template notes."
+      },
+      "findings": [
+        "Reference emphasizes diameter and internal feature callouts; generated output shows mostly geometry with missing/weak visible dimensions.",
+        "The default titleblock/notes frame occupies too much sheet space and does not match the reference presentation.",
+        "The generated side and isometric views are positioned and scaled differently from the compact reference composition."
+      ],
+      "required_correction": "After 006 acceptance, build cylinder-specific diameter/thread/length callout groups before UI review."
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated high-density plate drawing does not reproduce the reference's hole/slot callout pattern.",
+        "view_layout": "Main view is too small and shifted; generated titleblock dominates the lower-right instead of the reference's balanced layout.",
+        "display_dimensions": "Most dense hole/slot/fastener dimensions and bottom projection callouts are missing.",
+        "dimension_readability": "Generated dimensions are insufficient for manufacturing even though supporting reports are pass-like.",
+        "title_block": "Generated titleblock/frame treatment is incompatible with the reference layout.",
+        "manufacturing_notes": "Reference manufacturing annotation density is not represented; generated notes are generic."
+      },
+      "findings": [
+        "Reference has dense but intentional hole/slot and fastener callouts around a large face view; generated output shrinks the main view and loses most callout intent.",
+        "Bottom projection and title/notes area do not follow the reference balance; generated titleblock dominates the lower-right sheet.",
+        "Dimensions are visibly insufficient for manufacturing review even though structured reports claim support."
+      ],
+      "required_correction": "Use 015 as a later high-density plate sample; it requires a learned callout map, not generic view auto-placement."
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_visual_review_manual_20260623\\drawing_visual_review_report.json",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated bracket drawing does not match the reference's stepped-height and hole-location dimension intent.",
+        "view_layout": "Generated views sit inside a large default frame and do not follow the reference's multi-view balance.",
+        "display_dimensions": "Height, hole, slot, and stepped-feature dimension groups visible in the reference are missing or not readable.",
+        "dimension_readability": "Generated drawing is mostly undimensioned geometry plus generic notes, not a usable manufacturing drawing.",
+        "title_block": "Generated titleblock/border treatment differs from the reference and consumes excessive sheet area.",
+        "manufacturing_notes": "Generic template notes do not capture the reference manufacturing requirements."
+      },
+      "findings": [
+        "Reference shows a bracket with multiple orthographic views and many height/hole/slot dimensions; generated output is mostly undimensioned geometry plus generic template notes.",
+        "Critical hole-position and stepped-height dimension groups visible in the reference are missing or not readable in generated output.",
+        "The generated titleblock and border treatment do not match the reference style."
+      ],
+      "required_correction": "Use 022 later as a bracket intent-plan sample with explicit stepped-height and hole-location groups."
+    }
+  ]
+}

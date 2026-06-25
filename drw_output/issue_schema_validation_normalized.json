@@ -1,0 +1,33 @@
+{
+  "schema": "sw_drawing_studio.issue_schema_validation.v1",
+  "generated_at": "2026-06-22 11:26:17",
+  "required_fields": [
+    "key",
+    "severity",
+    "bbox",
+    "source",
+    "confidence",
+    "evidence",
+    "fix_suggestion",
+    "auto_fix_available",
+    "human_review_status"
+  ],
+  "status": "pass",
+  "pass": true,
+  "scanned_files": 1,
+  "files_with_issues": 1,
+  "issue_count": 4538,
+  "compliant_issue_count": 4538,
+  "noncompliant_issue_count": 0,
+  "failure_bucket": [],
+  "missing_field_counts": {},
+  "invalid_field_counts": {},
+  "top_failure_files": [],
+  "failures": [],
+  "fix_suggestions": [
+    "No action needed; all discovered visual issues satisfy the required schema."
+  ],
+  "scan_roots": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit\\normalized_issue_index.json"
+  ]
+}

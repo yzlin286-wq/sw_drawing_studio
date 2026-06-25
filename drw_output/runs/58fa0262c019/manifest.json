@@ -1,0 +1,69 @@
+{
+  "run_id": "58fa0262c019",
+  "started_at": "2026-06-18 20:32:00",
+  "finished_at": "2026-06-18 20:34:26",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 307 150 A2000  90° 3刃凿.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\input\\INGUN_GKS 050 307 150 A2000  90° 3刃凿.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\drawing\\INGUN_GKS 050 307 150 A2000  90° 3刃凿_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\drawing\\INGUN_GKS 050 307 150 A2000  90° 3刃凿_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\drawing\\INGUN_GKS 050 307 150 A2000  90° 3刃凿_v5.DXF"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\qc\\INGUN_GKS 050 307 150 A2000  90° 3刃凿_v5_qc.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\58fa0262c019\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [
+    "png_missing",
+    "dim_total_too_low",
+    "qc_pass_too_low"
+  ],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": false,
+    "criteria": {
+      "files_exported": false,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 9,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 0,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

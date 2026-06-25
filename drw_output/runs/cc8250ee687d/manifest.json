@@ -1,0 +1,67 @@
+{
+  "run_id": "cc8250ee687d",
+  "started_at": "2026-06-18 20:56:57",
+  "finished_at": "2026-06-18 20:57:22",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-015.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\input\\LB26001-A-04-015.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\drawing\\LB26001-A-04-015_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\drawing\\LB26001-A-04-015_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\drawing\\LB26001-A-04-015_v5.DXF"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\qc\\LB26001-A-04-015_v5_qc.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cc8250ee687d\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [
+    "png_missing"
+  ],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": false,
+    "criteria": {
+      "files_exported": false,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 16,
+      "qc_pass_count": 11,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 11,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 16,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

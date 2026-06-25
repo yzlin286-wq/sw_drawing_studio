@@ -1,0 +1,142 @@
+{
+  "schema": "sw_drawing_studio.reference_compare_v4_probe.summary",
+  "status": "need_review",
+  "pass": false,
+  "case_count": 6,
+  "pass_count": 0,
+  "fail_or_review_count": 6,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "status": "fail",
+      "pass": false,
+      "overall_score": 0.74,
+      "view_match": 1.0,
+      "dimension_match": 0.667,
+      "titlebar_match": 0.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 8,
+      "display_dim_reference": 12,
+      "issue_keys": [
+        "display_dim_lower_than_reference",
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "titlebar_match_below_threshold",
+        "symbol_match_below_threshold",
+        "dimension_match_score_below_v4_threshold",
+        "titlebar_match_score_below_v4_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-006_reference_compare_v4.json"
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "status": "need_review",
+      "pass": false,
+      "overall_score": 0.96,
+      "view_match": 1.0,
+      "dimension_match": 1.0,
+      "titlebar_match": 1.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 10,
+      "display_dim_reference": 8,
+      "issue_keys": [
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "symbol_match_below_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-007_reference_compare_v4.json"
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "status": "need_review",
+      "pass": false,
+      "overall_score": 0.82,
+      "view_match": 1.0,
+      "dimension_match": 1.0,
+      "titlebar_match": 0.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 16,
+      "display_dim_reference": 2,
+      "issue_keys": [
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "titlebar_match_below_threshold",
+        "symbol_match_below_threshold",
+        "titlebar_match_score_below_v4_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-008_reference_compare_v4.json"
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "status": "need_review",
+      "pass": false,
+      "overall_score": 0.96,
+      "view_match": 1.0,
+      "dimension_match": 1.0,
+      "titlebar_match": 1.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 4,
+      "display_dim_reference": 4,
+      "issue_keys": [
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "symbol_match_below_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-009_reference_compare_v4.json"
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "status": "fail",
+      "pass": false,
+      "overall_score": 0.717,
+      "view_match": 1.0,
+      "dimension_match": 0.571,
+      "titlebar_match": 0.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 8,
+      "display_dim_reference": 14,
+      "issue_keys": [
+        "display_dim_lower_than_reference",
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "titlebar_match_below_threshold",
+        "symbol_match_below_threshold",
+        "dimension_match_score_below_v4_threshold",
+        "titlebar_match_score_below_v4_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-015_reference_compare_v4.json"
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "status": "fail",
+      "pass": false,
+      "overall_score": 0.797,
+      "view_match": 1.0,
+      "dimension_match": 0.32,
+      "titlebar_match": 1.0,
+      "notes_match": 1.0,
+      "layout_match": 1.0,
+      "visual_acceptance_pass": false,
+      "display_dim_generated": 8,
+      "display_dim_reference": 25,
+      "issue_keys": [
+        "display_dim_lower_than_reference",
+        "note_dimensions_not_counted_as_display_dim",
+        "ui_screenshot_visual_acceptance_not_passed",
+        "symbol_match_below_threshold",
+        "dimension_match_score_below_v4_threshold"
+      ],
+      "report": "drw_output\\reference_compare_v4_probe\\LB26001_ref6_current_after_strict_gate_20260622\\LB26001-A-04-022_reference_compare_v4.json"
+    }
+  ]
+}

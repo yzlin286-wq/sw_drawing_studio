@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-06-21 23:07:28",
+  "mode": "v3_exe_smoke",
+  "exe": "dist_v3_smoke\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild",
+  "pass": true,
+  "checks": [
+    {
+      "label": "exe_exists",
+      "path": "dist_v3_smoke\\sw_drawing_studio.exe",
+      "size_bytes": 540564733,
+      "pass": true
+    },
+    {
+      "label": "mock_worker",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--worker",
+        "mock",
+        "--job-id",
+        "smoke_mock",
+        "--scenario",
+        "normal_pass",
+        "--duration-s",
+        "0.2"
+      ],
+      "returncode": 0,
+      "event_count": 5,
+      "event_types": [
+        "heartbeat",
+        "job_finished",
+        "job_started",
+        "progress"
+      ],
+      "missing_events": [],
+      "pass": true,
+      "stdout_tail": "{\"event_type\": \"job_started\", \"type\": \"job_started\", \"job_id\": \"smoke_mock\", \"timestamp\": \"2026-06-21T23:06:00\", \"data\": {\"job_type\": \"mock\", \"scenario\": \"normal_pass\", \"duration_s\": 0.2}, \"message\": \"Mock job started: normal_pass\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_mock\", \"timestamp\": \"2026-06-21T23:06:00\", \"data\": {\"progress\": 0.5, \"stage\": \"mock_step_1/2\"}, \"message\": \"Mock progress 50%\"}\r\n{\"event_type\": \"heartbeat\", \"type\": \"heartbeat\", \"job_id\": \"smoke_mock\", \"timestamp\": \"2026-06-21T23:06:00\", \"data\": {\"ts\": 1782054360.325565}, \"message\": \"mock alive\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_mock\", \"timestamp\": \"2026-06-21T23:06:00\", \"data\": {\"progress\": 1.0, \"stage\": \"mock_step_2/2\"}, \"message\": \"Mock progress 100%\"}\r\n{\"event_type\": \"job_finished\", \"type\": \"job_finished\", \"job_id\": \"smoke_mock\", \"timestamp\": \"2026-06-21T23:06:00\", \"data\": {\"result\": {\"ok\": true, \"scenario\": \"normal_pass\", \"duration_s\": 0.2}}, \"message\": \"Mock job finished\"}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "llm_pre_analyze_worker",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--worker",
+        "llm_action",
+        "--job-id",
+        "smoke_llm_pre",
+        "--action",
+        "pre_analyze",
+        "--part-path",
+        "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\fixture_part.SLDPRT"
+      ],
+      "returncode": 0,
+      "event_count": 7,
+      "event_types": [
+        "heartbeat",
+        "job_finished",
+        "job_started",
+        "progress",
+        "warning"
+      ],
+      "missing_events": [],
+      "pass": true,
+      "stdout_tail": "4}, \"message\": \"llm worker alive\"}\r\n{\"event_type\": \"warning\", \"type\": \"warning\", \"job_id\": \"smoke_llm_pre\", \"timestamp\": \"2026-06-21T23:06:13\", \"data\": {\"key\": \"mock_response_used\"}, \"message\": \"Using explicit LLM mock response\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_llm_pre\", \"timestamp\": \"2026-06-21T23:06:13\", \"data\": {\"progress\": 0.35, \"stage\": \"run_llm_action\"}, \"message\": \"Running LLM action\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_llm_pre\", \"timestamp\": \"2026-06-21T23:06:13\", \"data\": {\"progress\": 0.9, \"stage\": \"complete\"}, \"message\": \"LLM action completed\"}\r\n{\"event_type\": \"job_finished\", \"type\": \"job_finished\", \"job_id\": \"smoke_llm_pre\", \"timestamp\": \"2026-06-21T23:06:13\", \"data\": {\"result\": {\"success\": true, \"action\": \"pre_analyze\", \"part_path\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\fixture_part.SLDPRT\", \"pre_analysis\": {\"category\": \"feature_part\", \"front_view\": \"front\", \"scale\": \"1:1\"}, \"raw_text\": \"{\\\"category\\\":\\\"feature_part\\\",\\\"front_view\\\":\\\"front\\\",\\\"scale\\\":\\\"1:1\\\"}\", \"mock_response_used\": true, \"timestamp\": \"2026-06-21 23:06:13\"}, \"action\": \"pre_analyze\"}, \"message\": \"LLM action finished\"}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "llm_tech_text_worker",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--worker",
+        "llm_action",
+        "--job-id",
+        "smoke_llm_text",
+        "--action",
+        "tech_text"
+      ],
+      "returncode": 0,
+      "event_count": 7,
+      "event_types": [
+        "heartbeat",
+        "job_finished",
+        "job_started",
+        "progress",
+        "warning"
+      ],
+      "missing_events": [],
+      "pass": true,
+      "stdout_tail": "\"heartbeat\", \"job_id\": \"smoke_llm_text\", \"timestamp\": \"2026-06-21T23:06:26\", \"data\": {\"ts\": 1782054386.2688873}, \"message\": \"llm worker alive\"}\r\n{\"event_type\": \"warning\", \"type\": \"warning\", \"job_id\": \"smoke_llm_text\", \"timestamp\": \"2026-06-21T23:06:26\", \"data\": {\"key\": \"mock_response_used\"}, \"message\": \"Using explicit LLM mock response\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_llm_text\", \"timestamp\": \"2026-06-21T23:06:26\", \"data\": {\"progress\": 0.35, \"stage\": \"run_llm_action\"}, \"message\": \"Running LLM action\"}\r\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"smoke_llm_text\", \"timestamp\": \"2026-06-21T23:06:26\", \"data\": {\"progress\": 0.9, \"stage\": \"complete\"}, \"message\": \"LLM action completed\"}\r\n{\"event_type\": \"job_finished\", \"type\": \"job_finished\", \"job_id\": \"smoke_llm_text\", \"timestamp\": \"2026-06-21T23:06:26\", \"data\": {\"result\": {\"success\": true, \"action\": \"tech_text\", \"items\": [\"Use GB/T 1804-m.\", \"Remove burrs.\", \"Mark surface roughness.\"], \"raw_text\": \"[\\\"Use GB/T 1804-m.\\\", \\\"Remove burrs.\\\", \\\"Mark surface roughness.\\\"]\", \"mock_response_used\": true, \"timestamp\": \"2026-06-21 23:06:26\"}, \"action\": \"tech_text\"}, \"message\": \"LLM action finished\"}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "qc_action_worker",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--worker",
+        "qc_action",
+        "--job-id",
+        "smoke_qc",
+        "--action",
+        "vision_qc_v2",
+        "--qc-json-path",
+        "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\qc_action_fixture\\run\\qc\\fixture_qc.json",
+        "--png-path",
+        "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\qc_action_fixture\\run\\drawing\\fixture.png",
+        "--run-dir",
+        "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\qc_action_fixture\\run"
+      ],
+      "returncode": 0,
+      "event_count": 6,
+      "event_types": [
+        "heartbeat",
+        "job_finished",
+        "job_started",
+        "progress"
+      ],
+      "missing_events": [],
+      "pass": true,
+      "stdout_tail": "ished\", \"type\": \"job_finished\", \"job_id\": \"smoke_qc\", \"timestamp\": \"2026-06-21T23:06:39\", \"data\": {\"result\": {\"version\": \"v1.8\", \"source_qc\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\qc_action_fixture\\\\run\\\\qc\\\\fixture_qc.json\", \"source_png\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\qc_action_fixture\\\\run\\\\drawing\\\\fixture.png\", \"issues\": [{\"key\": \"dimension_no_associativity\", \"severity\": \"minor\", \"bbox\": [0.1, 0.1, 0.8, 0.7], \"description\": \"尺寸关联性: unknown\", \"fix_suggestion\": \"使用模型关联尺寸而非手动标注\", \"auto_fix_available\": false}], \"summary\": {\"total\": 1, \"critical\": 0, \"major\": 0, \"minor\": 1, \"info\": 0}, \"checks\": {\"titlebar\": {\"pass\": true, \"issues\": []}, \"layout\": {\"pass\": true, \"issues\": []}, \"dimension\": {\"pass\": true, \"issues\": [\"dimension_no_associativity\"]}, \"annotation\": {\"pass\": true, \"issues\": []}, \"readability\": {\"pass\": true, \"issues\": []}}, \"success\": true, \"action\": \"vision_qc_v2\", \"run_dir\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\qc_action_fixture\\\\run\", \"timestamp\": \"2026-06-21 23:06:39\", \"action_name\": \"Vision QC v2\"}, \"action\": \"vision_qc_v2\", \"action_name\": \"Vision QC v2\"}, \"message\": \"Vision QC v2 finished\"}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "system_health_worker",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--worker",
+        "system_health",
+        "--job-id",
+        "smoke_health"
+      ],
+      "returncode": 0,
+      "event_count": 5,
+      "event_types": [
+        "heartbeat",
+        "job_finished",
+        "job_started",
+        "progress"
+      ],
+      "missing_events": [],
+      "pass": true,
+      "stdout_tail": "t deferred to visual worker gate\\n- WARNING yolo_weights: Dedicated YOLO/OBB weights were not found; visual checks rely on rules or generic models | fix: Place trained weights at models/yolo_drawing_obb.pt\\n\\n[Data]\\n- PASS output_dir: C:\\\\Users\\\\Vision\\\\AppData\\\\Local\\\\Temp\\\\_MEI374322\\\\drw_output writable\\n- PASS chinese_path_support: Unicode path read/write probe passed\\n- PASS db_readable: standard part, process, and pricing data are readable\\n- PASS llm: LLM model configured: glm-5.1\\n\\n[License]\\n- WARNING document_manager_key: SW_DM_LICENSE_KEY δ���ã�Document Manager ��Ҫ license key�� | fix: Configure SW_DM_LICENSE_KEY or config/docmgr.yaml; current flow can degrade but should explain it\\n\\n[UI-Worker]\\n- PASS cad_job_worker.py: cad_job_worker.py exists\\n- PASS batch_job_worker.py: batch_job_worker.py exists\\n- PASS drawing_review_worker.py: drawing_review_worker.py exists\\n- PASS vision_audit_worker.py: vision_audit_worker.py exists\\n- PASS mock_long_job_worker.py: mock_long_job_worker.py exists\\n- PASS health_check_worker.py: health_check_worker.py exists\\n- PASS mock_worker_smoke: mock worker starts and finishes\"}}, \"message\": \"System Health check finished (33 checks)\"}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "pipeline_script_info",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--pipeline-script-info",
+        "drw_quality_check"
+      ],
+      "returncode": 0,
+      "info": {
+        "script_key": "drw_quality_check",
+        "script_path": "C:\\Users\\Vision\\AppData\\Local\\Temp\\_MEI197442\\.trae\\specs\\enforce-drawing-quality\\drw_quality_check.py",
+        "exists": true
+      },
+      "pass": true,
+      "stdout_tail": "{\"script_key\": \"drw_quality_check\", \"script_path\": \"C:\\\\Users\\\\Vision\\\\AppData\\\\Local\\\\Temp\\\\_MEI197442\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\drw_quality_check.py\", \"exists\": true}\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "gui_alive",
+      "pid": 25640,
+      "alive_after_5s": true,
+      "elapsed_s": 5.02,
+      "pass": true,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "label": "internal_ui_walkthrough",
+      "cmd": [
+        "dist_v3_smoke\\sw_drawing_studio.exe",
+        "--ui-walkthrough",
+        "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\internal_walkthrough"
+      ],
+      "returncode": 0,
+      "report": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\internal_walkthrough\\ui_walkthrough_report.json",
+      "page_count": 9,
+      "all_pages_pass": true,
+      "screenshot_count": 9,
+      "min_screenshot_size": 5439770,
+      "pass": true,
+      "stdout_tail": "rue, \"screenshot_size_bytes\": 5439770, \"min_bytes\": 50000, \"pass\": true}, {\"page_index\": 6, \"page_name\": \"System Health\", \"current_index\": 6, \"nav_text\": \"System Health\", \"screenshot\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\internal_walkthrough\\\\screenshots\\\\07_system_health.png\", \"saved\": true, \"screenshot_size_bytes\": 5439770, \"min_bytes\": 50000, \"pass\": true}, {\"page_index\": 7, \"page_name\": \"Logs & Diagnostics\", \"current_index\": 7, \"nav_text\": \"Logs & Diagnostics\", \"screenshot\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\internal_walkthrough\\\\screenshots\\\\08_logs_diagnostics.png\", \"saved\": true, \"screenshot_size_bytes\": 5439770, \"min_bytes\": 50000, \"pass\": true}, {\"page_index\": 8, \"page_name\": \"Settings\", \"current_index\": 8, \"nav_text\": \"Settings\", \"screenshot\": \"drw_output\\\\ui_acceptance\\\\exe_v3_smoke_job_queue_rebuild\\\\internal_walkthrough\\\\screenshots\\\\09_settings.png\", \"saved\": true, \"screenshot_size_bytes\": 5439770, \"min_bytes\": 50000, \"pass\": true}], \"remaining_gates\": [\"This walkthrough only proves internal v3 page rendering for the launched app.\", \"Windows-level EXE click automation and 2-hour UI stability remain separate gates.\"]}\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "artifacts": {
+    "report_json": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\exe_smoke_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\exe_smoke_report.md",
+    "internal_walkthrough": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\internal_walkthrough",
+    "qc_fixture_run": "drw_output\\ui_acceptance\\exe_v3_smoke_job_queue_rebuild\\qc_action_fixture\\run"
+  },
+  "remaining_gates": [
+    "Windows-level EXE click automation remains pending.",
+    "Two-hour UI stability remains pending.",
+    "Real SolidWorks staged validation remains pending.",
+    "Historical visual audit 100 percent coverage remains pending."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "sw_drawing_studio.reference_intent_worker_probe_006_ui_evidence.v4_2",
+  "status": "ready",
+  "enabled": true,
+  "dimension_target_count": 12,
+  "operation_count": 12,
+  "requires_solidworks_lock": true,
+  "ui_thread_may_execute": false,
+  "plan_path": "drw_output\\reference_intent_worker_probe_006_ui_evidence_20260624\\qc\\reference_intent_dimension_plan_006.json",
+  "contract_path": "drw_output\\reference_intent_worker_probe_006_ui_evidence_20260624\\qc\\reference_intent_dimension_contract_006.json",
+  "ui_correction_evidence": {
+    "enabled": true,
+    "status": "ready",
+    "base": "LB26001-A-04-006",
+    "path": "drw_output\\reference_intent_worker_probe_006_ui_evidence_20260624\\qc\\lb26001_006_ui_correction_evidence.json",
+    "source_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json",
+    "failed_visual_check_count": 6,
+    "latest_manual_finding_count": 3,
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "ui_thread_may_execute": false
+  }
+}

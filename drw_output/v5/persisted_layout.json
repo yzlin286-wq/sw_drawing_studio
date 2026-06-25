@@ -1,0 +1,103 @@
+{
+  "success": true,
+  "iterations": 1,
+  "start_scale": "1:2",
+  "final_scale": "1:2",
+  "final_outlines": {
+    "工程图视图1": [
+      0.0483088,
+      0.16210399999999997,
+      0.17170880000000002,
+      0.177004
+    ],
+    "工程图视图2": [
+      0.0483088,
+      0.11770799999999998,
+      0.17170880000000002,
+      0.132108
+    ],
+    "工程图视图3": [
+      0.20839229999999978,
+      0.16210399999999997,
+      0.2227923000000002,
+      0.177004
+    ],
+    "工程图视图4": [
+      0.1913625397382139,
+      0.06882989697873433,
+      0.28532246026178604,
+      0.13193010302126568
+    ]
+  },
+  "target_outline_size_pass": true,
+  "target_outline_size_issues": [
+    {
+      "slot": "iso",
+      "view": "工程图视图4",
+      "reason": "outline_size_mismatch",
+      "actual_size": [
+        0.09396,
+        0.0631
+      ],
+      "target_size": [
+        0.051143,
+        0.035742
+      ],
+      "width_delta": 0.8372,
+      "height_delta": 0.7654,
+      "width_direction": "too_large",
+      "height_direction": "too_large",
+      "dominant_axis": "width",
+      "dominant_direction": "too_large",
+      "tolerance": 0.28,
+      "blocking": false
+    }
+  ],
+  "target_outline_size_blocking_issues": [],
+  "target_outline_size_warning_issues": [
+    {
+      "slot": "iso",
+      "view": "工程图视图4",
+      "reason": "outline_size_mismatch",
+      "actual_size": [
+        0.09396,
+        0.0631
+      ],
+      "target_size": [
+        0.051143,
+        0.035742
+      ],
+      "width_delta": 0.8372,
+      "height_delta": 0.7654,
+      "width_direction": "too_large",
+      "height_direction": "too_large",
+      "dominant_axis": "width",
+      "dominant_direction": "too_large",
+      "tolerance": 0.28,
+      "blocking": false
+    }
+  ],
+  "target_outline_scale_direction": "",
+  "overlap_pairs": [],
+  "out_of_frame": [],
+  "error": "",
+  "target_centers_applied": {
+    "front": [
+      0.110009,
+      0.169554
+    ],
+    "top": [
+      0.110009,
+      0.124908
+    ],
+    "right": [
+      0.215592,
+      0.169554
+    ],
+    "iso": [
+      0.238342,
+      0.10038
+    ]
+  },
+  "target_centers_persisted": true
+}

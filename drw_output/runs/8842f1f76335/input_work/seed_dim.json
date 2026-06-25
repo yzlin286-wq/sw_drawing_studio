@@ -1,0 +1,10 @@
+{
+  "work_part_path": "",
+  "seed_dim_count": 0,
+  "bbox": {},
+  "overall_length": 0.0,
+  "overall_width": 0.0,
+  "overall_height": 0.0,
+  "success": false,
+  "error": "复制文件失败: [Errno 13] Permission denied: 'C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\runs\\\\8842f1f76335\\\\input_work\\\\LB26001-A-04-044_seed.SLDPRT'"
+}

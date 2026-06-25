@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-06-22 08:34:08",
+  "mode": "real_cad_smoke_v3",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "job_id": "",
+  "started_at_epoch": 1782088445.9019668,
+  "finished_at_epoch": 1782088448.9932072,
+  "duration_s": 3.1,
+  "status": {
+    "status": "failed",
+    "error": "process_guard_timeout"
+  },
+  "terminal": {
+    "timeout": true,
+    "reason": "process guard timeout after 3s",
+    "child_pid": 36584,
+    "child_exitcode": -15
+  },
+  "run_dir": "",
+  "event_types": [],
+  "event_count": 0,
+  "observed_event_count": 0,
+  "artifacts": {},
+  "checks": [
+    {
+      "name": "process_guard_timeout",
+      "pass": false,
+      "reason": "Validator child process did not exit within 3s.",
+      "fix_suggestion": "Bound JobRuntimeFacade/QProcess startup and inspect SolidWorks dialogs or stuck worker startup."
+    }
+  ],
+  "pass": false,
+  "reasons": [
+    "Validator child process did not exit within 3s."
+  ],
+  "fix_suggestions": [
+    "Bound JobRuntimeFacade/QProcess startup and inspect SolidWorks dialogs or stuck worker startup."
+  ]
+}

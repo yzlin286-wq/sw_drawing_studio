@@ -1,0 +1,42 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 00:50:30",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/133b5cfc1a5d",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass",
+        "reference_style": "pass",
+        "reference_compare_v4": "need_review",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The long_thin cap reduced persisted DisplayDim to the 006 reference floor and visibly removed some excess dimension clutter.",
+        "The generated drawing is still AutoDimension-led rather than reference-intent-led; dimension groups do not match the same-name reference drawing.",
+        "The front/top long views still use heavy baseline dimension chains instead of the concise end, hole, and inspection placement seen in the reference.",
+        "The generated titlebar and notes are present, but the overall drawing is still not acceptable as a final manufacturing drawing."
+      ],
+      "improvement_evidence": {
+        "previous_run": "drw_output/runs/a7280e15bb6a",
+        "current_run": "drw_output/runs/133b5cfc1a5d",
+        "display_dim_count_final": 12,
+        "reference_display_dim_floor": 12,
+        "dimension_text_candidate_count": 108,
+        "previous_dimension_text_candidate_count": 126
+      },
+      "required_next_action": "Replace generic AutoDimension output with reference-intent dimension groups for long_thin parts: overall length/width, end offsets, hole positions, small projected-view size, and only required radius/thread callouts."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

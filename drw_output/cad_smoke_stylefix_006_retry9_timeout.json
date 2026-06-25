@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-06-22 08:14:42",
+  "mode": "real_cad_smoke_v3_timeout_record",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D?2D????\\LB26001-A-04-006.SLDPRT",
+  "status": "fail",
+  "pass": false,
+  "timeout_s": 1204,
+  "run_dir": "",
+  "reasons": [
+    "real_cad_smoke_retry9_parent_process_timeout",
+    "no_new_run_dir_created",
+    "no_cad_smoke_report_written"
+  ],
+  "notes": [
+    "retry9 was executed after adding GetCurrentSheet.GetViews/DrawingDoc.GetViews fallback enumeration.",
+    "The fallback was removed after timeout to return the generator to the retry8 stable behavior.",
+    "No original CAD files were modified."
+  ]
+}

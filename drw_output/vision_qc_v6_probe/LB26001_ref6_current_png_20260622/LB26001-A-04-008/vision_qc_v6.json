@@ -1,0 +1,5400 @@
+{
+  "schema": "sw_drawing_studio.vision_qc_v6",
+  "version": "v6",
+  "generated_at": "2026-06-22 23:11:46",
+  "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3731f36b1259\\drawing\\LB26001-A-04-008_v5.PNG",
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-008.png",
+  "manual_review": "",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-008",
+  "drawing_blueprint": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\vision_qc_v6_probe\\LB26001_ref6_current_png_20260622\\LB26001-A-04-008\\drawing_blueprint.json",
+  "source_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3731f36b1259\\qc\\LB26001-A-04-008_v5_qc.json",
+  "success": true,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "issues": [
+    {
+      "key": "view_frames_lower_than_blueprint",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0173,
+        0.9356,
+        0.7703
+      ],
+      "source": "drawing_object_detector",
+      "confidence": 0.55,
+      "evidence": {
+        "required_view_slots": [
+          "front",
+          "top"
+        ],
+        "detected_view_frame_count": 1
+      },
+      "fix_suggestion": "Review view creation against DrawingBlueprint.view_plan and rerun UI screenshot review.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Detected view-like regions are lower than the DrawingBlueprint expectation."
+    },
+    {
+      "key": "titlebar_missing_or_empty",
+      "severity": "major",
+      "bbox": [
+        0.68,
+        0.82,
+        0.32,
+        0.18
+      ],
+      "source": "titlebar_detector",
+      "confidence": 0.7,
+      "evidence": {
+        "success": true,
+        "box_norm": [
+          0.68,
+          0.82,
+          0.32,
+          0.18
+        ],
+        "detected": false,
+        "ink_density": 0.0,
+        "line_candidate_count": 0,
+        "component_count": 0,
+        "source": "titlebar_region_ink_density"
+      },
+      "fix_suggestion": "Fill or render the titlebar from DrawingBlueprint.titlebar_plan before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Titlebar region has too little visual evidence."
+    },
+    {
+      "key": "dimension_visual_overdense",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0173,
+        0.9356,
+        0.7703
+      ],
+      "source": "dimension_visual_validator",
+      "confidence": 0.58,
+      "evidence": {
+        "success": true,
+        "required_display_dim_count": 2,
+        "dimension_text_candidate_count": 183,
+        "dimension_arrow_candidate_count": 22,
+        "min_visual_candidate_count": 2,
+        "visual_dimension_coverage_pass": true,
+        "visual_dimension_density_pass": false,
+        "text_candidate_examples": [
+          {
+            "bbox": [
+              0.288198,
+              0.209996,
+              0.038483,
+              0.043934
+            ],
+            "area": 3831,
+            "area_norm": 0.00044018,
+            "aspect": 1.239
+          },
+          {
+            "bbox": [
+              0.283637,
+              0.295848,
+              0.030217,
+              0.04474
+            ],
+            "area": 2139,
+            "area_norm": 0.00024577,
+            "aspect": 0.955
+          },
+          {
+            "bbox": [
+              0.288483,
+              0.337767,
+              0.028506,
+              0.036679
+            ],
+            "area": 1468,
+            "area_norm": 0.00016867,
+            "aspect": 1.099
+          },
+          {
+            "bbox": [
+              0.277936,
+              0.232971,
+              0.016819,
+              0.016526
+            ],
+            "area": 658,
+            "area_norm": 7.56e-05,
+            "aspect": 1.439
+          },
+          {
+            "bbox": [
+              0.708096,
+              0.767029,
+              0.009122,
+              0.020153
+            ],
+            "area": 571,
+            "area_norm": 6.561e-05,
+            "aspect": 0.64
+          },
+          {
+            "bbox": [
+              0.739168,
+              0.767029,
+              0.009122,
+              0.020153
+            ],
+            "area": 550,
+            "area_norm": 6.319e-05,
+            "aspect": 0.64
+          },
+          {
+            "bbox": [
+              0.790764,
+              0.74607,
+              0.008837,
+              0.018944
+            ],
+            "area": 532,
+            "area_norm": 6.113e-05,
+            "aspect": 0.66
+          },
+          {
+            "bbox": [
+              0.687286,
+              0.767029,
+              0.009407,
+              0.020153
+            ],
+            "area": 526,
+            "area_norm": 6.044e-05,
+            "aspect": 0.66
+          },
+          {
+            "bbox": [
+              0.760262,
+              0.767029,
+              0.008552,
+              0.020153
+            ],
+            "area": 499,
+            "area_norm": 5.733e-05,
+            "aspect": 0.6
+          },
+          {
+            "bbox": [
+              0.667047,
+              0.768239,
+              0.009122,
+              0.018138
+            ],
+            "area": 491,
+            "area_norm": 5.642e-05,
+            "aspect": 0.711
+          },
+          {
+            "bbox": [
+              0.769669,
+              0.767029,
+              0.009692,
+              0.020153
+            ],
+            "area": 488,
+            "area_norm": 5.607e-05,
+            "aspect": 0.68
+          },
+          {
+            "bbox": [
+              0.641391,
+              0.704152,
+              0.008552,
+              0.018944
+            ],
+            "area": 483,
+            "area_norm": 5.55e-05,
+            "aspect": 0.638
+          },
+          {
+            "bbox": [
+              0.698119,
+              0.745667,
+              0.008837,
+              0.020153
+            ],
+            "area": 481,
+            "area_norm": 5.527e-05,
+            "aspect": 0.62
+          },
+          {
+            "bbox": [
+              0.718643,
+              0.724305,
+              0.009122,
+              0.020153
+            ],
+            "area": 476,
+            "area_norm": 5.469e-05,
+            "aspect": 0.64
+          },
+          {
+            "bbox": [
+              0.843501,
+              0.768239,
+              0.007127,
+              0.018541
+            ],
+            "area": 466,
+            "area_norm": 5.354e-05,
+            "aspect": 0.543
+          },
+          {
+            "bbox": [
+              0.646237,
+              0.768642,
+              0.008837,
+              0.017735
+            ],
+            "area": 458,
+            "area_norm": 5.262e-05,
+            "aspect": 0.705
+          },
+          {
+            "bbox": [
+              0.759692,
+              0.747279,
+              0.008837,
+              0.017735
+            ],
+            "area": 457,
+            "area_norm": 5.251e-05,
+            "aspect": 0.705
+          },
+          {
+            "bbox": [
+              0.851197,
+              0.724305,
+              0.009122,
+              0.020153
+            ],
+            "area": 449,
+            "area_norm": 5.159e-05,
+            "aspect": 0.64
+          },
+          {
+            "bbox": [
+              0.769954,
+              0.724708,
+              0.009122,
+              0.01975
+            ],
+            "area": 449,
+            "area_norm": 5.159e-05,
+            "aspect": 0.653
+          },
+          {
+            "bbox": [
+              0.821551,
+              0.745667,
+              0.008837,
+              0.020556
+            ],
+            "area": 448,
+            "area_norm": 5.147e-05,
+            "aspect": 0.608
+          }
+        ],
+        "arrow_candidate_examples": [
+          {
+            "bbox": [
+              0.697834,
+              0.767836,
+              0.004276,
+              0.018944
+            ],
+            "area": 254,
+            "area_norm": 2.918e-05,
+            "aspect": 0.319
+          },
+          {
+            "bbox": [
+              0.68358,
+              0.74607,
+              0.002281,
+              0.01975
+            ],
+            "area": 158,
+            "area_norm": 1.815e-05,
+            "aspect": 0.163
+          },
+          {
+            "bbox": [
+              0.817275,
+              0.74607,
+              0.002281,
+              0.019347
+            ],
+            "area": 145,
+            "area_norm": 1.666e-05,
+            "aspect": 0.167
+          },
+          {
+            "bbox": [
+              0.646237,
+              0.745667,
+              0.003421,
+              0.020556
+            ],
+            "area": 134,
+            "area_norm": 1.54e-05,
+            "aspect": 0.235
+          },
+          {
+            "bbox": [
+              0.621437,
+              0.72632,
+              0.001425,
+              0.013704
+            ],
+            "area": 81,
+            "area_norm": 9.31e-06,
+            "aspect": 0.147
+          },
+          {
+            "bbox": [
+              0.813569,
+              0.72632,
+              0.001425,
+              0.013704
+            ],
+            "area": 81,
+            "area_norm": 9.31e-06,
+            "aspect": 0.147
+          },
+          {
+            "bbox": [
+              0.832953,
+              0.733978,
+              0.006556,
+              0.001209
+            ],
+            "area": 69,
+            "area_norm": 7.93e-06,
+            "aspect": 7.667
+          },
+          {
+            "bbox": [
+              0.539054,
+              0.624345,
+              0.00114,
+              0.012092
+            ],
+            "area": 64,
+            "area_norm": 7.35e-06,
+            "aspect": 0.133
+          },
+          {
+            "bbox": [
+              0.531072,
+              0.771866,
+              0.005701,
+              0.001209
+            ],
+            "area": 58,
+            "area_norm": 6.66e-06,
+            "aspect": 6.667
+          },
+          {
+            "bbox": [
+              0.531072,
+              0.775091,
+              0.005701,
+              0.001209
+            ],
+            "area": 58,
+            "area_norm": 6.66e-06,
+            "aspect": 6.667
+          },
+          {
+            "bbox": [
+              0.531927,
+              0.629182,
+              0.005416,
+              0.001209
+            ],
+            "area": 57,
+            "area_norm": 6.55e-06,
+            "aspect": 6.333
+          },
+          {
+            "bbox": [
+              0.531927,
+              0.632406,
+              0.005416,
+              0.001209
+            ],
+            "area": 57,
+            "area_norm": 6.55e-06,
+            "aspect": 6.333
+          },
+          {
+            "bbox": [
+              0.532497,
+              0.700524,
+              0.005416,
+              0.001209
+            ],
+            "area": 57,
+            "area_norm": 6.55e-06,
+            "aspect": 6.333
+          },
+          {
+            "bbox": [
+              0.532497,
+              0.703748,
+              0.005416,
+              0.001209
+            ],
+            "area": 57,
+            "area_norm": 6.55e-06,
+            "aspect": 6.333
+          },
+          {
+            "bbox": [
+              0.817275,
+              0.750101,
+              0.000855,
+              0.00927
+            ],
+            "area": 51,
+            "area_norm": 5.86e-06,
+            "aspect": 0.13
+          },
+          {
+            "bbox": [
+              0.804162,
+              0.774688,
+              0.004276,
+              0.002015
+            ],
+            "area": 41,
+            "area_norm": 4.71e-06,
+            "aspect": 3.0
+          },
+          {
+            "bbox": [
+              0.77423,
+              0.752922,
+              0.001425,
+              0.006449
+            ],
+            "area": 39,
+            "area_norm": 4.48e-06,
+            "aspect": 0.312
+          },
+          {
+            "bbox": [
+              0.667047,
+              0.729545,
+              0.00114,
+              0.006449
+            ],
+            "area": 34,
+            "area_norm": 3.91e-06,
+            "aspect": 0.25
+          },
+          {
+            "bbox": [
+              0.772805,
+              0.754534,
+              0.001425,
+              0.006046
+            ],
+            "area": 34,
+            "area_norm": 3.91e-06,
+            "aspect": 0.333
+          },
+          {
+            "bbox": [
+              0.505986,
+              0.633615,
+              0.00114,
+              0.00524
+            ],
+            "area": 27,
+            "area_norm": 3.1e-06,
+            "aspect": 0.308
+          }
+        ],
+        "source": "dimension_visual_candidates"
+      },
+      "fix_suggestion": "Reduce redundant dimension placement and follow reference-specific dimension grouping.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Dimension visual candidates appear too dense for the blueprint baseline."
+    },
+    {
+      "key": "roughness_plan_not_marked_required",
+      "severity": "minor",
+      "bbox": [
+        0.0,
+        0.0173,
+        0.9356,
+        0.7703
+      ],
+      "source": "drawing_object_detector",
+      "confidence": 0.65,
+      "evidence": {
+        "key": "roughness_plan_not_marked_required",
+        "confidence": 0.65,
+        "description": "Reference notes mention roughness but annotation_plan does not require a roughness symbol.",
+        "fix_suggestion": "Propagate roughness requirements from notes/reference profile into annotation_plan."
+      },
+      "fix_suggestion": "Propagate roughness requirements from notes/reference profile into annotation_plan.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "Reference notes mention roughness but annotation_plan does not require a roughness symbol."
+    },
+    {
+      "key": "manual_ui_screenshot_review_required",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "ui_screenshot_review",
+      "confidence": 1.0,
+      "evidence": {
+        "required": true,
+        "pass": false,
+        "manual_review_status": "",
+        "manual_review_error": "path_missing",
+        "source": "application_ui_screenshot_review",
+        "api_is_not_final_judgement": true
+      },
+      "fix_suggestion": "Open the generated and same-name reference drawings in the application Drawing Review UI, capture a screenshot, and record a passing manual judgement before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending",
+      "description": "DrawingBlueprint requires application UI screenshot review; no passing manual UI judgement is attached."
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "critical": 0,
+    "major": 4,
+    "minor": 1,
+    "info": 0
+  },
+  "checks": {
+    "drawing_objects": {
+      "success": true,
+      "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3731f36b1259\\drawing\\LB26001-A-04-008_v5.PNG",
+      "width": 3508,
+      "height": 2481,
+      "ink_present": true,
+      "ink_ratio": 0.010891,
+      "ink_bbox": [
+        0.0,
+        0.017332,
+        0.935576,
+        0.770254
+      ],
+      "component_count": 250,
+      "components": [
+        {
+          "bbox": [
+            0.0,
+            0.017332,
+            0.455815,
+            0.410721
+          ],
+          "area": 25091,
+          "area_norm": 0.00288291,
+          "aspect": 1.569
+        },
+        {
+          "bbox": [
+            0.151653,
+            0.569528,
+            0.304162,
+            0.012898
+          ],
+          "area": 7864,
+          "area_norm": 0.00090356,
+          "aspect": 33.344
+        },
+        {
+          "bbox": [
+            0.312999,
+            0.295445,
+            0.030787,
+            0.068924
+          ],
+          "area": 5212,
+          "area_norm": 0.00059885,
+          "aspect": 0.632
+        },
+        {
+          "bbox": [
+            0.288198,
+            0.209996,
+            0.038483,
+            0.043934
+          ],
+          "area": 3831,
+          "area_norm": 0.00044018,
+          "aspect": 1.239
+        },
+        {
+          "bbox": [
+            0.265393,
+            0.295042,
+            0.017959,
+            0.056026
+          ],
+          "area": 2167,
+          "area_norm": 0.00024898,
+          "aspect": 0.453
+        },
+        {
+          "bbox": [
+            0.283637,
+            0.295848,
+            0.030217,
+            0.04474
+          ],
+          "area": 2139,
+          "area_norm": 0.00024577,
+          "aspect": 0.955
+        },
+        {
+          "bbox": [
+            0.288483,
+            0.337767,
+            0.028506,
+            0.036679
+          ],
+          "area": 1468,
+          "area_norm": 0.00016867,
+          "aspect": 1.099
+        },
+        {
+          "bbox": [
+            0.277936,
+            0.232971,
+            0.016819,
+            0.016526
+          ],
+          "area": 658,
+          "area_norm": 7.56e-05,
+          "aspect": 1.439
+        },
+        {
+          "bbox": [
+            0.708096,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 571,
+          "area_norm": 6.561e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.739168,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 550,
+          "area_norm": 6.319e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.790764,
+            0.74607,
+            0.008837,
+            0.018944
+          ],
+          "area": 532,
+          "area_norm": 6.113e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.687286,
+            0.767029,
+            0.009407,
+            0.020153
+          ],
+          "area": 526,
+          "area_norm": 6.044e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.760262,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 499,
+          "area_norm": 5.733e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.768239,
+            0.009122,
+            0.018138
+          ],
+          "area": 491,
+          "area_norm": 5.642e-05,
+          "aspect": 0.711
+        },
+        {
+          "bbox": [
+            0.769669,
+            0.767029,
+            0.009692,
+            0.020153
+          ],
+          "area": 488,
+          "area_norm": 5.607e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.641391,
+            0.704152,
+            0.008552,
+            0.018944
+          ],
+          "area": 483,
+          "area_norm": 5.55e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.698119,
+            0.745667,
+            0.008837,
+            0.020153
+          ],
+          "area": 481,
+          "area_norm": 5.527e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.718643,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 476,
+          "area_norm": 5.469e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.843501,
+            0.768239,
+            0.007127,
+            0.018541
+          ],
+          "area": 466,
+          "area_norm": 5.354e-05,
+          "aspect": 0.543
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.768642,
+            0.008837,
+            0.017735
+          ],
+          "area": 458,
+          "area_norm": 5.262e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.759692,
+            0.747279,
+            0.008837,
+            0.017735
+          ],
+          "area": 457,
+          "area_norm": 5.251e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.851197,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.724708,
+            0.009122,
+            0.01975
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.821551,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 448,
+          "area_norm": 5.147e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.620296,
+            0.702942,
+            0.009407,
+            0.020153
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.708381,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.74943,
+            0.745667,
+            0.009122,
+            0.020153
+          ],
+          "area": 443,
+          "area_norm": 5.09e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 441,
+          "area_norm": 5.067e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.746876,
+            0.009122,
+            0.018944
+          ],
+          "area": 433,
+          "area_norm": 4.975e-05,
+          "aspect": 0.681
+        },
+        {
+          "bbox": [
+            0.811288,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 432,
+          "area_norm": 4.964e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.65707,
+            0.724708,
+            0.008267,
+            0.01975
+          ],
+          "area": 430,
+          "area_norm": 4.941e-05,
+          "aspect": 0.592
+        },
+        {
+          "bbox": [
+            0.708666,
+            0.724305,
+            0.007412,
+            0.020153
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.52
+        },
+        {
+          "bbox": [
+            0.759977,
+            0.724305,
+            0.008267,
+            0.018944
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.617
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.349053,
+            0.011688,
+            0.016526
+          ],
+          "area": 409,
+          "area_norm": 4.699e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.677594,
+            0.745667,
+            0.006556,
+            0.01975
+          ],
+          "area": 408,
+          "area_norm": 4.688e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.20919,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.718928,
+            0.767432,
+            0.008552,
+            0.01975
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 0.612
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.361548,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.668472,
+            0.724305,
+            0.007697,
+            0.020153
+          ],
+          "area": 401,
+          "area_norm": 4.607e-05,
+          "aspect": 0.54
+        },
+        {
+          "bbox": [
+            0.190137,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 400,
+          "area_norm": 4.596e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.207981,
+            0.011688,
+            0.016526
+          ],
+          "area": 399,
+          "area_norm": 4.584e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 394,
+          "area_norm": 4.527e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 393,
+          "area_norm": 4.516e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.191562,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 388,
+          "area_norm": 4.458e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.75057,
+            0.767432,
+            0.007412,
+            0.018944
+          ],
+          "area": 384,
+          "area_norm": 4.412e-05,
+          "aspect": 0.553
+        },
+        {
+          "bbox": [
+            0.656499,
+            0.767029,
+            0.009122,
+            0.01975
+          ],
+          "area": 373,
+          "area_norm": 4.286e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.876283,
+            0.098347,
+            0.008552,
+            0.020153
+          ],
+          "area": 372,
+          "area_norm": 4.274e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.514253,
+            0.694075,
+            0.007697,
+            0.017332
+          ],
+          "area": 372,
+          "area_norm": 4.274e-05,
+          "aspect": 0.628
+        },
+        {
+          "bbox": [
+            0.801026,
+            0.767432,
+            0.008837,
+            0.019347
+          ],
+          "area": 367,
+          "area_norm": 4.217e-05,
+          "aspect": 0.646
+        },
+        {
+          "bbox": [
+            0.728905,
+            0.745667,
+            0.009122,
+            0.01975
+          ],
+          "area": 365,
+          "area_norm": 4.194e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.724305,
+            0.009122,
+            0.020556
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.627
+        },
+        {
+          "bbox": [
+            0.801311,
+            0.747682,
+            0.008552,
+            0.017332
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.698
+        },
+        {
+          "bbox": [
+            0.832098,
+            0.767029,
+            0.008837,
+            0.020153
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.314709,
+            0.281741,
+            0.009122,
+            0.012495
+          ],
+          "area": 355,
+          "area_norm": 4.079e-05,
+          "aspect": 1.032
+        },
+        {
+          "bbox": [
+            0.697834,
+            0.725514,
+            0.008837,
+            0.017735
+          ],
+          "area": 355,
+          "area_norm": 4.079e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.299031,
+            0.378073,
+            0.009122,
+            0.012898
+          ],
+          "area": 354,
+          "area_norm": 4.067e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.275941,
+            0.349859,
+            0.007697,
+            0.012898
+          ],
+          "area": 353,
+          "area_norm": 4.056e-05,
+          "aspect": 0.844
+        },
+        {
+          "bbox": [
+            0.272805,
+            0.281741,
+            0.009122,
+            0.012898
+          ],
+          "area": 348,
+          "area_norm": 3.998e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.514538,
+            0.622733,
+            0.007412,
+            0.017332
+          ],
+          "area": 347,
+          "area_norm": 3.987e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.264823,
+            0.21322,
+            0.006556,
+            0.015316
+          ],
+          "area": 346,
+          "area_norm": 3.975e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.336944,
+            0.23942,
+            0.006556,
+            0.015316
+          ],
+          "area": 345,
+          "area_norm": 3.964e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.420182,
+            0.197098,
+            0.009122,
+            0.012898
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.336944,
+            0.21322,
+            0.006556,
+            0.015316
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.264823,
+            0.23942,
+            0.006556,
+            0.015316
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.651653,
+            0.702942,
+            0.008837,
+            0.020556
+          ],
+          "area": 342,
+          "area_norm": 3.93e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.885975,
+            0.098347,
+            0.009692,
+            0.020153
+          ],
+          "area": 336,
+          "area_norm": 3.861e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.326682,
+            0.226925,
+            0.006271,
+            0.015316
+          ],
+          "area": 334,
+          "area_norm": 3.838e-05,
+          "aspect": 0.579
+        },
+        {
+          "bbox": [
+            0.791049,
+            0.767029,
+            0.008837,
+            0.020556
+          ],
+          "area": 331,
+          "area_norm": 3.803e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.656784,
+            0.745667,
+            0.008552,
+            0.019347
+          ],
+          "area": 327,
+          "area_norm": 3.757e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.267674,
+            0.353083,
+            0.005986,
+            0.008464
+          ],
+          "area": 323,
+          "area_norm": 3.711e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.310148,
+            0.291818,
+            0.005986,
+            0.008464
+          ],
+          "area": 317,
+          "area_norm": 3.642e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.266249,
+            0.327287,
+            0.005986,
+            0.008464
+          ],
+          "area": 317,
+          "area_norm": 3.642e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.667332,
+            0.746473,
+            0.008267,
+            0.018541
+          ],
+          "area": 314,
+          "area_norm": 3.608e-05,
+          "aspect": 0.63
+        },
+        {
+          "bbox": [
+            0.822121,
+            0.767432,
+            0.007697,
+            0.01975
+          ],
+          "area": 309,
+          "area_norm": 3.55e-05,
+          "aspect": 0.551
+        },
+        {
+          "bbox": [
+            0.630844,
+            0.702942,
+            0.009122,
+            0.01975
+          ],
+          "area": 305,
+          "area_norm": 3.504e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.560718,
+            0.698509,
+            0.009122,
+            0.00927
+          ],
+          "area": 302,
+          "area_norm": 3.47e-05,
+          "aspect": 1.391
+        },
+        {
+          "bbox": [
+            0.780502,
+            0.746876,
+            0.008552,
+            0.018944
+          ],
+          "area": 293,
+          "area_norm": 3.367e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.067845,
+            0.528819,
+            0.009407,
+            0.016929
+          ],
+          "area": 291,
+          "area_norm": 3.344e-05,
+          "aspect": 0.786
+        },
+        {
+          "bbox": [
+            0.677309,
+            0.725111,
+            0.009407,
+            0.018138
+          ],
+          "area": 284,
+          "area_norm": 3.263e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.728905,
+            0.725111,
+            0.009407,
+            0.018138
+          ],
+          "area": 284,
+          "area_norm": 3.263e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.720353,
+            0.74607,
+            0.007127,
+            0.01975
+          ],
+          "area": 283,
+          "area_norm": 3.252e-05,
+          "aspect": 0.51
+        },
+        {
+          "bbox": [
+            0.514253,
+            0.765417,
+            0.007982,
+            0.016929
+          ],
+          "area": 266,
+          "area_norm": 3.056e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.697834,
+            0.767836,
+            0.004276,
+            0.018944
+          ],
+          "area": 254,
+          "area_norm": 2.918e-05,
+          "aspect": 0.319
+        },
+        {
+          "bbox": [
+            0.156214,
+            0.212414,
+            0.005416,
+            0.008061
+          ],
+          "area": 252,
+          "area_norm": 2.895e-05,
+          "aspect": 0.95
+        },
+        {
+          "bbox": [
+            0.193273,
+            0.166465,
+            0.005416,
+            0.007658
+          ],
+          "area": 248,
+          "area_norm": 2.849e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.648803,
+            0.745667,
+            0.006556,
+            0.020556
+          ],
+          "area": 248,
+          "area_norm": 2.849e-05,
+          "aspect": 0.451
+        },
+        {
+          "bbox": [
+            0.408495,
+            0.413946,
+            0.005701,
+            0.007658
+          ],
+          "area": 247,
+          "area_norm": 2.838e-05,
+          "aspect": 1.053
+        },
+        {
+          "bbox": [
+            0.445553,
+            0.365981,
+            0.005701,
+            0.008061
+          ],
+          "area": 246,
+          "area_norm": 2.826e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.301026,
+            0.413946,
+            0.005416,
+            0.007658
+          ],
+          "area": 246,
+          "area_norm": 2.826e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.445553,
+            0.214027,
+            0.005701,
+            0.007658
+          ],
+          "area": 245,
+          "area_norm": 2.815e-05,
+          "aspect": 1.053
+        },
+        {
+          "bbox": [
+            0.301026,
+            0.380492,
+            0.005416,
+            0.007658
+          ],
+          "area": 245,
+          "area_norm": 2.815e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.194698,
+            0.413946,
+            0.005416,
+            0.007658
+          ],
+          "area": 243,
+          "area_norm": 2.792e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.301026,
+            0.166465,
+            0.005416,
+            0.007658
+          ],
+          "area": 242,
+          "area_norm": 2.781e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.422178,
+            0.199516,
+            0.005416,
+            0.007658
+          ],
+          "area": 242,
+          "area_norm": 2.781e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.156214,
+            0.353486,
+            0.005416,
+            0.007658
+          ],
+          "area": 242,
+          "area_norm": 2.781e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.408495,
+            0.166465,
+            0.005701,
+            0.007658
+          ],
+          "area": 241,
+          "area_norm": 2.769e-05,
+          "aspect": 1.053
+        },
+        {
+          "bbox": [
+            0.179875,
+            0.199516,
+            0.005416,
+            0.007658
+          ],
+          "area": 239,
+          "area_norm": 2.746e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.811574,
+            0.74607,
+            0.005416,
+            0.018944
+          ],
+          "area": 236,
+          "area_norm": 2.712e-05,
+          "aspect": 0.404
+        },
+        {
+          "bbox": [
+            0.648518,
+            0.728738,
+            0.006556,
+            0.014107
+          ],
+          "area": 229,
+          "area_norm": 2.631e-05,
+          "aspect": 0.657
+        },
+        {
+          "bbox": [
+            0.687856,
+            0.724305,
+            0.008552,
+            0.020153
+          ],
+          "area": 202,
+          "area_norm": 2.321e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.739453,
+            0.724305,
+            0.008552,
+            0.020153
+          ],
+          "area": 202,
+          "area_norm": 2.321e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.911631,
+            0.100766,
+            0.004561,
+            0.013301
+          ],
+          "area": 200,
+          "area_norm": 2.298e-05,
+          "aspect": 0.485
+        },
+        {
+          "bbox": [
+            0.785348,
+            0.72632,
+            0.004846,
+            0.013301
+          ],
+          "area": 200,
+          "area_norm": 2.298e-05,
+          "aspect": 0.515
+        },
+        {
+          "bbox": [
+            0.527081,
+            0.695687,
+            0.004846,
+            0.011689
+          ],
+          "area": 198,
+          "area_norm": 2.275e-05,
+          "aspect": 0.586
+        },
+        {
+          "bbox": [
+            0.790479,
+            0.72632,
+            0.004276,
+            0.013704
+          ],
+          "area": 198,
+          "area_norm": 2.275e-05,
+          "aspect": 0.441
+        },
+        {
+          "bbox": [
+            0.728905,
+            0.767432,
+            0.008552,
+            0.018541
+          ],
+          "area": 194,
+          "area_norm": 2.229e-05,
+          "aspect": 0.652
+        },
+        {
+          "bbox": [
+            0.84008,
+            0.729545,
+            0.005416,
+            0.01048
+          ],
+          "area": 187,
+          "area_norm": 2.149e-05,
+          "aspect": 0.731
+        },
+        {
+          "bbox": [
+            0.718358,
+            0.74607,
+            0.004276,
+            0.017332
+          ],
+          "area": 187,
+          "area_norm": 2.149e-05,
+          "aspect": 0.349
+        },
+        {
+          "bbox": [
+            0.817845,
+            0.72632,
+            0.003991,
+            0.013301
+          ],
+          "area": 184,
+          "area_norm": 2.114e-05,
+          "aspect": 0.424
+        },
+        {
+          "bbox": [
+            0.93187,
+            0.100363,
+            0.003706,
+            0.013301
+          ],
+          "area": 173,
+          "area_norm": 1.988e-05,
+          "aspect": 0.394
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.745667,
+            0.008267,
+            0.01975
+          ],
+          "area": 173,
+          "area_norm": 1.988e-05,
+          "aspect": 0.592
+        },
+        {
+          "bbox": [
+            0.620582,
+            0.747682,
+            0.003706,
+            0.013301
+          ],
+          "area": 173,
+          "area_norm": 1.988e-05,
+          "aspect": 0.394
+        },
+        {
+          "bbox": [
+            0.077822,
+            0.528819,
+            0.004561,
+            0.014107
+          ],
+          "area": 166,
+          "area_norm": 1.907e-05,
+          "aspect": 0.457
+        },
+        {
+          "bbox": [
+            0.192987,
+            0.241838,
+            0.005986,
+            0.008464
+          ],
+          "area": 165,
+          "area_norm": 1.896e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.408495,
+            0.241838,
+            0.005986,
+            0.008464
+          ],
+          "area": 165,
+          "area_norm": 1.896e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.368016,
+            0.20395,
+            0.005986,
+            0.008464
+          ],
+          "area": 164,
+          "area_norm": 1.884e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.368016,
+            0.375252,
+            0.005986,
+            0.008464
+          ],
+          "area": 162,
+          "area_norm": 1.861e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.233466,
+            0.20395,
+            0.005986,
+            0.008464
+          ],
+          "area": 161,
+          "area_norm": 1.85e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.233466,
+            0.375252,
+            0.005986,
+            0.008464
+          ],
+          "area": 160,
+          "area_norm": 1.838e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.822976,
+            0.72632,
+            0.003991,
+            0.013704
+          ],
+          "area": 160,
+          "area_norm": 1.838e-05,
+          "aspect": 0.412
+        },
+        {
+          "bbox": [
+            0.70268,
+            0.776703,
+            0.003421,
+            0.010077
+          ],
+          "area": 159,
+          "area_norm": 1.827e-05,
+          "aspect": 0.48
+        },
+        {
+          "bbox": [
+            0.68358,
+            0.74607,
+            0.002281,
+            0.01975
+          ],
+          "area": 158,
+          "area_norm": 1.815e-05,
+          "aspect": 0.163
+        },
+        {
+          "bbox": [
+            0.827822,
+            0.72632,
+            0.004561,
+            0.013704
+          ],
+          "area": 156,
+          "area_norm": 1.792e-05,
+          "aspect": 0.471
+        },
+        {
+          "bbox": [
+            0.408495,
+            0.337364,
+            0.005986,
+            0.008061
+          ],
+          "area": 153,
+          "area_norm": 1.758e-05,
+          "aspect": 1.05
+        },
+        {
+          "bbox": [
+            0.555587,
+            0.627166,
+            0.004561,
+            0.00927
+          ],
+          "area": 153,
+          "area_norm": 1.758e-05,
+          "aspect": 0.696
+        },
+        {
+          "bbox": [
+            0.560433,
+            0.627166,
+            0.004561,
+            0.00927
+          ],
+          "area": 153,
+          "area_norm": 1.758e-05,
+          "aspect": 0.696
+        },
+        {
+          "bbox": [
+            0.559293,
+            0.769851,
+            0.004561,
+            0.00927
+          ],
+          "area": 153,
+          "area_norm": 1.758e-05,
+          "aspect": 0.696
+        },
+        {
+          "bbox": [
+            0.564139,
+            0.769851,
+            0.004561,
+            0.00927
+          ],
+          "area": 153,
+          "area_norm": 1.758e-05,
+          "aspect": 0.696
+        },
+        {
+          "bbox": [
+            0.192987,
+            0.337364,
+            0.005986,
+            0.008061
+          ],
+          "area": 152,
+          "area_norm": 1.746e-05,
+          "aspect": 1.05
+        },
+        {
+          "bbox": [
+            0.86488,
+            0.730754,
+            0.005701,
+            0.013301
+          ],
+          "area": 151,
+          "area_norm": 1.735e-05,
+          "aspect": 0.606
+        },
+        {
+          "bbox": [
+            0.732041,
+            0.777106,
+            0.004276,
+            0.008867
+          ],
+          "area": 151,
+          "area_norm": 1.735e-05,
+          "aspect": 0.682
+        },
+        {
+          "bbox": [
+            0.54333,
+            0.695687,
+            0.003421,
+            0.011689
+          ],
+          "area": 149,
+          "area_norm": 1.712e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.75057,
+            0.731963,
+            0.005986,
+            0.011286
+          ],
+          "area": 147,
+          "area_norm": 1.689e-05,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.74607,
+            0.002281,
+            0.019347
+          ],
+          "area": 145,
+          "area_norm": 1.666e-05,
+          "aspect": 0.167
+        },
+        {
+          "bbox": [
+            0.901938,
+            0.101572,
+            0.008552,
+            0.013704
+          ],
+          "area": 142,
+          "area_norm": 1.632e-05,
+          "aspect": 0.882
+        },
+        {
+          "bbox": [
+            0.921608,
+            0.100363,
+            0.003706,
+            0.013301
+          ],
+          "area": 139,
+          "area_norm": 1.597e-05,
+          "aspect": 0.394
+        },
+        {
+          "bbox": [
+            0.620582,
+            0.769045,
+            0.003706,
+            0.013301
+          ],
+          "area": 139,
+          "area_norm": 1.597e-05,
+          "aspect": 0.394
+        },
+        {
+          "bbox": [
+            0.917047,
+            0.10399,
+            0.003706,
+            0.009674
+          ],
+          "area": 137,
+          "area_norm": 1.574e-05,
+          "aspect": 0.542
+        },
+        {
+          "bbox": [
+            0.527651,
+            0.624345,
+            0.003421,
+            0.012092
+          ],
+          "area": 137,
+          "area_norm": 1.574e-05,
+          "aspect": 0.4
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.745667,
+            0.003421,
+            0.020556
+          ],
+          "area": 134,
+          "area_norm": 1.54e-05,
+          "aspect": 0.235
+        },
+        {
+          "bbox": [
+            0.277366,
+            0.37767,
+            0.005416,
+            0.007255
+          ],
+          "area": 130,
+          "area_norm": 1.494e-05,
+          "aspect": 1.056
+        },
+        {
+          "bbox": [
+            0.443273,
+            0.205562,
+            0.003706,
+            0.00524
+          ],
+          "area": 129,
+          "area_norm": 1.482e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.27081,
+            0.37767,
+            0.005131,
+            0.007255
+          ],
+          "area": 129,
+          "area_norm": 1.482e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.443273,
+            0.410318,
+            0.003706,
+            0.00524
+          ],
+          "area": 129,
+          "area_norm": 1.482e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.702395,
+            0.767432,
+            0.004276,
+            0.008867
+          ],
+          "area": 129,
+          "area_norm": 1.482e-05,
+          "aspect": 0.682
+        },
+        {
+          "bbox": [
+            0.263968,
+            0.37767,
+            0.005416,
+            0.007255
+          ],
+          "area": 128,
+          "area_norm": 1.471e-05,
+          "aspect": 1.056
+        },
+        {
+          "bbox": [
+            0.541904,
+            0.767029,
+            0.003421,
+            0.011689
+          ],
+          "area": 128,
+          "area_norm": 1.471e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.16049,
+            0.410318,
+            0.003706,
+            0.00524
+          ],
+          "area": 127,
+          "area_norm": 1.459e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.257412,
+            0.37767,
+            0.005131,
+            0.007255
+          ],
+          "area": 126,
+          "area_norm": 1.448e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.623136,
+            0.003991,
+            0.01048
+          ],
+          "area": 125,
+          "area_norm": 1.436e-05,
+          "aspect": 0.538
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.694478,
+            0.003991,
+            0.01048
+          ],
+          "area": 125,
+          "area_norm": 1.436e-05,
+          "aspect": 0.538
+        },
+        {
+          "bbox": [
+            0.547605,
+            0.695687,
+            0.003421,
+            0.011689
+          ],
+          "area": 125,
+          "area_norm": 1.436e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.76582,
+            0.003991,
+            0.01048
+          ],
+          "area": 125,
+          "area_norm": 1.436e-05,
+          "aspect": 0.538
+        },
+        {
+          "bbox": [
+            0.771665,
+            0.752922,
+            0.006842,
+            0.011286
+          ],
+          "area": 123,
+          "area_norm": 1.413e-05,
+          "aspect": 0.857
+        },
+        {
+          "bbox": [
+            0.537343,
+            0.767029,
+            0.003706,
+            0.012092
+          ],
+          "area": 122,
+          "area_norm": 1.402e-05,
+          "aspect": 0.433
+        },
+        {
+          "bbox": [
+            0.538769,
+            0.695687,
+            0.003421,
+            0.011689
+          ],
+          "area": 121,
+          "area_norm": 1.39e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.542759,
+            0.624345,
+            0.003136,
+            0.011689
+          ],
+          "area": 120,
+          "area_norm": 1.379e-05,
+          "aspect": 0.379
+        },
+        {
+          "bbox": [
+            0.551596,
+            0.624345,
+            0.003421,
+            0.011689
+          ],
+          "area": 119,
+          "area_norm": 1.367e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.556727,
+            0.695687,
+            0.003421,
+            0.011689
+          ],
+          "area": 119,
+          "area_norm": 1.367e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.546465,
+            0.767029,
+            0.003421,
+            0.011689
+          ],
+          "area": 119,
+          "area_norm": 1.367e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.555302,
+            0.767029,
+            0.003421,
+            0.011689
+          ],
+          "area": 119,
+          "area_norm": 1.367e-05,
+          "aspect": 0.414
+        },
+        {
+          "bbox": [
+            0.86146,
+            0.729545,
+            0.003706,
+            0.01451
+          ],
+          "area": 110,
+          "area_norm": 1.264e-05,
+          "aspect": 0.361
+        },
+        {
+          "bbox": [
+            0.801881,
+            0.72632,
+            0.004561,
+            0.013704
+          ],
+          "area": 107,
+          "area_norm": 1.229e-05,
+          "aspect": 0.471
+        },
+        {
+          "bbox": [
+            0.79561,
+            0.725917,
+            0.005986,
+            0.017332
+          ],
+          "area": 102,
+          "area_norm": 1.172e-05,
+          "aspect": 0.488
+        },
+        {
+          "bbox": [
+            0.753706,
+            0.725514,
+            0.005131,
+            0.010883
+          ],
+          "area": 89,
+          "area_norm": 1.023e-05,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.527366,
+            0.766626,
+            0.003136,
+            0.012092
+          ],
+          "area": 83,
+          "area_norm": 9.54e-06,
+          "aspect": 0.367
+        },
+        {
+          "bbox": [
+            0.621437,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.813569,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.646522,
+            0.731963,
+            0.002851,
+            0.011689
+          ],
+          "area": 71,
+          "area_norm": 8.16e-06,
+          "aspect": 0.345
+        },
+        {
+          "bbox": [
+            0.832953,
+            0.733978,
+            0.006556,
+            0.001209
+          ],
+          "area": 69,
+          "area_norm": 7.93e-06,
+          "aspect": 7.667
+        },
+        {
+          "bbox": [
+            0.749145,
+            0.726723,
+            0.003991,
+            0.010883
+          ],
+          "area": 68,
+          "area_norm": 7.81e-06,
+          "aspect": 0.519
+        },
+        {
+          "bbox": [
+            0.539054,
+            0.624345,
+            0.00114,
+            0.012092
+          ],
+          "area": 64,
+          "area_norm": 7.35e-06,
+          "aspect": 0.133
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.634019,
+            0.004276,
+            0.005643
+          ],
+          "area": 61,
+          "area_norm": 7.01e-06,
+          "aspect": 1.071
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.705361,
+            0.004276,
+            0.005643
+          ],
+          "area": 61,
+          "area_norm": 7.01e-06,
+          "aspect": 1.071
+        },
+        {
+          "bbox": [
+            0.507412,
+            0.776703,
+            0.004276,
+            0.005643
+          ],
+          "area": 61,
+          "area_norm": 7.01e-06,
+          "aspect": 1.071
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.771866,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.775091,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.629182,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.632406,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.700524,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.703748,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.305587,
+            0.249496,
+            0.002281,
+            0.003225
+          ],
+          "area": 56,
+          "area_norm": 6.43e-06,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.872862,
+            0.739218,
+            0.002281,
+            0.004837
+          ],
+          "area": 54,
+          "area_norm": 6.2e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.832668,
+            0.76058,
+            0.002281,
+            0.004837
+          ],
+          "area": 54,
+          "area_norm": 6.2e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.853478,
+            0.781943,
+            0.002281,
+            0.004837
+          ],
+          "area": 54,
+          "area_norm": 6.2e-06,
+          "aspect": 0.667
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.750101,
+            0.000855,
+            0.00927
+          ],
+          "area": 51,
+          "area_norm": 5.86e-06,
+          "aspect": 0.13
+        },
+        {
+          "bbox": [
+            0.688141,
+            0.760983,
+            0.002281,
+            0.004434
+          ],
+          "area": 45,
+          "area_norm": 5.17e-06,
+          "aspect": 0.727
+        },
+        {
+          "bbox": [
+            0.86203,
+            0.724708,
+            0.003136,
+            0.007255
+          ],
+          "area": 44,
+          "area_norm": 5.06e-06,
+          "aspect": 0.611
+        },
+        {
+          "bbox": [
+            0.804162,
+            0.774688,
+            0.004276,
+            0.002015
+          ],
+          "area": 41,
+          "area_norm": 4.71e-06,
+          "aspect": 3.0
+        },
+        {
+          "bbox": [
+            0.886545,
+            0.110842,
+            0.003136,
+            0.005643
+          ],
+          "area": 40,
+          "area_norm": 4.6e-06,
+          "aspect": 0.786
+        },
+        {
+          "bbox": [
+            0.656499,
+            0.738412,
+            0.003991,
+            0.003628
+          ],
+          "area": 39,
+          "area_norm": 4.48e-06,
+          "aspect": 1.556
+        },
+        {
+          "bbox": [
+            0.77423,
+            0.752922,
+            0.001425,
+            0.006449
+          ],
+          "area": 39,
+          "area_norm": 4.48e-06,
+          "aspect": 0.312
+        },
+        {
+          "bbox": [
+            0.881129,
+            0.113261,
+            0.002566,
+            0.004837
+          ],
+          "area": 36,
+          "area_norm": 4.14e-06,
+          "aspect": 0.75
+        },
+        {
+          "bbox": [
+            0.865735,
+            0.72632,
+            0.003991,
+            0.002015
+          ],
+          "area": 36,
+          "area_norm": 4.14e-06,
+          "aspect": 2.8
+        },
+        {
+          "bbox": [
+            0.891391,
+            0.111245,
+            0.002851,
+            0.004434
+          ],
+          "area": 35,
+          "area_norm": 4.02e-06,
+          "aspect": 0.909
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.729545,
+            0.00114,
+            0.006449
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.25
+        },
+        {
+          "bbox": [
+            0.772805,
+            0.754534,
+            0.001425,
+            0.006046
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.333
+        },
+        {
+          "bbox": [
+            0.714082,
+            0.758968,
+            0.002281,
+            0.004434
+          ],
+          "area": 33,
+          "area_norm": 3.79e-06,
+          "aspect": 0.727
+        }
+      ],
+      "view_frame_count": 1,
+      "view_frames": [
+        {
+          "bbox": [
+            0.0,
+            0.017332,
+            0.455815,
+            0.410721
+          ],
+          "area": 25091,
+          "area_norm": 0.00288291,
+          "aspect": 1.569
+        }
+      ],
+      "dimension_text_candidate_count": 183,
+      "dimension_text_candidates": [
+        {
+          "bbox": [
+            0.288198,
+            0.209996,
+            0.038483,
+            0.043934
+          ],
+          "area": 3831,
+          "area_norm": 0.00044018,
+          "aspect": 1.239
+        },
+        {
+          "bbox": [
+            0.283637,
+            0.295848,
+            0.030217,
+            0.04474
+          ],
+          "area": 2139,
+          "area_norm": 0.00024577,
+          "aspect": 0.955
+        },
+        {
+          "bbox": [
+            0.288483,
+            0.337767,
+            0.028506,
+            0.036679
+          ],
+          "area": 1468,
+          "area_norm": 0.00016867,
+          "aspect": 1.099
+        },
+        {
+          "bbox": [
+            0.277936,
+            0.232971,
+            0.016819,
+            0.016526
+          ],
+          "area": 658,
+          "area_norm": 7.56e-05,
+          "aspect": 1.439
+        },
+        {
+          "bbox": [
+            0.708096,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 571,
+          "area_norm": 6.561e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.739168,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 550,
+          "area_norm": 6.319e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.790764,
+            0.74607,
+            0.008837,
+            0.018944
+          ],
+          "area": 532,
+          "area_norm": 6.113e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.687286,
+            0.767029,
+            0.009407,
+            0.020153
+          ],
+          "area": 526,
+          "area_norm": 6.044e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.760262,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 499,
+          "area_norm": 5.733e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.768239,
+            0.009122,
+            0.018138
+          ],
+          "area": 491,
+          "area_norm": 5.642e-05,
+          "aspect": 0.711
+        },
+        {
+          "bbox": [
+            0.769669,
+            0.767029,
+            0.009692,
+            0.020153
+          ],
+          "area": 488,
+          "area_norm": 5.607e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.641391,
+            0.704152,
+            0.008552,
+            0.018944
+          ],
+          "area": 483,
+          "area_norm": 5.55e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.698119,
+            0.745667,
+            0.008837,
+            0.020153
+          ],
+          "area": 481,
+          "area_norm": 5.527e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.718643,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 476,
+          "area_norm": 5.469e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.843501,
+            0.768239,
+            0.007127,
+            0.018541
+          ],
+          "area": 466,
+          "area_norm": 5.354e-05,
+          "aspect": 0.543
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.768642,
+            0.008837,
+            0.017735
+          ],
+          "area": 458,
+          "area_norm": 5.262e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.759692,
+            0.747279,
+            0.008837,
+            0.017735
+          ],
+          "area": 457,
+          "area_norm": 5.251e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.851197,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.724708,
+            0.009122,
+            0.01975
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.821551,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 448,
+          "area_norm": 5.147e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.620296,
+            0.702942,
+            0.009407,
+            0.020153
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.708381,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.74943,
+            0.745667,
+            0.009122,
+            0.020153
+          ],
+          "area": 443,
+          "area_norm": 5.09e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 441,
+          "area_norm": 5.067e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.746876,
+            0.009122,
+            0.018944
+          ],
+          "area": 433,
+          "area_norm": 4.975e-05,
+          "aspect": 0.681
+        },
+        {
+          "bbox": [
+            0.811288,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 432,
+          "area_norm": 4.964e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.65707,
+            0.724708,
+            0.008267,
+            0.01975
+          ],
+          "area": 430,
+          "area_norm": 4.941e-05,
+          "aspect": 0.592
+        },
+        {
+          "bbox": [
+            0.708666,
+            0.724305,
+            0.007412,
+            0.020153
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.52
+        },
+        {
+          "bbox": [
+            0.759977,
+            0.724305,
+            0.008267,
+            0.018944
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.617
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.349053,
+            0.011688,
+            0.016526
+          ],
+          "area": 409,
+          "area_norm": 4.699e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.677594,
+            0.745667,
+            0.006556,
+            0.01975
+          ],
+          "area": 408,
+          "area_norm": 4.688e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.20919,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.718928,
+            0.767432,
+            0.008552,
+            0.01975
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 0.612
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.361548,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.668472,
+            0.724305,
+            0.007697,
+            0.020153
+          ],
+          "area": 401,
+          "area_norm": 4.607e-05,
+          "aspect": 0.54
+        },
+        {
+          "bbox": [
+            0.190137,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 400,
+          "area_norm": 4.596e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.207981,
+            0.011688,
+            0.016526
+          ],
+          "area": 399,
+          "area_norm": 4.584e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 394,
+          "area_norm": 4.527e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 393,
+          "area_norm": 4.516e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.191562,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 388,
+          "area_norm": 4.458e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.75057,
+            0.767432,
+            0.007412,
+            0.018944
+          ],
+          "area": 384,
+          "area_norm": 4.412e-05,
+          "aspect": 0.553
+        },
+        {
+          "bbox": [
+            0.656499,
+            0.767029,
+            0.009122,
+            0.01975
+          ],
+          "area": 373,
+          "area_norm": 4.286e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.876283,
+            0.098347,
+            0.008552,
+            0.020153
+          ],
+          "area": 372,
+          "area_norm": 4.274e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.514253,
+            0.694075,
+            0.007697,
+            0.017332
+          ],
+          "area": 372,
+          "area_norm": 4.274e-05,
+          "aspect": 0.628
+        },
+        {
+          "bbox": [
+            0.801026,
+            0.767432,
+            0.008837,
+            0.019347
+          ],
+          "area": 367,
+          "area_norm": 4.217e-05,
+          "aspect": 0.646
+        },
+        {
+          "bbox": [
+            0.728905,
+            0.745667,
+            0.009122,
+            0.01975
+          ],
+          "area": 365,
+          "area_norm": 4.194e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.724305,
+            0.009122,
+            0.020556
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.627
+        },
+        {
+          "bbox": [
+            0.801311,
+            0.747682,
+            0.008552,
+            0.017332
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.698
+        },
+        {
+          "bbox": [
+            0.832098,
+            0.767029,
+            0.008837,
+            0.020153
+          ],
+          "area": 358,
+          "area_norm": 4.113e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.314709,
+            0.281741,
+            0.009122,
+            0.012495
+          ],
+          "area": 355,
+          "area_norm": 4.079e-05,
+          "aspect": 1.032
+        },
+        {
+          "bbox": [
+            0.697834,
+            0.725514,
+            0.008837,
+            0.017735
+          ],
+          "area": 355,
+          "area_norm": 4.079e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.299031,
+            0.378073,
+            0.009122,
+            0.012898
+          ],
+          "area": 354,
+          "area_norm": 4.067e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.275941,
+            0.349859,
+            0.007697,
+            0.012898
+          ],
+          "area": 353,
+          "area_norm": 4.056e-05,
+          "aspect": 0.844
+        },
+        {
+          "bbox": [
+            0.272805,
+            0.281741,
+            0.009122,
+            0.012898
+          ],
+          "area": 348,
+          "area_norm": 3.998e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.514538,
+            0.622733,
+            0.007412,
+            0.017332
+          ],
+          "area": 347,
+          "area_norm": 3.987e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.264823,
+            0.21322,
+            0.006556,
+            0.015316
+          ],
+          "area": 346,
+          "area_norm": 3.975e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.336944,
+            0.23942,
+            0.006556,
+            0.015316
+          ],
+          "area": 345,
+          "area_norm": 3.964e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.420182,
+            0.197098,
+            0.009122,
+            0.012898
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.336944,
+            0.21322,
+            0.006556,
+            0.015316
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.264823,
+            0.23942,
+            0.006556,
+            0.015316
+          ],
+          "area": 344,
+          "area_norm": 3.953e-05,
+          "aspect": 0.605
+        },
+        {
+          "bbox": [
+            0.651653,
+            0.702942,
+            0.008837,
+            0.020556
+          ],
+          "area": 342,
+          "area_norm": 3.93e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.885975,
+            0.098347,
+            0.009692,
+            0.020153
+          ],
+          "area": 336,
+          "area_norm": 3.861e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.326682,
+            0.226925,
+            0.006271,
+            0.015316
+          ],
+          "area": 334,
+          "area_norm": 3.838e-05,
+          "aspect": 0.579
+        },
+        {
+          "bbox": [
+            0.791049,
+            0.767029,
+            0.008837,
+            0.020556
+          ],
+          "area": 331,
+          "area_norm": 3.803e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.656784,
+            0.745667,
+            0.008552,
+            0.019347
+          ],
+          "area": 327,
+          "area_norm": 3.757e-05,
+          "aspect": 0.625
+        },
+        {
+          "bbox": [
+            0.267674,
+            0.353083,
+            0.005986,
+            0.008464
+          ],
+          "area": 323,
+          "area_norm": 3.711e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.310148,
+            0.291818,
+            0.005986,
+            0.008464
+          ],
+          "area": 317,
+          "area_norm": 3.642e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.266249,
+            0.327287,
+            0.005986,
+            0.008464
+          ],
+          "area": 317,
+          "area_norm": 3.642e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.667332,
+            0.746473,
+            0.008267,
+            0.018541
+          ],
+          "area": 314,
+          "area_norm": 3.608e-05,
+          "aspect": 0.63
+        },
+        {
+          "bbox": [
+            0.822121,
+            0.767432,
+            0.007697,
+            0.01975
+          ],
+          "area": 309,
+          "area_norm": 3.55e-05,
+          "aspect": 0.551
+        },
+        {
+          "bbox": [
+            0.630844,
+            0.702942,
+            0.009122,
+            0.01975
+          ],
+          "area": 305,
+          "area_norm": 3.504e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.560718,
+            0.698509,
+            0.009122,
+            0.00927
+          ],
+          "area": 302,
+          "area_norm": 3.47e-05,
+          "aspect": 1.391
+        },
+        {
+          "bbox": [
+            0.780502,
+            0.746876,
+            0.008552,
+            0.018944
+          ],
+          "area": 293,
+          "area_norm": 3.367e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.067845,
+            0.528819,
+            0.009407,
+            0.016929
+          ],
+          "area": 291,
+          "area_norm": 3.344e-05,
+          "aspect": 0.786
+        },
+        {
+          "bbox": [
+            0.677309,
+            0.725111,
+            0.009407,
+            0.018138
+          ],
+          "area": 284,
+          "area_norm": 3.263e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.728905,
+            0.725111,
+            0.009407,
+            0.018138
+          ],
+          "area": 284,
+          "area_norm": 3.263e-05,
+          "aspect": 0.733
+        },
+        {
+          "bbox": [
+            0.720353,
+            0.74607,
+            0.007127,
+            0.01975
+          ],
+          "area": 283,
+          "area_norm": 3.252e-05,
+          "aspect": 0.51
+        },
+        {
+          "bbox": [
+            0.514253,
+            0.765417,
+            0.007982,
+            0.016929
+          ],
+          "area": 266,
+          "area_norm": 3.056e-05,
+          "aspect": 0.667
+        }
+      ],
+      "dimension_arrow_candidate_count": 22,
+      "dimension_arrow_candidates": [
+        {
+          "bbox": [
+            0.697834,
+            0.767836,
+            0.004276,
+            0.018944
+          ],
+          "area": 254,
+          "area_norm": 2.918e-05,
+          "aspect": 0.319
+        },
+        {
+          "bbox": [
+            0.68358,
+            0.74607,
+            0.002281,
+            0.01975
+          ],
+          "area": 158,
+          "area_norm": 1.815e-05,
+          "aspect": 0.163
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.74607,
+            0.002281,
+            0.019347
+          ],
+          "area": 145,
+          "area_norm": 1.666e-05,
+          "aspect": 0.167
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.745667,
+            0.003421,
+            0.020556
+          ],
+          "area": 134,
+          "area_norm": 1.54e-05,
+          "aspect": 0.235
+        },
+        {
+          "bbox": [
+            0.621437,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.813569,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.832953,
+            0.733978,
+            0.006556,
+            0.001209
+          ],
+          "area": 69,
+          "area_norm": 7.93e-06,
+          "aspect": 7.667
+        },
+        {
+          "bbox": [
+            0.539054,
+            0.624345,
+            0.00114,
+            0.012092
+          ],
+          "area": 64,
+          "area_norm": 7.35e-06,
+          "aspect": 0.133
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.771866,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.775091,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.629182,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.632406,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.700524,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.703748,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.750101,
+            0.000855,
+            0.00927
+          ],
+          "area": 51,
+          "area_norm": 5.86e-06,
+          "aspect": 0.13
+        },
+        {
+          "bbox": [
+            0.804162,
+            0.774688,
+            0.004276,
+            0.002015
+          ],
+          "area": 41,
+          "area_norm": 4.71e-06,
+          "aspect": 3.0
+        },
+        {
+          "bbox": [
+            0.77423,
+            0.752922,
+            0.001425,
+            0.006449
+          ],
+          "area": 39,
+          "area_norm": 4.48e-06,
+          "aspect": 0.312
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.729545,
+            0.00114,
+            0.006449
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.25
+        },
+        {
+          "bbox": [
+            0.772805,
+            0.754534,
+            0.001425,
+            0.006046
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.333
+        },
+        {
+          "bbox": [
+            0.505986,
+            0.633615,
+            0.00114,
+            0.00524
+          ],
+          "area": 27,
+          "area_norm": 3.1e-06,
+          "aspect": 0.308
+        },
+        {
+          "bbox": [
+            0.505986,
+            0.704958,
+            0.00114,
+            0.00524
+          ],
+          "area": 27,
+          "area_norm": 3.1e-06,
+          "aspect": 0.308
+        },
+        {
+          "bbox": [
+            0.505986,
+            0.7763,
+            0.00114,
+            0.00524
+          ],
+          "area": 27,
+          "area_norm": 3.1e-06,
+          "aspect": 0.308
+        }
+      ],
+      "centerline_candidate_count": 1,
+      "centerline_candidates": [
+        {
+          "bbox": [
+            0.151653,
+            0.569528,
+            0.304162,
+            0.012898
+          ],
+          "area": 7864,
+          "area_norm": 0.00090356,
+          "aspect": 33.344
+        }
+      ],
+      "center_mark_candidate_count": 85,
+      "center_mark_candidates": [
+        {
+          "bbox": [
+            0.288198,
+            0.209996,
+            0.038483,
+            0.043934
+          ],
+          "area": 3831,
+          "area_norm": 0.00044018,
+          "aspect": 1.239
+        },
+        {
+          "bbox": [
+            0.283637,
+            0.295848,
+            0.030217,
+            0.04474
+          ],
+          "area": 2139,
+          "area_norm": 0.00024577,
+          "aspect": 0.955
+        },
+        {
+          "bbox": [
+            0.288483,
+            0.337767,
+            0.028506,
+            0.036679
+          ],
+          "area": 1468,
+          "area_norm": 0.00016867,
+          "aspect": 1.099
+        },
+        {
+          "bbox": [
+            0.277936,
+            0.232971,
+            0.016819,
+            0.016526
+          ],
+          "area": 658,
+          "area_norm": 7.56e-05,
+          "aspect": 1.439
+        },
+        {
+          "bbox": [
+            0.708096,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 571,
+          "area_norm": 6.561e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.739168,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 550,
+          "area_norm": 6.319e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.790764,
+            0.74607,
+            0.008837,
+            0.018944
+          ],
+          "area": 532,
+          "area_norm": 6.113e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.687286,
+            0.767029,
+            0.009407,
+            0.020153
+          ],
+          "area": 526,
+          "area_norm": 6.044e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.760262,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 499,
+          "area_norm": 5.733e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.768239,
+            0.009122,
+            0.018138
+          ],
+          "area": 491,
+          "area_norm": 5.642e-05,
+          "aspect": 0.711
+        },
+        {
+          "bbox": [
+            0.769669,
+            0.767029,
+            0.009692,
+            0.020153
+          ],
+          "area": 488,
+          "area_norm": 5.607e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.641391,
+            0.704152,
+            0.008552,
+            0.018944
+          ],
+          "area": 483,
+          "area_norm": 5.55e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.698119,
+            0.745667,
+            0.008837,
+            0.020153
+          ],
+          "area": 481,
+          "area_norm": 5.527e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.718643,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 476,
+          "area_norm": 5.469e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.843501,
+            0.768239,
+            0.007127,
+            0.018541
+          ],
+          "area": 466,
+          "area_norm": 5.354e-05,
+          "aspect": 0.543
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.768642,
+            0.008837,
+            0.017735
+          ],
+          "area": 458,
+          "area_norm": 5.262e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.759692,
+            0.747279,
+            0.008837,
+            0.017735
+          ],
+          "area": 457,
+          "area_norm": 5.251e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.851197,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.724708,
+            0.009122,
+            0.01975
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.821551,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 448,
+          "area_norm": 5.147e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.620296,
+            0.702942,
+            0.009407,
+            0.020153
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.708381,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.74943,
+            0.745667,
+            0.009122,
+            0.020153
+          ],
+          "area": 443,
+          "area_norm": 5.09e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 441,
+          "area_norm": 5.067e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.746876,
+            0.009122,
+            0.018944
+          ],
+          "area": 433,
+          "area_norm": 4.975e-05,
+          "aspect": 0.681
+        },
+        {
+          "bbox": [
+            0.811288,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 432,
+          "area_norm": 4.964e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.65707,
+            0.724708,
+            0.008267,
+            0.01975
+          ],
+          "area": 430,
+          "area_norm": 4.941e-05,
+          "aspect": 0.592
+        },
+        {
+          "bbox": [
+            0.708666,
+            0.724305,
+            0.007412,
+            0.020153
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.52
+        },
+        {
+          "bbox": [
+            0.759977,
+            0.724305,
+            0.008267,
+            0.018944
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.617
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.349053,
+            0.011688,
+            0.016526
+          ],
+          "area": 409,
+          "area_norm": 4.699e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.677594,
+            0.745667,
+            0.006556,
+            0.01975
+          ],
+          "area": 408,
+          "area_norm": 4.688e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.20919,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.718928,
+            0.767432,
+            0.008552,
+            0.01975
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 0.612
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.361548,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.668472,
+            0.724305,
+            0.007697,
+            0.020153
+          ],
+          "area": 401,
+          "area_norm": 4.607e-05,
+          "aspect": 0.54
+        },
+        {
+          "bbox": [
+            0.190137,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 400,
+          "area_norm": 4.596e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.207981,
+            0.011688,
+            0.016526
+          ],
+          "area": 399,
+          "area_norm": 4.584e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 394,
+          "area_norm": 4.527e-05,
+          "aspect": 1.025
+        }
+      ],
+      "section_arrow_candidate_count": 196,
+      "section_arrow_candidates": [
+        {
+          "bbox": [
+            0.265393,
+            0.295042,
+            0.017959,
+            0.056026
+          ],
+          "area": 2167,
+          "area_norm": 0.00024898,
+          "aspect": 0.453
+        },
+        {
+          "bbox": [
+            0.288483,
+            0.337767,
+            0.028506,
+            0.036679
+          ],
+          "area": 1468,
+          "area_norm": 0.00016867,
+          "aspect": 1.099
+        },
+        {
+          "bbox": [
+            0.277936,
+            0.232971,
+            0.016819,
+            0.016526
+          ],
+          "area": 658,
+          "area_norm": 7.56e-05,
+          "aspect": 1.439
+        },
+        {
+          "bbox": [
+            0.708096,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 571,
+          "area_norm": 6.561e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.739168,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 550,
+          "area_norm": 6.319e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.790764,
+            0.74607,
+            0.008837,
+            0.018944
+          ],
+          "area": 532,
+          "area_norm": 6.113e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.687286,
+            0.767029,
+            0.009407,
+            0.020153
+          ],
+          "area": 526,
+          "area_norm": 6.044e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.760262,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 499,
+          "area_norm": 5.733e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.768239,
+            0.009122,
+            0.018138
+          ],
+          "area": 491,
+          "area_norm": 5.642e-05,
+          "aspect": 0.711
+        },
+        {
+          "bbox": [
+            0.769669,
+            0.767029,
+            0.009692,
+            0.020153
+          ],
+          "area": 488,
+          "area_norm": 5.607e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.641391,
+            0.704152,
+            0.008552,
+            0.018944
+          ],
+          "area": 483,
+          "area_norm": 5.55e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.698119,
+            0.745667,
+            0.008837,
+            0.020153
+          ],
+          "area": 481,
+          "area_norm": 5.527e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.718643,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 476,
+          "area_norm": 5.469e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.843501,
+            0.768239,
+            0.007127,
+            0.018541
+          ],
+          "area": 466,
+          "area_norm": 5.354e-05,
+          "aspect": 0.543
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.768642,
+            0.008837,
+            0.017735
+          ],
+          "area": 458,
+          "area_norm": 5.262e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.759692,
+            0.747279,
+            0.008837,
+            0.017735
+          ],
+          "area": 457,
+          "area_norm": 5.251e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.851197,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.724708,
+            0.009122,
+            0.01975
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.821551,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 448,
+          "area_norm": 5.147e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.620296,
+            0.702942,
+            0.009407,
+            0.020153
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.708381,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 446,
+          "area_norm": 5.124e-05,
+          "aspect": 0.608
+        },
+        {
+          "bbox": [
+            0.74943,
+            0.745667,
+            0.009122,
+            0.020153
+          ],
+          "area": 443,
+          "area_norm": 5.09e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 441,
+          "area_norm": 5.067e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.635975,
+            0.746876,
+            0.009122,
+            0.018944
+          ],
+          "area": 433,
+          "area_norm": 4.975e-05,
+          "aspect": 0.681
+        },
+        {
+          "bbox": [
+            0.811288,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 432,
+          "area_norm": 4.964e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.65707,
+            0.724708,
+            0.008267,
+            0.01975
+          ],
+          "area": 430,
+          "area_norm": 4.941e-05,
+          "aspect": 0.592
+        },
+        {
+          "bbox": [
+            0.708666,
+            0.724305,
+            0.007412,
+            0.020153
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.52
+        },
+        {
+          "bbox": [
+            0.759977,
+            0.724305,
+            0.008267,
+            0.018944
+          ],
+          "area": 417,
+          "area_norm": 4.791e-05,
+          "aspect": 0.617
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.349053,
+            0.011688,
+            0.016526
+          ],
+          "area": 409,
+          "area_norm": 4.699e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.677594,
+            0.745667,
+            0.006556,
+            0.01975
+          ],
+          "area": 408,
+          "area_norm": 4.688e-05,
+          "aspect": 0.469
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.20919,
+            0.011688,
+            0.016526
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.718928,
+            0.767432,
+            0.008552,
+            0.01975
+          ],
+          "area": 403,
+          "area_norm": 4.63e-05,
+          "aspect": 0.612
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.442702,
+            0.361548,
+            0.011688,
+            0.016526
+          ],
+          "area": 402,
+          "area_norm": 4.619e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.668472,
+            0.724305,
+            0.007697,
+            0.020153
+          ],
+          "area": 401,
+          "area_norm": 4.607e-05,
+          "aspect": 0.54
+        },
+        {
+          "bbox": [
+            0.190137,
+            0.161628,
+            0.011688,
+            0.016526
+          ],
+          "area": 400,
+          "area_norm": 4.596e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.153079,
+            0.207981,
+            0.011688,
+            0.016526
+          ],
+          "area": 399,
+          "area_norm": 4.584e-05,
+          "aspect": 1.0
+        },
+        {
+          "bbox": [
+            0.297891,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 394,
+          "area_norm": 4.527e-05,
+          "aspect": 1.025
+        },
+        {
+          "bbox": [
+            0.405644,
+            0.409512,
+            0.011688,
+            0.016123
+          ],
+          "area": 393,
+          "area_norm": 4.516e-05,
+          "aspect": 1.025
+        }
+      ]
+    },
+    "titlebar": {
+      "success": true,
+      "box_norm": [
+        0.68,
+        0.82,
+        0.32,
+        0.18
+      ],
+      "detected": false,
+      "ink_density": 0.0,
+      "line_candidate_count": 0,
+      "component_count": 0,
+      "source": "titlebar_region_ink_density"
+    },
+    "notes": {
+      "success": true,
+      "box_norm": [
+        0.58,
+        0.65,
+        0.4,
+        0.17
+      ],
+      "detected": true,
+      "technical_requirements_detected": true,
+      "requires_technical_requirements": true,
+      "required_notes": [
+        "技术要求：",
+        "未注倒角 C0.5。",
+        "未注粗糙度 Ra3.2。",
+        "去毛刺，锐边倒钝。"
+      ],
+      "raw_reference_note_count": 0,
+      "warning_note_count": 0,
+      "ink_density": 0.0433,
+      "component_count": 124,
+      "source": "notes_region_ink_density"
+    },
+    "dimension_visuals": {
+      "success": true,
+      "required_display_dim_count": 2,
+      "dimension_text_candidate_count": 183,
+      "dimension_arrow_candidate_count": 22,
+      "min_visual_candidate_count": 2,
+      "visual_dimension_coverage_pass": true,
+      "visual_dimension_density_pass": false,
+      "text_candidate_examples": [
+        {
+          "bbox": [
+            0.288198,
+            0.209996,
+            0.038483,
+            0.043934
+          ],
+          "area": 3831,
+          "area_norm": 0.00044018,
+          "aspect": 1.239
+        },
+        {
+          "bbox": [
+            0.283637,
+            0.295848,
+            0.030217,
+            0.04474
+          ],
+          "area": 2139,
+          "area_norm": 0.00024577,
+          "aspect": 0.955
+        },
+        {
+          "bbox": [
+            0.288483,
+            0.337767,
+            0.028506,
+            0.036679
+          ],
+          "area": 1468,
+          "area_norm": 0.00016867,
+          "aspect": 1.099
+        },
+        {
+          "bbox": [
+            0.277936,
+            0.232971,
+            0.016819,
+            0.016526
+          ],
+          "area": 658,
+          "area_norm": 7.56e-05,
+          "aspect": 1.439
+        },
+        {
+          "bbox": [
+            0.708096,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 571,
+          "area_norm": 6.561e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.739168,
+            0.767029,
+            0.009122,
+            0.020153
+          ],
+          "area": 550,
+          "area_norm": 6.319e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.790764,
+            0.74607,
+            0.008837,
+            0.018944
+          ],
+          "area": 532,
+          "area_norm": 6.113e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.687286,
+            0.767029,
+            0.009407,
+            0.020153
+          ],
+          "area": 526,
+          "area_norm": 6.044e-05,
+          "aspect": 0.66
+        },
+        {
+          "bbox": [
+            0.760262,
+            0.767029,
+            0.008552,
+            0.020153
+          ],
+          "area": 499,
+          "area_norm": 5.733e-05,
+          "aspect": 0.6
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.768239,
+            0.009122,
+            0.018138
+          ],
+          "area": 491,
+          "area_norm": 5.642e-05,
+          "aspect": 0.711
+        },
+        {
+          "bbox": [
+            0.769669,
+            0.767029,
+            0.009692,
+            0.020153
+          ],
+          "area": 488,
+          "area_norm": 5.607e-05,
+          "aspect": 0.68
+        },
+        {
+          "bbox": [
+            0.641391,
+            0.704152,
+            0.008552,
+            0.018944
+          ],
+          "area": 483,
+          "area_norm": 5.55e-05,
+          "aspect": 0.638
+        },
+        {
+          "bbox": [
+            0.698119,
+            0.745667,
+            0.008837,
+            0.020153
+          ],
+          "area": 481,
+          "area_norm": 5.527e-05,
+          "aspect": 0.62
+        },
+        {
+          "bbox": [
+            0.718643,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 476,
+          "area_norm": 5.469e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.843501,
+            0.768239,
+            0.007127,
+            0.018541
+          ],
+          "area": 466,
+          "area_norm": 5.354e-05,
+          "aspect": 0.543
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.768642,
+            0.008837,
+            0.017735
+          ],
+          "area": 458,
+          "area_norm": 5.262e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.759692,
+            0.747279,
+            0.008837,
+            0.017735
+          ],
+          "area": 457,
+          "area_norm": 5.251e-05,
+          "aspect": 0.705
+        },
+        {
+          "bbox": [
+            0.851197,
+            0.724305,
+            0.009122,
+            0.020153
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.64
+        },
+        {
+          "bbox": [
+            0.769954,
+            0.724708,
+            0.009122,
+            0.01975
+          ],
+          "area": 449,
+          "area_norm": 5.159e-05,
+          "aspect": 0.653
+        },
+        {
+          "bbox": [
+            0.821551,
+            0.745667,
+            0.008837,
+            0.020556
+          ],
+          "area": 448,
+          "area_norm": 5.147e-05,
+          "aspect": 0.608
+        }
+      ],
+      "arrow_candidate_examples": [
+        {
+          "bbox": [
+            0.697834,
+            0.767836,
+            0.004276,
+            0.018944
+          ],
+          "area": 254,
+          "area_norm": 2.918e-05,
+          "aspect": 0.319
+        },
+        {
+          "bbox": [
+            0.68358,
+            0.74607,
+            0.002281,
+            0.01975
+          ],
+          "area": 158,
+          "area_norm": 1.815e-05,
+          "aspect": 0.163
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.74607,
+            0.002281,
+            0.019347
+          ],
+          "area": 145,
+          "area_norm": 1.666e-05,
+          "aspect": 0.167
+        },
+        {
+          "bbox": [
+            0.646237,
+            0.745667,
+            0.003421,
+            0.020556
+          ],
+          "area": 134,
+          "area_norm": 1.54e-05,
+          "aspect": 0.235
+        },
+        {
+          "bbox": [
+            0.621437,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.813569,
+            0.72632,
+            0.001425,
+            0.013704
+          ],
+          "area": 81,
+          "area_norm": 9.31e-06,
+          "aspect": 0.147
+        },
+        {
+          "bbox": [
+            0.832953,
+            0.733978,
+            0.006556,
+            0.001209
+          ],
+          "area": 69,
+          "area_norm": 7.93e-06,
+          "aspect": 7.667
+        },
+        {
+          "bbox": [
+            0.539054,
+            0.624345,
+            0.00114,
+            0.012092
+          ],
+          "area": 64,
+          "area_norm": 7.35e-06,
+          "aspect": 0.133
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.771866,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531072,
+            0.775091,
+            0.005701,
+            0.001209
+          ],
+          "area": 58,
+          "area_norm": 6.66e-06,
+          "aspect": 6.667
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.629182,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.531927,
+            0.632406,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.700524,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.532497,
+            0.703748,
+            0.005416,
+            0.001209
+          ],
+          "area": 57,
+          "area_norm": 6.55e-06,
+          "aspect": 6.333
+        },
+        {
+          "bbox": [
+            0.817275,
+            0.750101,
+            0.000855,
+            0.00927
+          ],
+          "area": 51,
+          "area_norm": 5.86e-06,
+          "aspect": 0.13
+        },
+        {
+          "bbox": [
+            0.804162,
+            0.774688,
+            0.004276,
+            0.002015
+          ],
+          "area": 41,
+          "area_norm": 4.71e-06,
+          "aspect": 3.0
+        },
+        {
+          "bbox": [
+            0.77423,
+            0.752922,
+            0.001425,
+            0.006449
+          ],
+          "area": 39,
+          "area_norm": 4.48e-06,
+          "aspect": 0.312
+        },
+        {
+          "bbox": [
+            0.667047,
+            0.729545,
+            0.00114,
+            0.006449
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.25
+        },
+        {
+          "bbox": [
+            0.772805,
+            0.754534,
+            0.001425,
+            0.006046
+          ],
+          "area": 34,
+          "area_norm": 3.91e-06,
+          "aspect": 0.333
+        },
+        {
+          "bbox": [
+            0.505986,
+            0.633615,
+            0.00114,
+            0.00524
+          ],
+          "area": 27,
+          "area_norm": 3.1e-06,
+          "aspect": 0.308
+        }
+      ],
+      "source": "dimension_visual_candidates"
+    },
+    "symbols": {
+      "centerline_candidate_count": 1,
+      "center_mark_candidate_count": 85,
+      "section_arrow_candidate_count": 196,
+      "missing": [
+        {
+          "key": "roughness_plan_not_marked_required",
+          "confidence": 0.65,
+          "description": "Reference notes mention roughness but annotation_plan does not require a roughness symbol.",
+          "fix_suggestion": "Propagate roughness requirements from notes/reference profile into annotation_plan."
+        }
+      ]
+    },
+    "reference_visual_compare": {
+      "success": true,
+      "generated_ink_bbox": [
+        0.0,
+        0.017332,
+        0.935576,
+        0.770254
+      ],
+      "reference_ink_bbox": [
+        0.098575,
+        0.050378,
+        0.712589,
+        0.755668
+      ],
+      "center_delta": 0.0387,
+      "area_ratio": 1.3383,
+      "coarse_layout_match": true
+    },
+    "ui_screenshot_review": {
+      "required": true,
+      "pass": false,
+      "manual_review_status": "",
+      "manual_review_error": "path_missing",
+      "source": "application_ui_screenshot_review",
+      "api_is_not_final_judgement": true
+    },
+    "geometry_qc_supporting": {
+      "source": "geometry_qc_supporting_only",
+      "pass": false,
+      "display_dim_count": 16,
+      "dimension_grade": "A",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete"
+      ],
+      "api_is_not_final_judgement": true
+    }
+  },
+  "duration_s": 1.375,
+  "status": "need_review"
+}

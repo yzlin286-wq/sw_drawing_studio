@@ -1,0 +1,487 @@
+{
+  "version": "v1.6",
+  "description": "full_pipeline manifest 汇总",
+  "results": [
+    {
+      "base": "LB26001-A-04-001",
+      "run_id": "06b8946148bb",
+      "started_at": "2026-06-19 16:54:33",
+      "finished_at": "2026-06-19 17:06:38",
+      "strategy": "v6_recommended",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 44,
+      "qc_pass_count": 11,
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 44,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "run_id": "3a8658acc506",
+      "started_at": "2026-06-19 17:06:38",
+      "finished_at": "2026-06-19 17:18:41",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "run_id": "fc371fda6331",
+      "started_at": "2026-06-19 17:18:41",
+      "finished_at": "2026-06-19 17:30:42",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "run_id": "e09401b21ac9",
+      "started_at": "2026-06-19 17:30:42",
+      "finished_at": "2026-06-19 17:33:29",
+      "strategy": "v6_recommended",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 64,
+      "qc_pass_count": 11,
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 64,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "run_id": "8bddde7a78d5",
+      "started_at": "2026-06-19 17:33:29",
+      "finished_at": "2026-06-19 17:34:34",
+      "strategy": "v6_recommended",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 8,
+      "qc_pass_count": 10,
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 8,
+          "qc_pass_count": 10,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-006",
+      "run_id": "51df09710df0",
+      "started_at": "2026-06-19 17:34:34",
+      "finished_at": "2026-06-19 17:35:41",
+      "strategy": "v6_recommended",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 8,
+      "qc_pass_count": 10,
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 8,
+          "qc_pass_count": 10,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_id": "84d85f127fd6",
+      "started_at": "2026-06-19 17:35:41",
+      "finished_at": "2026-06-19 17:47:43",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_id": "f4a58eba8ddd",
+      "started_at": "2026-06-19 17:47:43",
+      "finished_at": "2026-06-19 17:48:59",
+      "strategy": "v6_recommended",
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 32,
+      "qc_pass_count": 11,
+      "drawing_usable": {
+        "pass": true,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 32,
+          "qc_pass_count": 11,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_id": "331d185b8e5d",
+      "started_at": "2026-06-19 17:48:59",
+      "finished_at": "2026-06-19 18:01:00",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "run_id": "e62d8da543ea",
+      "started_at": "2026-06-19 18:01:28",
+      "finished_at": "2026-06-19 18:13:29",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "run_id": "b1ef6cc63494",
+      "started_at": "2026-06-19 18:13:29",
+      "finished_at": "2026-06-19 18:25:29",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "run_id": "24274c497abb",
+      "started_at": "2026-06-19 18:25:29",
+      "finished_at": "2026-06-19 18:37:49",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "run_id": "6bfc9fb61abe",
+      "started_at": "2026-06-19 18:37:49",
+      "finished_at": "2026-06-19 18:43:04",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "run_id": "1c609f89ccf2",
+      "started_at": "2026-06-19 18:43:04",
+      "finished_at": "2026-06-19 18:48:01",
+      "strategy": "v6_recommended",
+      "hard_fail": [
+        "dim_total_zero",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency",
+        "non_model_associative_dimension"
+      ],
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "drawing_usable": {
+        "pass": false,
+        "criteria": {
+          "files_exported": true,
+          "view_in_frame": true,
+          "view_overlap_ok": true,
+          "dim_total": 0,
+          "qc_pass_count": 9,
+          "vision_score": null
+        }
+      },
+      "bom_status": "ok",
+      "quote_status": "ok total=21.15"
+    }
+  ]
+}

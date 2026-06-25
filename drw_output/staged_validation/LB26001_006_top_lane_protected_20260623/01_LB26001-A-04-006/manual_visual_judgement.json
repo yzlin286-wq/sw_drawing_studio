@@ -1,0 +1,24 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 01:53:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/0d47f97a5cce",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "visual_findings": [
+        "Structural gates pass or pass_with_warning, but the top-view hole/radius/thread callout stack remains visibly unacceptable.",
+        "The generated drawing is improved but still not reference-intent-clean enough for manufacturing release."
+      ],
+      "required_next_action": "Place hole/radius/thread callouts in a protected reference-style leader area and rerun 006 UI screenshot review."
+    }
+  ],
+  "acceptance_rule": "Application UI screenshot visual PASS is required before any drawing can be accepted."
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+  "generated_at": "2026-06-25 02:09:28",
+  "mode": "source_qt_application_ui_screenshot",
+  "summary": "drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_020105\\summary.json",
+  "out_dir": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review",
+  "generated_png_overrides": {},
+  "total": 1,
+  "screenshot_pass": true,
+  "image_inputs_loaded": true,
+  "evidence_capture_pass": true,
+  "visual_acceptance_status": "pending_manual_visual_judgement",
+  "visual_acceptance_pass": false,
+  "pass": false,
+  "per_drawing_application_ui_screenshot_required": true,
+  "ui_screenshot_review_is_final_gate": true,
+  "api_only_acceptance_allowed": false,
+  "expansion_gate": {
+    "primary_base": "LB26001-A-04-006",
+    "default_scope": [
+      "LB26001-A-04-006"
+    ],
+    "reference_sample_bases": [
+      "LB26001-A-04-006",
+      "LB26001-A-04-007",
+      "LB26001-A-04-008",
+      "LB26001-A-04-009",
+      "LB26001-A-04-015",
+      "LB26001-A-04-022"
+    ],
+    "dependent_bases_requested": [],
+    "expansion_requested": false,
+    "status": "primary_006_only",
+    "acceptance_rule": "LB26001-A-04-006 must pass real CAD, strict v4 comparison, v6 visual QC, and application Drawing Review UI judgement before 007/008/009/015/022 enter acceptance."
+  },
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7ba8c89aea5d",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7ba8c89aea5d\\drawing\\LB26001-A-04-006_v5.PNG",
+      "generated_png_source": "run_dir",
+      "generated_png_evidence": {
+        "base": "LB26001-A-04-006",
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7ba8c89aea5d\\drawing\\LB26001-A-04-006_v5.PNG",
+        "source": "run_dir",
+        "exists": true,
+        "strict_sample": true,
+        "under_run_dir": true,
+        "under_legacy_v5": false,
+        "strict_source_pass": true,
+        "reasons": [],
+        "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+      },
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 10938925,
+        "width": 2600,
+        "height": 1400,
+        "sample_unique_colors": 16,
+        "avg_luma": 245.24,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "application_ui_screenshot_review_required": true,
+      "application_ui_screenshot_source": "Drawing Review page",
+      "ui_screenshot_source": "source_qt_application_ui_screenshot",
+      "ui_screenshot_is_final_gate": true,
+      "api_only_acceptance_allowed": false,
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    }
+  ],
+  "remaining_gates": [
+    "Manual visual judgement still must mark each drawing PASS/WARNING/FAIL.",
+    "This is source-level application UI evidence, not EXE-level Windows robot evidence.",
+    "LB26001-A-04-006 must pass before dependent LB26001 drawings enter acceptance."
+  ]
+}

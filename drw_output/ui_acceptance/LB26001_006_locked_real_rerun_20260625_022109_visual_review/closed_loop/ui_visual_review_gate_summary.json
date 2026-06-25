@@ -1,0 +1,70 @@
+{
+  "schema": "sw_drawing_studio.ui_visual_review_gate.v4",
+  "generated_at": "2026-06-25 02:27:45",
+  "summary": "drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_022109\\summary.json",
+  "ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\drawing_visual_review_report.json",
+  "manual_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\manual_visual_judgement.json",
+  "effective_manual_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\manual_visual_judgement.json",
+  "source_ui_report_injected": false,
+  "out_dir": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\closed_loop",
+  "total": 1,
+  "ui_report_entries_all_pass": true,
+  "manual_review_entries_all_pass": true,
+  "vision_qc_v6_all_pass": false,
+  "reference_compare_v4_all_pass": false,
+  "pass": false,
+  "status": "need_review",
+  "api_is_not_final_judgement": true,
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_022109\\01_LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3eb322e16e7e",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3eb322e16e7e\\drawing\\LB26001-A-04-006_v5.PNG",
+      "ui_report_entry_present": true,
+      "ui_report_application_ui_ok": true,
+      "ui_report_entry_screenshot": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "ui_report_entry_screenshot_exists": true,
+      "ui_report_entry_screenshot_capture_pass": true,
+      "ui_report_entry_pass": true,
+      "manual_review_entry_present": true,
+      "manual_review_entry_count": 1,
+      "manual_review_entry_screenshot_paths": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "manual_review_entry_screenshot_paths_existing": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "manual_review_entry_screenshot_missing_paths": [],
+      "manual_review_entry_screenshot_mismatch_paths": [],
+      "manual_review_screenshot_matches_ui_report_entry": true,
+      "manual_review_entry_screenshot_pass": true,
+      "vision_qc_v6_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+      "vision_qc_v6_status": "need_review",
+      "vision_qc_v6_visual_acceptance_pass": false,
+      "ui_screenshot_review_pass": false,
+      "generated_png_source_required": true,
+      "generated_png_source_pass": true,
+      "generated_png_source_evidence": {
+        "base": "LB26001-A-04-006",
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\3eb322e16e7e\\drawing\\LB26001-A-04-006_v5.PNG",
+        "source": "run_dir",
+        "exists": true,
+        "strict_sample": true,
+        "under_run_dir": true,
+        "under_legacy_v5": false,
+        "strict_source_pass": true,
+        "reasons": [],
+        "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+      },
+      "reference_compare_v4_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_022109_visual_review\\closed_loop\\reference_compare_v4_with_ui_review\\LB26001-A-04-006.json",
+      "reference_compare_v4_status": "need_review",
+      "reference_compare_v4_pass": false,
+      "reasons": [
+        "ui_screenshot_visual_acceptance_not_passed",
+        "layout_match_below_threshold",
+        "layout_match_score_below_v4_threshold"
+      ]
+    }
+  ]
+}

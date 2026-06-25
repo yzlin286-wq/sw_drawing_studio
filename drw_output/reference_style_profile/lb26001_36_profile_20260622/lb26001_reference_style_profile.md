@@ -1,0 +1,45 @@
+# LB26001 Reference Style Profile
+
+- status: `profile_ready`
+- samples: `36/36`
+- allowed view counts: `[2, 3, 4]`
+- projected view required: `True`
+- display dim range: `{'min': 1, 'max': 28}`
+
+## Samples
+- `LB26001-A-04-001`: views=2, types={'7': 1, '4': 1}, DisplayDim=1
+- `LB26001-A-04-002`: views=4, types={'7': 2, '4': 2}, DisplayDim=12
+- `LB26001-A-04-003`: views=4, types={'7': 2, '4': 2}, DisplayDim=6
+- `LB26001-A-04-004`: views=2, types={'7': 1, '4': 1}, DisplayDim=2
+- `LB26001-A-04-005`: views=4, types={'7': 2, '4': 2}, DisplayDim=12
+- `LB26001-A-04-006`: views=4, types={'7': 2, '4': 2}, DisplayDim=12
+- `LB26001-A-04-007`: views=4, types={'7': 2, '4': 2}, DisplayDim=8
+- `LB26001-A-04-008`: views=2, types={'7': 1, '4': 1}, DisplayDim=2
+- `LB26001-A-04-009`: views=3, types={'7': 1, '4': 2}, DisplayDim=4
+- `LB26001-A-04-015`: views=2, types={'7': 1, '4': 1}, DisplayDim=14
+- `LB26001-A-04-016`: views=4, types={'7': 2, '4': 2}, DisplayDim=22
+- `LB26001-A-04-021`: views=4, types={'7': 2, '4': 2}, DisplayDim=20
+- `LB26001-A-04-022`: views=4, types={'7': 2, '4': 2}, DisplayDim=25
+- `LB26001-A-04-023`: views=4, types={'7': 2, '4': 2}, DisplayDim=18
+- `LB26001-A-04-024`: views=4, types={'7': 2, '4': 2}, DisplayDim=24
+- `LB26001-A-04-025`: views=3, types={'7': 1, '4': 2}, DisplayDim=18
+- `LB26001-A-04-026`: views=3, types={'7': 1, '4': 2}, DisplayDim=23
+- `LB26001-A-04-031`: views=3, types={'7': 2, '4': 1}, DisplayDim=11
+- `LB26001-A-04-032`: views=4, types={'7': 2, '4': 2}, DisplayDim=28
+- `LB26001-A-04-033`: views=4, types={'7': 2, '4': 2}, DisplayDim=27
+- `LB26001-A-04-034`: views=4, types={'7': 2, '4': 2}, DisplayDim=27
+- `LB26001-A-04-035`: views=4, types={'7': 1, '4': 3}, DisplayDim=11
+- `LB26001-A-04-036`: views=3, types={'7': 1, '4': 2}, DisplayDim=8
+- `LB26001-A-04-037`: views=4, types={'7': 2, '4': 2}, DisplayDim=6
+- `LB26001-A-04-038`: views=3, types={'7': 1, '4': 2}, DisplayDim=6
+- `LB26001-A-04-039`: views=4, types={'7': 1, '4': 3}, DisplayDim=11
+- `LB26001-A-04-040`: views=4, types={'7': 2, '4': 2}, DisplayDim=10
+- `LB26001-A-04-041`: views=4, types={'7': 2, '4': 2}, DisplayDim=6
+- `LB26001-A-04-042`: views=4, types={'7': 2, '4': 2}, DisplayDim=10
+- `LB26001-A-04-044`: views=4, types={'7': 1, '4': 3}, DisplayDim=15
+- `LB26001-A-04-045`: views=4, types={'7': 2, '4': 2}, DisplayDim=23
+- `LB26001-A-04-046`: views=3, types={'7': 1, '4': 2}, DisplayDim=9
+- `LB26001-A-04-047`: views=4, types={'7': 1, '4': 3}, DisplayDim=9
+- `LB26001-A-04-048`: views=4, types={'7': 2, '4': 2}, DisplayDim=14
+- `LB26001-A-04-049`: views=3, types={'7': 1, '4': 2}, DisplayDim=3
+- `LB26001-A-04-050`: views=3, types={'7': 1, '4': 2}, DisplayDim=21

@@ -1,0 +1,1102 @@
+{
+  "generated_at": "2026-06-22 00:33:12",
+  "mode": "exe_reality_gate_v3",
+  "exe": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+  "out_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0",
+  "command": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+    "--worker",
+    "system_health",
+    "--job-id",
+    "exe_reality_gate_v3_0",
+    "--ensure-solidworks",
+    "--real-opendoc6-probe",
+    "--probe-doc-path",
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\input_work\\-AK-15-AC-27-1-V3-V02.SLDPRT"
+  ],
+  "returncode": 0,
+  "timeout": false,
+  "duration_s": 14.2,
+  "timeout_s": 240,
+  "probe_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+  "probe_doc_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\input_work\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+  "pass": true,
+  "status": "pass",
+  "failure_bucket": "",
+  "event_count": 5,
+  "event_types": [
+    "heartbeat",
+    "job_finished",
+    "job_started",
+    "progress"
+  ],
+  "required_events": [
+    "heartbeat",
+    "job_finished",
+    "job_started",
+    "progress"
+  ],
+  "missing_events": [],
+  "health_summary": {
+    "ts": "2026-06-22 00:33:10",
+    "pass": 31,
+    "warning": 4,
+    "fail": 0,
+    "total": 35
+  },
+  "checks": [
+    {
+      "key": "addin_ping",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "addin_ping",
+        "status": "pass",
+        "message": "Add-in Ping succeeded (dispatch)",
+        "fix_suggestion": "",
+        "details": {
+          "available": true,
+          "method": "dispatch",
+          "sw_running": true,
+          "addin_loaded": true,
+          "ping_result": true,
+          "reason": "Ping 成功",
+          "timestamp": "2026-06-22 00:33:08"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "chinese_path_support",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Data",
+        "key": "chinese_path_support",
+        "status": "pass",
+        "message": "Unicode 路径读写探测通过",
+        "fix_suggestion": "",
+        "details": {
+          "key": "chinese_path_support",
+          "status": "pass",
+          "msg": "Unicode 路径读写探测通过",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "dialog_guard",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "dialog_guard",
+        "status": "pass",
+        "message": "DialogGuard import ok: DialogGuardV2",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "macro_bas",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "macro_bas",
+        "status": "pass",
+        "message": "auto_section.bas 已就绪",
+        "fix_suggestion": "",
+        "details": {
+          "key": "macro_bas",
+          "status": "pass",
+          "msg": "auto_section.bas 已就绪",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "opendoc6_test",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "opendoc6_test",
+        "status": "pass",
+        "message": "OpenDoc6 真实打开探测通过: -AK-15-AC-27-1-V3-V02.SLDPRT",
+        "fix_suggestion": "",
+        "details": {
+          "probe_doc_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\input_work\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+          "doc_type": 1,
+          "errors": 0,
+          "warnings": 0,
+          "duration_ms": 858,
+          "title": "-AK-15-AC-27-1-V3-V02.SLDPRT",
+          "connection_method": "dispatch"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "output_dir",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Data",
+        "key": "output_dir",
+        "status": "pass",
+        "message": "C:\\Users\\Vision\\AppData\\Local\\Temp\\_MEI308282\\drw_output 可写",
+        "fix_suggestion": "",
+        "details": {
+          "key": "output_dir",
+          "status": "pass",
+          "msg": "C:\\Users\\Vision\\AppData\\Local\\Temp\\_MEI308282\\drw_output 可写",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "solidworks",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "solidworks",
+        "status": "pass",
+        "message": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+        "fix_suggestion": "",
+        "details": {
+          "key": "solidworks",
+          "status": "pass",
+          "msg": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+          "fix": "",
+          "sw_pid": 33472,
+          "sw_revision": "33.5.0",
+          "visible": "False",
+          "connection_method": "dispatch"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "sw_revision",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "sw_revision",
+        "status": "pass",
+        "message": "RevisionNumber = 33.5.0",
+        "fix_suggestion": "",
+        "details": {
+          "key": "sw_revision",
+          "status": "pass",
+          "msg": "RevisionNumber = 33.5.0",
+          "fix": "",
+          "sw_revision": "33.5.0"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "sw_revision_supported",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "sw_revision_supported",
+        "status": "pass",
+        "message": "版本 33.5.0 在支持列表内",
+        "fix_suggestion": "",
+        "details": {
+          "key": "sw_revision_supported",
+          "status": "pass",
+          "msg": "版本 33.5.0 在支持列表内",
+          "fix": "",
+          "sw_revision": "33.5.0",
+          "supported_revisions": [
+            "33.",
+            "32.",
+            "31."
+          ]
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "sw_running",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "sw_running",
+        "status": "pass",
+        "message": "SolidWorks 已连接",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "template",
+      "required": "pass",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "template",
+        "status": "pass",
+        "message": "gb_a4_landscape.DRWDOT 已就绪",
+        "fix_suggestion": "",
+        "details": {
+          "key": "template",
+          "status": "pass",
+          "msg": "gb_a4_landscape.DRWDOT 已就绪",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "batch_job_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "batch_job_worker.py",
+        "status": "pass",
+        "message": "batch_job_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "cad_job_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "cad_job_worker.py",
+        "status": "pass",
+        "message": "cad_job_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "cv2",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "cv2",
+        "status": "pass",
+        "message": "cv2 is installed; import deferred to visual worker gate",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "document_manager_key",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "warning",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "License",
+        "key": "document_manager_key",
+        "status": "warning",
+        "message": "SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key）",
+        "fix_suggestion": "配置 SW_DM_LICENSE_KEY 或 config/docmgr.yaml；当前流程可降级但必须解释原因",
+        "details": {
+          "available": false,
+          "dll_found": true,
+          "dll_path": "C:\\Program Files\\SOLIDWORKS Corp25\\SOLIDWORKS\\SolidWorks.Interop.swdocumentmgr.dll",
+          "license_key_present": false,
+          "com_factory_registered": false,
+          "reason": "SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key）",
+          "timestamp": "2026-06-22 00:33:09"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "drawing_review_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "drawing_review_worker.py",
+        "status": "pass",
+        "message": "drawing_review_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "fitz",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "fitz",
+        "status": "pass",
+        "message": "fitz is installed; import deferred to visual worker gate",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "health_check_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "health_check_worker.py",
+        "status": "pass",
+        "message": "health_check_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "llm_action_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "llm_action_worker.py",
+        "status": "pass",
+        "message": "llm_action_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "macro_swp",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "warning",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "SolidWorks",
+        "key": "macro_swp",
+        "status": "warning",
+        "message": "auto_section.swp 缺失",
+        "fix_suggestion": "在 SolidWorks VBA 中打开 BAS 宏并另存为 SWP",
+        "details": {
+          "key": "macro_swp",
+          "status": "warning",
+          "msg": "auto_section.swp 缺失",
+          "fix": "在 SolidWorks VBA 中打开 BAS 宏并另存为 SWP"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "mock_long_job_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "mock_long_job_worker.py",
+        "status": "pass",
+        "message": "mock_long_job_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "mock_worker_smoke",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "mock_worker_smoke",
+        "status": "pass",
+        "message": "mock worker 可启动并完成",
+        "fix_suggestion": "",
+        "details": {
+          "stdout": "{\"event_type\": \"job_started\", \"type\": \"job_started\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"job_type\": \"mock\", \"scenario\": \"normal_pass\", \"duration_s\": 0.1}, \"message\": \"Mock job started: normal_pass\"}\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"progress\": 1.0, \"stage\": \"mock_step_1/1\"}, \"message\": \"Mock progress 100%\"}\n{\"event_type\": \"heartbeat\", \"type\": \"heartbeat\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"ts\": 1782059590.8577325}, \"message\": \"mock alive\"}\n{\"event_type\": \"job_finished\", \"type\": \"job_finished\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"result\": {\"ok\": true, \"scenario\": \"normal_pass\", \"duration_s\": 0.1}}, \"message\": \"Mock job finished\"}\n",
+          "stderr": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "ocr",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "ocr",
+        "status": "pass",
+        "message": "OCR 相关模块存在: paddleocr, fitz；导入延迟执行",
+        "fix_suggestion": "",
+        "details": {
+          "key": "ocr",
+          "status": "pass",
+          "msg": "OCR 相关模块存在: paddleocr, fitz；导入延迟执行",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "opencv",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "opencv",
+        "status": "pass",
+        "message": "cv2 已安装；导入延迟到 worker 门槛",
+        "fix_suggestion": "",
+        "details": {
+          "key": "opencv",
+          "status": "pass",
+          "msg": "cv2 已安装；导入延迟到 worker 门槛",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "paddleocr",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "paddleocr",
+        "status": "pass",
+        "message": "paddleocr is installed; import deferred to visual worker gate",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "qc_action_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "qc_action_worker.py",
+        "status": "pass",
+        "message": "qc_action_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "ultralytics",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "ultralytics",
+        "status": "pass",
+        "message": "ultralytics 已安装；导入延迟到 worker 门槛",
+        "fix_suggestion": "",
+        "details": {
+          "key": "ultralytics",
+          "status": "pass",
+          "msg": "ultralytics 已安装；导入延迟到 worker 门槛",
+          "fix": ""
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "ultralytics_import",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "ultralytics_import",
+        "status": "pass",
+        "message": "ultralytics is installed; import deferred to visual worker gate",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "vision_audit_worker.py",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "UI-Worker",
+        "key": "vision_audit_worker.py",
+        "status": "pass",
+        "message": "vision_audit_worker.py 存在",
+        "fix_suggestion": "",
+        "details": null
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "vision_model",
+      "required": "recorded_pass_or_warning",
+      "present": true,
+      "status": "warning",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "group": "Vision",
+        "key": "vision_model",
+        "status": "warning",
+        "message": "未找到专用 YOLO/OBB 权重",
+        "fix_suggestion": "将训练后的权重放到 models/yolo_drawing_obb.pt",
+        "details": {
+          "key": "vision_model",
+          "status": "warning",
+          "msg": "未找到专用 YOLO/OBB 权重",
+          "fix": "将训练后的权重放到 models/yolo_drawing_obb.pt"
+        }
+      },
+      "fix_suggestion": ""
+    },
+    {
+      "key": "sw_pid",
+      "required": "positive_integer",
+      "present": true,
+      "status": "pass",
+      "pass": true,
+      "reason": "",
+      "evidence": {
+        "sw_pid": 33472,
+        "solidworks_row": {
+          "group": "SolidWorks",
+          "key": "solidworks",
+          "status": "pass",
+          "message": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+          "fix_suggestion": "",
+          "details": {
+            "key": "solidworks",
+            "status": "pass",
+            "msg": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+            "fix": "",
+            "sw_pid": 33472,
+            "sw_revision": "33.5.0",
+            "visible": "False",
+            "connection_method": "dispatch"
+          }
+        }
+      },
+      "fix_suggestion": ""
+    }
+  ],
+  "rows": [
+    {
+      "group": "SolidWorks",
+      "key": "solidworks",
+      "status": "pass",
+      "message": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+      "fix_suggestion": "",
+      "details": {
+        "key": "solidworks",
+        "status": "pass",
+        "msg": "SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0",
+        "fix": "",
+        "sw_pid": 33472,
+        "sw_revision": "33.5.0",
+        "visible": "False",
+        "connection_method": "dispatch"
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "sw_revision",
+      "status": "pass",
+      "message": "RevisionNumber = 33.5.0",
+      "fix_suggestion": "",
+      "details": {
+        "key": "sw_revision",
+        "status": "pass",
+        "msg": "RevisionNumber = 33.5.0",
+        "fix": "",
+        "sw_revision": "33.5.0"
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "sw_revision_supported",
+      "status": "pass",
+      "message": "版本 33.5.0 在支持列表内",
+      "fix_suggestion": "",
+      "details": {
+        "key": "sw_revision_supported",
+        "status": "pass",
+        "msg": "版本 33.5.0 在支持列表内",
+        "fix": "",
+        "sw_revision": "33.5.0",
+        "supported_revisions": [
+          "33.",
+          "32.",
+          "31."
+        ]
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "template",
+      "status": "pass",
+      "message": "gb_a4_landscape.DRWDOT 已就绪",
+      "fix_suggestion": "",
+      "details": {
+        "key": "template",
+        "status": "pass",
+        "msg": "gb_a4_landscape.DRWDOT 已就绪",
+        "fix": ""
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "macro_bas",
+      "status": "pass",
+      "message": "auto_section.bas 已就绪",
+      "fix_suggestion": "",
+      "details": {
+        "key": "macro_bas",
+        "status": "pass",
+        "msg": "auto_section.bas 已就绪",
+        "fix": ""
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "macro_swp",
+      "status": "warning",
+      "message": "auto_section.swp 缺失",
+      "fix_suggestion": "在 SolidWorks VBA 中打开 BAS 宏并另存为 SWP",
+      "details": {
+        "key": "macro_swp",
+        "status": "warning",
+        "msg": "auto_section.swp 缺失",
+        "fix": "在 SolidWorks VBA 中打开 BAS 宏并另存为 SWP"
+      }
+    },
+    {
+      "group": "Data",
+      "key": "output_dir",
+      "status": "pass",
+      "message": "C:\\Users\\Vision\\AppData\\Local\\Temp\\_MEI308282\\drw_output 可写",
+      "fix_suggestion": "",
+      "details": {
+        "key": "output_dir",
+        "status": "pass",
+        "msg": "C:\\Users\\Vision\\AppData\\Local\\Temp\\_MEI308282\\drw_output 可写",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Data",
+      "key": "chinese_path_support",
+      "status": "pass",
+      "message": "Unicode 路径读写探测通过",
+      "fix_suggestion": "",
+      "details": {
+        "key": "chinese_path_support",
+        "status": "pass",
+        "msg": "Unicode 路径读写探测通过",
+        "fix": ""
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "v6_generator",
+      "status": "pass",
+      "message": "v6 生成脚本已就绪",
+      "fix_suggestion": "",
+      "details": {
+        "key": "v6_generator",
+        "status": "pass",
+        "msg": "v6 生成脚本已就绪",
+        "fix": ""
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "v5_fallback",
+      "status": "pass",
+      "message": "v5 兼容脚本已就绪",
+      "fix_suggestion": "",
+      "details": {
+        "key": "v5_fallback",
+        "status": "pass",
+        "msg": "v5 兼容脚本已就绪",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Data",
+      "key": "db_readable",
+      "status": "pass",
+      "message": "标准件、工艺和报价数据可读取",
+      "fix_suggestion": "",
+      "details": {
+        "key": "db_readable",
+        "status": "pass",
+        "msg": "标准件、工艺和报价数据可读取",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Data",
+      "key": "llm",
+      "status": "pass",
+      "message": "LLM 模型已配置: glm-5.1",
+      "fix_suggestion": "",
+      "details": {
+        "key": "llm",
+        "status": "pass",
+        "msg": "LLM 模型已配置: glm-5.1",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Vision",
+      "key": "opencv",
+      "status": "pass",
+      "message": "cv2 已安装；导入延迟到 worker 门槛",
+      "fix_suggestion": "",
+      "details": {
+        "key": "opencv",
+        "status": "pass",
+        "msg": "cv2 已安装；导入延迟到 worker 门槛",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Vision",
+      "key": "ultralytics",
+      "status": "pass",
+      "message": "ultralytics 已安装；导入延迟到 worker 门槛",
+      "fix_suggestion": "",
+      "details": {
+        "key": "ultralytics",
+        "status": "pass",
+        "msg": "ultralytics 已安装；导入延迟到 worker 门槛",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Vision",
+      "key": "ocr",
+      "status": "pass",
+      "message": "OCR 相关模块存在: paddleocr, fitz；导入延迟执行",
+      "fix_suggestion": "",
+      "details": {
+        "key": "ocr",
+        "status": "pass",
+        "msg": "OCR 相关模块存在: paddleocr, fitz；导入延迟执行",
+        "fix": ""
+      }
+    },
+    {
+      "group": "Vision",
+      "key": "vision_model",
+      "status": "warning",
+      "message": "未找到专用 YOLO/OBB 权重",
+      "fix_suggestion": "将训练后的权重放到 models/yolo_drawing_obb.pt",
+      "details": {
+        "key": "vision_model",
+        "status": "warning",
+        "msg": "未找到专用 YOLO/OBB 权重",
+        "fix": "将训练后的权重放到 models/yolo_drawing_obb.pt"
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "sw_running",
+      "status": "pass",
+      "message": "SolidWorks 已连接",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "SolidWorks",
+      "key": "addin_ping",
+      "status": "pass",
+      "message": "Add-in Ping succeeded (dispatch)",
+      "fix_suggestion": "",
+      "details": {
+        "available": true,
+        "method": "dispatch",
+        "sw_running": true,
+        "addin_loaded": true,
+        "ping_result": true,
+        "reason": "Ping 成功",
+        "timestamp": "2026-06-22 00:33:08"
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "opendoc6_test",
+      "status": "pass",
+      "message": "OpenDoc6 真实打开探测通过: -AK-15-AC-27-1-V3-V02.SLDPRT",
+      "fix_suggestion": "",
+      "details": {
+        "probe_doc_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\input_work\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+        "doc_type": 1,
+        "errors": 0,
+        "warnings": 0,
+        "duration_ms": 858,
+        "title": "-AK-15-AC-27-1-V3-V02.SLDPRT",
+        "connection_method": "dispatch"
+      }
+    },
+    {
+      "group": "SolidWorks",
+      "key": "dialog_guard",
+      "status": "pass",
+      "message": "DialogGuard import ok: DialogGuardV2",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "Vision",
+      "key": "fitz",
+      "status": "pass",
+      "message": "fitz is installed; import deferred to visual worker gate",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "Vision",
+      "key": "cv2",
+      "status": "pass",
+      "message": "cv2 is installed; import deferred to visual worker gate",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "Vision",
+      "key": "ultralytics_import",
+      "status": "pass",
+      "message": "ultralytics is installed; import deferred to visual worker gate",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "Vision",
+      "key": "paddleocr",
+      "status": "pass",
+      "message": "paddleocr is installed; import deferred to visual worker gate",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "Vision",
+      "key": "yolo_weights",
+      "status": "warning",
+      "message": "未找到专用 YOLO/OBB 权重；视觉检查将依赖规则或通用模型",
+      "fix_suggestion": "将训练后的权重放到 models/yolo_drawing_obb.pt",
+      "details": null
+    },
+    {
+      "group": "License",
+      "key": "document_manager_key",
+      "status": "warning",
+      "message": "SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key）",
+      "fix_suggestion": "配置 SW_DM_LICENSE_KEY 或 config/docmgr.yaml；当前流程可降级但必须解释原因",
+      "details": {
+        "available": false,
+        "dll_found": true,
+        "dll_path": "C:\\Program Files\\SOLIDWORKS Corp25\\SOLIDWORKS\\SolidWorks.Interop.swdocumentmgr.dll",
+        "license_key_present": false,
+        "com_factory_registered": false,
+        "reason": "SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key）",
+        "timestamp": "2026-06-22 00:33:09"
+      }
+    },
+    {
+      "group": "UI-Worker",
+      "key": "cad_job_worker.py",
+      "status": "pass",
+      "message": "cad_job_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "batch_job_worker.py",
+      "status": "pass",
+      "message": "batch_job_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "drawing_review_worker.py",
+      "status": "pass",
+      "message": "drawing_review_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "qc_action_worker.py",
+      "status": "pass",
+      "message": "qc_action_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "llm_action_worker.py",
+      "status": "pass",
+      "message": "llm_action_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "vision_audit_worker.py",
+      "status": "pass",
+      "message": "vision_audit_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "mock_long_job_worker.py",
+      "status": "pass",
+      "message": "mock_long_job_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "health_check_worker.py",
+      "status": "pass",
+      "message": "health_check_worker.py 存在",
+      "fix_suggestion": "",
+      "details": null
+    },
+    {
+      "group": "UI-Worker",
+      "key": "mock_worker_smoke",
+      "status": "pass",
+      "message": "mock worker 可启动并完成",
+      "fix_suggestion": "",
+      "details": {
+        "stdout": "{\"event_type\": \"job_started\", \"type\": \"job_started\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"job_type\": \"mock\", \"scenario\": \"normal_pass\", \"duration_s\": 0.1}, \"message\": \"Mock job started: normal_pass\"}\n{\"event_type\": \"progress\", \"type\": \"progress\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"progress\": 1.0, \"stage\": \"mock_step_1/1\"}, \"message\": \"Mock progress 100%\"}\n{\"event_type\": \"heartbeat\", \"type\": \"heartbeat\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"ts\": 1782059590.8577325}, \"message\": \"mock alive\"}\n{\"event_type\": \"job_finished\", \"type\": \"job_finished\", \"job_id\": \"health\", \"timestamp\": \"2026-06-22T00:33:10\", \"data\": {\"result\": {\"ok\": true, \"scenario\": \"normal_pass\", \"duration_s\": 0.1}}, \"message\": \"Mock job finished\"}\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "reasons": [],
+  "fix_suggestions": [],
+  "stdout_tail": "0:33:10\\\", \\\"data\\\": {\\\"progress\\\": 1.0, \\\"stage\\\": \\\"mock_step_1/1\\\"}, \\\"message\\\": \\\"Mock progress 100%\\\"}\\n{\\\"event_type\\\": \\\"heartbeat\\\", \\\"type\\\": \\\"heartbeat\\\", \\\"job_id\\\": \\\"health\\\", \\\"timestamp\\\": \\\"2026-06-22T00:33:10\\\", \\\"data\\\": {\\\"ts\\\": 1782059590.8577325}, \\\"message\\\": \\\"mock alive\\\"}\\n{\\\"event_type\\\": \\\"job_finished\\\", \\\"type\\\": \\\"job_finished\\\", \\\"job_id\\\": \\\"health\\\", \\\"timestamp\\\": \\\"2026-06-22T00:33:10\\\", \\\"data\\\": {\\\"result\\\": {\\\"ok\\\": true, \\\"scenario\\\": \\\"normal_pass\\\", \\\"duration_s\\\": 0.1}}, \\\"message\\\": \\\"Mock job finished\\\"}\\n\", \"stderr\": \"\"}}], \"summary\": {\"ts\": \"2026-06-22 00:33:10\", \"pass\": 31, \"warning\": 4, \"fail\": 0, \"total\": 35}, \"summary_text\": \"系统健康摘要\\n时间戳: 2026-06-22 00:33:10\\npass=31 warning=4 fail=0\\n\\n[SolidWorks]\\n- PASS solidworks: SolidWorks 活动对象可用；method=dispatch；Visible=False；sw_pid=33472；revision=33.5.0\\n- PASS sw_revision: RevisionNumber = 33.5.0\\n- PASS sw_revision_supported: 版本 33.5.0 在支持列表内\\n- PASS template: gb_a4_landscape.DRWDOT 已就绪\\n- PASS macro_bas: auto_section.bas 已就绪\\n- WARNING macro_swp: auto_section.swp 缺失 | fix: 在 SolidWorks VBA 中打开 BAS 宏并另存为 SWP\\n- PASS v6_generator: v6 生成脚本已就绪\\n- PASS v5_fallback: v5 兼容脚本已就绪\\n- PASS sw_running: SolidWorks 已连接\\n- PASS addin_ping: Add-in Ping succeeded (dispatch)\\n- PASS opendoc6_test: OpenDoc6 真实打开探测通过: -AK-15-AC-27-1-V3-V02.SLDPRT\\n- PASS dialog_guard: DialogGuard import ok: DialogGuardV2\\n\\n[Vision]\\n- PASS opencv: cv2 已安装；导入延迟到 worker 门槛\\n- PASS ultralytics: ultralytics 已安装；导入延迟到 worker 门槛\\n- PASS ocr: OCR 相关模块存在: paddleocr, fitz；导入延迟执行\\n- WARNING vision_model: 未找到专用 YOLO/OBB 权重 | fix: 将训练后的权重放到 models/yolo_drawing_obb.pt\\n- PASS fitz: fitz is installed; import deferred to visual worker gate\\n- PASS cv2: cv2 is installed; import deferred to visual worker gate\\n- PASS ultralytics_import: ultralytics is installed; import deferred to visual worker gate\\n- PASS paddleocr: paddleocr is installed; import deferred to visual worker gate\\n- WARNING yolo_weights: 未找到专用 YOLO/OBB 权重；视觉检查将依赖规则或通用模型 | fix: 将训练后的权重放到 models/yolo_drawing_obb.pt\\n\\n[Data]\\n- PASS output_dir: C:\\\\Users\\\\Vision\\\\AppData\\\\Local\\\\Temp\\\\_MEI308282\\\\drw_output 可写\\n- PASS chinese_path_support: Unicode 路径读写探测通过\\n- PASS db_readable: 标准件、工艺和报价数据可读取\\n- PASS llm: LLM 模型已配置: glm-5.1\\n\\n[License]\\n- WARNING document_manager_key: SW_DM_LICENSE_KEY 未设置（Document Manager 需要 license key） | fix: 配置 SW_DM_LICENSE_KEY 或 config/docmgr.yaml；当前流程可降级但必须解释原因\\n\\n[UI-Worker]\\n- PASS cad_job_worker.py: cad_job_worker.py 存在\\n- PASS batch_job_worker.py: batch_job_worker.py 存在\\n- PASS drawing_review_worker.py: drawing_review_worker.py 存在\\n- PASS qc_action_worker.py: qc_action_worker.py 存在\\n- PASS llm_action_worker.py: llm_action_worker.py 存在\\n- PASS vision_audit_worker.py: vision_audit_worker.py 存在\\n- PASS mock_long_job_worker.py: mock_long_job_worker.py 存在\\n- PASS health_check_worker.py: health_check_worker.py 存在\\n- PASS mock_worker_smoke: mock worker 可启动并完成\"}}, \"message\": \"System Health check finished (35 checks)\"}\r\n",
+  "stderr_tail": "",
+  "artifacts": {
+    "report_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\exe_reality_gate_v3_0.json",
+    "report_md": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\exe_reality_gate_v3_0.md",
+    "copied_probe_doc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\exe_reality_gate_v3_0\\input_work\\-AK-15-AC-27-1-V3-V02.SLDPRT"
+  },
+  "remaining_gates": [
+    "Real CAD Smoke remains pending.",
+    "2D annotation validation smoke remains pending.",
+    "Reference drawing comparison smoke remains pending.",
+    "Staged CAD validation remains pending.",
+    "Historical Visual Audit 100 percent coverage remains pending."
+  ]
+}

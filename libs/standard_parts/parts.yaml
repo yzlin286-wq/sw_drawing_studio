@@ -1,0 +1,545 @@
+# 标准件库 — GB 常用规格
+# 共 8 类，合计 ≥ 50 条
+
+# ====== 1. 螺钉 ======
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M3x10
+  material: 8.8级钢
+  weight_g: 1.2
+  price_cny: 0.08
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M4x12
+  material: 8.8级钢
+  weight_g: 2.6
+  price_cny: 0.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M5x16
+  material: 8.8级钢
+  weight_g: 6.4
+  price_cny: 0.18
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M6x20
+  material: 8.8级钢
+  weight_g: 11.2
+  price_cny: 0.28
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M8x25
+  material: 12.9级钢
+  weight_g: 23.5
+  price_cny: 0.55
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+- std_no: GB/T 70.1
+  category: 螺钉
+  name: 内六角圆柱头螺钉
+  spec: M10x30
+  material: 12.9级钢
+  weight_g: 42.8
+  price_cny: 0.95
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Socket Head Cap Screws/GB 70.1.sldprt
+
+- std_no: GB/T 5783
+  category: 螺钉
+  name: 六角头全螺纹螺栓
+  spec: M4x16
+  material: 8.8级钢
+  weight_g: 3.4
+  price_cny: 0.12
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Head Bolts/GB 5783.sldprt
+- std_no: GB/T 5783
+  category: 螺钉
+  name: 六角头全螺纹螺栓
+  spec: M6x20
+  material: 8.8级钢
+  weight_g: 10.5
+  price_cny: 0.26
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Head Bolts/GB 5783.sldprt
+- std_no: GB/T 5783
+  category: 螺钉
+  name: 六角头全螺纹螺栓
+  spec: M8x25
+  material: 8.8级钢
+  weight_g: 22.6
+  price_cny: 0.50
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Head Bolts/GB 5783.sldprt
+- std_no: GB/T 5783
+  category: 螺钉
+  name: 六角头全螺纹螺栓
+  spec: M10x30
+  material: 8.8级钢
+  weight_g: 41.0
+  price_cny: 0.85
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bolts/Hexagon Head Bolts/GB 5783.sldprt
+
+- std_no: GB/T 818
+  category: 螺钉
+  name: 十字槽盘头螺钉
+  spec: M3x8
+  material: 不锈钢A2-70
+  weight_g: 0.9
+  price_cny: 0.06
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Cross Recessed Pan Head Screws/GB 818.sldprt
+- std_no: GB/T 818
+  category: 螺钉
+  name: 十字槽盘头螺钉
+  spec: M4x12
+  material: 不锈钢A2-70
+  weight_g: 2.3
+  price_cny: 0.09
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Cross Recessed Pan Head Screws/GB 818.sldprt
+- std_no: GB/T 818
+  category: 螺钉
+  name: 十字槽盘头螺钉
+  spec: M5x16
+  material: 不锈钢A2-70
+  weight_g: 5.6
+  price_cny: 0.15
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Cross Recessed Pan Head Screws/GB 818.sldprt
+
+- std_no: GB/T 65
+  category: 螺钉
+  name: 开槽圆柱头螺钉
+  spec: M3x10
+  material: 4.8级钢
+  weight_g: 1.1
+  price_cny: 0.07
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Slotted Cheese Head Screws/GB 65.sldprt
+- std_no: GB/T 65
+  category: 螺钉
+  name: 开槽圆柱头螺钉
+  spec: M4x12
+  material: 4.8级钢
+  weight_g: 2.5
+  price_cny: 0.09
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Slotted Cheese Head Screws/GB 65.sldprt
+- std_no: GB/T 65
+  category: 螺钉
+  name: 开槽圆柱头螺钉
+  spec: M6x20
+  material: 4.8级钢
+  weight_g: 10.8
+  price_cny: 0.24
+  toolbox_path: SOLIDWORKS Toolbox/GB/Screws/Slotted Cheese Head Screws/GB 65.sldprt
+
+# ====== 2. 螺母 ======
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M3
+  material: 8级钢
+  weight_g: 0.4
+  price_cny: 0.04
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M4
+  material: 8级钢
+  weight_g: 0.9
+  price_cny: 0.05
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M5
+  material: 8级钢
+  weight_g: 1.7
+  price_cny: 0.07
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M6
+  material: 8级钢
+  weight_g: 2.6
+  price_cny: 0.09
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M8
+  material: 8级钢
+  weight_g: 5.4
+  price_cny: 0.13
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+- std_no: GB/T 6170
+  category: 螺母
+  name: 1型六角螺母
+  spec: M10
+  material: 8级钢
+  weight_g: 10.5
+  price_cny: 0.22
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts/GB 6170.sldprt
+
+- std_no: GB/T 6175
+  category: 螺母
+  name: 2型六角螺母
+  spec: M5
+  material: 10级钢
+  weight_g: 2.0
+  price_cny: 0.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts Style 2/GB 6175.sldprt
+- std_no: GB/T 6175
+  category: 螺母
+  name: 2型六角螺母
+  spec: M8
+  material: 10级钢
+  weight_g: 6.5
+  price_cny: 0.18
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts Style 2/GB 6175.sldprt
+- std_no: GB/T 6175
+  category: 螺母
+  name: 2型六角螺母
+  spec: M10
+  material: 10级钢
+  weight_g: 12.0
+  price_cny: 0.28
+  toolbox_path: SOLIDWORKS Toolbox/GB/Nuts/Hexagon Nuts Style 2/GB 6175.sldprt
+
+# ====== 3. 垫圈 ======
+- std_no: GB/T 95
+  category: 垫圈
+  name: 平垫圈C级
+  spec: M3
+  material: Q235
+  weight_g: 0.2
+  price_cny: 0.02
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade C/GB 95.sldprt
+- std_no: GB/T 95
+  category: 垫圈
+  name: 平垫圈C级
+  spec: M5
+  material: Q235
+  weight_g: 0.6
+  price_cny: 0.03
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade C/GB 95.sldprt
+- std_no: GB/T 95
+  category: 垫圈
+  name: 平垫圈C级
+  spec: M8
+  material: Q235
+  weight_g: 1.6
+  price_cny: 0.05
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade C/GB 95.sldprt
+
+- std_no: GB/T 97.1
+  category: 垫圈
+  name: 平垫圈A级
+  spec: M4
+  material: 不锈钢304
+  weight_g: 0.3
+  price_cny: 0.03
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade A/GB 97.1.sldprt
+- std_no: GB/T 97.1
+  category: 垫圈
+  name: 平垫圈A级
+  spec: M6
+  material: 不锈钢304
+  weight_g: 0.9
+  price_cny: 0.05
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade A/GB 97.1.sldprt
+- std_no: GB/T 97.1
+  category: 垫圈
+  name: 平垫圈A级
+  spec: M10
+  material: 不锈钢304
+  weight_g: 2.8
+  price_cny: 0.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Plain Washers Grade A/GB 97.1.sldprt
+
+- std_no: GB/T 93
+  category: 垫圈
+  name: 标准型弹簧垫圈
+  spec: M3
+  material: 65Mn
+  weight_g: 0.15
+  price_cny: 0.02
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Spring Lock Washers/GB 93.sldprt
+- std_no: GB/T 93
+  category: 垫圈
+  name: 标准型弹簧垫圈
+  spec: M5
+  material: 65Mn
+  weight_g: 0.5
+  price_cny: 0.03
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Spring Lock Washers/GB 93.sldprt
+- std_no: GB/T 93
+  category: 垫圈
+  name: 标准型弹簧垫圈
+  spec: M8
+  material: 65Mn
+  weight_g: 1.4
+  price_cny: 0.05
+  toolbox_path: SOLIDWORKS Toolbox/GB/Washers/Spring Lock Washers/GB 93.sldprt
+
+# ====== 4. 销 ======
+- std_no: GB/T 119.1
+  category: 销
+  name: 圆柱销
+  spec: 3x10
+  material: 35钢
+  weight_g: 0.6
+  price_cny: 0.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Parallel Pins/GB 119.1.sldprt
+- std_no: GB/T 119.1
+  category: 销
+  name: 圆柱销
+  spec: 4x16
+  material: 35钢
+  weight_g: 1.6
+  price_cny: 0.14
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Parallel Pins/GB 119.1.sldprt
+- std_no: GB/T 119.1
+  category: 销
+  name: 圆柱销
+  spec: 5x20
+  material: 35钢
+  weight_g: 3.1
+  price_cny: 0.18
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Parallel Pins/GB 119.1.sldprt
+- std_no: GB/T 119.1
+  category: 销
+  name: 圆柱销
+  spec: 6x25
+  material: 35钢
+  weight_g: 5.6
+  price_cny: 0.24
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Parallel Pins/GB 119.1.sldprt
+
+- std_no: GB/T 117
+  category: 销
+  name: 圆锥销
+  spec: 4x20
+  material: 45钢
+  weight_g: 1.8
+  price_cny: 0.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Taper Pins/GB 117.sldprt
+- std_no: GB/T 117
+  category: 销
+  name: 圆锥销
+  spec: 6x30
+  material: 45钢
+  weight_g: 6.2
+  price_cny: 0.32
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Taper Pins/GB 117.sldprt
+- std_no: GB/T 117
+  category: 销
+  name: 圆锥销
+  spec: 8x40
+  material: 45钢
+  weight_g: 14.5
+  price_cny: 0.55
+  toolbox_path: SOLIDWORKS Toolbox/GB/Pins/Taper Pins/GB 117.sldprt
+
+# ====== 5. 键 ======
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 4x4x12
+  material: 45钢
+  weight_g: 1.5
+  price_cny: 0.30
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 5x5x16
+  material: 45钢
+  weight_g: 3.1
+  price_cny: 0.36
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 6x6x20
+  material: 45钢
+  weight_g: 5.6
+  price_cny: 0.42
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 8x7x25
+  material: 45钢
+  weight_g: 11.0
+  price_cny: 0.55
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 10x8x32
+  material: 45钢
+  weight_g: 20.1
+  price_cny: 0.80
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+- std_no: GB/T 1096
+  category: 键
+  name: 普通平键A型
+  spec: 12x8x40
+  material: 45钢
+  weight_g: 30.0
+  price_cny: 1.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Keys/Parallel Keys/GB 1096.sldprt
+
+# ====== 6. 轴承 ======
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6000
+  material: GCr15
+  weight_g: 19.0
+  price_cny: 4.50
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6001
+  material: GCr15
+  weight_g: 22.0
+  price_cny: 4.80
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6002
+  material: GCr15
+  weight_g: 30.0
+  price_cny: 5.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6003
+  material: GCr15
+  weight_g: 39.0
+  price_cny: 5.80
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6004
+  material: GCr15
+  weight_g: 70.0
+  price_cny: 7.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+- std_no: GB/T 276
+  category: 轴承
+  name: 深沟球轴承
+  spec: 6005
+  material: GCr15
+  weight_g: 80.0
+  price_cny: 8.00
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bearings/Deep Groove Ball Bearings/GB 276.sldprt
+
+# ====== 7. 卡簧 ======
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D8
+  material: 65Mn
+  weight_g: 0.3
+  price_cny: 0.08
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D10
+  material: 65Mn
+  weight_g: 0.4
+  price_cny: 0.09
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D12
+  material: 65Mn
+  weight_g: 0.5
+  price_cny: 0.10
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D16
+  material: 65Mn
+  weight_g: 0.8
+  price_cny: 0.12
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D20
+  material: 65Mn
+  weight_g: 1.2
+  price_cny: 0.15
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+- std_no: GB/T 894.1
+  category: 卡簧
+  name: 轴用弹性挡圈
+  spec: D25
+  material: 65Mn
+  weight_g: 1.8
+  price_cny: 0.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Retaining Rings/External Retaining Rings/GB 894.1.sldprt
+
+# ====== 8. 套(铜套) ======
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK6-D6xL10
+  material: H62黄铜
+  weight_g: 2.3
+  price_cny: 1.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK8-D8xL12
+  material: H62黄铜
+  weight_g: 4.0
+  price_cny: 1.60
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK10-D10xL15
+  material: H62黄铜
+  weight_g: 6.5
+  price_cny: 2.00
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK12-D12xL20
+  material: H62黄铜
+  weight_g: 10.5
+  price_cny: 2.50
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK16-D16xL25
+  material: H62黄铜
+  weight_g: 18.0
+  price_cny: 3.20
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt
+- std_no: JB/T 2561
+  category: 套
+  name: 直柱铜套
+  spec: LMK20-D20xL30
+  material: H62黄铜
+  weight_g: 28.5
+  price_cny: 4.00
+  toolbox_path: SOLIDWORKS Toolbox/GB/Bushings/Straight Bushings/LMK.sldprt

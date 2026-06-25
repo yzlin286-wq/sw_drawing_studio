@@ -1,0 +1,50 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-24 00:00:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/9558b08c8f63",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass_with_warning",
+        "reference_style": "fail",
+        "reference_compare_v4": "fail",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The application Drawing Review screenshot was captured successfully and is the final acceptance evidence for this attempt.",
+        "The explicit DisplayDim path improved the drawing by creating real SolidWorks DisplayDim objects before SaveAs, and the dense slanted AutoDimension-like stack is not the acceptance path.",
+        "The generated drawing is still visually unacceptable: dimensions are concentrated around the front/right view area instead of matching the reference drawing's distributed manufacturing annotation layout.",
+        "The final persisted DisplayDim count is still 11/12, so one required reference-intent dimension is missing.",
+        "The right-side projection and small-feature/callout region still do not visually match the same-name reference drawing closely enough for manufacturing review.",
+        "API/status fields remain supporting evidence only and do not override this FAIL visual judgement."
+      ],
+      "improvement_evidence": {
+        "current_staged_summary": "drw_output/staged_validation/LB26001_006_explicit_displaydim_visible_entities_20260623/summary.json",
+        "current_run": "drw_output/runs/9558b08c8f63",
+        "pre_saveas_explicit_displaydim_count": 12,
+        "final_display_dim_count": 11,
+        "reference_display_dim_floor": 12,
+        "reference_intent_autodimension_disabled": true,
+        "post_layout_recovery_issue": "post_layout reference-intent view slot rebinding returned target_view_not_found, so the missing DisplayDim could not be restored after reopen/prune."
+      },
+      "required_next_action": "Keep 006 scoped first, keep AutoDimension disabled for reference-intent acceptance, fix post-layout view slot rebinding or dimension preservation so all 12 required real SolidWorks DisplayDim annotations persist, then rerun CAD and Drawing Review UI screenshot validation."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing.",
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+  "source_manual_review": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\manual_visual_judgement.json",
+  "source_injected_by": "apply_ui_visual_review_v4",
+  "source_injected_at": "2026-06-24 13:27:53"
+}

@@ -1,0 +1,42 @@
+active_provider: deepseek
+
+providers:
+  openai:
+    base_url: https://api.openai.com/v1
+    api_key: sk-your-openai-key
+    model: gpt-4o-mini
+    vision_model: gpt-4o
+    temperature: 0.2
+    timeout: 60
+
+  deepseek:
+    base_url: https://api.deepseek.com/v1
+    api_key: sk-your-deepseek-key
+    model: deepseek-chat
+    vision_model: ""
+    temperature: 0.2
+    timeout: 60
+
+  dashscope:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    api_key: sk-your-dashscope-key
+    model: qwen-plus
+    vision_model: qwen-vl-max
+    temperature: 0.2
+    timeout: 60
+
+  ollama:
+    base_url: http://localhost:11434/v1
+    api_key: ""
+    model: qwen2.5:7b
+    vision_model: llava
+    temperature: 0.2
+    timeout: 120
+
+  ccagent:
+    base_url: https://api.ccagent.cn/v1
+    api_key: sk-xxxxxxxx
+    model: glm-5.1
+    vision_model: doubao-seed-2.0-pro
+    temperature: 0.2
+    timeout: 60

@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "dim_count_sufficient": {
+      "dim_total": 4
+    },
+    "dimension_coverage": {
+      "associativity": "model"
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true
+    }
+  },
+  "hard_fail": [],
+  "warnings": [],
+  "display_dim_count": 4,
+  "note_dim_count": 4,
+  "part_class": "feature_part",
+  "dimension_grade": "D",
+  "has_valid_sidecar_annotation": false
+}

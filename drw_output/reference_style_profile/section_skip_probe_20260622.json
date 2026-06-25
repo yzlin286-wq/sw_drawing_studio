@@ -1,0 +1,74 @@
+{
+  "schema": "sw_drawing_studio.reference_section_plan_probe.v1",
+  "status": "source_probe_pass",
+  "note": "No SolidWorks COM calls; checks reference profile view_types only.",
+  "samples": {
+    "LB26001-A-04-006": {
+      "view_plan": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-007": {
+      "view_plan": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-008": {
+      "view_plan": [
+        "front",
+        "top"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-009": {
+      "view_plan": [
+        "front",
+        "top",
+        "right"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-015": {
+      "view_plan": [
+        "front",
+        "top"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-022": {
+      "view_plan": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "section_allowed": false,
+      "expected_section_helper_called": false,
+      "view_plan_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json",
+      "section_source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    }
+  }
+}

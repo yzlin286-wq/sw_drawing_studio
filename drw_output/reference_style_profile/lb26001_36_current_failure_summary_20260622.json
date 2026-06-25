@@ -1,0 +1,1929 @@
+{
+  "source_summary": "drw_output\\staged_validation\\LB26001_36_current_20260622\\summary.json",
+  "stage_status": "need_review",
+  "pass": false,
+  "deliverable_count": 6,
+  "required_deliverable_count": 35,
+  "total": 36,
+  "status_counts": {
+    "need_review": 30,
+    "pass": 6
+  },
+  "failure_bucket_counts": {
+    "reference_style_not_pass": 30,
+    "reference_compare_not_pass": 10,
+    "dimension_validation_not_pass": 6,
+    "cad_smoke_not_pass": 3,
+    "cad_validator_nonzero": 3,
+    "final_quality:need_review": 2,
+    "missing_artifact:dxf": 1,
+    "missing_artifact:final_quality": 1,
+    "missing_artifact:pdf": 1,
+    "missing_artifact:png": 1,
+    "missing_artifact:qc_json": 1,
+    "missing_artifact:slddrw": 1,
+    "missing_artifact:vision_qc": 1
+  },
+  "reason_counts": {
+    "view_layout_center_shifted_from_reference": 68,
+    "view_type_count_lower_than_reference": 29,
+    "view_type_count_higher_than_reference": 29,
+    "projected_view_count_lower_than_reference": 28,
+    "view_layout_center_missing": 27,
+    "display_dim_count_higher_than_reference": 19,
+    "view_count_not_equal_reference": 10,
+    "view_count_higher_than_reference": 9,
+    "display_dim_count_lower_than_reference": 5,
+    "display_dim_count_zero": 4,
+    "display_dim_count_below_threshold:0/5": 4,
+    "final_quality.status is 'need_review'": 2,
+    "display_dim_count_below_threshold:4/5": 2,
+    "final_quality_not_deliverable:need_review": 2,
+    "Job status is failed; terminal={'finished': False, 'failed': True, 'job_id': '107f4627', 'error': {'error': '子进程退出码: 1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'reason': 'subprocess_exit_code_1', 'recoverable': True, 'returncode': 1}}": 1,
+    "Missing or empty artifact: slddrw": 1,
+    "Missing or empty artifact: pdf": 1,
+    "Missing or empty artifact: dxf": 1,
+    "Missing or empty artifact: png": 1,
+    "Missing or empty artifact: qc_json": 1,
+    "Missing or empty artifact: warnings_json": 1,
+    "Missing or empty artifact: vision_qc": 1,
+    "Missing or empty artifact: final_quality": 1,
+    "Artifact is not fresh relative to job start: slddrw": 1,
+    "Artifact is not fresh relative to job start: pdf": 1,
+    "Artifact is not fresh relative to job start: dxf": 1,
+    "Artifact is not fresh relative to job start: png": 1,
+    "Artifact is not fresh relative to job start: qc_json": 1,
+    "Artifact is not fresh relative to job start: warnings_json": 1,
+    "Artifact is not fresh relative to job start: vision_qc": 1,
+    "Artifact is not fresh relative to job start: final_quality": 1,
+    "manifest.drawing_usable.pass is not true: {'pass': False, 'reason': 'subprocess_exit_code_1'}": 1,
+    "manifest hard_fail is not empty: ['cad_subprocess_failed', 'subprocess_failed']": 1,
+    "QC JSON could not be read.": 1,
+    "final_quality.status is ''": 1,
+    "sw_session does not prove connection: {'schema': 'sw_drawing_studio.sw_session.v1', 'generated_at': '2026-06-22 17:04:11', 'source': 'cad_job_worker', 'status': 'not_collected', 'connection_method': 'skipped_on_worker_failure', 'sw_pid': None, 'sw_revision': '', 'visible': None, 'active_doc_title': '', 'active_doc_path': '', 'reason': 'subprocess_exit_code_1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'recoverable': True, 'evidence': [\"[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)\", \"[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)\", '[loop] qc_log.md 已写: C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md', '========== 汇总 ==========', 'final_pass = False', 'final_path = ', \"  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\", 'qc_log.md = C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md']}": 1,
+    "qc_json_missing": 1,
+    "slddrw_missing": 1,
+    "hard_fail:cad_subprocess_failed": 1,
+    "hard_fail:subprocess_failed": 1,
+    "generated_metrics_unavailable": 1,
+    "view_count_lower_than_reference": 1,
+    "view_type_mismatch": 1,
+    "generated_display_dim_zero_with_reference_baseline": 1,
+    "view_layout_metrics_unavailable": 1,
+    "qc_dimension_fallback_not_displaydim": 1
+  },
+  "style_reason_counts": {
+    "view_layout_center_shifted_from_reference": 68,
+    "view_type_count_lower_than_reference": 29,
+    "view_type_count_higher_than_reference": 29,
+    "projected_view_count_lower_than_reference": 28,
+    "view_layout_center_missing": 27,
+    "display_dim_count_higher_than_reference": 19,
+    "view_count_not_equal_reference": 10,
+    "display_dim_count_lower_than_reference": 2,
+    "generated_display_dim_zero_with_reference_baseline": 1,
+    "view_layout_metrics_unavailable": 1,
+    "qc_dimension_fallback_not_displaydim": 1
+  },
+  "cases_by_primary_bucket": {
+    "PASS": [
+      "LB26001-A-04-006",
+      "LB26001-A-04-007",
+      "LB26001-A-04-008",
+      "LB26001-A-04-009",
+      "LB26001-A-04-015",
+      "LB26001-A-04-022"
+    ],
+    "cad_smoke_not_pass": [
+      "LB26001-A-04-001",
+      "LB26001-A-04-021",
+      "LB26001-A-04-045"
+    ],
+    "dimension_validation_not_pass": [
+      "LB26001-A-04-031",
+      "LB26001-A-04-033",
+      "LB26001-A-04-046"
+    ],
+    "reference_compare_not_pass": [
+      "LB26001-A-04-004",
+      "LB26001-A-04-025",
+      "LB26001-A-04-026",
+      "LB26001-A-04-036",
+      "LB26001-A-04-038",
+      "LB26001-A-04-049",
+      "LB26001-A-04-050"
+    ],
+    "reference_style_not_pass": [
+      "LB26001-A-04-002",
+      "LB26001-A-04-003",
+      "LB26001-A-04-005",
+      "LB26001-A-04-016",
+      "LB26001-A-04-023",
+      "LB26001-A-04-024",
+      "LB26001-A-04-032",
+      "LB26001-A-04-034",
+      "LB26001-A-04-035",
+      "LB26001-A-04-037",
+      "LB26001-A-04-039",
+      "LB26001-A-04-040",
+      "LB26001-A-04-041",
+      "LB26001-A-04-042",
+      "LB26001-A-04-044",
+      "LB26001-A-04-047",
+      "LB26001-A-04-048"
+    ]
+  },
+  "rows": [
+    {
+      "base": "LB26001-A-04-001",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\42df4f290562",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "cad_smoke_not_pass",
+        "cad_validator_nonzero",
+        "dimension_validation_not_pass",
+        "missing_artifact:dxf",
+        "missing_artifact:final_quality",
+        "missing_artifact:pdf",
+        "missing_artifact:png",
+        "missing_artifact:qc_json",
+        "missing_artifact:slddrw",
+        "missing_artifact:vision_qc",
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "Job status is failed; terminal={'finished': False, 'failed': True, 'job_id': '107f4627', 'error': {'error': '子进程退出码: 1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'reason': 'subprocess_exit_code_1', 'recoverable': True, 'returncode': 1}}",
+        "Missing or empty artifact: slddrw",
+        "Missing or empty artifact: pdf",
+        "Missing or empty artifact: dxf",
+        "Missing or empty artifact: png",
+        "Missing or empty artifact: qc_json",
+        "Missing or empty artifact: warnings_json",
+        "Missing or empty artifact: vision_qc",
+        "Missing or empty artifact: final_quality",
+        "Artifact is not fresh relative to job start: slddrw",
+        "Artifact is not fresh relative to job start: pdf",
+        "Artifact is not fresh relative to job start: dxf",
+        "Artifact is not fresh relative to job start: png",
+        "Artifact is not fresh relative to job start: qc_json",
+        "Artifact is not fresh relative to job start: warnings_json",
+        "Artifact is not fresh relative to job start: vision_qc",
+        "Artifact is not fresh relative to job start: final_quality",
+        "manifest.drawing_usable.pass is not true: {'pass': False, 'reason': 'subprocess_exit_code_1'}",
+        "manifest hard_fail is not empty: ['cad_subprocess_failed', 'subprocess_failed']",
+        "QC JSON could not be read.",
+        "final_quality.status is ''",
+        "sw_session does not prove connection: {'schema': 'sw_drawing_studio.sw_session.v1', 'generated_at': '2026-06-22 17:04:11', 'source': 'cad_job_worker', 'status': 'not_collected', 'connection_method': 'skipped_on_worker_failure', 'sw_pid': None, 'sw_revision': '', 'visible': None, 'active_doc_title': '', 'active_doc_path': '', 'reason': 'subprocess_exit_code_1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'recoverable': True, 'evidence': [\"[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)\", \"[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)\", '[loop] qc_log.md 已写: C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md', '========== 汇总 ==========', 'final_pass = False', 'final_path = ', \"  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\", 'qc_log.md = C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md']}",
+        "qc_json_missing",
+        "slddrw_missing",
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5",
+        "hard_fail:cad_subprocess_failed",
+        "hard_fail:subprocess_failed",
+        "generated_metrics_unavailable",
+        "view_count_lower_than_reference",
+        "view_type_mismatch",
+        "display_dim_count_lower_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_lower_than_reference",
+        "projected_view_count_lower_than_reference",
+        "generated_display_dim_zero_with_reference_baseline",
+        "view_layout_metrics_unavailable"
+      ],
+      "cad_pass": false,
+      "dimension_status": "fail",
+      "reference_status": "fail",
+      "reference_style_status": "fail",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_lower_than_reference",
+        "projected_view_count_lower_than_reference",
+        "generated_display_dim_zero_with_reference_baseline",
+        "view_layout_metrics_unavailable"
+      ],
+      "style_score": 0.0,
+      "ref_dims": 1,
+      "gen_dims": 0,
+      "ref_views": 2,
+      "gen_views": 0,
+      "ref_types": {
+        "7": 1,
+        "4": 1
+      },
+      "gen_types": {},
+      "reference_no_ref": false,
+      "cad_reasons": [
+        "Job status is failed; terminal={'finished': False, 'failed': True, 'job_id': '107f4627', 'error': {'error': '子进程退出码: 1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'reason': 'subprocess_exit_code_1', 'recoverable': True, 'returncode': 1}}",
+        "Missing or empty artifact: slddrw",
+        "Missing or empty artifact: pdf",
+        "Missing or empty artifact: dxf",
+        "Missing or empty artifact: png",
+        "Missing or empty artifact: qc_json",
+        "Missing or empty artifact: warnings_json",
+        "Missing or empty artifact: vision_qc",
+        "Missing or empty artifact: final_quality",
+        "Artifact is not fresh relative to job start: slddrw",
+        "Artifact is not fresh relative to job start: pdf",
+        "Artifact is not fresh relative to job start: dxf",
+        "Artifact is not fresh relative to job start: png",
+        "Artifact is not fresh relative to job start: qc_json",
+        "Artifact is not fresh relative to job start: warnings_json",
+        "Artifact is not fresh relative to job start: vision_qc",
+        "Artifact is not fresh relative to job start: final_quality",
+        "manifest.drawing_usable.pass is not true: {'pass': False, 'reason': 'subprocess_exit_code_1'}",
+        "manifest hard_fail is not empty: ['cad_subprocess_failed', 'subprocess_failed']",
+        "QC JSON could not be read.",
+        "final_quality.status is ''",
+        "sw_session does not prove connection: {'schema': 'sw_drawing_studio.sw_session.v1', 'generated_at': '2026-06-22 17:04:11', 'source': 'cad_job_worker', 'status': 'not_collected', 'connection_method': 'skipped_on_worker_failure', 'sw_pid': None, 'sw_revision': '', 'visible': None, 'active_doc_title': '', 'active_doc_path': '', 'reason': 'subprocess_exit_code_1', 'failure_bucket': 'cad_subprocess_failed', 'fix_suggestion': '查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。', 'recoverable': True, 'evidence': [\"[dimension_sidecar py] InsertModelAnnotations2 failed: (-2147352561, '非选择性的参数。', None, None)\", \"[dimension_sidecar py] InsertModelAnnotations failed: (-2147352561, '非选择性的参数。', None, None)\", '[loop] qc_log.md 已写: C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md', '========== 汇总 ==========', 'final_pass = False', 'final_path = ', \"  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\", 'qc_log.md = C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\.trae\\\\specs\\\\enforce-drawing-quality\\\\qc_log.md']}"
+      ],
+      "dimension_reasons": [
+        "qc_json_missing",
+        "slddrw_missing",
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5",
+        "hard_fail:cad_subprocess_failed",
+        "hard_fail:subprocess_failed"
+      ],
+      "reference_reasons": [
+        "generated_metrics_unavailable",
+        "view_count_lower_than_reference",
+        "view_type_mismatch",
+        "display_dim_count_lower_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5abbd9c2a600",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "display_dim_count_lower_than_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass_with_warning",
+      "reference_style_status": "fail",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.654,
+      "ref_dims": 12,
+      "gen_dims": 10,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "display_dim_count_lower_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\45c9427359ca",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.516,
+      "ref_dims": 6,
+      "gen_dims": 12,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\e42421056953",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_higher_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_higher_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.363,
+      "ref_dims": 2,
+      "gen_dims": 119,
+      "ref_views": 2,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 1
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\07de67b9152d",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.676,
+      "ref_dims": 12,
+      "gen_dims": 14,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d4983d352630",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass",
+      "style_reasons": [],
+      "style_score": 0.936,
+      "ref_dims": 12,
+      "gen_dims": 14,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 2,
+        "4": 2
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4e56496be139",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass",
+      "style_reasons": [],
+      "style_score": 0.91,
+      "ref_dims": 8,
+      "gen_dims": 10,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 2,
+        "4": 2
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8b96c7799bdd",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [
+        "qc_dimension_fallback_not_displaydim"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass_with_warning",
+      "style_reasons": [
+        "qc_dimension_fallback_not_displaydim"
+      ],
+      "style_score": 0.85,
+      "ref_dims": 2,
+      "gen_dims": 3,
+      "ref_views": 2,
+      "gen_views": 2,
+      "ref_types": {
+        "7": 1,
+        "4": 1
+      },
+      "gen_types": {
+        "7": 1,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8f57f3c522a8",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass",
+      "style_reasons": [],
+      "style_score": 1.0,
+      "ref_dims": 4,
+      "gen_dims": 4,
+      "ref_views": 3,
+      "gen_views": 3,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 1,
+        "4": 2
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5c3eaf17a698",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass",
+      "style_reasons": [],
+      "style_score": 0.865,
+      "ref_dims": 14,
+      "gen_dims": 20,
+      "ref_views": 2,
+      "gen_views": 2,
+      "ref_types": {
+        "7": 1,
+        "4": 1
+      },
+      "gen_types": {
+        "7": 1,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-016",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\7d660aaa6bde",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.745,
+      "ref_dims": 22,
+      "gen_dims": 22,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-021",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\18bd79d77de9",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "cad_smoke_not_pass",
+        "cad_validator_nonzero",
+        "dimension_validation_not_pass",
+        "final_quality:need_review",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "final_quality.status is 'need_review'",
+        "display_dim_count_below_threshold:4/5",
+        "final_quality_not_deliverable:need_review",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": false,
+      "dimension_status": "fail",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.577,
+      "ref_dims": 20,
+      "gen_dims": 32,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [
+        "final_quality.status is 'need_review'"
+      ],
+      "dimension_reasons": [
+        "display_dim_count_below_threshold:4/5",
+        "final_quality_not_deliverable:need_review"
+      ],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\91043882a8db",
+      "status": "pass",
+      "deliverable": true,
+      "failure_bucket": [],
+      "reasons": [],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "pass",
+      "style_reasons": [],
+      "style_score": 0.871,
+      "ref_dims": 25,
+      "gen_dims": 35,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 2,
+        "4": 2
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-023",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\444f08497ce8",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.431,
+      "ref_dims": 18,
+      "gen_dims": 59,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-024",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f9107481b1a2",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.614,
+      "ref_dims": 24,
+      "gen_dims": 35,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-025",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dea2e6804216",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.51,
+      "ref_dims": 18,
+      "gen_dims": 32,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-026",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f39a0196e334",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.534,
+      "ref_dims": 23,
+      "gen_dims": 37,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-031",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\cb84e9b77cd3",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "dimension_validation_not_pass",
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5",
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_higher_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "fail",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_higher_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.474,
+      "ref_dims": 11,
+      "gen_dims": 70,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 1
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5"
+      ],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-032",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8cf9fc12b01b",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.637,
+      "ref_dims": 28,
+      "gen_dims": 37,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-033",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\af4993295cd7",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "dimension_validation_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "fail",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.623,
+      "ref_dims": 27,
+      "gen_dims": 37,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5"
+      ],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-034",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ac88ddbcbd6c",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "display_dim_count_lower_than_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass_with_warning",
+      "reference_style_status": "fail",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.688,
+      "ref_dims": 27,
+      "gen_dims": 23,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "display_dim_count_lower_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-035",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8dbae325a25a",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.358,
+      "ref_dims": 11,
+      "gen_dims": 47,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 3
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-036",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\48172cb77798",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.351,
+      "ref_dims": 8,
+      "gen_dims": 36,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-037",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2f46abdd5f69",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.427,
+      "ref_dims": 6,
+      "gen_dims": 22,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-038",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\10674d1c00ac",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.35,
+      "ref_dims": 6,
+      "gen_dims": 29,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-039",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\192d667ec2f3",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.444,
+      "ref_dims": 11,
+      "gen_dims": 26,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 3
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-040",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\a55d0d0ce2ba",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.418,
+      "ref_dims": 10,
+      "gen_dims": 41,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-041",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\31c286e7c15a",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.361,
+      "ref_dims": 6,
+      "gen_dims": 37,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-042",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\81ad3b73f2b0",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.413,
+      "ref_dims": 10,
+      "gen_dims": 43,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-044",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ef2c245561ae",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.503,
+      "ref_dims": 15,
+      "gen_dims": 27,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 3
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-045",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9202e6789af2",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "cad_smoke_not_pass",
+        "cad_validator_nonzero",
+        "dimension_validation_not_pass",
+        "final_quality:need_review",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "final_quality.status is 'need_review'",
+        "display_dim_count_below_threshold:4/5",
+        "final_quality_not_deliverable:need_review",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": false,
+      "dimension_status": "fail",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.652,
+      "ref_dims": 23,
+      "gen_dims": 30,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [
+        "final_quality.status is 'need_review'"
+      ],
+      "dimension_reasons": [
+        "display_dim_count_below_threshold:4/5",
+        "final_quality_not_deliverable:need_review"
+      ],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-046",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\76d52d451fc5",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "dimension_validation_not_pass",
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5",
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "fail",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.311,
+      "ref_dims": 9,
+      "gen_dims": 69,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [
+        "display_dim_count_zero",
+        "display_dim_count_below_threshold:0/5"
+      ],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-047",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8b8880e8552f",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.409,
+      "ref_dims": 9,
+      "gen_dims": 26,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 3
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-048",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\f245bd0ffcf6",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "pass",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.627,
+      "ref_dims": 14,
+      "gen_dims": 20,
+      "ref_views": 4,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 2,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": []
+    },
+    {
+      "base": "LB26001-A-04-049",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\daf263477343",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing",
+        "view_layout_center_shifted_from_reference"
+      ],
+      "style_score": 0.593,
+      "ref_dims": 3,
+      "gen_dims": 4,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-050",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5b97b9b64b32",
+      "status": "need_review",
+      "deliverable": false,
+      "failure_bucket": [
+        "reference_compare_not_pass",
+        "reference_style_not_pass"
+      ],
+      "reasons": [
+        "view_count_higher_than_reference",
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "cad_pass": true,
+      "dimension_status": "pass_with_warning",
+      "reference_status": "need_review",
+      "reference_style_status": "need_review",
+      "style_reasons": [
+        "view_count_not_equal_reference",
+        "view_type_count_lower_than_reference",
+        "view_type_count_higher_than_reference",
+        "projected_view_count_lower_than_reference",
+        "display_dim_count_higher_than_reference",
+        "view_layout_center_shifted_from_reference",
+        "view_layout_center_missing"
+      ],
+      "style_score": 0.544,
+      "ref_dims": 21,
+      "gen_dims": 33,
+      "ref_views": 3,
+      "gen_views": 4,
+      "ref_types": {
+        "7": 1,
+        "4": 2
+      },
+      "gen_types": {
+        "7": 3,
+        "4": 1
+      },
+      "reference_no_ref": false,
+      "cad_reasons": [],
+      "dimension_reasons": [],
+      "reference_reasons": [
+        "view_count_higher_than_reference"
+      ]
+    }
+  ]
+}

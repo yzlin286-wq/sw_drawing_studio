@@ -1,0 +1,23 @@
+{
+  "tool": "dimension_api_probe_v3",
+  "started_at": "2026-06-22T14:36:01",
+  "source_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\eacfb3cbe84b\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "probe_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\LB26001-A-04-006_v5_autodim_20260622_143601\\LB26001-A-04-006_v5_autodim_probe.SLDDRW",
+  "target_display_dim_count": 12,
+  "max_views": 4,
+  "success": false,
+  "status": "fail",
+  "reason": "solidworks_not_connected",
+  "connection": {
+    "method": "get_active_object",
+    "success": false,
+    "reason": "(-2147221021, '操作无法使用', None, None)"
+  },
+  "open": {},
+  "before_metrics": {},
+  "attempts": [],
+  "after_metrics": {},
+  "save": {},
+  "reopened_metrics": {},
+  "elapsed_s": 0.023
+}

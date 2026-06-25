@@ -1,0 +1,76 @@
+{
+  "version": "v1.6",
+  "description": "VBA sidecar 尺寸标注汇总（sidecar 降级，RunMacro2 对 .bas 返回 False）",
+  "results": [
+    {
+      "base": "LB26001-A-04-001",
+      "run_id": "06b8946148bb",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "run_id": "3a8658acc506",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "run_id": "fc371fda6331",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "run_id": "e09401b21ac9",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "run_id": "8bddde7a78d5",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-006",
+      "run_id": "51df09710df0",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "run_id": "84d85f127fd6",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "run_id": "f4a58eba8ddd",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "run_id": "331d185b8e5d",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "run_id": "e62d8da543ea",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "run_id": "b1ef6cc63494",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "run_id": "24274c497abb",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "run_id": "6bfc9fb61abe",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "run_id": "1c609f89ccf2",
+      "note": "annotate_result.json not found (sidecar not triggered or failed)"
+    }
+  ]
+}

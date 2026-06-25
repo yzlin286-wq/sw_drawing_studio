@@ -1,0 +1,220 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v4_2",
+  "generated_at": "2026-06-24 20:18:00",
+  "reviewer": "Codex visual review from application Drawing Review UI screenshots",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\drawing_visual_review_report.json",
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "required_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "notes": [
+    "Each drawing was reviewed from the application Drawing Review UI screenshot, with the same-name reference drawing on the left and the generated drawing on the right.",
+    "Structured CAD/API/QC results are treated as supporting evidence only and did not override the visual screenshot judgement.",
+    "All six requested drawings remain visually unqualified in the current evidence set."
+  ],
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\63d9a9a6bb8e\\drawing\\LB26001-A-04-006_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated sheet does not match the learned same-name reference composition.",
+        "view_layout": "Generated views are scattered and use a different layout from the reference.",
+        "display_dimensions": "Visible dimensions are sparse and do not cover the reference-intent dimension set.",
+        "dimension_readability": "Dimension treatment is not reference-like and remains difficult to use for manufacturing.",
+        "title_block": "Generated title block/frame treatment differs from the compact reference standard.",
+        "manufacturing_notes": "Technical notes are not placed or presented like the reference."
+      },
+      "findings": [
+        "The generated drawing still does not match the reference drawing layout.",
+        "Dimension placement and coverage remain visibly non-reference-like.",
+        "Title block and manufacturing notes are not acceptable for release."
+      ],
+      "required_correction": "Repair 006 first with explicit reference-intent SolidWorks DisplayDim placement, compact reference-style sheet/title block, and rerun a fresh locked CAD job before the next UI screenshot judgement."
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\02_LB26001-A-04-007_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-007.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5f4ad69a6442\\drawing\\LB26001-A-04-007_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\02_LB26001-A-04-007_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing uses a different view composition from the reference.",
+        "view_layout": "Generated front/side/iso views are arranged differently and leave unrelated title block space.",
+        "display_dimensions": "Reference dimension callouts are not reproduced with comparable completeness.",
+        "dimension_readability": "Generated annotation placement is not suitable as the final manufacturing drawing.",
+        "title_block": "Generated title block area is materially different from the reference.",
+        "manufacturing_notes": "Notes area does not match the reference placement and presentation."
+      },
+      "findings": [
+        "Generated view layout and sheet framing differ from the reference.",
+        "Dimension annotation coverage is incomplete relative to the reference.",
+        "Title block and notes handling remains visibly inconsistent."
+      ],
+      "required_correction": "Keep 007 as learning evidence only until 006 passes; then regenerate 007 with the same UI screenshot judgement gate."
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\03_LB26001-A-04-008_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-008.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43\\drawing\\LB26001-A-04-008_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\03_LB26001-A-04-008_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated plate drawing does not follow the same-name reference style.",
+        "view_layout": "Generated views add a large isometric view and a separate title block area that do not match the reference.",
+        "display_dimensions": "Reference hole/edge dimensioning intent is not visibly reproduced.",
+        "dimension_readability": "Dimension candidates remain incomplete and not production-readable.",
+        "title_block": "Generated frame/title block differs from the reference sheet.",
+        "manufacturing_notes": "The red reference warning/notes intent is not carried into the generated drawing."
+      },
+      "findings": [
+        "Generated drawing misses much of the reference dimensioning intent.",
+        "View arrangement and scale do not match the plate reference.",
+        "Frame/title block presentation is not acceptable."
+      ],
+      "required_correction": "After 006 passes, regenerate 008 from the learned plate reference standard and repeat application UI screenshot judgement."
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\04_LB26001-A-04-009_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-009.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\fca65cb67b3d\\drawing\\LB26001-A-04-009_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\04_LB26001-A-04-009_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not match the compact reference layout.",
+        "view_layout": "Generated view positions and sheet framing differ materially from the reference.",
+        "display_dimensions": "Reference dimension completeness is not visible in the generated drawing.",
+        "dimension_readability": "Generated dimensioning is too sparse for final manufacture.",
+        "title_block": "Generated title block and frame placement do not match the reference.",
+        "manufacturing_notes": "Technical notes/table treatment differs from the reference."
+      },
+      "findings": [
+        "Generated drawing lacks the reference dimension annotation completeness.",
+        "View positions and sheet framing do not match the same-name reference.",
+        "Title block and border handling are visually inconsistent."
+      ],
+      "required_correction": "After 006 passes, regenerate 009 with reference-intent dimensions and repeat application UI screenshot judgement."
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\05_LB26001-A-04-015_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-015.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\5519ec098ec6\\drawing\\LB26001-A-04-015_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\05_LB26001-A-04-015_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not match the dense reference drawing standard.",
+        "view_layout": "Generated view scale/layout differs and uses a large title-block frame unlike the reference.",
+        "display_dimensions": "Most dense reference dimensions are missing from the generated view.",
+        "dimension_readability": "Generated dimensions are insufficient for the complex plate geometry.",
+        "title_block": "Generated title block/table placement is not reference-like.",
+        "manufacturing_notes": "Reference notes/requirements are not presented in the same manufacturing layout."
+      },
+      "findings": [
+        "Generated drawing omits most dense reference dimensions.",
+        "View scale and layout differ materially from the reference.",
+        "Generated title block/table placement is not acceptable."
+      ],
+      "required_correction": "After 006 passes, derive 015 dimension groups from the reference and rerun UI screenshot judgement."
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\screenshots\\06_LB26001-A-04-022_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-022.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\90f4733ef751\\drawing\\LB26001-A-04-022_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\\comparison_images\\06_LB26001-A-04-022_reference_vs_generated.png",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing does not match the same-name bracket reference.",
+        "view_layout": "Generated view layout and detail placement differ from the reference.",
+        "display_dimensions": "Important reference dimension annotation coverage is missing.",
+        "dimension_readability": "Generated annotations are not enough for manufacturing/assembly use.",
+        "title_block": "Generated sheet/title block treatment differs from the reference.",
+        "manufacturing_notes": "Manufacturing notes are not presented in the learned reference style."
+      },
+      "findings": [
+        "Generated drawing misses important dimension annotation coverage.",
+        "View layout and detail placement do not match the reference.",
+        "Sheet/title block treatment remains visibly different from the reference."
+      ],
+      "required_correction": "After 006 passes, regenerate 022 with learned bracket view/dimension layout and repeat application UI screenshot judgement."
+    }
+  ]
+}

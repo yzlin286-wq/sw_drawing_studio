@@ -1,0 +1,22 @@
+# Checklist
+
+- [x] `drw_generate_v6.py` 的 `CANDIDATE_SCALES` 仅含 GB/T 14690 标准比例（5:1/2:1/1:1/1:2/1:5/1:10/1:20/1:50），无 3:1/1:3/1:4/1:100
+- [x] `app/services/scale_advisor.py` 提供 `advise_scale(png_path, current_scale, llm)` 函数
+- [x] `advise_scale` 返回 `{reasonable: bool, suggestion: str, score: int 0-100}`
+- [x] 真实用 1 张 PNG 跑通 `advise_scale()`（reasonable=false, score=20, suggestion="建议1:1或1:2"）
+- [x] `config/titlebar_template.yaml` 含公司名/制图人/审核人/交付日期等默认值
+- [x] `drw_generate_v6.py` 的标题栏扩展为 7 行 × 4 列表格
+- [x] 标题栏含：公司名/品名/图号/比例/制图人/审核人/日期/机型/材质/数量/表面处理/类别/技术要求/工艺信息/源文件信息/交付信息
+- [x] 出图时读取 `titlebar_template.yaml` 填充默认值
+- [x] 真实跑 1 件 SLDPRT，标题栏 7 行渲染完整（AST 通过 + full_pipeline 闭环跑通）
+- [x] `app/services/model_compare.py` 提供 `compare_model_2d(part_path, slddrw_png_path, llm)` 函数
+- [x] 用 SolidWorks COM 渲染 3D 等轴测视图为 PNG（136KB）
+- [x] LLM 同时接收 3D PNG + 2D PNG，返回 `{consistency, missing_views, structural_diff}`
+- [x] 真实用 1 件 SLDPRT + 1 张 2D PNG 跑通 `compare_model_2d()`（consistency=70, missing_views=[]）
+- [x] `drw_quality_check.py` 新增 `scale_gb_standard` 检查
+- [x] `drw_quality_check.py` 新增 `titlebar_complete` 检查
+- [x] `drw_quality_check.py` 新增 `model_2d_consistency` 检查
+- [x] 3 项检查结果进入 warnings（不阻断交付），写入 qc.json
+- [x] 真实闭环：比例尺为 GB 标准值（1:5 PASS）、标题栏 7 行完整（WARNING）、3D-2D 比对有结果（consistency=70 PASS）
+- [x] 归档到 `validation_log.md`
+- [x] 不退化：v1.2 既有 vision_score_with_reference / batch_validator 不破坏

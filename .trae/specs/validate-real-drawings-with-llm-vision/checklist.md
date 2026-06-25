@@ -1,0 +1,24 @@
+# Checklist
+
+- [x] `%APPDATA%/sw_drawing_studio/llm.yaml` 的 ccagent api_key 已更新为本机私有密钥（仓库文档已脱敏）
+- [x] `config/llm.yaml.example` 的 ccagent block 保持占位符 `sk-xxxxxxxx`（可分享）
+- [x] `build_default_client().test_connection()` 返回 ok=True 且 latency_ms < 10000（实测 1121ms）
+- [x] `chat()` 用 glm-5.1 真实返回非空文本
+- [x] `vision()` 用 doubao-seed-2.0-pro 真实返回非空文本
+- [x] 3 条链路真实响应归档到 `verify_log_v1_2.md`
+- [x] `app/services/case_library.py` 提供 `build_case_library()` 与 `find_case_png(base_name)`
+- [x] `drw_output/case_library/` 下 PNG 数量 ≥ 30 且每个 file_size > 5KB（实测 41 个，最小 36KB）
+- [x] `drw_output/case_library/case_index.json` 含每个案例图的 `{base_name, slddrw_path, png_path, file_size}`
+- [x] `app/services/vision_qc.py` 新增 `vision_score_with_reference()` 函数
+- [x] 有案例图时 LLM 同时接收 2 张图，返回 JSON 含 `reference_diff: {similarity, structural_diff, missing_elements}`
+- [x] 无案例图时退化为单图评分，`reference_diff=null`，不阻断
+- [x] 真实用 1 张生成图 + 1 张案例图跑通 `vision_score_with_reference()`
+- [x] `app/services/batch_validator.py` 提供 `run_batch_validation(strategy, limit)`
+- [x] 遍历 `3D转2D测试图纸/*.SLDPRT`（排除 `~$` 临时文件）
+- [x] 单件失败 try/except 包裹，记录 `failed` 不中断批量
+- [x] 每件产物归集到 `drw_output/runs/<run_id>/`（复用 v1.1 机制）
+- [x] `drw_output/batch_validation/<batch_id>/batch_summary.json` 含 `{batch_id, started_at, finished_at, total, success, warning, failed, items[]}`
+- [x] `batch_report.md` 含通过率统计 + 失败清单 + top 5 vision_score + bottom 5 vision_score
+- [x] 小批量验证（limit=3）跑通，`batch_summary.json` + `batch_report.md` 结构完整
+- [x] 全量验证（129 个 SLDPRT）执行完成，结果归档到 `full_validation_log.md`
+- [x] 不退化：v1.1 既有 `vision_score()` 行为不变；v1.1 既有 run_manager.full_pipeline 不破坏

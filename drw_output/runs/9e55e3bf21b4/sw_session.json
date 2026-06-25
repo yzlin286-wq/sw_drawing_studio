@@ -1,0 +1,26 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 20:07:58",
+  "source": "cad_job_worker",
+  "status": "not_collected",
+  "connection_method": "skipped_on_worker_failure",
+  "sw_pid": null,
+  "sw_revision": "",
+  "visible": null,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": "subprocess_exit_code_1",
+  "failure_bucket": "cad_subprocess_failed",
+  "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+  "recoverable": true,
+  "evidence": [
+    "[loop] qc 写盘 -> C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5_qc.json",
+    "[loop] 第 1 轮 QC: pass=False  pass_count=7/12  issues=['view_overlap', 'view_in_frame', 'front_view_position', 'dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']",
+    "[loop] qc_log.md 已写: C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md",
+    "========== 汇总 ==========",
+    "final_pass = False",
+    "final_path = C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-002_v5.SLDDRW",
+    "  round 1: pass=False pass_count=7/12 issues=['view_overlap', 'view_in_frame', 'front_view_position', 'dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']",
+    "qc_log.md = C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md"
+  ]
+}

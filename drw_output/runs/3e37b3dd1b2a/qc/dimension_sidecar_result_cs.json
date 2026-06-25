@@ -1,0 +1,19 @@
+﻿{
+  "version": "v1.7",
+  "success": false,
+  "status": "error",
+  "msg": "",
+  "reason": "cannot activate/open drawing",
+  "drawing_path": "drw_output\\v5\\LB26001-A-04-002_v5.SLDDRW",
+  "part_path": "3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+  "part_class": "long_thin",
+  "annotations_added": 0,
+  "overall_length": null,
+  "overall_width": null,
+  "overall_height": null,
+  "fastener_spec": "",
+  "spring_spec": "",
+  "standard_annotation_present": false,
+  "dimension_count_before": 0,
+  "dimension_count_after": 0
+}

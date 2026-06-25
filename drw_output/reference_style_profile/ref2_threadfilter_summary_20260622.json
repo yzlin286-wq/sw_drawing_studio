@@ -1,0 +1,231 @@
+{
+  "source_summary": "drw_output\\staged_validation\\LB26001_ref2_threadfilter_20260622\\summary.json",
+  "rows": [
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\789fa566df28",
+      "case_status": "need_review",
+      "deliverable": false,
+      "case_reasons": [
+        "display_dim_count_lower_than_reference",
+        "display_dim_count_lower_than_reference",
+        "qc_dimension_fallback_not_displaydim"
+      ],
+      "style_status": "fail",
+      "style_pass": false,
+      "style_reasons": [
+        "display_dim_count_lower_than_reference",
+        "qc_dimension_fallback_not_displaydim"
+      ],
+      "ref_dims": 2,
+      "gen_dims": 1,
+      "ref_status": "pass_with_warning",
+      "ref_reasons": [
+        "display_dim_count_lower_than_reference"
+      ],
+      "before_sidecar": 0,
+      "final_memory": 0,
+      "autodim": {
+        "applied": false,
+        "before": 0,
+        "after": 0,
+        "calls_used": 1,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.090208,
+              0.148283
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.090208,0.148283",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "prune": {
+        "enabled": true,
+        "cap": 2,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 2,
+          "before": 294,
+          "after": 2,
+          "deleted": 292,
+          "attempted": 292,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      },
+      "reference_warnings": [
+        {
+          "code": "reference_model_dim_import_skipped",
+          "reference_display_dim_floor": 2,
+          "msg": "同名参考图为极简尺寸风格，跳过模型尺寸全量导入以避免过标注。"
+        },
+        {
+          "code": "reference_autodim_no_increase",
+          "before": 0,
+          "after": 0,
+          "reference_display_dim_floor": 2
+        },
+        {
+          "code": "reference_display_dim_pruned",
+          "cap": 2,
+          "before": 294,
+          "after": 2,
+          "deleted": 292
+        },
+        {
+          "code": "reference_display_dim_floor_unmet",
+          "msg": "DisplayDim 0 < reference 2; gap=2",
+          "reference_display_dim_floor": 2,
+          "generated_display_dim_count": 0
+        }
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\86cf48da685c",
+      "case_status": "pass",
+      "deliverable": true,
+      "case_reasons": [],
+      "style_status": "pass",
+      "style_pass": true,
+      "style_reasons": [],
+      "ref_dims": 14,
+      "gen_dims": 20,
+      "ref_status": "pass",
+      "ref_reasons": [],
+      "before_sidecar": 0,
+      "final_memory": 0,
+      "autodim": {
+        "applied": false,
+        "before": 0,
+        "after": 0,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.155809
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.155809",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.078414
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.078414",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 0,
+                "after": 0,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "prune": {
+        "enabled": true,
+        "cap": 21,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 21,
+          "before": 87,
+          "after": 21,
+          "deleted": 66,
+          "attempted": 66,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      },
+      "reference_warnings": [
+        {
+          "code": "reference_autodim_no_increase",
+          "before": 0,
+          "after": 0,
+          "reference_display_dim_floor": 14
+        },
+        {
+          "code": "reference_display_dim_pruned",
+          "cap": 21,
+          "before": 87,
+          "after": 21,
+          "deleted": 66
+        },
+        {
+          "code": "reference_display_dim_floor_unmet",
+          "msg": "DisplayDim 0 < reference 14; gap=14",
+          "reference_display_dim_floor": 14,
+          "generated_display_dim_count": 0
+        }
+      ]
+    }
+  ]
+}

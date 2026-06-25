@@ -1,0 +1,41 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 16:12:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/e010a07aecb5",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass",
+        "reference_style": "pass",
+        "reference_compare_v4": "need_review",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The fresh in-process worker run produced SLDDRW/PDF/DXF/PNG artifacts and structural API gates are green, but the Drawing Review UI screenshot remains visually unacceptable.",
+        "The generated drawing places a dense angled dimension/callout stack over the left/top area of the drawing; this does not match the concise same-name reference layout.",
+        "The right-side small feature/projection area is not annotated in the compact reference style, and the generated dimension distribution remains AutoDimension-like rather than drafter-intent grouped.",
+        "The title block and bottom information area differ visibly from the reference drawing; API/style scores are supporting evidence only and do not override this screenshot judgement."
+      ],
+      "improvement_evidence": {
+        "current_staged_summary": "drw_output/staged_validation/LB26001_006_inprocess_generator_collect_20260623/summary.json",
+        "current_run": "drw_output/runs/e010a07aecb5",
+        "display_dim_count": 12,
+        "reference_compare_v4_status": "need_review",
+        "vision_qc_v6_status": "need_review"
+      },
+      "required_next_action": "Recreate the 006 hole/radius/thread and small-feature dimension groups explicitly in the reference-style right-side leader area, reduce the tilted dimension stack, then rerun 006 and repeat Drawing Review UI screenshot judgement."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

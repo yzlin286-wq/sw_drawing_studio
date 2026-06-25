@@ -1,0 +1,85 @@
+{
+  "schema": "sw_drawing_studio.reference_style_type_count_probe.v1",
+  "status": "source_probe_pass",
+  "case": {
+    "base": "LB26001-A-04-006",
+    "status": "need_review",
+    "pass": false,
+    "view_style_score": 0.825,
+    "dimension_style_score": 1.0,
+    "layout_style_score": 1.0,
+    "overall_style_score": 0.939,
+    "reference": {
+      "base": "LB26001-A-04-006",
+      "path": "",
+      "success": true,
+      "reason": "",
+      "view_count": 4,
+      "view_types": {
+        "7": 2,
+        "4": 2
+      },
+      "display_dim_count": 12,
+      "annotation_count": 0,
+      "sheet_size_m": {},
+      "view_layout": [],
+      "sidecar_report": null,
+      "source": ""
+    },
+    "generated": {
+      "base": "LB26001-A-04-006",
+      "path": "",
+      "success": true,
+      "reason": "",
+      "view_count": 4,
+      "view_types": {
+        "7": 1,
+        "4": 2,
+        "3": 1
+      },
+      "display_dim_count": 12,
+      "annotation_count": 0,
+      "sheet_size_m": {},
+      "view_layout": [],
+      "sidecar_report": null,
+      "source": ""
+    },
+    "qc_display_dim_count": 0,
+    "differences": [
+      {
+        "key": "view_type_extra_than_reference",
+        "severity": "need_review",
+        "reference": {
+          "type": "3",
+          "count": 0
+        },
+        "generated": {
+          "type": "3",
+          "count": 1
+        },
+        "fix_suggestion": "Do not add section/detail/view families that are absent from the same-name reference drawing."
+      },
+      {
+        "key": "view_type_count_lower_than_reference",
+        "severity": "need_review",
+        "reference": {
+          "type": "7",
+          "count": 2
+        },
+        "generated": {
+          "type": "7",
+          "count": 1
+        },
+        "fix_suggestion": "Create the same number of reference view-family instances for this known LB26001 sample."
+      }
+    ],
+    "reasons": [
+      "view_type_extra_than_reference",
+      "view_type_count_lower_than_reference"
+    ]
+  },
+  "difference_keys": [
+    "view_type_extra_than_reference",
+    "view_type_count_lower_than_reference"
+  ]
+}

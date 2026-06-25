@@ -1,0 +1,5043 @@
+{
+  "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_2",
+  "generated_at": "2026-06-24T10:53:12",
+  "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
+  "scanned_files": 291,
+  "entrypoint_count": 329,
+  "guarded_count": 102,
+  "unguarded_or_unknown_count": 0,
+  "external_addin_needs_host_lock_count": 20,
+  "document_manager_com_count": 9,
+  "validation_tool_requires_manual_lock_count": 10,
+  "maintenance_tool_count": 10,
+  "test_or_fixture_count": 6,
+  "legacy_experiment_count": 172,
+  "status": "warning",
+  "policy": {
+    "no_com_without_global_lock": true,
+    "ui_thread_no_solidworks_com": true,
+    "visual_audit_no_solidworks": true,
+    "api_metrics_are_supporting_only": true
+  },
+  "unguarded_or_unknown": [],
+  "external_addin_needs_host_lock": [
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 88,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "object swAppObj = Marshal.GetActiveObject(SW_PROGID);"
+    },
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 116,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "drwModel = swApp.OpenDoc6(drawingPath, 3, 257, \"\", ref errStatus, ref warnStatus);"
+    },
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 485,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "partModel = swApp.OpenDoc6(partPath, 1, 257, \"\", ref errStatus, ref warnStatus);"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 100,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "public bool Ping()"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 118,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 221,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 362,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 507,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 556,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 597,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 637,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 851,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 993,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1151,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1299,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1387,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/DimensionArrangeEngine.cs",
+      "line": 48,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "doc = swApp.OpenDoc6(drawingPath, 3, 257, \"\", ref err, ref warn);"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/DimensionArrangeEngine.cs",
+      "line": 172,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "swApp.CloseDoc(doc.GetTitle());"
+    },
+    {
+      "file": "tools/SwReferenceMetricsSidecar/Program.cs",
+      "line": 72,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "swApp.CloseDoc(title);"
+    },
+    {
+      "file": "tools/SwReferenceMetricsSidecar/Program.cs",
+      "line": 121,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "object active = Marshal.GetActiveObject(SwProgId);"
+    }
+  ],
+  "document_manager_com_no_sldworks_session": [
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 168,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 215,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 290,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 64,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 113,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 174,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 14,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch('SwDocumentMgr.SwDMClassFactory')"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 76,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(\"SwDocumentMgr.SwDMClassFactory\")"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 114,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(\"SwDocumentMgr.SwDMClassFactory\")"
+    }
+  ],
+  "validation_tool_requires_manual_lock": [
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 76,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\"), \"get_active_object\", \"\""
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 81,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.Dispatch(\"SldWorks.Application\"), \"dispatch\", \"\""
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 103,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "doc = sw.OpenDoc6(str(path), DOC_TYPE_DRAWING, OPEN_SILENT, \"\", errors, warnings)"
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 120,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw.CloseDoc(candidate)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 108,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(value)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 155,
+      "patterns": [
+        "GetActiveObject",
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(wc.GetActiveObject(\"SldWorks.Application\")), \"get_active_object\""
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 157,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(wc.Dispatch(\"SldWorks.Application\")), \"dispatch\""
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 333,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "doc = sw.OpenDoc6(str(path), 3, 1, \"\", errors, warnings)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 403,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw.CloseDoc(title or str(path))"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 620,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    }
+  ],
+  "maintenance_tool": [
+    {
+      "file": "register_addin.py",
+      "line": 194,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ping_result = addin_ping()"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 20,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 22,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 214,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ok = drw.Extension.SaveAs(target, 0, 1, None, save_err, save_warn)"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 229,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "try: sw.CloseDoc(model.GetTitle())"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 5,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "2) 调 sw.RunMacro2(.bas, \"auto_section\", \"main\", 1, 0) → SW 内部会编译并运行；"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 33,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 40,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ok = sw.RunMacro2(str(BAS), \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": "templates/probe_drwdot.py",
+      "line": 30,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/probe_drwdot.py",
+      "line": 164,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw.CloseDoc(drw.GetTitle)"
+    }
+  ],
+  "test_or_fixture": [
+    {
+      "file": "test_addin_dimensions.py",
+      "line": 28,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "test_pmi_probe.py",
+      "line": 8,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "sw = wc.GetActiveObject('SldWorks.Application')"
+    },
+    {
+      "file": "test_v2_0_validation.py",
+      "line": 39,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 29,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def SaveAs(self, path, *args):"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 55,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def CloseDoc(self, title):"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 61,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def OpenDoc6(self, path, *_args):"
+    }
+  ],
+  "legacy_experiment": [
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 37,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.dynamic.Dispatch(obj)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2463,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw_doc.Extension.SaveAs(str(drawing_path), 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2497,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2509,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "reopened = sw.OpenDoc6(str(drawing_path), 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2700,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2705,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2727,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2740,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 3092,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(_work_part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 3690,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return drw.AddDimension2(float(x), float(y), 0.0), \"AddDimension2\""
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4577,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(diag_pt[0]), float(diag_pt[1]), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4582,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(extra_dx), float(extra_dy), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4684,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(dx), float(dy), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4693,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(extra_x), float(extra_y), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4756,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(px), float(py), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4838,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = sw.RunMacro2(macro_path, \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5197,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw.ReplaceViewModel(_part_abs, names_arr, inst_arr)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5202,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw.ReplaceViewModel(_part_abs, view_names, None)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5718,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5839,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5871,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5887,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5893,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5981,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5993,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5995,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6020,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6032,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6034,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6048,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6060,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6062,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6104,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6106,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6148,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6154,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(part_title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 451,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 453,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 473,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 486,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1039,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = sw.RunMacro2(macro_path, \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1315,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1327,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1333,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1358,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1364,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(part_title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 62,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.dynamic.Dispatch(obj)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 243,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 260,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "m = sw.OpenDoc6(str(slddrw_path), 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 747,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = _dynamic_dispatch(wc.GetActiveObject(\"SldWorks.Application\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 749,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = _dynamic_dispatch(wc.Dispatch(\"SldWorks.Application\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 774,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 1256,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/harden-v5-and-vision-loop/vision_loop.py",
+      "line": 10,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/probe-solidworks-com-api/probe_runner.py",
+      "line": 440,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/probe-solidworks-com-api/probe_runner.py",
+      "line": 465,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "model = sw.OpenDoc6(str(part_path), doc_type, 0, \"\", errors, warnings)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 75,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 151,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 227,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 229,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 20,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "- 关闭文档：sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 134,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 330,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 340,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 342,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 150,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 152,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 164,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 177,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 514,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 526,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 532,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 543,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 609,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 613,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "res = sw.RunMacro2(swp, \"auto_section\", \"main\", 0,"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 640,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 975,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 54,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 161,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 171,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 173,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 51,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 132,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 142,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 144,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 38,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 40,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 59,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(p, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 126,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 46,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 48,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 63,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 79,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(PART, 1, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 291,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, variant_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 307,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 315,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, variant_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 322,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(drw.GetTitle())"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 60,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 62,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 75,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 88,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 352,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 364,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 370,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 383,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 68,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 70,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 82,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 95,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 479,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 491,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 497,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 507,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 20,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 22,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 26,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(ORIG, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 79,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 59,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16, \"\", errs, warns)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 64,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 66,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 202,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(m(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 34,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 36,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 40,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(TARGET, 3, 0, \"\", errs, warns)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 115,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/sw_probe.py",
+      "line": 68,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/sw_probe.py",
+      "line": 74,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 17,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 28,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 41,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 19,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 25,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 34,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "addin = wc.Dispatch(ADDIN_PROGID)"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 42,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "if not addin.Ping():"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 83,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "addin_dyn = wc.dynamic.Dispatch(ADDIN_PROGID)"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 84,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "if not addin_dyn.Ping():"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 18,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 25,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 37,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 19,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 34,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 49,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 16,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 33,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 47,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 65,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_test_dim_dismiss.py",
+      "line": 69,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_dim_dismiss.py",
+      "line": 144,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "dim = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 3,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "方法 1: AddDimension2 (检查线段是否选中)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 23,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 148,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "result_holder[\"dim\"] = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 187,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "dim = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 14,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 34,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(drw_path, 3, 1, \"\", 0, 0)"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 185,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part_doc = sw.OpenDoc6(seed_path, 1, 1, \"\", 0, 0)"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 1,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "\"\"\"持续运行 DialogGuard 监控 SW 对话框"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 10,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 28,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "self.guard = DialogGuard(sw_pid=self.sw_pid, run_dir=None, run_id=\"v22_continuous\")"
+    },
+    {
+      "file": "_tmp_v22_dismiss_dialog.py",
+      "line": 6,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "_tmp_v22_dismiss_dialog.py",
+      "line": 10,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "guard = DialogGuard(sw_pid=SW_PID, run_dir=None, run_id=\"v22_dialog_fix\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 28,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 31,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 125,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(str(drw_path), 3, 1, \"\", errors, warnings)  # 3=Drawing, 1=Open silent"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 137,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 159,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 94,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(drw_path, 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 108,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 119,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 127,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 157,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 192,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 196,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    }
+  ],
+  "entries": [
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 37,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.dynamic.Dispatch(obj)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2463,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw_doc.Extension.SaveAs(str(drawing_path), 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2497,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2509,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "reopened = sw.OpenDoc6(str(drawing_path), 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2700,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2705,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2727,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 2740,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 3092,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(_work_part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 3690,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return drw.AddDimension2(float(x), float(y), 0.0), \"AddDimension2\""
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4577,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(diag_pt[0]), float(diag_pt[1]), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4582,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(extra_dx), float(extra_dy), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4684,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(dx), float(dy), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4693,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(extra_x), float(extra_y), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4756,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.AddDimension2(float(px), float(py), 0.0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 4838,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = sw.RunMacro2(macro_path, \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5197,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw.ReplaceViewModel(_part_abs, names_arr, inst_arr)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5202,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = drw.ReplaceViewModel(_part_abs, view_names, None)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5718,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5839,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5871,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5887,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5893,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5981,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5993,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 5995,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6020,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6032,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6034,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6048,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6060,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6062,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6104,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6106,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6148,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 6154,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(part_title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 451,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 453,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 473,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 486,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1039,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok = sw.RunMacro2(macro_path, \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1315,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1327,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1333,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1358,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_generate_v5.py",
+      "line": 1364,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(part_title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 62,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.dynamic.Dispatch(obj)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 243,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 260,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "m = sw.OpenDoc6(str(slddrw_path), 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 747,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = _dynamic_dispatch(wc.GetActiveObject(\"SldWorks.Application\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 749,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = _dynamic_dispatch(wc.Dispatch(\"SldWorks.Application\"))"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 774,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/enforce-drawing-quality/drw_quality_check.py",
+      "line": 1256,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": ".trae/specs/harden-v5-and-vision-loop/vision_loop.py",
+      "line": 10,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/probe-solidworks-com-api/probe_runner.py",
+      "line": 440,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/probe-solidworks-com-api/probe_runner.py",
+      "line": 465,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "model = sw.OpenDoc6(str(part_path), doc_type, 0, \"\", errors, warnings)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 75,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 151,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 227,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_compare_v3.py",
+      "line": 229,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 20,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "- 关闭文档：sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 134,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 330,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 340,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_deep_probe.py",
+      "line": 342,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 150,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 152,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 164,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 177,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 514,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 526,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 532,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/drw_generate_v4.py",
+      "line": 543,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 609,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 613,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "res = sw.RunMacro2(swp, \"auto_section\", \"main\", 0,"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 640,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/repair-section-and-recompare/section_helper.py",
+      "line": 975,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 54,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 161,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 171,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare.py",
+      "line": 173,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 51,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 132,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 142,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_compare_v2.py",
+      "line": 144,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 38,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 40,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 59,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(p, 3, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_full_stats.py",
+      "line": 126,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 46,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 48,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 63,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 79,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(PART, 1, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 291,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, variant_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 307,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 315,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, variant_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate.py",
+      "line": 322,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(drw.GetTitle())"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 60,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 62,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 75,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 88,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 352,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 364,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 370,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v2.py",
+      "line": 383,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 68,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 70,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 82,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(t)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 95,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part = sw.OpenDoc6(part_path, 1, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 479,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok1 = drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 491,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok2 = drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 497,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ok3 = drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_generate_v3.py",
+      "line": 507,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 20,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "try: sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 22,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 26,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(ORIG, 3, 1|16|256, \"\", e, w)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_inspect_props.py",
+      "line": 79,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 59,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(path, 3, 1 | 16, \"\", errs, warns)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 64,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 66,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe.py",
+      "line": 202,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(m(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 34,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 36,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\"); sw.Visible = True; time.sleep(2)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 40,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "drw = sw.OpenDoc6(TARGET, 3, 0, \"\", errs, warns)"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/drw_probe_one.py",
+      "line": 115,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(call(drw, \"GetTitle\"))"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/sw_probe.py",
+      "line": 68,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": ".trae/specs/study-solidworks-skill/sw_probe.py",
+      "line": 74,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com_client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 17,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 28,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_diag_002.py",
+      "line": 41,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 19,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 25,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 34,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "addin = wc.Dispatch(ADDIN_PROGID)"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 42,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "if not addin.Ping():"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 83,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "addin_dyn = wc.dynamic.Dispatch(ADDIN_PROGID)"
+    },
+    {
+      "file": "_tmp_diag_addin.py",
+      "line": 84,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "if not addin_dyn.Ping():"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 18,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 25,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_diag_min.py",
+      "line": 37,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 19,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 34,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_sidecar.py",
+      "line": 49,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 16,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 33,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 47,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw_app.CloseDoc(name)"
+    },
+    {
+      "file": "_tmp_run_v21_targets.py",
+      "line": 65,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_test_dim_dismiss.py",
+      "line": 69,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_dim_dismiss.py",
+      "line": 144,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "dim = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 3,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "方法 1: AddDimension2 (检查线段是否选中)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 23,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 148,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "result_holder[\"dim\"] = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_dim_methods.py",
+      "line": 187,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "dim = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 14,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 34,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(drw_path, 3, 1, \"\", 0, 0)"
+    },
+    {
+      "file": "_tmp_test_view_methods.py",
+      "line": 185,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "part_doc = sw.OpenDoc6(seed_path, 1, 1, \"\", 0, 0)"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 1,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "\"\"\"持续运行 DialogGuard 监控 SW 对话框"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 10,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "_tmp_v22_continuous_dialog_guard.py",
+      "line": 28,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "self.guard = DialogGuard(sw_pid=self.sw_pid, run_dir=None, run_id=\"v22_continuous\")"
+    },
+    {
+      "file": "_tmp_v22_dismiss_dialog.py",
+      "line": 6,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "_tmp_v22_dismiss_dialog.py",
+      "line": 10,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "guard = DialogGuard(sw_pid=SW_PID, run_dir=None, run_id=\"v22_dialog_fix\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 28,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 31,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "return wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 125,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(str(drw_path), 3, 1, \"\", errors, warnings)  # 3=Drawing, 1=Open silent"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 137,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis.py",
+      "line": 159,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 94,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "doc = sw.OpenDoc6(drw_path, 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 108,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 119,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 127,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 157,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw.CloseDoc(doc.GetTitle())"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 192,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "_tmp_v22_layout_analysis_v2.py",
+      "line": 196,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "legacy_experiment",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/annotate_sidecar_service.py",
+      "line": 166,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/annotate_sidecar_service.py",
+      "line": 169,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/annotate_sidecar_service.py",
+      "line": 231,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "guarded",
+      "text": "run_ok = sw.RunMacro2(macro_path, \"auto_annotate\", \"main\", 1, err_var)"
+    },
+    {
+      "file": "app/services/annotate_sidecar_service.py",
+      "line": 241,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "guarded",
+      "text": "run_ok = sw.RunMacro2(macro_path, \"auto_annotate\", \"main\", 1, err_var2)"
+    },
+    {
+      "file": "app/services/case_library.py",
+      "line": 73,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/case_library.py",
+      "line": 79,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "drw = sw.OpenDoc6(str(slddrw_path), 3, 1, \"\", errors, warnings)"
+    },
+    {
+      "file": "app/services/case_library.py",
+      "line": 93,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "drw.Extension.SaveAs(str(pdf_out), 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": "app/services/case_library.py",
+      "line": 103,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": "app/services/case_library.py",
+      "line": 105,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(str(slddrw_path))"
+    },
+    {
+      "file": "app/services/diagnostics.py",
+      "line": 46,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 1,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"v2.2 Task 2: DialogGuard 生产化"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 13,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 14,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "guard = DialogGuard(sw_pid=12345)"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 42,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "class DialogGuard:"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 306,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"DialogGuard 上下文管理器"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 310,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "guarded",
+      "text": "doc.AddDimension2(x, y, 0)"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 315,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "self.guard = DialogGuard(sw_pid=sw_pid, run_dir=run_dir, run_id=run_id)"
+    },
+    {
+      "file": "app/services/dialog_guard.py",
+      "line": 317,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "def __enter__(self) -> DialogGuard:"
+    },
+    {
+      "file": "app/services/dimension_sidecar_service.py",
+      "line": 126,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/dimension_sidecar_service.py",
+      "line": 144,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "drw = sw.OpenDoc6(drawing_path, 3, 257, \"\", err_var, warn_var)"
+    },
+    {
+      "file": "app/services/dimension_sidecar_service.py",
+      "line": 416,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "part = sw.OpenDoc6(part_path, 1, 257, \"\", err_var, warn_var)"
+    },
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 168,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 215,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/docmgr_service.py",
+      "line": 290,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_CLASS_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/health_check.py",
+      "line": 44,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/layout_solver_v2.py",
+      "line": 395,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "self.sw.CloseDoc(doc_name)"
+    },
+    {
+      "file": "app/services/layout_solver_v2.py",
+      "line": 404,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "self.doc = self.sw.OpenDoc6(drw_path, 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": "app/services/model_compare.py",
+      "line": 50,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/model_compare.py",
+      "line": 52,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/model_compare.py",
+      "line": 64,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "part = sw.OpenDoc6(part_path, doc_type, options, \"\", errors, warnings)"
+    },
+    {
+      "file": "app/services/model_compare.py",
+      "line": 113,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "ext.SaveAs(png_out, 0, 1, None, err, warn)"
+    },
+    {
+      "file": "app/services/model_compare.py",
+      "line": 119,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 92,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 95,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 114,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "part = sw.OpenDoc6(work_part_path, 1, 1 | 16 | 256, \"\", e, w)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 147,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(work_part_path)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 161,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(work_part_path)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 183,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(work_part_path)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 272,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "guarded",
+      "text": "dim = part.AddDimension2(dx, dy, dz)"
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 311,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "saved = part.Extension.SaveAs("
+    },
+    {
+      "file": "app/services/model_dim_seed_service.py",
+      "line": 326,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(work_part_path)"
+    },
+    {
+      "file": "app/services/part_classification_service.py",
+      "line": 122,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/part_classification_service.py",
+      "line": 158,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/persisted_layout_solver.py",
+      "line": 372,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "drw = sw.OpenDoc6(drw_path, 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": "app/services/persisted_layout_solver.py",
+      "line": 393,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = drw.Extension.SaveAs(drw_path, 0, 1, _vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": "app/services/persisted_layout_solver.py",
+      "line": 402,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": "app/services/persisted_layout_solver.py",
+      "line": 415,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "drw = sw.OpenDoc6(drw_path, 3, 257, \"\", err, warn)"
+    },
+    {
+      "file": "app/services/pmi_probe_service.py",
+      "line": 32,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/pmi_probe_service.py",
+      "line": 35,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "return wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 50,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 61,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = drw.ReplaceViewModel(str(Path(part_path).resolve()), names_arr, inst_arr)"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 65,
+      "patterns": [
+        "ReplaceViewModel"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = drw.ReplaceViewModel(str(Path(part_path).resolve()), view_names, None)"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 83,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 84,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = sw.RunMacro2(str(swp), \"relink_refdoc\", \"main\", 1, 0)"
+    },
+    {
+      "file": "app/services/refdoc_relink_service.py",
+      "line": 114,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/run_manager.py",
+      "line": 44,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 4,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "v2.2: 改用生产级 DialogGuard（PID 过滤 + 精确匹配 + 动作记录）"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 11,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "5. 启动 DialogGuard（只监控 SW PID 下的\"修改\"对话框）"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 13,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "7. 停止 DialogGuard"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 83,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 111,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "doc = sw.OpenDoc6(drawing_path, 3, 1, \"\", errors, warnings)"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 252,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "from app.services.dialog_guard import DialogGuard"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 253,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "guard = DialogGuard(sw_pid=sw_pid, run_dir=run_dir, run_id=run_id)"
+    },
+    {
+      "file": "app/services/sheet_sketch_dimension_service.py",
+      "line": 259,
+      "patterns": [
+        "AddDimension2"
+      ],
+      "guard_status": "guarded",
+      "text": "dim = doc.AddDimension2(mid_x, dim_y, 0)"
+    },
+    {
+      "file": "app/services/solidworks_safe_restart.py",
+      "line": 160,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 7,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "Ping() -> bool"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 57,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 60,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "return wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 90,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "addin = wc.Dispatch(ADDIN_PROGID)"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 94,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "if not addin.Ping():"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 110,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "def ping() -> dict:"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 153,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "ping_ret = addin.Ping()"
+    },
+    {
+      "file": "app/services/sw_addin_client.py",
+      "line": 884,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "result = ping()"
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 1,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"v2.3 Task 3: DialogGuard V2 生产化增强版"
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 3,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "在 v2.2 DialogGuard 基础上增加："
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 25,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "from app.services.dialog_guard import DialogGuard, DialogAction"
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 30,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"DialogGuard V2 增强版"
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 32,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "在原有 DialogGuard 基础上增加："
+    },
+    {
+      "file": "app/services/sw_dialog_guard.py",
+      "line": 65,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "self._inner_guard = DialogGuard("
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 64,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 113,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_docmgr_relink.py",
+      "line": 174,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(SWDM_FACTORY_PROGID)"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 164,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"开始事务（启用 DialogGuard）"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 192,
+      "patterns": [
+        "DialogGuard"
+      ],
+      "guard_status": "guarded",
+      "text": "\"\"\"结束事务（停止 DialogGuard）"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 391,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 399,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 636,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "doc = self._sw.OpenDoc6(path, doc_type, options, \"\", err, warn)"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 767,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = doc.Extension.SaveAs("
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 771,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "guarded",
+      "text": "ok = doc.Extension.SaveAs("
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 870,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "self._sw.CloseDoc(doc_or_path)"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 876,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "self._sw.CloseDoc(target)"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 919,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "self._sw.CloseDoc(doc_path)"
+    },
+    {
+      "file": "app/services/sw_session_supervisor.py",
+      "line": 992,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 163,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 169,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 440,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "addin = _probe_addin_ping()"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 631,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "doc = sw.OpenDoc6(str(path), doc_type, 257, \"\", err, warn)"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 658,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "sw.CloseDoc(title)"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 690,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "def _probe_addin_ping() -> HealthRow:"
+    },
+    {
+      "file": "app/services/system_health_service.py",
+      "line": 704,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "guarded",
+      "text": "result = ping()"
+    },
+    {
+      "file": "app/workers/cad_job_worker.py",
+      "line": 630,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/workers/cad_job_worker.py",
+      "line": 634,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/workers/solidworks_com_probe_worker.py",
+      "line": 51,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/workers/solidworks_com_probe_worker.py",
+      "line": 53,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/workers/solidworks_com_probe_worker.py",
+      "line": 55,
+      "patterns": [
+        "DispatchEx"
+      ],
+      "guard_status": "guarded",
+      "text": "sw = wc.DispatchEx(\"SldWorks.Application\")"
+    },
+    {
+      "file": "libs/bom/extract_bom.py",
+      "line": 23,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "guarded",
+      "text": "return win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "libs/bom/extract_bom.py",
+      "line": 39,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "guarded",
+      "text": "model = sw.OpenDoc6(str(sldprt), 1, 257, \"\", err, warn)"
+    },
+    {
+      "file": "libs/bom/extract_bom.py",
+      "line": 53,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "guarded",
+      "text": "try: sw.CloseDoc(model.GetTitle())"
+    },
+    {
+      "file": "register_addin.py",
+      "line": 194,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ping_result = addin_ping()"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 20,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 22,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 214,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ok = drw.Extension.SaveAs(target, 0, 1, None, save_err, save_warn)"
+    },
+    {
+      "file": "templates/build_drwdot.py",
+      "line": 229,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "try: sw.CloseDoc(model.GetTitle())"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 5,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "2) 调 sw.RunMacro2(.bas, \"auto_section\", \"main\", 1, 0) → SW 内部会编译并运行；"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 33,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/macros/precompile_swp.py",
+      "line": 40,
+      "patterns": [
+        "RunMacro2"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "ok = sw.RunMacro2(str(BAS), \"auto_section\", \"main\", 1, 0)"
+    },
+    {
+      "file": "templates/probe_drwdot.py",
+      "line": 30,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "templates/probe_drwdot.py",
+      "line": 164,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "maintenance_tool",
+      "text": "sw.CloseDoc(drw.GetTitle)"
+    },
+    {
+      "file": "test_addin_dimensions.py",
+      "line": 28,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "test_pmi_probe.py",
+      "line": 8,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "sw = wc.GetActiveObject('SldWorks.Application')"
+    },
+    {
+      "file": "test_v2_0_validation.py",
+      "line": 39,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "ping_result = ping()"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 29,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def SaveAs(self, path, *args):"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 55,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def CloseDoc(self, title):"
+    },
+    {
+      "file": "test_v3_persisted_layout_solver.py",
+      "line": 61,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "test_or_fixture",
+      "text": "def OpenDoc6(self, path, *_args):"
+    },
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 88,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "object swAppObj = Marshal.GetActiveObject(SW_PROGID);"
+    },
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 116,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "drwModel = swApp.OpenDoc6(drawingPath, 3, 257, \"\", ref errStatus, ref warnStatus);"
+    },
+    {
+      "file": "tools/SwDimensionSidecar/Program.cs",
+      "line": 485,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "partModel = swApp.OpenDoc6(partPath, 1, 257, \"\", ref errStatus, ref warnStatus);"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 14,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch('SwDocumentMgr.SwDMClassFactory')"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 76,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(\"SwDocumentMgr.SwDMClassFactory\")"
+    },
+    {
+      "file": "tools/SwDocMgrRelink/sw_docmgr_relink_tool.py",
+      "line": 114,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "document_manager_com_no_sldworks_session",
+      "text": "factory = wc.Dispatch(\"SwDocumentMgr.SwDMClassFactory\")"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 100,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "public bool Ping()"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 118,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 221,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 362,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 507,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 556,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 597,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 637,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 851,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 993,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1151,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1299,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/AddinAPI.cs",
+      "line": 1387,
+      "patterns": [
+        "Add-in Ping"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "if (!Ping())"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/DimensionArrangeEngine.cs",
+      "line": 48,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "doc = swApp.OpenDoc6(drawingPath, 3, 257, \"\", ref err, ref warn);"
+    },
+    {
+      "file": "tools/SwDrawingStudioAddin/DimensionArrangeEngine.cs",
+      "line": 172,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "swApp.CloseDoc(doc.GetTitle());"
+    },
+    {
+      "file": "tools/SwReferenceMetricsSidecar/Program.cs",
+      "line": 72,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "swApp.CloseDoc(title);"
+    },
+    {
+      "file": "tools/SwReferenceMetricsSidecar/Program.cs",
+      "line": 121,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "external_addin_needs_host_lock",
+      "text": "object active = Marshal.GetActiveObject(SwProgId);"
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 76,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.GetActiveObject(\"SldWorks.Application\"), \"get_active_object\", \"\""
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 81,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.Dispatch(\"SldWorks.Application\"), \"dispatch\", \"\""
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 103,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "doc = sw.OpenDoc6(str(path), DOC_TYPE_DRAWING, OPEN_SILENT, \"\", errors, warnings)"
+    },
+    {
+      "file": "tools/validation/dimension_api_probe_v3.py",
+      "line": 120,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw.CloseDoc(candidate)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 108,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(value)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 155,
+      "patterns": [
+        "GetActiveObject",
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(wc.GetActiveObject(\"SldWorks.Application\")), \"get_active_object\""
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 157,
+      "patterns": [
+        "Dispatch"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "return wc.dynamic.Dispatch(wc.Dispatch(\"SldWorks.Application\")), \"dispatch\""
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 333,
+      "patterns": [
+        "OpenDoc6"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "doc = sw.OpenDoc6(str(path), 3, 1, \"\", errors, warnings)"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 403,
+      "patterns": [
+        "CloseDoc"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw.CloseDoc(title or str(path))"
+    },
+    {
+      "file": "tools/validation/reference_compare_smoke_v3.py",
+      "line": 620,
+      "patterns": [
+        "GetActiveObject"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "text": "sw = wc.GetActiveObject(\"SldWorks.Application\")"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "sw_drawing_studio.reference_annotation_probe.v1",
+  "source": "pywin32_annotation_probe",
+  "generated_at": "2026-06-25 04:33:59",
+  "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+  "exists": true,
+  "success": false,
+  "reason": "annotation_probe_exception: blocked_by_solidworks_lock: {\"operation\": \"reference_compare_smoke_v3.annotation_probe\", \"path\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\3D转2D测试图纸\\\\LB26001-A-04-006.SLDDRW\", \"reason\": \"no_active_solidworks_lock\", \"owner\": {}, \"fix_suggestion\": \"\"}",
+  "view_count": 0,
+  "view_types": {},
+  "view_names": [],
+  "view_outlines": [],
+  "display_dim_count": 0,
+  "display_dim_annotation_count": 0,
+  "display_dim_count_source": "annotation_type1",
+  "annotation_count": 0,
+  "warnings": [],
+  "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference_annotation_probe.json"
+}

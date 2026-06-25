@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-06-20 03:48:49",
+  "version": "v1.9",
+  "task": "Task 4 Document Manager Reference Repair",
+  "docmgr_probe": {
+    "dm_dll_found": true,
+    "dm_dll_path": "C:\\Program Files\\SOLIDWORKS Corp25\\SOLIDWORKS\\SolidWorks.Interop.swdocumentmgr.dll",
+    "license_key_available": false,
+    "com_factory_available": false,
+    "available": false,
+    "reason": "无 SW_DM_LICENSE_KEY 环境变量（Document Manager license key）"
+  },
+  "addin_relink_probe": {
+    "method": "addin_relink",
+    "available": true,
+    "references_before": [],
+    "references_after": [],
+    "replaced_count": 0,
+    "reason": "view.ReferencedDocument 在 SW2025 下返回 null（已知限制），GetDependencies 通过 Add-in ComCall 调用"
+  },
+  "targets": [
+    {
+      "base": "LB26001-A-04-002",
+      "addin_relink_success": false,
+      "references_found": 0,
+      "replaced_count": 0,
+      "reason": "无需替换或替换失败（引用读取为空，SW2025 限制）"
+    }
+  ],
+  "summary": {
+    "docmgr_available": false,
+    "addin_relink_available": true,
+    "references_read": 0,
+    "references_replaced": 0,
+    "overall_status": "warning",
+    "reason": "Document Manager 无 license key（warning），Add-in 可打开 drawing 但 view.ReferencedDocument 在 SW2025 下返回 null"
+  }
+}

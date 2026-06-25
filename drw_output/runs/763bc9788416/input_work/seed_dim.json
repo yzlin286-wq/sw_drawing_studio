@@ -1,0 +1,17 @@
+{
+  "work_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\input_work\\-AK-15-AC-26-1-V3-V02_seed.SLDPRT",
+  "seed_dim_count": 0,
+  "bbox": {
+    "xmin": -0.003249999999999998,
+    "ymin": 0.0,
+    "zmin": -0.0032500000000000003,
+    "xmax": 0.0032500000000000025,
+    "ymax": 0.05,
+    "zmax": 0.0032500000000000003
+  },
+  "overall_length": 0.006500000000000001,
+  "overall_width": 0.05,
+  "overall_height": 0.006500000000000001,
+  "success": true,
+  "error": ""
+}

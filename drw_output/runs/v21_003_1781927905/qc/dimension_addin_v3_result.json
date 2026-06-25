@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "method": "exception",
+  "reason": "GenerateDimensionsV3 异常: SwDrawingStudioAddin.AddinAPI.GenerateDimensionsV3",
+  "timestamp": "2026-06-20 11:58:25"
+}

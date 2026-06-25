@@ -1,0 +1,12 @@
+PySide6>=6.6
+qt-material
+pyyaml
+httpx
+pywin32
+pillow
+PyMuPDF
+pyinstaller
+opencv-python
+ultralytics
+paddlepaddle
+paddleocr

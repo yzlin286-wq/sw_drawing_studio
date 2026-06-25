@@ -1,0 +1,316 @@
+{
+  "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\DEFAULT-10059_v5.SLDDRW",
+  "pass": false,
+  "score_pass_count": 9,
+  "issues": [
+    "dim_count_sufficient: DisplayDim=0 < 10.55",
+    "centermark_count_sufficient: CenterMark=0 < 5.0",
+    "has_tech_note: NoteBlock=19 3lines=False keyword=False",
+    "has_ra_note: NoteBlock=19 keyword=False",
+    "has_datum_a: NoteBlock=19 keyword=False datum_tag=False",
+    "refdoc_correct: name_match=0 ref_present=0 bad=4",
+    "gb_titlebar_complete: 缺 6 组核心字段: ['品名|机型', '图号', '材质|Material', '数量', '设计', '日期']",
+    "gb_has_section_view_or_skipped: 无剖视图 (require_section=True)"
+  ],
+  "checks": {
+    "view_overlap": {
+      "pass": true,
+      "overlap_pairs": [],
+      "real_view_count": 4
+    },
+    "view_in_frame": {
+      "pass": true,
+      "frame": [
+        0.01,
+        0.01,
+        0.287,
+        0.2
+      ],
+      "out_of_frame": []
+    },
+    "front_view_position": {
+      "pass": true,
+      "detail": {
+        "found": 1,
+        "candidates": [
+          {
+            "name": "工程图视图1",
+            "cx_mm": 80.0,
+            "cy_mm": 140.0,
+            "in_zone": true
+          }
+        ]
+      }
+    },
+    "scale_in_set": {
+      "pass": true,
+      "scale": [
+        10,
+        1
+      ],
+      "allowed": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          1,
+          50
+        ],
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          20,
+          1
+        ],
+        [
+          50,
+          1
+        ]
+      ]
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true,
+      "text_height_m": 0.005,
+      "threshold_m": 0.0035
+    },
+    "all_13_keys_present": {
+      "pass": true,
+      "missing": [],
+      "present_count": 13,
+      "total": 13
+    },
+    "dim_count_sufficient": {
+      "pass": false,
+      "dim_total": 0,
+      "threshold": 10.55,
+      "baseline_avg_dim": 21.1
+    },
+    "centermark_count_sufficient": {
+      "pass": false,
+      "centermark_total": 0,
+      "threshold": 5.0,
+      "baseline_avg_centermark": 10
+    },
+    "has_tech_note": {
+      "pass": false,
+      "noteblock_total": 19,
+      "has_3_lines_in_one_note": false,
+      "has_keyword": false
+    },
+    "has_ra_note": {
+      "pass": false,
+      "noteblock_total": 19,
+      "has_keyword": false
+    },
+    "has_datum_a": {
+      "pass": false,
+      "noteblock_total": 19,
+      "has_keyword": false,
+      "has_datum_tag_entity": false
+    },
+    "refdoc_correct": {
+      "pass": false,
+      "severity": "warning",
+      "reason": "SW2025 SaveAs 后 ReferencedDocument 未持久化",
+      "total_views": 4,
+      "checked_count": 4,
+      "name_match": [],
+      "name_match_count": 0,
+      "ref_present": [],
+      "ref_present_count": 0,
+      "bad_ref": [
+        {
+          "view": "工程图视图1",
+          "ref": "",
+          "expected": "default-10059.sldprt"
+        },
+        {
+          "view": "工程图视图2",
+          "ref": "",
+          "expected": "default-10059.sldprt"
+        },
+        {
+          "view": "工程图视图3",
+          "ref": "",
+          "expected": "default-10059.sldprt"
+        },
+        {
+          "view": "工程图视图4",
+          "ref": "",
+          "expected": "default-10059.sldprt"
+        }
+      ],
+      "expected_part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\DEFAULT-10059.SLDPRT"
+    },
+    "gb_titlebar_complete": {
+      "pass": false,
+      "missing_groups": [
+        "品名|机型",
+        "图号",
+        "材质|Material",
+        "数量",
+        "设计",
+        "日期"
+      ],
+      "checked_count": 6
+    },
+    "gb_font_is_changfangsong": {
+      "pass": true,
+      "typefaces_sample": [
+        "汉仪长仿宋体",
+        "汉仪长仿宋体",
+        "汉仪长仿宋体",
+        "汉仪长仿宋体",
+        "汉仪长仿宋体"
+      ],
+      "typefaces_count": 19
+    },
+    "gb_paper_size_correct": {
+      "pass": true,
+      "width_m": 0.297,
+      "height_m": 0.21,
+      "matched": "A4_L"
+    },
+    "gb_has_section_view_or_skipped": {
+      "pass": false,
+      "section_count": 0,
+      "require_section": true
+    },
+    "gb_scale_in_extended_set": {
+      "pass": true,
+      "scale": [
+        10,
+        1
+      ],
+      "allowed": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          1,
+          50
+        ],
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          20,
+          1
+        ],
+        [
+          50,
+          1
+        ]
+      ]
+    }
+  },
+  "_check_order": [
+    "view_overlap",
+    "view_in_frame",
+    "front_view_position",
+    "scale_in_set",
+    "text_height_ge_3_5mm",
+    "all_13_keys_present",
+    "dim_count_sufficient",
+    "centermark_count_sufficient",
+    "has_tech_note",
+    "has_ra_note",
+    "has_datum_a",
+    "refdoc_correct",
+    "gb_titlebar_complete",
+    "gb_font_is_changfangsong",
+    "gb_paper_size_correct",
+    "gb_has_section_view_or_skipped",
+    "gb_scale_in_extended_set"
+  ],
+  "hard_fail": [
+    "png_missing",
+    "dim_total_too_low",
+    "qc_pass_too_low"
+  ],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": false,
+    "criteria": {
+      "files_exported": false,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "diagnostics": {
+    "sw_revision": "33.5.0",
+    "refdoc_strategy": "ReferencedDocument -> GetReferencedModelName fallback",
+    "replace_view_model_result": null,
+    "cfg_name": ""
+  }
+}

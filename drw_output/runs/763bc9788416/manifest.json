@@ -1,0 +1,79 @@
+{
+  "run_id": "763bc9788416",
+  "started_at": "2026-06-19 20:44:18",
+  "finished_at": "2026-06-19 20:45:51",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-26-1-V3-V02.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\input\\-AK-15-AC-26-1-V3-V02.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\drawing\\-AK-15-AC-26-1-V3-V02_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\drawing\\-AK-15-AC-26-1-V3-V02_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\drawing\\-AK-15-AC-26-1-V3-V02_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\drawing\\-AK-15-AC-26-1-V3-V02_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\qc\\-AK-15-AC-26-1-V3-V02_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\qc\\part_class.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\qc\\dimension_sidecar_result.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\763bc9788416\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [],
+  "warnings": [
+    "dim_total_zero_purchased_with_std_anno",
+    "qc_pass_too_low_purchased_c_grade",
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "titlebar_complete"
+  ],
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 9,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 0,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": [],
+  "dimension_grade": "C",
+  "usable_for": [
+    "procurement",
+    "assembly"
+  ],
+  "part_class": "purchased_part",
+  "standard_annotation_present": true,
+  "has_valid_sidecar_annotation": true
+}

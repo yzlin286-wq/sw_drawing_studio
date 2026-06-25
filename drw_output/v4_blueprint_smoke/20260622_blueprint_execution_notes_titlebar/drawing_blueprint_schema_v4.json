@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.sw-drawing-studio/schemas/drawing_blueprint_v4.json",
+  "title": "DrawingBlueprint v4",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "base",
+    "part_class",
+    "view_plan",
+    "dimension_plan",
+    "annotation_plan",
+    "titlebar_plan",
+    "notes_plan",
+    "validation_plan"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sw_drawing_studio.drawing_blueprint.v4"
+    },
+    "version": {
+      "type": "string"
+    },
+    "base": {
+      "type": "string",
+      "minLength": 1
+    },
+    "part_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "drawing_purpose": {
+      "type": "string"
+    },
+    "manufacturing_intent": {
+      "type": "string"
+    },
+    "reference_base": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "view_plan": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ViewPlan"
+      }
+    },
+    "dimension_plan": {
+      "$ref": "#/$defs/DimensionPlan"
+    },
+    "annotation_plan": {
+      "$ref": "#/$defs/AnnotationPlan"
+    },
+    "titlebar_plan": {
+      "$ref": "#/$defs/TitlebarPlan"
+    },
+    "notes_plan": {
+      "$ref": "#/$defs/NotesPlan"
+    },
+    "validation_plan": {
+      "$ref": "#/$defs/ValidationPlan"
+    },
+    "layout_plan": {
+      "type": "object"
+    },
+    "source_inputs": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "ViewPlan": {
+      "type": "object",
+      "required": [
+        "slot",
+        "view_type",
+        "required",
+        "source",
+        "create_method"
+      ],
+      "properties": {
+        "slot": {
+          "type": "string"
+        },
+        "view_type": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string"
+        },
+        "center_norm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "scale": {
+          "type": "string"
+        },
+        "sw_view_type": {
+          "type": "string"
+        },
+        "create_method": {
+          "type": "string"
+        },
+        "projected_from": {
+          "type": "string"
+        },
+        "outline_norm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DimensionPlan": {
+      "type": "object",
+      "required": [
+        "required_display_dim_count",
+        "allow_note_substitution",
+        "fallback_policy"
+      ],
+      "properties": {
+        "required_display_dim_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reference_display_dim_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "required_overall_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hole_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slot_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "radius_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "thread_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datum_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inspection_dims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dimension_priority": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallback_policy": {
+          "type": "string"
+        },
+        "allow_note_substitution": {
+          "const": false
+        },
+        "source": {
+          "type": "string"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AnnotationPlan": {
+      "type": "object"
+    },
+    "TitlebarPlan": {
+      "type": "object"
+    },
+    "NotesPlan": {
+      "type": "object"
+    },
+    "ValidationPlan": {
+      "type": "object",
+      "required": [
+        "required_artifacts",
+        "require_true_display_dim",
+        "forbid_note_as_display_dim",
+        "forbid_named_view_as_projected",
+        "require_ui_visual_review"
+      ],
+      "properties": {
+        "required_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "view_match_min": {
+          "type": "number"
+        },
+        "dimension_match_min": {
+          "type": "number"
+        },
+        "titlebar_match_min": {
+          "type": "number"
+        },
+        "notes_match_min": {
+          "type": "number"
+        },
+        "layout_match_min": {
+          "type": "number"
+        },
+        "require_true_display_dim": {
+          "type": "boolean"
+        },
+        "forbid_note_as_display_dim": {
+          "const": true
+        },
+        "forbid_named_view_as_projected": {
+          "const": true
+        },
+        "require_ui_visual_review": {
+          "const": true
+        },
+        "failure_bucket_required": {
+          "const": true
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

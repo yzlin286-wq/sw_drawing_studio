@@ -1,0 +1,246 @@
+{
+  "schema": "sw_drawing_studio.reference_metrics.v1",
+  "source": "csharp_sidecar",
+  "generated_at": "2026-06-22 17:04:14",
+  "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+  "exists": true,
+  "success": true,
+  "status": "ok",
+  "reason": "",
+  "connection_method": "get_active_object",
+  "sw_revision": "33.5.0",
+  "open_errors": 0,
+  "open_warnings": 0,
+  "sheet": {
+    "name": null,
+    "paper_size": [],
+    "properties": [
+      6,
+      13,
+      1,
+      5,
+      1,
+      0.297,
+      0.21,
+      1
+    ]
+  },
+  "view_count": 2,
+  "view_types": {
+    "7": 1,
+    "4": 1
+  },
+  "view_names": [
+    "工程图视图1",
+    "工程图视图3"
+  ],
+  "view_outlines": [
+    {
+      "name": "工程图视图1",
+      "type": "7",
+      "outline": [
+        0.04048950966149401,
+        0.10916933402364422,
+        0.14888950966149406,
+        0.17956933402364422
+      ]
+    },
+    {
+      "name": "工程图视图3",
+      "type": "4",
+      "outline": [
+        0.040489509661494,
+        0.07499691769549166,
+        0.14888950966149403,
+        0.08591565305579155
+      ]
+    }
+  ],
+  "display_dim_count": 1,
+  "annotation_count": 0,
+  "file_size_bytes": 1880386,
+  "warnings": [],
+  "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-001_reference.json",
+  "returncode": 0,
+  "stdout": "{\"success\":true,\"status\":\"ok\",\"out\":\"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\reference_metrics_sidecar\\\\LB26001-A-04-001_reference.json\",\"view_count\":12,\"display_dim_count\":1}",
+  "stderr": "",
+  "annotation_probe": {
+    "source": "pywin32_annotation_probe",
+    "success": true,
+    "reason": "",
+    "view_count": 3,
+    "display_dim_count": 1,
+    "display_dim_annotation_count": 0,
+    "display_dim_count_source": "annotation_type1",
+    "annotation_count": 0,
+    "open_errors": 0,
+    "open_warnings": 128
+  },
+  "annotation_probe_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-001_reference_annotation_probe.json",
+  "display_dim_annotation_count": 0,
+  "display_dim_count_source": "display_dimension_api",
+  "raw_view_count": 12,
+  "raw_view_types": {
+    "7": 11,
+    "4": 1
+  },
+  "raw_view_names": [
+    "工程图视图1",
+    "*前视",
+    "*上视",
+    "*右视",
+    "*后视",
+    "*左视",
+    "*下视",
+    "*当前",
+    "*等轴测",
+    "*左右二等角轴测",
+    "*上下二等角轴测",
+    "工程图视图3"
+  ],
+  "raw_view_outlines": [
+    {
+      "name": "工程图视图1",
+      "type": "7",
+      "outline": [
+        0.04048950966149401,
+        0.10916933402364422,
+        0.14888950966149406,
+        0.17956933402364422
+      ]
+    },
+    {
+      "name": "*前视",
+      "type": "7",
+      "outline": [
+        -0.5418000000000001,
+        -0.004861300186099895,
+        -0.48340000000000005,
+        0.004798067494049947
+      ]
+    },
+    {
+      "name": "*上视",
+      "type": "7",
+      "outline": [
+        -0.7044000000000001,
+        -0.0197,
+        -0.6460000000000001,
+        0.0197
+      ]
+    },
+    {
+      "name": "*右视",
+      "type": "7",
+      "outline": [
+        -0.8575000000000002,
+        -0.004861300186099895,
+        -0.8181000000000003,
+        0.004798067494049947
+      ]
+    },
+    {
+      "name": "*后视",
+      "type": "7",
+      "outline": [
+        -1.0296,
+        -0.004861300186099895,
+        -0.9712000000000002,
+        0.004798067494049947
+      ]
+    },
+    {
+      "name": "*左视",
+      "type": "7",
+      "outline": [
+        -1.1827000000000003,
+        -0.004861300186099895,
+        -1.1433000000000002,
+        0.004798067494049947
+      ]
+    },
+    {
+      "name": "*下视",
+      "type": "7",
+      "outline": [
+        -1.3548000000000002,
+        -0.0197,
+        -1.2964000000000004,
+        0.0197
+      ]
+    },
+    {
+      "name": "*当前",
+      "type": "7",
+      "outline": [
+        -1.5176874805535367,
+        -0.020216003942551044,
+        -1.4587144320793552,
+        0.02021008385125986
+      ]
+    },
+    {
+      "name": "*等轴测",
+      "type": "7",
+      "outline": [
+        -1.6836378246380557,
+        -0.02127224285526807,
+        -1.6179621753619453,
+        0.021220610781563884
+      ]
+    },
+    {
+      "name": "*左右二等角轴测",
+      "type": "7",
+      "outline": [
+        -1.8464654362210426,
+        -0.012602732171831933,
+        -1.7803345637789585,
+        0.012543115818041895
+      ]
+    },
+    {
+      "name": "*上下二等角轴测",
+      "type": "7",
+      "outline": [
+        -2.0095442315703522,
+        -0.01783638186803734,
+        -1.942455768429649,
+        0.017782180872076756
+      ]
+    },
+    {
+      "name": "工程图视图3",
+      "type": "4",
+      "outline": [
+        0.040489509661494,
+        0.07499691769549166,
+        0.14888950966149403,
+        0.08591565305579155
+      ]
+    }
+  ],
+  "view_filter": {
+    "applied": true,
+    "reason": "removed_off_sheet_palette_views",
+    "sheet_bounds": [
+      -0.005,
+      -0.005,
+      0.302,
+      0.215
+    ],
+    "removed_count": 10,
+    "removed_names": [
+      "*前视",
+      "*上视",
+      "*右视",
+      "*后视",
+      "*左视",
+      "*下视",
+      "*当前",
+      "*等轴测",
+      "*左右二等角轴测",
+      "*上下二等角轴测"
+    ]
+  }
+}

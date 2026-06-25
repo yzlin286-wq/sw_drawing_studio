@@ -1,0 +1,1 @@
+{"pass": false, "status": "need_review", "report": "C:\\Users\\Vision\\Desktop\\SW ฯเนุ\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_012502\\summary.json", "deliverable_count": 0, "total": 1}

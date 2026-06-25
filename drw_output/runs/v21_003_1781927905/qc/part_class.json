@@ -1,0 +1,19 @@
+{
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+  "part_name": "LB26001-A-04-003.SLDPRT",
+  "part_class": "feature_part",
+  "reason": "default; history dim_total=0 (suspect imported_body)",
+  "bbox_mm": [
+    132.23122292025698,
+    52.1807486906667,
+    40.7990515408195
+  ],
+  "is_standard": false,
+  "std_no": "",
+  "std_spec": "",
+  "long_thin_ratio": 2.53,
+  "is_tiny": false,
+  "is_sheet_like": false,
+  "has_features": null,
+  "history_dim_total": 0
+}

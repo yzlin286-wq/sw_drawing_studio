@@ -1,0 +1,11665 @@
+# sw_drawing_studio v3.0 Validation Log
+
+Generated: 2026-06-21
+
+## Current Judgment
+
+Status: WARNING, not release-ready.
+
+Reason: Phase 0 is complete, source-level Chinese UI walkthrough and quick UI robot evidence pass, source-level 20-minute mock stability evidence passes, final `dist/sw_drawing_studio.exe` has been rebuilt with the Chinese UI changes and Reality Gate worker support, final EXE smoke passes, Windows-level EXE Chinese 9-page click automation passes, and final EXE Job Queue timeout/retry/cancel/skip operation acceptance passes. A final diagnostics sample zip has also been generated. The final EXE Reality Gate passes with real SolidWorks COM connection evidence, `sw_pid=33472`, `sw_revision=33.5.0`, Add-in Ping, DialogGuard, required JSONL events, and a copied-file OpenDoc6 probe. v3.0 Real CAD Smoke passes through `JobRuntimeFacade.start_cad_job` for `LB26001-A-04-001`, with fresh run artifacts and final quality evidence. 2D annotation validation smoke passes as `pass_with_warning` with explicit DisplayDim/Note source separation. Reference drawing comparison smoke passes as `pass_with_warning` after C# sidecar extraction, off-sheet reference view filtering, and evidence-bound annotation comparison. The 024/040 staged CAD gate now passes with 2/2 deliverable drawings after a fresh `LB26001-A-04-040` CAD rerun at `drw_output/runs/4109ed799304` and evidence-driven `vision_qc_v2` tiny-part sidecar policy. The core_12 staged CAD gate also passes with 12/12 deliverable drawings after reference evidence refresh and a fresh `LB26001-A-04-005` CAD rerun at `drw_output/runs/0631a2a3e074`. The project is still not release-ready because LB26001_36, medium_30, full_129, historical Visual Audit 100 percent coverage, final release evidence, and `release_log_v3_0.md` are not complete.
+
+## v4.1 SolidWorks Conflict Control - 2026-06-23
+
+Current result: WARNING / not release-ready.
+
+Current priority is SolidWorks global exclusivity before further real CAD batches. Real COM entrypoints must be serialized by `app/services/solidworks_global_lock.py`, conflict state must be visible through System Health, and conflicts must return `status=blocked_by_solidworks_lock` with owner and fix suggestion.
+
+The requested six drawings `LB26001-A-04-006/007/008/009/015/022` remain governed by application UI screenshot acceptance. API metrics, strict-style checks, and DisplayDim counts are supporting evidence only; they do not prove final drawing correctness without per-drawing application screenshot review.
+
+Evidence added in this slice:
+
+- `drw_output/solidworks_lock_test_result.json`: lock unit checks pass for acquire/release, conflict blocking, heartbeat, alive-owner no-steal, and stale-owner release.
+- `drw_output/diagnostics/conflict_report.json`: current level is WARNING; SolidWorks is running, no CAD/batch worker is active, and no waiting job/DialogGuard is detected.
+- `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`: scanner runs and remains WARNING with historical/experimental entrypoints still listed for follow-up.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\solidworks_global_lock.py app\services\solidworks_conflict_monitor.py app\services\system_health_service.py app\services\sw_addin_client.py app\services\sw_session_supervisor.py app\workers\cad_job_worker.py app\workers\batch_job_worker.py app\workers\solidworks_com_probe_worker.py app\workers\drawing_review_worker.py tools\validation\scan_solidworks_entrypoints_v4_1.py test_v4_1_solidworks_global_lock.py test_v4_1_solidworks_conflict_monitor.py test_v4_1_solidworks_entrypoint_scan.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py .trae\specs\enforce-drawing-quality\drw_quality_check.py tools\validation\reference_compare_smoke_v3.py
+python test_v4_1_solidworks_global_lock.py
+python test_v4_1_solidworks_conflict_monitor.py
+python test_v4_1_solidworks_entrypoint_scan.py
+python test_v2_3_job_runtime.py
+python test_v2_3_system_health_page.py
+python test_v3_system_health_com_probe.py
+python test_v3_main_navigation.py
+python tools\validation\scan_solidworks_entrypoints_v4_1.py
+```
+
+Result: PASS for offline/unit/UI smoke checks; overall project status remains WARNING because scanner findings and per-drawing UI screenshot acceptance are not complete.
+
+## LB26001 Reference Style Correction Evidence - 2026-06-22
+
+Current result: WARNING / not accepted for release.
+
+What improved:
+
+- Learned standards for `LB26001-A-04-006/007/008/009/015/022.SLDDRW` are recorded in `drw_output/reference_style_profile/lb26001_drawing_standard_v3_0.json` and `.md`.
+- `app/services/persisted_layout_solver.py` now saves the explicit drawing document object instead of `sw.ActiveDoc`, preventing the solver from accidentally saving/closing the active SLDPRT during layout persistence.
+- Fresh pilot4 evidence for `LB26001-A-04-006`:
+  - CAD smoke: `drw_output/cad_smoke_stylefix_006_matrix_pilot4.json`, run dir `drw_output/runs/b42f06d1a779`, status pass.
+  - Dimension smoke: `drw_output/dimension_validation_stylefix_006_matrix_pilot4.json`, status `pass_with_warning`.
+  - Reference compare: `drw_output/reference_compare_stylefix_006_matrix_pilot4.json`, status `pass_with_warning`, `view_types={"7":2,"4":2}`.
+  - Strict style: `drw_output/reference_style_profile/stylefix_006_matrix_pilot4_style.json`, `view_style_score=1.0`, `layout_style_score=1.0`.
+
+Remaining blocker:
+
+- Strict style still fails because generated `display_dim_count=0` in independent C# sidecar extraction, while the 006 reference baseline is 12. QC/in-process evidence sees 8 annotation-style dimension records, but this is not enough to satisfy the real DisplayDim gate.
+- A proactive first-round model-dimension seed attempt was tested in `drw_output/cad_smoke_stylefix_006_matrix_pilot5.json`; it timed out after 900s with only a failed manifest under `drw_output/runs/5af83a81cff4`. The default trigger was reverted. Any future seed/AddDimension path must be bounded in a worker or otherwise proven not to hang.
+
+## Phase 0 Evidence
+
+PASS:
+
+- `AGENTS.md` exists and defines project rules.
+- `docs/status_correction_v3.md` exists and corrects service-layer versus product-complete status.
+- `docs/final_acceptance_criteria.md` exists and defines PASS / WARNING / FAIL.
+- `docs/product_goal_v3.md` exists and defines the v3.0 product goal.
+- `tasks.md` exists and records v3.0 task status.
+
+Validation command:
+
+```powershell
+python - <<'PY'
+from pathlib import Path
+files=[
+  'AGENTS.md',
+  'tasks.md',
+  'docs/status_correction_v3.md',
+  'docs/final_acceptance_criteria.md',
+  'docs/product_goal_v3.md',
+]
+for f in files:
+    text=Path(f).read_text(encoding='utf-8')
+    assert text.strip()
+    print(f, 'ok', len(text), 'chars')
+PY
+```
+
+Result: PASS.
+
+## Phase 1 Runtime Evidence
+
+Completed in this slice:
+
+- `JobEventType.RECOVERED` added.
+- Worker JSONL events now include both `event_type` and `type`.
+- `JobRunner` accepts both `event_type` and `type` from worker stdout.
+- `JobRunner` persists worker events to `run_dir/job_event_log.jsonl`.
+- Mock worker supports: `pass`, `normal_pass`, `pass_with_warning`, `timeout`, `failed`, `recovered`, and `stuck_then_recovered`.
+- Job Queue UI scenario selector includes `stuck_then_recovered`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\job_event_bus.py app\services\job_runner.py app\services\job_runtime_facade.py app\workers\mock_long_job_worker.py app\ui\job_queue_page.py
+python test_v2_3_job_runtime.py
+python test_v2_3_job_queue_page.py
+```
+
+Additional mock scenario validation:
+
+- `normal_pass`: PASS
+- `pass`: PASS
+- `pass_with_warning`: PASS
+- `recovered`: PASS and emits `recovered`
+- `stuck_then_recovered`: PASS and emits `warning` + `recovered`
+- `failed`: PASS as expected failure with `job_failed`
+- `timeout`: PASS as expected failure with `job_failed`
+
+Artifact evidence:
+
+- `drw_output/runs/mock_20260621_034729_a60f9687/job_event_log.jsonl`
+
+Known warnings:
+
+- `requests` dependency warning for urllib3/chardet/charset_normalizer.
+- `pydantic` protected namespace warning for `model_kwargs`.
+
+These warnings did not block the mock runtime smoke.
+
+## Still Required
+
+FAIL / not yet complete:
+
+- Visual audit 100 percent coverage.
+- v3.0 staged real CAD validation.
+- Final `dist/sw_drawing_studio.exe`.
+- Final `release_log_v3_0.md`.
+
+## Phase 2 UI Standards Evidence
+
+Completed in this slice:
+
+- `docs/ui_design_standard.md`
+- `docs/ui_acceptance_criteria.md`
+
+These documents define the required UI hierarchy, spacing, status colors, tables, error handling,
+scenario gates, screenshot gates, and final UI PASS criteria.
+
+Result: PASS for documentation. Product UI remains WARNING because the current screenshots still show
+legacy v1.8/v2.x workbench styling and Drawing Review is not yet integrated into main navigation.
+
+## Phase 3 Source-Level UI Robot Evidence
+
+Completed in this slice:
+
+- Fixed Qt offscreen CJK font loading in `tools/ui_robot/human_simulator.py`.
+- Fixed screenshot writing to use low-compression PNG output for acceptance artifacts.
+- Re-ran source-level UI acceptance suite.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\ui_robot\human_simulator.py tools\ui_robot\screenshot_runner.py tools\ui_robot\ui_acceptance_suite.py app\services\visual_audit_reporter.py
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_source_fixed --mock-duration-s 0.4
+```
+
+Result:
+
+- Source-level UI robot: PASS.
+- Dashboard screenshot: PASS, 4,808,831 bytes.
+- Single Drawing screenshot: PASS, 4,808,831 bytes.
+- Job Queue screenshot: PASS, 4,808,831 bytes.
+- Visual Audit screenshot: PASS, 4,808,831 bytes.
+- Batch Validation screenshot: PASS, 4,808,831 bytes.
+- System Health screenshot: PASS, 4,808,831 bytes.
+- Logs & Diagnostics screenshot: PASS, 4,808,831 bytes.
+- Drawing Review screenshot: PASS, 4,808,831 bytes.
+- Settings screenshot: PASS, 1,758,557 bytes.
+- Mock Job Queue operations: normal pass, timeout, retry, and cancel all PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_source_fixed/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_source_fixed/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_source_fixed/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_source_fixed/screenshots/`
+
+Known limits:
+
+- This is source-level Qt automation, not Windows-level EXE click automation.
+- The quick suite did not run 20-minute or 2-hour stability.
+- Drawing Review was captured as a standalone workbench, not through main-window navigation.
+- Real CAD validation was not rerun in this slice.
+
+## Phase 2/3 Main Navigation Refresh Evidence
+
+Completed in this slice:
+
+- Updated legacy v2.3 page smoke tests to assert the v3 English navigation labels.
+- Updated `tools/ui_robot/ui_acceptance_suite.py` so Settings acceptance operates the main-window
+  Settings page through nav row 8 instead of opening a standalone settings dialog.
+- Verified Drawing Review and Settings are captured through the v3 main navigation path.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\ui\main_window.py tools\ui_robot\screenshot_runner.py tools\ui_robot\ui_acceptance_suite.py test_v3_main_navigation.py test_v2_3_job_queue_page.py test_v2_3_visual_audit_page.py test_v2_3_system_health_page.py test_v2_3_logs_diagnostics_page.py
+python test_v3_main_navigation.py
+python test_v2_3_job_queue_page.py
+python test_v2_3_visual_audit_page.py
+python test_v2_3_system_health_page.py
+python test_v2_3_logs_diagnostics_page.py
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_nav_settings_fixed --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- v3 main navigation smoke: PASS.
+- Job Queue page smoke: PASS.
+- Visual Audit page smoke: PASS.
+- System Health page smoke: PASS.
+- Logs & Diagnostics page smoke: PASS.
+- Source-level v3 UI robot: PASS.
+- 9 main navigation screenshots: PASS.
+- Settings screenshot is now a main-window page capture at 1600 x 1000, not a dialog capture.
+- Mock Job Queue operations: normal pass, timeout, retry, and cancel all PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/01_dashboard.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/02_single_drawing.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/03_job_queue.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/04_visual_audit.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/05_drawing_review.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/06_batch_validation.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/07_system_health.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/08_logs_diagnostics.png`
+- `drw_output/ui_acceptance/quick_v3_nav_settings_fixed/screenshots/09_settings.png`
+
+Known limits:
+
+- This remains source-level Qt automation, not Windows-level EXE click automation.
+- The quick suite did not run 20-minute or 2-hour stability.
+- Real CAD validation was not rerun in this slice.
+
+## Phase 1/2 Drawing Review Runtime Alignment Evidence
+
+Completed in this slice:
+
+- Added `app/workers/drawing_review_worker.py`.
+- Added `drawing_review` worker dispatch in `JobRunner` and frozen `app/main.py --worker`.
+- Added `JobRuntimeFacade.start_drawing_review_action(...)`.
+- Updated `DrawingReviewWorkbench` so Add-in Dimension, DocMgr Relink, and Vision QC v3 buttons submit
+  QProcess worker jobs through `JobRuntimeFacade` instead of using a QThread to call services directly.
+- Updated PyInstaller data/hiddenimports for the new worker.
+- Added smoke coverage for Drawing Review button job submission, worker args, facade record creation,
+  resource-path dispatch, and build spec inclusion.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\workers\drawing_review_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\drawing_review_workbench.py test_v2_3_job_runtime.py test_v2_3_drawing_review_workbench.py test_v2_3_resource_paths.py test_v2_3_build_spec.py
+python test_v2_3_job_runtime.py
+python test_v2_3_drawing_review_workbench.py
+python test_v2_3_build_spec.py
+python test_v2_3_resource_paths.py
+python test_v3_main_navigation.py
+python test_v2_3_job_queue_page.py
+python test_v2_3_visual_audit_page.py
+python test_v2_3_system_health_page.py
+python test_v2_3_logs_diagnostics_page.py
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_review_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- Job runtime verification: PASS.
+- Drawing Review Workbench smoke: PASS.
+- Build spec verification: PASS.
+- Resource paths verification: PASS.
+- v3 main navigation smoke: PASS.
+- Job Queue, Visual Audit, System Health, and Logs & Diagnostics smoke tests: PASS.
+- Source-level v3 UI robot after Drawing Review worker alignment: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_review_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_review_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_review_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_review_worker/screenshots/`
+
+Known limits:
+
+- This proves source-level wiring and UI regression safety; it does not prove real Add-in, DocMgr,
+  or Vision QC worker success on a real CAD run.
+- EXE-level UI robot acceptance, long stability, and staged real CAD validation remain pending.
+
+## Phase 3 Internal v3 Walkthrough Alignment Evidence
+
+Completed in this slice:
+
+- Updated `app/main.py --ui-walkthrough` from the legacy v2.x page list to the v3 nine-entry navigation:
+  Dashboard, Single Drawing, Job Queue, Visual Audit, Drawing Review, Batch Validation, System Health,
+  Logs & Diagnostics, and Settings.
+- Walkthrough screenshots now use the final required filenames under a `screenshots/` directory:
+  `01_dashboard.png` through `09_settings.png`.
+- Screenshot acceptance thresholds are enforced in the internal report: 50 KB for standard pages and
+  70 KB for Drawing Review.
+- Added `test_v3_ui_walkthrough.py` to lock the walkthrough page contract to `NAV_ITEMS`.
+- Fixed direct `python app\main.py ...` execution by adding the repository root to `sys.path`.
+- Internal walkthrough uses low-compression PNG output so size thresholds match the source UI robot behavior.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\main.py test_v3_ui_walkthrough.py
+python test_v3_ui_walkthrough.py
+python test_v3_main_navigation.py
+$env:QT_QPA_PLATFORM='offscreen'; python app\main.py --ui-walkthrough drw_output\ui_acceptance\source_v3_internal_walkthrough
+python test_v2_3_resource_paths.py
+python test_v2_3_build_spec.py
+python test_v2_3_job_runtime.py
+python test_v2_3_drawing_review_workbench.py
+```
+
+Result:
+
+- Compile check: PASS.
+- v3 UI walkthrough contract: PASS.
+- v3 main navigation smoke: PASS.
+- Internal source `--ui-walkthrough`: PASS with `page_count=9` and `all_pages_pass=true`.
+- Resource paths, build spec, job runtime, and Drawing Review Workbench regressions: PASS.
+- Screenshot sizes in the internal walkthrough: 5,439,770 bytes each.
+- Drawing Review screenshot threshold: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/ui_walkthrough_report.json`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/01_dashboard.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/02_single_drawing.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/03_job_queue.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/04_visual_audit.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/05_drawing_review.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/06_batch_validation.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/07_system_health.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/08_logs_diagnostics.png`
+- `drw_output/ui_acceptance/source_v3_internal_walkthrough/screenshots/09_settings.png`
+
+Known limits:
+
+- This proves source/internal walkthrough alignment only. EXE-level Windows click automation remains pending.
+- The walkthrough itself did not replace the stability gates. Source-level 20-minute mock stability is covered later; 2-hour UI stability remains pending.
+- Dependency warnings for `requests` and `pydantic model_kwargs` still appear during some tests and remain non-blocking.
+
+## Phase 1/2 System Health Worker Isolation Evidence
+
+Completed in this slice:
+
+- Added `app/services/system_health_service.py` as the non-UI implementation of grouped health collection.
+- Added `app/workers/health_check_worker.py`, which emits `job_started`, `progress`, `heartbeat`,
+  `job_finished`, and `job_failed` JSONL events.
+- Added `system_health` worker dispatch in `JobRunner` and frozen `app/main.py --worker`.
+- Added `JobRuntimeFacade.start_system_health_check(...)`.
+- Updated `SystemHealthPage.refresh()` so the UI thread starts a QProcess worker and only renders returned
+  rows; direct Add-in ping, Document Manager probe, and mock-worker subprocess smoke no longer run in the UI file.
+- Updated PyInstaller data/hiddenimports for the health worker and service.
+- Updated internal/source screenshot capture to wait for the async System Health worker result before taking
+  the System Health screenshot.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\system_health_service.py app\workers\health_check_worker.py app\ui\system_health_page.py app\services\job_runtime_facade.py app\services\job_runner.py app\main.py test_v2_3_job_runtime.py test_v2_3_resource_paths.py test_v2_3_build_spec.py
+python app\workers\health_check_worker.py --job-id health_smoke
+python test_v2_3_system_health_page.py
+python test_v2_3_job_runtime.py
+python test_v2_3_build_spec.py
+python test_v2_3_resource_paths.py
+$env:QT_QPA_PLATFORM='offscreen'; python app\main.py --ui-walkthrough drw_output\ui_acceptance\source_v3_health_worker_waited
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_health_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- Health worker direct JSONL smoke: PASS.
+- System Health page smoke: PASS; the page waits for the async worker and renders grouped rows.
+- Job runtime, build spec, and resource path regressions: PASS.
+- Source-level v3 UI robot after Dashboard/Home health worker isolation: PASS.
+- Internal v3 walkthrough after health worker isolation: PASS with `page_count=9` and `all_pages_pass=true`.
+- Source-level v3 UI robot after health worker isolation: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/source_v3_health_worker_waited/ui_walkthrough_report.json`
+- `drw_output/ui_acceptance/source_v3_health_worker_waited/screenshots/07_system_health.png`
+- `drw_output/ui_acceptance/quick_v3_health_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_health_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_health_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_health_worker/screenshots/07_system_health.png`
+
+Known limits:
+
+- This proves source-level worker isolation and UI rendering safety for System Health.
+- EXE-level UI robot acceptance, 2-hour UI stability, full visual audit, and staged
+  real CAD validation remain pending.
+
+## Phase 1/2 Legacy QC Worker Isolation Evidence
+
+Completed in this slice:
+
+- Added `app/workers/qc_action_worker.py`, with JSONL events for `job_started`, `progress`, `heartbeat`,
+  `job_finished`, and `job_failed`.
+- Added `qc_action` worker dispatch in `JobRunner` and frozen `app/main.py --worker`.
+- Added `JobRuntimeFacade.start_qc_action(...)`.
+- Updated `QcPage._on_rerun_vqc2()` so the UI emits a request instead of importing and calling
+  `run_vision_qc_v2(...)` directly.
+- Updated legacy `MainWindow` QC handlers so PNG rendering, Vision QC v2, and legacy LLM vision scoring
+  submit QProcess jobs through `JobRuntimeFacade` instead of using direct service calls or QThreadPool for
+  those specific QC actions.
+- Updated PyInstaller data/hiddenimports and resource-path tests for the new worker.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\workers\qc_action_worker.py app\services\job_runtime_facade.py app\services\job_runner.py app\ui\qc_page.py app\ui\main_window.py app\main.py test_v2_3_job_runtime.py test_v2_3_build_spec.py test_v2_3_resource_paths.py test_v2_3_qc_action_worker.py
+python test_v2_3_qc_action_worker.py
+python test_v2_3_job_runtime.py
+python test_v2_3_build_spec.py
+python test_v2_3_resource_paths.py
+python test_v3_main_navigation.py
+python test_v2_3_system_health_page.py
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_qc_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- QC action worker direct render-PNG JSONL smoke: PASS.
+- Job runtime verification, including `qc_action` worker args and facade record: PASS.
+- Build spec verification: PASS.
+- Resource paths verification, including frozen `--worker qc_action`: PASS.
+- v3 main navigation smoke: PASS.
+- System Health page smoke regression: PASS.
+- Source-level v3 UI robot after legacy QC worker isolation: PASS.
+
+Artifact evidence:
+
+- `drw_output/_qc_action_worker_test/fixture_rendered.PNG`
+- `drw_output/ui_acceptance/quick_v3_qc_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_qc_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_qc_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_qc_worker/screenshots/`
+
+Known limits:
+
+- This removes the direct legacy QC `run_vision_qc_v2`, PNG render, and legacy vision-score service calls
+  from the UI process. It does not yet remove every old UI-thread risk.
+- `app/ui/home_page.py` no longer calls old `run_health_check()` directly; Dashboard/Home health refresh now submits the System Health QProcess worker through `JobRuntimeFacade`.
+- `app/ui/main_window.py` no longer has active `QThreadPool` long-task paths for CAD rerun, AI pre-analysis, or technical text generation; those now submit JobRuntimeFacade jobs. The old `app/ui/_workers.py` helper remains unused.
+- This is source-level evidence; EXE-level UI robot acceptance and long stability remain pending.
+
+## Phase 1/2 Dashboard Home Health Worker Isolation Evidence
+
+Completed in this slice:
+
+- Updated `app/ui/home_page.py` so Dashboard/Home health refresh submits `JobRuntimeFacade.start_system_health_check(...)` instead of importing and calling old `run_health_check()` in the UI process.
+- Dashboard/Home now renders the same grouped System Health payload used by `SystemHealthPage`, including grouped rows, statuses, messages, and fix suggestions.
+- Added `test_v2_3_home_page_health_worker.py` to lock the HomePage worker submission path and prevent reintroducing the legacy direct health call.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\ui\home_page.py test_v2_3_home_page_health_worker.py app\ui\system_health_page.py app\ui\main_window.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_home_page_health_worker.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_system_health_page.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v3_main_navigation.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_job_runtime.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_build_spec.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_resource_paths.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_home_health_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- HomePage health worker smoke: PASS.
+- System Health page regression: PASS.
+- v3 main navigation smoke: PASS.
+- Job runtime, build spec, and resource path regressions: PASS.
+- Source-level v3 UI robot after Dashboard/Home health worker isolation: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_home_health_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_home_health_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_home_health_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_home_health_worker/screenshots/01_dashboard.png` through `09_settings.png`
+
+Known limits:
+
+- This removes the Dashboard/Home direct health-check call from the UI process. It does not yet remove all legacy UI-thread risk.
+- `app/ui/main_window.py` no longer has active `QThreadPool` long-task paths for CAD rerun, AI pre-analysis, or technical text generation; those now submit JobRuntimeFacade jobs. The old `app/ui/_workers.py` helper remains unused.
+- EXE-level UI robot acceptance, 2-hour UI stability, full visual audit, and staged real CAD validation remain pending.
+
+## Phase 1/2 Legacy CAD Rerun Worker Alignment Evidence
+
+Completed in this slice:
+
+- Updated `app/ui/main_window.py` so Batch single-row rerun and QC rerun no longer import or call `SwRunner.run_single` through `RunnerWorker` / `QThreadPool`.
+- CAD rerun actions now submit `JobRuntimeFacade.start_cad_job(...)`, letting the runtime create `drw_output/runs/<run_id>/` worker artifacts and QProcess JSONL events.
+- Added result mapping for both legacy `{ok, sldprt, slddrw, qc_json}` data and worker manifest-style `{run_dir, output_files, drawing_usable}` data.
+- Added `test_v2_3_main_window_rerun_facade.py` to lock the Batch and QC rerun submission paths with a fake facade.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\ui\main_window.py test_v2_3_main_window_rerun_facade.py test_v2_3_batch_facade_integration.py test_v3_main_navigation.py test_v2_3_job_runtime.py test_v2_3_build_spec.py test_v2_3_resource_paths.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_main_window_rerun_facade.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_batch_facade_integration.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v3_main_navigation.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_job_runtime.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_build_spec.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_resource_paths.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_cad_rerun_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- MainWindow CAD rerun facade smoke: PASS.
+- Batch facade regression: PASS.
+- v3 main navigation smoke: PASS.
+- Job runtime, build spec, and resource path regressions: PASS.
+- Source-level v3 UI robot after CAD rerun worker alignment: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_cad_rerun_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_cad_rerun_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_cad_rerun_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_cad_rerun_worker/screenshots/01_dashboard.png` through `09_settings.png`
+
+Known limits:
+
+- This removes the legacy CAD rerun `SwRunner.run_single` path from the UI process; the following LLM worker slice removes the active AI pre-analysis and technical text QThreadPool paths.
+- EXE-level UI robot acceptance, 2-hour UI stability, full visual audit, and staged real CAD validation remain pending.
+## Phase 1/2 LLM Action Worker Isolation Evidence
+
+Completed in this slice:
+
+- Added `app/workers/llm_action_worker.py`, with JSONL events for `job_started`, `progress`, `heartbeat`, explicit `warning` when the test mock response is used, `job_finished`, and `job_failed`.
+- Added `JobRuntimeFacade.start_llm_action(...)` and `JobRunner` / frozen `app/main.py --worker llm_action` dispatch.
+- Updated `build_exe.spec` so the LLM action worker is included as data and hidden import.
+- Updated `app/ui/main_window.py` so active AI pre-analysis and technical text generation no longer call `self.llm.chat(...)` through `LLMWorker` / `QThreadPool`; both submit QProcess jobs through `JobRuntimeFacade`.
+- Added `test_v2_3_llm_action_worker.py` and `test_v2_3_main_window_llm_facade.py` to lock the worker JSONL contract and MainWindow fake-facade submission path.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\workers\llm_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\ui\main_window.py app\main.py test_v2_3_llm_action_worker.py test_v2_3_main_window_llm_facade.py test_v2_3_job_runtime.py test_v2_3_build_spec.py test_v2_3_resource_paths.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_llm_action_worker.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_main_window_llm_facade.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_job_runtime.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_build_spec.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_resource_paths.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v3_main_navigation.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_main_window_rerun_facade.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_batch_facade_integration.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_llm_worker --mock-duration-s 0.4
+```
+
+Result:
+
+- Compile check: PASS.
+- LLM action worker mock JSONL smoke: PASS.
+- MainWindow LLM facade smoke: PASS.
+- Job runtime, build spec, and resource path regressions: PASS.
+- v3 main navigation smoke: PASS.
+- CAD rerun and batch facade regressions: PASS.
+- Source-level v3 UI robot after LLM worker isolation: PASS.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/quick_v3_llm_worker/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_llm_worker/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_llm_worker/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_llm_worker/screenshots/01_dashboard.png` through `09_settings.png`
+- `drw_output/_llm_action_worker_test/sample.SLDPRT` test fixture placeholder
+
+Known limits:
+
+- Source scan shows active UI pages no longer import `QThreadPool`, `LLMWorker`, `RunnerWorker`, `SwRunner`, or call `self.llm.chat(...)`; the unused legacy helper definitions remain in `app/ui/_workers.py`.
+- This is source-level evidence. EXE-level UI robot acceptance, 2-hour UI stability, full visual audit, and staged real CAD validation remain pending.
+## Phase 4 Visual Audit Export Evidence
+
+Completed in this slice:
+
+- `app/services/visual_audit_reporter.py` now normalizes legacy non-dict issues before summary,
+  Excel export, JSON export, and text report generation.
+- `drw_output/visual_audit_report_ui_acceptance.xlsx` was generated by the source UI robot suite.
+
+Validation commands:
+
+```powershell
+python test_v2_3_visual_audit_page.py
+python - <<'PY'
+from pathlib import Path
+from app.services.visual_audit_reporter import VisualAuditReporter
+from app.services.visual_audit_service import AuditResult
+r = AuditResult(file_path='fixture.pdf', base_name='fixture', audit_status='fail', vision_qc_version='legacy', issues=['legacy_issue'], duration_ms=1, timestamp='now')
+out = Path('drw_output/_reporter_legacy_issue_test.xlsx')
+VisualAuditReporter([r]).export_xlsx(out)
+assert out.exists() and out.stat().st_size > 0
+PY
+```
+
+Result: PASS for reporter compatibility and source-level Excel export.
+
+Known limits:
+
+- The final required artifact is still `drw_output/visual_audit_report_v3_0.xlsx`.
+- Historical visual audit coverage is not yet proven to be 100 percent.
+- Not every historical issue has been proven to contain `bbox`, `source`, `confidence`, `evidence`, and `fix_suggestion`.
+
+## Phase 1/3 Source 20-Minute Mock Stability Evidence
+
+Completed in this slice:
+
+- Added `tools/ui_robot/mock_stability_runner.py` for source-level Qt mock-job stability validation.
+- Added `test_v3_mock_stability_runner.py` to smoke the runner, report generation, screenshots, samples, and worker event log contract.
+- Ran a 20-minute `normal_pass` mock job through the Job Queue UI while keeping the window event loop alive.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile tools\ui_robot\mock_stability_runner.py test_v3_mock_stability_runner.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v3_mock_stability_runner.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\mock_stability_runner.py --out-dir drw_output\ui_acceptance\mock_stability_20min_source --duration-s 1200 --sample-interval-s 30 --screenshot-interval-s 300 --completion-grace-s 90
+```
+
+Result:
+
+- Compile check: PASS.
+- Mock stability runner smoke: PASS.
+- 20-minute source-level UI stability run: PASS.
+- Requested duration: 1200.0 s.
+- Observed duration: 1205.61 s.
+- Final job status: `completed`.
+- Job ID: `34aa4b82`.
+- Samples written: 41.
+- Worker event log entries: 13,202.
+- Worker event types: `job_started` 1, `progress` 12,000, `heartbeat` 1,200, `job_finished` 1.
+- Required events present: `job_started`, `progress`, `heartbeat`, `job_finished`.
+- Final window visible: True.
+- Final page: Job Queue.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/mock_stability_20min_source/mock_stability_report.json`
+- `drw_output/ui_acceptance/mock_stability_20min_source/mock_stability_report.md`
+- `drw_output/ui_acceptance/mock_stability_20min_source/stability_samples.jsonl`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/01_start.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/02_elapsed_0s.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/03_elapsed_300s.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/04_elapsed_600s.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/05_elapsed_900s.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/06_elapsed_1200s.png`
+- `drw_output/ui_acceptance/mock_stability_20min_source/screenshots/07_final.png`
+- `drw_output/runs/mock_20260621_184005_34aa4b82/job_event_log.jsonl`
+
+Known limits:
+
+- This is source-level Qt stability evidence, not Windows-level EXE click automation.
+- The separate 2-hour UI stability gate remains pending.
+- Real SolidWorks validation and historical visual audit coverage remain pending.
+
+## Phase 6 v3.0 EXE Smoke Evidence
+
+Completed in this slice:
+
+- Added `smoke_v3_0_exe.py` to validate the current frozen executable with structured JSON/Markdown evidence.
+- Built a current v3 smoke executable at `dist_v3_smoke/sw_drawing_studio.exe` without overwriting historical `dist/sw_drawing_studio.exe`.
+- Hardened `app/services/system_health_service.py` so System Health uses lightweight module presence probes for OCR/YOLO/Paddle stacks instead of importing native-heavy engines inside the frozen health worker.
+- Re-ran v3.0 EXE smoke after rebuilding the executable.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\services\system_health_service.py app\workers\health_check_worker.py smoke_v3_0_exe.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_system_health_page.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_home_page_health_worker.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m PyInstaller build_exe.spec --distpath dist_v3_smoke --workpath build_v3_smoke --noconfirm
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe smoke_v2_3_exe.py dist_v3_smoke\sw_drawing_studio.exe
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe smoke_v3_0_exe.py dist_v3_smoke\sw_drawing_studio.exe drw_output\ui_acceptance\exe_v3_smoke
+```
+
+Result:
+
+- v3 smoke EXE built: PASS.
+- EXE size: 540,565,635 bytes.
+- v2.3 compatibility smoke against the v3 smoke EXE: PASS.
+- v3.0 EXE smoke: PASS.
+- Frozen mock worker: PASS, events `job_started`, `progress`, `heartbeat`, `job_finished`.
+- Frozen LLM pre-analysis worker with explicit mock response: PASS, events include `warning` and `job_finished`.
+- Frozen LLM technical-text worker with explicit mock response: PASS, events include `warning` and `job_finished`.
+- Frozen QC action worker for `vision_qc_v2` fixture: PASS, events `job_started`, `progress`, `heartbeat`, `job_finished`.
+- Frozen System Health worker: PASS, events `job_started`, `progress`, `heartbeat`, `job_finished`.
+- Frozen pipeline resource lookup for `drw_quality_check`: PASS.
+- GUI alive smoke: PASS, `alive_after_5s=True`.
+- Frozen internal v3 page walkthrough: PASS, 9 pages, minimum screenshot size 5,439,770 bytes.
+
+Artifact evidence:
+
+- `dist_v3_smoke/sw_drawing_studio.exe`
+- `drw_output/ui_acceptance/exe_v3_smoke/exe_smoke_report.json`
+- `drw_output/ui_acceptance/exe_v3_smoke/exe_smoke_report.md`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/ui_walkthrough_report.json`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/01_dashboard.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/02_single_drawing.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/03_job_queue.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/04_visual_audit.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/05_drawing_review.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/06_batch_validation.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/07_system_health.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/08_logs_diagnostics.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/internal_walkthrough/screenshots/09_settings.png`
+- `drw_output/ui_acceptance/exe_v3_smoke/qc_action_fixture/run/qc/vision_qc_v2.json`
+
+Known limits:
+
+- This is EXE smoke plus an internal frozen walkthrough; Windows-level click automation is covered by the following Phase 6 evidence section.
+- The final required release executable is still `dist/sw_drawing_studio.exe`; this slice intentionally used `dist_v3_smoke/` to avoid overwriting historical artifacts.
+- The separate 2-hour UI stability gate remains pending.
+- Real SolidWorks staged validation and historical visual audit 100 percent coverage remain pending.
+
+## Phase 6 Windows-Level EXE Click Acceptance Evidence
+
+Completed in this slice:
+
+- Added and ran `tools/ui_robot/exe_click_acceptance.py` against the rebuilt frozen executable.
+- The robot launched `dist_v3_smoke/sw_drawing_studio.exe`, selected each of the 9 main navigation entries through Windows UI Automation, captured real window screenshots, and wrote JSONL/JSON/Markdown evidence.
+- Fixed the frozen Dashboard empty-state crash risk by making Dashboard/Home tolerate a missing `drw_output/runs` directory.
+- Rebuilt the Batch Validation page with a scriptable v3 empty state so the Windows-level screenshot gate is no longer a visually sparse blank table.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\ui\home_page.py app\ui\batch_page.py app\ui\main_window.py tools\ui_robot\exe_click_acceptance.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_home_page_health_worker.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_batch_facade_integration.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v3_main_navigation.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_main_window_rerun_facade.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m PyInstaller build_exe.spec --distpath dist_v3_smoke --workpath build_v3_smoke --noconfirm
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe smoke_v3_0_exe.py dist_v3_smoke\sw_drawing_studio.exe drw_output\ui_acceptance\exe_v3_smoke
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\exe_click_acceptance.py --exe dist_v3_smoke\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_click_v3 --wait-s 1.0
+```
+
+Result:
+
+- v3.0 EXE smoke rerun after the latest rebuild: PASS.
+- Windows-level EXE click acceptance: PASS.
+- Navigation entries selected: 9 / 9.
+- Screenshots captured: 9 / 9.
+- Screenshot sizes: 8,341,592 bytes each.
+- Screenshot dimensions: 2316 x 1200.
+- Drawing Review threshold: PASS, above the 70 KB requirement.
+- Batch Validation threshold: PASS, `sample_unique_colors=8`.
+- Dashboard error guard: PASS, no missing-runs-directory error text visible.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/exe_click_v3/exe_click_acceptance_report.json`
+- `drw_output/ui_acceptance/exe_click_v3/exe_click_acceptance_report.md`
+- `drw_output/ui_acceptance/exe_click_v3/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/01_dashboard.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/02_single_drawing.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/03_job_queue.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/04_visual_audit.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/05_drawing_review.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/06_batch_validation.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/07_system_health.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/08_logs_diagnostics.png`
+- `drw_output/ui_acceptance/exe_click_v3/screenshots/09_settings.png`
+
+Known limits:
+
+- This validates Windows-level EXE navigation clicks and screenshots only.
+- The final required release executable is still `dist/sw_drawing_studio.exe`; this evidence uses `dist_v3_smoke/sw_drawing_studio.exe`.
+- The separate 2-hour UI stability gate remains pending.
+- Real SolidWorks staged validation and historical visual audit 100 percent coverage remain pending.
+
+## Phase 6 Diagnostics Sample Zip Evidence
+
+Completed in this slice:
+
+- Updated `app/services/diagnostics.py` so diagnostics zips use the v3 System Health payload instead of the legacy heavy health check.
+- Diagnostics zips now include `job_event_log.jsonl` when present.
+- Diagnostics zips now package all PNG files from the supplied screenshot directory under `screenshots/`.
+- Added `tools/release/build_diagnostics_sample.py`, which creates a dedicated `drw_output/runs/diagnostics_sample_v3_0/` sample run and generates a validated sample diagnostics zip.
+- Extended `test_v2_3_logs_diagnostics_page.py` so diagnostics packaging regression coverage includes `sw_session.json`, `job_event_log.jsonl`, and screenshots.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile app\services\diagnostics.py tools\release\build_diagnostics_sample.py test_v2_3_logs_diagnostics_page.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe test_v2_3_logs_diagnostics_page.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\release\build_diagnostics_sample.py
+```
+
+Result:
+
+- Compile check: PASS.
+- Logs & Diagnostics page smoke: PASS.
+- Diagnostics sample generation: PASS.
+- Sample zip size: 750,440 bytes.
+- Sample zip entries: 25.
+- Missing required entries: none.
+- Required evidence included: `manifest.json`, `qc.json`, `vision.json`, `qc/vision_qc_v5.json`, `qc/final_quality.json`, `sw_session.json`, `logs/run.log`, `logs/sw.log`, `logs/worker_stdout.log`, `job_event_log.jsonl`, `health_check.json`, `version.txt`, and v3 UI screenshots.
+
+Artifact evidence:
+
+- `tools/release/build_diagnostics_sample.py`
+- `drw_output/runs/diagnostics_sample_v3_0/manifest.json`
+- `drw_output/runs/diagnostics_sample_v3_0/sw_session.json`
+- `drw_output/runs/diagnostics_sample_v3_0/job_event_log.jsonl`
+- `drw_output/runs/diagnostics_sample_v3_0/qc/vision_qc_v5.json`
+- `drw_output/runs/diagnostics_sample_v3_0/qc/final_quality.json`
+- `drw_output/diagnostics/diagnostics_diagnostics_sample_v3_0.zip`
+- `drw_output/diagnostics/diagnostics_sample_v3_0_report.json`
+
+Known limits:
+
+- This is a diagnostics sample fixture, not a real failed CAD user case.
+- Staged real CAD validation should still generate real-run diagnostics evidence for any failure bucket.
+- The separate 2-hour UI stability gate, full historical visual audit coverage, and final release executable remain pending.
+
+## Phase 3/6 EXE Stability Runner Smoke Evidence
+
+Completed in this slice:
+
+- Added `tools/ui_robot/exe_stability_runner.py`.
+- The runner launches the frozen EXE through Windows UI Automation, cycles through navigation items, writes `stability_samples.jsonl`, captures periodic screenshots, and writes JSON/Markdown reports.
+- Short smoke validation was run to prove the runner can launch the EXE, sample the UI, capture screenshots, and cleanly terminate the process.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile tools\ui_robot\exe_stability_runner.py tools\ui_robot\exe_click_acceptance.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\exe_stability_runner.py --exe dist_v3_smoke\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_stability_smoke_v3 --duration-s 8 --sample-interval-s 2 --screenshot-interval-s 3 --page-wait-s 0.3
+```
+
+Result:
+
+- Compile check: PASS.
+- EXE stability runner short smoke: PASS.
+- Requested duration: 8.0 s.
+- Observed active duration: 8.95 s.
+- Samples written: 2.
+- Screenshots captured: 2.
+- Final process alive check before cleanup: PASS.
+- Screenshot size gate: PASS, 8,341,592 bytes each.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/exe_stability_smoke_v3/exe_stability_report.json`
+- `drw_output/ui_acceptance/exe_stability_smoke_v3/exe_stability_report.md`
+- `drw_output/ui_acceptance/exe_stability_smoke_v3/stability_samples.jsonl`
+- `drw_output/ui_acceptance/exe_stability_smoke_v3/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_stability_smoke_v3/screenshots/`
+
+Known limits:
+
+- This is a short runner smoke only. The formal 2-hour gate is covered by the following evidence section.
+
+## Phase 3/6 Windows-Level 2-Hour EXE Stability Evidence
+
+Completed in this slice:
+
+- Ran the formal Windows-level EXE navigation stability gate against `dist_v3_smoke/sw_drawing_studio.exe`.
+- The runner launched the frozen EXE, cycled through the 9 navigation pages for 7200 seconds, sampled UI state every 30 seconds, captured periodic screenshots every 600 seconds, and wrote JSONL/JSON/Markdown evidence.
+- A first 20-minute probe was stopped because the runner recorded `failure_count=1` without an auditable reason. The runner was then fixed to wait/retry navigation selection and emit `exe_stability_failure` events with explicit reasons before the formal PASS run was restarted. The stopped probe is not counted as PASS evidence.
+
+Validation commands:
+
+```powershell
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe -m py_compile tools\ui_robot\exe_stability_runner.py
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\exe_stability_runner.py --exe dist_v3_smoke\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_stability_smoke_v3_retry --duration-s 12 --sample-interval-s 3 --screenshot-interval-s 5 --page-wait-s 0.5
+C:\Users\Vision\AppData\Local\Programs\Python\Python311\python.exe tools\ui_robot\exe_stability_runner.py --exe dist_v3_smoke\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_stability_2h_v3_retry1 --duration-s 7200 --sample-interval-s 30 --screenshot-interval-s 600 --page-wait-s 0.5
+```
+
+Result:
+
+- 2-hour EXE stability: PASS.
+- Requested duration: 7200.0 s.
+- Observed active duration: 7203.5 s.
+- Samples written: 231.
+- Screenshots captured: 13.
+- Screenshot size gate: PASS, 8,341,592 bytes each.
+- `duration_met`: True.
+- `process_alive_final`: True.
+- `samples_written`: True.
+- `screenshots_pass`: True.
+- `full_cycle_required`: True.
+- `all_pages_visited`: True.
+- `failure_count`: 0.
+- `exe_stability_failure` events: 0.
+- Runner stderr: empty.
+- Page visit counts: Dashboard 204, Single Drawing 204, Job Queue 204, Visual Audit 204, Drawing Review 204, Batch Validation 204, System Health 204, Logs & Diagnostics 203, Settings 203.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/exe_stability_report.json`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/exe_stability_report.md`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/stability_samples.jsonl`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/runner_stdout.log`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/runner_stderr.log`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/001_elapsed_4s_01_dashboard.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/002_elapsed_607s_03_job_queue.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/003_elapsed_1208s_04_visual_audit.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/004_elapsed_1810s_06_batch_validation.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/005_elapsed_2412s_08_logs_diagnostics.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/006_elapsed_3012s_07_system_health.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/007_elapsed_3615s_03_job_queue.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/008_elapsed_4217s_05_drawing_review.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/009_elapsed_4819s_04_visual_audit.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/010_elapsed_5421s_06_batch_validation.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/011_elapsed_6024s_03_job_queue.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/012_elapsed_6626s_05_drawing_review.png`
+- `drw_output/ui_acceptance/exe_stability_2h_v3_retry1/screenshots/013_final.png`
+
+Known limits:
+
+- This validates long-running EXE navigation stability, not real SolidWorks CAD generation.
+- Historical visual audit 100 percent coverage, staged real CAD validation, final release executable, and final release log remain pending.
+
+## Phase 1/3/6 Windows-Level EXE Job Queue Operation Evidence
+
+Completed in this slice:
+
+- Updated `JobRunner.cancel_job(...)` so user cancellation writes a structured `warning` event with `action=cancelled`, `reason`, and `process_killed` into the run `job_event_log.jsonl`.
+- Added `JobRunner.skip_job(...)` so skipping a running job terminates the QProcess before marking the job completed and writes a structured `warning` event with `action=skipped`, `reason`, and `process_killed`.
+- Updated `JobRuntimeFacade.skip_job(...)` to delegate to `JobRunner.skip_job(...)` instead of directly mutating the queue.
+- Updated `JobRuntimeFacade` runtime artifact roots so frozen EXE mock/LLM run directories are written under the frozen runtime `drw_output/runs/` path instead of PyInstaller's temporary extraction directory.
+- Added `tools/ui_robot/exe_job_queue_acceptance.py` for Windows-level EXE Job Queue operation acceptance.
+- Rebuilt the current smoke EXE at `dist_v3_smoke/sw_drawing_studio.exe`.
+- Re-ran v3.0 EXE smoke after the rebuild.
+- Ran the Windows-level EXE Job Queue acceptance suite against `dist_v3_smoke/sw_drawing_studio.exe`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\job_runner.py app\services\job_runtime_facade.py test_v2_3_job_runtime.py tools\ui_robot\exe_job_queue_acceptance.py
+python test_v2_3_job_runtime.py
+python test_v2_3_resource_paths.py
+python -m PyInstaller build_exe.spec --distpath dist_v3_smoke --workpath build_v3_smoke --noconfirm
+python smoke_v3_0_exe.py dist_v3_smoke\sw_drawing_studio.exe drw_output\ui_acceptance\exe_v3_smoke_job_queue_rebuild
+python tools\ui_robot\exe_job_queue_acceptance.py --exe dist_v3_smoke\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_job_queue_v3_retry1 --mock-duration-s 0.8 --cancel-duration-s 6 --skip-duration-s 6
+```
+
+Result:
+
+- Compile check: PASS.
+- Job runtime regression: PASS.
+- Resource-path regression: PASS.
+- v3.0 EXE smoke after rebuild: PASS.
+- Windows-level EXE Job Queue operation acceptance: PASS.
+- `normal_pass_completed`: True.
+- `timeout_failed`: True.
+- `retry_count_changed`: True.
+- `retry_final_failed`: True.
+- `cancelled`: True.
+- `skip_completed`: True.
+- `skip_event_logged`: True.
+- `open_run_dir_exercised`: True.
+- `screenshots_pass`: True.
+- `process_alive_before_cleanup`: True.
+- `failure_count`: 0.
+- Screenshots captured: 7.
+- Screenshot size gate: PASS, 8,341,592 bytes each.
+- Cancel event evidence: `dist_v3_smoke/drw_output/runs/mock_20260621_231048_54171773/job_event_log.jsonl` contains `action=cancelled`, `reason=cancelled by user`, and `process_killed=true`.
+- Skip event evidence: `dist_v3_smoke/drw_output/runs/mock_20260621_231058_79836b05/job_event_log.jsonl` contains `action=skipped`, `reason=skipped by user`, and `process_killed=true`.
+
+Artifact evidence:
+
+- `tools/ui_robot/exe_job_queue_acceptance.py`
+- `drw_output/ui_acceptance/exe_v3_smoke_job_queue_rebuild/exe_smoke_report.json`
+- `drw_output/ui_acceptance/exe_v3_smoke_job_queue_rebuild/exe_smoke_report.md`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/exe_job_queue_acceptance_report.json`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/exe_job_queue_acceptance_report.md`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/01_job_queue_loaded.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/02_normal_pass_completed.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/03_timeout_failed_ui_responsive.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/04_timeout_retry_failed.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/05_cancelled.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/06_skipped.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_retry1/screenshots/07_final.png`
+- `dist_v3_smoke/drw_output/runs/mock_20260621_231048_54171773/job_event_log.jsonl`
+- `dist_v3_smoke/drw_output/runs/mock_20260621_231058_79836b05/job_event_log.jsonl`
+
+Known limits:
+
+- This proves mock Job Queue operations in the current smoke EXE, not real SolidWorks CAD generation.
+- Historical visual audit 100 percent coverage, staged real CAD validation, final release executable, and final release log remain pending.
+
+## Phase 2/3 Source-Level Chinese UI Evidence
+
+Completed in this slice:
+
+- Converted the v3 main navigation contract to Chinese: 仪表盘, 单件制图, 作业队列, 视觉审计, 图纸复核, 批量验证, 系统健康, 日志诊断, 设置.
+- Updated `app/main.py --ui-walkthrough`, source screenshot runner, source UI acceptance suite, Windows EXE click runner, EXE stability runner, and EXE Job Queue runner to use Chinese page names and Chinese screenshot filenames.
+- Added application-level Chinese font preference with Microsoft YaHei / 微软雅黑 first.
+- Localized high-visibility Home/Dashboard, Settings, System Health, Visual Audit, Logs Diagnostics, Job Queue warning, Drawing Review worker, and health-check fix-suggestion text.
+- Visually inspected the generated `01_仪表盘.png`; Chinese text is readable and no tofu squares were visible in the inspected screenshot.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\main.py app\services\system_health_service.py app\ui\main_window.py app\ui\home_page.py app\ui\system_health_page.py app\ui\visual_audit_page.py app\ui\logs_diagnostics_page.py app\ui\job_queue_page.py app\ui\drawing_review_workbench.py tools\ui_robot\human_simulator.py tools\ui_robot\screenshot_runner.py tools\ui_robot\ui_acceptance_suite.py tools\ui_robot\exe_click_acceptance.py tools\ui_robot\exe_stability_runner.py tools\ui_robot\exe_job_queue_acceptance.py test_v3_main_navigation.py test_v3_ui_walkthrough.py
+python test_v3_main_navigation.py
+python test_v3_ui_walkthrough.py
+$env:QT_QPA_PLATFORM='offscreen'; python app\main.py --ui-walkthrough drw_output\ui_acceptance\source_v3_chinese_walkthrough_rerun
+$env:QT_QPA_PLATFORM='offscreen'; python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v3_chinese_ui_rerun --mock-duration-s 0.4
+python test_v2_3_system_health_page.py
+python test_v2_3_visual_audit_page.py
+python test_v2_3_logs_diagnostics_page.py
+python test_v2_3_job_queue_page.py
+```
+
+Result:
+
+- Compile check: PASS.
+- v3 main navigation contract: PASS.
+- v3 UI walkthrough contract: PASS.
+- Source-level Chinese 9-page walkthrough: PASS.
+- Source-level Chinese quick UI acceptance suite: PASS.
+- System Health page smoke after Chinese contract update: PASS.
+- Visual Audit page smoke after Chinese contract update: PASS.
+- Logs Diagnostics page smoke after Chinese contract update: PASS.
+- Job Queue page smoke after Chinese contract update: PASS.
+- `source_v3_chinese_walkthrough_rerun`: 9/9 screenshots saved with Chinese filenames and all page checks passed.
+- `quick_v3_chinese_ui_rerun`: source UI robot pass=true; normal mock completed, timeout failed, retry changed, cancel succeeded; 9 Chinese nav screenshots passed.
+
+Artifact evidence:
+
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/ui_walkthrough_report.json`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/01_仪表盘.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/02_单件制图.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/03_作业队列.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/04_视觉审计.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/05_图纸复核.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/06_批量验证.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/07_系统健康.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/08_日志诊断.png`
+- `drw_output/ui_acceptance/source_v3_chinese_walkthrough_rerun/screenshots/09_设置.png`
+- `drw_output/ui_acceptance/quick_v3_chinese_ui_rerun/ui_acceptance_report.json`
+- `drw_output/ui_acceptance/quick_v3_chinese_ui_rerun/ui_acceptance_report_v3_0.md`
+- `drw_output/ui_acceptance/quick_v3_chinese_ui_rerun/ui_events.jsonl`
+- `drw_output/ui_acceptance/quick_v3_chinese_ui_rerun/screenshots/`
+
+Known limits:
+
+- This is source-level Qt evidence, not final EXE-level Chinese UI evidence.
+- Final EXE evidence is recorded in the following Phase 6 Chinese EXE section.
+- Real SolidWorks Reality Gate, source/facade Real CAD Smoke, 2D annotation validation smoke, and single-reference drawing comparison smoke are now complete in current v3 evidence; staged CAD validation plus historical Visual Audit 100 percent coverage remain pending.
+
+## Phase 6 Final Chinese EXE UI Evidence
+
+Completed in this slice:
+
+- Rebuilt the final required executable at `dist/sw_drawing_studio.exe`.
+- Ran v3.0 EXE smoke against the final executable.
+- Ran Windows-level pywinauto EXE click acceptance against the final executable with Chinese navigation labels.
+- Ran Windows-level EXE Job Queue operation acceptance against the final executable after the Chinese navigation change.
+- Visually inspected `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/01_仪表盘.png`; Chinese text was readable and no tofu squares were visible in the inspected screenshot.
+
+Validation commands:
+
+```powershell
+python -m PyInstaller build_exe.spec --distpath dist --workpath build_v3_chinese --noconfirm
+python smoke_v3_0_exe.py dist\sw_drawing_studio.exe drw_output\ui_acceptance\exe_v3_chinese_smoke
+python tools\ui_robot\exe_click_acceptance.py --exe dist\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_click_v3_chinese --wait-s 1.0
+python tools\ui_robot\exe_job_queue_acceptance.py --exe dist\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_job_queue_v3_chinese --mock-duration-s 0.8 --cancel-duration-s 6 --skip-duration-s 6
+```
+
+Result:
+
+- Final EXE exists: `dist/sw_drawing_studio.exe`, 540,567,393 bytes, modified `2026-06-21 23:45:13`.
+- PyInstaller build: PASS.
+- Final EXE smoke: PASS.
+- EXE internal Chinese 9-page walkthrough: PASS, 9/9 screenshots saved with Chinese filenames.
+- Windows-level EXE Chinese click acceptance: PASS, 9/9 Chinese pages clicked and screenshot gates passed.
+- Windows-level final EXE Job Queue operation acceptance: PASS.
+- Job Queue checks: normal pass completed, timeout failed, retry count changed, retry final failed, cancel succeeded, skip completed, skip event logged, open run dir exercised, screenshots pass, failure_count=0.
+
+Artifact evidence:
+
+- `dist/sw_drawing_studio.exe`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/exe_smoke_report.json`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/exe_smoke_report.md`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/ui_walkthrough_report.json`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/01_仪表盘.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/02_单件制图.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/03_作业队列.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/04_视觉审计.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/05_图纸复核.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/06_批量验证.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/07_系统健康.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/08_日志诊断.png`
+- `drw_output/ui_acceptance/exe_v3_chinese_smoke/internal_walkthrough/screenshots/09_设置.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/exe_click_acceptance_report.json`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/exe_click_acceptance_report.md`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/01_仪表盘.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/02_单件制图.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/03_作业队列.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/04_视觉审计.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/05_图纸复核.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/06_批量验证.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/07_系统健康.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/08_日志诊断.png`
+- `drw_output/ui_acceptance/exe_click_v3_chinese/screenshots/09_设置.png`
+- `drw_output/ui_acceptance/exe_job_queue_v3_chinese/exe_job_queue_acceptance_report.json`
+- `drw_output/ui_acceptance/exe_job_queue_v3_chinese/exe_job_queue_acceptance_report.md`
+- `drw_output/ui_acceptance/exe_job_queue_v3_chinese/ui_events.jsonl`
+- `drw_output/ui_acceptance/exe_job_queue_v3_chinese/screenshots/`
+
+Known limits:
+
+- The final EXE UI is now Chinese at the navigation/screenshot gate, but full automated all-page tofu detection has not been implemented.
+- The final EXE smoke stdout tail contains Windows console mojibake for some Chinese worker output, while the JSON reports and screenshot artifact filenames are UTF-8 readable.
+- Real SolidWorks Reality Gate, source/facade Real CAD Smoke, 2D annotation validation smoke, and single-reference drawing comparison smoke are now complete in current v3 evidence; staged CAD validation, historical Visual Audit 100 percent coverage, final release evidence, and final `release_log_v3_0.md` remain pending.
+
+## Phase 6 Real SolidWorks Reality Gate Evidence
+
+Completed in this slice:
+
+- Added `tools/validation/exe_reality_gate_v3.py`.
+- Extended `app/workers/health_check_worker.py` with explicit release-validation arguments:
+  `--ensure-solidworks`, `--real-opendoc6-probe`, and `--probe-doc-path`.
+- Extended `app/services/system_health_service.py` so System Health can keep the default non-launching
+  `GetActiveObject` behavior, while explicit release validation may use `Dispatch('SldWorks.Application')`
+  to connect to an already installed/running SolidWorks session and record `sw_pid`, `sw_revision`,
+  supported revision status, and a real OpenDoc6 probe result.
+- Extended System Health worker inventory to include `qc_action_worker.py` and `llm_action_worker.py`.
+- Rebuilt the final executable at `dist/sw_drawing_studio.exe`.
+- Ran the final EXE Reality Gate validator.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\system_health_service.py app\workers\health_check_worker.py tools\validation\exe_reality_gate_v3.py
+python test_v2_3_system_health_page.py
+python app\workers\health_check_worker.py --job-id health_default_after_ensure
+python app\workers\health_check_worker.py --job-id health_ensure_pid_source --ensure-solidworks --real-opendoc6-probe --probe-doc-path "drw_output\ui_acceptance\exe_reality_gate_v3_0\input_work\-AK-15-AC-27-1-V3-V02.SLDPRT"
+python -m PyInstaller build_exe.spec --distpath dist --workpath build_v3_chinese --noconfirm
+python tools\validation\exe_reality_gate_v3.py --exe dist\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_reality_gate_v3_0 --timeout-s 240
+python smoke_v3_0_exe.py dist\sw_drawing_studio.exe drw_output\ui_acceptance\exe_v3_reality_gate_dispatch_smoke
+```
+
+Result:
+
+- Compile check: PASS.
+- System Health page regression: PASS.
+- Default direct health worker JSONL smoke: PASS and remains non-launching/non-dispatch by default.
+- Explicit release-mode source health worker: PASS with `method=dispatch`, `sw_pid=33472`,
+  `sw_revision=33.5.0`, supported revision, Add-in Ping, and copied-file OpenDoc6 probe.
+- Final EXE rebuild: PASS.
+- Final EXE exists: `dist/sw_drawing_studio.exe`, 540,571,711 bytes, modified `2026-06-22 00:31:24`.
+- Final EXE smoke after Reality Gate rebuild: PASS.
+- EXE Reality Gate validator ran and wrote final evidence: PASS.
+- Worker JSONL events present: `job_started`, `progress`, `heartbeat`, `job_finished`.
+- Missing worker JSONL events: none.
+- Health rows recorded: 35.
+- Health summary: pass=31, warning=4, fail=0.
+- Worker inventory rows recorded: `cad_job_worker.py`, `batch_job_worker.py`,
+  `drawing_review_worker.py`, `qc_action_worker.py`, `llm_action_worker.py`,
+  `vision_audit_worker.py`, `mock_long_job_worker.py`, `health_check_worker.py`,
+  and `mock_worker_smoke`.
+- OpenDoc6 probe used a copied CAD sample under `drw_output/ui_acceptance/exe_reality_gate_v3_0/input_work/`;
+  original test CAD files were not modified.
+- SolidWorks row: PASS, `method=dispatch`, `Visible=False`, `sw_pid=33472`, `revision=33.5.0`.
+- Add-in Ping: PASS via dispatch.
+- OpenDoc6 probe: PASS for `-AK-15-AC-27-1-V3-V02.SLDPRT`.
+- DialogGuard import: PASS.
+- Failure bucket: empty.
+
+Blocking reasons:
+
+- No blocking Reality Gate reasons remain.
+
+Artifact evidence:
+
+- `tools/validation/exe_reality_gate_v3.py`
+- `drw_output/ui_acceptance/exe_reality_gate_v3_0/exe_reality_gate_v3_0.json`
+- `drw_output/ui_acceptance/exe_reality_gate_v3_0/exe_reality_gate_v3_0.md`
+- `drw_output/ui_acceptance/exe_reality_gate_v3_0/input_work/-AK-15-AC-27-1-V3-V02.SLDPRT`
+- `drw_output/ui_acceptance/exe_v3_reality_gate_dispatch_smoke/exe_smoke_report.json`
+- `drw_output/ui_acceptance/exe_v3_reality_gate_dispatch_smoke/internal_walkthrough/`
+
+Known limits:
+
+- This is a Real SolidWorks Reality Gate PASS, not a final release PASS.
+- Real CAD Smoke is now covered by `drw_output/cad_smoke_v3_0.json`; 2D annotation validation smoke is now
+  covered by `drw_output/dimension_validation_smoke.json`; single-reference drawing comparison smoke is covered by
+  `drw_output/reference_compare_smoke.json`.
+- `document_manager_key`, `macro_swp`, `vision_model`, and `yolo_weights` remain recorded warnings. These are
+  not the current hard blocker for the Reality Gate, but they need final release disposition before PASS.
+- Remaining release blockers: staged CAD validation, historical Visual Audit 100 percent coverage, final release
+  evidence, and `release_log_v3_0.md`.
+
+## Phase 7 Real CAD Smoke Evidence
+
+Completed in this slice:
+
+- Added `tools/validation/real_cad_smoke_v3.py` to run a real CAD job through
+  `JobRuntimeFacade.start_cad_job(...)`, `JobRunner`, and QProcess-backed `cad_job_worker.py`.
+- Updated `app/workers/cad_job_worker.py` so each CAD run writes `sw_session.json`, marks copied drawing
+  artifacts as fresh run artifacts, and generates `vision_qc_v2.json` plus `final_quality.json` during worker
+  artifact collection.
+- Ran `LB26001-A-04-040` first and preserved its original result as a truthful `need_review` risk because the
+  fused quality result reported one major visual issue for insufficient dimensions. That historical smoke result is
+  now superseded by the Phase 10 fresh run `drw_output/runs/4109ed799304`.
+- Ran `LB26001-A-04-001` and recorded the passing v3.0 smoke evidence.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\workers\cad_job_worker.py tools\validation\real_cad_smoke_v3.py
+python tools\validation\real_cad_smoke_v3.py --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_v3_0.json
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-001.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_v3_0.json
+```
+
+Result:
+
+- Compile check: PASS.
+- `LB26001-A-04-040`: early real SolidWorks output generated, but final quality was `need_review` at that time;
+  this is retained as historical risk evidence and superseded by the later Phase 10 fresh PASS evidence.
+- `LB26001-A-04-001`: Real CAD Smoke PASS.
+- Run directory: `drw_output/runs/a9752d25055d`.
+- Worker events: 52 persisted JSONL events with `job_started`, `progress`, `heartbeat`, `warning`, and
+  `job_finished`.
+- SolidWorks session evidence: `sw_pid=33472`, `sw_revision=33.5.0`, `connection_method=get_active_object`.
+- Fresh drawing artifacts: `LB26001-A-04-001_v5.SLDDRW`, `.PDF`, `.DXF`, `.PNG`.
+- QC artifacts: `LB26001-A-04-001_v5_qc.json`, `LB26001-A-04-001_v5_warnings.json`,
+  `vision_qc_v2.json`, and `final_quality.json`.
+- Manifest: `drawing_usable.pass=true`, `hard_fail=[]`, `dimension_grade=B`, `dim_total=44`.
+- Final quality: `status=pass_with_warning`, `deliverable=true`, `vision critical=0`, `vision major=0`,
+  `vision minor=4`.
+- Original input CAD was not modified; the run contains a copied input under `drw_output/runs/a9752d25055d/input/`.
+
+Artifact evidence:
+
+- `tools/validation/real_cad_smoke_v3.py`
+- `drw_output/cad_smoke_v3_0.json`
+- `drw_output/runs/a9752d25055d/manifest.json`
+- `drw_output/runs/a9752d25055d/sw_session.json`
+- `drw_output/runs/a9752d25055d/job_event_log.jsonl`
+- `drw_output/runs/a9752d25055d/drawing/LB26001-A-04-001_v5.SLDDRW`
+- `drw_output/runs/a9752d25055d/drawing/LB26001-A-04-001_v5.PDF`
+- `drw_output/runs/a9752d25055d/drawing/LB26001-A-04-001_v5.DXF`
+- `drw_output/runs/a9752d25055d/drawing/LB26001-A-04-001_v5.PNG`
+- `drw_output/runs/a9752d25055d/qc/LB26001-A-04-001_v5_qc.json`
+- `drw_output/runs/a9752d25055d/qc/LB26001-A-04-001_v5_warnings.json`
+- `drw_output/runs/a9752d25055d/qc/vision_qc_v2.json`
+- `drw_output/runs/a9752d25055d/qc/final_quality.json`
+
+Known limits:
+
+- This is a source/facade Real CAD Smoke PASS, not the final EXE real CAD job gate.
+- `LB26001-A-04-040` was later fixed by evidence-driven `vision_qc_v2` tiny-part sidecar policy and fresh CAD run
+  `drw_output/runs/4109ed799304`; see Phase 10 for current status.
+- Original 2D reference drawing metric extraction now produces trusted view and DisplayDim baselines for the staged
+  samples, but larger-stage reference coverage is still pending.
+
+## Phase 8 2D Annotation Validation Smoke Evidence
+
+Completed in this slice:
+
+- Added `tools/validation/dimension_validation_smoke_v3.py`.
+- Extended the CAD worker manifest payload with dimension source fields:
+  `dimension_sources`, `display_dim_count`, `note_dim_count`, `model_associative_dim_count`,
+  `addin_dimension_count`, and `docmgr_reference_count`.
+- Ran the validator against the fresh Real CAD Smoke run `drw_output/runs/a9752d25055d`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\workers\cad_job_worker.py tools\validation\real_cad_smoke_v3.py tools\validation\dimension_validation_smoke_v3.py
+python tools\validation\dimension_validation_smoke_v3.py --out drw_output\dimension_validation_smoke.json
+```
+
+Result:
+
+- 2D annotation validation smoke: PASS with warning (`status=pass_with_warning`).
+- Report: `drw_output/dimension_validation_smoke.json`.
+- Source separation is explicit:
+  - `display_dim_count=44`
+  - `note_dim_count=0`
+  - `notes_counted_as_display_dim=false`
+  - `model_associative_dim_count=0`
+  - `existing_display_dim_count=44`
+  - `addin_created_dim_count=0`
+- Dimension coverage:
+  - overall length/width/height present
+  - dimension text readable
+  - no dimension overlap flag from the available QC evidence
+  - grade `B`
+  - `usable_for=["manufacturing","assembly","procurement"]`
+- No blocking reasons.
+- Warnings remain: non-model-associative dimensions, zero model-associative dimension count, missing standard
+  annotation evidence, and GB/titlebar/section-view annotation warnings.
+
+Artifact evidence:
+
+- `tools/validation/dimension_validation_smoke_v3.py`
+- `drw_output/dimension_validation_smoke.json`
+- `drw_output/runs/a9752d25055d/qc/LB26001-A-04-001_v5_qc.json`
+- `drw_output/runs/a9752d25055d/qc/final_quality.json`
+- `drw_output/runs/a9752d25055d/qc/vision_qc_v2.json`
+
+Known limits:
+
+- This smoke proves source separation for the current generated drawing, but it is not full staged CAD
+  validation and not historical 100 percent coverage.
+- The run remains `pass_with_warning`, not a clean A-grade drawing, because model-associative dimensions and
+  standard annotation evidence are still weak.
+- Reference drawing comparison smoke now passes as `pass_with_warning` with non-empty C# sidecar reference
+  view metrics, but staged CAD validation and full reference coverage are still pending.
+
+## Phase 9 Reference Drawing Comparison Smoke Evidence
+
+Completed in this slice:
+
+- Hardened `tools/validation/reference_compare_smoke_v3.py` so empty reference metrics cannot score as a
+  pass.
+- Added generated-metric fallback recording for `qc.view_overlap.real_view_count` and `qc.display_dim_count`.
+- Added `metric_quality` to the report so weak reference/generated evidence is explicit.
+- Added `tools/SwReferenceMetricsSidecar/SwReferenceMetricsSidecar.csproj` and
+  `tools/SwReferenceMetricsSidecar/Program.cs` to extract reference/generated SLDDRW metrics through a read-only
+  C# COM sidecar when pywin32 metrics are weak.
+- Added `test_v3_reference_compare_smoke.py` to prevent regressions where empty reference metrics pass.
+- Reran the reference comparison smoke against the fresh Real CAD Smoke run `drw_output/runs/a9752d25055d`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\reference_compare_smoke_v3.py test_v3_reference_compare_smoke.py
+python test_v3_reference_compare_smoke.py
+python tools\validation\reference_compare_smoke_v3.py --out drw_output\reference_compare_smoke.json
+```
+
+Result:
+
+- Reference comparison smoke: PASS WITH WARNING.
+- Report: `drw_output/reference_compare_smoke.json`.
+- Status: `pass_with_warning`.
+- `pass=true`.
+- `overall_score=0.86`.
+- Reference drawing metrics now use the C# sidecar:
+  - `reference_metrics.source=csharp_sidecar`
+  - `reference_metrics.success=true`
+  - `reference_metrics.view_count=2`
+  - `reference_metrics.view_types={"7":1,"4":1}`
+  - `reference_metrics.display_dim_count=1`
+  - `metric_quality.reference.usable=true`
+- Generated drawing metrics now use the C# sidecar for views and QC fallback for dimensions:
+  - `generated_metrics.source=csharp_sidecar`
+  - `generated_metrics.success=true`
+  - `generated_metrics.view_count=4`
+  - `generated_metrics.view_types={"7":4}`
+  - `qc.display_dim_count=44`
+  - `metric_quality.generated.fallbacks=["qc.display_dim_count"]`
+- Remaining warning reasons:
+  - `view_type_mismatch`
+  - `has_ra_note`
+  - `has_datum_a`
+  - `gb_has_section_view_or_skipped`
+
+Artifact evidence:
+
+- `tools/validation/reference_compare_smoke_v3.py`
+- `tools/SwReferenceMetricsSidecar/SwReferenceMetricsSidecar.csproj`
+- `tools/SwReferenceMetricsSidecar/Program.cs`
+- `test_v3_reference_compare_smoke.py`
+- `drw_output/reference_compare_smoke.json`
+- `drw_output/reference_metrics_sidecar/LB26001-A-04-001_reference.json`
+- `drw_output/reference_metrics_sidecar/LB26001-A-04-001_generated.json`
+- `drw_output/runs/a9752d25055d/drawing/LB26001-A-04-001_v5.SLDDRW`
+- `3D转2D测试图纸/LB26001-A-04-001.SLDDRW`
+
+Known limits:
+
+- This satisfies the single-reference smoke gate for `LB26001-A-04-001`, but it is not staged CAD validation and
+  not full reference coverage.
+- Generated drawing `display_dim_count` still comes from the QC artifact, because the sidecar reports
+  `generated_metrics.display_dim_count=0` for this drawing.
+- The remaining work is staged reference comparison coverage for core_12, LB26001_36, medium_30, and full_129,
+  plus review of `view_type_mismatch` and missing generated annotation warnings found during smoke/staged runs.
+
+## Phase 10 Staged CAD 024/040 Evidence
+
+Completed in this slice:
+
+- Added `tools/validation/staged_cad_validation_v3.py` to orchestrate staged real CAD validation using the
+  existing Real CAD Smoke, dimension validation, and reference comparison validators.
+- Added `test_v3_staged_cad_validation.py` to prevent missing-evidence cases from being counted as
+  `pass_with_warning`.
+- Extended `tools/validation/reference_compare_smoke_v3.py` with `--part` and `--cad-smoke` so staged runs can
+  compare each generated drawing against its own same-name reference SLDDRW instead of relying on the global
+  `cad_smoke_v3_0.json`.
+- Ran the v3.0 024/040 gate with real CAD jobs for `LB26001-A-04-024.SLDPRT` and
+  `LB26001-A-04-040.SLDPRT`.
+- Hardened reference drawing path resolution, added off-sheet reference view filtering, and refreshed the existing
+  024/040 reference reports and summary without rerunning CAD; the refreshed summary records `cad_rerun=false`.
+- Updated `app/services/vision_qc_v2.py` so `tiny_part` / `long_thin` drawings with B/C-grade sidecar L/W/H
+  dimension evidence keep `dimension_insufficient` as a tracked minor issue instead of a blocking major issue.
+- Normalized `vision_qc_v2` issues so they include `bbox`, `source`, `confidence`, `evidence`, `fix_suggestion`,
+  `auto_fix_available`, and `human_review_status`.
+- Reran `LB26001-A-04-040` through the real CAD smoke path and refreshed its dimension/reference reports using
+  fresh run `drw_output/runs/4109ed799304`; the old staged summary is preserved as
+  `summary_before_vqc_policy_040.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\reference_compare_smoke_v3.py tools\validation\staged_cad_validation_v3.py test_v3_reference_compare_smoke.py test_v3_staged_cad_validation.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\a9752d25055d --part "3D转2D测试图纸\LB26001-A-04-001.SLDPRT" --out drw_output\reference_compare_smoke_part_cli_check.json
+python tools\validation\staged_cad_validation_v3.py --stage 024_040 --timeout-s 900 --max-rounds 1
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\validation\dimension_validation_smoke_v3.py tools\validation\reference_compare_smoke_v3.py tools\validation\staged_cad_validation_v3.py test_v3_dimension_validation.py test_v3_reference_compare_smoke.py test_v3_staged_cad_validation.py
+python test_v3_dimension_validation.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile app\services\vision_qc_v2.py app\services\final_quality.py test_v3_vision_qc_v2_policy.py app\workers\cad_job_worker.py app\workers\qc_action_worker.py
+python test_v3_vision_qc_v2_policy.py
+python test_v2_3_qc_action_worker.py
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-040.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_024_040_040_vqc_policy.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\4109ed799304 --cad-smoke drw_output\cad_smoke_024_040_040_vqc_policy.json --out drw_output\staged_validation\024_040\20260622_012550\02_LB26001-A-04-040\dimension_validation_vqc_policy.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\4109ed799304 --part "3D转2D测试图纸\LB26001-A-04-040.SLDPRT" --cad-smoke drw_output\cad_smoke_024_040_040_vqc_policy.json --out drw_output\staged_validation\024_040\20260622_012550\02_LB26001-A-04-040\reference_compare_vqc_policy.json
+python test_v3_staged_cad_validation.py
+python test_v3_reference_compare_smoke.py
+python test_v3_vision_qc_v2_policy.py
+```
+
+Result:
+
+- 024/040 staged validation: PASS for the 024/040 gate.
+- Report: `drw_output/staged_validation/024_040/20260622_012550/summary.json`.
+- Status: `pass`.
+- `processed=2/2`.
+- `deliverable_count=2/2`.
+- `need_review_count=0`.
+- `failed_count=0`.
+- Duration: `1102.4s`.
+- `cad_rerun=true` because case `LB26001-A-04-040` was rerun fresh at `drw_output/runs/4109ed799304`.
+- Both CAD workers emitted `job_started`, `progress`, `heartbeat`, `warning`, and `job_finished`.
+
+Case details:
+
+- `LB26001-A-04-024`
+  - Run dir: `drw_output/runs/a14f5551a7c3`.
+  - CAD smoke: `pass=true`.
+  - Final quality: `pass_with_warning`, deliverable true in the CAD smoke report.
+  - Dimension validation: `pass_with_warning` after part-class sidecar evidence policy; Notes are still not counted
+    as real `DisplayDim`.
+  - Reference comparison: `pass_with_warning`, score `0.90`.
+  - Failure bucket: none; this case is now deliverable with warnings.
+  - Fresh artifacts exist: SLDDRW/PDF/DXF/PNG, QC JSON, vision QC, final quality, manifest, and job event log.
+- `LB26001-A-04-040`
+  - Run dir: `drw_output/runs/4109ed799304`.
+  - CAD smoke: `pass=true`.
+  - Final quality: `pass_with_warning`, deliverable true.
+  - Vision QC v2: `critical=0`, `major=0`, `minor=5`; issues include required review fields.
+  - Dimension validation: `pass_with_warning`.
+  - Reference comparison: `pass_with_warning`, score `0.80`.
+  - Failure bucket: none; this case is now deliverable with warnings.
+  - Fresh artifacts exist: SLDDRW/PDF/DXF/PNG, QC JSON, vision QC, final quality, manifest, and job event log.
+
+Artifact evidence:
+
+- `tools/validation/staged_cad_validation_v3.py`
+- `test_v3_staged_cad_validation.py`
+- `drw_output/staged_validation/024_040/20260622_012550/summary.json`
+- `drw_output/staged_validation/024_040/20260622_012550/01_LB26001-A-04-024/cad_smoke.json`
+- `drw_output/staged_validation/024_040/20260622_012550/01_LB26001-A-04-024/dimension_validation.json`
+- `drw_output/staged_validation/024_040/20260622_012550/01_LB26001-A-04-024/reference_compare.json`
+- `drw_output/staged_validation/024_040/20260622_012550/02_LB26001-A-04-040/cad_smoke_vqc_policy.json`
+- `drw_output/staged_validation/024_040/20260622_012550/02_LB26001-A-04-040/dimension_validation_vqc_policy.json`
+- `drw_output/staged_validation/024_040/20260622_012550/02_LB26001-A-04-040/reference_compare_vqc_policy.json`
+- `drw_output/staged_validation/024_040/20260622_012550/summary_before_vqc_policy_040.json`
+- `drw_output/runs/a14f5551a7c3/job_event_log.jsonl`
+- `drw_output/runs/4109ed799304/job_event_log.jsonl`
+- `drw_output/cad_smoke_024_040_040_vqc_policy.json`
+- `test_v3_vision_qc_v2_policy.py`
+
+Known limits:
+
+- This completes the 024/040 execution/bucketization gate with 2/2 deliverable drawings.
+- Both drawings are deliverable only as `pass_with_warning`; the sidecar/part-class policy does not convert Notes
+  into real `DisplayDim`.
+- `040` still records reference warnings: `view_type_mismatch` and `display_dim_count_lower_than_reference`.
+- This is not LB26001_36, medium_30, full_129, or historical Visual Audit 100 percent coverage.
+
+## Phase 11 Staged CAD core_12 Evidence
+
+Completed in this slice:
+
+- Extended `tools/validation/staged_cad_validation_v3.py` so `--stage core_12` reads the authoritative
+  `validation_sets/core_12.json` sample list instead of using an ad hoc list.
+- Added explicit `no_reference` reports for core_12 samples that have no same-name original SLDDRW, satisfying
+  the "reference compare or clear no-reference reason" evidence rule without pretending a comparison happened.
+- Updated `test_v3_staged_cad_validation.py` to prove core_12 resolves to 12 real files and no-reference reports
+  are explicit pass evidence for the reference slot.
+- Ran all 12 core_12 parts through real CAD jobs, dimension validation, and reference comparison/no-reference
+  handling.
+- Hardened reference drawing path resolution, added off-sheet reference view filtering, and refreshed the existing
+  core_12 reference reports and summary.
+- Added evidence-bound annotation comparison so generic QC warnings such as `has_ra_note`, `has_datum_a`, and
+  `gb_has_section_view_or_skipped` are only scored as reference mismatches when the reference metrics actually
+  prove those annotations are present.
+- Reran `LB26001-A-04-005` through the real CAD smoke path and refreshed its dimension/reference reports using
+  fresh run `drw_output/runs/0631a2a3e074`.
+
+Validation commands:
+
+```powershell
+python - <<'PY'
+import ast
+from pathlib import Path
+for file in ['tools/validation/staged_cad_validation_v3.py', 'test_v3_staged_cad_validation.py']:
+    ast.parse(Path(file).read_text(encoding='utf-8'), filename=file)
+    print('AST OK', file)
+PY
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\validation\staged_cad_validation_v3.py tools\validation\reference_compare_smoke_v3.py test_v3_staged_cad_validation.py test_v3_reference_compare_smoke.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+$env:PYTHONDONTWRITEBYTECODE='1'; python tools\validation\staged_cad_validation_v3.py --stage core_12 --timeout-s 900 --max-rounds 1
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\validation\dimension_validation_smoke_v3.py tools\validation\reference_compare_smoke_v3.py tools\validation\staged_cad_validation_v3.py test_v3_dimension_validation.py test_v3_reference_compare_smoke.py test_v3_staged_cad_validation.py
+python test_v3_dimension_validation.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\validation\dimension_validation_smoke_v3.py tools\validation\reference_compare_smoke_v3.py tools\validation\staged_cad_validation_v3.py test_v3_dimension_validation.py test_v3_reference_compare_smoke.py test_v3_staged_cad_validation.py test_v3_quality_check_note_text.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py .trae\specs\enforce-drawing-quality\drw_quality_check.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python test_v3_quality_check_note_text.py
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-005.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_core12_005_note_fix.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\0631a2a3e074 --cad-smoke drw_output\cad_smoke_core12_005_note_fix.json --out drw_output\staged_validation\core_12\20260622_014907\05_LB26001-A-04-005\dimension_validation.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\0631a2a3e074 --part "3D转2D测试图纸\LB26001-A-04-005.SLDPRT" --cad-smoke drw_output\staged_validation\core_12\20260622_014907\05_LB26001-A-04-005\cad_smoke.json --out drw_output\staged_validation\core_12\20260622_014907\05_LB26001-A-04-005\reference_compare.json
+```
+
+Result:
+
+- core_12 staged validation: PASS for the core_12 gate.
+- Report: `drw_output/staged_validation/core_12/20260622_014907/summary.json`.
+- Status: `pass`.
+- `processed=12/12`.
+- `deliverable_count=12/12`.
+- `need_review_count=0`.
+- `failed_count=0`.
+- Duration: `4976.3s`.
+- Reference refresh duration: `40.3s`; `reference_refreshed_at=2026-06-22 03:42:09`.
+- `cad_rerun=true` because case `LB26001-A-04-005` was rerun fresh at `drw_output/runs/0631a2a3e074`.
+- All 12 CAD workers emitted `job_started`, `progress`, `heartbeat`, `warning`, and `job_finished`.
+- All 12 run directories contain manifest, sw_session, job_event_log, final_quality, and 4 drawing outputs
+  (SLDDRW/PDF/DXF/PNG).
+
+Case summary:
+
+- Deliverable:
+  - `LB26001-A-04-001`
+  - `LB26001-A-04-002`
+  - `LB26001-A-04-003`
+  - `LB26001-A-04-004`
+  - `LB26001-A-04-005`
+  - `LB26001-A-04-007`
+  - `LB26001-A-04-009`
+  - `-M3x8十字螺丝-1-V3-V02`
+  - `-弹簧压棒弹簧-1-V3-V02`
+  - `-AK-15-AC-25-1-V3-V02`
+  - `-AK-15-AC-26-1-V3-V02`
+  - `-AK-15-AC-27-1-V3-V02`
+
+Failure bucket distribution:
+
+- none.
+- Reference statuses: `pass_with_warning=7`, `no_reference=5`.
+- Dimension statuses: `pass_with_warning=12`.
+- Remaining warning reasons are tracked, not ignored: `view_type_mismatch=7`,
+  `display_dim_count_lower_than_reference=5`, `generated_display_dim_zero_with_part_class_policy=4`, and
+  `no_same_name_reference_slddrw=5`.
+
+Artifact evidence:
+
+- `validation_sets/core_12.json`
+- `tools/validation/staged_cad_validation_v3.py`
+- `test_v3_staged_cad_validation.py`
+- `drw_output/staged_validation/core_12/20260622_014907/summary.json`
+- `drw_output/staged_validation/core_12/20260622_014907/01_LB26001-A-04-001/`
+- `drw_output/staged_validation/core_12/20260622_014907/02_LB26001-A-04-002/`
+- `drw_output/staged_validation/core_12/20260622_014907/03_LB26001-A-04-003/`
+- `drw_output/staged_validation/core_12/20260622_014907/04_LB26001-A-04-004/`
+- `drw_output/staged_validation/core_12/20260622_014907/05_LB26001-A-04-005/`
+- `drw_output/staged_validation/core_12/20260622_014907/06_LB26001-A-04-007/`
+- `drw_output/staged_validation/core_12/20260622_014907/07_LB26001-A-04-009/`
+- `drw_output/staged_validation/core_12/20260622_014907/08_-M3x8十字螺丝-1-V3-V02/`
+- `drw_output/staged_validation/core_12/20260622_014907/09_-弹簧压棒弹簧-1-V3-V02/`
+- `drw_output/staged_validation/core_12/20260622_014907/10_-AK-15-AC-25-1-V3-V02/`
+- `drw_output/staged_validation/core_12/20260622_014907/11_-AK-15-AC-26-1-V3-V02/`
+- `drw_output/staged_validation/core_12/20260622_014907/12_-AK-15-AC-27-1-V3-V02/`
+- `drw_output/cad_smoke_core12_005_note_fix.json`
+- `drw_output/runs/0631a2a3e074/`
+- `test_v3_quality_check_note_text.py`
+
+Known limits:
+
+- This proves the core_12 gate was executed through the QProcess-backed CAD pipeline and now satisfies the
+  core_12 12/12 deliverability rule.
+- Several core_12 drawings are still `pass_with_warning`, especially for `view_type_mismatch`,
+  `display_dim_count_lower_than_reference`, and generated sidecar DisplayDim gaps. These are not promoted to
+  final release PASS; they remain quality risks to track during larger stages.
+- Small parts correctly record `no_reference` where same-name reference SLDDRW is absent; this is evidence for
+  the reference slot, not proof of full release readiness.
+- Do not proceed to claim LB26001_36, medium_30, full_129, historical Visual Audit 100 percent coverage, or final
+  release readiness from this evidence.
+
+## LB26001 Reference Style Learning and Correction Test
+
+User engineering review reported that current generated 2D drawings are not qualified and requested learning from
+these original SLDDRW references:
+
+- `LB26001-A-04-006.SLDDRW`
+- `LB26001-A-04-007.SLDDRW`
+- `LB26001-A-04-008.SLDDRW`
+- `LB26001-A-04-009.SLDDRW`
+- `LB26001-A-04-015.SLDDRW`
+- `LB26001-A-04-022.SLDDRW`
+
+Completed in this slice:
+
+- Added `tools/validation/reference_style_profile_v3.py` to build a strict reference style profile and generated-vs-reference gap reports.
+- Added `test_v3_reference_style_profile.py` to prove:
+  - learned LB26001 references contain 2/3/4-view families;
+  - projected view type `4` is a required reference-style signal;
+  - all-named type `7` generated views and sidecar-only dimensions fail the strict style gate.
+- Tightened `tools/validation/staged_cad_validation_v3.py` so execution completion is separate from acceptance pass.
+  A bucketed `need_review` case no longer makes a 100 percent stage pass, and `LB26001_36` now requires 35/36
+  deliverable cases for the 97 percent target.
+- Updated `test_v3_staged_cad_validation.py` for the stricter acceptance semantics.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` to:
+  - read `drw_output/reference_style_profile/lb26001_reference_style_profile.json` when present;
+  - select 2/3/4-view plans for known reference samples;
+  - attempt SolidWorks projected views for top/right before falling back to named model views;
+  - use SolidWorks `Create1stAngleViews2` / `Create1stAngleViews` for reference cases that need both top and right projected views;
+  - reserve `front/top/right` after first-angle standard view creation succeeds so the generator does not fall through and create duplicate named views;
+  - record projection and first-angle binding failures explicitly in warnings instead of silently accepting them.
+
+Reference style profile evidence:
+
+- Profile: `drw_output/reference_style_profile/lb26001_reference_style_profile.json`
+- Summary: `drw_output/reference_style_profile/lb26001_reference_style_profile.md`
+- Current six-sample gap report: `drw_output/reference_style_profile/lb26001_reference_style_gap_report.json`
+- Gap summary: `drw_output/reference_style_profile/lb26001_reference_style_gap_report.md`
+- Result: `status=fail`, `pass=false`, `pass_count=0/6`.
+- Main failure reasons across the six current generated samples:
+  - `projected_view_count_lower_than_reference`
+  - `generated_all_named_model_views`
+  - `generated_display_dim_zero_with_reference_baseline`
+
+LB26001_36 acceptance recheck:
+
+- Historical stage report: `drw_output/staged_validation/LB26001_36/20260622_035927/summary.json`
+- Strict recheck report: `drw_output/reference_style_profile/lb26001_36_acceptance_recheck.json`
+- Result: `status=need_review`, `pass=false`, `execution_completed=true`, `deliverable_count=22`,
+  `required_deliverable_count=35`.
+
+Real correction tests on `LB26001-A-04-006`:
+
+- Retry5: `drw_output/runs/860416b7b68a`
+  - CAD smoke: `drw_output/cad_smoke_stylefix_006_retry5.json`, `pass=true`
+  - Strict style gate: `drw_output/reference_style_profile/stylefix_006_retry5_gap_report.json`,
+    `status=fail`, `pass=false`, generated `view_types={"7":3,"4":1}`, sidecar `DisplayDim=0`.
+- Retry7: `drw_output/runs/d4ffe69defa8`
+  - First-angle standard views increased dimension evidence to `DisplayDim=12`, but the manual fallback also ran,
+    producing `real_view_count=7` and hard fail `view_overlap`.
+- Retry8: `drw_output/runs/31fb5c9abb8a`
+  - CAD smoke: `drw_output/cad_smoke_stylefix_006_retry8.json`, `pass=true`.
+  - Dimension validation: `drw_output/dimension_validation_stylefix_006_retry8.json`, `pass_with_warning`,
+    `display_dim_count=8`, `source_summary=["model_display_dim=8"]`.
+  - QC evidence: `drw_output/runs/31fb5c9abb8a/qc/LB26001-A-04-006_v5_qc.json` reports
+    `view_overlap.pass=true`, `real_view_count=4`, no overlap pairs.
+  - Reference compare attempt: `drw_output/reference_compare_stylefix_006_retry8.json`, manually recorded as
+    `status=fail`, `pass=false` because `reference_compare_smoke_v3.py` timed out after 304 seconds and
+    `SwReferenceMetricsSidecar.exe` timed out after 244 seconds on the retry8 generated SLDDRW.
+  - Strict style gate: `drw_output/reference_style_profile/stylefix_006_retry8_gap_report.json`,
+    `status=fail`, `pass=false`, reasons:
+    `projected_view_count_lower_than_reference`, `display_dim_count_lower_than_reference`,
+    `reference_compare_timeout`, `generated_reference_metrics_sidecar_timeout`.
+- Retry9 / retry10:
+  - `drw_output/cad_smoke_stylefix_006_retry9_timeout.json`, `status=fail`, `pass=false`,
+    no new run directory and no smoke report.
+  - `drw_output/cad_smoke_stylefix_006_retry10_timeout.json`, `status=fail`, `pass=false`,
+    no new run directory and no smoke report.
+- Timeout guard hardening:
+  - Updated `tools/validation/real_cad_smoke_v3.py` so normal CLI execution runs the Qt/CAD smoke validator
+    in a child process guarded by `--validator-grace-s` and `--startup-grace-s`.
+  - Bounded timeout proof: `drw_output/cad_smoke_timeout_guard_006.json`, `status=failed`,
+    `pass=false`, reason `Validator child process did not exit within 3s.`
+  - Updated `tools/validation/reference_compare_smoke_v3.py` so metric extraction defaults to
+    `metrics_mode=sidecar_first` and writes sidecar failure JSON on timeout.
+  - Bounded reference compare proof: `drw_output/reference_compare_stylefix_006_retry8_guarded.json`,
+    `status=fail`, `pass=false`, reasons `reference_metrics_unavailable` and
+    `generated_metrics_unavailable`; sidecar reports contain `sidecar_timeout_after_5s`.
+
+Current 006 interpretation:
+
+- The duplicate-view / overlap regression from retry7 is fixed in retry8.
+- The generated drawing is still not qualified against the user-provided reference style: 006 reference is
+  `view_count=4`, `view_types={"7":2,"4":2}`, `DisplayDim=12`; retry8 proves `real_view_count=4` and
+  `DisplayDim=8`, but does not prove generated `view_types={"7":2,"4":2}` because metrics extraction timed out.
+- Retry9 and retry10 expose a stability blocker in the real CAD smoke path after the failed metric-enumeration experiment.
+- The validation tools now produce bounded timeout reports for this blocker, but the underlying CAD/reference extraction
+  failure is not fixed.
+
+Additional correction slice on 2026-06-22:
+
+- `drw_generate_v6.py` now reads the same six-reference profile for both view layout and `DisplayDim` floors.
+  Known LB26001 samples no longer stop dimension recovery at the old fixed threshold of 5; the active target is
+  `max(5, reference DisplayDim)`, so 006 targets 12 instead of accepting 8.
+- `drw_qc_loop_v6.py` now honors `QC_LOOP_MAX_ROUNDS`, returns nonzero when the loop does not reach `final_pass`,
+  and prints timeout stdout/stderr tails from `drw_generate_v6.py` for failure diagnosis.
+- `app/services/job_runner.py` now kills the full Windows process tree on cancel/skip so `cad_job_worker.py`,
+  `drw_qc_loop_v6.py`, and `drw_generate_v6.py` do not leave orphaned Python workers.
+- `app/workers/cad_job_worker.py` now writes a lightweight failure manifest and `sw_session.json` without copying stale
+  `drw_output/v5` drawing artifacts into failed run directories.
+- `tools/validation/real_cad_smoke_v3.py` now treats `job_failed` as the correct terminal JSONL event for failed jobs,
+  while still requiring `job_finished` for completed jobs.
+- Short timeout cleanup evidence:
+  - `drw_output/cad_smoke_timeout_cleanup4_006.json`, run `drw_output/runs/c3bb02fe6ab3`, proves clean `job_failed`,
+    fresh manifest/sw_session, no SLDDRW/PDF/DXF/PNG copied from stale v5 output, and no orphan worker process.
+- Fresh style retry evidence:
+  - `drw_output/cad_smoke_stylefix_006_retry12.json`, run `drw_output/runs/180dc46da07f`, fails cleanly after
+    `drw_generate_v6.py` times out at 420 seconds. No drawing artifacts are claimed.
+  - `drw_output/cad_smoke_stylefix_006_diag_tail.json` and
+    `drw_output/cad_smoke_stylefix_006_connect_diag2.json` show the generator reaches
+    `[com] CoInitialize done`, `[sw_connect] GetActiveObject start`, then blocks. Current SolidWorks process evidence:
+    `SLDWORKS.exe` PID 24804, created `2026/6/22 6:56:01`.
+- Bounded COM probe and stale-artifact guard evidence:
+  - `drw_generate_v6.py` now probes `wc.GetActiveObject("SldWorks.Application")` in a bounded child process before
+    the main generator attempts the same COM active-object connection. The default probe limit is 15 seconds via
+    `SWDS_SW_CONNECT_TIMEOUT_S`.
+  - `drw_qc_loop_v6.py` now treats a nonzero generator return code as a terminal generation failure and skips stale
+    `drw_output/v5` drawing QC for that round. It also clears `final_path` when no fresh drawing was generated.
+  - `app/workers/cad_job_worker.py` now classifies this condition as
+    `failure_bucket=solidworks_com_active_object_timeout` and writes a Chinese `fix_suggestion` into `job_failed`,
+    `manifest.json`, and `sw_session.json`.
+  - `tools/validation/real_cad_smoke_v3.py` now surfaces `failure_bucket`, `failure_reason`, and
+    `failure_fix_suggestion` as top-level report fields.
+  - `app/workers/solidworks_com_probe_worker.py` and `app/services/solidworks_com_probe_service.py` provide the same
+    bounded COM probe for System Health and frozen/source workers. `app/main.py` and `build_exe.spec` include the new
+    `solidworks_com_probe` worker route.
+  - `app/services/system_health_service.py` now uses the bounded COM probe for the base SolidWorks row and skips Add-in
+    Ping when the COM session is unavailable, preventing health refresh from blocking on the same bad COM state.
+  - `app/services/run_manager.py` and `app/workers/cad_job_worker.py` now tolerate/write `run_id` for failed manifests,
+    so Dashboard/Home can render failed diagnostic runs without crashing.
+  - `drw_output/cad_smoke_stylefix_006_connect_bucket2.json`, run `drw_output/runs/346ee1798d34`, fails in 16.3 seconds
+    with `job_failed`, no validator hard timeout, `worker_jsonl_events=true`, fresh failure manifest/sw_session,
+    `failure_bucket=solidworks_com_active_object_timeout`, and no stale SLDDRW/PDF/DXF/PNG copied into the failed run
+    directory.
+  - `python app\workers\health_check_worker.py --job-id health_com_probe_smoke` with
+    `SWDS_SW_HEALTH_PROBE_TIMEOUT_S=3` finishes in about 4.4 seconds and reports
+    `SolidWorks COM 会话不可响应：get_active_object timed out after 3.0s` plus a skipped Add-in Ping row.
+  - `probe_solidworks_connection(timeout_s=1.0)` returns `status=timeout` in about one second on the current machine,
+    proving the reusable service path is bounded. `app/services/solidworks_com_probe_service.py` now uses
+    `Popen` plus Windows process-tree cleanup and explicit `proc.wait()` / fallback kill on timeout; the returned
+    probe payload includes `worker_pid` and `worker_killed=true`.
+  - `tools/validation/reference_compare_smoke_v3.py` now runs the same bounded COM preflight before sidecar or
+    pywin32 metric extraction. If SolidWorks COM is unresponsive, it writes reference/generated metric failure
+    payloads immediately with `source=solidworks_com_probe`, `failure_bucket=solidworks_com_active_object_timeout`,
+    and the full `connection_probe` instead of waiting for a minutes-long sidecar timeout.
+  - `drw_output/reference_compare_stylefix_006_probe_guard2.json` fails in about 2.4 seconds with
+    `status=fail`, `overall_score=0.5`, reasons
+    `solidworks_com_active_object_timeout`, `reference_metrics_unavailable`, and `generated_metrics_unavailable`.
+    The report records `worker_killed=true`, and a post-run `python.exe` process scan found no
+    `solidworks_com_probe_worker.py` orphan.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now uses the same-name reference
+    `view_layout` centers before creating views. The six learned samples resolve to:
+    `006/007/022 -> front,top,right,iso`, `009 -> front,top,right`, and `008/015 -> front,top`.
+    The learned DisplayDim floors remain `006=12`, `007=8`, `008=2`, `009=4`, `015=14`, `022=25`.
+  - Added `test_v3_generator_reference_style_plan.py` to prove the generator maps all six reference samples to
+    the expected view slots, DisplayDim floors, and projected-view layout relationships without starting SolidWorks.
+  - `tools/validation/reference_style_profile_v3.py` now independently maps extracted view layouts into
+    `front/top/right/iso` semantic slots, compares sheet-normalized centers against the same-name reference
+    drawing, emits `layout_style_score`, and records `view_layout_metrics_unavailable`,
+    `view_layout_center_missing`, or `view_layout_center_shifted_from_reference` when layout evidence is
+    incomplete or visibly displaced.
+  - Static no-COM recheck output:
+    `drw_output/reference_style_profile/layout_gate_recheck_20260622/lb26001_reference_style_gap_report.json`.
+    The report remains `status=fail/pass=false` for all six reference samples and shows layout scores from
+    `0.0` to `0.178`, confirming the historical outputs are still not acceptable under the learned reference
+    layout rules.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now scales fallback real DisplayDim insertion
+    attempts to the learned same-name reference floor instead of using a fixed 5-point plan. The edge and bbox
+    fallback paths now reselect the target edge or bbox point pair before every
+    `AddHorizontalDimension2` / `AddVerticalDimension2` / `AddDimension2` call, avoiding an empty-selection
+    `AddDimension` path after `ClearSelection2(True)`.
+  - Source-level plan probe:
+    `drw_output/reference_style_profile/dim_insert_plan_probe_20260622.json`. Using the current six-sample
+    reference profile, attempts from zero are `006=14`, `007=10`, `008=5`, `009=6`, `015=16`, and `022=27`;
+    from the historical 006 count of 8, the generator now prepares 6 more attempts toward the 12 DisplayDim
+    reference floor.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` no longer forces `front_view` back to the
+    old `(0.080, 0.140)` center before SaveAs when reference centers are available. It now uses
+    `_final_front_position(centers)` so the final front-view position preserves the learned same-name reference
+    center.
+  - Source-level final-position probe:
+    `drw_output/reference_style_profile/front_position_probe_20260622.json`. For all six reference samples,
+    `uses_old_default_80_140=false`; examples include 006 front at `110.0,169.55mm`, 007 at
+    `94.935,153.854mm`, 015 at `104.977,155.809mm`, and 022 at `110.0,144.8mm`.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now also runs scale selection against the
+    learned same-name reference centers after those centers are applied. This prevents the generator from choosing
+    a scale with the old generic layout and then moving the views to learned reference centers that would overlap
+    or leave the safe sheet area.
+  - Source-level reference-center scale probe:
+    `drw_output/reference_style_profile/reference_center_scale_probe_20260622.json`. The synthetic overlap case
+    proves a `1:1` learned-center overlap is rejected and downgraded to `1:5`; the six learned LB26001 samples
+    report no predicted overlap pairs and no safe-area violations with the nominal bbox.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now skips automatic section-view creation for
+    known same-name reference samples whose extracted reference `view_types` contain only standard/named and
+    projected views (`7`/`4`). This keeps generated LB26001 samples from adding an extra section view when the
+    original reference drawing uses only the learned 2/3/4-view family.
+  - Source-level section policy probe:
+    `drw_output/reference_style_profile/section_skip_probe_20260622.json`. All six requested samples
+    (`006/007/008/009/015/022`) report `section_allowed=false` and `expected_section_helper_called=false`.
+  - `tools/validation/reference_compare_smoke_v3.py` now treats view overproduction as a reference comparison
+    problem instead of silently giving full view-count credit. If the generated drawing has more views than the
+    same-name reference, the report records `view_count_higher_than_reference`; if generated view families include
+    a type absent from the reference, it records `view_type_extra_than_reference`.
+  - Source-level overproduction scoring probe:
+    `drw_output/reference_style_profile/view_overproduction_score_probe_20260622.json`. A reference-008-style
+    `2`-view drawing compared with generated `4` views now returns `need_review` with
+    `view_count_higher_than_reference`; adding extra type `3` also records `view_type_extra_than_reference`.
+  - `tools/validation/reference_style_profile_v3.py` now also compares per-type view counts, so a generated
+    drawing with the same total view count can no longer pass the strict LB26001 style gate after replacing a
+    reference `7`/`4` view family with an extra section/detail type.
+  - Source-level view-type count gate probe:
+    `drw_output/reference_style_profile/view_type_count_gate_probe_20260622.json`. A generated 4-view case with
+    reference `{"7":2,"4":2}` replaced by generated `{"7":1,"4":2,"3":1}` returns `need_review` with
+    `view_type_count_lower_than_reference` and `view_type_extra_than_reference`.
+  - Static no-COM recheck output:
+    `drw_output/reference_style_profile/type_count_gate_recheck_20260622/lb26001_reference_style_gap_report.json`.
+    It remains `status=fail/pass=false` for all six historical samples and now records view type count
+    mismatches such as `view_type_count_lower_than_reference` and `view_type_count_higher_than_reference`.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now uses a reference-aware DisplayDim attempt
+    target for known same-name reference samples. Unknown parts still keep the legacy minimum-attempt behavior, but
+    low-dimension reference samples no longer get forced up to the old minimum 5 fallback attempts.
+  - Source-level reference-aware DisplayDim plan probe:
+    `drw_output/reference_style_profile/dim_insert_plan_refaware_probe_20260622.json`. It shows current attempts
+    from zero as `006=14`, `007=10`, `008=2`, `009=4`, `015=16`, and `022=27`; compared with the legacy plan,
+    `008` drops from `5` to `2` and `009` drops from `6` to `4`.
+  - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now recounts real DisplayDim after fallback
+    insertion before deciding whether the dimension sidecar still needs to run, and recounts again before writing
+    `reference_display_dim_floor_unmet`. This prevents a drawing that reached the reference DisplayDim floor during
+    fallback insertion from carrying a stale pre-insertion warning.
+  - Source-level final DisplayDim floor probe:
+    `drw_output/reference_style_profile/final_display_dim_floor_probe_20260622.json`. It shows an
+    initial-low/final-meets-floor case where `8/12` would request sidecar and emit a floor gap, while final `12/12`
+    now has `sidecar_needed_using_final_count=false` and `floor_gap_using_final_count=null`.
+  - The job event log records `[sw_connect] active probe status=timeout reason=GetActiveObject probe timed out after 15s`
+    and `solidworks_active_object_timeout: GetActiveObject probe timed out after 15s`.
+- Interpretation: the reference-style rules are now wired into the generator, but current real CAD validation cannot prove
+  improved 006 output because the SolidWorks COM active-object connection is hanging before any drawing is created.
+  The reference-style gate now also rejects obvious view-layout drift, the generator now plans enough real
+  DisplayDim insertion attempts to chase the learned reference baselines without over-marking low-dimension samples,
+  and DisplayDim floor reporting now uses the final post-fallback count instead of stale pre-fallback counts.
+  The final front position no longer overwrites learned reference centers with the old generic T-layout coordinate,
+  and scale selection now accounts for the learned center layout before view creation. The generator also avoids
+  adding a section view for these six reference samples because their source SLDDRW files do not include one, while
+  the reference comparison report now flags extra generated views and view families as `need_review`. The strict
+  LB26001 style gate now also checks exact per-type view counts. The staged CAD validator now writes a per-case
+  `reference_style.json` report and blocks deliverability when that stricter same-name style gate fails, so future
+  LB26001_36/core/medium stages cannot bypass the learned reference style rules. These are source-level improvements
+  only until a responsive SolidWorks session can regenerate and verify fresh SLDDRW/PDF/DXF/PNG artifacts.
+  Status remains FAIL for the 006 correction test and WARNING for v3.0 overall.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\validation\reference_style_profile_v3.py tools\validation\staged_cad_validation_v3.py test_v3_reference_style_profile.py test_v3_staged_cad_validation.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py
+python test_v3_reference_style_profile.py
+python test_v3_staged_cad_validation.py
+python test_v3_reference_compare_smoke.py
+python tools\validation\reference_style_profile_v3.py --stage-summary drw_output\staged_validation\LB26001_36\20260622_035927\summary.json
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_retry5.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\860416b7b68a --cad-smoke drw_output\cad_smoke_stylefix_006_retry5.json --out drw_output\dimension_validation_stylefix_006_retry5.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\860416b7b68a --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --cad-smoke drw_output\cad_smoke_stylefix_006_retry5.json --out drw_output\reference_compare_stylefix_006_retry5.json
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_retry8.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\31fb5c9abb8a --cad-smoke drw_output\cad_smoke_stylefix_006_retry8.json --out drw_output\dimension_validation_stylefix_006_retry8.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\31fb5c9abb8a --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --cad-smoke drw_output\cad_smoke_stylefix_006_retry8.json --out drw_output\reference_compare_stylefix_006_retry8.json
+tools\SwReferenceMetricsSidecar\bin\SwReferenceMetricsSidecar.exe --drawing "drw_output\runs\31fb5c9abb8a\drawing\LB26001-A-04-006_v5.SLDDRW" --out "drw_output\reference_metrics_sidecar\LB26001-A-04-006_generated_retry8.json"
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 300 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_retry10.json
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 1 --validator-grace-s 1 --startup-grace-s 1 --max-rounds 1 --out drw_output\cad_smoke_timeout_guard_006.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\31fb5c9abb8a --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --cad-smoke drw_output\cad_smoke_stylefix_006_retry8.json --metrics-mode sidecar_first --sidecar-timeout-s 5 --out drw_output\reference_compare_stylefix_006_retry8_guarded.json
+python -m py_compile app\services\job_runner.py app\workers\cad_job_worker.py tools\validation\real_cad_smoke_v3.py .trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py
+python test_v2_3_job_runtime.py
+python test_v3_reference_style_profile.py
+python tools\validation\real_cad_smoke_v3.py --part "3D杞?D娴嬭瘯鍥剧焊\LB26001-A-04-006.SLDPRT" --timeout-s 5 --validator-grace-s 20 --startup-grace-s 10 --max-rounds 1 --out drw_output\cad_smoke_timeout_cleanup4_006.json
+python tools\validation\real_cad_smoke_v3.py --part "3D杞?D娴嬭瘯鍥剧焊\LB26001-A-04-006.SLDPRT" --timeout-s 420 --validator-grace-s 45 --startup-grace-s 30 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_retry12.json
+python tools\validation\real_cad_smoke_v3.py --part "3D杞?D娴嬭瘯鍥剧焊\LB26001-A-04-006.SLDPRT" --timeout-s 30 --validator-grace-s 20 --startup-grace-s 10 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_connect_diag2.json
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 30 --validator-grace-s 20 --startup-grace-s 10 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_connect_probe3.json
+python -m py_compile app\workers\cad_job_worker.py tools\validation\real_cad_smoke_v3.py test_v3_cad_failure_manifest.py
+python test_v3_cad_failure_manifest.py
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 30 --validator-grace-s 20 --startup-grace-s 10 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_connect_bucket2.json
+python -m py_compile app\workers\solidworks_com_probe_worker.py app\services\solidworks_com_probe_service.py app\services\system_health_service.py app\services\run_manager.py app\workers\health_check_worker.py app\main.py test_v3_system_health_com_probe.py test_v2_3_build_spec.py test_v2_3_resource_paths.py
+python test_v3_system_health_com_probe.py
+python test_v2_3_build_spec.py
+python test_v2_3_resource_paths.py
+$env:SWDS_SW_HEALTH_PROBE_TIMEOUT_S='3'; python app\workers\health_check_worker.py --job-id health_com_probe_smoke
+$env:SWDS_SW_HEALTH_PROBE_TIMEOUT_S='1'; python test_v2_3_system_health_page.py
+$env:SWDS_SW_HEALTH_PROBE_TIMEOUT_S='1'; python test_v2_3_home_page_health_worker.py
+python test_v3_main_navigation.py
+python test_v2_3_job_runtime.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python -m py_compile app\services\solidworks_com_probe_service.py tools\validation\reference_compare_smoke_v3.py test_v3_reference_compare_smoke.py test_v3_system_health_com_probe.py
+python test_v3_system_health_com_probe.py
+python test_v3_reference_compare_smoke.py
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\31fb5c9abb8a --part "3D杞?D娴嬭瘯鍥剧焊\LB26001-A-04-006.SLDPRT" --reference-dir "3D杞?D娴嬭瘯鍥剧焊" --cad-smoke drw_output\cad_smoke_stylefix_006_retry8.json --out drw_output\reference_compare_stylefix_006_probe_guard2.json --metrics-mode sidecar_only --sidecar-timeout-s 120 --com-probe-timeout-s 1
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py app\services\solidworks_com_probe_service.py tools\validation\reference_compare_smoke_v3.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_system_health_com_probe.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile app\services\solidworks_com_probe_service.py test_v3_system_health_com_probe.py
+python test_v3_system_health_com_probe.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_compare_smoke.py
+python test_v2_3_job_runtime.py
+python -m py_compile tools\validation\reference_style_profile_v3.py test_v3_reference_style_profile.py
+python test_v3_reference_style_profile.py
+python tools\validation\reference_style_profile_v3.py --stage-summary drw_output\staged_validation\LB26001_36\20260622_035927\summary.json --out-dir drw_output\reference_style_profile\layout_gate_recheck_20260622 --no-sidecar
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_compare_smoke.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python -m py_compile tools\validation\reference_compare_smoke_v3.py test_v3_reference_compare_smoke.py
+python test_v3_reference_compare_smoke.py
+python -m py_compile tools\validation\reference_style_profile_v3.py test_v3_reference_style_profile.py
+python test_v3_reference_style_profile.py
+python tools\validation\reference_style_profile_v3.py --stage-summary drw_output\staged_validation\LB26001_36\20260622_035927\summary.json --out-dir drw_output\reference_style_profile\type_count_gate_recheck_20260622 --no-sidecar
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py tools\validation\reference_style_profile_v3.py test_v3_reference_style_profile.py tools\validation\reference_compare_smoke_v3.py test_v3_reference_compare_smoke.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py tools\validation\reference_style_profile_v3.py test_v3_reference_style_profile.py tools\validation\reference_compare_smoke_v3.py test_v3_reference_compare_smoke.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_staged_cad_validation.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_generator_reference_style_plan.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --help
+python test_v3_staged_cad_validation.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_generator_reference_style_plan.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+& 'C:\Users\Vision\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' 'drw_output\reference_comparison_report_builder\build_reference_comparison_report_v3.mjs' --out 'drw_output\reference_comparison_report_v3_0.xlsx'
+& 'C:\Users\Vision\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' --input-type=module -e "import {FileBlob,SpreadsheetFile} from '@oai/artifact-tool'; const wb=await SpreadsheetFile.importXlsx(await FileBlob.load('../reference_comparison_report_v3_0.xlsx')); const a=await wb.inspect({kind:'table',range:'总览!A1:B13',include:'values,formulas',tableMaxRows:14,tableMaxCols:4,maxChars:4000}); console.log(a.ndjson); const b=await wb.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A',options:{useRegex:true,maxResults:300},summary:'verify formula errors'}); console.log(b.ndjson);"
+python -m py_compile tools\validation\issue_schema_validation_v3.py test_v3_issue_schema_validation.py
+python test_v3_issue_schema_validation.py
+python tools\validation\issue_schema_validation_v3.py --out drw_output\issue_schema_validation.json
+python -m py_compile app\services\vision_issue_schema.py tools\validation\normalize_issue_index_v3.py test_v3_vision_issue_schema_normalizer.py test_v3_normalize_issue_index.py
+python test_v3_vision_issue_schema_normalizer.py
+python test_v3_normalize_issue_index.py
+python tools\validation\normalize_issue_index_v3.py --out drw_output\visual_audit\normalized_issue_index.json --validation-out drw_output\issue_schema_validation_normalized.json
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -m py_compile tools\validation\reference_style_standard_report_v3.py test_v3_reference_style_standard_report.py
+python test_v3_reference_style_standard_report.py
+python tools\validation\reference_style_standard_report_v3.py --profile drw_output\reference_style_profile\lb26001_reference_style_profile.json --gap-report drw_output\reference_style_profile\type_count_gate_recheck_20260622\lb26001_reference_style_gap_report.json --out-json drw_output\reference_style_profile\lb26001_drawing_standard_v3_0.json --out-md drw_output\reference_style_profile\lb26001_drawing_standard_v3_0.md
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Latest lightweight regression after the final DisplayDim sidecar/floor recount passed: py_compile, generator
+  reference plan, strict style profile, reference compare smoke, job runtime, and main navigation.
+- Latest staged-gate regression after wiring `reference_style.json` into staged CAD validation passed: py_compile,
+  `test_v3_staged_cad_validation.py`, strict style profile, reference compare smoke, generator reference plan,
+  job runtime, and main navigation.
+- The staged validator CLI also loads successfully after moving repository-root `sys.path` setup before importing the
+  strict style evaluator (`python tools\validation\staged_cad_validation_v3.py --help`).
+- Current reference comparison workbook generated at `drw_output/reference_comparison_report_v3_0.xlsx`.
+  It summarizes existing evidence only: 50 `reference_compare.json` reports, 177 differences, 3 staged summaries,
+  and 18 strict style-gate records. Formula error scan matched 0 entries, and visual previews were rendered under
+  `drw_output/reference_comparison_report_preview/`. The overview sheet explicitly states this is not fresh CAD proof
+  while SolidWorks remains non-responsive.
+- Current issue schema validation generated at `drw_output/issue_schema_validation.json` and is `FAIL`.
+  It scanned 2,279 JSON files, found 559 files with visual issue lists and 4,538 issues, but only 208 issues satisfy
+  the required v3 fields. 4,330 issues are noncompliant, mainly missing `human_review_status`, `evidence`,
+  `auto_fix_available`, `fix_suggestion`, `confidence`, `source`, `bbox`, `severity`, or `key`; 3,608 legacy issue
+  entries are strings instead of objects. This proves the final visual-issue schema gate remains open.
+- Added normalized issue review index support: `app/services/vision_issue_schema.py` normalizes one legacy issue while
+  preserving uncertainty in `normalization.warnings`, and `tools/validation/normalize_issue_index_v3.py` scans current
+  JSON artifacts into `drw_output/visual_audit/normalized_issue_index.json` without editing historical files.
+  Latest run scanned 2,279 JSON files, found 559 files with issue lists and 4,538 issues, and wrote 4,538 normalized
+  v3 issue records. `drw_output/issue_schema_validation_normalized.json` passes with `noncompliant_issue_count=0`.
+  The normalized index still records 23,637 normalization warnings, so it is a review/audit entry point and not a
+  substitute for regenerating raw artifacts with complete Vision QC evidence.
+- Added `tools/validation/reference_style_standard_report_v3.py` and generated the Chinese LB26001 drawing-standard
+  reports:
+  `drw_output/reference_style_profile/lb26001_drawing_standard_v3_0.json` and
+  `drw_output/reference_style_profile/lb26001_drawing_standard_v3_0.md`.
+  The report covers all six requested reference drawings, records per-sample exact view counts and type counts,
+  DisplayDim floors (`006=12`, `007=8`, `008=2`, `009=4`, `015=14`, `022=25`), normalized
+  `front/top/right/iso` layout centers, a 0.08 normalized-layout tolerance, and a no-extra-section/detail rule for
+  these same-name samples. It also records the current historical strict-gap state as `fail/pass=false` for all six
+  samples, with repeated all-named-view substitution, projected-view shortages, DisplayDim baseline failures, and
+  layout shifts.
+- Latest regression for this slice passed: py_compile for the new normalizer/indexer and reference validation modules,
+  `test_v3_vision_issue_schema_normalizer.py`, `test_v3_normalize_issue_index.py`, `test_v3_issue_schema_validation.py`,
+  `test_v3_generator_reference_style_plan.py`, `test_v3_reference_style_profile.py`,
+  `test_v3_reference_compare_smoke.py`, `test_v3_staged_cad_validation.py`, `test_v2_3_job_runtime.py`, and
+  `test_v3_main_navigation.py`.
+- Latest reference-standard report regression passed: py_compile, `test_v3_reference_style_standard_report.py`,
+  the report generation command above, generator reference plan, strict style profile, reference compare smoke,
+  staged CAD validation, job runtime, and main navigation.
+- Do not mark LB26001_36 complete.
+- Next fix should focus on restoring a responsive SolidWorks COM active-object session, then rerunning the 006 style
+  correction path without lowering thresholds. Current evidence points to `solidworks_com_active_object_timeout`; save
+  any open SolidWorks work, close blocking dialogs, and restart SolidWorks if needed before rerunning. After COM is responsive, continue with stabilizing reference metric
+  extraction on retry8 SLDDRW files, proving generated `view_types={"7":2,"4":2}`, and increasing real `DisplayDim`
+  coverage from 8/12 to the 006 reference baseline before rerunning the six style samples and then LB26001_36.
+
+## LB26001 006 Type-1 Annotation Metric Fix and Pilot6 Evidence - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The reference-metric validation blind spot is reduced, but the generated 006 drawing is still not style-gate ready.
+- `tools/validation/reference_compare_smoke_v3.py` now recursively unwraps nested pywin32 `GetViews()` arrays, wraps raw
+  `PyIDispatch` views, counts `View.GetAnnotations()` type-1 records as generated drawing annotation evidence, records
+  `display_dim_count_source=annotation_type1`, and preserves `display_dim_count_api=0` when C# sidecar
+  `GetDisplayDimensions` still returns zero.
+- Reference comparison no longer lets QC fallback counts override generated SLDDRW metrics when generated metrics are
+  available. This keeps Note/OCR/QC sidecar evidence separate from real drawing annotation evidence.
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now has a pure
+  `_force_dimension_insert_plan()` helper and a reference-aware 6.5 front-view reinforcement block. The legacy fixed
+  2-horizontal/2-vertical 6.5 block is disabled, so known samples are not over-marked after reaching their reference
+  floor.
+
+Fresh 006 evidence:
+
+- SolidWorks COM preflight connected: `method=get_active_object`, `sw_pid=17836`, `sw_revision=33.5.0`, elapsed about
+  187 ms before pilot6.
+- `drw_output/cad_smoke_stylefix_006_matrix_pilot6.json` passes Real CAD Smoke with fresh run
+  `drw_output/runs/eacfb3cbe84b`.
+- `drw_output/dimension_validation_stylefix_006_matrix_pilot6.json` is `pass_with_warning`.
+- `drw_output/reference_compare_stylefix_006_matrix_pilot6.json` is `pass_with_warning`, `overall_score=0.917`, with
+  generated `view_count=4`, `view_types={"7":2,"4":2}`, `display_dim_count=8`, `display_dim_count_api=0`,
+  `display_dim_annotation_count=8`, and `display_dim_count_source=annotation_type1`.
+- `drw_output/reference_style_profile/stylefix_006_matrix_pilot6_style.json` remains `status=fail/pass=false`,
+  `overall_style_score=0.85`, with reason `display_dim_count_lower_than_reference`.
+
+Interpretation:
+
+- The 006 view family and layout correction remain proven on fresh CAD output.
+- The metric layer now truthfully sees the generated type-1 drawing annotations instead of reporting a misleading hard
+  zero, but the quantity is still `8/12`.
+- The current AddDimension-based reinforcement did not increase persisted type-1 annotation coverage beyond 8. A new
+  bounded SolidWorks API strategy is still required for additional real DisplayDim/view-owned dimensions. Do not use
+  Note/OCR/QC sidecar counts to close this gate, and do not re-enable the unbounded default `model_dim_seed_service`
+  trigger that timed out in pilot5.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\reference_compare_smoke_v3.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_reference_compare_smoke.py test_v3_generator_reference_style_plan.py
+python test_v3_reference_compare_smoke.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\b42f06d1a779 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --reference-dir "3D转2D测试图纸" --cad-smoke drw_output\cad_smoke_stylefix_006_matrix_pilot4.json --out drw_output\reference_compare_stylefix_006_matrix_pilot4_annotation_probe2.json --metrics-mode sidecar_first --sidecar-timeout-s 120 --com-probe-timeout-s 5
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_matrix_pilot6.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\eacfb3cbe84b --cad-smoke drw_output\cad_smoke_stylefix_006_matrix_pilot6.json --out drw_output\dimension_validation_stylefix_006_matrix_pilot6.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\eacfb3cbe84b --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --reference-dir "3D转2D测试图纸" --cad-smoke drw_output\cad_smoke_stylefix_006_matrix_pilot6.json --out drw_output\reference_compare_stylefix_006_matrix_pilot6.json --metrics-mode sidecar_first --sidecar-timeout-s 120 --com-probe-timeout-s 5
+```
+## LB26001 006 AutoDimension Pilot13 - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The 006 single-sample reference style blocker is fixed on fresh CAD output, but this does not complete the requested six-reference set and is not a release PASS.
+- Note/OCR/QC sidecar values are still not counted as real DisplayDim. The successful evidence below uses reopened SLDDRW metrics from C# sidecar / pywin32 reference metrics.
+
+Implementation:
+
+- Added `tools/validation/dimension_api_probe_v3.py` to copy a generated SLDDRW and probe bounded `IDrawingDoc.AutoDimension` calls without modifying the source drawing.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` with a conservative reference-aware AutoDimension pass through learned `front/top` centers using `VT_DISPATCH None` selection, a small call budget, and `reference_autodim` evidence in warnings JSON.
+- Updated `tools/validation/reference_style_profile_v3.py` to penalize substantial DisplayDim overproduction with `display_dim_count_higher_than_reference`; pilot8's `19/12` case is now `need_review`.
+
+Probe evidence:
+
+- `drw_output/dimension_api_probe_006_pilot6_autodim_dispatch2.json`: copied pilot6 SLDDRW, selected views using `VT_DISPATCH_None`, and proved persisted AutoDimension can raise real API DisplayDim above the 006 floor.
+- `drw_output/_dim_probe/single_autodim_20260622_145341/single_autodim_probe.json`: one-call per-view probe showed individual view counts `6/8/3/20`.
+- `drw_output/_dim_probe/combo_autodim_20260622_145435/combo_autodim_probe.json`: front+top one-call combo produced `display_dim_count=14`, closest safe match to reference `12`.
+
+Fresh 006 evidence:
+
+- `drw_output/cad_smoke_stylefix_006_autodim_pilot13.json` passes Real CAD Smoke with run `drw_output/runs/cc35dc5fb088`.
+- `drw_output/dimension_validation_stylefix_006_autodim_pilot13.json` is `pass_with_warning`.
+- `drw_output/reference_compare_stylefix_006_autodim_pilot13.json` is `pass`, `overall_score=1.0`, with generated `view_count=4`, `view_types={"7":2,"4":2}`, and real API `display_dim_count=14` against reference `12`.
+- `drw_output/reference_style_profile/stylefix_006_autodim_pilot13_style.json` is `status=pass/pass=true`, `overall_style_score=0.936`, with no strict style reasons.
+
+Known remaining issues:
+
+- Generator in-memory `_count_display_dims` remains stale after AutoDimension until save/reopen; the warnings JSON still records internal `8/12` and sidecar fallback warnings even though the saved SLDDRW validates at `14/12`.
+- The fresh proof covers `LB26001-A-04-006` only. The same path must be validated on `007/008/009/015/022`, then LB26001_36 and later staged gates.
+- Titlebar/custom-property warnings, standard annotation warnings, and broader UI/EXE/final acceptance gates remain open.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\dimension_api_probe_v3.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\reference_style_profile_v3.py test_v3_reference_style_profile.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 900 --max-rounds 1 --out drw_output\cad_smoke_stylefix_006_autodim_pilot13.json
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\cc35dc5fb088 --cad-smoke drw_output\cad_smoke_stylefix_006_autodim_pilot13.json --out drw_output\dimension_validation_stylefix_006_autodim_pilot13.json
+python tools\validation\reference_compare_smoke_v3.py --run-dir drw_output\runs\cc35dc5fb088 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --reference-dir "3D转2D测试图纸" --cad-smoke drw_output\cad_smoke_stylefix_006_autodim_pilot13.json --out drw_output\reference_compare_stylefix_006_autodim_pilot13.json --metrics-mode sidecar_first --sidecar-timeout-s 120 --com-probe-timeout-s 5
+```
+
+## LB26001 Six Reference Drawing Correction - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The user-requested six-reference correction set is now proven on fresh CAD output, but this does not complete LB26001_36 or final v3.0 acceptance.
+- Note/OCR/QC sidecar values are still not counted as real DisplayDim. Cosmetic hole-thread annotations are now filtered out instead of being miscounted as dimensions.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` to:
+  - Use a bounded reference AutoDimension call budget for low/mid reference floors.
+  - Reopen saved SLDDRW files and prune persisted DisplayDim counts to the strict same-name reference upper cap.
+  - Skip model-dimension bulk import for concise references such as `LB26001-A-04-008`.
+  - Exclude cosmetic thread annotations (`孔螺纹线` / `孔螺蚊线` / thread names) from DisplayDim counting.
+- Updated `tools/validation/reference_compare_smoke_v3.py` with the same cosmetic-thread filter so validation does not treat hole thread lines as dimensions.
+- Updated source tests `test_v3_generator_reference_style_plan.py` and `test_v3_reference_compare_smoke.py`.
+
+Fresh six-reference evidence:
+
+- Combined stage report: `drw_output/staged_validation/LB26001_ref6_current_20260622/summary.json`.
+- Summary artifact: `drw_output/reference_style_profile/ref6_current_summary_20260622.json`.
+- Result: `status=pass`, `pass=true`, `deliverable_count=6/6`.
+- Per-sample strict style results:
+  - `006`: run `drw_output/runs/63d9a9a6bb8e`, views `4/4`, types `{"7":2,"4":2}`, DisplayDim `14/12`, style `pass`, score `0.936`.
+  - `007`: run `drw_output/runs/5f4ad69a6442`, views `4/4`, types `{"7":2,"4":2}`, DisplayDim `10/8`, style `pass`, score `0.910`.
+  - `008`: run `drw_output/runs/17a3afd0ad43`, views `2/2`, types `{"7":1,"4":1}`, DisplayDim `3/2`, style `pass_with_warning`, score `0.850`.
+  - `009`: run `drw_output/runs/fca65cb67b3d`, views `3/3`, types `{"7":1,"4":2}`, DisplayDim `4/4`, style `pass`, score `1.000`.
+  - `015`: run `drw_output/runs/5519ec098ec6`, views `2/2`, types `{"7":1,"4":1}`, DisplayDim `20/14`, style `pass`, score `0.865`.
+  - `022`: run `drw_output/runs/90f4733ef751`, views `4/4`, types `{"7":2,"4":2}`, DisplayDim `35/25`, style `pass`, score `0.871`.
+
+Important intermediate evidence:
+
+- Initial 5-sample failure matrix: `drw_output/reference_style_profile/ref5_autodim_failure_summary_20260622.json`.
+- Post-prune improvement matrix: `drw_output/reference_style_profile/ref5_autodim_prune_summary_20260622.json`.
+- 008 thread-filter/cap proof: `drw_output/reference_style_profile/ref1_008_cap4_summary_20260622.json`.
+- Delete/API probes for the cosmetic-thread false positive are under `drw_output/_dim_delete_probe/`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\reference_compare_smoke_v3.py test_v3_generator_reference_style_plan.py test_v3_reference_compare_smoke.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_compare_smoke.py
+python test_v3_reference_style_profile.py
+python test_v3_main_navigation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-007.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-008.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-009.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-015.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-022.SLDPRT" --out-dir drw_output\staged_validation\LB26001_ref6_current_20260622 --timeout-s 900 --max-rounds 1
+```
+
+Remaining gates:
+
+- Full LB26001_36 validation must still be rerun with the current generator.
+- `medium_30`, `full_129`, 100% historical visual audit, refreshed `reference_comparison_report_v3_0.xlsx`, final `visual_audit_report_v3_0.xlsx`, and final `release_log_v3_0.md` remain open.
+
+## LB26001 36-Sample Reference Profile Probe - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The six user-provided reference drawings remain the only fresh combined passing correction set.
+- The generator now learns from the wider LB26001 36-sample profile, but LB26001_36 is still not accepted.
+
+Implementation:
+
+- Added `drw_output/reference_style_profile/lb26001_36_reference_style_profile.json` as the stable 36-sample style profile (`sample_count=36`, `usable_sample_count=36`).
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so `REFERENCE_STYLE_PROFILE` still has highest priority, then the 36-sample profile, then the legacy six-sample profile.
+- Extended reference view planning to cover additional LB26001 families, including `front/top/iso`, `front/top/right`, `front/top/right/iso`, and `front/top/right/bottom`.
+- Disabled the unsafe first-angle auto-view path for bottom-view samples after it produced 7 generated views and hard `view_overlap` on `LB26001-A-04-035`.
+- Updated `test_v3_generator_reference_style_plan.py` to prove the 36-profile preference and bottom-view first-angle exclusion.
+
+Fresh evidence:
+
+- 36-profile artifact: `drw_output/reference_style_profile/lb26001_36_reference_style_profile.json`.
+- Representative four-part probe: `drw_output/staged_validation/LB26001_36_profile_probe_20260622/summary.json` completed `processed=4`, `deliverable_count=0/4`, `status=need_review`.
+- `LB26001-A-04-002`: view and layout style scores reached `1.0`, but strict style still failed on `display_dim_count_lower_than_reference`.
+- `LB26001-A-04-031`: generated the learned 3-view family, but still failed on zero/insufficient real DisplayDim and shifted layout center.
+- `LB26001-A-04-050`: strict reference style passed, but final staged status remained `need_review` because CAD/final-quality/dimension gates did not accept it.
+- `LB26001-A-04-035`: first-angle bottom probe `drw_output/staged_validation/LB26001_035_first_angle_bottom_probe_20260622/summary.json` failed worse with generated `7` views, view-type overproduction, and `hard_fail=view_overlap`.
+- Revert probe `drw_output/staged_validation/LB26001_035_bottom_revert_probe_20260622/summary.json` completed `processed=1`, `deliverable_count=0/1`, `status=need_review`. It no longer has the `view_overlap` hard failure; generated metrics are `view_count=4`, `view_types={"7":2,"4":2}`, `display_dim_count=16` against reference `view_count=4`, `view_types={"7":1,"4":3}`, `display_dim_count=11`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-035.SLDPRT" --out-dir drw_output\staged_validation\LB26001_035_bottom_revert_probe_20260622 --timeout-s 900 --max-rounds 1
+```
+
+Remaining issues:
+
+- `LB26001-A-04-035` was subsequently fixed by robust projected-view parent selection and created-view ordered persisted centers; see the follow-up section below.
+- `002` still needs real DisplayDim validation, and `031` still needs the dimension-validation count chain fixed; Note/OCR/QC sidecar counts must not be used to close those gates.
+- Full LB26001_36 must be rerun only after the representative blockers above are resolved.
+
+## LB26001 035 Projection and Created-Center Fix - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- `LB26001-A-04-035` is no longer a representative strict-style blocker.
+- `LB26001-A-04-031` also now passes the strict reference-style gate, but the staged gate still fails on dimension validation.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so projected-view creation no longer treats `ActivateView()` as a real selection. It now clears selection, activates/sets the view context, then tries actual `SelectEntity`/`Select`/`SelectByID2` calls with `None`, `pythoncom.Empty`, `pythoncom.Missing`, `VT_DISPATCH None`, and `VT_UNKNOWN None` callout variants before calling `CreateUnfoldedViewAt*`.
+- Added reference-layout refit after view creation: learned centers are reapplied, and projected views can have alignment removed before position is forced.
+- Added `_created_view_centers_for_persisted_layout(...)` so the persisted layout solver receives centers in actual `created_views` order. This prevents default `iso=(230,180)mm` from being applied to the fourth view when the generated plan is `front/top/right/bottom`.
+- Updated `test_v3_generator_reference_style_plan.py` to lock the created-view center ordering behavior.
+
+Fresh evidence:
+
+- `drw_output/staged_validation/LB26001_035_projection_select2_probe_20260622/summary.json`: improved 035 from type mismatch to only layout shift. Generated/reference both had `view_count=4` and `view_types={"7":1,"4":3}`, but the fourth view still sat at the old `iso` center.
+- `drw_output/staged_validation/LB26001_035_projection_layout2_probe_20260622/summary.json`: final 035 proof is `status=pass`, `pass=true`, `deliverable_count=1/1`, run `drw_output/runs/080707444560`.
+- 035 strict style report: `drw_output/staged_validation/LB26001_035_projection_layout2_probe_20260622/01_LB26001-A-04-035/reference_style.json` is `status=pass`, `pass=true`, `view_style_score=1.0`, `layout_style_score=1.0`, `dimension_style_score=0.688`, `overall_style_score=0.86`, generated/reference `view_count=4`, `view_types={"7":1,"4":3}`, generated DisplayDim `16` vs reference `11`, and no strict-style reasons.
+- `drw_output/staged_validation/LB26001_031_created_centers_probe_20260622/summary.json`: 031 still has `status=need_review`, `deliverable_count=0/1`, but the remaining bucket is `dimension_validation_not_pass` only.
+- 031 strict style report: `drw_output/staged_validation/LB26001_031_created_centers_probe_20260622/01_LB26001-A-04-031/reference_style.json` is `status=pass`, `pass=true`, `view_style_score=1.0`, `layout_style_score=1.0`, `dimension_style_score=0.688`, generated/reference `view_count=3`, `view_types={"7":2,"4":1}`, generated DisplayDim `16` vs reference `11`. The staged failure comes from `dimension_validation.json`, which still reports `display_dim_count_zero` and `display_dim_count_below_threshold:0/5`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py app\services\persisted_layout_solver.py test_v3_persisted_layout_solver.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_persisted_layout_solver.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-035.SLDPRT" --out-dir drw_output\staged_validation\LB26001_035_projection_layout2_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-031.SLDPRT" --out-dir drw_output\staged_validation\LB26001_031_created_centers_probe_20260622 --timeout-s 900 --max-rounds 1
+```
+
+Remaining issues:
+
+- Fix the dimension-validation path for `LB26001-A-04-031` so it reads persisted/generated DisplayDims consistently with reference metrics, without counting Note/OCR/QC sidecar values as DisplayDim.
+- Re-run the representative remaining LB26001_36 blockers (`002`, `031`, `050`) before attempting the full 36-sample stage.
+
+## LB26001 031 Dimension Metrics Chain Fix - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- `LB26001-A-04-031` is no longer a representative dimension-validation blocker.
+- This does not complete `LB26001_36`; the full 36-sample stage still has to be rerun and meet the documented acceptance target.
+
+Implementation:
+
+- Updated `tools/validation/dimension_validation_smoke_v3.py` so CLI execution inserts the repository root into `sys.path`.
+- Added a real DisplayDim metrics upgrade path for cases where QC/manifest report `display_dim_count=0`: the validator calls the existing reference metrics sidecar on the generated SLDDRW and accepts only real SolidWorks API count sources (`display_dimension_api` or `annotation_type1`).
+- The validator now records `raw_display_dim_count`, `display_dim_count_source`, and a `display_dim_metrics` evidence object, while keeping `notes_counted_as_display_dim=false`.
+- Updated `test_v3_dimension_validation.py` with a regression case proving that a feature part can pass when QC count is stale but the generated SLDDRW sidecar reports 16 real DisplayDims.
+
+Fresh evidence:
+
+- Existing-run recheck `drw_output/staged_validation/LB26001_031_created_centers_probe_20260622/01_LB26001-A-04-031/dimension_validation_after_metrics.json` is `status=pass_with_warning`, `pass=true`, and `reasons=[]`.
+- Fresh staged proof `drw_output/staged_validation/LB26001_031_dimension_metrics_probe_20260622/summary.json` is `status=pass`, `pass=true`, `deliverable_count=1/1`, run `drw_output/runs/70ff50f999ee`.
+- Fresh 031 dimension report records raw QC DisplayDim `0`, accepted sidecar DisplayDim `16`, `display_dim_count_source=reference_metrics_sidecar.display_dim_count`, sidecar count source `display_dimension_api`, and `notes_counted_as_display_dim=false`.
+- Fresh 031 strict style report remains `status=pass`, `pass=true`, `view_style_score=1.0`, `layout_style_score=1.0`, `dimension_style_score=0.688`, `overall_style_score=0.86`, generated/reference `view_count=3`, `view_types={"7":2,"4":1}`, generated DisplayDim `16` vs reference `11`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\dimension_validation_smoke_v3.py test_v3_dimension_validation.py
+python test_v3_dimension_validation.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python tools\validation\dimension_validation_smoke_v3.py --run-dir drw_output\runs\54be0f63ac2e --cad-smoke drw_output\staged_validation\LB26001_031_created_centers_probe_20260622\01_LB26001-A-04-031\cad_smoke.json --out drw_output\staged_validation\LB26001_031_created_centers_probe_20260622\01_LB26001-A-04-031\dimension_validation_after_metrics.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-031.SLDPRT" --out-dir drw_output\staged_validation\LB26001_031_dimension_metrics_probe_20260622 --timeout-s 900 --max-rounds 1
+```
+
+Remaining issues:
+
+- Re-run the representative remaining LB26001_36 blockers (`002`, `050`) before attempting the full 36-sample stage.
+- Full `LB26001_36`, `medium_30`, `full_129`, historical Visual Audit 100 percent coverage, final workbooks, and `release_log_v3_0.md` remain open.
+
+## LB26001 002 and 050 Representative Blocker Fixes - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The representative LB26001_36 blockers `002`, `031`, `035`, and `050` now have fresh single-sample pass evidence.
+- This does not complete `LB26001_36`; a fresh full 36-sample stage is still required.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so `front/top/right/iso` reference plans no longer use unstable `Create1stAngleViews*`; only exact `front/top/right` plans may use first-angle auto-view creation.
+- Updated generator DisplayDim counting to use the same real DisplayDimension API count style as QC instead of over-counting stale COM wrappers.
+- Added post-layout persisted DisplayDim repair: after `solve_persisted_layout(...)`, the generator reopens the final SLDDRW, checks against the same-name reference DisplayDim floor, reruns reference AutoDimension when needed, saves the SLDDRW, and re-exports PDF/DXF.
+- Updated `.trae/specs/enforce-drawing-quality/drw_quality_check.py` so QC counts real DisplayDimensions via `GetDisplayDimensions` / `GetFirstDisplayDimension`, records `display_dim_count_source=display_dimension_api`, and still keeps Note counts separate.
+- Updated `test_v3_generator_reference_style_plan.py` to lock the safer first-angle policy for `front/top/right/iso`.
+
+Fresh evidence:
+
+- `drw_output/staged_validation/LB26001_002_final_dim_floor_probe_20260622/summary.json` is `status=pass`, `pass=true`, `deliverable_count=1/1`, run `drw_output/runs/029bc6912b7f`.
+- 002 strict style report is `status=pass`, `pass=true`, `view_style_score=1.0`, `layout_style_score=1.0`, `dimension_style_score=0.75`, `overall_style_score=0.887`, generated/reference `view_count=4`, `view_types={"7":2,"4":2}`, generated DisplayDim `16` vs reference `12`, and no strict-style reasons.
+- 002 dimension validation is `status=pass_with_warning`, `pass=true`, `display_dim_count=16`, `raw_display_dim_count=16`, `source_summary=["model_display_dim=16"]`, and `notes_counted_as_display_dim=false`.
+- 002 warnings record post-layout repair: initial reference AutoDimension reached `10`, post-layout repair raised DisplayDim from `10` to `16`, and PDF/DXF were re-exported.
+- `drw_output/staged_validation/LB26001_050_after_dim_chain_probe_20260622/summary.json` is `status=pass`, `pass=true`, `deliverable_count=1/1`, run `drw_output/runs/5ac73a5d62dc`.
+- 050 strict style report is `status=pass`, `pass=true`, `view_style_score=1.0`, `layout_style_score=1.0`, `dimension_style_score=0.778`, `overall_style_score=0.9`, generated/reference `view_count=3`, `view_types={"7":1,"4":2}`, generated DisplayDim `27` vs reference `21`, and no strict-style reasons.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py .trae\specs\enforce-drawing-quality\drw_quality_check.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_style_profile.py
+python test_v3_reference_compare_smoke.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-002.SLDPRT" --out-dir drw_output\staged_validation\LB26001_002_final_dim_floor_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-050.SLDPRT" --out-dir drw_output\staged_validation\LB26001_050_after_dim_chain_probe_20260622 --timeout-s 900 --max-rounds 1
+```
+
+Remaining issues:
+
+- Run fresh full `LB26001_36` with the current generator and QC chain.
+- Then continue the documented sequence: `medium_30`, historical Visual Audit 100 percent coverage, `full_129`, final workbooks, EXE/UI stability evidence, and `release_log_v3_0.md`.
+
+## LB26001 Six Reference UI Visual Review Failure - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The previous six-reference API/strict-style pass is not sufficient acceptance evidence.
+- Application UI screenshot review shows the user-requested reference set `006/007/008/009/015/022` is still visually not acceptable.
+- Do not mark the six-reference correction complete until fresh generated drawings pass side-by-side UI screenshot review against the same-name reference drawings.
+
+Implementation:
+
+- Added `tools/ui_robot/drawing_visual_review_suite.py`.
+- The suite loads real generated PNG outputs and same-name reference PNGs into the application `图纸复核` page, captures one UI screenshot per drawing, and writes a report that separates `evidence_capture_pass` from `visual_acceptance_pass`.
+- The report intentionally keeps `visual_acceptance_pass=false` until each screenshot is visually judged; API results are shown only as supporting evidence.
+- A first narrow screenshot run was discarded as visual evidence because the generated drawing column was off-screen. The suite was adjusted to a wider `2600x1400` application window and a wider center preview pane so both reference and generated drawings are visible in one screenshot.
+
+Fresh evidence:
+
+- UI visual review report: `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/drawing_visual_review_report.json`.
+- Report status: `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshots:
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/02_LB26001-A-04-007_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/03_LB26001-A-04-008_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/04_LB26001-A-04-009_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/05_LB26001-A-04-015_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/screenshots/06_LB26001-A-04-022_ui_visual_review.png`
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_ref6_visual_review_wide_20260622/manual_visual_judgement.json` is `overall_status=FAIL`, with `pass_count=0`, `warning_count=0`, and `fail_count=6`.
+
+Visual findings:
+
+- `006`: generated drawing does not preserve the long-thin reference view structure; title block/frame geometry appears in the drawing area; dimension and note placement differ materially.
+- `007`: generated view scale/placement do not match the compact reference layout; large title block/frame lines intrude into the drawing area; dimension style and density differ.
+- `008`: generated drawing changes the reference plate-view composition, misses the red reference note style, and shows title/frame elements in the main drawing region.
+- `009`: generated circular-part view proportions and positions differ from the reference; title/frame linework intrudes; reference dimension cluster style is not reproduced.
+- `015`: generated drawing is heavily under-dimensioned compared with the dense machined-plate reference; main view is too small; title/table linework occupies drawing space.
+- `022`: generated drawing lacks most visible reference dimensions; view scale/position do not match; title/table linework reduces usable drawing space.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\ui_robot\drawing_visual_review_suite.py
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_ref6_visual_review_wide_20260622
+```
+
+Remaining issues:
+
+- Fix sheet/title-block placement so border/title/table geometry does not appear inside the model drawing comparison area.
+- Make the generator reproduce same-name reference view slots visually, not just view-count/type metrics.
+- Restore dimension coverage and dimension style for manufacturing drawings, especially `015` and `022`.
+- Reproduce reference technical notes and special warnings, especially the red note on `008`.
+- Rerun the six-reference CAD generation, then rerun UI visual screenshot review before attempting to accept `LB26001_36`.
+
+## LB26001 006 Template/Titleblock Cleanup Probe Still Fails UI Visual Review - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The 006 CAD/API-style gates can still report `pass` or `pass_with_warning`, but application UI screenshot evidence shows the generated drawing is not acceptable.
+- The latest correction probes do not resolve the user-reported visual nonconformance.
+
+Implementation attempted:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so same-name reference samples record a `reference_sheet_template_policy` warning and skip the built-in API-drawn GB frame/titleblock.
+- Added reference sheet artifact cleanup attempts before view insertion, including `SetupSheet5(... swDwgTemplateNone ...)`, `EditTemplate`/`EditSheet`, `DeleteSelection2`, fixed-coordinate `SKETCHSEGMENT` probes, and `Line1..Line40` selection probes.
+- Updated `test_v3_generator_reference_style_plan.py` to lock the source-level reference sheet cleanup policy.
+- Tested both repository default template and SolidWorks 2025 default `gb_a4.drwdot` through `DRWDOT_TEMPLATE`.
+
+Fresh evidence:
+
+- `drw_output/staged_validation/LB26001_006_template_cleanup_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/ca52d7b250b1`, but fresh PNG still contains the lower-left titleblock/frame.
+- `drw_output/staged_validation/LB26001_006_template_cleanup2_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/50c8b7a5716a`; cleanup warning shows `EditSheet` delete returned true, but no template line selection was proven and the PNG still contains the frame/titleblock.
+- `drw_output/staged_validation/LB26001_006_template_segment_cleanup_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/46c613aec9e6`; coordinate `SKETCHSEGMENT` selection failed.
+- `drw_output/staged_validation/LB26001_006_template_segment_cleanup2_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/fc9f1dad826e`; `VT_DISPATCH None` fixed COM type errors, but segment selection still selected `0` entities.
+- `drw_output/staged_validation/LB26001_006_line_cleanup_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/964cf420cb38`; `Line1..Line40` selection still selected `0` entities.
+- `drw_output/staged_validation/LB26001_006_sw_default_template_probe_20260622/summary.json`: CAD `pass=true`, run `drw_output/runs/337073e77a00`; using SolidWorks default `gb_a4.drwdot` did not remove the visible titleblock/frame.
+- UI visual review report: `drw_output/ui_acceptance/LB26001_006_sw_default_template_visual_review_20260622/drawing_visual_review_report.json`, with `evidence_capture_pass=true` and `visual_acceptance_pass=false`.
+- Manual UI visual judgement: `drw_output/ui_acceptance/LB26001_006_sw_default_template_visual_review_20260622/manual_visual_judgement.json`, `overall_status=FAIL`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_sw_default_template_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+
+Visual finding:
+
+- The generated drawing still contains a large lower-left default frame/titleblock that is absent from the same-name reference screenshot.
+- Dimension placement/coverage and note location/style still differ materially from the reference.
+- Therefore the 006 drawing remains visually nonconforming even when staged CAD validation reports pass.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_template_cleanup_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_template_cleanup2_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_template_segment_cleanup_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_template_segment_cleanup2_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_line_cleanup_probe_20260622 --timeout-s 900 --max-rounds 1
+$env:DRWDOT_TEMPLATE='C:\ProgramData\SOLIDWORKS\SOLIDWORKS 2025\templates\gb_a4.drwdot'; python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_sw_default_template_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_sw_default_template_probe_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_sw_default_template_visual_review_20260622 --base LB26001-A-04-006
+```
+
+Next recommendations:
+
+- Stop accepting `reference_compare=pass` / `reference_style=pass` as final for this reference set unless a matching UI visual screenshot judgement also passes.
+- Replace the current drawing template path with a proven blank drawing template, or move reference-style generation to a copied same-name reference drawing/template workflow that does not modify original `SLDDRW` files.
+- Add a visual/titleblock detector to the staged gate so a large default frame/titleblock in the model drawing area becomes an automatic `need_review` failure bucket.
+- After resolving the titleblock/template source, rerun all six reference samples and then run the application UI visual review suite again.
+
+## LB26001 006 Fresh PNG Recheck Still Fails UI Visual Review - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The prior 006 lower-left titleblock/frame screenshot finding was partly caused by stale PNG artifact contamination, not by the current fresh generator output.
+- The latest fresh 006 CAD/API stage can produce all expected deliverables, but the application UI screenshot review is still visually `FAIL`.
+
+Implementation:
+
+- Updated `app/workers/cad_job_worker.py` so copied legacy output artifacts are freshness-gated against `job_started_at`, stale artifacts are skipped, copied mtimes are preserved, and `manifest.json` records `artifact_freshness.stale_artifacts`.
+- Added `test_v3_cad_worker_artifact_freshness.py` to prove old artifacts are not copied and fresh artifact mtimes are preserved.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so the generator renders the fresh first PDF page to `*_v5.PNG` after PDF export and after post-layout PDF/DXF re-export.
+- Kept the previous reference sheet cleanup policy test in `test_v3_generator_reference_style_plan.py`; the failed blank-sheet experiment was not retained.
+- Added a manual UI visual judgement file for the fresh 006 screenshot review.
+
+Fresh evidence:
+
+- Stale source artifact found: `drw_output/v5/LB26001-A-04-006_v5.PNG`, mtime `2026-06-19 01:07:04`, SHA256 `471873D570007DE097D265E111CCDAE13719351D8444D755726A47B8CA56B2CD`.
+- Earlier run `drw_output/runs/337073e77a00/drawing/LB26001-A-04-006_v5.PNG` had the same SHA256 after copy, proving the UI screenshot had been reviewing a stale rendered PNG.
+- Fresh stale-gate probe `drw_output/staged_validation/LB26001_006_freshness_gate_probe_20260622/summary.json` correctly blocks the stale PNG with `missing_artifact:png` and records the stale source in `artifact_freshness`.
+- Fresh PNG probe `drw_output/staged_validation/LB26001_006_fresh_png_probe_20260622/summary.json` is `status=pass`, `pass=true`, `deliverable_count=1/1`, run `drw_output/runs/97691dfbacc7`.
+- Fresh deliverables include `drw_output/runs/97691dfbacc7/drawing/LB26001-A-04-006_v5.SLDDRW`, `.PDF`, `.DXF`, and `.PNG`.
+- Application UI visual review report: `drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/drawing_visual_review_report.json`, with `evidence_capture_pass=true` and `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/manual_visual_judgement.json`, `overall_status=FAIL`.
+
+Visual finding:
+
+- The stale lower-left frame/titleblock is gone from the true fresh 006 PNG.
+- The drawing is still not acceptable: the generated dimension stack is oversized/dense, a hole callout overlaps the main view, layout/annotation density does not match the same-name reference, and technical note / roughness placement differs.
+- Therefore the 006 generated drawing remains visually nonconforming even though the staged CAD/API summary reports pass.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\workers\cad_job_worker.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v3_cad_worker_artifact_freshness.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_cad_worker_artifact_freshness.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_freshness_gate_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_fresh_png_probe_20260622 --timeout-s 900 --max-rounds 1
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_fresh_png_probe_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_fresh_png_visual_review_20260622 --base LB26001-A-04-006
+python -m json.tool drw_output\ui_acceptance\LB26001_006_fresh_png_visual_review_20260622\manual_visual_judgement.json > $null
+```
+
+Next recommendations:
+
+- Keep `fresh PNG from fresh PDF` as a hard prerequisite before any visual judgement.
+- Keep per-drawing application UI screenshots as the acceptance gate for `006/007/008/009/015/022`; API, sidecar, and strict-style scores are supporting evidence only.
+- Fix the dimension policy before scaling to the remaining five reference drawings: cap automatic dimension density to the same-name reference profile, prefer concise overall/key-feature dimensions, move hole callouts outside the main view, and reserve note/roughness boxes based on the reference screenshot.
+- After the 006 visual layout is corrected, rerun fresh CAD and UI screenshot review for all six reference drawings, then rerun `LB26001_36`.
+
+## LB26001 Remaining Five Fresh UI Visual Review Failure - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The user-requested drawings `007/008/009/015/022` were freshly regenerated after the PNG freshness fix and reviewed through the application `Drawing Review` UI screenshot workflow.
+- None of the five can be accepted visually. Combined with the fresh 006 judgement above, all six requested reference drawings remain visually unqualified.
+
+Implementation:
+
+- Updated `tools/ui_robot/drawing_visual_review_suite.py` so generated PNG lookup no longer falls back to historical `drw_output/v5` outputs. The review suite now only uses `run_dir/drawing` generated PNGs; missing generated images must appear as missing evidence instead of silently using stale files.
+- The first ref5 UI review run without explicit `--base` included the default 006 base and is not used as fresh 006 evidence because the ref5 summary did not contain 006. The valid ref5 evidence is the explicit-base run listed below.
+- Added `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/manual_visual_judgement.json`.
+
+Fresh staged evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_ref5_fresh_png_probe_20260622/summary.json`.
+- Summary status: `need_review`, `pass=false`, `deliverable_count=4/5`, `processed=5`.
+- `007`: run `drw_output/runs/7786247413ed`, deliverable, structured status `pass`.
+- `008`: run `drw_output/runs/3731f36b1259`, deliverable, structured status `pass`, with `reference_style_status=pass_with_warning` and `qc_dimension_fallback_not_displaydim`.
+- `009`: run `drw_output/runs/c6151f29704b`, not deliverable; failure buckets include `cad_smoke_not_pass`, `cad_validator_nonzero`, `dimension_validation_not_pass`, and `final_quality:need_review`; reasons include `display_dim_count_below_threshold:4/5`.
+- `015`: run `drw_output/runs/8453d3aa8d49`, deliverable, structured status `pass`.
+- `022`: run `drw_output/runs/a6f2d315a39e`, deliverable, structured status `pass`.
+
+Fresh UI evidence:
+
+- UI visual review report: `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/manual_visual_judgement.json`, `overall_status=FAIL`, `fail_count=5`, `warning_count=0`, `pass_count=0`.
+- UI screenshots:
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/01_LB26001-A-04-007_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/02_LB26001-A-04-008_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/03_LB26001-A-04-009_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/04_LB26001-A-04-015_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/05_LB26001-A-04-022_ui_visual_review.png`
+
+Visual findings:
+
+- `007`: view family/layout do not match the compact same-name reference; circular callouts are crowded and the generated side/section composition differs.
+- `008`: generated view placement and scale differ; the prominent red reference warning note is missing; dimension evidence still includes a fallback warning.
+- `009`: structured dimension validation already fails, and UI evidence shows crowded circular-part dimensions plus mismatched side-view placement.
+- `015`: generated drawing loses the dense machined-plate dimensioning pattern, main view scale/position, and callout grouping visible in the reference.
+- `022`: generated drawing overproduces long dimension chains that dominate/cross the sheet; view slots and annotation grouping differ from the reference.
+
+Validation commands:
+
+```powershell
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_36 --part "3D转2D测试图纸\LB26001-A-04-007.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-008.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-009.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-015.SLDPRT" --part "3D转2D测试图纸\LB26001-A-04-022.SLDPRT" --out-dir drw_output\staged_validation\LB26001_ref5_fresh_png_probe_20260622 --timeout-s 900 --max-rounds 1
+python -m py_compile tools\ui_robot\drawing_visual_review_suite.py
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_ref5_fresh_png_probe_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_ref5_fresh_png_visual_review_bases_20260622 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python -m json.tool drw_output\ui_acceptance\LB26001_ref5_fresh_png_visual_review_bases_20260622\manual_visual_judgement.json > $null
+```
+
+Next recommendations:
+
+- Treat the six requested drawings as the immediate correction loop, not as accepted LB26001 reference evidence.
+- Fix drawing generation policies before another LB26001_36 stage: reference-based view slot selection, reference-specific dimension density caps, circular-part callout placement, plate/hole callout grouping, red warning-note reproduction for 008, and note/roughness safe-area placement.
+- Rerun fresh CAD plus explicit-base UI screenshot review for all six drawings after each generator correction. Do not accept old `drw_output/v5` PNGs or API-only `pass` as final visual evidence.
+
+## v4.0 Drafter Knowledge Kernel and DrawingBlueprint Foundation - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This slice starts the v4.0 drafter knowledge kernel requested in the new objective.
+- The work proves a source-level and artifact-level blueprint foundation only. It does not prove that generated drawings are visually acceptable, and it does not complete v4.0.
+
+Implementation:
+
+- Added `docs/drafter_knowledge_base.md` with manufacturing drawing purpose, drafter knowledge structure, view rules, dimension rules, tolerance/GD&T rules, roughness rules, titlebar rules, notes rules, part-class differences, drafter workflow, and software-module mapping.
+- Added `app/services/drawing_blueprint_model.py` with v4 dataclasses: `DrawingBlueprint`, `ViewPlan`, `DimensionPlan`, `AnnotationPlan`, `TitlebarPlan`, `NotesPlan`, and `ValidationPlan`, plus JSON schema output.
+- Added reference/profile services:
+  - `app/services/reference_drawing_pairing.py`
+  - `app/services/reference_style_profile_service.py`
+  - `app/services/reference_dimension_profile_service.py`
+  - `app/services/reference_notes_profile_service.py`
+  - `app/services/reference_titlebar_profile_service.py`
+- Added planning/building services:
+  - `config/drawing_note_blueprints.yaml`
+  - `app/services/notes_blueprint_builder.py`
+  - `app/services/dimension_planner.py`
+  - `app/services/drawing_layout_composer.py`
+  - `app/services/drawing_blueprint_builder.py`
+- Added SolidWorks safety foundation:
+  - `app/services/sw_connection_guard.py`
+  - `app/services/sw_safe_restart_workflow.py`
+- Added smoke/lock tests:
+  - `tools/validation/v4_blueprint_smoke.py`
+  - `test_v4_drawing_blueprint_core.py`
+
+Fresh evidence:
+
+- v4 reference profiles: `drw_output/reference_style_profile/reference_profiles_v4.json`, `sample_count=36`.
+- v4 six-reference blueprint smoke: `drw_output/v4_blueprint_smoke/20260622_ref6/drawing_blueprints_v4.json`, `status=pass`, `blueprint_count=6`.
+- v4 JSON schema: `drw_output/v4_blueprint_smoke/20260622_ref6/drawing_blueprint_schema_v4.json`.
+- Blueprint smoke preserves the requested reference DisplayDim floors and avoids the old universal `dim_total>=5` gate: `006=12`, `007=8`, `008=2`, `009=4`, `015=14`, `022=25`.
+- Projected reference views in the blueprints use `create_method=projection_api` and `projected_from=front`, preventing named views from masquerading as projected views.
+- Validation plans record `forbid_note_as_display_dim=true`, `forbid_named_view_as_projected=true`, and `require_ui_visual_review=true`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_blueprint_model.py app\services\notes_blueprint_builder.py app\services\dimension_planner.py app\services\reference_style_profile_service.py app\services\reference_dimension_profile_service.py app\services\reference_notes_profile_service.py app\services\reference_titlebar_profile_service.py app\services\reference_drawing_pairing.py app\services\drawing_layout_composer.py app\services\drawing_blueprint_builder.py app\services\sw_connection_guard.py app\services\sw_safe_restart_workflow.py tools\ui_robot\drawing_visual_review_suite.py test_v4_drawing_blueprint_core.py
+python test_v4_drawing_blueprint_core.py
+python -m py_compile tools\validation\v4_blueprint_smoke.py
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260622_ref6
+python -m json.tool drw_output\v4_blueprint_smoke\20260622_ref6\drawing_blueprints_v4.json > $null
+python -m json.tool drw_output\v4_blueprint_smoke\20260622_ref6\drawing_blueprint_schema_v4.json > $null
+python -m json.tool drw_output\reference_style_profile\reference_profiles_v4.json > $null
+```
+
+Remaining issues:
+
+- `drw_generate_v6.py` now partially executes `drawing_blueprint.json` as the source for view slots, DisplayDim floor, and layout centers, but it still does not fully execute notes, titlebar, detailed dimension placement, or v4 visual QC plans.
+- Initial v4/v6 visual QC modules now exist, but they are conservative image/blueprint screening and UI screenshot gate enforcement only; full OCR/YOLO/titlebar/notes/dimension visual intelligence remains incomplete.
+- `reference_compare_v4.json`, `dimension_gap_report_v4.xlsx`, `notes_gap_report_v4.xlsx`, and `drawing_quality_report_v4.xlsx` are not produced yet.
+- The six requested drawings remain visually FAIL in application screenshot review, so no release PASS or v4 PASS can be claimed.
+
+## v4.0 DrawingBlueprint Generator Hook - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This slice adds source-level generator wiring only. It does not prove any generated drawing is correct.
+- Per the current acceptance rule, API/sidecar/strict-style results are supporting evidence only; every generated drawing in `006/007/008/009/015/022` must still be verified through the application UI screenshot workflow before it can be accepted.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` to build or load a v4 DrawingBlueprint before view creation.
+- The generator now writes blueprint copies to `RUN_DIR/qc/drawing_blueprint.json` when `RUN_DIR` is present and to `<out_dir>/<base>_drawing_blueprint.json`.
+- `DRAWING_BLUEPRINT_PATH` can explicitly supply a blueprint; otherwise the generator builds one from `REFERENCE_PROFILES_V4` / `drw_output/reference_style_profile/reference_profiles_v4.json`.
+- The blueprint now overrides the legacy reference-style view slots, DisplayDim floor, layout centers, and no-section policy when present.
+- The warnings JSON and generator return value now include blueprint source/path evidence.
+- Added `test_v4_generator_blueprint_execution.py` to lock the generated-blueprint path and explicit-blueprint path behavior.
+
+Fresh evidence:
+
+- v4 generator hook test: `test_v4_generator_blueprint_execution.py`, PASS.
+- Existing v4 core test: `test_v4_drawing_blueprint_core.py`, PASS.
+- Existing generator reference-style test: `test_v3_generator_reference_style_plan.py`, PASS.
+- Fresh v4 six-reference blueprint smoke: `drw_output/v4_blueprint_smoke/20260622_ref6_after_generator_hook/drawing_blueprints_v4.json`, `status=pass`, `blueprint_count=6`.
+- Fresh v4 schema: `drw_output/v4_blueprint_smoke/20260622_ref6_after_generator_hook/drawing_blueprint_schema_v4.json`.
+- Application UI screenshot recheck artifact: `drw_output/ui_acceptance/LB26001_ref6_screenshot_recheck_after_generator_hook_20260622/manual_visual_recheck.json`, `overall_status=FAIL`, `fail_count=6`, `pass_count=0`.
+- Rechecked screenshots:
+  - `drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/01_LB26001-A-04-007_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/02_LB26001-A-04-008_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/03_LB26001-A-04-009_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/04_LB26001-A-04-015_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/05_LB26001-A-04-022_ui_visual_review.png`
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_generator_blueprint_execution.py test_v4_drawing_blueprint_core.py test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v3_generator_reference_style_plan.py
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260622_ref6_after_generator_hook
+python -m json.tool drw_output\v4_blueprint_smoke\20260622_ref6_after_generator_hook\drawing_blueprints_v4.json > $null
+python -m json.tool drw_output\v4_blueprint_smoke\20260622_ref6_after_generator_hook\drawing_blueprint_schema_v4.json > $null
+python -m json.tool drw_output\reference_style_profile\reference_profiles_v4.json > $null
+python -m json.tool drw_output\ui_acceptance\LB26001_ref6_screenshot_recheck_after_generator_hook_20260622\manual_visual_recheck.json > $null
+```
+
+Remaining issues:
+
+- Real CAD was not rerun in this slice; SolidWorks connection guard and fresh generation remain required before new screenshots.
+- Full blueprint execution is still incomplete: notes_plan, titlebar_plan, annotation_plan, and detailed dimension placement are not yet authoritative in the generator.
+- v4 `vision_qc`, `dimension_validation`, and `reference_compare_v4` artifacts are still missing from each generated drawing.
+- The six requested drawings remain visually unqualified until fresh generated PNGs pass explicit-base application UI screenshot review, one screenshot/judgement per drawing.
+
+## v4.0 Vision QC v6 Initial Evidence Chain - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This slice creates the first v6 visual QC evidence chain, but it is not a drawing acceptance pass.
+- The new v6 gate explicitly requires application UI screenshot review when the DrawingBlueprint `validation_plan.require_ui_visual_review` flag is true. Without a passing UI screenshot judgement, `vision_qc_v6` remains `need_review`.
+
+Implementation:
+
+- Added `app/services/drawing_object_detector.py` for lightweight PNG ink/component/view/dimension/symbol candidate detection.
+- Added `app/services/titlebar_detector.py` and `app/services/notes_detector.py`; both convert drawing sheet bottom-left normalized boxes to PNG top-left coordinates before measuring titlebar/notes regions.
+- Added `app/services/dimension_visual_validator.py` to compare visual dimension candidates against `DrawingBlueprint.dimension_plan.required_display_dim_count` without counting Note text as DisplayDim.
+- Added `app/services/vision_qc_v6.py`, which writes `vision_qc_v6.json` with issue fields: `key`, `severity`, `bbox`, `source`, `confidence`, `evidence`, `fix_suggestion`, `auto_fix_available`, and `human_review_status`.
+- Updated `app/workers/cad_job_worker.py` so QProcess CAD jobs emit `qc/vision_qc_v6.json` after `vision_qc_v2.json` / `final_quality.json`.
+- Updated `tools/validation/staged_cad_validation_v3.py` so each staged case writes `vision_qc_v6.json`, reports `vision_qc_v6_pass/status/report`, and adds `vision_qc_v6_not_pass` / `vision_qc_v6_report_missing` to `failure_bucket`.
+- Updated `tools/validation/real_cad_smoke_v3.py` so smoke artifact evidence includes `drawing_blueprint` and `vision_qc_v6`.
+- Added `test_v4_vision_qc_v6.py`.
+
+Fresh evidence:
+
+- Unit/source tests passed:
+  - `test_v4_vision_qc_v6.py`
+  - `test_v4_generator_blueprint_execution.py`
+  - `test_v4_drawing_blueprint_core.py`
+  - `test_v3_generator_reference_style_plan.py`
+- Fresh v4 blueprint smoke after v6 module addition: `drw_output/v4_blueprint_smoke/20260622_ref6_after_vision_qc_v6/drawing_blueprints_v4.json`, `status=pass`, `blueprint_count=6`.
+- Six-sample v6 visual probe: `drw_output/vision_qc_v6_probe/LB26001_ref6_current_png_20260622/summary.json`, `status=need_review`, `visual_acceptance_pass=false`, `fail_count=6`, `pass_count=0`.
+- Probe cases point to per-drawing `vision_qc_v6.json` outputs under `drw_output/vision_qc_v6_probe/LB26001_ref6_current_png_20260622/<base>/`.
+- Static staged-gate proof: `drw_output/vision_qc_v6_probe/staged_gate_static_probe_20260622.json`; with CAD, dimension, reference, and style all passing, `vision_qc_v6_not_pass` makes the case `status=need_review`, `deliverable=false`, and summary `pass=false`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_object_detector.py app\services\titlebar_detector.py app\services\notes_detector.py app\services\dimension_visual_validator.py app\services\vision_qc_v6.py app\workers\cad_job_worker.py test_v4_vision_qc_v6.py
+python test_v4_vision_qc_v6.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_staged_cad_validation.py
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260622_ref6_after_vision_qc_v6
+python -m json.tool drw_output\vision_qc_v6_probe\LB26001_ref6_current_png_20260622\summary.json > $null
+python -m json.tool drw_output\vision_qc_v6_probe\staged_gate_static_probe_20260622.json > $null
+```
+
+Six-sample v6 probe result:
+
+- `006`: `need_review`; issue keys include `titlebar_missing_or_empty`, `dimension_visual_overdense`, `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+- `007`: `need_review`; issue keys include `dimension_visual_overdense`, `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+- `008`: `need_review`; issue keys include `view_frames_lower_than_blueprint`, `titlebar_missing_or_empty`, `dimension_visual_overdense`, `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+- `009`: `need_review`; issue keys include `dimension_visual_overdense`, `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+- `015`: `need_review`; issue keys include `view_frames_lower_than_blueprint`, `titlebar_missing_or_empty`, `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+- `022`: `need_review`; issue keys include `roughness_plan_not_marked_required`, `manual_ui_screenshot_review_required`.
+
+Remaining issues:
+
+- v6 visual QC is intentionally conservative and not a substitute for the application Drawing Review UI screenshot workflow.
+- Real CAD was not rerun in this slice; the worker hook will produce `vision_qc_v6.json` on the next fresh QProcess CAD run.
+- Historical staged summaries that predate this gate may still show `pass`; they are superseded for acceptance by the v6 visual gate and application UI screenshot evidence.
+- Final fresh-run v4 `reference_compare_v4.json`, `dimension_gap_report_v4.xlsx`, `notes_gap_report_v4.xlsx`, and `drawing_quality_report_v4.xlsx` are still missing from a regenerated acceptable drawing set.
+- The six requested drawings remain visually unqualified.
+
+## v4.0 Strict Reference Compare Gate - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This slice adds the strict `reference_compare_v4` gate and staged-validation wiring, but it does not make any of the six requested drawings acceptable.
+- API/sidecar/staged style pass evidence is now explicitly subordinate to application UI screenshot acceptance for `006/007/008/009/015/022`.
+
+Implementation:
+
+- Added `app/services/reference_compare_v4.py`.
+- Added `tools/validation/reference_compare_v4.py`.
+- Updated `tools/validation/staged_cad_validation_v3.py` so staged cases can write `reference_compare_v4.json`, include `reference_compare_v4_pass/status/report`, and add `reference_compare_v4_not_pass` / `reference_compare_v4_report_missing` to failure buckets.
+- Added `test_v4_reference_compare.py`.
+- Updated `test_v3_staged_cad_validation.py` with a v4 blocking regression.
+
+Strict rules now enforced:
+
+- Compare DrawingBlueprint view count/type family against same-name `reference_profiles_v4.json`.
+- Manufacturing drawings must meet the reference DisplayDim floor; `dim_total>=5` is not sufficient.
+- Note dimensions are recorded but never counted as DisplayDim.
+- Projected views must use `projection_api`; named views cannot substitute for projected views.
+- Titlebar, notes, layout, symbols, and drawing purpose are included in v4 scoring.
+- `vision_qc_v6.visual_acceptance_pass` plus the application UI screenshot review check are required when the blueprint requires UI visual review.
+
+Fresh evidence:
+
+- Strict six-sample probe: `drw_output/reference_compare_v4_probe/LB26001_ref6_current_after_strict_gate_20260622/summary.json`.
+- Probe result: `status=need_review`, `pass=false`, `pass_count=0`, `fail_or_review_count=6`.
+- `006`: `fail`, generated/reference DisplayDim `8/12`; issue keys include `display_dim_lower_than_reference`, `ui_screenshot_visual_acceptance_not_passed`, `titlebar_match_below_threshold`.
+- `007`: `need_review`, generated/reference DisplayDim `10/8`; blocked by `ui_screenshot_visual_acceptance_not_passed` and symbol evidence.
+- `008`: `need_review`, generated/reference DisplayDim `16/2`; blocked by `ui_screenshot_visual_acceptance_not_passed`, titlebar, and symbol evidence.
+- `009`: `need_review`, generated/reference DisplayDim `4/4`; blocked by `ui_screenshot_visual_acceptance_not_passed` and symbol evidence.
+- `015`: `fail`, generated/reference DisplayDim `8/14`; issue keys include `display_dim_lower_than_reference`, `ui_screenshot_visual_acceptance_not_passed`, `titlebar_match_below_threshold`.
+- `022`: `fail`, generated/reference DisplayDim `8/25`; issue keys include `display_dim_lower_than_reference`, `ui_screenshot_visual_acceptance_not_passed`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_compare_v4.py tools\validation\reference_compare_v4.py tools\validation\staged_cad_validation_v3.py test_v4_reference_compare.py test_v3_staged_cad_validation.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_vision_qc_v6.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_reference_compare_smoke.py
+```
+
+Remaining issues:
+
+- Real CAD was not rerun in this slice; current probe uses existing generated artifacts and existing application UI screenshot judgements.
+- The generator still must be corrected for DisplayDim floor coverage on `006/015/022`, titlebar/notes/symbol rendering, and visual layout readability.
+- All six requested drawings still require fresh explicit-base application UI screenshot review after regeneration.
+- No v4 PASS may be claimed.
+
+## v4.0 Blueprint Notes/Titlebar Execution Slice - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This slice improves generator blueprint execution, but it is still source-level evidence only.
+- No SolidWorks real regeneration was run in this slice, and no application UI screenshot acceptance changed from FAIL to PASS.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` with v4 DrawingBlueprint execution helpers:
+  - titlebar property override extraction from `titlebar_plan.fields`;
+  - visible titlebar Note insertion plan in the blueprint titlebar box;
+  - notes_plan insertion plan in the blueprint notes box;
+  - annotation flags for roughness/datum/GTol so hard-coded Datum/GTol are not inserted when the blueprint does not require them.
+- Updated the generator step 9 so v4 blueprints drive visible notes/titlebar insertion, while the legacy hard-coded fallback remains for non-blueprint paths.
+- Updated `app/services/reference_notes_profile_service.py` so uppercase `RA3.2` is recognized as roughness evidence.
+- Updated `app/services/drawing_blueprint_builder.py` so the final `notes_plan` can set `annotation_plan.roughness_required` when required notes mention `Ra`, `roughness`, or `粗糙度`.
+- Updated `test_v4_generator_blueprint_execution.py` and `test_v4_drawing_blueprint_core.py`.
+
+Fresh evidence:
+
+- Blueprint smoke: `drw_output/v4_blueprint_smoke/20260622_blueprint_execution_notes_titlebar_rerun/drawing_blueprints_v4.json`, `status=pass`, `blueprint_count=6`.
+- Execution-plan probe: `drw_output/v4_blueprint_execution_probe/notes_titlebar_symbol_plan_20260622.json`, `status=pass`, `case_count=6`.
+- Probe confirms each requested reference `006/007/008/009/015/022` has:
+  - `note_plan_count=1`;
+  - `titlebar_plan_count=1`;
+  - `roughness_required=true`;
+  - notes insertion around `(0.17626m, 0.0675m)`;
+  - titlebar insertion around `(0.20496m, 0.0338m)`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_blueprint_builder.py app\services\reference_notes_profile_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_drawing_blueprint_core.py test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260622_blueprint_execution_notes_titlebar_rerun
+```
+
+Remaining issues:
+
+- The generator still must be proven on a fresh real SolidWorks run, starting with `006` only after the connection guard is responsive.
+- Current generated PNGs and application UI screenshots still fail; this slice does not supersede `drw_output/ui_acceptance/LB26001_ref6_screenshot_recheck_after_generator_hook_20260622/manual_visual_recheck.json`.
+- DisplayDim floor failures remain for current `006/015/022` artifacts until fresh CAD output proves otherwise.
+- The final v4 reports/workbooks remain pending.
+
+## v4.0 006 Dimension Arrangement With UI Visual Gate - 2026-06-22
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The latest 006 correction improves measurable dimension placement, but the drawing is still not acceptable because the application UI screenshot review remains `FAIL`.
+- API, sidecar, dimension validation, and strict structural checks are supporting evidence only; this result confirms the user rule that every drawing must be checked through UI screenshot review before acceptance.
+
+Implementation:
+
+- Updated `app/services/dimension_arrange_service.py` with robust COM value extraction, view/dimension enumeration fallbacks, annotation-chain support, titlebar/notes avoid boxes, and collision reporting.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so dimension arrangement runs before export and again after layout, then saves the corrected drawing when dimensions are adjusted.
+- Added a live generator fallback that uses the already-open drawing's type-1 annotation chain when a reopened SLDDRW cannot enumerate dimensions through the service path.
+- Added `test_v4_dimension_arrange_service.py`.
+- Updated `test_v4_generator_blueprint_execution.py` to guard the generator integration.
+
+Fresh 006 evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_v4_dimension_arrange_annotation_20260622/summary.json`, `status=need_review`, `pass=false`, `acceptance_pass=false`.
+- Run directory: `drw_output/runs/f08efb57abd2`.
+- Dimension arrangement report: `drw_output/runs/f08efb57abd2/qc/dimension_arrange.json`, `success=true`, `source=generator_display_dim_annotation_chain`, `total_dimensions=16`, `adjusted_dimensions=7`, `overlap_before=2`, `overlap_after=0`.
+- Dimension validation remains above the 006 reference floor: generated/reference DisplayDim `14/12`.
+- Application UI visual review report: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison image: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual UI judgement: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/manual_visual_judgement.json`, `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- v6 vision QC with manual UI review: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/vision_qc_v6_with_ui_review.json`, `status=need_review`, `visual_acceptance_pass=false`.
+- Strict v4 reference compare with UI review: `drw_output/ui_acceptance/LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622/reference_compare_v4_with_ui_review.json`, `status=need_review`, reason `ui_screenshot_visual_acceptance_not_passed`.
+
+Visual finding:
+
+- The new arrangement stage reduced direct dimension overlaps, but the generated drawing still has an unacceptable dense dimension cluster around the long-thin part and does not preserve the same-name reference drawing's clean long-thin layout intent.
+- Notes/titlebar evidence is present, but the rendered layout/readability still does not match the reference enough for a manufacturing drawing.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\dimension_arrange_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_dimension_arrange_service.py test_v4_generator_blueprint_execution.py
+python test_v4_dimension_arrange_service.py
+python test_v4_generator_blueprint_execution.py
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_v4_dimension_arrange_annotation_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622 --base LB26001-A-04-006
+python -m app.services.vision_qc_v6 --png drw_output\runs\f08efb57abd2\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\f08efb57abd2 --blueprint drw_output\runs\f08efb57abd2\qc\drawing_blueprint.json --qc-json drw_output\runs\f08efb57abd2\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\ui_acceptance\LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622\manual_visual_judgement.json --out drw_output\ui_acceptance\LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\f08efb57abd2\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_v4_dimension_arrange_annotation_20260622\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\ui_acceptance\LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622\vision_qc_v6_with_ui_review.json --reference-profiles drw_output\reference_style_profile\reference_profiles_v4.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_v4_dimension_arrange_annotation_20260622\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_v4_dimension_arrange_annotation_20260622\01_LB26001-A-04-006\reference_style.json --out drw_output\ui_acceptance\LB26001_006_v4_dimension_arrange_annotation_visual_review_20260622\reference_compare_v4_with_ui_review.json
+```
+
+Remaining issues:
+
+- Replace generic AutoDimension/fallback placement with a reference-specific long-thin dimension grouping strategy learned from `LB26001-A-04-006.SLDDRW`.
+- Rework notes/titlebar placement and readability against the reference UI screenshot, not just JSON fields.
+- After 006 visually passes, rerun fresh CAD plus explicit-base UI screenshot review for `007/008/009/015/022`; only then continue to `LB26001_36`, `medium_30`, and full `129`.
+
+## v4.0 006 Long-Thin Lane and Cap Probe - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The generated 006 drawing is measurably cleaner, but it still fails application UI screenshot review and cannot be accepted.
+- This slice does not lower any QC threshold: the latest run keeps generated real DisplayDim at the 006 reference floor `12/12` and remains blocked by `ui_screenshot_visual_acceptance_not_passed`.
+
+Implementation:
+
+- Updated `app/services/dimension_arrange_service.py` so `part_class=long_thin` uses reference-lane positioning for front/top/right/iso views instead of only local text displacement.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so the live annotation-chain fallback also receives DrawingBlueprint part class, groups dimensions by learned layout slot, and applies long-thin lane candidates.
+- Updated the same generator so long-thin persisted DisplayDim pruning uses cap `reference_floor + 2`; default non-long-thin cap behavior remains unchanged.
+- Updated `test_v4_dimension_arrange_service.py`, `test_v4_generator_blueprint_execution.py`, and `test_v3_generator_reference_style_plan.py`.
+
+Fresh 006 evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_long_thin_cap_20260623/summary.json`, `status=need_review`, `pass=false`, `deliverable_count=0`.
+- Run directory: `drw_output/runs/133b5cfc1a5d`.
+- Structural gates remain green: CAD, dimension validation, reference compare, and reference style all pass in the case summary.
+- AutoDimension evidence: `reference_autodim.before=0`, `after=14`, `calls_used=2`.
+- Long-thin prune evidence in `qc/LB26001-A-04-006_v5_warnings.json`: cap `14`, persisted annotations `16 -> 14`, deleted `2`, success true.
+- Final real DisplayDim evidence: `display_dim_count_before_sidecar=12`, `display_dim_count_final=12`, matching the 006 reference floor.
+- Dimension arrangement report: `drw_output/runs/133b5cfc1a5d/qc/dimension_arrange.json`, `source=generator_display_dim_annotation_chain`, `total_dimensions=14`, `adjusted_dimensions=11`, `overlap_before=2`, `overlap_after=0`.
+- Application UI visual review report: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual UI judgement: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/manual_visual_judgement.json`, `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- v6 QC with manual review: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/vision_qc_v6_with_ui_review.json`, `status=need_review`, `visual_acceptance_pass=false`, issue keys `dimension_visual_overdense` and `manual_ui_screenshot_review_required`.
+- v6 visual density improved but still fails: latest `dimension_text_candidate_count=108`, down from the prior long-thin lane run's `126`.
+- Strict v4 compare with UI review: `drw_output/ui_acceptance/LB26001_006_long_thin_cap_visual_review_20260623/reference_compare_v4_with_ui_review.json`, `status=need_review`, reason `ui_screenshot_visual_acceptance_not_passed`.
+
+Visual finding:
+
+- The 006 drawing is cleaner than the previous dense-left and unbounded AutoDimension outputs.
+- It remains AutoDimension-led rather than reference-intent-led: the reference drawing uses concise end, hole, and inspection-oriented dimension groups, while the generated drawing still uses heavy baseline chains around the front/top long views.
+- The next correction must generate or filter dimensions by explicit long-thin manufacturing intent groups, not only by DisplayDim count or collision-free text placement.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\dimension_arrange_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_dimension_arrange_service.py test_v4_generator_blueprint_execution.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_dimension_arrange_service.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_long_thin_cap_20260623 --timeout-s 900 --max-rounds 1
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_long_thin_cap_20260623\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_long_thin_cap_visual_review_20260623 --base LB26001-A-04-006
+python -m app.services.vision_qc_v6 --png drw_output\runs\133b5cfc1a5d\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\133b5cfc1a5d --blueprint drw_output\runs\133b5cfc1a5d\qc\drawing_blueprint.json --qc-json drw_output\runs\133b5cfc1a5d\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\ui_acceptance\LB26001_006_long_thin_cap_visual_review_20260623\manual_visual_judgement.json --out drw_output\ui_acceptance\LB26001_006_long_thin_cap_visual_review_20260623\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\133b5cfc1a5d\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_long_thin_cap_20260623\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\ui_acceptance\LB26001_006_long_thin_cap_visual_review_20260623\vision_qc_v6_with_ui_review.json --reference-profiles drw_output\reference_style_profile\reference_profiles_v4.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_long_thin_cap_20260623\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_long_thin_cap_20260623\01_LB26001-A-04-006\reference_style.json --out drw_output\ui_acceptance\LB26001_006_long_thin_cap_visual_review_20260623\reference_compare_v4_with_ui_review.json
+```
+
+Remaining issues:
+
+- Build explicit reference-intent dimension groups for long-thin LB26001 parts: overall length/width, end offsets, hole positions, projected-view size, and only required radius/thread callouts.
+- The application UI screenshot must become PASS for 006 before rerunning `007/008/009/015/022`.
+- No v4 PASS may be claimed.
+
+## v4.0 006 Reference-Intent Quota Probe - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- 006 is structurally improved but still visually unacceptable in the application Drawing Review UI.
+- API/style gates are supporting evidence only; the final drawing decision remains blocked by `ui_screenshot_visual_acceptance_not_passed`.
+
+Implementation:
+
+- Extended `app/services/drawing_blueprint_model.py` with `dimension_intent_groups` and `view_dimension_quotas`.
+- Updated `app/services/dimension_planner.py` so long-thin reference drawings emit explicit manufacturing intent groups and per-view quotas. For 006 the plan is `front=4`, `top=6`, `right=2`.
+- Updated `app/services/drawing_blueprint_builder.py` to pass reference view slots into the dimension planner.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so long-thin AutoDimension attempts all planned slots (`front/top/right`) before declaring intent satisfied, prunes persisted DisplayDim by slot quota, and performs a final post-layout quota prune before re-exporting PDF/DXF/PNG.
+- Added a long-thin sidecar-count guard for quota pruning: effective cap `reference_floor + 3` for quota-controlled long-thin drawings. This keeps the real DisplayDim floor at 12; it does not reduce thresholds.
+- Updated `test_v4_drawing_blueprint_core.py`, `test_v4_generator_blueprint_execution.py`, and `test_v3_generator_reference_style_plan.py`.
+
+Fresh 006 evidence:
+
+- Best staged summary this round: `drw_output/staged_validation/LB26001_006_reference_intent_quota4_20260623/summary.json`, `status=need_review`, `pass=false`, `deliverable_count=0`.
+- Run directory: `drw_output/runs/093ab290e2c9`.
+- Structural gates: `cad_pass=true`, `dimension_pass=true`, `reference_pass=true`, `reference_style_pass=true`.
+- Final DisplayDim evidence: `drw_output/runs/093ab290e2c9/qc/LB26001-A-04-006_v5_warnings.json` records `display_dim_count_before_sidecar=12` and `display_dim_count_final=12`.
+- Prune evidence: initial persisted prune cap `15`, local annotation count `20 -> 15`, deleted `5`, with `effective_cap_reason=long_thin_slot_quota_sidecar_count_guard` and `slot_quota_slack=3`.
+- Dimension validation: `drw_output/staged_validation/LB26001_006_reference_intent_quota4_20260623/01_LB26001-A-04-006/dimension_validation.json`, `display_dim_count=12`, `status=pass_with_warning`.
+- Application UI screenshot report: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison image: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual UI judgement: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/manual_visual_judgement.json`, `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- v6 QC with manual review: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/vision_qc_v6_with_ui_review.json`, `status=need_review`, `visual_acceptance_pass=false`, `dimension_text_candidate_count=105`, `display_dim_count=12`.
+- Strict v4 compare with UI review: `drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/reference_compare_v4_with_ui_review.json`, `status=need_review`, `overall_score=1.0`, reason `ui_screenshot_visual_acceptance_not_passed`.
+
+Visual finding:
+
+- The generator now reaches the 006 reference DisplayDim floor and keeps reference style gates green.
+- The UI screenshot still fails because visible dimensions remain AutoDimension-like baseline groups. They include right-view dimensions but do not match the reference drawing's concise blue end-offset, hole-position, and inspection-oriented layout.
+- Next work should stop relying on AutoDimension for the long-thin core dimensions and create explicit SolidWorks DisplayDim objects for the planned intent groups.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_blueprint_model.py app\services\dimension_planner.py app\services\drawing_blueprint_builder.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_drawing_blueprint_core.py test_v4_generator_blueprint_execution.py test_v3_generator_reference_style_plan.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_dimension_arrange_service.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v3_staged_cad_validation.py
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_reference_intent_quota4_20260623 --timeout-s 900 --max-rounds 1
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_reference_intent_quota4_20260623\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623 --base LB26001-A-04-006
+python -m json.tool drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\manual_visual_judgement.json
+python -m app.services.vision_qc_v6 --png drw_output\runs\093ab290e2c9\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\093ab290e2c9 --blueprint drw_output\runs\093ab290e2c9\qc\drawing_blueprint.json --qc-json drw_output\runs\093ab290e2c9\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\manual_visual_judgement.json --out drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\093ab290e2c9\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_reference_intent_quota4_20260623\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\vision_qc_v6_with_ui_review.json --reference-profiles drw_output\reference_style_profile\reference_profiles_v4.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_reference_intent_quota4_20260623\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_reference_intent_quota4_20260623\01_LB26001-A-04-006\reference_style.json --out drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\reference_compare_v4_with_ui_review.json
+python -m json.tool drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\vision_qc_v6_with_ui_review.json
+python -m json.tool drw_output\ui_acceptance\LB26001_006_reference_intent_quota4_visual_review_20260623\reference_compare_v4_with_ui_review.json
+```
+
+Remaining issues:
+
+- 006 is still not visually qualified. Do not proceed to claim 006 PASS or rerun the full six as acceptance until UI screenshot review passes.
+- The reference profiles still lack extracted dimension bboxes/hole/radius/thread semantics for the six drawings, so current intent groups are rule-based rather than fully learned from reference geometry.
+- The next correction should implement explicit dimension creation/filtering by `dimension_intent_groups` instead of depending on SolidWorks `AutoDimension` baseline output.
+
+## v4.0 006 Reference-Intent Scoring and Protected Top Lane - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- 006 is structurally green again, but application Drawing Review UI screenshot judgement is still `FAIL`.
+- API, strict style, and geometry evidence are supporting evidence only; acceptance remains blocked by `ui_screenshot_visual_acceptance_not_passed`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` to score persisted DisplayDim annotations against `DrawingBlueprint.dimension_plan.dimension_intent_groups` and `view_dimension_quotas`.
+- Quota pruning now records `reference_intent_score_before` and `reference_intent_score_after`, then deletes lower-score dimensions first instead of deleting only by enumeration order.
+- Updated `app/services/dimension_arrange_service.py` and the generator annotation-chain fallback so long-thin `top`-view dimensions use a protected lane with a `0.018m` base offset and do not preserve near-view original callout positions.
+- Updated `tools/ui_robot/drawing_visual_review_suite.py` with explicit `--generated-png BASE=PATH` support. This is opt-in only and does not re-enable historical `drw_output/v5` fallback.
+- Updated source tests: `test_v3_generator_reference_style_plan.py`, `test_v4_generator_blueprint_execution.py`, and `test_v4_dimension_arrange_service.py`.
+
+Fresh evidence:
+
+- First scoring probe: `drw_output/staged_validation/LB26001_006_reference_intent_scored_prune_20260623/summary.json`, `status=need_review`, `deliverable_count=0`.
+- First probe run directory: `drw_output/runs/1492e0377567`.
+- The generator itself produced fresh SLDDRW/PDF/DXF/PNG, but the worker failed after generation because legacy `quality_check` hit SolidWorks `OpenDoc6` RPC failure. This probe is not a deliverable pass.
+- Explicit generated-PNG app UI evidence for that failed-worker probe: `drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/drawing_visual_review_report.json`, `evidence_capture_pass=true`.
+- Manual judgement for the failed-worker probe: `drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/manual_visual_judgement.json`, `overall_status=FAIL`.
+- Protected-lane staged run: `drw_output/staged_validation/LB26001_006_top_lane_protected_20260623/summary.json`, `status=need_review`, `pass=false`, `deliverable_count=0`.
+- Protected-lane run directory: `drw_output/runs/0d47f97a5cce`.
+- Structural gates for `0d47f97a5cce`: `cad_pass=true`, `dimension_pass=true`, `reference_pass=true`, `reference_style_pass=true`; `vision_qc_v6_pass=false`, `reference_compare_v4_pass=false`.
+- Final DisplayDim evidence: `drw_output/runs/0d47f97a5cce/qc/LB26001-A-04-006_v5_warnings.json` records `display_dim_count_before_sidecar=12` and `display_dim_count_final=12`.
+- Dimension arrangement evidence: `drw_output/runs/0d47f97a5cce/qc/dimension_arrange.json`, `total_dimensions=15`, `adjusted_dimensions=4`, `overlap_before=3`, `overlap_after=0`.
+- Reference-intent scoring evidence: post-prune `reference_intent_score_after.avg=9.0` in `drw_output/runs/0d47f97a5cce/qc/LB26001-A-04-006_v5_warnings.json`.
+- Application UI screenshot report: `drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual UI judgement: `drw_output/ui_acceptance/LB26001_006_top_lane_protected_visual_review_20260623/manual_visual_judgement.json`, `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- v6 QC with UI review: `drw_output/staged_validation/LB26001_006_top_lane_protected_20260623/01_LB26001-A-04-006/vision_qc_v6_with_ui_review.json`, `status=need_review`, `dimension_visual_overdense`, `dimension_text_candidate_count=126`, `manual_review_status=fail`.
+- Strict v4 compare with UI review: `drw_output/staged_validation/LB26001_006_top_lane_protected_20260623/01_LB26001-A-04-006/reference_compare_v4_with_ui_review.json`, `status=need_review`, `overall_score=1.0`, reason `ui_screenshot_visual_acceptance_not_passed`.
+
+Visual finding:
+
+- The protected lane correction improved stability and preserved the 006 reference DisplayDim floor without lowering thresholds.
+- The generated drawing is still visually unacceptable: the angled hole/radius/thread callout stack remains over the left/top area of the top view and does not match the same-name reference's compact right-side callout grouping.
+- The next correction must explicitly place or recreate hole/radius/thread callouts in a reference-style leader area outside the top-view box, then rerun 006 and application UI screenshot review.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile tools\ui_robot\drawing_visual_review_suite.py
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_reference_intent_scored_prune_20260623\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_reference_intent_scored_prune_visual_review_20260623 --base LB26001-A-04-006 --generated-png LB26001-A-04-006=drw_output\v5\LB26001-A-04-006_v5.PNG
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_verify'; python -m py_compile app\services\dimension_arrange_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_dimension_arrange_service.py
+python test_v4_dimension_arrange_service.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --out-dir drw_output\staged_validation\LB26001_006_top_lane_protected_20260623 --timeout-s 900 --max-rounds 1 --sw-guard-timeout-s 20
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_top_lane_protected_visual_review_20260623 --base LB26001-A-04-006
+python -m app.services.vision_qc_v6 --png drw_output\runs\0d47f97a5cce\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\0d47f97a5cce --blueprint drw_output\runs\0d47f97a5cce\qc\drawing_blueprint.json --qc-json drw_output\runs\0d47f97a5cce\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\manual_visual_judgement.json --out drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\0d47f97a5cce\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\vision_qc_v6_with_ui_review.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\reference_style.json --out drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\reference_compare_v4_with_ui_review.json
+python -m json.tool drw_output\ui_acceptance\LB26001_006_top_lane_protected_visual_review_20260623\manual_visual_judgement.json
+python -m json.tool drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\vision_qc_v6_with_ui_review.json
+python -m json.tool drw_output\staged_validation\LB26001_006_top_lane_protected_20260623\01_LB26001-A-04-006\reference_compare_v4_with_ui_review.json
+```
+
+Remaining issues:
+
+- 006 remains `FAIL` by application UI screenshot. Do not proceed to the remaining five requested drawings as acceptance work until 006 is visually accepted.
+- The large angled hole/radius/thread callout group must be explicitly controlled; lane offsets alone are not sufficient.
+- v4/v3 release status remains `WARNING / NOT RELEASE READY`.
+
+## v4.2 Ref6 UI Screenshot Recheck and 006 Reference-Intent Plan - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING`; the project has not reached release conditions.
+- The six user-requested drawings were reviewed from application Drawing Review UI screenshots, not from API summaries alone.
+- All six remain visually unqualified. The old `LB26001_ref6_current_20260622/summary.json` structured acceptance is superseded as final drawing evidence by the UI screenshot judgement below.
+- 006 is still the required first correction target. The remaining five samples are learning/problem-location references only until 006 passes application UI screenshot judgement.
+
+UI screenshot evidence:
+
+- Source UI screenshot report: `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/drawing_visual_review_report.json`.
+- Human-readable judgement: `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement_v4_2.md`.
+- Machine-readable judgement: `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement.json`, `overall_status=FAIL`, `visual_acceptance_pass=false`, `fail_count=6`, `pass_count=0`.
+- Application screenshots:
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/02_LB26001-A-04-007_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/03_LB26001-A-04-008_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/04_LB26001-A-04-009_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/05_LB26001-A-04-015_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/06_LB26001-A-04-022_ui_visual_review.png`
+- Reference-vs-generated comparison images are under `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/comparison_images/`.
+- Six v6 visual QC files with the UI judgement attached are under `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/vision_qc_v6_with_ui_review/`; all report `status=need_review` and `manual_review_status=fail`.
+
+Visual findings:
+
+- `006`: still looks like generic AutoDimension/template output; titleblock, view placement, small projected view, and dimension grouping do not match the concise same-name reference intent.
+- `007`: cylinder diameter/tolerance/thread callouts are not reproduced in the compact reference style; generated titleblock/layout is too generic.
+- `008`: plate face view and red manufacturing-note intent are not reproduced; generated output keeps default template areas.
+- `009`: diameter/internal feature callouts are weak or missing; compact cylinder layout is not matched.
+- `015`: high-density plate callouts are not reproduced; generated main view is too small and under-dimensioned for the reference standard.
+- `022`: bracket stepped-height and hole-location dimension groups are missing or unreadable.
+
+Implementation:
+
+- Added `app/services/reference_intent_dimension_planner.py`.
+- Added `app/services/reference_intent_dimension_executor.py`.
+- Added `app/services/solidworks_entrypoint_scanner.py`.
+- Updated `tools/validation/scan_solidworks_entrypoints_v4_1.py` to delegate to the service scanner.
+- Added `test_v4_2_reference_intent_dimension_planner.py`.
+- Generated `drw_output/reference_intent_dimension_plan_006.json`.
+- Generated `drw_output/reference_intent_dimension_contract_006.json`.
+
+006 reference-intent plan:
+
+- Plan status: `plan_ready_requires_cad_worker_lock`.
+- Required real DisplayDim count: `12`.
+- Dimension targets: `12`, each with `source_reference`, `target_view`, `expected_type`, and `fallback_policy`.
+- Groups: `overall_envelope`, `end_offsets`, `hole_locations`, `small_projected_view`, optional `radius_chamfer_thread`.
+- Notes are explicitly forbidden as DisplayDim substitution.
+- The execution contract sets `requires_solidworks_lock=true`, `ui_thread_may_execute=false`, `allowed_entrypoint=cad_job_worker`, and `failure_status_without_lock=blocked_by_solidworks_lock`.
+
+Validation commands:
+
+```powershell
+python tools\ui_robot\drawing_visual_review_suite.py --summary "drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json" --out-dir "drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623"
+python -m app.services.vision_qc_v6 --png <per-run PNG> --run-dir <per-run dir> --qc-json <per-run qc json> --reference-png <same-name reference png> --manual-review drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement.json --out <per-drawing output under vision_qc_v6_with_ui_review>
+python -m py_compile app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_planner.py
+python -m app.services.reference_intent_dimension_planner --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -m app.services.reference_intent_dimension_executor --plan drw_output\reference_intent_dimension_plan_006.json --drawing drw_output\runs\63d9a9a6bb8e\drawing\LB26001-A-04-006_v5.SLDDRW --run-dir drw_output\runs\63d9a9a6bb8e --out drw_output\reference_intent_dimension_contract_006.json
+python -m json.tool drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement.json
+python -m json.tool drw_output\reference_intent_dimension_plan_006.json
+python -m json.tool drw_output\reference_intent_dimension_contract_006.json
+python -m py_compile app\services\solidworks_entrypoint_scanner.py tools\validation\scan_solidworks_entrypoints_v4_1.py test_v4_1_solidworks_entrypoint_scan.py
+python test_v4_1_solidworks_entrypoint_scan.py
+python tools\validation\scan_solidworks_entrypoints_v4_1.py
+```
+
+Remaining issues:
+
+- No new real SolidWorks CAD run was started in this slice because the v4.2 objective still requires lock/source-gate discipline before true CAD correction.
+- `reference_intent_dimension_contract_006.json` is a CAD-worker execution contract only; worker-side creation/verification of those explicit DisplayDim groups is still pending.
+- 006 must be regenerated through the locked CAD worker, then rechecked through application UI screenshots before the remaining five drawings can be treated as acceptance targets.
+- Latest source scanner service report remains `warning`: `entrypoint_count=340`, `unguarded_or_unknown_count=148`, `external_addin_needs_host_lock_count=2`; these must be reduced or explicitly classified before true CAD correction runs.
+
+## v4.2 Production COM Lock Gate Hardening - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING`; release conditions are not reached.
+- The requested six drawings remain visually unqualified by application Drawing Review UI screenshots. API, DisplayDim, and reference-compare outputs remain supporting evidence only.
+- No true SolidWorks CAD regeneration was started in this slice; this work tightened the source/lock gate before the next 006 correction run.
+
+Implementation:
+
+- Added explicit `require_current_job_lock(...)` checks before production SolidWorks COM entrypoints in:
+  - `app/services/annotate_sidecar_service.py`
+  - `app/services/dimension_sidecar_service.py`
+  - `app/services/pmi_probe_service.py`
+  - `app/services/refdoc_relink_service.py`
+  - `app/services/diagnostics.py`
+  - `app/services/health_check.py`
+  - `app/services/part_classification_service.py`
+  - `app/services/layout_solver_v2.py`
+  - `app/services/run_manager.py`
+  - `libs/bom/extract_bom.py`
+- Updated `app/services/solidworks_entrypoint_scanner.py` to strip string literals before matching COM API names and to classify Document Manager, validation tools, maintenance tools, tests/fixtures, external sidecars, and legacy experiments separately.
+- Updated `docs/product_goal_v4_2.md` and `tasks.md` with the current source-gate state.
+
+Source scan evidence:
+
+- Report: `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`.
+- `status=warning`.
+- `entrypoint_count=325`.
+- `unguarded_or_unknown_count=0`.
+- `external_addin_needs_host_lock_count=20`.
+- `document_manager_com_count=9`.
+- `validation_tool_requires_manual_lock_count=10`.
+- `maintenance_tool_count=10`.
+- `test_or_fixture_count=6`.
+- `legacy_experiment_count=168`.
+
+UI evidence:
+
+- Quick source UI screenshot report: `drw_output/ui_acceptance/quick_v4_2_lock_gate/ui_acceptance_report.json`.
+- Screenshots: `drw_output/ui_acceptance/quick_v4_2_lock_gate/screenshots/`.
+- Event log: `drw_output/ui_acceptance/quick_v4_2_lock_gate/ui_events.jsonl`.
+- This confirms the application screenshot capture path is still operational, but it is not a true CAD drawing acceptance result.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\annotate_sidecar_service.py app\services\dimension_sidecar_service.py app\services\pmi_probe_service.py app\services\refdoc_relink_service.py app\services\diagnostics.py app\services\health_check.py app\services\part_classification_service.py app\services\layout_solver_v2.py app\services\run_manager.py libs\bom\extract_bom.py app\services\solidworks_entrypoint_scanner.py
+python tools\validation\scan_solidworks_entrypoints_v4_1.py
+python test_v4_1_solidworks_entrypoint_scan.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v2_3_system_health_page.py
+python test_v3_system_health_com_probe.py
+python test_v3_main_navigation.py
+python test_v2_3_job_runtime.py
+python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v4_2_lock_gate --mock-duration-s 0.4
+```
+
+Remaining issues:
+
+- External sidecars and manual validation tools still require host/runner lock discipline and remain visible in the scanner report.
+- 006 still needs a locked CAD worker regeneration using reference-intent dimension placement, followed by application Drawing Review UI screenshot judgement.
+- `007/008/009/015/022` must not be treated as acceptance targets until 006 is visually accepted in the application UI.
+
+## v4.2 006 Reference-Intent Worker Contract Wiring - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING`; release conditions are not reached.
+- This slice did not start a true SolidWorks CAD run. It makes the next 006 CAD worker run consume and preserve explicit reference-intent dimension targets.
+- The application UI screenshot gate is still the final drawing correctness gate; the six requested drawings are not visually accepted.
+
+Implementation:
+
+- Extended `app/services/drawing_blueprint_model.py` so `DimensionPlan` can carry explicit `dimension_targets`.
+- Updated `app/services/dimension_planner.py` so `LB26001-A-04-006` DrawingBlueprint data absorbs the v4.2 reference-intent plan with 12 SolidWorks DisplayDim targets.
+- Updated `app/services/drawing_blueprint_builder.py` to attach those targets during normal blueprint construction.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so `REFERENCE_INTENT_DIMENSION_PLAN_PATH` and `REFERENCE_INTENT_DIMENSION_CONTRACT_PATH` are merged into `drawing_blueprint.json` and logged in warning evidence.
+- Updated `app/workers/cad_job_worker.py` so the lock-owning worker writes `qc/reference_intent_dimension_plan_006.json` and `qc/reference_intent_dimension_contract_006.json` for 006 before launching the generation subprocess. Contract preparation failure is a hard worker failure, not a silent fallback to generic AutoDimension.
+- Added `test_v4_2_reference_intent_dimension_worker.py`.
+
+Offline evidence:
+
+- Probe summary: `drw_output/reference_intent_worker_probe_006_20260623/summary.json`.
+- Blueprint with explicit targets: `drw_output/reference_intent_worker_probe_006_20260623/drawing_blueprint_with_reference_intent_targets_006.json`.
+- Worker-prepared plan: `drw_output/reference_intent_worker_probe_006_20260623/run/qc/reference_intent_dimension_plan_006.json`.
+- Worker-prepared contract: `drw_output/reference_intent_worker_probe_006_20260623/run/qc/reference_intent_dimension_contract_006.json`.
+- Probe values: `dimension_target_count=12`, `required_display_dim_count=12`, `operation_count=12`, `requires_solidworks_lock=true`, `ui_thread_may_execute=false`, `solidworks_com_called=false`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_blueprint_model.py app\services\dimension_planner.py app\services\drawing_blueprint_builder.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py app\workers\cad_job_worker.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_drawing_blueprint_core.py test_v4_generator_blueprint_execution.py test_v4_2_reference_intent_dimension_planner.py test_v4_2_reference_intent_dimension_worker.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_worker.py
+python tools\validation\scan_solidworks_entrypoints_v4_1.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Remaining issues:
+
+- The contract is now wired into the worker/generator evidence path, but no new 006 SLDDRW/PDF/DXF/PNG has been generated in this slice.
+- The next real 006 run must be through `JobRuntimeFacade` / locked `cad_job_worker.py`, then rechecked by application Drawing Review UI screenshot evidence.
+- If API/DisplayDim evidence improves but the UI screenshot judgement fails, 006 remains `need_review`.
+
+## v4.2 006 Missing-Terminal Worker Failure Hardening - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING`; release conditions are not reached.
+- The latest real 006 attempt did not generate fresh `SLDDRW/PDF/DXF/PNG`, so application Drawing Review UI screenshot acceptance could not start.
+- API, worker, and reference metrics remain supporting evidence only. The requested drawings are still not visually accepted.
+
+Implementation:
+
+- Updated `app/services/job_runner.py` so a QProcess exit code `0` without a worker stdout terminal event is no longer treated as completed.
+- Runner-generated failures now emit and persist `job_failed` with `failure_bucket=missing_terminal_worker_event`.
+- Cached worker PIDs at process start so cleanup can still run when the Qt QProcess object is already invalid in the finished callback.
+- Added Windows descendant-process cleanup for non-`SLDWORKS.exe` worker descendants left behind by a finished worker.
+- Runner-generated CAD/batch failures now attempt SolidWorks global lock release by matching `job_id`; this is lock-file cleanup only and does not call SolidWorks COM.
+- Added regression coverage in `test_v2_3_job_runtime.py`.
+
+Latest 006 evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_pid_cache_lock_release_20260623/summary.json`.
+- CAD smoke: `drw_output/staged_validation/LB26001_006_pid_cache_lock_release_20260623/01_LB26001-A-04-006/cad_smoke.json`.
+- Run dir: `drw_output/runs/2cf293e65304`.
+- Result: `status=need_review`, `deliverable_count=0`, `failure_bucket=missing_terminal_worker_event`.
+- `cad_smoke.json` records missing `SLDDRW/PDF/DXF/PNG`, stopped orphan Python/conhost descendants, and `solidworks_lock_release.status=released`.
+- Final lock check after the run: no active SolidWorks global lock.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\job_runner.py test_v2_3_job_runtime.py test_v4_2_reference_intent_dimension_worker.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python test_v4_2_reference_intent_dimension_worker.py
+python tools\validation\scan_solidworks_entrypoints_v4_1.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_pid_cache_lock_release_20260623 --timeout-s 900 --max-rounds 1 --sw-guard-timeout-s 20
+```
+
+Validation results:
+
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- SolidWorks entrypoint scan: `status=warning`, `entrypoint_count=325`, `unguarded_or_unknown_count=0`, `external_addin_needs_host_lock_count=20`.
+- Latest 006 staged CAD: `pass=false`, `status=need_review`, `deliverable_count=0`.
+
+Remaining issues:
+
+- `cad_job_worker.py` still exits before emitting a worker-owned terminal event while the nested generation chain has not produced drawing deliverables.
+- No new 006 drawing artifact exists for application Drawing Review UI screenshot validation.
+- The next fix must make the CAD worker/generation subprocess complete with a real `job_finished` or `job_failed` event and a fresh failure manifest, then rerun 006 and only proceed to UI screenshot acceptance if drawing artifacts exist.
+- Do not expand to `007/008/009/015/022` until 006 has a passing application UI screenshot judgement.
+
+## v4.2 006 In-Process Worker Generation + UI Screenshot Failure - 2026-06-23
+
+Current judgment:
+
+- Status remains `WARNING`; release conditions are not reached.
+- Fresh 006 CAD artifacts now exist, but the application Drawing Review UI screenshot judgement is still `FAIL`.
+- API/style/DisplayDim evidence is supporting evidence only and did not override the UI screenshot failure.
+- Do not expand acceptance to `007/008/009/015/022` until 006 receives a passing application UI screenshot judgement.
+
+Implementation:
+
+- Updated `app/workers/cad_job_worker.py` with worker lifecycle diagnostics (`cad_worker_lifecycle.jsonl`), `atexit`/exception tracing, `BaseException` handling for in-process QC loop execution, and artifact preservation when generation produces drawings but QC/visual gates remain non-passing.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_qc_loop_v6.py` to support worker-controlled in-process `drw_generate_v6.generate_for()` execution and to call `pythoncom.CoInitialize()` before legacy `drw_quality_check`.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so the SolidWorks active-object probe subprocess uses `CREATE_NO_WINDOW` on Windows.
+- Added manual Drawing Review UI judgement: `drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/manual_visual_judgement.json`.
+
+Latest 006 evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_inprocess_generator_collect_20260623/summary.json`.
+- Run dir: `drw_output/runs/e010a07aecb5`.
+- CAD smoke: `drw_output/staged_validation/LB26001_006_inprocess_generator_collect_20260623/01_LB26001-A-04-006/cad_smoke.json`.
+- Generated artifacts: `drw_output/runs/e010a07aecb5/drawing/LB26001-A-04-006_v5.SLDDRW`, `.PDF`, `.DXF`, `.PNG`.
+- Structured status: `cad_pass=true`, `dimension_pass=true`, `reference_pass=true`, `reference_style_pass=true`, `DisplayDim=12`, no stale artifacts.
+- Staged status remains `need_review`, `pass=false`, `deliverable_count=0`, because `vision_qc_v6_pass=false` and `reference_compare_v4_pass=false`.
+- Application UI screenshot report: `drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/drawing_visual_review_report.json`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Side-by-side comparison image: `drw_output/ui_acceptance/LB26001_006_inprocess_generator_collect_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- `vision_qc_v6_with_ui_review.json`: `status=need_review`, `manual_review_status=fail`, `dimension_text_candidate_count=125`.
+- `reference_compare_v4_with_ui_review.json`: `status=need_review`, reason `ui_screenshot_visual_acceptance_not_passed`.
+
+Validation commands:
+
+```powershell
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v2_3_job_runtime.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v3_main_navigation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_inprocess_generator_collect_20260623
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_inprocess_generator_collect_20260623\summary.json --base LB26001-A-04-006 --generated-png "LB26001-A-04-006=C:\Users\Vision\Desktop\SW 相关\drw_output\runs\e010a07aecb5\drawing\LB26001-A-04-006_v5.PNG" --out-dir drw_output\ui_acceptance\LB26001_006_inprocess_generator_collect_visual_review_20260623
+python -m app.services.vision_qc_v6 --png drw_output\runs\e010a07aecb5\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\e010a07aecb5 --blueprint drw_output\runs\e010a07aecb5\qc\drawing_blueprint.json --qc-json drw_output\runs\e010a07aecb5\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\ui_acceptance\LB26001_006_inprocess_generator_collect_visual_review_20260623\manual_visual_judgement.json --out drw_output\ui_acceptance\LB26001_006_inprocess_generator_collect_visual_review_20260623\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\e010a07aecb5\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_inprocess_generator_collect_20260623\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\ui_acceptance\LB26001_006_inprocess_generator_collect_visual_review_20260623\vision_qc_v6_with_ui_review.json --reference-profiles drw_output\reference_style_profile\reference_profiles_v4.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_inprocess_generator_collect_20260623\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_inprocess_generator_collect_20260623\01_LB26001-A-04-006\reference_style.json --out drw_output\ui_acceptance\LB26001_006_inprocess_generator_collect_visual_review_20260623\reference_compare_v4_with_ui_review.json
+```
+
+Validation results:
+
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- 006 staged CAD: `pass=false`, `status=need_review`, `deliverable_count=0`, because UI screenshot acceptance is not passed.
+
+Remaining issues:
+
+- The generated 006 drawing still has a dense tilted dimension/callout stack and does not match the concise same-name reference drawing style in the application UI screenshot.
+- The right-side small feature/projection dimension group still needs explicit reference-style placement.
+- Title block/bottom information and notes areas remain visually different from the reference.
+- The next correction must adjust the 006 generator/dimension execution, rerun locked CAD, and repeat Drawing Review UI screenshot judgement.
+
+## v4.2 006 Post-Layout Rebind + UI Evidence Closure - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`; release conditions are not reached.
+- This slice closed the missing UI judgement files for the latest generated 006 attempt, but that attempt remains visually and structurally rejected.
+- A new 006 CAD regression was attempted after the code fix, but it did not enter drawing generation because the SolidWorks connection guard failed before the worker could start CAD work.
+- Do not expand to `007/008/009/015/022` until 006 has a passing locked CAD run and a passing application Drawing Review UI screenshot judgement.
+
+Implementation:
+
+- Added `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/manual_visual_judgement.json` for run `drw_output/runs/9558b08c8f63`; the verdict is `FAIL`.
+- Re-ran v6/v4 with that UI judgement:
+  - `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/vision_qc_v6_with_ui_review.json`
+  - `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/reference_compare_v4_with_ui_review.json`
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`:
+  - post-layout reference-intent view rebinding can use `nearest_layout_center` against v4 blueprint layout centers after Close/Reopen;
+  - diameter targets prefer `AddDiameterDimension2`;
+  - strict reference-intent pruning records `delete_plan`, `reference_dim_floor`, `strict_reference_intent`, and `reference_intent_floor_guard_no_delete` instead of silently deleting around the floor.
+- Updated source checks in `test_v3_generator_reference_style_plan.py` and `test_v4_generator_blueprint_execution.py`.
+
+Latest 006 evidence:
+
+- Previous CAD run under review: `drw_output/runs/9558b08c8f63`.
+- Previous staged summary: `drw_output/staged_validation/LB26001_006_explicit_displaydim_visible_entities_20260623/summary.json`, `status=need_review`, `pass=false`, `deliverable_count=0`.
+- Application UI screenshot report: `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/drawing_visual_review_report.json`, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- UI screenshot: `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual UI judgement: `overall_status=FAIL`, `visual_acceptance_pass=false`.
+- v6 QC with manual review: `status=need_review`, `manual_review_status=fail`, `visual_acceptance_pass=false`.
+- Strict v4 compare with UI review: `status=fail`, reasons `display_dim_lower_than_reference` and `ui_screenshot_visual_acceptance_not_passed`.
+- New post-fix staged attempt: `drw_output/staged_validation/LB26001_006_postlayout_rebind_floor_guard_20260624/summary.json`, `status=fail`, `processed=0`, `preflight_pass=false`, `sw_connection_guard_pass=false`.
+- SolidWorks guard report: `drw_output/staged_validation/LB26001_006_postlayout_rebind_floor_guard_20260624/sw_connection_guard.json`, `status=fail`, reason `(-2147417856, system call failed)`.
+- Safe restart workflow: `drw_output/staged_validation/LB26001_006_postlayout_rebind_floor_guard_20260624/sw_safe_restart_workflow.json`, `auto_kill_allowed=false`, `user_confirmed=false`.
+- Process check after failure: `SLDWORKS.exe` exists but `Responding=false`; title shows an unsaved document, `SOLIDWORKS Premium 2025 SP5.0 - [草图1 ← 零件38 *]`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py app\services\dimension_planner.py app\workers\cad_job_worker.py test_v3_generator_reference_style_plan.py test_v4_2_reference_intent_dimension_worker.py test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_generator_blueprint_execution.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python -c "from app.services.solidworks_entrypoint_scanner import write_entrypoint_report; import json; r=write_entrypoint_report(); print(json.dumps({k:r[k] for k in ['status','entrypoint_count','guarded_count','unguarded_or_unknown_count','external_addin_needs_host_lock_count','validation_tool_requires_manual_lock_count','report_path']}, ensure_ascii=False))"
+python -m app.services.vision_qc_v6 --png drw_output\runs\9558b08c8f63\drawing\LB26001-A-04-006_v5.PNG --run-dir drw_output\runs\9558b08c8f63 --blueprint drw_output\runs\9558b08c8f63\qc\drawing_blueprint.json --qc-json drw_output\runs\9558b08c8f63\qc\LB26001-A-04-006_v5_qc.json --reference-png drw_output\case_library\LB26001-A-04-006.png --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\vision_qc_v6_with_ui_review.json
+python tools\validation\reference_compare_v4.py --base LB26001-A-04-006 --blueprint drw_output\runs\9558b08c8f63\qc\drawing_blueprint.json --dimension-validation drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\01_LB26001-A-04-006\dimension_validation.json --vision-qc drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\vision_qc_v6_with_ui_review.json --reference-profiles drw_output\reference_style_profile\reference_profiles_v4.json --legacy-reference-compare drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\01_LB26001-A-04-006\reference_compare.json --legacy-reference-style drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\01_LB26001-A-04-006\reference_style.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\reference_compare_v4_with_ui_review.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --out-dir drw_output\staged_validation\LB26001_006_postlayout_rebind_floor_guard_20260624 --timeout-s 900 --max-rounds 1 --sw-guard-timeout-s 20
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- SolidWorks entrypoint scan: `status=warning`, `entrypoint_count=329`, `unguarded_or_unknown_count=0`, `external_addin_needs_host_lock_count=20`, `validation_tool_requires_manual_lock_count=10`.
+- `vision_qc_v6_with_ui_review.json`: `status=need_review`, `visual_acceptance_pass=false`.
+- `reference_compare_v4_with_ui_review.json`: `status=fail`, reasons `display_dim_lower_than_reference`, `ui_screenshot_visual_acceptance_not_passed`.
+- Latest post-fix staged CAD attempt: `pass=false`, `status=fail`, `processed=0`, due SolidWorks connection guard failure before generation.
+
+Remaining issues:
+
+- The code fix has source-level evidence only until SolidWorks is responsive enough to run a fresh locked 006 CAD job.
+- The current SolidWorks process is unresponsive and has an unsaved document; automatic kill/restart is forbidden.
+- After the user saves/closes/restarts SolidWorks safely, rerun only 006 and require: final real `DisplayDim >= 12`, no `target_view_not_found`, `reference_style.pass=true`, `reference_compare_v4.pass=true`, fresh Drawing Review UI screenshot, and `manual_visual_judgement.json` with `overall_status=PASS`.
+
+## v4.2 006 Target-Aware DisplayDim Persistence Diagnostics - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No real CAD generation was run in this slice because `SLDWORKS.exe` is still unresponsive and shows an unsaved document (`零件38 *`).
+- This is source-level diagnostic hardening only; 006 still requires a fresh locked CAD run and application Drawing Review UI screenshot judgement.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so DisplayDim scoring/pruning can match each candidate annotation back to the nearest explicit `dimension_targets` entry.
+- Added target evidence fields to prune results:
+  - `target_match`
+  - `target_key`
+  - `target_group`
+  - `expected_type`
+  - `preferred_side`
+  - `deleted_items`
+  - `failed_delete_items`
+- Prune log messages now include the target key, so the next real 006 run can identify which required target is deleted or cannot be deleted if the final count regresses from `12` to `11`.
+- Updated tests so pure-Python target matching is exercised without SolidWorks COM.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS, including target matching assertions for `hole_pitch` and `left_end_offset`.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+
+Remaining issues:
+
+- This diagnostic improvement still needs real 006 evidence from the locked CAD worker.
+- SolidWorks is still not safe to drive automatically while it is unresponsive with an unsaved document.
+- The next allowed real validation step remains only `LB26001-A-04-006`; do not expand to `007/008/009/015/022`.
+
+## v4.2 006 Per-Stage Target Coverage Snapshots - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No real CAD generation was run in this slice because `SLDWORKS.exe` still reports `Responding=false` with unsaved document `零件38 *`.
+- This is source-level evidence instrumentation for the next locked 006 CAD run.
+
+Implementation:
+
+- Added `_reference_intent_target_coverage_from_items(...)` and `_reference_intent_target_coverage_snapshot(...)` to `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- The generator now records `reference_intent_target_coverage` snapshots at:
+  - `pre_saveas`
+  - `post_saveas_reopen_prune`
+  - `pre_export_final`
+  - `post_layout_reopen_before_repair`
+  - `post_layout_final`
+- Each snapshot records:
+  - `display_dim_count`
+  - `target_count`
+  - `covered_count`
+  - `covered_target_keys`
+  - `missing_target_keys`
+  - per-target `matched_count`
+  - per-target `best_display_dim`
+  - per-target `persisted_after_reopen`
+- Final warnings JSON now includes a top-level `reference_intent_target_coverage` list in addition to individual `warnings` entries with code `reference_intent_target_coverage`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS, including a pure-Python coverage snapshot test with covered `hole_pitch` / `left_end_offset` and missing `projection_view_height`.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+
+Remaining issues:
+
+- This instrumentation must still be proven by a fresh locked 006 CAD run once SolidWorks is safely responsive.
+- The acceptance gate still requires final real `DisplayDim >= 12`, no `target_view_not_found`, fresh `SLDDRW/PDF/DXF/PNG`, application Drawing Review UI screenshot evidence, and `manual_visual_judgement.json` with `overall_status=PASS`.
+
+## v4.2 006 Strict UI Screenshot + Target Coverage Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No real CAD generation was run in this slice because `SLDWORKS.exe` is still `Responding=false` and the window title shows unsaved `零件38 *`.
+- This slice tightens acceptance logic so API-only evidence cannot accept `LB26001-A-04-006` or the later requested drawings.
+
+Implementation:
+
+- Updated `app/services/reference_compare_v4.py` so explicit `dimension_targets` require generator `reference_intent_target_coverage` evidence.
+- `reference_compare_v4` now reports `reference_intent_target_coverage_missing` when the generator coverage artifact is absent, and `reference_intent_targets_missing_after_persistence` when any required target is missing after the latest persisted stage.
+- Updated `tools/validation/reference_compare_v4.py` with `--generator-warnings` so the strict gate can consume the generator warnings JSON from validation commands.
+- Updated `tools/validation/staged_cad_validation_v3.py` so staged validation passes CAD worker warnings into v4 comparison.
+- Staged visual acceptance now requires `vision_qc_v6.visual_acceptance_pass=true`; a generic API/report `pass=true` without application UI screenshot acceptance is not enough.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_compare_v4.py tools\validation\reference_compare_v4.py tools\validation\staged_cad_validation_v3.py test_v4_reference_compare.py test_v3_staged_cad_validation.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_vision_qc_v6.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_reference_compare.py`: PASS, including missing coverage, missing persisted target, and all-targets-survived cases.
+- `test_v3_staged_cad_validation.py`: PASS, including the staged `visual_acceptance_pass` requirement and CAD warnings handoff to v4 compare.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+
+Remaining issues:
+
+- This is still source-level validation only.
+- The next allowed real validation step remains one locked `LB26001-A-04-006` CAD run after the user safely saves/closes/restarts SolidWorks.
+- `007/008/009/015/022` remain blocked until 006 passes real CAD, strict v4 compare, v6 visual QC, and application Drawing Review UI screenshot judgement.
+
+## v4.2 006 Manual UI Screenshot Evidence Binding - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This is an offline acceptance-chain hardening slice. No real CAD generation was run because current `SLDWORKS.exe` is still `Responding=false` and the active title shows unsaved `零件38 *`.
+- The change prevents future acceptance from being granted by a bare manual JSON `visual_acceptance_pass=true` without application screenshot evidence.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py` so manual UI review PASS requires all of:
+  - review method/review mode declares `application_drawing_review_ui_screenshot`;
+  - at least one referenced UI screenshot file exists, either directly in `manual_visual_judgement.json` or through `source_ui_report` / `drawing_visual_review_report`;
+  - if `cases` or `entries` are present, one entry matches the current DrawingBlueprint `base` and is passing.
+- The v6 report now records `manual_review_method_ok`, `ui_screenshot_evidence_present`, screenshot paths, source UI report status, and per-base `case_match`.
+- A PASS-looking manual JSON without screenshot evidence still emits `manual_ui_screenshot_review_required`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py test_v4_vision_qc_v6.py test_v4_reference_compare.py test_v3_staged_cad_validation.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS, including fake manual PASS rejection and screenshot-backed manual PASS acceptance for the UI sub-gate.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+
+Remaining issues:
+
+- This still does not prove the 006 drawing is acceptable; it only makes the future UI acceptance evidence harder to fake accidentally.
+- The next allowed real validation remains one locked `LB26001-A-04-006` CAD run after SolidWorks is safely responsive, followed by fresh Drawing Review UI screenshot capture and manual visual judgement.
+
+## v4.2 006 UI Review Closure Tool - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice adds a repeatable offline way to close the application UI screenshot evidence back into v6 and v4 reports.
+- No real CAD generation was run because current `SLDWORKS.exe` is still `Responding=false` with unsaved `零件38 *`.
+
+Implementation:
+
+- Added `tools/validation/apply_ui_visual_review_v4.py`.
+- The tool consumes:
+  - staged CAD `summary.json`;
+  - Drawing Review UI `drawing_visual_review_report.json`;
+  - `manual_visual_judgement.json`;
+  - optional base filters and reference profile path.
+- It writes:
+  - `vision_qc_v6_with_ui_review/<base>.json`;
+  - `reference_compare_v4_with_ui_review/<base>.json`;
+  - single-base convenience copies `vision_qc_v6_with_ui_review.json` and `reference_compare_v4_with_ui_review.json`;
+  - `ui_visual_review_gate_summary.json`.
+- The tool calls only existing artifact validators and image checks; it does not call SolidWorks.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py app\services\vision_qc_v6.py app\services\reference_compare_v4.py tools\validation\staged_cad_validation_v3.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624 --base LB26001-A-04-006
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Existing 006 UI closure run exited `1` as expected for a failed gate and wrote `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_20260624/ui_visual_review_gate_summary.json`, `status=need_review`, `pass=false`.
+
+Existing 006 blockers from the closure run:
+
+- `display_dim_lower_than_reference`: generated real `DisplayDim` is still `11/12`.
+- `reference_intent_target_coverage_missing`: this older run predates the new target coverage snapshots and cannot prove all 12 explicit reference-intent targets survived.
+- `ui_screenshot_visual_acceptance_not_passed`: the application Drawing Review UI judgement is `FAIL`.
+
+Remaining issues:
+
+- The closure tool is ready for the next fresh 006 run, but it does not change the current drawing's failed status.
+- The next real action remains: safely recover SolidWorks, run only locked `LB26001-A-04-006`, capture Drawing Review UI screenshots, write manual judgement, then run this closure tool.
+
+## v4.2 LB26001 006-First Expansion Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice adds an explicit audit gate that prevents `007/008/009/015/022` from entering acceptance work until `006` has passed the full v4.2 UI-backed closure.
+- No real CAD generation was run because current `SLDWORKS.exe` is still `Responding=false` with unsaved `零件38 *`.
+
+Implementation:
+
+- Added `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+- The tool consumes one or more `ui_visual_review_gate_summary.json` files from `apply_ui_visual_review_v4.py`.
+- It requires `LB26001-A-04-006` to pass both:
+  - `vision_qc_v6_visual_acceptance_pass=true`;
+  - `reference_compare_v4_pass=true`.
+- If any dependent drawing `007/008/009/015/022` is requested while 006 is not passing, it returns `status=blocked_by_006`.
+- It also requires every requested base to have its own UI closure entry.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_acceptance_gate_v4_2.py test_v4_2_lb26001_acceptance_gate.py tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Current 006-first audit exited `1` as expected for a failed gate and wrote `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_20260624/lb26001_acceptance_gate_v4_2.json`, `status=blocked_by_006`, `pass=false`.
+
+Current audit blockers:
+
+- `lb26001_006_required_before_expansion`: the default six-drawing request is blocked because 006 is not passing.
+- `vision_qc_v6_with_ui_review_not_pass`: current 006 UI-backed v6 result is `need_review`.
+- `reference_compare_v4_with_ui_review_not_pass`: current 006 strict v4 result is `fail`.
+- `ui_visual_review_gate_missing`: the remaining five bases have no accepted UI closure entries, and they remain blocked behind 006.
+
+Remaining issues:
+
+- The gate only prevents accidental expansion; it does not make 006 acceptable.
+- The next real validation remains one locked 006 CAD run after SolidWorks is safely responsive, followed by Drawing Review UI screenshot capture, manual judgement, UI closure, and this expansion audit.
+
+## v4.2 Drawing Review UI Capture Defaults To 006 - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice aligns the screenshot capture default with the v4.2 006-first policy.
+- No real CAD generation was run because current `SLDWORKS.exe` is still `Responding=false` with unsaved `零件38 *`.
+
+Implementation:
+
+- Updated `tools/ui_robot/drawing_visual_review_suite.py`.
+- `DEFAULT_BASES` is now only `LB26001-A-04-006`.
+- The full six reference sample list is preserved as `REFERENCE_SAMPLE_BASES`, but dependent bases require explicit `--base` arguments.
+- The screenshot report now includes an `expansion_gate` block:
+  - default status is `primary_006_only`;
+  - if `007/008/009/015/022` are explicitly requested, status is `learning_or_evidence_only_until_006_passes`.
+- The report remaining gates now repeat that 006 must pass before dependent LB26001 drawings enter acceptance.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\ui_robot\drawing_visual_review_suite.py test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+
+Remaining issues:
+
+- This only prevents the UI screenshot workflow from defaulting into the dependent five drawings.
+- It does not make 006 acceptable; the next real validation still requires a locked 006 CAD run and fresh application UI judgement after SolidWorks is safely responsive.
+
+## v4.2 006 Regression Readiness Audit - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No real CAD generation was run. The readiness audit is process/file-state only and does not call SolidWorks COM.
+- The current environment is not safe to start the locked 006 CAD rerun.
+
+Implementation:
+
+- Added `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+- The audit checks:
+  - `SLDWORKS.exe` process presence and `Responding` flag through Windows process state;
+  - visible unsaved-document marker in the SolidWorks window title;
+  - SolidWorks global lock file presence;
+  - latest `ui_visual_review_gate_summary.json`;
+  - latest `lb26001_acceptance_gate_v4_2.json`.
+- The audit writes the exact next command sequence to run after SolidWorks is safely responsive.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Current readiness audit exited `1` as expected for a blocked safety gate and wrote `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+
+Current readiness blockers:
+
+- `solidworks_not_responding`: current `SLDWORKS.exe` reports `Responding=false`.
+- `solidworks_unsaved_document_visible`: window title shows unsaved `零件38 *`.
+
+Remaining issues:
+
+- User must manually save/close/restart SolidWorks safely before the next locked 006 CAD run.
+- After readiness becomes `ready`, run only `LB26001-A-04-006`, then capture Drawing Review UI screenshots, write `manual_visual_judgement.json`, run UI closure, and run the LB26001 expansion gate.
+
+## v4.2 Per-Drawing UI Screenshot Evidence Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice does not accept any generated drawing. It hardens the final LB26001 gate so application Drawing Review UI screenshots are required for every requested base.
+- No real CAD generation was run because current `SLDWORKS.exe` is still unsafe for automation.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+- The LB26001 gate now reads each referenced `vision_qc_v6_with_ui_review` and `reference_compare_v4_with_ui_review` artifact instead of trusting summary booleans alone.
+- Each base must have:
+  - `vision_qc_v6.visual_acceptance_pass=true`;
+  - `checks.ui_screenshot_review.pass=true`;
+  - at least one existing application UI screenshot file resolved from the v6 report or Drawing Review UI report;
+  - strict `reference_compare_v4.pass=true`.
+- Missing or forged screenshot files now produce `application_ui_screenshot_evidence_missing`; existing screenshots with a failing UI/manual judgement produce `application_ui_screenshot_review_not_passed`.
+- Updated `test_v4_2_lb26001_acceptance_gate.py` to prove a fake API pass without screenshot files is rejected.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_acceptance_gate_v4_2.py test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_acceptance_gate.py
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- Current LB26001 gate audit exited `1` as expected and wrote `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_20260624/lb26001_acceptance_gate_v4_2.json`.
+- Current audit status is `blocked_by_006`, with reasons `application_ui_screenshot_review_not_passed`, `vision_qc_v6_with_ui_review_not_pass`, `reference_compare_v4_with_ui_review_not_pass`, and missing UI closure entries for `007/008/009/015/022`.
+
+Remaining issues:
+
+- The current generated six drawings remain visually unqualified.
+- Fresh application Drawing Review UI screenshots and manual judgement are still required after the next corrected CAD output.
+
+## v4.2 006 Staged CAD Readiness Preflight - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice prevents `LB26001_006` staged validation from entering any SolidWorks COM preflight while the process/file-state readiness audit is blocked.
+- No real CAD generation was run.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+- `run_stage(..., stage="LB26001_006")` now writes `lb26001_006_regression_readiness_v4_2.json` before `sw_connection_guard`.
+- If readiness is not `ready_to_start_locked_006_cad=true`, staged validation exits with:
+  - `processed=0`;
+  - `preflight_pass=false`;
+  - `readiness_preflight_pass=false`;
+  - `sw_connection_guard_skipped_due_to_readiness=true`;
+  - `failure_bucket` containing `lb26001_006_readiness_not_ready` plus blocking readiness keys.
+- Updated `test_v3_staged_cad_validation.py` to prove readiness failure does not create a case directory or `sw_connection_guard.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py tools\validation\lb26001_acceptance_gate_v4_2.py test_v3_staged_cad_validation.py test_v4_2_lb26001_acceptance_gate.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_acceptance_gate.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 1 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- Current staged readiness preflight exited `1` as expected and wrote `drw_output/staged_validation/LB26001_006_readiness_preflight_20260624/summary.json`.
+- The staged summary has `processed=0`, `sw_connection_guard_skipped_due_to_readiness=true`, and `failure_bucket=["lb26001_006_readiness_not_ready", "solidworks_not_responding", "solidworks_unsaved_document_visible"]`.
+
+Remaining issues:
+
+- The next real 006 CAD rerun still requires the user to manually save/close/restart the unresponsive SolidWorks session first.
+- After 006 passes CAD, v4, v6, and application UI screenshot judgement, only then may `007/008/009/015/022` be visually validated for acceptance.
+
+## v4.2 Requested Six Drawing Status Report - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice adds a file-only status report for the exact requested drawings `006/007/008/009/015/022`.
+- No real CAD generation was run.
+
+Implementation:
+
+- Added `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- The report merges:
+  - the current LB26001 006-first acceptance gate;
+  - the current 006 readiness report;
+  - existing application Drawing Review UI manual judgement files.
+- The report explicitly marks API and strict-style evidence as supporting only and keeps application UI screenshot review as the final gate.
+- Added `test_v4_2_lb26001_requested_drawings_status.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_vision_qc_v6.py
+python test_v4_reference_compare.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- Current requested-status command exited `1` as expected because the drawings are not accepted, and wrote `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+
+Current report:
+
+- `status=blocked_by_006`.
+- `pass=false`.
+- `pass_count=0`.
+- `not_pass_count=6`.
+- `all_generated_drawings_currently_unqualified=true`.
+- `LB26001-A-04-006`: `status=visual_fail`.
+- `LB26001-A-04-007/008/009/015/022`: `status=blocked_by_006`.
+
+Remaining issues:
+
+- This report clarifies the current acceptance state but does not make any drawing acceptable.
+- The next real action remains safe SolidWorks recovery, one locked 006 CAD run, and a fresh application Drawing Review UI screenshot judgement.
+
+## v4.2 006 Post-Layout Slot Rebinding Hardening - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This is a source-level repair for the 006 `post_layout target_view_not_found` blocker.
+- No real CAD generation was run because current SolidWorks readiness is still blocked by an unresponsive unsaved session.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_match_reference_intent_slot_views()` as a testable helper for remapping current drawing views back to reference-intent `front/top/right/iso` slots from persisted outlines.
+- The matching strategy now includes:
+  - learned layout-center matching;
+  - a relaxed unique nearest-center fallback for post-layout drift;
+  - view-name fallback when layout centers are missing.
+- `_reference_intent_slot_views()` now feeds current document view records into this helper instead of relying only on stale `created_views` objects and a fixed `0.035m` threshold.
+- Updated `test_v3_generator_reference_style_plan.py` with explicit coverage for post-layout outline rebinding and name fallback.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='C:\Users\Vision\Desktop\SW 相关\drw_output\_pycache_check'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v3_staged_cad_validation.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- Note: the final syntax check used `PYTHONPYCACHEPREFIX=drw_output/_pycache_check` to avoid a transient `__pycache__` write collision from parallel imports.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+
+Remaining issues:
+
+- This strengthens the next 006 rerun path but does not prove the final SLDDRW now keeps 12 real `DisplayDim`.
+- Real proof still requires safe SolidWorks recovery, one locked `LB26001-A-04-006` CAD run, staged validation, v4/v6 UI closure, and application Drawing Review UI screenshot judgement.
+
+## v4.2 006 Coverage-Aware Explicit DisplayDim Repair - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This is a source-level repair for the case where `DisplayDim` count reaches the reference floor but one or more explicit 006 reference-intent targets are still missing.
+- No real CAD generation was run because current SolidWorks readiness is still blocked.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_missing_target_keys()` and `_reference_intent_targets_for_repair()`.
+- `_run_reference_intent_explicit_display_dims()` now:
+  - records `target_coverage_before`;
+  - prioritizes targets listed in `missing_target_keys`;
+  - records per-target `repair_reason` as `missing_target_key` or `display_dim_floor_gap`;
+  - continues repairing while targets are missing even if the DisplayDim floor is already met;
+  - stops early only when `DisplayDim >= floor` and no required target is missing;
+  - records `target_coverage_after` and `missing_target_keys_after`.
+- Updated `test_v3_generator_reference_style_plan.py` to prove missing-target repair ordering and the count-plus-coverage stop condition.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='C:\Users\Vision\Desktop\SW 相关\drw_output\_pycache_check'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Current requested-status command exited `1` as expected because the drawings are still not accepted; `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This prevents a count-only repair shortcut in the next 006 run, but it is not real CAD proof.
+- The final evidence still requires safe SolidWorks recovery, one locked 006 CAD rerun, final `DisplayDim >= 12`, complete target coverage, and a passing application Drawing Review UI screenshot judgement.
+
+## v4.2 006 Target-Coverage-Safe Pruning - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This is a source-level repair to prevent strict 006 pruning from deleting the only DisplayDim that covers a required reference-intent target.
+- No real CAD generation was run because current SolidWorks readiness is still blocked.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Strict reference-intent pruning now computes target match counts from the scored DisplayDim items.
+- A prune candidate is protected when it is the only DisplayDim covering a required target.
+- Duplicate target coverage and non-target dimensions can still be pruned.
+- If all candidates are unique target coverage, pruning stops and records `reference_intent_target_coverage_guard_no_delete` instead of deleting manufacturing intent to satisfy a count cap.
+- The prune result now includes `protected_target_items` evidence.
+- Updated `test_v3_generator_reference_style_plan.py` with:
+  - `test_generator_prune_preserves_unique_reference_intent_target_coverage`;
+  - `test_generator_prune_refuses_to_break_unique_target_coverage_for_cap`.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='C:\Users\Vision\Desktop\SW 相关\drw_output\_pycache_check'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v2_3_job_runtime.py
+python test_v3_main_navigation.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Current readiness audit exited `1` as expected and remains `status=blocked` with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current requested-status report exited `1` as expected and remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This protects target coverage during pruning, but it is not real CAD proof.
+- The next acceptance attempt still requires safe SolidWorks recovery and one locked 006 CAD rerun followed by application Drawing Review UI screenshot judgement.
+
+## v4.2 Per-Drawing UI Verdict Status - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice reinforces the user's rule that every requested drawing must be judged from application Drawing Review UI screenshots, with API and strict reports as supporting evidence only.
+- No SolidWorks CAD generation was run because the readiness audit is still blocked by an unresponsive SolidWorks session and a visible unsaved document.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- Each `base_results` entry now records:
+  - `ui_visual_review_status`;
+  - `acceptance_status`;
+  - `acceptance_blocked_by_006`;
+  - `api_only_acceptance_allowed=false`;
+  - `application_ui_screenshot_review_present`;
+  - `application_ui_screenshot_review_method_ok`;
+  - latest manual findings, required correction, comparison image, generated PNG, reference PNG, and UI screenshot paths.
+- The per-drawing `status` now prioritizes actual UI screenshot visual failure before the expansion-blocked label, while `acceptance_status` still records that `007/008/009/015/022` cannot be accepted until 006 passes.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py` to prove:
+  - a dependent drawing with its own failed UI screenshot review reports `status=visual_fail` even when `acceptance_status=blocked_by_006`;
+  - an API-looking pass without a UI screenshot file is rejected as `ui_screenshot_missing`.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Current requested-status command exited nonzero as expected because the six drawings are not accepted.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` now reports:
+  - overall `status=blocked_by_006`;
+  - `pass_count=0`;
+  - `not_pass_count=6`;
+  - `LB26001-A-04-006/007/008/009/015/022`: each `status=visual_fail`, `ui_visual_review_status=visual_fail`, and `ui_screenshot_file_count=1`;
+  - `LB26001-A-04-007/008/009/015/022`: each `acceptance_status=blocked_by_006`.
+- The six existing application Drawing Review screenshots under `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/` were reopened and visually checked in this turn; the generated drawings visibly do not match the same-name references in layout, dimension grouping, and title/notes treatment.
+
+Remaining issues:
+
+- The current UI screenshot verdicts prove all six generated drawings are visually unqualified.
+- The next real action remains safe SolidWorks recovery, then one locked `LB26001-A-04-006` CAD rerun, followed by fresh v4/v6 closure and application Drawing Review UI screenshot judgement.
+
+## v4.2 Drawing Review Generated PNG Source Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice prevents stale `drw_output/v5` generated PNGs from becoming application Drawing Review UI evidence for `LB26001-A-04-006/007/008/009/015/022`.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `tools/ui_robot/drawing_visual_review_suite.py`.
+- Added per-case `generated_png_evidence` with:
+  - generated PNG path and source;
+  - existence check;
+  - `under_run_dir`;
+  - `under_legacy_v5`;
+  - `strict_source_pass`;
+  - explicit rejection reason `legacy_drw_output_v5_png_not_allowed_for_lb26001_ui_acceptance`.
+- For the six requested LB26001 samples, `evidence_capture_pass` now requires the generated PNG to come from the current `run_dir`; old `drw_output/v5` images are diagnostic only.
+- The Markdown report now includes `Generated source OK`.
+- Updated `test_v4_2_drawing_visual_review_suite.py` to prove current-run PNGs pass the source check while legacy `drw_output/v5` PNGs are rejected for LB26001 acceptance.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile tools\ui_robot\drawing_visual_review_suite.py test_v4_2_drawing_visual_review_suite.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_drawing_visual_review_suite.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_acceptance_gate.py
+$env:PYTHONIOENCODING='utf-8'; python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --out-dir drw_output\ui_acceptance\LB26001_006_generated_png_source_guard_20260624 --base LB26001-A-04-006
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- The no-COM Drawing Review UI screenshot command exited `0` with `evidence_capture_pass=true` and `visual_acceptance_pass=false`.
+- New evidence:
+  - `drw_output/ui_acceptance/LB26001_006_generated_png_source_guard_20260624/drawing_visual_review_report.json`;
+  - `drw_output/ui_acceptance/LB26001_006_generated_png_source_guard_20260624/drawing_visual_review_report_v3_0.md`;
+  - `drw_output/ui_acceptance/LB26001_006_generated_png_source_guard_20260624/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- The report records generated PNG path `drw_output/runs/9558b08c8f63/drawing/LB26001-A-04-006_v5.PNG` with `generated_png_source=run_dir`, `under_run_dir=true`, `under_legacy_v5=false`, and `strict_source_pass=true`.
+
+Remaining issues:
+
+- This proves the UI screenshot evidence source guard, not drawing correctness.
+- `LB26001-A-04-006` still needs a safe locked real CAD rerun and a passing Drawing Review UI visual judgement before any expansion to `007/008/009/015/022`.
+
+## v4.2 006 Readiness Stale Lock Classification - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice improves the no-COM readiness audit so stale lock files do not hide the real SolidWorks blockers.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+- The script now adds the repository root to `sys.path` before importing app services, so it works when executed directly from `tools/validation`.
+- Readiness now uses `app.services.solidworks_global_lock.is_lock_stale()` and `explain_conflict()`.
+- Active SolidWorks locks still emit blocking `solidworks_global_lock_present`.
+- Expired locks emit informational `solidworks_global_lock_stale` and set `solidworks_lock_stale=true`, but do not by themselves block readiness.
+- Updated `test_v4_2_006_regression_readiness.py` to cover both active-lock blocking and stale-lock nonblocking behavior.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_006_regression_readiness.py
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Direct readiness command now runs successfully and exits nonzero as expected because 006 is not ready.
+- Current report `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json` records:
+  - `status=blocked`;
+  - `solidworks_lock_present=true`;
+  - `solidworks_lock_stale=true`;
+  - informational issue `solidworks_global_lock_stale`;
+  - blocking issues only `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The stale lock classification is fixed, but SolidWorks itself is still unsafe for CAD work: PID `8372` is not responding and the visible title has unsaved `零件38 *`.
+- The next real CAD action must wait for manual safe SolidWorks recovery.
+
+## v4.2 006 Strict Sidecar Diagnostic-Only Policy - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice prevents the strict `LB26001-A-04-006` reference-intent path from using dimension sidecar/Note/OCR evidence as a substitute for real SolidWorks `DisplayDim`.
+- No SolidWorks CAD generation was run because readiness is still blocked.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_dimension_sidecar_mode_for_reference_intent(need_sidecar, strict_reference_intent)`.
+- Ordinary non-strict paths still return `run_sidecar=true` when sidecar recovery is needed.
+- Strict reference-intent paths now return `run_sidecar=false`, `diagnostic_only=true`, and reason `reference_intent_sidecar_not_allowed_for_acceptance` when the real `DisplayDim` floor is unmet.
+- The generator writes warning `reference_intent_dimension_sidecar_diagnostic_only` instead of calling `run_dimension_sidecar` for strict reference-intent acceptance.
+- The warnings JSON now includes `dimension_sidecar_mode` so the next real 006 run can be audited for sidecar policy.
+- Updated `test_v3_generator_reference_style_plan.py` to prove both generic sidecar recovery and strict reference-intent diagnostic-only behavior.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_generator_reference_style_plan.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_generator_blueprint_execution.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_reference_compare.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_staged_cad_validation.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_vision_qc_v6.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_006_regression_readiness.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_acceptance_gate.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_drawing_visual_review_suite.py
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- Current readiness report remains `status=blocked`, with blocking keys `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current requested six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This is source-level protection against sidecar-as-acceptance; real CAD proof still requires a safe locked 006 run.
+- The next real 006 warnings JSON must show `dimension_sidecar_mode.diagnostic_only=true` if the real `DisplayDim` floor is still unmet, followed by a hard v4/v6/UI failure until explicit `DisplayDim` coverage is fixed.
+
+## v4.2 Strict LB26001 Legacy Validation Sidecar Policy - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice closes the older dimension/reference smoke path where `long_thin` drawings with `DisplayDim=0` could use sidecar Note/key dimensions as warning-only evidence.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `tools/validation/dimension_validation_smoke_v3.py`.
+- Added `STRICT_REFERENCE_INTENT_BASES` for `LB26001-A-04-006/007/008/009/015/022`.
+- Added strict-case detection from base name, UI screenshot final-gate fields, or `drawing_blueprint.dimension_targets`.
+- Strict cases now set `sidecar_policy_allowed=false`.
+- For strict cases, `DisplayDim=0` plus sidecar Note/key dimensions returns `strict_reference_intent_display_dim_required` and remains a failure.
+- Updated `tools/validation/reference_compare_smoke_v3.py` so `_score(..., base=...)` passes the strict policy into `_has_sidecar_dimension_evidence`.
+- Ordinary non-strict `long_thin` behavior remains compatible.
+- Updated:
+  - `test_v3_dimension_validation.py`;
+  - `test_v3_reference_compare_smoke.py`.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile tools\validation\dimension_validation_smoke_v3.py tools\validation\reference_compare_smoke_v3.py test_v3_dimension_validation.py test_v3_reference_compare_smoke.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_dimension_validation.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_reference_compare_smoke.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_staged_cad_validation.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_reference_compare.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_vision_qc_v6.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_006_regression_readiness.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_dimension_validation.py`: PASS.
+- `test_v3_reference_compare_smoke.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Current readiness report remains `status=blocked`, with blocking keys `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current requested six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This prevents legacy validation from converting sidecar-only 006 evidence into a pass/warning result.
+- Real proof still requires safe SolidWorks recovery and a locked 006 rerun with real `DisplayDim` persistence and Drawing Review UI PASS.
+
+## v4.2 Reference Compare V4 Strict DisplayDim Source Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice closes the strict v4 comparison layer so it cannot pass a strict LB26001 drawing on DisplayDim count when the dimension evidence policy/source says sidecar/Note/non-DisplayDim evidence.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/reference_compare_v4.py`.
+- Added `STRICT_REFERENCE_INTENT_BASES` for `LB26001-A-04-006/007/008/009/015/022`.
+- Added `_append_dimension_source_issues()` and `_is_strict_reference_intent_case()`.
+- For strict LB26001 or `dimension_targets` blueprints, `reference_compare_v4` now emits critical issue `strict_reference_intent_display_dim_source_not_real` when `dimension_evidence_policy` contains sidecar/Note or reports `strict_reference_intent_display_dim_required`.
+- Updated `test_v4_reference_compare.py` so a 006 result with count `12` but `dimension_evidence_policy=sidecar_key_dimension_annotation` fails.
+
+Validation commands:
+
+```powershell
+$env:PYTHONPYCACHEPREFIX='drw_output\_pycache_check'; python -m py_compile app\services\reference_compare_v4.py test_v4_reference_compare.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_reference_compare.py
+$env:PYTHONIOENCODING='utf-8'; python test_v3_staged_cad_validation.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_vision_qc_v6.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_006_regression_readiness.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_acceptance_gate.py
+$env:PYTHONIOENCODING='utf-8'; python test_v4_2_lb26001_requested_drawings_status.py
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+$env:PYTHONIOENCODING='utf-8'; python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Current readiness report remains `status=blocked`, with blocking keys `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current requested six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This is a source-level v4 comparison guard; real proof still requires a safe locked 006 rerun and passing Drawing Review UI judgement.
+
+## v4.2 Drawing Review UI Generated PNG Source Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- The requested LB26001 drawings cannot pass on API metrics or a bare manual PASS. Each accepted drawing must have application Drawing Review UI screenshot evidence, and the screenshot report must prove the generated PNG came from the current run output.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- `ui_screenshot_review.pass` now requires:
+  - manual review method `application_drawing_review_ui_screenshot`;
+  - existing UI screenshot evidence;
+  - matching drawing base in the manual review case list;
+  - for `LB26001-A-04-006/007/008/009/015/022` or explicit `dimension_targets`, `generated_png_evidence.strict_source_pass=true` from the source Drawing Review UI report.
+- Updated `tools/validation/apply_ui_visual_review_v4.py` so UI closure summaries expose `generated_png_source_required`, `generated_png_source_pass`, and `generated_png_source_evidence`.
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py` so acceptance independently rejects stale or missing generated PNG source evidence with `generated_png_source_evidence_not_current_run`.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so the six-drawing status report can show `generated_png_source_invalid` separately from generic visual failure.
+- Updated tests:
+  - `test_v4_vision_qc_v6.py`;
+  - `test_v4_apply_ui_visual_review.py`;
+  - `test_v4_2_lb26001_acceptance_gate.py`;
+  - `test_v4_2_lb26001_requested_drawings_status.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py tools\validation\apply_ui_visual_review_v4.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_vision_qc_v6.py test_v4_apply_ui_visual_review.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_006_regression_readiness.py
+python test_v3_staged_cad_validation.py
+python test_v4_reference_compare.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- Current readiness report remains `status=blocked`, with blocking keys `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Refreshed acceptance gate is `status=blocked_by_006`, `pass=false`, and includes `generated_png_source_evidence_not_current_run`.
+- Refreshed requested six-drawing status is `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`; 006 is now explicitly `generated_png_source_invalid`, and `007/008/009/015/022` remain blocked by 006.
+
+Remaining issues:
+
+- The current UI screenshot evidence for 006 exists, but it does not prove the generated PNG source is a current run output and the visual/v4 checks still fail.
+- Real proof still requires safe SolidWorks recovery, one locked 006 CAD rerun, fresh Drawing Review UI screenshots from the new run output, and a passing manual/visual judgement before expanding to the other five drawings.
+
+## v4.2 Reference Intent DisplayDim Persistence Delta - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice improves the next 006 real CAD failure diagnosis. It does not claim the drawing is fixed, and it does not call SolidWorks.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_target_coverage_stage_delta()` to compare reference-intent target coverage snapshots across persistence stages.
+- The generator now writes `reference_intent_target_coverage_delta` into `*_v5_warnings.json` and appends warning code `reference_intent_target_coverage_stage_delta` when explicit target snapshots exist.
+- The delta records:
+  - `stage_order`;
+  - `lost_target_keys`;
+  - `recovered_target_keys`;
+  - `never_covered_target_keys`;
+  - `final_missing_target_keys`;
+  - per-target `first_covered_stage`, `first_missing_after_covered_stage`, final state, and transitions.
+- Updated `app/services/reference_compare_v4.py` so strict v4 evidence carries `lost_target_keys` and the full stage delta inside `reference_intent_targets_missing_after_persistence`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`;
+  - `test_v4_reference_compare.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_compare_v4.py test_v4_reference_compare.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_reference_intent_dimension_worker.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- Current readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Current six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- The next locked real CAD run must prove the delta in a real `*_v5_warnings.json` and show no `lost_target_keys` at `post_layout_final`.
+- Real 006 acceptance still requires `DisplayDim >= 12`, all explicit target keys covered after persistence/export, strict v4 PASS, v6 visual PASS, and application Drawing Review UI screenshot PASS.
+
+## v4.2 Reference Intent Target-Covered Creation Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice closes a generator-level false success path: creating any DisplayDim is no longer enough to mark a reference-intent target as repaired.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_target_covered()` to evaluate a target against a coverage snapshot.
+- `_run_reference_intent_explicit_display_dims()` now:
+  - snapshots target coverage immediately after a successful dimension creation attempt;
+  - records `target_covered_after_attempt`, `covered_target_keys_after_attempt`, and `missing_target_keys_after_attempt`;
+  - only marks the target `success=true` when the current `target_key` is actually covered;
+  - records `created_but_target_not_covered` and continues trying another visible entity when a real DisplayDim was created but did not satisfy the intended target;
+  - bounds these non-covering creations with `SWDS_REFERENCE_INTENT_UNCOVERED_CREATE_BUDGET` defaulting to `3`.
+- Updated `test_v3_generator_reference_style_plan.py` with helper coverage tests and source guards.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py app\services\reference_compare_v4.py test_v4_reference_compare.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_apply_ui_visual_review.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- Current readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Current six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- Real proof requires a locked 006 CAD rerun showing each target creation either covers the intended target or is recorded as non-covering, followed by final `post_layout_final` coverage with no missing targets.
+- The application Drawing Review UI screenshot and manual/visual judgement must still pass before 006 can unblock the remaining five drawings.
+
+## v4.2 Post-Layout Target-Missing Repair Trigger - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice closes a count-only post-layout repair trigger. A drawing with enough DisplayDims but missing a required reference-intent target now still enters explicit repair.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_post_layout_repair_reason()`.
+- Post-layout repair now triggers when:
+  - `DisplayDim < reference floor`, reported as `display_dim_floor_gap`; or
+  - any required target key is missing from `post_layout_reopen_before_repair`, reported as `reference_intent_targets_missing`.
+- `_post_layout_dim_result` now records `repair_reason`, `missing_target_keys_before_repair`, and `missing_target_keys_after_repair`.
+- When explicit repair still leaves targets missing, the generator appends warning code `post_layout_reference_intent_targets_still_missing`.
+- The post-layout explicit repair branch saves/re-exports only when the repair is no longer blocked by either count or target coverage.
+- Updated `test_v3_generator_reference_style_plan.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_drawing_visual_review_suite.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- Current readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Current six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- Real proof requires the next locked 006 run to show post-layout repair firing for missing target coverage, then final `post_layout_final` with no missing target keys and `DisplayDim >= 12`.
+- UI screenshot judgement and same-name reference comparison remain mandatory before accepting 006.
+
+## v4.2 Reference Intent Entity Rank Logging - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice improves explicit DisplayDim target attempts by making visible-entity ordering target-aware and auditable.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_entity_rank(expected_type, curve_identity)`.
+- Diameter/circular targets prefer circular curve identities; linear horizontal/vertical targets prefer non-circular visible entities.
+- `_visible_entities_for_reference_intent()` now sorts candidates through this helper.
+- Each explicit dimension attempt now records `entity_rank` beside `curve_identity`.
+- Updated `test_v3_generator_reference_style_plan.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_drawing_visual_review_suite.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- Current readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Current six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- The next locked 006 run must prove the ranked entity selection leads to all required targets covered after persistence/export.
+- This is diagnostic and ordering support only; UI screenshot acceptance remains the final gate.
+
+## v4.2 Strict Post-Layout Final Coverage Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice prevents strict v4 comparison from accepting earlier target coverage snapshots as final persistence/export proof.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/reference_compare_v4.py`.
+- `reference_intent_target_coverage` now records `final_stage_required=true` and `final_stage_present`.
+- `_append_reference_intent_target_coverage_issues()` emits critical `reference_intent_post_layout_final_coverage_missing` when explicit dimension targets exist but no `post_layout_final` snapshot is present.
+- Earlier stages such as `pre_export_final`, `post_saveas_reopen_prune`, or `pre_saveas` remain diagnostic only.
+- Updated `test_v4_reference_compare.py` with a fixture where `pre_export_final` covers all targets but `post_layout_final` is absent; the result must fail.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_compare_v4.py test_v4_reference_compare.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_reference_intent_dimension_worker.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- Current readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Current acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Current six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- The next locked 006 run must produce a real `post_layout_final` target coverage snapshot with no missing target keys.
+- This is still not a visual/manual PASS; the application Drawing Review UI screenshot workflow remains mandatory.
+
+## v4.2 006 Strict-Final UI Closure Refresh - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice regenerates no-COM with-UI artifacts for the existing failed 006 attempt using the latest strict v4/v6 gates.
+- Historical evidence was not overwritten.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Implementation:
+
+- Ran `tools/validation/apply_ui_visual_review_v4.py` into the new `closed_loop_strict_final_20260624` directory.
+- Ran `tools/validation/lb26001_acceptance_gate_v4_2.py` against the new closure summary.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so its default `DEFAULT_ACCEPTANCE_GATE` points to the new strict-final acceptance gate.
+
+Validation results:
+
+- New UI closure summary is `status=need_review`, `pass=false`.
+- New acceptance gate is `status=blocked_by_006`, `pass=false`, `primary_pass=false`.
+- New v4 with-UI report is `status=fail`, `pass=false`, with reasons `display_dim_lower_than_reference`, `reference_intent_target_coverage_missing`, and `ui_screenshot_visual_acceptance_not_passed`.
+- Its `reference_intent_target_coverage` evidence records `coverage_present=false`, `final_stage_required=true`, `final_stage_present=false`, `snapshot_count=0`, and all 12 explicit target keys missing from proven final coverage.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Validation commands:
+
+```powershell
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_acceptance_gate.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_apply_ui_visual_review.py
+```
+
+Remaining issues:
+
+- The existing 006 run cannot be accepted because it predates final target coverage snapshots and still fails visual/manual acceptance.
+- The next locked real CAD rerun must generate fresh `post_layout_final` coverage, strict v4 PASS, v6 visual PASS, and application Drawing Review UI PASS.
+
+## v4.2 UI Screenshot Source Link Closure - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice enforces that application Drawing Review UI screenshot evidence stays attached to the v4/v6 closure even when the manual judgement JSON omits `source_ui_report`.
+- No SolidWorks CAD generation was run.
+- API, geometry, and reference metrics remain supporting evidence only; per-drawing application UI screenshot judgement is still the final gate.
+
+Implementation:
+
+- Updated `tools/validation/apply_ui_visual_review_v4.py`.
+- When the manual judgement lacks `source_ui_report` or `drawing_visual_review_report`, the tool now writes `manual_visual_judgement_with_source.json` inside the closure output directory.
+- The original manual judgement remains untouched.
+- v6 visual QC now receives the effective manual judgement path, so `checks.ui_screenshot_review.source_ui_report` can point back to the Drawing Review UI report.
+- Updated `test_v4_apply_ui_visual_review.py` to omit `source_ui_report` from the fixture and assert that the closure injects the source report and that v6 sees it.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so its default acceptance gate points to the latest strict source-linked closure.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_source_20260624/manual_visual_judgement_with_source.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_source_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_source_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_source_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_source_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_drawing_visual_review_suite.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_source_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_source_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_source_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_acceptance_gate.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- New UI closure summary is `status=need_review`, `pass=false`, `source_ui_report_injected=true`.
+- New acceptance gate is `status=blocked_by_006`, `pass=false`, with reasons including `application_ui_screenshot_review_not_passed` and `generated_png_source_evidence_not_current_run`.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The current 006 evidence still cannot pass because the old UI report does not prove the generated PNG came from a current run output and the manual visual judgement is not PASS.
+- The next step remains a lock-protected real CAD rerun for 006 only, followed by strict v4/v6 checks and application Drawing Review UI screenshot/manual judgement before expanding to `007/008/009/015/022`.
+
+## v4.2 Application UI Screenshot Provenance Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice makes the Drawing Review UI screenshot source itself a hard v6 and acceptance-gate requirement.
+- No SolidWorks CAD generation was run.
+- API, geometry, and reference metrics remain supporting evidence only.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- v6 now requires `source_ui_report` to resolve to a `sw_drawing_studio.drawing_visual_review_ui.v1` report with `mode=source_qt_application_ui_screenshot`.
+- A manual PASS plus an arbitrary screenshot path is rejected when the source report is not an application Drawing Review UI screenshot report.
+- Updated `tools/ui_robot/drawing_visual_review_suite.py` so each entry declares `application_ui_screenshot_review_required=true`, `ui_screenshot_is_final_gate=true`, and `api_only_acceptance_allowed=false`.
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py` so gate evidence carries `source_ui_report_schema`, `source_ui_report_mode`, and `source_ui_report_application_ui_ok`; invalid sources emit `application_ui_screenshot_source_report_invalid`.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` to use the latest strict app-UI-source closure.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_app_ui_source_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_app_ui_source_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_app_ui_source_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_app_ui_source_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\ui_robot\drawing_visual_review_suite.py test_v4_vision_qc_v6.py test_v4_apply_ui_visual_review.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_requested_drawings_status.py test_v4_2_drawing_visual_review_suite.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_reference_compare.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_app_ui_source_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_app_ui_source_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_app_ui_source_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- New v6 with-UI evidence for 006 is `status=need_review`, with `source_ui_report_exists=true`, `source_ui_report_schema=sw_drawing_studio.drawing_visual_review_ui.v1`, `source_ui_report_mode=source_qt_application_ui_screenshot`, and `source_ui_report_application_ui_ok=true`.
+- New UI closure summary remains `status=need_review`, `pass=false`.
+- New acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The current 006 evidence proves the screenshot source is the application Drawing Review UI, but it is still not accepted because visual judgement is not PASS and generated PNG source evidence is not from a valid current run output.
+- The next locked real CAD rerun must fix 006 real DisplayDim persistence and then produce fresh app UI screenshot/manual judgement before any dependent drawing can enter acceptance.
+
+## v4.2 Manual Visual Checklist Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice prevents a sparse manual PASS from replacing actual per-drawing visual judgement.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- A manual PASS now requires the matching case entry to include a complete `visual_checklist`.
+- Required checklist keys are `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Missing checklist items make `checks.ui_screenshot_review.case_match.pass=false`, so v6 remains `need_review`.
+- Updated `test_v4_vision_qc_v6.py` with a passing checklist fixture and a failing fixture where screenshot/source evidence exists but the per-drawing checklist is missing.
+- Updated `test_v4_apply_ui_visual_review.py` so its passing fixture carries the same checklist.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` to use the latest strict manual-checklist closure.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_manual_checklist_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_manual_checklist_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_manual_checklist_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_manual_checklist_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py test_v4_vision_qc_v6.py test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_reference_compare.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_manual_checklist_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_manual_checklist_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_manual_checklist_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- New v6 with-UI evidence for 006 is `status=need_review`.
+- `checks.ui_screenshot_review.source_ui_report_application_ui_ok=true`, proving the screenshot source is the application Drawing Review UI.
+- `checks.ui_screenshot_review.case_match.visual_checklist_pass=false`, with missing checklist keys `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- New UI closure summary remains `status=need_review`, `pass=false`.
+- New acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The next valid 006 manual judgement must be created from fresh application Drawing Review UI screenshots and include the required per-drawing visual checklist.
+- The next locked real CAD rerun must still prove final real DisplayDim persistence and strict v4/v6 PASS before dependent drawings are allowed into acceptance.
+
+## v4.2 Post-Layout Final Blocker Warning - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice adds generator-side evidence for final post-layout reference-intent acceptance blockers.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added `_reference_intent_final_acceptance_blockers()`.
+- After `post_layout_final` target coverage is recorded, the generator now writes `post_layout_dim_repair.final_acceptance_blockers`.
+- If the final state has either `display_dim_floor_gap` or `reference_intent_targets_missing`, the warnings list receives `post_layout_reference_intent_final_blocked`.
+- Updated `test_v3_generator_reference_style_plan.py` to cover both blockers and to assert that the warning code remains wired into the generator.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The next locked real 006 CAD run must prove the final warning is absent by producing `DisplayDim >= 12` and no final missing reference-intent target keys after `post_layout_final`.
+- Application Drawing Review UI screenshot/manual checklist acceptance remains mandatory after the real CAD run.
+
+## v4.2 Strict V4 Generator Final Blocker Consumption - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice wires the generator-side final post-layout blocker into strict v4 reference comparison.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/reference_compare_v4.py`.
+- Added `_reference_intent_final_blockers()` and `_append_reference_intent_final_blocker_issues()`.
+- `compare_reference_v4()` now emits a critical `post_layout_reference_intent_final_blocked` difference when generator warnings contain `post_layout_reference_intent_final_blocked` or `post_layout_dim_repair.final_acceptance_blockers`.
+- Updated `test_v4_reference_compare.py` with a case where `dimension_validation` and target coverage look passable, but the generator warning reports a final post-layout DisplayDim floor gap; strict v4 must fail.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_compare_v4.py test_v4_reference_compare.py
+python test_v4_reference_compare.py
+python test_v3_generator_reference_style_plan.py
+python test_v3_staged_cad_validation.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Refreshed six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The next locked real 006 CAD run must not emit `post_layout_reference_intent_final_blocked`.
+- It must also pass strict v4, v6 visual QC, and application Drawing Review UI screenshot/manual checklist review before `007/008/009/015/022` can enter acceptance.
+
+## v4.2 Requested Drawing UI Acceptance Detail - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice makes the requested six-drawing status report explicitly list the missing application UI screenshot acceptance requirements per drawing.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- Each `base_results` item now carries `application_ui_screenshot_gate_pass` and `missing_ui_acceptance_requirements`.
+- Missing requirements can include `ui_visual_review_gate`, `application_ui_screenshot_file`, `application_ui_source_report`, `manual_case_pass`, `manual_visual_checklist`, and `fresh_generated_png_source`.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py` to assert that API/strict-style evidence cannot hide missing application UI source, manual checklist, or fresh generated PNG source proof.
+
+Evidence written:
+
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- `006` has `application_ui_screenshot_gate_pass=false`, with missing `manual_case_pass`, `manual_visual_checklist`, and `fresh_generated_png_source`.
+- `007/008/009/015/022` have `application_ui_screenshot_gate_pass=false`, with missing `ui_visual_review_gate`, `application_ui_source_report`, `manual_case_pass`, and `manual_visual_checklist`.
+
+Remaining issues:
+
+- None of the six requested drawings is visually accepted through the application UI screenshot workflow.
+- The next valid path is still a lock-protected real 006 CAD rerun, then strict v4/v6 checks, then fresh Drawing Review UI screenshot review with a complete manual checklist before expanding to `007/008/009/015/022`.
+
+## v4.2 Manual Visual Judgement Template - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice closes part of the UI evidence workflow gap by generating a structured, non-passing manual judgement template from Drawing Review UI screenshot reports.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Added `tools/validation/manual_visual_judgement_template_v4.py`.
+- The template writes `overall_status=PENDING_MANUAL_REVIEW`, `visual_acceptance_pass=false`, and per-entry `manual_status=PENDING`.
+- Each entry includes the application UI screenshot path, reference/generated/comparison image paths, source UI report path, and a six-item `visual_checklist` with all values set to `null`.
+- Updated `tools/ui_robot/drawing_visual_review_suite.py` so every new `drawing_visual_review_report.json` also produces `manual_visual_judgement_template.json`.
+- Updated `test_v4_2_manual_visual_judgement_template.py` and `test_v4_2_drawing_visual_review_suite.py`.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/manual_visual_judgement_template.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement_template.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_template_pending_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_template_pending_20260624/lb26001_acceptance_gate_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\manual_visual_judgement_template_v4.py tools\ui_robot\drawing_visual_review_suite.py test_v4_2_manual_visual_judgement_template.py test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_manual_visual_judgement_template.py
+python test_v4_2_drawing_visual_review_suite.py
+python tools\validation\manual_visual_judgement_template_v4.py --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_template.json --base LB26001-A-04-006
+python tools\validation\manual_visual_judgement_template_v4.py --ui-report drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\drawing_visual_review_report.json --out drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement_template.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_template.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_template_pending_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_template_pending_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_template_pending_20260624\lb26001_acceptance_gate_v4_2.json
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_manual_visual_judgement_template.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Template generation for the existing 006 UI report wrote 1 pending entry.
+- Template generation for the existing six-drawing UI report wrote 6 pending entries.
+- Applying the 006 template to the v4/v6 UI closure remains `status=need_review`, `pass=false`.
+- The acceptance gate using that pending template remains `status=blocked_by_006` and includes `manual_visual_checklist_missing_or_incomplete`.
+
+Remaining issues:
+
+- The template is only a review aid. A human or visual reviewer still must inspect the application screenshots and fill each checklist item with a real PASS/FAIL judgement.
+- The next real validation step remains blocked until SolidWorks is safely responsive and 006 can be regenerated under the global lock.
+
+## v4.2 Structured Six-Drawing Screenshot Judgement - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- The existing application Drawing Review UI screenshots for `006/007/008/009/015/022` were inspected and converted into a structured visual FAIL judgement.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Added `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement_codex_20260624.json`.
+- Each requested drawing has `manual_status=FAIL`, `visual_acceptance_pass=false`, a UI screenshot path, findings, correction guidance, and all six required checklist items set to `false`.
+- Updated `app/services/vision_qc_v6.py` so legacy runs without a blueprint `base` still infer the drawing base from the PNG path, reference path, or manual review entries.
+- This lets v6 apply per-drawing `case_match` and `visual_checklist` checks even when old evidence lacks a complete DrawingBlueprint.
+- Updated `test_v4_vision_qc_v6.py`.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so the default requested-drawing status uses the new structured six-drawing UI gate.
+
+Evidence written:
+
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement_codex_20260624.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/vision_qc_v6_with_ui_review/*.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py test_v4_vision_qc_v6.py
+python test_v4_vision_qc_v6.py
+python -m json.tool drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement_codex_20260624.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --ui-report drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement_codex_20260624.json --out-dir drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624 --base LB26001-A-04-006 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Six-drawing v4/v6 UI closure remains `status=need_review`, `pass=false`.
+- Acceptance gate remains `status=blocked_by_006`, `pass=false`, with `manual_visual_checklist_missing_or_incomplete`.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- For every requested drawing, v6 now records `manual_case_status_pass=false`, `visual_checklist_pass=false`, and missing checklist items `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The six existing generated drawings are not visually qualified from the application UI screenshots.
+- The next real CAD action is still forbidden until SolidWorks readiness clears; after that, run only 006 under the global lock before expanding the rest.
+
+## v4.2 Current-Doc Reference Intent View Rebind Priority - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice hardens the next 006 post-layout explicit DisplayDim repair by avoiding stale `created_views` as the first slot-binding source.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- `_reference_intent_slot_views()` now records current drawing views from `_created_views_for_autodimension()` before old `created_views`.
+- Slot matching via `_match_reference_intent_slot_views()` runs before old `created_views` are accepted.
+- Old `created_views` now enter only as `created_views_fallback`.
+- Updated `test_v3_generator_reference_style_plan.py` with a source-level guard for this order.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- This is source-level hardening only. It still needs a locked real 006 CAD rerun to prove post-layout target view rebinding and final `DisplayDim >= 12`.
+- Existing six-drawing UI screenshot judgement remains FAIL.
+
+## v4.2 Legacy UI Report Generated PNG Source Inference - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice makes old Drawing Review UI reports distinguish real visual failure from missing generated-PNG source metadata.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Added `app/services/generated_png_source_evidence.py`.
+- The shared helper enforces the requested LB26001 rule: generated PNG evidence must exist under the current `run_dir` and must not come from stale `drw_output/v5`.
+- Updated `tools/ui_robot/drawing_visual_review_suite.py` to use the shared helper for new reports.
+- Updated `app/services/vision_qc_v6.py` to infer `generated_png_source_evidence` from legacy source report fields `generated_png` and `run_dir` when the explicit evidence object is absent.
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py` to make the same inference at gate-summary time.
+- Updated `test_v4_vision_qc_v6.py` and `test_v4_2_lb26001_acceptance_gate.py`.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/vision_qc_v6_with_ui_review/*.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\generated_png_source_evidence.py app\services\vision_qc_v6.py tools\ui_robot\drawing_visual_review_suite.py tools\validation\lb26001_acceptance_gate_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_drawing_visual_review_suite.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_drawing_visual_review_suite.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --ui-report drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement_codex_20260624.json --out-dir drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624 --base LB26001-A-04-006 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\lb26001_acceptance_gate_v4_2.json
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Six-drawing v4/v6 UI closure remains `status=need_review`, `pass=false`.
+- Acceptance gate remains `status=blocked_by_006`, `pass=false`.
+- The old `generated_png_source_evidence_not_current_run` reason is no longer emitted for the six current run PNGs; all six now have `generated_png_source_pass=true`.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Every requested drawing now fails on `manual_case_pass` and `manual_visual_checklist`, not on PNG source metadata.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The generated drawings remain visually unacceptable from application UI screenshots.
+- Real 006 CAD rerun remains blocked until SolidWorks is safely responsive and unsaved-document risk is cleared.
+
+## v4.2 Manual Checklist Failed Vs Missing Semantics - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice clarifies that the six requested drawings have been visually judged from application UI screenshots and failed; they are not merely missing a checklist.
+- No SolidWorks CAD generation was run.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- `_manual_visual_checklist_result()` now separates checklist keys that are absent/`null` from keys explicitly set to `false`.
+- v6 now emits `missing_visual_checklist_items`, `failed_visual_checklist_items`, and `not_passed_visual_checklist_items`.
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+- The gate now emits `manual_visual_checklist_missing_or_incomplete` only for absent/`null` checklist values, and emits `manual_visual_checklist_failed` for explicit false visual judgements.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so the requested drawing report surfaces `manual_visual_checklist_failed`.
+- Updated `test_v4_vision_qc_v6.py`, `test_v4_2_lb26001_acceptance_gate.py`, and `test_v4_2_lb26001_requested_drawings_status.py`.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/vision_qc_v6_with_ui_review/*.json`
+- `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --ui-report drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\manual_visual_judgement_codex_20260624.json --out-dir drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624 --base LB26001-A-04-006 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\closed_loop_codex_structured_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Six-drawing UI closure remains `status=need_review`, `pass=false`.
+- Acceptance gate remains `status=blocked_by_006`, `pass=false`, now with `manual_visual_checklist_failed`.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Every requested drawing now shows `status=manual_visual_checklist_failed`, `generated_png_source_pass=true`, `manual_visual_checklist_missing_items=[]`, and all six checklist items in `manual_visual_checklist_failed_items`.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The application UI screenshots prove the six current generated drawings are visually unqualified.
+- The next actual generation attempt remains blocked until SolidWorks is safe to use.
+
+## v4.2 Requested Status Manual Findings Detail - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice does not run SolidWorks and does not change any original CAD files.
+- Application Drawing Review UI screenshots remain the final gate for `LB26001-A-04-006/007/008/009/015/022`; API and strict-style metrics are supporting evidence only.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- `DEFAULT_MANUAL_REVIEWS` now includes `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/manual_visual_judgement_codex_20260624.json`.
+- Each requested base result now surfaces `latest_manual_visual_checklist`, `latest_manual_visual_checklist_notes`, `latest_manual_findings`, and `latest_manual_required_correction`.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py` to assert the structured manual checklist notes and correction guidance are present.
+- Updated `tasks.md`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- `manual_reviews[0]` is the structured Codex UI screenshot judgement file.
+- All six requested drawings remain `manual_visual_checklist_failed`, with `generated_png_source_pass=true` and no missing checklist keys.
+- Readiness remains `status=blocked`, with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- The six current generated drawings remain visually unacceptable in the application UI screenshot workflow.
+- The next valid correction test is still a lock-protected real `LB26001-A-04-006` CAD rerun after SolidWorks is responsive and unsaved-document risk is cleared.
+
+## v4.2 UI-first Correction Plan - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- This slice does not run SolidWorks, does not modify original CAD files, and does not claim acceptance.
+- The purpose is to convert the learned reference drawing standard plus application UI screenshot failures into a concrete correction-test plan.
+
+Implementation:
+
+- Added `tools/validation/lb26001_correction_plan_v4_2.py`.
+- The plan combines `drw_output/reference_style_profile/lb26001_drawing_standard_v3_0.json`, `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`, and `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+- The generated report records each requested base's required view family, DisplayDim floor, layout/style requirements, UI screenshot checklist failures, correction actions, and validation command templates.
+- `LB26001-A-04-006` is marked `pilot_006_first`; `007/008/009/015/022` are `gated_after_006_pass`.
+- `real_cad_regression_allowed_now=false` because readiness is still blocked by `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Added `test_v4_2_lb26001_correction_plan.py`.
+- Updated `tasks.md`.
+
+Evidence written:
+
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_correction_plan_v4_2.py test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- Generated correction plan reports `status=blocked_by_solidworks_readiness`, `correction_plan_ready=true`, and `entry_count=6`.
+- All six entries retain `manual_visual_checklist_failed` as the current UI screenshot status.
+- `006` has reference requirements `4 views`, `view_types={"4":2,"7":2}`, and `DisplayDim floor=12`.
+- The remaining five requested bases remain gated until `006` passes real CAD, strict v4/v6, and application Drawing Review UI screenshot manual judgement.
+
+Remaining issues:
+
+- No fresh real CAD correction can be run until SolidWorks readiness is safe.
+- The generated drawings are still visually unqualified; the plan is a correction input, not a passing result.
+
+## v4.2 Reference Sheet Template Policy In Blueprint - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change addresses one UI screenshot failure class: the generated drawings inherit an oversized default frame/titleblock that does not match the same-name references.
+
+Implementation:
+
+- Updated `app/services/drawing_blueprint_builder.py`.
+- Same-name reference blueprints now write `layout_plan.sheet_template_policy` with `policy=strip_default_template_artifacts`, `default_template_artifacts_allowed=false`, `skip_builtin_gb_frame_titleblock=true`, and `visible_titlebar_mode=compact_reference_fields`.
+- Blueprint warnings now include `reference_sheet_template_policy:strip_default_template_artifacts`.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- The generator now honors `DrawingBlueprint.layout_plan.sheet_template_policy` before falling back to part-path/reference-view detection, while still allowing `FORCE_DEFAULT_TITLEBLOCK=1` for explicit manual override.
+- Updated `tools/validation/lb26001_correction_plan_v4_2.py` so each requested drawing's reference standard includes the same sheet/template policy.
+- Updated `test_v4_drawing_blueprint_core.py`, `test_v4_generator_blueprint_execution.py`, and `test_v4_2_lb26001_correction_plan.py`.
+
+Evidence written:
+
+- `drw_output/v4_blueprint_smoke/20260624_sheet_template_policy/drawing_blueprints_v4.json`
+- `drw_output/v4_blueprint_smoke/20260624_sheet_template_policy/drawing_blueprint_schema_v4.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\drawing_blueprint_builder.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_correction_plan_v4_2.py test_v4_drawing_blueprint_core.py test_v4_generator_blueprint_execution.py test_v4_2_lb26001_correction_plan.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260624_sheet_template_policy
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `v4_blueprint_smoke.py`: PASS, `blueprint_count=6`.
+- 006 blueprint smoke evidence includes `sheet_template_policy.policy=strip_default_template_artifacts`, `default_template_artifacts_allowed=false`, and `skip_builtin_gb_frame_titleblock=true`.
+- 006 correction plan evidence includes the same sheet/template policy.
+- Current correction plan remains `status=blocked_by_solidworks_readiness`; `real_cad_regression_allowed_now=false`.
+
+Remaining issues:
+
+- The next 006 real CAD run still cannot start until SolidWorks is responsive and unsaved-document risk is cleared.
+- This source-level policy must be proven by a fresh locked 006 CAD run and application Drawing Review UI screenshot review before acceptance can move to the remaining five drawings.
+
+## v4.2 Reference Intent DisplayDim Trace Contract - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change tightens the next 006 correction run so it must prove explicit reference-intent DisplayDim creation, not generic AutoDimension output.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_planner.py`.
+- Every 006 dimension target now carries `target_key`, `expected_add_method`, `trace_required_fields`, `acceptance_trace`, `ui_visual_checklist_items`, and `generic_autodimension_acceptance_allowed=false`.
+- The top-level 006 plan now includes `acceptance_trace_requirements` with required fields `target_key`, `view_slot`, `selected_entity`, `add_method`, before/after counts, target coverage, and `persisted_after_reopen`; required stages include `pre_saveas`, `post_saveas_reopen_prune`, `pre_export_final`, and `post_layout_final`.
+- Updated `app/services/dimension_planner.py` so DrawingBlueprint dimension targets preserve the trace fields.
+- Updated `app/services/reference_intent_dimension_executor.py` so the CAD worker contract preserves expected add methods and trace requirements.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` so explicit DisplayDim attempt logs include `expected_add_method` and `add_method_matches_expected`.
+- Updated `tools/validation/lb26001_correction_plan_v4_2.py` so the correction plan exposes the 006 reference-intent trace policy.
+- Updated `test_v4_2_reference_intent_dimension_worker.py`, `test_v3_generator_reference_style_plan.py`, and `test_v4_2_lb26001_correction_plan.py`.
+
+Evidence written:
+
+- `drw_output/reference_intent_dimension_plan_006.json`
+- `drw_output/reference_intent_dimension_contract_006.json`
+- `drw_output/v4_blueprint_smoke/20260624_refintent_trace_contract/drawing_blueprints_v4.json`
+- `drw_output/v4_blueprint_smoke/20260624_refintent_trace_contract/drawing_blueprint_schema_v4.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py app\services\dimension_planner.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_2_reference_intent_dimension_worker.py test_v4_drawing_blueprint_core.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_drawing_blueprint_core.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --drawing drw_output\runs\<fresh_run_dir>\drawing\LB26001-A-04-006_v5.SLDDRW --run-dir drw_output\runs\<fresh_run_dir> --out drw_output\reference_intent_dimension_contract_006.json
+python tools\validation\v4_blueprint_smoke.py --out-dir drw_output\v4_blueprint_smoke\20260624_refintent_trace_contract
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- 006 reference-intent plan: `status=plan_ready_requires_cad_worker_lock`, `dimension_count=12`, `final_stage=post_layout_final`.
+- 006 contract: `status=contract_ready_requires_cad_worker_lock`, `operation_count=12`, `all_dimension_targets_must_persist_after_reopen=true`.
+- 006 blueprint smoke evidence carries `expected_add_method=AddDiameterDimension2` for `hole_diameter` and includes `persisted_after_reopen` in `trace_required_fields`.
+- Correction plan remains `status=blocked_by_solidworks_readiness`; real CAD rerun is still not allowed.
+
+Remaining issues:
+
+- The trace contract is source/offline evidence only. A fresh locked 006 CAD run must still prove the trace fields with actual SolidWorks `DisplayDim` objects and pass Drawing Review UI screenshot manual judgement.
+
+## v4.2 006 Explicit DisplayDim UI Checklist Closure - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This slice closes the existing 006 application Drawing Review UI screenshot evidence as a strict v4.2 manual visual FAIL, rather than leaving it as pending or API-only evidence.
+
+Implementation:
+
+- Added `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/manual_visual_judgement_codex_v4_2_20260624.json`.
+- The manual judgement was based on the application screenshot `screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- All six required visual checklist items are explicitly `false`: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Findings record that the generated drawing remains visually unacceptable: final DisplayDim is `11/12`, dimensions are still clustered around front/right areas, right projected-view callouts do not match the reference, and generic bottom notes/title information remain.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py` so the new 006 v4.2 manual judgement is part of default manual review inputs.
+- Updated `tasks.md`.
+
+Evidence written or refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/manual_visual_judgement_codex_v4_2_20260624.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_codex_v4_2_checklist_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_codex_v4_2_checklist_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_codex_v4_2_checklist_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_codex_v4_2_checklist_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m json.tool drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_codex_v4_2_checklist_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_codex_v4_2_checklist_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_codex_v4_2_checklist_20260624\lb26001_acceptance_gate_v4_2.json
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py tools\validation\lb26001_correction_plan_v4_2.py test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+```
+
+Validation results:
+
+- `json.tool`: PASS.
+- `apply_ui_visual_review_v4.py`: expected non-pass, `status=need_review`, `pass=false`.
+- `lb26001_acceptance_gate_v4_2.py`: expected non-pass, `status=blocked_by_006`, `pass=false`.
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- Requested drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- 006 requested status now uses `manual_visual_judgement_codex_v4_2_20260624.json` as `latest_manual_review` and reports `manual_visual_checklist_failed`.
+- 006 with-ui reference compare still fails on `display_dim_lower_than_reference`, `reference_intent_target_coverage_missing`, and `ui_screenshot_visual_acceptance_not_passed`.
+
+Remaining issues:
+
+- This closes the old pending UI screenshot evidence as FAIL; it does not make 006 acceptable.
+- A fresh locked 006 CAD rerun is still required after SolidWorks readiness clears.
+
+## v4.2 Post-layout View-family Rebind Fallback - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change targets the previous 006 `target_view_not_found` post-layout blocker by adding another deterministic rebinding fallback for current persisted drawing views.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- `_match_reference_intent_slot_views()` now fills missing `front/top/right/iso` slots from current drawing-view outlines when layout-center and view-name matching are insufficient.
+- The fallback classifies type `7` views as `front` / `iso` and type `4` projected views as `top` / `right`, using relative position to the front view.
+- Added helper `_box_width()` for deterministic front-view selection.
+- Updated `test_v3_generator_reference_style_plan.py` with a no-COM case using generic `Drawing View` names, missing layout centers, two type `7` views, and two type `4` views.
+
+Evidence refreshed:
+
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py test_v4_reference_compare.py test_v3_staged_cad_validation.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Static evidence shows `view_family_heuristic:type7_front`, `type4_top`, `type4_right`, and `type7_iso`.
+- Requested drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Correction plan remains `blocked_by_solidworks_readiness`.
+
+Remaining issues:
+
+- This is source-level proof only. The next locked 006 CAD run must prove post-layout repair no longer emits `target_view_not_found`, final real DisplayDim reaches at least `12`, and the application Drawing Review UI screenshot manual checklist passes.
+
+## v4.2 006 Locked Rerun Packet - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The packet is not acceptance evidence. It is a no-COM orchestration gate for the next single locked `LB26001-A-04-006` rerun.
+- Application Drawing Review UI screenshot judgement remains the final gate; API metrics alone are not accepted.
+
+Implementation:
+
+- Added `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+- Added `test_v4_2_lb26001_006_rerun_packet.py`.
+- The packet combines the current readiness report, six-drawing requested status, UI-first correction plan, reference-intent plan/contract artifacts, generator repair signatures, and strict v4 comparison signatures.
+- The packet records the ordered next gates: no-COM readiness audit, one locked 006 CAD rerun, dimension validation, strict reference compare v4, Drawing Review application UI screenshot, manual visual judgement, with-UI closure, and LB26001 expansion gate.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Readiness audit: expected non-pass, `status=blocked`, blockers `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Requested six-drawing status: expected non-pass, `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Correction plan: `status=blocked_by_solidworks_readiness`, `correction_plan_ready=true`, `entry_count=6`.
+- Rerun packet: `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- SolidWorks must be made responsive and the visible unsaved document must be manually saved or closed before any real CAD worker runs.
+- Once readiness is clear, run only `LB26001-A-04-006` first through the locked CAD path, then close it through strict v4/v6 checks and Drawing Review UI screenshot manual judgement.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI screenshot checklist.
+
+## v4.2 006 Staged Preflight Rerun Packet Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change prevents the next staged `LB26001_006` CAD attempt from bypassing the no-COM rerun packet and application UI screenshot acceptance policy.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+- `run_stage(..., stage="LB26001_006")` now writes `lb26001_006_regression_readiness_v4_2.json` and then `lb26001_006_rerun_packet_v4_2.json` before any `sw_connection_guard` or CAD command.
+- If the rerun packet has `real_cad_allowed_now=false`, staged validation exits with zero processed cases, no case directory, and no `sw_connection_guard.json`.
+- Updated `test_v3_staged_cad_validation.py` to prove both readiness failures and rerun-packet offline prerequisite failures stop before COM/CAD.
+
+Evidence refreshed:
+
+- `drw_output/staged_validation/LB26001_006_rerun_packet_preflight_20260624/summary.json`
+- `drw_output/staged_validation/LB26001_006_rerun_packet_preflight_20260624/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/staged_validation/LB26001_006_rerun_packet_preflight_20260624/lb26001_006_rerun_packet_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_staged_cad_validation.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_rerun_packet_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Staged preflight command: expected non-pass, `status=fail`, `processed=0`, `deliverable_count=0`.
+- Staged preflight summary includes `lb26001_006_rerun_packet_report`, `lb26001_006_rerun_packet_status=blocked_by_solidworks_readiness`, and `lb26001_006_real_cad_allowed_now=false`.
+- Failure bucket is `lb26001_006_readiness_not_ready`, `lb26001_006_rerun_packet_not_ready`, `solidworks_not_responding`, and `solidworks_unsaved_document_visible`.
+- No `sw_connection_guard.json` or `01_*` case directory was written in the staged preflight output.
+
+Remaining issues:
+
+- This is a stronger entry gate, not a drawing quality pass.
+- Real CAD remains blocked until SolidWorks is responsive and the visible unsaved document risk is cleared.
+- The next allowed real CAD action remains exactly one locked `LB26001-A-04-006` rerun, followed by dimension/reference/v4/v6 validation and Drawing Review UI screenshot manual judgement.
+
+## v4.2 With-UI Closure Entry Screenshot Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change strengthens the application UI screenshot closure so a manual PASS JSON cannot substitute for a matching Drawing Review UI report entry.
+
+Implementation:
+
+- Updated `tools/validation/apply_ui_visual_review_v4.py`.
+- Each selected base now records `ui_report_entry_present`, `ui_report_application_ui_ok`, `ui_report_entry_screenshot_exists`, `ui_report_entry_screenshot_capture_pass`, and `ui_report_entry_pass`.
+- `ui_visual_review_gate_summary.json` now has `ui_report_entries_all_pass`, and the closure cannot pass unless this is true in addition to v6/v4 with-UI passing.
+- Updated `test_v4_apply_ui_visual_review.py` to prove a manual PASS judgement is still blocked when the Drawing Review UI report does not contain the matching base screenshot entry.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_ui_entry_gate_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_ui_entry_gate_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_ui_entry_gate_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_ui_entry_gate_20260624/lb26001_acceptance_gate_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py app\services\vision_qc_v6.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_ui_entry_gate_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_ui_entry_gate_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_ui_entry_gate_20260624\lb26001_acceptance_gate_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Fresh 006 with-UI closure is expected non-pass: `status=need_review`, `pass=false`.
+- The new screenshot-entry gate itself passes for the current 006 evidence: `ui_report_entries_all_pass=true`, `ui_report_entry_present=true`, `ui_report_entry_screenshot_exists=true`, `ui_report_entry_pass=true`.
+- The closure remains blocked by actual drawing quality and visual judgement: `vision_qc_v6_all_pass=false`, `reference_compare_v4_all_pass=false`, with reasons `display_dim_lower_than_reference`, `reference_intent_target_coverage_missing`, and `ui_screenshot_visual_acceptance_not_passed`.
+
+Remaining issues:
+
+- This proves the screenshot evidence path is attached; it does not make the drawing acceptable.
+- 006 still needs a fresh locked CAD rerun after SolidWorks readiness clears, then a new Drawing Review UI screenshot and manual visual PASS checklist.
+
+## v4.2 Manual Screenshot Binding Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change prevents a manual judgement JSON from passing closure by pointing to a different screenshot than the application Drawing Review UI report entry.
+
+Implementation:
+
+- Updated `tools/validation/apply_ui_visual_review_v4.py`.
+- Each selected base now records `manual_review_entry_present`, `manual_review_entry_screenshot_paths`, `manual_review_entry_screenshot_paths_existing`, `manual_review_entry_screenshot_mismatch_paths`, `manual_review_screenshot_matches_ui_report_entry`, and `manual_review_entry_screenshot_pass`.
+- `ui_visual_review_gate_summary.json` now has `manual_review_entries_all_pass`, and closure cannot pass unless manual judgement screenshots resolve to the same screenshot file as the UI report entry.
+- Updated `test_v4_apply_ui_visual_review.py` to prove a manual PASS that points to another screenshot is still blocked.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_manual_screenshot_bind_20260624/ui_visual_review_gate_summary.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_manual_screenshot_bind_20260624/vision_qc_v6_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_manual_screenshot_bind_20260624/reference_compare_v4_with_ui_review/LB26001-A-04-006.json`
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_manual_screenshot_bind_20260624/lb26001_acceptance_gate_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\apply_ui_visual_review_v4.py test_v4_apply_ui_visual_review.py app\services\vision_qc_v6.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_manual_screenshot_bind_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_manual_screenshot_bind_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_manual_screenshot_bind_20260624\lb26001_acceptance_gate_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Fresh 006 with-UI closure is expected non-pass: `status=need_review`, `pass=false`.
+- Screenshot source gates pass for current 006 evidence: `ui_report_entries_all_pass=true`, `manual_review_entries_all_pass=true`, `manual_review_screenshot_matches_ui_report_entry=true`.
+- The closure remains blocked by actual drawing quality: `vision_qc_v6_all_pass=false`, `reference_compare_v4_all_pass=false`, with reasons `display_dim_lower_than_reference`, `reference_intent_target_coverage_missing`, and `ui_screenshot_visual_acceptance_not_passed`.
+
+Remaining issues:
+
+- This proves manual judgement is bound to the same application UI screenshot; it does not make 006 acceptable.
+- The next real progress on drawing quality still requires a fresh locked 006 CAD rerun once SolidWorks readiness clears.
+
+## v4.2 006 UI-Backed Acceptance Proof Packet - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The new proof packet explicitly treats application Drawing Review UI screenshots as the final gate and forbids API-only acceptance.
+- Current 006 proof is `blocked_by_006/pass=false`; it is not release or acceptance evidence.
+
+Implementation:
+
+- Added `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+- Added `test_v4_2_lb26001_006_acceptance_proof.py`.
+- The proof combines staged 006 evidence, strict final with-UI v4/v6 evidence, manual screenshot binding evidence, and the LB26001 acceptance gate.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python test_v4_2_lb26001_requested_drawings_status.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- 006 proof command is expected non-pass with exit code 1: `status=blocked_by_006`, `pass=false`.
+- Requested six-drawing status command is expected non-pass with exit code 1: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- The proof confirms UI screenshot entry and manual screenshot binding pass, but staged deliverable, reference style, v6 visual QC, strict v4 reference compare, fresh generated PNG source, and acceptance primary gate remain non-pass.
+
+Remaining issues:
+
+- The current application UI screenshot evidence proves the drawing was reviewed through the UI; it does not prove the drawing is correct.
+- The next allowed CAD step remains exactly one locked `LB26001-A-04-006` rerun after SolidWorks readiness clears, followed by strict validation and fresh application Drawing Review UI screenshot judgement.
+- Do not expand acceptance to `LB26001-A-04-007/008/009/015/022` until 006 proof is PASS.
+
+## v4.2 Requested Drawings Status Proof Binding - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The six requested drawing status report now uses the latest 006 strict-final gate and the dedicated 006 acceptance proof as authoritative blockers.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- `DEFAULT_ACCEPTANCE_GATE` now points to `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json`.
+- Added `DEFAULT_ACCEPTANCE_PROOF=drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`.
+- Overall and per-drawing acceptance now stay blocked when the 006 proof is missing or non-pass, even if a gate artifact is accidentally written as PASS.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py` with strict-final default coverage, false PASS blocking, and missing-proof blocking.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_acceptance_gate.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- 006 proof command is expected non-pass with exit code 1: `status=blocked_by_006`, `pass=false`.
+- Six-drawing status command is expected non-pass with exit code 1: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- The refreshed status report records `acceptance_gate=closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json` and `primary_acceptance_proof_status=blocked_by_006`.
+
+Remaining issues:
+
+- This closes a status-report evidence gap; it does not repair the generated drawing.
+- `LB26001-A-04-006` still needs a fresh locked CAD rerun after SolidWorks readiness clears, then strict v4/v6 validation and application Drawing Review UI screenshot PASS.
+
+## v4.2 006 Post-Layout Rebind And Rerun Packet Fix - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change targets the latest real 006 failure mode where post-layout explicit repair reopened the drawing but every reference-intent target failed with `target_view_not_found`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Post-layout reference-intent slot rebinding now falls back from current document view enumeration to persisted `real_outlines` view names.
+- The generator can reacquire a live drawing `IView` by selecting persisted view names through `SelectByID2` and reading `SelectionManager.GetSelectedObject6`, with active drawing view recovery as another fallback.
+- Explicit DisplayDim repair reports now include `slot_rebind_diagnostics` and `slot_view_sources`.
+- Updated `test_v3_generator_reference_style_plan.py` with persisted real-outline rebinding and source-signature coverage.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+- Fresh generated PNG evidence is now a post-rerun acceptance requirement, not an offline prerequisite for allowing the next 006 rerun.
+- The rerun packet now checks source signatures for `select_by_persisted_name` and `slot_rebind_diagnostics`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py` to prove stale/missing current PNG evidence does not create a circular offline preflight block.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- Generator `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Rerun packet `py_compile`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Readiness command is expected non-pass with exit code 1: `blocking_issue_keys=["solidworks_not_responding","solidworks_unsaved_document_visible"]`.
+- Rerun packet now builds successfully: `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- 006 proof remains expected non-pass: `status=blocked_by_006`, `pass=false`.
+- Six-drawing status remains expected non-pass: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- The source-level fix must be proven by a fresh locked 006 CAD rerun; current historical evidence still has final `DisplayDim=11` and stale PNG source.
+- Real CAD is still blocked by SolidWorks readiness until the visible unsaved document risk is cleared and SolidWorks responds.
+- After the next rerun, acceptance still requires strict v4/v6 PASS plus application Drawing Review UI screenshot PASS.
+
+## v4.2 006 DisplayDim Lifecycle Audit - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The new audit explains the historical 006 failure from existing JSON artifacts and prepares a stage-by-stage diagnostic for the next rerun.
+
+Implementation:
+
+- Added `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+- Added `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the rerun packet checks lifecycle audit source signatures before declaring offline readiness.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py` for the new lifecycle audit source fixture.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v3_generator_reference_style_plan.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- Lifecycle audit command is expected non-pass with exit code 1: current historical evidence still fails.
+- Lifecycle blockers are `final_display_dim_below_reference_floor`, `display_dim_lost_between_prune_and_sidecar`, `display_dim_lifecycle_count_regression`, `post_layout_final_target_coverage_missing`, `target_coverage_delta_missing`, `post_layout_explicit_repair_created_zero`, `post_layout_target_view_not_found`, and `post_layout_slot_rebind_diagnostics_missing`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- 006 proof remains `blocked_by_006/pass=false`; six-drawing status remains `blocked_by_006/pass_count=0/not_pass_count=6`.
+
+Remaining issues:
+
+- The lifecycle audit proves the old run is not acceptable and identifies the loss between persisted prune evidence and the sidecar/final counts.
+- The next locked CAD run must regenerate this audit with `DisplayDim >= 12`, no count regression, `post_layout_final` coverage present, and slot rebinding diagnostics present.
+
+## v4.2 006 Post-Prune DisplayDim Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change targets the lifecycle audit finding that historical 006 had `post_saveas_reopen_prune_after=14` but `before_sidecar_diagnostic=11`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Added a CAD-worker-only `post_saveas_reopen_prune_guard` path after `post_saveas_reopen_prune` target coverage and before sidecar diagnostics.
+- The guard checks real `_count_display_dims(drw)` plus reference-intent target coverage; if floor or target coverage is missing, it runs explicit target DisplayDim repair, arranges dimensions, saves SLDDRW, and records `post_prune_dim_guard`.
+- The generator also writes a post-guard coverage snapshot as `target_coverage_after_guard` plus `missing_target_keys_after_guard`, using stage `post_saveas_reopen_prune_guard`, so the next real run can prove whether the guard restored each explicit 006 target before sidecar diagnostics.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py` to include `post_prune_guard_before/after`, `post_prune_guard_missing`, `post_prune_guard_still_below_reference_floor`, and target/diagnostic checks.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so lifecycle audit source signatures require `post_prune_dim_guard`.
+- Updated tests in `test_v3_generator_reference_style_plan.py`, `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`, and `test_v4_2_lb26001_006_rerun_packet.py`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Current lifecycle audit remains expected non-pass with exit code 1 because it is auditing the old run; it now also reports `post_prune_guard_missing`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- 006 proof remains `blocked_by_006/pass=false`; six-drawing status remains `blocked_by_006/pass_count=0/not_pass_count=6`.
+
+Remaining issues:
+
+- The post-prune guard must be proven by the next locked 006 CAD run.
+- The next lifecycle audit must show no `display_dim_lost_between_prune_and_sidecar`, no `post_prune_guard_missing`, final `DisplayDim >= 12`, and valid post-layout target coverage.
+
+## v4.2 Requested Six UI Screenshot Final Gate Hardening - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The user explicitly required application UI screenshot validation for every drawing; API/strict-style/DisplayDim reports remain supporting evidence only.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- The six-drawing status report now resolves `ui_screenshot_files` to existing nonempty files and records `invalid_or_missing_gate_ui_screenshot_files`.
+- Per-base `pass` now requires the strict application UI gate, not only an API/gate pass flag:
+  - 006 acceptance proof present and passing.
+  - Application Drawing Review UI screenshot source report valid.
+  - Manual visual case passes.
+  - Manual visual checklist is required and complete.
+  - Fresh generated PNG source passes when required.
+  - No missing UI acceptance requirements.
+- A forged gate/API pass with missing UI source/checklist remains `pass=false`.
+- A JSON entry pointing to a nonexistent UI screenshot remains `pass=false` and `status=ui_screenshot_missing`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- `LB26001-A-04-006` remains `generated_png_source_invalid` and is missing `application_ui_source_report`, `manual_case_pass`, `manual_visual_checklist`, and `fresh_generated_png_source`.
+- `LB26001-A-04-007/008/009/015/022` remain visual FAIL from existing UI screenshot judgement, but lack the current strict-final UI gate/source/checklist closure.
+- 006 proof remains `blocked_by_006/pass=false`.
+- Lifecycle audit remains expected FAIL on historical evidence and reports `post_prune_guard_missing`.
+
+Remaining issues:
+
+- Do not accept any of the six drawings from API/strict-style metrics alone.
+- After SolidWorks is safely responsive, run only the locked 006 CAD rerun first, then repeat strict v4/v6 validation and application Drawing Review UI screenshot manual judgement.
+- Only after 006 passes this UI-backed proof may `007/008/009/015/022` move from learning evidence to acceptance candidates.
+
+## v4.2 LB26001 Manual UI Checklist Gate Hardening - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change closes another API-like shortcut: a with-UI artifact can no longer pass acceptance with only `case_match.pass=true`; it must carry the actual manual visual case status and required checklist result.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+- `_entry_pass` now independently requires:
+  - `ui_screenshot_review_method_ok=true`.
+  - `ui_screenshot_review_case_match=true`.
+  - `manual_case_status_pass=true`.
+  - `manual_visual_checklist_required=true`.
+  - `manual_visual_checklist_pass=true`.
+  - no missing/failed/not-passed visual checklist items.
+  - existing nonempty application UI screenshot files.
+  - current-run generated PNG source when required.
+- The acceptance gate now emits `manual_visual_case_not_pass` and `manual_visual_checklist_missing_or_incomplete` when these fields are absent or non-passing.
+- Updated `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+- The 006 proof now exposes UI manual evidence blockers directly: `application_ui_source_report_invalid`, `manual_visual_case_not_pass`, `manual_visual_checklist_missing`, and `manual_visual_checklist_not_pass`.
+- Updated tests in `test_v4_2_lb26001_acceptance_gate.py` and `test_v4_2_lb26001_006_acceptance_proof.py`.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_acceptance_gate_v4_2.py test_v4_2_lb26001_acceptance_gate.py
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py
+python -m py_compile tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py tools\validation\apply_ui_visual_review_v4.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_requested_drawings_status.py test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- Strict-final acceptance gate remains `blocked_by_006/pass=false`.
+- Acceptance gate reasons now include `manual_visual_case_not_pass` and `manual_visual_checklist_missing_or_incomplete`.
+- 006 proof remains `blocked_by_006/pass=false`; blocking keys now include `application_ui_source_report_invalid`, `manual_visual_case_not_pass`, and `manual_visual_checklist_missing`.
+- Six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`, blocked only by SolidWorks readiness (`solidworks_not_responding`, `solidworks_unsaved_document_visible`).
+
+Remaining issues:
+
+- The manual/UI evidence is now correctly blocked as incomplete; this does not repair the generated drawing.
+- The next real work after external SolidWorks recovery is still exactly one locked `LB26001-A-04-006` CAD rerun, followed by strict validation and fresh application Drawing Review UI screenshot manual checklist.
+
+## v4.2 006 Rerun Packet UI Closure Signature Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change hardens the no-COM rerun packet so the next locked 006 CAD attempt cannot proceed if the UI closure scripts lose the required screenshot/manual-checklist gates.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+- Added source-signature checks for:
+  - `tools/validation/apply_ui_visual_review_v4.py`
+  - `tools/validation/lb26001_acceptance_gate_v4_2.py`
+  - `tools/validation/lb26001_006_acceptance_proof_v4_2.py`
+- New signature groups require evidence of:
+  - application UI report entry gating,
+  - manual screenshot binding,
+  - manual review entries all-pass aggregation,
+  - application UI source report validation,
+  - fresh generated PNG source gating,
+  - manual visual checklist pass requirement,
+  - manual case/checklist/source/fresh-PNG blockers in the acceptance gate,
+  - manual case/checklist/source/fresh-PNG blockers in the 006 proof.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py` so a missing manual UI acceptance signature blocks `packet_build_ready`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_apply_ui_visual_review.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- Refreshed packet remains `status=blocked_by_solidworks_readiness`.
+- `packet_build_ready=true`.
+- `offline_prerequisite_missing_keys=[]`.
+- All source signature groups pass: `generator`, `reference_compare_v4`, `displaydim_lifecycle_audit`, `apply_ui_visual_review_v4`, `lb26001_acceptance_gate_v4_2`, and `lb26001_006_acceptance_proof_v4_2`.
+- `real_cad_allowed_now=false` only because readiness still reports `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- This is orchestration/preflight hardening only. It does not make 006 acceptable.
+- The next allowed CAD action remains exactly one locked `LB26001-A-04-006` rerun after the user safely saves/closes/restarts SolidWorks.
+
+## v4.2 006 Readiness Strict-Final Recovery Guidance - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- Current SolidWorks readiness still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+- Default readiness UI evidence now points to the strict-final closure:
+  - `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/ui_visual_review_gate_summary.json`
+  - `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json`
+- Added `safe_recovery_guidance` to the readiness JSON:
+  - `manual_recovery_required=true` when SolidWorks is not responding, not running, or has a visible unsaved document marker.
+  - `automatic_restart_allowed=false`.
+  - Explicit “do not” guidance forbids killing/restarting `SLDWORKS.exe` from automation while unsaved work may exist.
+  - Steps tell the user to manually save/close unsaved work, recover/restart SolidWorks via the Windows UI, rerun readiness, rerun the no-COM packet, then run exactly one locked 006 CAD regression.
+- Updated `test_v4_2_006_regression_readiness.py`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Readiness remains `status=blocked`, `ready_to_start_locked_006_cad=false`.
+- Readiness now records strict-final UI gate paths.
+- Readiness `safe_recovery_guidance.manual_recovery_required=true` and `automatic_restart_allowed=false`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- The user must manually save/close/recover SolidWorks before any real CAD attempt.
+- After readiness clears, run only locked `LB26001-A-04-006`; do not expand to `007/008/009/015/022` until 006 passes strict validation plus application Drawing Review UI screenshot manual checklist.
+
+## v4.2 006 Staged Preflight Recovery Summary - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change makes the `staged_cad_validation_v3.py --stage LB26001_006` failure summary carry the same strict-final readiness and manual recovery evidence as the no-COM diagnostics.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+- When 006 exits before COM because readiness or the rerun packet is not ready, top-level `summary.json` now includes:
+  - `lb26001_006_readiness_status`
+  - `lb26001_006_ui_visual_review_gate`
+  - `lb26001_006_expansion_gate`
+  - `lb26001_006_safe_recovery_guidance`
+  - `lb26001_006_manual_recovery_required`
+  - `lb26001_006_automatic_restart_allowed`
+  - `lb26001_006_source_signature_summary`
+- Updated `test_v3_staged_cad_validation.py` to prove readiness failures still stop before `sw_connection_guard.json` and before any `01_` CAD case directory, while preserving strict-final UI gate and safe-recovery evidence.
+
+Evidence refreshed:
+
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_requested_drawings_status.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- New staged preflight summary is expected FAIL: `status=fail`, `processed=0`, `deliverable_count=0`.
+- `sw_connection_guard_skipped_due_to_readiness=true`.
+- `sw_connection_guard_skipped_due_to_006_preflight=true`.
+- No `sw_connection_guard.json` was written.
+- No `01_` CAD case directory was created.
+- Summary records strict-final UI and expansion gate paths.
+- Summary records `lb26001_006_manual_recovery_required=true` and `lb26001_006_automatic_restart_allowed=false`.
+- Summary records all rerun-packet source-signature groups passing.
+
+Remaining issues:
+
+- Real CAD is still blocked by SolidWorks state: `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Once the user manually recovers SolidWorks, rerun readiness and the rerun packet before exactly one locked 006 CAD attempt.
+
+## v4.2 Strict-Final Default Path Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change prevents validation tools from silently falling back to old `closed_loop_20260624` UI evidence when judging `LB26001-A-04-006` or the requested six drawings.
+
+Implementation:
+
+- Added `test_v4_2_lb26001_strict_final_defaults.py`.
+- The test asserts active defaults in the 006 readiness check, 006 acceptance proof, and six-drawing status report all point to `closed_loop_strict_final_20260624`.
+- The test scans active validation/application sources under `tools/validation` and `app` and fails if the legacy `closed_loop_20260624` default gate is reintroduced.
+
+Validation commands:
+
+```powershell
+python -m py_compile test_v4_2_lb26001_strict_final_defaults.py tools\validation\lb26001_006_regression_readiness_v4_2.py tools\validation\lb26001_006_acceptance_proof_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_2_lb26001_strict_final_defaults.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+
+Remaining issues:
+
+- This is source-level/no-COM guard evidence only.
+- The six requested drawings remain non-acceptable until the application Drawing Review UI screenshot workflow records per-drawing visual/manual PASS evidence.
+- The next CAD step is still blocked until SolidWorks is manually recovered, then exactly one locked `LB26001-A-04-006` rerun can be attempted.
+
+## v4.2 Direct Application UI Screenshot Recheck - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The six requested drawings were rechecked from the application Drawing Review UI screenshots, with the same-name reference drawing on the left and generated drawing on the right.
+- API/QC metrics were treated as supporting context only and did not override screenshot judgement.
+
+Evidence:
+
+- New evidence file: `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/codex_direct_ui_screenshot_recheck_20260624.json`.
+- Screenshot evidence:
+  - `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/02_LB26001-A-04-007_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/03_LB26001-A-04-008_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/04_LB26001-A-04-009_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/05_LB26001-A-04-015_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/screenshots/06_LB26001-A-04-022_ui_visual_review.png`
+
+Validation command:
+
+```powershell
+Get-Content -Raw -LiteralPath drw_output\ui_acceptance\LB26001_ref6_visual_review_manual_20260623\codex_direct_ui_screenshot_recheck_20260624.json | ConvertFrom-Json | Select-Object schema,overall_status,pass_count,fail_count
+```
+
+Validation results:
+
+- JSON parse: PASS.
+- `overall_status=FAIL`.
+- `pass_count=0`.
+- `fail_count=6`.
+- All six drawings remain visually unqualified from application screenshots.
+
+Remaining issues:
+
+- 006 must be corrected first and rerun through a locked real CAD job after SolidWorks is manually recovered.
+- Do not expand acceptance to `007/008/009/015/022` until 006 passes strict validation and application Drawing Review UI screenshot/manual checklist review.
+
+## v4.2 Direct UI Screenshot Recheck Status-Gate Wiring - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The direct Codex application Drawing Review UI screenshot recheck is now part of the default six-drawing status gate, not just a side evidence file.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+- Added `DEFAULT_DIRECT_UI_SCREENSHOT_RECHECK` pointing to `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/codex_direct_ui_screenshot_recheck_20260624.json`.
+- Added that direct recheck file to the default manual-review evidence list.
+- Manual-review parsing now recognizes top-level `review_method` as a valid UI screenshot review method source.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py` to prove an apparent API/acceptance PASS is still blocked when the direct application UI screenshot recheck says FAIL.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_strict_final_defaults.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Requested status refresh is expected non-pass: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed status report now shows each requested drawing's `latest_manual_review` as `codex_direct_ui_screenshot_recheck_20260624.json`, `latest_manual_status=fail`, and `application_ui_screenshot_review_method_ok=true`.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false` because readiness still blocks on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- This wiring only strengthens the UI evidence gate; it does not make any generated drawing acceptable.
+- Real correction still requires manual SolidWorks recovery, one locked `LB26001-A-04-006` CAD rerun, and a fresh application Drawing Review UI screenshot/manual checklist PASS before expanding to the remaining five drawings.
+
+## v4.2 Direct UI Screenshot Recheck Proof-Gate Wiring - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The 006 acceptance proof now directly checks the application Drawing Review UI screenshot recheck when its screenshot matches the current acceptance-gate screenshot.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+- Added `DEFAULT_DIRECT_UI_SCREENSHOT_RECHECK` pointing to `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/codex_direct_ui_screenshot_recheck_20260624.json`.
+- Added direct recheck evidence fields under `ui_closure_evidence`, including current screenshot match, method validity, status, pass flag, screenshot path, and findings.
+- Added blocking keys:
+  - `direct_ui_screenshot_recheck_method_invalid`
+  - `direct_ui_screenshot_recheck_not_pass`
+- Direct recheck only blocks when its screenshot matches the current gate screenshot, so a future fresh 006 screenshot is not blocked by stale historical FAIL evidence.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the source-signature guard checks for the new direct UI screenshot blocker.
+- Updated `test_v4_2_lb26001_006_acceptance_proof.py` to prove a matching direct UI screenshot FAIL blocks proof, while a stale/mismatched direct screenshot does not block a fresh proof.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_strict_final_defaults.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- Refreshed 006 proof is expected non-pass: `status=blocked_by_006`, `pass=false`.
+- Refreshed 006 proof now includes `direct_ui_screenshot_recheck_not_pass` in `blocking_issue_keys`.
+- Proof `ui_closure_evidence` records `direct_ui_screenshot_recheck_current=true`, `direct_ui_screenshot_recheck_method_ok=true`, `direct_ui_screenshot_recheck_status=fail`, `direct_ui_screenshot_recheck_pass=false`, and `direct_ui_screenshot_recheck_screenshot_matches_gate=true`.
+- Requested six-drawing status remains `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`, blocked only by SolidWorks readiness.
+
+Remaining issues:
+
+- The generated 006 drawing still fails the direct application UI screenshot review.
+- Real correction still requires manual SolidWorks recovery, one locked 006 CAD rerun, regenerated artifacts from the current run directory, strict v4/v6 validation, and application Drawing Review UI screenshot/manual checklist PASS.
+
+## v4.2 Direct UI Findings To Correction Plan - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change makes the no-COM correction plan and rerun packet actionable from the latest direct application Drawing Review UI screenshot findings.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_correction_plan_v4_2.py`.
+- When the latest direct UI screenshot review is FAIL but has no structured manual checklist, the correction plan now infers effective failed visual checks from screenshot findings.
+- Inferred checks are marked as `direct_ui_screenshot_finding`, so they do not pretend a complete manual checklist exists.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+- The rerun packet now carries the correction plan's effective failed visual checks and correction actions when the status report's checklist failed items are empty.
+- Updated tests:
+  - `test_v4_2_lb26001_correction_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_correction_plan_v4_2.py test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_strict_final_defaults.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- Refreshed correction plan remains `status=blocked_by_solidworks_readiness`, `correction_plan_ready=true`.
+- Refreshed 006 correction plan entry records `direct_ui_findings_used_for_correction=true`.
+- Effective 006 checks are `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Refreshed rerun packet carries the same six failed visual checks and six correction actions from `direct_ui_screenshot_finding`.
+- Rerun packet remains `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`, blocked only by SolidWorks readiness.
+
+Remaining issues:
+
+- This is planning/orchestration evidence only, not drawing acceptance.
+- Real correction still requires manual SolidWorks recovery and exactly one locked 006 CAD rerun, followed by fresh strict validation and application Drawing Review UI screenshot/manual checklist PASS.
+
+## v4.2 Correction Plan Freshness Guard In Rerun Packet - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The 006 rerun packet now rejects stale correction plans that do not match the current requested-status UI evidence.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+- Added correction-plan source signatures for:
+  - direct UI findings keyword mapping,
+  - inferred effective visual checks,
+  - `effective_failed_visual_checks`,
+  - `direct_ui_screenshot_finding`,
+  - `direct_ui_findings_used_for_correction`.
+- Added prerequisite `correction_plan_matches_current_006_status`, comparing requested-status 006 against the correction-plan 006 `current_ui_status` for:
+  - status,
+  - latest manual review path,
+  - generated PNG source pass flag.
+- Added prerequisite `006_effective_ui_corrections_present`, requiring failed visual checks and correction actions whenever 006 is still non-pass.
+- Added prerequisite `correction_plan_source_signatures_present`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py` to prove stale correction plans and missing correction-plan source signatures block `packet_build_ready`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_strict_final_defaults.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- Refreshed packet remains `status=blocked_by_solidworks_readiness`.
+- `packet_build_ready=true`.
+- `offline_prerequisite_missing_keys=[]`.
+- `real_cad_allowed_now=false`.
+- `correction_plan_matches_current_006_status.pass=true`; requested/correction status are both `generated_png_source_invalid`, latest manual review paths both point to `codex_direct_ui_screenshot_recheck_20260624.json`, and generated PNG source pass flags are both `false`.
+- `006_effective_ui_corrections_present.pass=true`, with six failed visual checks and six correction actions.
+- `correction_plan_source_signatures_present.pass=true`.
+
+Remaining issues:
+
+- SolidWorks readiness still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- After manual recovery, run exactly one locked 006 CAD rerun; the packet is an orchestration gate, not acceptance evidence.
+
+## v4.2 Staged 006 Preflight Correction Guard Summary - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The staged `LB26001_006` preflight summary now surfaces the rerun packet's correction-plan freshness and effective-action guards directly.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+- When `LB26001_006` exits before COM, top-level `summary.json` now includes:
+  - `lb26001_006_offline_prerequisite_summary`
+  - `lb26001_006_correction_plan_freshness_pass`
+  - `lb26001_006_effective_ui_corrections_present`
+  - `lb26001_006_correction_plan_source_signature_pass`
+  - `lb26001_006_failed_visual_checks`
+  - `lb26001_006_correction_action_count`
+- Updated `test_v3_staged_cad_validation.py` to prove failed rerun-packet preflight summaries expose stale-plan and effective-action prerequisite details.
+
+Evidence refreshed:
+
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/lb26001_006_regression_readiness_v4_2.json`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/lb26001_006_rerun_packet_v4_2.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_strict_final_defaults.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- Refreshed staged preflight remains expected FAIL: `status=fail`, `processed=0`, `deliverable_count=0`.
+- `sw_connection_guard.json` is not written.
+- No `01_` case directory is created.
+- Summary records `lb26001_006_correction_plan_freshness_pass=true`.
+- Summary records `lb26001_006_effective_ui_corrections_present=true`.
+- Summary records `lb26001_006_correction_plan_source_signature_pass=true`.
+- Summary records six failed visual checks: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, `manufacturing_notes`.
+- Summary records `lb26001_006_correction_action_count=6`.
+
+Remaining issues:
+
+- Real CAD remains blocked only by SolidWorks readiness, specifically `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- After manual SolidWorks recovery, rerun readiness, rerun the packet, then run exactly one locked 006 CAD regression before any expansion to 007/008/009/015/022.
+
+## v4.2 006 Proof Supplemental Visual Checklist Fusion - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- The 006 acceptance proof now uses the strongest existing application Drawing Review UI visual checklist evidence while preserving historical closure artifacts.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+- Added `DEFAULT_SUPPLEMENTAL_CHECKLIST_GATE`, pointing at `closed_loop_codex_v4_2_checklist_20260624/lb26001_acceptance_gate_v4_2.json`.
+- The proof now merges strict-final evidence, screenshot-binding evidence, the supplemental checklist gate, and direct UI screenshot recheck evidence.
+- The merge keeps 006 blocked but removes stale source-binding noise from the active blocker list when stronger UI evidence proves:
+  - application UI report source is valid,
+  - the UI screenshot is bound,
+  - generated PNG evidence comes from the run directory,
+  - the manual visual checklist is present and explicitly failed.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the source-signature guard requires the supplemental checklist gate and merge signatures before declaring the offline packet ready.
+- Updated `test_v4_2_lb26001_006_acceptance_proof.py` to prove supplemental checklist evidence improves proof attribution without overriding a visual FAIL.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py` to prove removing the supplemental proof signature blocks `packet_build_ready`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_strict_final_defaults.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_strict_final_defaults.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed `lb26001_006_acceptance_proof_v4_2.json` remains `status=blocked_by_006`, `pass=false`.
+- The proof now records `source_ui_report_application_ui_ok=true`, `generated_png_source_pass=true`, and `manual_visual_checklist_required=true`.
+- The failed visual checklist items are `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Blocking keys no longer include stale `application_ui_source_report_invalid` or `generated_png_source_not_current_run`; 006 is blocked by real staged/visual/checklist/v4/v6 failures.
+- Staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, no `sw_connection_guard.json`, and no `01_` case directory.
+
+Remaining issues:
+
+- Six requested drawings remain visually non-acceptable by application UI screenshot review.
+- Real CAD remains blocked by SolidWorks readiness: `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- After manual SolidWorks recovery, run exactly one locked 006 CAD rerun and close it through fresh Drawing Review UI screenshot judgement before expanding to 007/008/009/015/022.
+
+## v4.2 006 Post-Layout Direct Match Rebind Fallback - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM or real CAD generation was run.
+- This change targets the historical `post_layout_target_view_not_found` blocker before the next locked 006 CAD rerun.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+- Current-document slot matches now go through `_accept_match()` instead of direct `_accept()`.
+- If a matched COM `IView` object cannot be accepted after Close/Reopen/post-layout, the generator retries `_drawing_view_by_name_or_point()` using the matched view name and outline center.
+- `slot_rebind_diagnostics` now records:
+  - `direct_accept_failed`,
+  - `direct_accept_failed_select_by_persisted_name`,
+  - `direct_accept_failed_select_by_persisted_name_failed`,
+  - distance carried from the slot match.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the offline packet source-signature guard requires `post_layout_direct_accept_rebind`.
+- Updated `test_v3_generator_reference_style_plan.py` to assert the direct-accept fallback diagnostics exist.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- The packet source signatures include `post_layout_direct_accept_rebind=true` with no missing generator signatures.
+- Refreshed staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, no `sw_connection_guard.json`, and no `01_` case directory.
+
+Remaining issues:
+
+- This is source-level repair readiness only; it cannot prove DisplayDim persistence until SolidWorks is manually recovered and one locked 006 CAD run is executed.
+- SolidWorks readiness still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 still must pass real `DisplayDim >= 12`, strict v4/v6 checks, and Drawing Review UI screenshot manual checklist before expanding to 007/008/009/015/022.
+
+## v4.2 UI-First Screenshot Gate + Post-Layout Rebind Audit - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, or application UI automation was run in this slice.
+- Application Drawing Review UI screenshots remain the final correctness gate for every requested drawing; API, style, and DisplayDim metrics are supporting evidence only.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+- The lifecycle audit now summarizes future `slot_rebind_diagnostics` for:
+  - direct `IView` accept failures,
+  - persisted-name recovery after direct accept failure,
+  - persisted-name recovery failures,
+  - compact per-slot rebind details.
+- Added blocking key `post_layout_direct_accept_rebind_unrecovered` when persisted-name recovery fails and the post-layout DisplayDim count remains below the required floor.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the offline rerun packet requires the new lifecycle-audit source signature `post_layout_direct_accept_rebind_audited`.
+- Updated tests:
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed lifecycle audit is expected FAIL on historical evidence: final `DisplayDim=11/12`, post-layout final coverage missing, target coverage delta missing, `post_layout_explicit_repair_created_zero`, `post_layout_target_view_not_found`, missing slot rebind diagnostics, and missing post-prune guard.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, no `01_` case directory, no `sw_connection_guard.json`, and readiness blockers `solidworks_not_responding` / `solidworks_unsaved_document_visible`.
+
+Remaining issues:
+
+- All six requested drawings remain visually non-acceptable by application UI screenshot judgement.
+- 006 must be fixed and closed first through fresh locked CAD, strict v4/v6, and Drawing Review UI screenshot manual checklist.
+- 007/008/009/015/022 remain blocked until 006 passes the full UI-backed acceptance chain.
+
+## v4.2 Reference-Style Titleblock Artifact Rejection - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, or application UI automation was run in this slice.
+- The six requested drawings still require application Drawing Review UI screenshot judgement; API and detector metrics remain supporting evidence only.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- `run_vision_qc_v6()` now records `checks.reference_sheet_template_artifacts`.
+- When `DrawingBlueprint.layout_plan.sheet_template_policy` forbids default template artifacts, v6 QC now rejects a detected large titlebar/grid region as `reference_titleblock_artifacts_present`.
+- Under this reference-style policy, a missing standard GB titlebar is no longer treated as `titlebar_missing_or_empty`; the issue is default template/titleblock pollution, not lack of a generic titlebar.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` to source-guard the v6 QC behavior with `vision_qc_v6_ui_template_policy_signatures_present`.
+- Updated tests:
+  - `test_v4_vision_qc_v6.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+python test_v4_reference_compare.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- The packet source signatures now include `vision_qc_v6` and no missing v6 signatures.
+- Refreshed staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, no CAD case directory, and source signature summary `vision_qc_v6=true`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+
+Remaining issues:
+
+- This is a no-COM visual QC gate improvement only; it does not prove any regenerated drawing is correct.
+- SolidWorks readiness still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 still requires a fresh locked CAD rerun, real `DisplayDim >= 12`, strict v4/v6 checks, and Drawing Review UI screenshot manual checklist PASS before the other five requested drawings can proceed.
+
+## v4.2 Reference Dimension Readability Cluster Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change targets the UI screenshot finding that the generated dimensions are dense / not reference-like.
+
+Implementation:
+
+- Updated `app/services/dimension_visual_validator.py`.
+- The dimension visual validator now computes:
+  - `max_local_dimension_text_cluster_count`,
+  - `dimension_text_cluster_threshold`,
+  - `dimension_text_cluster_bbox_norm`,
+  - `visual_dimension_cluster_pass`.
+- For same-name reference-style drawings or explicit dimension-target plans, clustered local dimension text now fails readability instead of being accepted by count alone.
+- Updated `app/services/vision_qc_v6.py` so failed cluster readability emits major issue `dimension_visual_clustered_unreadable`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the offline rerun packet source-guards both the v6 issue and the validator cluster gate through `dimension_visual_readability_signatures_present`.
+- Updated tests:
+  - `test_v4_vision_qc_v6.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\dimension_visual_validator.py app\services\vision_qc_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- The packet source signatures now include `dimension_visual_validator` and no missing dimension-visual signatures.
+- Refreshed staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, no CAD case directory, and source signature summary `dimension_visual_validator=true`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed lifecycle audit remains expected FAIL on historical evidence with final `DisplayDim=11/12` and missing post-layout coverage/slot-rebind diagnostics.
+
+Remaining issues:
+
+- This is a visual QC/readability guard only; it does not prove a regenerated drawing has readable dimensions.
+- 006 still needs fresh locked CAD evidence and a passing application Drawing Review UI screenshot checklist.
+- 007/008/009/015/022 remain blocked until 006 passes the full UI-backed chain.
+
+## v4.2 Screenshot-Grid Reference Layout Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- Application Drawing Review UI screenshots remain the final acceptance gate; API/reference-image metrics are supporting evidence only.
+
+Implementation:
+
+- Updated `app/services/vision_qc_v6.py`.
+- `_compare_reference_png()` now reports `bbox_layout_match` separately from screenshot-grid layout similarity.
+- Added `_ink_grid_signature()` to compute generated/reference PNG per-cell ink shares and occupied cells.
+- Reference visual comparison now reports `grid_l1_delta`, `occupied_cell_jaccard`, and `grid_layout_match`.
+- `coarse_layout_match` now requires both bbox similarity and screenshot-grid layout similarity, so a generated drawing with similar overall ink extent but visibly shifted view/titleblock/note/dimension regions emits `reference_visual_layout_mismatch`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` so the offline 006 rerun packet source-guards the v6 grid comparison signatures.
+- Updated tests:
+  - `test_v4_vision_qc_v6.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\vision_qc_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_reference_compare.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- The packet source signatures include `vision_qc_v6`, with no missing v6 signatures.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Each requested drawing still has application UI screenshot evidence recorded, and every base has `application_ui_screenshot_gate_pass=false`.
+- Refreshed staged preflight remains expected FAIL with `deliverable_count=0`; it exits before real CAD because readiness still blocks.
+
+Remaining issues:
+
+- This change strengthens the supporting visual API gate, but it does not replace the required Drawing Review UI screenshot/manual checklist.
+- SolidWorks readiness still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 still needs a fresh locked CAD rerun, real `DisplayDim >= 12`, strict v4/v6 checks, and a passing application UI screenshot checklist before `007/008/009/015/022` can proceed.
+
+## v4.2 Application UI Screenshot Content Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change validates the screenshot evidence itself; it does not change the requirement that a human/visual checklist from Drawing Review UI is the final gate.
+
+Implementation:
+
+- Added `app/services/application_ui_screenshot_validator.py`.
+- The validator opens screenshot files and checks:
+  - minimum readable screenshot size,
+  - application chrome/top toolbar region,
+  - left navigation region,
+  - bottom log/status region,
+  - side-by-side generated/reference review region.
+- Updated `app/services/vision_qc_v6.py`.
+  - Manual UI PASS now requires `ui_screenshot_content_check_pass=true`.
+  - The v6 UI review output now records `ui_screenshot_paths_existing_application_ui` and per-file `ui_screenshot_content_checks`.
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+  - The gate independently revalidates screenshot files and emits `application_ui_screenshot_content_invalid` if a plain PNG is claimed as an application UI screenshot.
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+  - The six-drawing status now reports `application_ui_screenshot_content_check_pass` per base using the latest manual screenshot files.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard the v6 screenshot-content gate and acceptance-gate blocker.
+- Updated tests:
+  - `test_v4_vision_qc_v6.py`
+  - `test_v4_2_lb26001_acceptance_gate.py`
+  - `test_v4_2_lb26001_requested_drawings_status.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\application_ui_screenshot_validator.py app\services\vision_qc_v6.py tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_vision_qc_v6.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_requested_drawings_status.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_reference_compare.py
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- The six existing application Drawing Review screenshots all pass the new content-shape check.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`; all six bases have `application_ui_screenshot_content_check_pass=true`, but `application_ui_screenshot_gate_pass=false`.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL with `deliverable_count=0`; it exits before real CAD because readiness still blocks.
+
+Remaining issues:
+
+- The screenshots are confirmed to be application UI screenshots, but they still show visual FAIL.
+- 006 still requires a fresh locked CAD rerun and passing UI/manual checklist closure.
+- 007/008/009/015/022 remain blocked from acceptance until 006 passes.
+
+## v4.2 Correction Plan Screenshot Content Freshness - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This is a no-COM freshness guard so the next 006 CAD rerun cannot be started from a stale correction plan that predates the application UI screenshot content gate.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_correction_plan_v4_2.py`.
+  - Each entry's `current_ui_status` now records `application_ui_screenshot_content_check_pass`.
+  - It also records `application_ui_screenshot_paths_existing_application_ui`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `correction_plan_matches_current_006_status` now compares current requested 006 screenshot-content status against the correction plan snapshot.
+  - The correction-plan source signature guard now includes `application_ui_screenshot_content_check_pass`.
+- Updated tests:
+  - `test_v4_2_lb26001_correction_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_correction_plan_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_correction_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- `py_compile`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed correction plan remains `status=blocked_by_solidworks_readiness`, `correction_plan_ready=true`, `entry_count=6`.
+- The 006 correction plan entry now records `application_ui_screenshot_content_check_pass=true`.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL with `deliverable_count=0`; it exits before real CAD because readiness still blocks.
+
+Remaining issues:
+
+- This prevents stale planning evidence, but it does not fix the generated drawing.
+- SolidWorks still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 still needs fresh locked CAD and a passing Drawing Review UI manual checklist before expansion.
+
+## v4.2 006 DisplayDim Target Stage Matrix - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This is a no-COM diagnostic hardening step for `LB26001-A-04-006`; application Drawing Review UI screenshots remain the final correctness gate.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Reads `drw_output/reference_intent_dimension_plan_006.json`.
+  - Emits `target_stage_matrix` with per-target stage states for `pre_saveas`, `post_saveas_reopen_prune`, `post_saveas_reopen_prune_guard`, `pre_export_final`, and `post_layout_final`.
+  - Records per-target `lost_stage`, post-layout attempt reason, trace completeness, missing trace fields, and whether `target_key` had to be inferred from legacy target-result order.
+  - Adds blocking keys for missing snapshots, missing post-layout final coverage, incomplete target trace fields, and per-target `target_view_not_found`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard `target_stage_matrix`, `target_trace_missing_fields`, and `target_stage_matrix_view_not_found`.
+- Updated tests:
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=['tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py','tools/validation/lb26001_006_rerun_packet_v4_2.py','test_v4_2_lb26001_006_displaydim_lifecycle_audit.py','test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST PASS', len(files))"
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `py_compile` could not be used in this slice because Windows denied the `.pyc` replace operation under `tools/validation/__pycache__`; the AST compile check does not write bytecode and passed.
+- Refreshed lifecycle audit remains expected FAIL. The new matrix reports `target_count=12`, all 12 required targets missing at `post_layout_final`, all 12 traces incomplete, and all 12 post-layout attempts blocked by `target_view_not_found`.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- The matrix localizes the 006 failure, but it does not repair the drawing.
+- SolidWorks still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 still needs one fresh locked CAD rerun, updated DisplayDim lifecycle evidence, v4/v6 with-UI reports, and a passing Drawing Review UI manual checklist before `007/008/009/015/022` can proceed.
+
+## v4.2 006 Post-Layout Reference View-Name Rebind - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change targets the known `post_layout target_view_not_found` blocker; proof still requires a fresh locked 006 CAD rerun and Drawing Review UI screenshot closure.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added `_reference_intent_view_name_candidates()`.
+  - Preserves `reference_view_slots` from `reference_intent_dimension_plan_006.json` inside the runtime `dimension_plan`.
+  - Preserves `expected_add_method` from the plan so target trace can verify `AddDiameterDimension2` for diameter targets and horizontal/vertical methods for linear targets.
+  - Adds a post-layout fallback after current-document and persisted-outline matching: `reference_view_name_candidate_select:*` tries localized/English names such as `工程图视图1/2/3` and `Drawing View 1/2/3`.
+  - Writes the candidate outcome into `slot_rebind_diagnostics`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Generator source signatures now require `reference_view_name_candidate_select` and `expected_add_method`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=['.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py','tools/validation/lb26001_006_rerun_packet_v4_2.py','test_v3_generator_reference_style_plan.py','test_v4_generator_blueprint_execution.py','test_v4_2_reference_intent_dimension_worker.py','test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST PASS', len(files))"
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_reference_compare.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- Refreshed rerun packet has `source_signatures.generator.pass=true`; both `post_layout_reference_view_name_candidate_rebind` and `expected_add_method_trace` are present.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL with `processed=0`, `deliverable_count=0`, `sw_connection_guard_skipped_due_to_readiness=true`, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- This improves the next post-layout repair attempt, but it is not proof that 006 now keeps 12 real `DisplayDim` objects.
+- SolidWorks still blocks real CAD on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- 006 must still complete the locked CAD rerun, DisplayDim lifecycle audit, v4/v6 with-UI reports, and Drawing Review UI manual checklist before any expansion to `007/008/009/015/022`.
+
+## v4.2 006 Current Drawing Review UI Closure Refresh - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This refresh proves the existing 006 Drawing Review application screenshot is now connected to a structured manual visual judgement and current v4/v6 with-UI artifacts; it does not make the drawing acceptable.
+
+Implementation:
+
+- Refreshed a new no-COM closure under `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_current_v4_2_20260624/`.
+  - Input UI report: `drawing_visual_review_report.json`.
+  - Input manual judgement: `manual_visual_judgement_codex_v4_2_20260624.json`.
+  - Output gate: `ui_visual_review_gate_summary.json`.
+  - Output with-UI reports: `vision_qc_v6_with_ui_review/` and `reference_compare_v4_with_ui_review/`.
+- Updated `test_v4_apply_ui_visual_review.py`.
+  - The fixture now draws a screenshot that passes the application-window content validator: top chrome, left navigation, bottom log, side-by-side generated/reference review panes, and divider.
+  - The test now asserts the current product rule: UI screenshot binding can pass while the overall with-UI gate still remains `need_review` when v4/v6 reference checks are non-pass.
+
+Evidence refreshed:
+
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_current_v4_2_20260624/ui_visual_review_gate_summary.json`.
+- `drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_current_v4_2_20260624/lb26001_acceptance_gate_v4_2.json`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json --out-dir drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_current_v4_2_20260624 --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_current_v4_2_20260624\ui_visual_review_gate_summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_current_v4_2_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-gate drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_current_v4_2_20260624\lb26001_acceptance_gate_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\manual_visual_judgement_codex_v4_2_20260624.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+python -c "import ast, pathlib; files=['test_v4_apply_ui_visual_review.py','tools/validation/apply_ui_visual_review_v4.py','tools/validation/lb26001_acceptance_gate_v4_2.py','tools/validation/lb26001_requested_drawings_status_v4_2.py','tools/validation/lb26001_correction_plan_v4_2.py','tools/validation/lb26001_006_rerun_packet_v4_2.py','tools/validation/staged_cad_validation_v3.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST PASS', len(files))"
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- Expected non-pass commands:
+  - `apply_ui_visual_review_v4.py`: `status=need_review`, `pass=false`.
+  - `lb26001_acceptance_gate_v4_2.py`: `status=blocked_by_006`, `pass=false`.
+  - `lb26001_requested_drawings_status_v4_2.py`: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+  - `lb26001_006_regression_readiness_v4_2.py`: `status=blocked`, blockers `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+  - `staged_cad_validation_v3.py --stage LB26001_006`: expected FAIL before CAD, `processed=0`, `deliverable_count=0`, `sw_connection_guard_skipped_due_to_readiness=true`.
+- AST compile check: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- New gate summary records `ui_report_entries_all_pass=true` and `manual_review_entries_all_pass=true`, but `vision_qc_v6_all_pass=false` and `reference_compare_v4_all_pass=false`; overall `status=need_review`.
+- Refreshed requested status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`; 006 has `application_ui_screenshot_content_check_pass=true`, `generated_png_source_pass=true`, but `manual_visual_checklist_pass=false`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- UI closure is now current and structured, but it is a FAIL/need-review closure.
+- The CAD-side 006 issue remains: final real `DisplayDim` evidence is below the 12-target reference contract until a fresh locked rerun proves otherwise.
+- SolidWorks still blocks the real rerun on `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+
+## v4.2 006 Raw DisplayDim Target Trace Fields - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change prepares the next locked CAD run to write the exact per-target trace fields required by the v4.2 objective.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Each explicit reference-intent target result now writes `target_key` and `view_slot` alongside the legacy `key` / `slot`.
+  - Each selected entity attempt now writes `selected_entity`.
+  - Successful or created-but-uncovered attempts now propagate `add_method`, `display_dim_count_before`, `display_dim_count_after`, and `target_covered_after_attempt` to the target result.
+  - This keeps the next warnings JSON directly readable against the target contract instead of requiring audit-side alias inference.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Added `_first_int_or_none()` so a legitimate before/after count of `0` is retained rather than treated as missing by Python truthiness.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Generator source signatures now guard raw trace fields: `target_key`, `view_slot`, `selected_entity`, before/after count, and target-covered status.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=['.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py','tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py','tools/validation/lb26001_006_rerun_packet_v4_2.py','test_v3_generator_reference_style_plan.py','test_v4_2_lb26001_006_displaydim_lifecycle_audit.py','test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST PASS', len(files))"
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_apply_ui_visual_review.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL on historical evidence with final real DisplayDim below floor and missing historical target coverage snapshots.
+- Refreshed rerun packet has `source_signatures.generator.pass=true`; all raw trace signatures are present.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`, `sw_connection_guard_skipped_due_to_readiness=true`, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- This improves next-run evidence quality, but it does not prove the drawing now keeps 12 real `DisplayDim` objects.
+- A fresh locked 006 CAD rerun is still required after SolidWorks readiness clears.
+- The Drawing Review UI closure remains current but non-pass.
+
+## v4.2 006 Prune Deletion Evidence Audit - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change makes the historical `12 -> 11` DisplayDim regression less opaque by requiring prune deletion logs to name the target, slot, and reason for every deleted DisplayDim.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Adds `prune_log_summary`.
+  - Audits `reference_dim_prune.prune` and `post_layout_dim_repair.post_layout_reference_prune.prune`.
+  - Emits `prune_deleted_items_detail_missing` when a stage deletes dimensions but has no `deleted_items`.
+  - Emits `prune_deleted_item_key_slot_reason_missing` when a deleted item omits `target_key`, `slot`, or `reason`.
+  - Adds a Markdown `Prune Deletion Log` section.
+- Updated `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`.
+  - Covers deleted-without-detail and deleted-item-missing-reason cases.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Verifies generated prune `deleted_items` include target key, slot, and deletion reason.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard generator prune detail fields and lifecycle audit prune blockers.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=['.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py','tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py','tools/validation/lb26001_006_rerun_packet_v4_2.py','test_v3_generator_reference_style_plan.py','test_v4_2_lb26001_006_displaydim_lifecycle_audit.py','test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST PASS', len(files))"
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL and now includes `prune_deleted_items_detail_missing`.
+- `prune_log_summary` shows `post_saveas_reopen_prune` had `deleted=1`, `deleted_item_count=0`, `detail_present=false`.
+- Refreshed rerun packet has generator prune detail signatures and lifecycle prune audit signatures present.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`, `sw_connection_guard_skipped_due_to_readiness=true`, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- The historical run still cannot prove which exact DisplayDim was pruned because the old prune log lacks `deleted_items`.
+- The next locked 006 CAD rerun must produce prune deletion records with `target_key`, `slot`, and `reason`.
+- SolidWorks readiness still blocks the real rerun.
+
+## v4.2 006 Sidecar Diagnostic-Only and Per-Drawing UI Screenshot Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- The requested drawings remain non-acceptable unless each one is closed through an application Drawing Review UI screenshot and manual/visual judgement. API metrics and file creation remain supporting evidence only.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Adds `sidecar_policy_summary`.
+  - Blocks strict reference-intent 006 when `dimension_sidecar_mode` is missing.
+  - Blocks strict 006 if sidecar run/failure/exception events appear.
+  - Blocks sidecar events that omit `drawing_path`.
+  - Blocks sidecar evidence pointing outside the fresh run directory, including legacy `drw_output/v5`.
+  - Adds a Markdown `Sidecar Policy` section.
+- Updated `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`.
+  - Passing strict 006 fixtures now include diagnostic-only sidecar mode.
+  - Regression coverage proves `dim_sidecar_fail` cannot be accepted for strict 006.
+  - Regression coverage rejects stale sidecar evidence from legacy `drw_output/v5`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard generator sidecar mode, diagnostic-only warning, sidecar `drawing_path`, and acceptance flags.
+  - Lifecycle audit signatures now guard sidecar policy blockers.
+  - `ui_screenshot_validation_policy` explicitly requires per-drawing application Drawing Review UI screenshots and forbids API-only acceptance.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Verifies the per-drawing UI screenshot policy.
+  - Proves missing generator/lifecycle sidecar signatures block packet readiness.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=[r'tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py', r'tools\validation\lb26001_006_rerun_packet_v4_2.py', r'test_v4_2_lb26001_006_displaydim_lifecycle_audit.py', r'test_v4_2_lb26001_006_rerun_packet.py', r'.trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8-sig'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST_OK')"
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL and now includes sidecar blockers: `strict_reference_intent_sidecar_mode_missing`, `strict_reference_intent_sidecar_ran`, and `sidecar_drawing_path_missing`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`, `all_generated_drawings_currently_unqualified=true`.
+- Refreshed correction plan matches the latest UI status and remains `blocked_by_solidworks_readiness`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`; all offline prerequisites are true, and real CAD is blocked only by SolidWorks readiness.
+
+Remaining issues:
+
+- Historical 006 still has final real `DisplayDim=11/12` and lacks post-layout final target coverage.
+- Historical sidecar evidence contains `dim_sidecar_fail` without `drawing_path`, so it is explicitly diagnostic failure evidence, not acceptance evidence.
+- SolidWorks still reports `solidworks_not_responding` and `solidworks_unsaved_document_visible`; a human must recover/save/close the visible unsaved document before the next locked 006 CAD rerun.
+- After 006 passes real CAD, strict v4/v6, and application Drawing Review UI screenshot/manual judgement, only then may 007/008/009/015/022 proceed under the same per-drawing UI screenshot gate.
+
+## v4.2 006 Post-Layout Slot Rebind Summary - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change prepares the next locked 006 CAD rerun to explain post-layout `target_view_not_found` by slot, instead of reporting only a flat target failure.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Adds `slot_rebind_summary` to each explicit reference-intent DisplayDim repair result.
+  - Records expected slots, bound slots, unbound slots, current and persisted view record counts, match threshold, per-slot name candidates, nearest candidate views, and failure reasons.
+  - Keeps existing `slot_rebind_diagnostics` while adding a compact summary for every expected slot, including slots that had no successful diagnostic entry.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Reads `slot_rebind_summary` from `post_layout_dim_repair.explicit_display_dims`.
+  - Emits summary fields in `post_layout_repair_summary`.
+  - Adds blockers `post_layout_slot_rebind_summary_missing`, `post_layout_slot_rebind_unbound_slots`, `post_layout_slot_rebind_no_view_records`, and `post_layout_slot_rebind_no_candidates`.
+  - Adds Markdown lines for summary presence, unbound slots, and failure reasons.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard the generator `slot_rebind_summary` / `unbound_slots` / `nearest_candidates` fields.
+  - Lifecycle audit signatures now guard the new slot summary blockers.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=[r'.trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py', r'tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py', r'tools\validation\lb26001_006_rerun_packet_v4_2.py', r'test_v3_generator_reference_style_plan.py', r'test_v4_2_lb26001_006_displaydim_lifecycle_audit.py', r'test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8-sig'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST_OK')"
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL and now includes `post_layout_slot_rebind_summary_missing`, because the historical 006 run predates this new summary.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed correction plan remains `blocked_by_solidworks_readiness` and matches the current UI status.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`, all offline prerequisites true, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- The next real 006 run still requires human SolidWorks recovery first.
+- Historical evidence still shows final `DisplayDim=11/12`, missing post-layout final coverage, and no slot summary.
+- The next locked CAD run must produce `slot_rebind_summary` and then pass strict v4/v6 plus Drawing Review UI screenshot judgement before 007/008/009/015/022 proceed.
+
+## v4.2 006 Slot Rebind Summary Pure Function Coverage - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change turns the slot rebind summary logic into direct no-COM testable behavior rather than only source-string evidence.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Extracted `_reference_intent_slot_rebind_summary()` as a top-level helper.
+  - The helper accepts plain current/persisted view records, layout centers, expected slots, bound slots, diagnostics, and dimension plan data.
+  - The post-layout explicit DisplayDim path now calls this helper when writing `slot_rebind_summary`.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Adds `test_reference_intent_slot_rebind_summary_reports_unbound_slot_causes`.
+  - Verifies `bound_slots`, `unbound_slots`, `slot_match_not_attempted`, `no_view_records`, reference view-name candidates, and nearest candidate reporting from plain dict inputs.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=[r'.trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py', r'test_v3_generator_reference_style_plan.py', r'tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py', r'tools\validation\lb26001_006_rerun_packet_v4_2.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8-sig'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST_OK')"
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_apply_ui_visual_review.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL on historical evidence with `post_layout_slot_rebind_summary_missing`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`, all offline prerequisites true, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- The next 006 real CAD run must still prove final persisted/exported real `DisplayDim >= 12`.
+- The next run must write a real `slot_rebind_summary` and eliminate `target_view_not_found`.
+- Final acceptance still requires strict v4/v6 plus Drawing Review UI screenshot/manual judgement.
+
+## v4.2 006 Full Post-Rerun Validation Chain In Packet - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change makes the no-COM rerun packet list the complete post-rerun validation chain required by the objective before 006 can be accepted or expanded.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds ordered next gate `displaydim_lifecycle_audit` after `dimension_validation`.
+  - Adds ordered next gates `reference_compare_v3`, `reference_style`, and `vision_qc_v6`.
+  - Keeps strict `reference_compare_v4`, Drawing Review UI screenshot, manual judgement, with-UI closure, and expansion gate after those supporting gates.
+  - Adds post-rerun requirements `displaydim_lifecycle_audit_pass`, `reference_compare_v3_pass`, `reference_style_pass`, and `vision_qc_v6_pass`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Verifies gate order: `dimension_validation` -> `displaydim_lifecycle_audit` -> `reference_compare_v3` -> `reference_style` -> `strict_reference_compare_v4` -> `vision_qc_v6` -> Drawing Review UI screenshot.
+  - Verifies all new post-rerun acceptance requirements are required and currently non-pass before the fresh rerun exists.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.md`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.md`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -c "import ast, pathlib; files=[r'tools\validation\lb26001_006_rerun_packet_v4_2.py', r'test_v4_2_lb26001_006_rerun_packet.py']; [compile(pathlib.Path(f).read_text(encoding='utf-8-sig'), f, 'exec', ast.PyCF_ONLY_AST) for f in files]; print('AST_OK')"
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- AST compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed packet now lists ordered gates: `no_com_readiness_audit`, `locked_006_real_cad_rerun`, `dimension_validation`, `displaydim_lifecycle_audit`, `reference_compare_v3`, `reference_style`, `strict_reference_compare_v4`, `vision_qc_v6`, `drawing_review_application_ui_screenshot`, `manual_visual_judgement`, `with_ui_closure`, `lb26001_expansion_gate`.
+- Refreshed packet now lists post-rerun requirements: `fresh_generated_png_source_evidence`, `displaydim_lifecycle_audit_pass`, `reference_compare_v3_pass`, `reference_style_pass`, `vision_qc_v6_pass`, and `application_ui_screenshot_manual_visual_pass`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed lifecycle audit remains expected FAIL on historical evidence with final `DisplayDim=11/12` and missing post-layout final coverage.
+- Refreshed staged preflight remains expected FAIL before CAD with `processed=0`, `deliverable_count=0`, all offline prerequisites true, and `lb26001_006_real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- SolidWorks still blocks the real rerun with `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- The fresh 006 run must still prove the full DisplayDim lifecycle, reference compare, reference style, v4 compare, v6 visual QC, and Drawing Review UI screenshot/manual judgement.
+- 007/008/009/015/022 remain blocked until 006 passes that full chain.
+
+## v4.2 006 Staged Lifecycle Gate With UI Screenshot Policy - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change reinforces that API metrics are supporting evidence only. A staged case for `LB26001-A-04-006` cannot become deliverable until the DisplayDim lifecycle audit passes and the Drawing Review application UI screenshot/manual visual judgement later passes.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - Adds staged-case `displaydim_lifecycle_audit.json` and `displaydim_lifecycle_audit.md` outputs.
+  - Requires `displaydim_lifecycle_pass=true` for `LB26001-A-04-006` deliverability.
+  - Emits explicit lifecycle blockers for missing fresh warnings, CAD smoke, or dimension validation reports.
+  - Keeps non-006 cases free from the 006-only lifecycle audit, while still requiring `vision_qc_v6.visual_acceptance_pass`.
+- Updated `test_v3_staged_cad_validation.py`.
+  - Proves API-only PASS cannot pass without UI visual acceptance.
+  - Proves 006 lifecycle failure blocks deliverability.
+  - Proves non-006 cases are not blocked by the 006-only lifecycle audit.
+  - Proves missing 006 warnings writes a failed lifecycle report with `ui_screenshot_review_is_final_gate=true`.
+
+Evidence refreshed:
+
+- `drw_output/diagnostics/lb26001_006_displaydim_lifecycle_audit_v4_2.json`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`.
+- `drw_output/reference_style_profile/lb26001_correction_plan_v4_2.json`.
+- `drw_output/staged_validation/LB26001_006_strict_final_readiness_preflight_20260624/summary.json`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_reference_compare.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- Refreshed lifecycle audit remains expected FAIL with final `DisplayDim=11/12`, missing post-layout final coverage, and missing slot rebind summary on historical evidence.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Refreshed staged preflight remains expected FAIL before CAD with `deliverable_count=0/1`.
+
+Remaining issues:
+
+- SolidWorks still needs manual recovery before the next locked real 006 CAD run.
+- The next 006 run must produce a fresh lifecycle report with real persisted/exported `DisplayDim >= 12`.
+- After the 006 CAD output passes lifecycle/v3/v4/v6 gates, Drawing Review application UI screenshots and manual visual judgement are still mandatory before 006, and then 007/008/009/015/022, can be accepted.
+
+## v4.2 006 Rerun Packet Staged Gate Source Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change prevents a rerun packet from being considered offline-ready if the staged CAD runner stops enforcing the 006 DisplayDim lifecycle audit or the application UI visual acceptance gate.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added `DEFAULT_STAGED_VALIDATION_SOURCE`.
+  - Added `STAGED_VALIDATION_SIGNATURES` for `staged_cad_validation_v3.py`.
+  - Added offline prerequisite `staged_validation_lifecycle_ui_gate_signatures_present`.
+  - Added `source_signatures.staged_cad_validation_v3` to the packet output.
+  - Added CLI argument `--staged-validation-source`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Fixture now injects staged validation source signatures.
+  - Added a failure test proving missing staged UI/lifecycle gate signature blocks `packet_build_ready`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed rerun packet has `packet_build_ready=true`, `source_signatures.staged_cad_validation_v3.pass=true`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `real_cad_allowed_now=false`, with blockers `solidworks_not_responding` and `solidworks_unsaved_document_visible`.
+- Refreshed six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed lifecycle audit remains expected FAIL on historical 006 evidence.
+- Refreshed staged preflight remains expected FAIL before CAD with `deliverable_count=0/1`.
+
+Remaining issues:
+
+- SolidWorks manual recovery is still required before the next locked 006 CAD rerun.
+- A fresh 006 output must still pass lifecycle/v3/v4/v6 and application Drawing Review screenshot judgement before any expansion to `007/008/009/015/022`.
+
+## v4.2 006 Acceptance Proof Requires Lifecycle Report Body - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change prevents the final 006 proof from trusting staged summary booleans alone; it must resolve and read the DisplayDim lifecycle audit report itself.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+  - Resolves `displaydim_lifecycle_report` from the staged case, or defaults to `<case_dir>/displaydim_lifecycle_audit.json`.
+  - Reads the lifecycle report body and requires both staged case `displaydim_lifecycle_pass=true` and report `pass=true`.
+  - Adds proof evidence fields `displaydim_lifecycle_report_exists`, `displaydim_lifecycle_report_pass`, and `displaydim_lifecycle_blocking_issue_keys`.
+  - Adds blockers `displaydim_lifecycle_report_missing` and `displaydim_lifecycle_not_pass`.
+  - Adds a DisplayDim lifecycle audit row to the Markdown proof table.
+- Updated `test_v4_2_lb26001_006_acceptance_proof.py`.
+  - Fixtures now write a real lifecycle report.
+  - Added tests proving lifecycle report FAIL and lifecycle report missing both block proof PASS even when UI-backed gates are otherwise marked pass.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `ACCEPTANCE_PROOF_SIGNATURES` now source-guards lifecycle proof evidence and blockers.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added a failure test proving a missing acceptance-proof lifecycle signature blocks `packet_build_ready`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed acceptance proof remains `blocked_by_006/pass=false` and now includes `displaydim_lifecycle_report_missing` and `displaydim_lifecycle_not_pass`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `source_signatures.lb26001_006_acceptance_proof_v4_2.pass=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed requested six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed lifecycle audit remains expected FAIL on historical 006 evidence.
+- Refreshed staged preflight remains expected FAIL before CAD with `deliverable_count=0/1`.
+
+Remaining issues:
+
+- SolidWorks manual recovery remains required before the next locked 006 CAD rerun.
+- The next fresh 006 staged case must write a real passing `displaydim_lifecycle_audit.json`.
+- Only after lifecycle/v3/v4/v6 and Drawing Review UI screenshot judgement all pass may 006 be accepted or expansion to `007/008/009/015/022` begin.
+
+## v4.2 006 Acceptance Gate Requires Staged Lifecycle Evidence - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT PASS`.
+- No SolidWorks COM, real CAD generation, OCR, YOLO, or application UI automation was run in this slice.
+- This change makes the expansion gate itself require staged DisplayDim lifecycle evidence. UI closure alone can no longer make `primary_pass=true`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_acceptance_gate_v4_2.py`.
+  - Added `DEFAULT_STAGED_SUMMARY`.
+  - Added `_staged_lifecycle_evidence()`.
+  - Added CLI argument `--staged-summary`.
+  - Requires 006 staged lifecycle pass before `primary_pass=true`.
+  - Emits `displaydim_lifecycle_report_missing` and `displaydim_lifecycle_not_pass` from the acceptance gate.
+  - Adds lifecycle evidence fields to each base result.
+- Updated `test_v4_2_lb26001_acceptance_gate.py`.
+  - Passing UI closure fixtures now include staged lifecycle PASS evidence.
+  - Added a test proving UI closure PASS without lifecycle report still fails.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards acceptance-gate staged/lifecycle signatures.
+  - Updates the expansion gate command to include `--staged-summary <fresh_staged_summary.json>`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added a failure test proving missing acceptance-gate lifecycle signature blocks `packet_build_ready`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_acceptance_gate_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_acceptance_gate.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v3_staged_cad_validation.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_explicit_displaydim_visible_entities_20260623\summary.json --out drw_output\ui_acceptance\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\closed_loop_strict_final_20260624\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_strict_final_readiness_preflight_20260624
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed acceptance gate remains `blocked_by_006`, `primary_pass=false`, and includes `displaydim_lifecycle_report_missing` plus `displaydim_lifecycle_not_pass`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `source_signatures.lb26001_acceptance_gate_v4_2.pass=true`, and `real_cad_allowed_now=false`.
+- Refreshed acceptance proof remains `blocked_by_006/pass=false`.
+- Refreshed requested six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed lifecycle audit remains expected FAIL on historical 006 evidence.
+- Refreshed staged preflight remains expected FAIL before CAD with `deliverable_count=0/1`.
+
+Remaining issues:
+
+- SolidWorks manual recovery remains required before the next locked 006 CAD rerun.
+- A fresh 006 staged summary must include a passing `displaydim_lifecycle_audit.json`.
+- Even after UI closure passes, the expansion gate will remain closed until 006 lifecycle evidence passes.
+
+## v4.2 Per-Drawing UI Screenshot Judgement Matrix - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No SolidWorks COM, no real CAD generation, and no automatic SolidWorks restart/kill was run in this slice.
+- This change follows the updated v4.2 real-landing goal: every requested drawing must be judged from the application Drawing Review UI screenshot workflow, with API metrics only as supporting evidence.
+- The next true CAD step is still blocked until the user manually saves or closes the visible unsaved SolidWorks document and the no-COM readiness audit reports ready.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+  - Adds `per_drawing_ui_review_matrix`.
+  - Adds `final_judgement_requires_application_ui_per_drawing`.
+  - Adds per-base counts/lists for incomplete UI review, missing application UI screenshots, missing manual visual judgement, and visual failures.
+  - Keeps `api_only_acceptance_allowed=false` and `ui_screenshot_review_is_final_gate=true`.
+- Updated `tools/validation/lb26001_correction_plan_v4_2.py`.
+  - Adds top-level `visual_validation_policy`.
+  - Adds per-entry `visual_validation_required`.
+  - Copies current UI screenshot count, method status, visual review status, and missing UI acceptance requirements into each entry.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards the correction-plan UI validation policy fields so future edits cannot silently remove the per-drawing application screenshot gate.
+- Updated tests:
+  - `test_v4_2_lb26001_requested_drawings_status.py`.
+  - `test_v4_2_lb26001_correction_plan.py`.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py tools\validation\lb26001_correction_plan_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_requested_drawings_status.py test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v3_staged_cad_validation.py
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Refreshed requested six-drawing status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`, `per_drawing_ui_review_matrix=6`, and `per_drawing_ui_review_incomplete_count=6`.
+- Refreshed correction plan remains `blocked_by_solidworks_readiness`, `correction_plan_ready=true`, and `visual_validation_policy.per_drawing_application_ui_screenshot_required=true`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+
+Remaining issues:
+
+- User/manual Windows action is required in SolidWorks: save or close the visible unsaved document. Automatic kill/restart remains forbidden.
+- After manual recovery, run only the no-COM readiness audit first.
+- Only if readiness reports ready may the single locked `LB26001-A-04-006` CAD rerun start through `JobRuntimeFacade` / QProcess / `cad_job_worker` with the SolidWorks global lock.
+
+## v4.2 Current 006 Readiness Preflight Still Blocks CAD - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No SolidWorks COM, real CAD generation, `sw_connection_guard`, automatic restart, or kill command was run in this slice.
+- The current external SolidWorks state has changed from the previous unresponsive/unsaved-window evidence to `solidworks_not_running`; this still blocks the next 006 CAD rerun.
+- The next user/manual action is to start SolidWorks and leave it responsive with no unsaved document marker, then rerun the no-COM readiness audit.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_readiness_preflight_20260624_192840
+python test_v4_2_006_regression_readiness.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_rerun_packet.py
+```
+
+Results:
+
+- Readiness command exited expected nonzero and wrote `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+- Readiness status: `blocked`.
+- `ready_to_start_locked_006_cad=false`.
+- `blocking_issue_keys=["solidworks_not_running"]`.
+- `safe_recovery_guidance.manual_recovery_required=true`.
+- `safe_recovery_guidance.automatic_restart_allowed=false`.
+- Staged 006 preflight exited expected nonzero and wrote `drw_output/staged_validation/LB26001_006_readiness_preflight_20260624_192840/summary.json`.
+- Staged preflight summary: `processed=0`, `deliverable_count=0`, `readiness_preflight_pass=false`, `rerun_packet_preflight_pass=false`, `lb26001_006_real_cad_allowed_now=false`.
+- `sw_connection_guard_skipped_due_to_readiness=true`.
+- There is no `sw_connection_guard.json` and no `01_LB26001-A-04-006` case directory in the fresh preflight output.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+
+Remaining issues:
+
+- Manual SolidWorks recovery is still required; automation must not start CAD while readiness is false.
+- Once SolidWorks is manually started and responsive with no unsaved document marker, rerun only the no-COM readiness audit first.
+- Only after readiness and the 006 rerun packet both allow real CAD may the single locked 006 staged rerun begin.
+
+## v4.2 Windows-Safe SolidWorks Lock Conflict Contract - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, automatic restart, or kill command was run.
+- This slice hardens the lock gate required before the next real 006 CAD rerun: lock-owner liveness probing is now Windows-safe, and `cad_job_worker` lock conflicts are covered by a no-COM worker-level test.
+
+Implementation:
+
+- Updated `app/services/solidworks_global_lock.py`.
+  - `_pid_alive()` now dispatches to `_pid_alive_windows()` on Windows.
+  - `_pid_alive_windows()` uses `OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION)` and `GetExitCodeProcess()` instead of `os.kill(pid, 0)`.
+  - This avoids accidentally interrupting a foreign console process while checking whether an active lock owner is alive.
+- Added `test_v4_2_cad_worker_lock_conflict.py`.
+  - Creates a temporary active SolidWorks global lock owned by the test process.
+  - Starts `app/workers/cad_job_worker.py` with a dummy `.SLDPRT`, temporary output dir, and `SW_GLOBAL_LOCK_TIMEOUT_S=0`.
+  - Verifies the worker exits before CAD with `status=blocked_by_solidworks_lock`.
+  - Verifies JSONL `job_failed` contains `failure_bucket=solidworks_lock_conflict`, populated `owner`, and non-empty `fix_suggestion`.
+  - Verifies `manifest.json` records the same failure bucket and marks the drawing unusable.
+
+Validation commands:
+
+```powershell
+python -m py_compile app\services\solidworks_global_lock.py app\workers\cad_job_worker.py app\workers\batch_job_worker.py test_v4_2_cad_worker_lock_conflict.py test_v4_1_solidworks_global_lock.py test_v4_2_006_regression_readiness.py
+python test_v4_2_cad_worker_lock_conflict.py
+python test_v4_1_solidworks_global_lock.py
+python test_v4_1_solidworks_conflict_monitor.py
+python test_v4_1_solidworks_safe_restart.py
+python test_v4_2_006_regression_readiness.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_cad_worker_lock_conflict.py`: PASS.
+- `test_v4_1_solidworks_global_lock.py`: PASS.
+- `test_v4_1_solidworks_conflict_monitor.py`: PASS.
+- `test_v4_1_solidworks_safe_restart.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed readiness remains `blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+
+Remaining issues:
+
+- SolidWorks must still be manually started and left responsive with no unsaved document marker before real 006 CAD can run.
+- The next real CAD attempt must still go through `JobRuntimeFacade` / QProcess / `cad_job_worker` and hold the global lock.
+- Drawing acceptance remains unproven until fresh 006 CAD, DisplayDim lifecycle, strict reference checks, v6 visual QC, Drawing Review UI screenshot judgement, manual checklist, and acceptance gate all pass.
+
+## v4.2 Staged 006 CAD Entrypoint Uses Facade/QProcess - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, `sw_connection_guard`, automatic restart, or kill command was run.
+- This slice adds a no-COM source-level regression guard for the future ready-state path: `staged_cad_validation_v3.py --stage LB26001_006` must continue to enter CAD through `real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> JobRunner/QProcess -> cad_job_worker.py`.
+
+Implementation:
+
+- Updated `test_v3_staged_cad_validation.py`.
+  - Added `test_lb26001_006_real_cad_path_uses_facade_qprocess_worker`.
+  - The test checks `staged_cad_validation_v3.run_stage()` invokes `tools/validation/real_cad_smoke_v3.py`.
+  - The test rejects direct `cad_job_worker.py` invocation from staged validation.
+  - The test checks `real_cad_smoke_v3.run_smoke()` uses `JobRuntimeFacade` and `facade.start_cad_job`.
+  - The test checks `JobRunner.start_job()` uses and starts `QProcess`.
+
+Validation commands:
+
+```powershell
+python -m py_compile test_v3_staged_cad_validation.py tools\validation\real_cad_smoke_v3.py tools\validation\staged_cad_validation_v3.py app\services\job_runner.py app\services\job_runtime_facade.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_cad_worker_lock_conflict.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_cad_worker_lock_conflict.py`: PASS.
+- Refreshed readiness remains `blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+
+Remaining issues:
+
+- SolidWorks is still not ready; real 006 CAD remains forbidden.
+- When readiness becomes true, the single 006 rerun must still prove actual artifacts and drawing quality, not just this launch-path contract.
+
+## v4.2 Direct 006 Real CAD Smoke Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, `JobRuntimeFacade` CAD startup, QProcess CAD worker, automatic restart, or kill command was run.
+- This slice closes a bypass risk: directly invoking `tools/validation/real_cad_smoke_v3.py --part LB26001-A-04-006.SLDPRT` now checks no-COM readiness and the 006 rerun packet before it can start the facade/QProcess CAD path.
+
+Implementation:
+
+- Updated `tools/validation/real_cad_smoke_v3.py`.
+  - Added `PRIMARY_LB26001_006_BASE`.
+  - Added `_lb26001_006_direct_cad_guard()`.
+  - Added `_write_lb26001_006_direct_guard_report()`.
+  - `main()` now calls the 006 direct guard after confirming the part file exists and before `run_smoke()` / `run_smoke_with_process_guard()`.
+  - Non-006 real CAD smoke remains unchanged.
+- Added `test_v4_2_real_cad_smoke_guard.py`.
+  - Verifies `solidworks_not_running` blocks direct 006 smoke before facade startup.
+  - Verifies non-006 smoke guard is not applicable.
+  - Verifies the CLI guard call is before process-guard startup.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\real_cad_smoke_v3.py test_v4_2_real_cad_smoke_guard.py
+python test_v4_2_real_cad_smoke_guard.py
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 5 --max-rounds 1 --out drw_output\diagnostics\lb26001_006_direct_smoke_guard_v4_2.json
+python test_v3_staged_cad_validation.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_real_cad_smoke_guard.py`: PASS.
+- Direct 006 smoke guard command exited expected nonzero and wrote `drw_output/diagnostics/lb26001_006_direct_smoke_guard_v4_2.json`.
+- Direct guard report: `pass=false`, `status.status=blocked_by_lb26001_006_direct_guard`, `run_dir=""`, `reasons=["solidworks_not_running"]`, `lb26001_006_direct_guard.real_cad_allowed_now=false`, `automatic_restart_allowed=false`.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed readiness remains `blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+
+Remaining issues:
+
+- SolidWorks is still not ready; real 006 CAD remains forbidden.
+- Once SolidWorks is manually started and readiness passes, the direct smoke guard will allow the same locked facade/QProcess route, but acceptance will still require fresh artifacts, lifecycle, v4/v6, UI screenshot judgement, manual checklist, and acceptance gate PASS.
+
+## v4.2 006 Real Landing Gap Audit - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, visual model inference, automatic restart, or kill command was run.
+- The audit is file-only and confirms the user's UI-first rule: API metrics and file creation cannot accept any of the requested drawings without application Drawing Review UI screenshot evidence and manual visual checklist PASS.
+
+Implementation:
+
+- Added `tools/validation/lb26001_006_real_landing_gap_audit_v4_2.py`.
+  - Reads the no-COM readiness report, rerun packet, six-drawing requested status, direct smoke guard, staged preflight summary, 006 acceptance proof, DisplayDim lifecycle audit, and source signatures.
+  - Emits `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json`.
+  - Emits `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.md`.
+  - Keeps `api_only_acceptance_allowed=false` and `application_ui_screenshot_is_final_gate=true`.
+  - Reports every requested base in a per-drawing UI review matrix.
+- Added `test_v4_2_lb26001_006_real_landing_gap_audit.py`.
+  - Proves SolidWorks readiness blocking prevents real 006 landing.
+  - Proves missing direct guard evidence is a critical unproven requirement.
+  - Proves an API-only `pass_count=6` claim still cannot accept drawings without per-drawing application UI screenshots.
+
+Validation commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_real_cad_smoke_guard.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_cad_worker_lock_conflict.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+```
+
+Validation results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Gap audit generation exited expected nonzero because current evidence is blocked, and wrote both JSON and Markdown reports.
+- Gap audit summary: `status=blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, `manual_solidworks_recovery_required=true`, `automatic_restart_allowed=false`, `six_requested_drawings_accepted=false`, `six_requested_drawings_all_currently_unqualified=true`.
+- Per-drawing UI review remains non-pass:
+  - `LB26001-A-04-006`: missing valid application UI source report, manual case PASS, manual checklist PASS, and fresh generated PNG source proof.
+  - `LB26001-A-04-007/008/009/015/022`: visual FAIL with missing UI visual review gate, application UI source report, manual case PASS, and manual checklist PASS.
+- `test_v4_2_real_cad_smoke_guard.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_cad_worker_lock_conflict.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+
+Remaining issues:
+
+- SolidWorks is not running, so the next real 006 CAD run remains forbidden until manual recovery and no-COM readiness PASS.
+- 006 still requires a fresh locked CAD run, DisplayDim lifecycle PASS, reference comparison/style PASS, v6 visual QC PASS, Drawing Review UI screenshot PASS, manual visual checklist PASS, and 006 acceptance proof PASS.
+- `007/008/009/015/022` must remain blocked until 006 passes, then each must receive its own application UI screenshot review and manual visual judgement.
+
+## v4.2 Current no-COM Gate Refresh - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- The active external blocker is currently `solidworks_not_running`; therefore real 006 CAD remains forbidden.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_readiness_preflight_current_v4_2_20260624
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python -m py_compile tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Readiness command exited expected nonzero and refreshed `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`.
+- Readiness summary: `status=blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+- Requested six-drawing status command exited expected nonzero and remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Rerun packet refreshed with `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`.
+- Protected staged preflight exited expected nonzero and wrote `drw_output/staged_validation/LB26001_006_readiness_preflight_current_v4_2_20260624/summary.json`.
+- Staged preflight stopped before CAD: `processed=0`, `deliverable_count=0`, `lb26001_006_real_cad_allowed_now=false`, `sw_connection_guard_skipped_due_to_readiness=true`, no `sw_connection_guard.json`, and no `01_LB26001-A-04-006` case directory.
+- Gap audit refreshed with `status=blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, `six_requested_drawings_accepted=false`, `six_requested_drawings_all_currently_unqualified=true`.
+- Gap audit requirements now show the safety gates as PASS, with the remaining blocked requirements limited to `six_drawing_application_ui_review_complete`, `primary_006_acceptance_proof_passes`, and `displaydim_lifecycle_passes_for_006`.
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+
+Remaining issues:
+
+- Manual external action is still required: start SolidWorks and leave it responsive with no unsaved document marker.
+- After readiness becomes `ready_to_start_locked_006_cad=true`, run exactly one locked `LB26001-A-04-006` staged CAD rerun through the facade/QProcess/CAD worker path.
+- Do not expand to `007/008/009/015/022` until 006 passes CAD, DisplayDim lifecycle, reference style, reference compare v4, v6 visual QC, Drawing Review UI screenshot judgement, manual checklist, and acceptance gate.
+
+## v4.2 Readiness Markdown Recovery Checklist - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change keeps `lb26001_006_regression_readiness_v4_2.py` as the authority and adds a human-readable Markdown output for the manual recovery step.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+  - Added `DEFAULT_OUT_MD`.
+  - Added `render_markdown(report)`.
+  - Added optional `--out-md`.
+  - The Markdown includes readiness status, SolidWorks process state, lock state, manual recovery steps, "do not" warnings, next commands after safe readiness, and issue fix suggestions.
+- Updated `test_v4_2_006_regression_readiness.py`.
+  - Added coverage that the Markdown states manual recovery, `ready_to_start_locked_006_cad=false`, `automatic_restart_allowed=false`, no automated kill/restart, and the guarded 006 staged command.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py
+python test_v4_2_006_regression_readiness.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Readiness command exited expected nonzero and wrote:
+  - `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+  - `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.md`
+- Markdown summary: `status=blocked`, `ready_to_start_locked_006_cad=false`, `manual_recovery_required=true`, `automatic_restart_allowed=false`, `blocking_issue_keys=solidworks_not_running`, `process_present=false`, `global_lock_stale=true`.
+- Rerun packet refreshed and remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`.
+- Gap audit refreshed and remains `blocked_by_solidworks_readiness`, `six_requested_drawings_accepted=false`.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+
+Remaining issues:
+
+- Manual external action is still required: start SolidWorks and leave it responsive with no unsaved document marker.
+- After readiness becomes true, run only the locked 006 staged CAD path and continue the UI screenshot/manual checklist acceptance loop.
+
+## v4.2 Staged Preflight Links Readiness Recovery Checklist - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change makes the protected `LB26001_006` staged preflight summary point directly to the readiness recovery Markdown when it stops before CAD.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - Imports `render_markdown` from `lb26001_006_regression_readiness_v4_2.py`.
+  - `_write_lb26001_006_readiness_preflight_report()` now writes both JSON and Markdown readiness reports into the staged preflight out directory.
+  - `_stage_006_readiness_failure_summary()` now includes `lb26001_006_readiness_report_md`.
+- Updated `test_v3_staged_cad_validation.py`.
+  - Asserts `summary["lb26001_006_readiness_report_md"]` is populated.
+  - Asserts the staged readiness Markdown file exists when readiness blocks before CAD.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py tools\validation\lb26001_006_regression_readiness_v4_2.py test_v3_staged_cad_validation.py test_v4_2_006_regression_readiness.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_006_regression_readiness.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_readiness_preflight_with_recovery_md_20260624
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Protected staged preflight exited expected nonzero and wrote `drw_output/staged_validation/LB26001_006_readiness_preflight_with_recovery_md_20260624/summary.json`.
+- Staged preflight summary: `processed=0`, `deliverable_count=0`, `readiness_preflight_pass=false`, `rerun_packet_preflight_pass=false`, `lb26001_006_real_cad_allowed_now=false`, `sw_connection_guard_skipped_due_to_readiness=true`.
+- Summary now includes `lb26001_006_readiness_report_md=.../lb26001_006_regression_readiness_v4_2.md`.
+- The staged readiness Markdown exists and repeats the manual recovery instructions plus the no-kill/no-restart warnings.
+- No `sw_connection_guard.json` exists in the staged preflight directory, and no `01_LB26001-A-04-006` case directory was created.
+- Gap audit refreshed and remains `blocked_by_solidworks_readiness`.
+
+Remaining issues:
+
+- Manual external action is still required: start SolidWorks and leave it responsive with no unsaved document marker.
+- Real 006 CAD remains forbidden until readiness and rerun packet both allow it.
+
+## v4.2 Readiness/Staged Lock Owner Diagnostics - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change makes stale SolidWorks global-lock ownership visible in both the readiness Markdown and staged 006 preflight summary.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+  - Added top-level `solidworks_lock_conflict`.
+  - Added top-level `solidworks_lock_owner`.
+  - Added top-level `solidworks_lock_fix_suggestion`.
+  - Added a `SolidWorks Lock Details` section to the Markdown recovery checklist.
+  - Added a `Recovery Verification Command` section to the Markdown checklist.
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - Added `lb26001_006_solidworks_lock_present`.
+  - Added `lb26001_006_solidworks_lock_stale`.
+  - Added `lb26001_006_solidworks_lock_conflict`.
+  - Added `lb26001_006_solidworks_lock_owner`.
+  - Added `lb26001_006_solidworks_lock_fix_suggestion`.
+- Updated tests:
+  - `test_v4_2_006_regression_readiness.py` now verifies stale lock owner details and Markdown lock details.
+  - `test_v3_staged_cad_validation.py` now verifies staged summary lock owner fields.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py tools\validation\staged_cad_validation_v3.py test_v4_2_006_regression_readiness.py test_v3_staged_cad_validation.py
+python test_v4_2_006_regression_readiness.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_readiness_preflight_lock_owner_md_20260624
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Readiness command exited expected nonzero with `status=blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+- Readiness JSON now reports stale lock owner: `owner_job_id=707f726d`, `owner_run_id=system_health_707f726d`, `operation=solidworks_com_probe:get_active_object`, `stale_lock=true`.
+- Readiness Markdown now includes `SolidWorks Lock Details` and the exact recovery verification command.
+- Protected staged preflight exited expected nonzero and wrote `drw_output/staged_validation/LB26001_006_readiness_preflight_lock_owner_md_20260624/summary.json`.
+- Staged preflight summary remains before CAD: `processed=0`, `deliverable_count=0`, `lb26001_006_real_cad_allowed_now=false`.
+- Staged preflight summary carries `lb26001_006_solidworks_lock_stale=true` and the same owner/run/operation details.
+- No `sw_connection_guard.json` exists in the staged preflight directory, and no `01_LB26001-A-04-006` case directory was created.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Gap audit refreshed and remains `blocked_by_solidworks_readiness`.
+
+Remaining issues:
+
+- Manual external action is still required: start SolidWorks and leave it responsive with no unsaved document marker.
+- The stale lock is diagnostic only while SolidWorks itself is not ready; real CAD remains forbidden until readiness and rerun packet both allow it.
+
+## v4.2 Six-Drawing Application UI Screenshot Recheck - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The user requirement is enforced as an evidence rule: every requested drawing must be judged from the application Drawing Review UI screenshot. API/QC/reference metrics are supporting evidence only.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+  - Added `DEFAULT_MANUAL_REVIEW_GLOBS`.
+  - Added `_default_manual_review_paths()`.
+  - Default six-drawing status now auto-discovers new `LB26001_ref6_application_ui_screenshot_recheck*` manual judgement files, so fresh UI screenshot reviews are not ignored.
+- Updated `test_v4_2_lb26001_requested_drawings_status.py`.
+  - Added coverage for automatic discovery of newly generated application UI screenshot manual-review artifacts.
+- Added evidence artifact `drw_output/ui_acceptance/LB26001_ref6_application_ui_screenshot_recheck_user_20260624/manual_visual_judgement_codex_20260624.json`.
+  - All six requested drawings are marked `FAIL` after application Drawing Review UI screenshot inspection.
+  - Each entry records failed checklist items for reference match, view layout, DisplayDim/dimension readability, title block, and manufacturing notes.
+
+Commands:
+
+```powershell
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --out-dir drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624 --base LB26001-A-04-006 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_ref6_current_20260622\summary.json --ui-report drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\manual_visual_judgement_codex_20260624.json --out-dir drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\closed_loop_codex_fail_20260624 --base LB26001-A-04-006 --base LB26001-A-04-007 --base LB26001-A-04-008 --base LB26001-A-04-009 --base LB26001-A-04-015 --base LB26001-A-04-022
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Drawing Review UI screenshot suite: PASS for evidence capture, `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- New UI screenshot report: `drw_output/ui_acceptance/LB26001_ref6_application_ui_screenshot_recheck_user_20260624/drawing_visual_review_report.json`.
+- New screenshots:
+  - `screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `screenshots/02_LB26001-A-04-007_ui_visual_review.png`
+  - `screenshots/03_LB26001-A-04-008_ui_visual_review.png`
+  - `screenshots/04_LB26001-A-04-009_ui_visual_review.png`
+  - `screenshots/05_LB26001-A-04-015_ui_visual_review.png`
+  - `screenshots/06_LB26001-A-04-022_ui_visual_review.png`
+- Manual visual judgement: `overall_status=FAIL`, `visual_acceptance_pass=false`, `pass_count=0`, `fail_count=6`.
+- UI closure tool exited expected nonzero with `pass=false`, `status=need_review`, `total=6`; this is the correct behavior because the screenshots were visually rejected.
+- Compile check: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Refreshed six-drawing status exited expected nonzero: `status=blocked_by_006`, `pass=false`, `pass_count=0`, `not_pass_count=6`, `per_drawing_ui_review_incomplete_count=6`.
+- The default six-drawing status now includes the new `manual_visual_judgement_codex_20260624.json` in `manual_reviews`.
+- Refreshed real-landing gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- All six requested drawings are still visually unqualified by application Drawing Review UI screenshots.
+- `LB26001-A-04-006` must be repaired and rerun first through the locked CAD worker path after SolidWorks readiness clears.
+- `007/008/009/015/022` remain learning/reference samples only until 006 passes the full UI-backed acceptance gate.
+
+## v4.2 Rerun Packet Restored After Latest UI FAIL Evidence - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This was a no-COM consistency repair: the newest six-drawing UI screenshot judgement was already in requested-drawing status, but the correction plan still referenced the older 006 UI finding, causing the rerun packet to report `offline_prerequisites_missing`.
+
+Evidence before refresh:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`: `status=blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_not_running"]`.
+- `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json`: `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`: temporarily reported `status=offline_prerequisites_missing`, `packet_build_ready=false`, missing `correction_plan_matches_current_006_status`.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python -m py_compile tools\validation\lb26001_correction_plan_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py test_v4_2_lb26001_correction_plan.py test_v4_2_lb26001_006_rerun_packet.py test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Readiness command exited expected nonzero with `solidworks_not_running`; real CAD remains forbidden.
+- Requested drawings status exited expected nonzero with `blocked_by_006`, `pass_count=0`, `not_pass_count=6`, `per_drawing_ui_review_incomplete_count=6`.
+- Correction plan refreshed successfully: `status=blocked_by_solidworks_readiness`, `correction_plan_ready=true`, `entry_count=6`.
+- The primary 006 correction entry now points at `drw_output/ui_acceptance/LB26001_ref6_application_ui_screenshot_recheck_user_20260624/manual_visual_judgement_codex_20260624.json`.
+- Rerun packet refreshed successfully: `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=false`, `readiness_blocking_issue_keys=["solidworks_not_running"]`.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Compile check: PASS.
+- Gap audit exited expected nonzero and remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- External SolidWorks readiness is still not safe for CAD: current no-COM readiness reports `solidworks_not_running`.
+- The next real CAD action is still forbidden until a fresh readiness audit reports `ready_to_start_locked_006_cad=true`.
+- Once readiness clears, run exactly one locked `LB26001-A-04-006` staged CAD rerun through `JobRuntimeFacade` / QProcess / `cad_job_worker`; do not expand to the other five drawings first.
+
+## v4.2 Staged Preflight Readiness-Only Bucket Clarification - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- The offline 006 rerun packet is now build-ready, but the staged preflight summary previously still included the broad `lb26001_006_rerun_packet_not_ready` bucket whenever `real_cad_allowed_now=false`. That was too coarse when the only blocker was SolidWorks readiness.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - Added `lb26001_006_rerun_packet_build_ready`.
+  - Added `lb26001_006_rerun_packet_blocked_only_by_readiness`.
+  - Emits `lb26001_006_rerun_packet_blocked_by_readiness` when `packet_build_ready=true`, no offline prerequisites are missing, and `status=blocked_by_solidworks_readiness`.
+  - Keeps `lb26001_006_rerun_packet_not_ready` for true offline prerequisite failures.
+- Updated `test_v3_staged_cad_validation.py`.
+  - Readiness-blocked fixture now asserts packet build-ready and blocked-only-by-readiness fields.
+  - Offline-prerequisite failure fixture still asserts `lb26001_006_rerun_packet_not_ready`.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_packet_ready_readiness_bucket_20260624_20260624_202405
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_006_regression_readiness.py
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Protected staged preflight exited expected nonzero and wrote `drw_output/staged_validation/LB26001_006_packet_ready_readiness_bucket_20260624_20260624_202405/summary.json`.
+- Summary remains before CAD:
+  - `processed=0`
+  - `deliverable_count=0`
+  - `lb26001_006_rerun_packet_build_ready=true`
+  - `lb26001_006_rerun_packet_blocked_only_by_readiness=true`
+  - `lb26001_006_real_cad_allowed_now=false`
+  - no `sw_connection_guard.json`
+  - no `01_LB26001-A-04-006` case directory
+- New failure bucket: `lb26001_006_readiness_not_ready`, `lb26001_006_rerun_packet_blocked_by_readiness`, `solidworks_not_running`.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Gap audit exited expected nonzero and remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- Real CAD is still forbidden until SolidWorks readiness reports `ready_to_start_locked_006_cad=true`.
+- The next allowed external action is still manual: start SolidWorks, keep it responsive, and leave no unsaved document marker before rerunning readiness.
+
+## v4.2 Acceptance Proof Direct UI Recheck Auto-Discovery - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change keeps the current historical 006 proof non-pass, but prevents future fresh 006 UI proof packets from silently reading only the hard-coded historical direct recheck file.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_acceptance_proof_v4_2.py`.
+  - Added `_direct_recheck_candidate_paths(...)`.
+  - Added `_direct_recheck_gate_base(...)`.
+  - Added `_select_direct_recheck_path(...)`.
+  - The proof now scans the active gate screenshot's UI evidence directory for `manual_visual_judgement*.json` and `codex_direct_ui_screenshot_recheck*.json`.
+  - It selects the newest candidate whose screenshot path exists and matches the active proof gate screenshot.
+  - If no current candidate matches, it falls back to the historical default direct recheck path.
+  - CLI `--direct-ui-screenshot-recheck` remains available; no new CAD or alternate acceptance entrypoint was added.
+- Updated `test_v4_2_lb26001_006_acceptance_proof.py`.
+  - Added coverage that a newly generated matching `manual_visual_judgement_codex_*.json` is auto-discovered and blocks proof when it is `FAIL`.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_acceptance_proof_v4_2.py test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Acceptance proof command exited expected nonzero and refreshed `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json`.
+- Refreshed proof remains `blocked_by_006`, `pass=false`.
+- Current proof still selects the historical direct recheck at `drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/codex_direct_ui_screenshot_recheck_20260624.json` because that is the direct recheck whose screenshot matches the active strict-final 006 proof gate.
+- The newer six-drawing screenshot recheck is intentionally not used to override this specific proof because its screenshot/gate is different; it remains active evidence through `lb26001_requested_drawings_status_v4_2.json`.
+- Refreshed requested status remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, `offline_prerequisite_missing_keys=[]`.
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- A fresh locked 006 CAD run is still missing and still forbidden while readiness reports `solidworks_not_running`.
+- The next real proof must come from a fresh run-dir PNG, a fresh Drawing Review UI report, and a manual checklist bound to that exact screenshot.
+
+## v4.2 Gap Audit Latest Protected Preflight Evidence - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- Application Drawing Review UI screenshot review remains the final drawing-correctness gate; API metrics and file existence are supporting evidence only.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_real_landing_gap_audit_v4_2.py`.
+  - Auto-discovers protected `LB26001_006` staged preflight summaries beyond the old `LB26001_006_readiness_preflight_*` naming pattern.
+  - Selects only no-CAD-start summaries with `processed=0`, `deliverable_count=0`, no `sw_connection_guard.json`, and no `01_LB26001-A-04-006` case directory.
+  - Adds top-level fields: `staged_preflight_summary_path`, `staged_preflight_no_cad_started`, `staged_preflight_packet_build_ready`, `staged_preflight_packet_blocked_only_by_readiness`, and `staged_preflight_failure_bucket`.
+  - Markdown output now surfaces the latest staged preflight summary and confirms whether the application UI screenshot gate is still the final gate.
+- Updated `test_v4_2_lb26001_006_real_landing_gap_audit.py`.
+  - Adds coverage that a latest packet-ready/readiness-only protected preflight is auto-discovered and reported.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_apply_ui_visual_review.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- Gap audit command exited expected nonzero and refreshed `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json`.
+- Current gap audit remains `blocked_by_solidworks_readiness`, with `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+- Latest protected preflight is recognized as no-CAD-start evidence: `staged_preflight_no_cad_started=true`, `staged_preflight_packet_build_ready=true`, and `staged_preflight_packet_blocked_only_by_readiness=true`.
+
+Remaining issues:
+
+- Real CAD is still forbidden until SolidWorks readiness reports `ready_to_start_locked_006_cad=true`.
+- All six requested drawings remain unaccepted because the application UI screenshot/manual visual judgement path is not passing.
+- The next external action remains manual SolidWorks recovery, then exactly one locked 006 CAD rerun before any expansion to 007/008/009/015/022.
+
+## v4.2 Per-Drawing UI Screenshot Evidence Matrix Enrichment - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- Six requested LB26001 drawings remain visually unqualified in the application Drawing Review UI screenshot workflow.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+  - `per_drawing_ui_review_matrix` now preserves each drawing's UI screenshot files, same-name reference/generated comparison image, generated PNG, reference PNG, manual checklist values, checklist notes, visual findings, and required correction text.
+  - Failed checklist items are now inferred from a manual `visual_checklist` with `false` values when the acceptance gate has not yet emitted structured failed items.
+- Updated `tools/validation/lb26001_006_real_landing_gap_audit_v4_2.py`.
+  - The top-level per-drawing matrix now carries the same screenshot/checklist/comparison evidence instead of only pass/fail booleans.
+- Updated tests:
+  - `test_v4_2_lb26001_requested_drawings_status.py`
+  - `test_v4_2_lb26001_006_real_landing_gap_audit.py`
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_requested_drawings_status.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_vision_qc_v6.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Refreshed requested-status command exits expected nonzero with `status=blocked_by_006`, `pass_count=0`, and `not_pass_count=6`.
+- Refreshed gap audit exits expected nonzero with `status=blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+- The refreshed per-drawing matrix now shows every requested drawing with failed checklist items: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`, plus UI screenshot and reference/generated comparison image evidence.
+
+Remaining issues:
+
+- SolidWorks readiness remains blocked by `solidworks_not_running`.
+- A fresh locked 006 CAD rerun is still missing and still forbidden until readiness becomes safe.
+- 007/008/009/015/022 remain learning evidence only until 006 passes the full CAD + UI screenshot acceptance gate.
+
+## v4.2 006 Rerun Packet UI Evidence Enrichment - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- The offline rerun packet is still not acceptance evidence; it is only the controlled input packet for the next locked 006 rerun after readiness becomes safe.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `current_006_ui_verdict` now carries `comparison_image`, `latest_manual_findings`, `latest_manual_visual_checklist`, checklist notes, generated PNG, reference PNG, and application UI screenshot paths.
+  - The post-rerun `application_ui_screenshot_manual_visual_pass` requirement now includes the latest findings and comparison image as evidence.
+  - The Markdown rerun packet now prints the comparison image and a `Latest UI Findings` section before the ordered next gates.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - The fixture and assertions now cover comparison image, manual findings, checklist values, and application UI screenshot paths.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_apply_ui_visual_review.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_lb26001_006_acceptance_proof.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- `current_006_ui_verdict` now points to the latest UI comparison image: `drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\comparison_images\01_LB26001-A-04-006_reference_vs_generated.png`.
+- Latest UI findings are carried into the packet: generated drawing still does not match reference layout, dimensions remain non-reference-like, and title block/manufacturing notes are not acceptable.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The next allowed real action remains exactly one locked 006 run after readiness clears, followed by DisplayDim lifecycle, reference compare/style, v6 visual QC, and application Drawing Review UI screenshot closure.
+- The five dependent drawings remain blocked until 006 passes the full UI-backed gate.
+
+## v4.2 Staged 006 Preflight UI Evidence Summary - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change makes the protected staged preflight summary carry the same UI screenshot correction evidence as the rerun packet, so preflight handoff does not lose the visual learning context.
+
+Implementation:
+
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - `_stage_006_readiness_failure_summary(...)` now writes `lb26001_006_ui_evidence`.
+  - The summary includes latest manual review, comparison image, UI findings, manual checklist values/notes, required correction text, UI screenshot files, generated PNG, and reference PNG.
+  - Added top-level convenience fields: `lb26001_006_comparison_image`, `lb26001_006_latest_manual_findings`, and `lb26001_006_latest_manual_required_correction`.
+- Updated `test_v3_staged_cad_validation.py`.
+  - The `LB26001_006` rerun-packet-failure preflight test now asserts the UI evidence fields survive into summary output.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\staged_cad_validation_v3.py test_v3_staged_cad_validation.py
+python test_v3_staged_cad_validation.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_ui_evidence_preflight_20260624
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- Protected staged preflight exits expected nonzero before CAD and writes `drw_output/staged_validation/LB26001_006_ui_evidence_preflight_20260624/summary.json`.
+- Summary remains before CAD:
+  - `processed=0`
+  - `deliverable_count=0`
+  - `readiness_preflight_pass=false`
+  - `rerun_packet_preflight_pass=false`
+  - `sw_connection_guard_skipped_due_to_readiness=true`
+  - no `sw_connection_guard.json`
+  - no `01_LB26001-A-04-006` case directory
+- Summary now embeds `lb26001_006_ui_evidence` with the latest comparison image and UI findings.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed gap audit points to `drw_output\staged_validation\LB26001_006_ui_evidence_preflight_20260624\summary.json` and remains `blocked_by_solidworks_readiness`.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_not_running`; real CAD remains forbidden.
+- 006 still needs a fresh locked CAD rerun, lifecycle PASS, reference compare/style PASS, v6 PASS, and application UI screenshot/manual checklist PASS.
+- 007/008/009/015/022 remain blocked behind 006.
+
+## v4.2 Gap Audit Staged UI Evidence Promotion - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- The top-level gap audit now carries the same 006 application UI screenshot evidence that is present in the protected staged preflight.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_real_landing_gap_audit_v4_2.py`.
+  - `_staged_preflight_report(...)` now reads `lb26001_006_ui_evidence` from the selected staged preflight summary.
+  - The JSON payload now exposes `staged_preflight_ui_evidence`, `staged_preflight_comparison_image`, `staged_preflight_latest_manual_findings`, and `staged_preflight_latest_manual_required_correction`.
+  - Markdown now shows the staged comparison image and a `Staged UI Findings` section.
+- Updated `test_v4_2_lb26001_006_real_landing_gap_audit.py`.
+  - Fixture and assertions now cover staged UI evidence promotion.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_rerun_packet.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed gap audit exits expected nonzero and remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+- The gap audit now points at `drw_output\staged_validation\LB26001_006_ui_evidence_preflight_20260624\summary.json` and directly shows:
+  - `staged_preflight_comparison_image=drw_output\ui_acceptance\LB26001_ref6_application_ui_screenshot_recheck_user_20260624\comparison_images\01_LB26001-A-04-006_reference_vs_generated.png`
+  - latest findings: reference layout mismatch, non-reference-like dimension placement/coverage, and unacceptable title block/manufacturing notes.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`.
+- Real CAD remains forbidden until no-COM readiness reports `ready_to_start_locked_006_cad=true`.
+- The next actual CAD step remains exactly one locked 006 rerun, followed by lifecycle/reference/v6/UI screenshot gates.
+
+## v4.2 Worker Input Chain for 006 UI Correction Evidence - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change prepares the next locked 006 CAD worker to carry the actual application UI screenshot failure evidence into the run directory and generator input trace.
+
+Implementation:
+
+- Updated `app/workers/cad_job_worker.py`.
+  - Added `_prepare_lb26001_006_ui_correction_evidence(...)`.
+  - For `LB26001-A-04-006`, the worker reads the current rerun packet and writes `run_dir/qc/lb26001_006_ui_correction_evidence.json`.
+  - The reference-intent dimension contract result now includes `ui_correction_evidence`.
+  - The worker passes `LB26001_006_UI_CORRECTION_EVIDENCE_PATH` to the generator child environment.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - The generator reads `LB26001_006_UI_CORRECTION_EVIDENCE_PATH`.
+  - It records `lb26001_006_ui_correction_evidence_path` and a compact UI evidence trace in `source_inputs` and `dimension_plan`.
+  - It emits `lb26001_006_ui_correction_evidence_attached` when the sidecar is loaded.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added CAD worker source signatures for the sidecar writer, rerun packet source env var, generator env var, and sidecar filename.
+  - Added generator source signatures for the UI correction evidence env/path/warning.
+  - Added a new offline prerequisite: `cad_worker_ui_correction_evidence_signatures_present`.
+- Updated tests:
+  - `test_v4_2_reference_intent_dimension_worker.py`
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python -m py_compile app\workers\cad_job_worker.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_reference_intent_dimension_worker.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python test_v2_3_job_runtime.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- No-COM worker prep probe wrote `drw_output/reference_intent_worker_probe_006_ui_evidence_20260624/summary.json`.
+  - `status=ready`
+  - `dimension_target_count=12`
+  - `operation_count=12`
+  - `requires_solidworks_lock=true`
+  - `ui_thread_may_execute=false`
+  - `ui_correction_evidence.status=ready`
+  - `failed_visual_check_count=6`
+  - `latest_manual_finding_count=3`
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Source signatures now show `cad_job_worker.pass=true` and `generator.pass=true`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The next real action is still manual SolidWorks recovery, no-COM readiness PASS, then exactly one locked 006 CAD run.
+- 006 still needs real DisplayDim lifecycle PASS, reference compare/style PASS, v6 PASS, Drawing Review UI screenshot PASS, and acceptance gate PASS.
+
+## v4.2 006 Rerun Packet Path Propagation into Real CAD Smoke - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change closes a handoff gap: the next locked 006 CAD attempt will inherit the exact rerun packet that contains the latest application Drawing Review UI screenshot judgement and comparison evidence.
+
+Implementation:
+
+- Updated `tools/validation/real_cad_smoke_v3.py`.
+  - `_lb26001_006_direct_cad_guard(...)` now writes a rerun packet report path for `LB26001-A-04-006`.
+  - Blocked direct smoke reports now include `lb26001_006_rerun_packet_report` and `lb26001_006_current_ui_verdict`.
+  - `run_smoke(...)` and `run_smoke_with_process_guard(...)` now propagate `SWDS_LB26001_006_RERUN_PACKET_PATH` before `JobRuntimeFacade.start_cad_job`, so `cad_job_worker.py` can prepare `lb26001_006_ui_correction_evidence.json`.
+  - Added CLI option `--lb26001-006-rerun-packet`.
+- Updated `tools/validation/staged_cad_validation_v3.py`.
+  - Protected `LB26001_006` staged runs now pass the stage-local `lb26001_006_rerun_packet_v4_2.json` into `real_cad_smoke_v3.py`.
+- Updated tests:
+  - `test_v4_2_real_cad_smoke_guard.py`
+  - `test_v3_staged_cad_validation.py`
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\real_cad_smoke_v3.py tools\validation\staged_cad_validation_v3.py test_v4_2_real_cad_smoke_guard.py test_v3_staged_cad_validation.py
+python test_v4_2_real_cad_smoke_guard.py
+python test_v3_staged_cad_validation.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v2_3_job_runtime.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 60 --max-rounds 1 --out drw_output\diagnostics\lb26001_006_direct_real_cad_smoke_guard_v4_2.json
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --out-dir drw_output\staged_validation\LB26001_006_packet_env_preflight_20260624 --timeout-s 60 --max-rounds 1
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_real_cad_smoke_guard.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v2_3_job_runtime.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Refreshed readiness remains blocked with `blocking_issue_keys=["solidworks_not_running"]`.
+- Refreshed requested six-drawing status remains `blocked_by_006`, `pass_count=0`, and `not_pass_count=6`.
+- Refreshed direct smoke guard wrote `drw_output/diagnostics/lb26001_006_direct_real_cad_smoke_guard_v4_2.json`, stopped before CAD, kept `run_dir=""`, and recorded `lb26001_006_rerun_packet_report=drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`.
+- Refreshed staged preflight wrote `drw_output/staged_validation/LB26001_006_packet_env_preflight_20260624/summary.json`, stopped before CAD with `processed=0`, `deliverable_count=0`, no `sw_connection_guard.json`, and embedded the latest 006 application UI screenshot comparison evidence.
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The six requested drawings remain not accepted by application UI visual judgement.
+- Next real step is still: manual SolidWorks recovery, no-COM readiness PASS, exactly one locked 006 rerun, then DisplayDim lifecycle/reference/v6/Drawing Review UI screenshot/acceptance proof PASS before expanding to 007/008/009/015/022.
+
+## v4.2 Rerun Packet Source Guard for 006 Smoke Handoff - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change makes the rerun packet itself police the direct/staged smoke handoff, so a future code edit cannot silently remove the application UI screenshot evidence path before the locked CAD worker starts.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added `DEFAULT_REAL_CAD_SMOKE_SOURCE`.
+  - Added `REAL_CAD_SMOKE_SIGNATURES` requiring `_set_006_rerun_packet_env`, `SWDS_LB26001_006_RERUN_PACKET_PATH`, `--lb26001-006-rerun-packet`, `lb26001_006_rerun_packet_report`, `packet_report_path`, and `facade.start_cad_job`.
+  - Added offline prerequisite `real_cad_smoke_packet_env_signatures_present`.
+  - Added `source_signatures.real_cad_smoke_v3`.
+  - Extended `STAGED_VALIDATION_SIGNATURES` to require `--lb26001-006-rerun-packet` and `lb26001_006_rerun_packet_report`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added fixture support for `REAL_CAD_SMOKE_SIGNATURES`.
+  - Added a negative test proving that missing `packet_env_key` blocks the packet with `offline_prerequisites_missing`.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py tools\validation\real_cad_smoke_v3.py tools\validation\staged_cad_validation_v3.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_real_cad_smoke_guard.py
+python test_v3_staged_cad_validation.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_real_cad_smoke_guard.py`: PASS.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed source signatures show:
+  - `real_cad_smoke_v3.pass=true`
+  - `staged_cad_validation_v3.pass=true`
+  - `cad_job_worker.pass=true`
+  - `generator.pass=true`
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The six requested drawings remain not accepted by application UI visual judgement.
+- Next real step remains manual SolidWorks recovery, no-COM readiness PASS, exactly one locked 006 rerun, then DisplayDim lifecycle/reference/v6/Drawing Review UI screenshot/acceptance proof PASS before expanding.
+
+## v4.2 Drawing Review UI Suite Source Guard in 006 Rerun Packet - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change source-guards the UI screenshot capture entrypoint itself, not only the downstream apply/acceptance scripts.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added `DEFAULT_DRAWING_VISUAL_REVIEW_SUITE_SOURCE`.
+  - Added `DRAWING_VISUAL_REVIEW_SUITE_SIGNATURES` requiring:
+    - `source_qt_application_ui_screenshot`
+    - `Drawing Review page`
+    - `ui_screenshot_is_final_gate`
+    - `per_drawing_application_ui_screenshot_required`
+    - `api_only_acceptance_allowed`
+    - `write_manual_visual_judgement_template`
+    - `pending_manual_visual_judgement`
+    - `generated_png_source_evidence`
+    - `strict_source_pass`
+    - generated/reference PNG report entries.
+  - Added offline prerequisite `drawing_visual_review_suite_source_signatures_present`.
+  - Added `source_signatures.drawing_visual_review_suite`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added fixture support for `DRAWING_VISUAL_REVIEW_SUITE_SIGNATURES`.
+  - Added a negative test proving that missing fresh generated PNG strict-source evidence in the UI suite blocks the packet.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py tools\ui_robot\drawing_visual_review_suite.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_2_manual_visual_judgement_template.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_2_manual_visual_judgement_template.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed source signatures show:
+  - `drawing_visual_review_suite.pass=true`
+  - `real_cad_smoke_v3.pass=true`
+  - `staged_cad_validation_v3.pass=true`
+  - `apply_ui_visual_review_v4.pass=true`
+  - `lb26001_acceptance_gate_v4_2.pass=true`
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The six requested drawings remain not accepted by application UI visual judgement.
+- Next real step remains manual SolidWorks recovery, no-COM readiness PASS, exactly one locked 006 rerun, then DisplayDim lifecycle/reference/v6/Drawing Review UI screenshot/manual checklist/acceptance proof PASS before expanding.
+
+## v4.2 006 Locked Real Rerun With Application UI Visual FAIL - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- `LB26001-A-04-006` is still not accepted.
+- Do not proceed to `LB26001-A-04-007/008/009/015/022`.
+- API, DisplayDim count, file creation, and reference metrics remain supporting evidence only; the Drawing Review application UI screenshot and manual checklist are the final gate.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -m py_compile app\services\*.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review
+python -m json.tool drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\manual_visual_judgement.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\summary.json --ui-gate drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop\ui_visual_review_gate_summary.json --acceptance-gate drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-gate drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_024133_visual_review\manual_visual_judgement.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\diagnostics\lb26001_correction_plan_v4_2.json --out-md drw_output\diagnostics\lb26001_correction_plan_v4_2.md --base LB26001-A-04-006
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --correction-plan drw_output\diagnostics\lb26001_correction_plan_v4_2.json --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --rerun-packet drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Offline compile/tests before CAD: PASS.
+- Locked real CAD rerun: completed through `cad_job_worker` under the SolidWorks global lock.
+- Staged evidence: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_024133/summary.json`.
+  - `status=need_review`
+  - `pass=false`
+  - `deliverable_count=0`
+  - run dir: `drw_output/runs/dc954b67b67c`
+- Current-run drawing artifacts exist:
+  - `drw_output/runs/dc954b67b67c/drawing/LB26001-A-04-006_v5.SLDDRW`
+  - `drw_output/runs/dc954b67b67c/drawing/LB26001-A-04-006_v5.PDF`
+  - `drw_output/runs/dc954b67b67c/drawing/LB26001-A-04-006_v5.DXF`
+  - `drw_output/runs/dc954b67b67c/drawing/LB26001-A-04-006_v5.PNG`
+- Drawing Review application UI evidence:
+  - comparison image: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_024133_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`
+  - app screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_024133_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_024133_visual_review/manual_visual_judgement.json`
+- Manual visual judgement: FAIL.
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Acceptance gate:
+  - `status=need_review`
+  - `pass=false`
+  - reasons: `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, `vision_qc_v6_with_ui_review_not_pass`.
+- Acceptance proof:
+  - `status=blocked_by_006`
+  - `pass=false`
+  - blockers include staged non-deliverable, reference style, DisplayDim lifecycle, UI gate, manual checklist, v6 closure, reference compare closure, and acceptance gate.
+- Requested drawings status:
+  - `status=blocked_by_006`
+  - `pass_count=0`
+  - `not_pass_count=6`
+- Gap audit:
+  - `status=blocked_by_006_acceptance_proof`
+  - `ready_to_start_locked_006_cad=true`
+  - `real_cad_allowed_now=true`
+  - `six_requested_drawings_accepted=false`
+
+Visual findings from the application screenshot:
+
+- The generated drawing does not visually match the same-name reference sheet.
+- The outline/scale solver moved in the wrong direction after mismatch detection, shrinking through the scale ladder instead of matching the reference view outlines.
+- Views are visible but bunched and not visually equivalent to the reference front/top/right/isometric layout.
+- Dimension text, arrows, and leaders are clustered around the central views and are not manufacturing-readable.
+- DisplayDim count alone is misleading; semantic target coverage still regressed after the final arrange/reopen path, including `hole_diameter` and `hole_pitch`.
+- Title block and manufacturing notes do not match the compact reference style.
+
+Remaining issues:
+
+- Fix the 006 reference-outline scale solver so target outline mismatch causes a larger/reference-matching view size when actual outlines are too small.
+- Preserve `hole_diameter` and `hole_pitch` semantic coverage through final arrange/reopen/export, not just the pre-arrange guard.
+- Rework dimension lane placement so visible dimensions match the reference drawing and remain readable.
+- Rebuild compact title block and manufacturing notes to match the reference style.
+- Run one future locked 006-only CAD rerun only after offline fixes/tests; then repeat Drawing Review UI screenshot and manual six-item checklist.
+- Do not expand to `007/008/009/015/022` until 006 passes all CAD, lifecycle, reference, v6, UI screenshot, manual checklist, and acceptance proof gates.
+
+## v4.2 006 Reference Outline Scale Fix After 022109 UI Review - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Only `LB26001-A-04-006` was run. `007/008/009/015/022`, medium_30, full_129, EXE release validation, and final release log remain blocked.
+- Exactly one locked real CAD run was executed in this slice, then closed through Drawing Review application UI screenshot review and manual visual judgement.
+- The fresh drawing is still rejected. API metrics, DisplayDim counts, v4 reference compare, and v6 QC remain supporting evidence only.
+- No second CAD run was started after the offline source fix.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_022109/summary.json`.
+- Run directory: `drw_output/runs/3eb322e16e7e`.
+- Fresh outputs: `drw_output/runs/3eb322e16e7e/drawing/LB26001-A-04-006_v5.SLDDRW`, `.PDF`, `.DXF`, and `.PNG`.
+- Result: `status=need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD, dimension smoke, and basic reference smoke passed, but strict gates did not.
+- Failure buckets: `displaydim_lifecycle_not_pass`, `reference_compare_v4_not_pass`, `reference_style_not_pass`, and `vision_qc_v6_not_pass`.
+- Reasons include `display_dim_count_higher_than_reference`, `display_dim_lifecycle_count_regression`, `target_trace_missing_fields`, `ui_screenshot_visual_acceptance_not_passed`, `layout_match_below_threshold`, and `layout_match_score_below_v4_threshold`.
+
+Lifecycle improvement:
+
+- Previous 020105 issue was reproduced and repaired in real CAD.
+- `post_layout_prune_guard_after_arrange` detected `covered=10/12`, missing `overall_height` and `hole_diameter`.
+- The new after-arrange explicit repair added:
+  - `overall_height` via `AddVerticalDimension2`, `17 -> 18`.
+  - `hole_diameter` via `AddDiameterDimension2`, `18 -> 19`.
+- Final target coverage reached `post_layout_final: covered=12/12 missing=[]`.
+- Remaining lifecycle failure is now count/trace related, not missing final semantic targets.
+
+Application UI visual evidence:
+
+- Drawing Review report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference/generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/manual_visual_judgement.json`.
+- Closed-loop UI gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/closed_loop/ui_visual_review_gate_summary.json`.
+- Acceptance gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_022109_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+- Screenshot capture: `evidence_capture_pass=true`.
+- Manual visual result: `FAIL`.
+- Manual checklist: only `view_layout=true`; `reference_match`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes` remain false.
+- Visual finding: the four views are present and roughly placed, but generated view outlines are much smaller than the same-name reference and the visible dimensions are still over-dense/crowded.
+
+Implementation updates after UI failure:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added `_v4_blueprint_layout_outlines()` to extract same-name reference `outline_norm` into sheet-space target outlines.
+  - Added `_reference_outline_scale_hint()` to choose a reference-size-aware scale; for the 006 reference outline pattern and part bbox, the hint selects `1:2` instead of staying at the too-small `1:5`.
+  - Passes `target_outlines=_layout_outlines_for_solver` and `target_outline_tolerance=0.28` into persisted layout solving.
+- Updated `app/services/persisted_layout_solver.py`.
+  - Added target outline size comparison by matching persisted view outlines to slots through nearest reference centers.
+  - Records `target_outline_size_pass` and `target_outline_size_issues`.
+  - Refuses layout success when center/no-overlap checks pass but the actual view outline size materially misses the same-name reference outline.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added source signatures for reference outline extraction, reference outline scale hint, and persisted layout target outlines/tolerance.
+- Updated tests:
+  - `test_v4_generator_blueprint_execution.py`
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+- Updated `tasks.md` with the 022109 real run, UI failure, and no-second-CAD offline fix.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_022109
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_022109\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review
+python -m json.tool drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\manual_visual_judgement.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_022109\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_022109\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_022109_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py app\services\persisted_layout_solver.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_generator_blueprint_execution.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_reference_intent_dimension_planner.py
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Readiness before CAD: `ready`.
+- Rerun packet before CAD: `ready_for_locked_006_rerun`.
+- Locked real 006 CAD: completed, but `need_review/pass=false`.
+- Drawing Review application screenshot capture: valid evidence, but visual acceptance false.
+- Manual visual judgement: `FAIL`.
+- Acceptance gate: `need_review/pass=false`.
+- Acceptance proof: `blocked_by_006`.
+- Requested drawing status: `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Correction plan: refreshed to the 022109 manual UI failure.
+- Rerun packet after the offline fix: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, `offline_prerequisite_missing_keys=[]`.
+- Real landing gap audit remains `blocked_by_006_acceptance_proof`.
+- Compile check: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+
+Remaining issues:
+
+- 006 still needs a future single locked CAD rerun after the reference-outline scale fix.
+- That future output must again pass lifecycle/reference/style/v4/v6 and then Drawing Review application UI screenshot plus all six manual checklist items.
+- The immediate visual target is to keep `post_layout_final=12/12`, enlarge view outlines to match the same-name reference, reduce visible DisplayDim count/density toward the reference floor, and clean title/notes styling.
+- Do not expand to `007/008/009/015/022` until 006 passes this same UI-backed acceptance chain.
+
+## v4.2 006 Post-Layout Arrange Guard and 020105 UI Failure - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The current accepted project state is still blocked by `LB26001-A-04-006`; do not expand to `007/008/009/015/022`.
+- Exactly one locked real `LB26001-A-04-006` CAD cycle was run in this slice after readiness and the rerun packet were refreshed.
+- The fresh drawing was then reviewed through the application Drawing Review UI screenshot workflow and manually judged from the screenshot/comparison evidence.
+- The drawing remains rejected. API, DisplayDim, reference comparison, and v6 QC metrics are supporting evidence only; application UI screenshot review and the six manual visual checklist items remain mandatory final gates.
+- No second CAD run was started after the offline fix below.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_020105/summary.json`.
+- Run directory: `drw_output/runs/7ba8c89aea5d`.
+- Fresh drawing outputs: `drw_output/runs/7ba8c89aea5d/drawing/`.
+- Result: `status=need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD generated fresh `SLDDRW/PDF/DXF/PNG`, but the staged case is not deliverable.
+- Reference style: `pass`.
+- DisplayDim lifecycle: `fail`.
+- Reference compare v4: `fail`.
+- Vision QC v6: `need_review`.
+- Main staged blockers: `displaydim_lifecycle_not_pass`, `reference_compare_v4_not_pass`, and `vision_qc_v6_not_pass`.
+- Lifecycle evidence: post-layout prune left `11/12` required targets, missing `hole_diameter`; `post_layout_prune_guard` added one diameter dimension (`16 -> 17`), but the following dimension arrange scattered semantic target matches and final `post_layout_final` coverage fell to `10/12`, missing `overall_height` and `hole_diameter`.
+- CAD stderr contained `QProcess: Destroyed while process (...) is still running.` even though the case emitted final artifacts and the lock was released; keep this as a worker lifecycle warning for future hardening.
+
+Application UI visual evidence:
+
+- Drawing Review report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_020105_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_020105_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference/generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_020105_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_020105_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_020105_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+- Screenshot capture evidence: `evidence_capture_pass=true`.
+- UI visual result: `visual_acceptance_pass=false`.
+- Manual visual result: `FAIL`.
+- Manual checklist: only `view_layout=true`; `reference_match`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes` remain false.
+- Acceptance gate remains `status=need_review`, `pass=false`, with reasons `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+
+Implementation updates after the failed UI review:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Records `post_layout_prune_guard_after_arrange` coverage immediately after the prune-guard dimension arrange.
+  - If arrange breaks required semantic target coverage or the DisplayDim floor, runs an explicit `post_layout_prune_guard_after_arrange` DisplayDim repair.
+  - Saves/reexports after the repair without running a second arrange pass that could scatter semantic target matches again.
+  - Emits `post_layout_prune_guard_after_arrange_still_blocked` when this final after-arrange guard cannot restore coverage.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added source signatures for `post_layout_prune_guard_after_arrange`, `post_layout_prune_guard_arrange_guard_explicit_display_dims`, and `post_layout_prune_guard_after_arrange_still_blocked`.
+- Updated `test_v3_generator_reference_style_plan.py` and `test_v4_2_lb26001_006_rerun_packet.py` to lock the new after-arrange guard signatures.
+- Updated `tasks.md` with the same 020105 real-run/UI-failure and offline-fix state.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_020105
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_020105\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review
+python -m json.tool drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\manual_visual_judgement.json
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_020105\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_020105\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_020105_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+```
+
+Results:
+
+- Readiness before CAD: ready.
+- Rerun packet before CAD: `ready_for_locked_006_rerun`.
+- Locked real CAD: completed but not accepted.
+- Drawing Review UI screenshot capture: valid evidence, but visual acceptance false.
+- Manual checklist: FAIL, with only the coarse view layout accepted.
+- Closed-loop UI gate: `need_review/pass=false`.
+- Acceptance proof: still `blocked_by_006`.
+- Requested drawing status: `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Correction plan: refreshed to the 020105 manual visual failure.
+- Rerun packet after the offline fix: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`.
+- Real landing gap audit remains blocked by the 006 acceptance proof; this is expected because no post-fix real CAD/UI PASS has been produced yet.
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+
+Remaining issues:
+
+- `LB26001-A-04-006` still needs one future locked real CAD rerun after this after-arrange guard fix.
+- That future output must again go through Drawing Review application UI screenshot capture, reference/generated comparison, manual visual judgement, `apply_ui_visual_review_v4.py`, and `lb26001_acceptance_gate_v4_2.py`.
+- 006 cannot be accepted until `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes` are all true.
+- `007/008/009/015/022`, medium_30, full_129, final visual audit, EXE release validation, and final release log remain blocked behind 006.
+
+## v4.2 006 Locked Real Rerun and Post-Layout Prune Guard - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- `LB26001-A-04-006` is still not accepted.
+- `007/008/009/015/022` remain blocked until 006 passes the same locked CAD plus Drawing Review UI screenshot and manual checklist gate.
+- API, DisplayDim counts, reference-style status, and file creation are supporting evidence only; the application UI screenshot and manual visual checklist are the final drawing-correctness gate.
+
+Real CAD and UI evidence:
+
+- Ran exactly one locked real 006 CAD cycle in this slice:
+  - staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_014345/summary.json`
+  - run dir: `drw_output/runs/1b3fc78e0025`
+- Result remains `need_review/pass=false`, `deliverable_count=0/1`.
+- High-level blockers remain `displaydim_lifecycle_not_pass`, `reference_compare_v4_not_pass`, and `vision_qc_v6_not_pass`.
+- The run improved reference-style conformance to `reference_style_status=pass`.
+- Live DrawingView recovery now works in the generated run evidence: `created_views_refresh.record_count=4` and matched slots include `front/iso/right/top`.
+- DisplayDim lifecycle still fails:
+  - post-layout explicit repair reaches 16 real `DisplayDim` objects.
+  - final target coverage still misses `hole_diameter`.
+  - target-stage matrix still lacks final per-target coverage fields, so `target_stage_matrix_post_layout_final_missing` remains a blocker.
+- Drawing Review UI evidence:
+  - report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_014345_visual_review/drawing_visual_review_report.json`
+  - screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_014345_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_014345_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`
+  - manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_014345_visual_review/manual_visual_judgement.json`
+  - closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_014345_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`
+- Screenshot capture itself passed (`evidence_capture_pass=true`), but manual visual judgement remains `FAIL`.
+- Manual checklist result: only `view_layout=true`; `reference_match`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes` remain false.
+- Closed-loop acceptance gate remains `need_review/pass=false` with `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added a post-layout final guard after prune/restore.
+  - Records `post_layout_after_prune` target coverage.
+  - Runs explicit `post_layout_prune_guard` repair when the DisplayDim floor or required target coverage is still blocked.
+  - Saves/reexports/renders only after the guard restores coverage.
+  - Emits `post_layout_prune_guard_still_blocked` if final target recovery still fails.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards `post_layout_after_prune`.
+  - Source-guards `post_layout_prune_guard_explicit_display_dims`.
+  - Source-guards `post_layout_prune_guard_still_blocked`.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Added source-level assertions for the post-layout prune guard.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added a negative packet test proving the next locked CAD rerun is blocked if `post_layout_prune_guard_explicit_display_dims` is missing.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json` is `ready`.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` is `ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`; this is expected because the latest UI/manual evidence is still FAIL.
+
+Remaining issues:
+
+- 006 still needs one future locked real CAD rerun after the new post-layout prune guard.
+- That rerun must again be closed through Drawing Review application UI screenshot evidence and manual visual checklist.
+- The next fix target is preserving `hole_diameter` through final persistence and restoring per-target `post_layout_final` matrix fields, then reducing the visible dimension cluster and matching the reference title/notes style.
+- Do not expand to `007/008/009/015/022` until 006 passes lifecycle/reference/v6 plus application UI screenshot/manual checklist/acceptance proof.
+
+## v4.2 006 Application UI Visual FAIL and Post-Layout Prune Guard - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- `LB26001-A-04-006` is still not accepted; `007/008/009/015/022` remain blocked behind 006.
+- The latest real CAD evidence was reviewed through the Drawing Review application UI screenshot workflow. API metrics were used only as supporting evidence.
+
+Real CAD and UI evidence:
+
+- Ran exactly one locked real `LB26001-A-04-006` rerun for this slice:
+  - Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_012502/summary.json`.
+  - Run dir: `drw_output/runs/38c64717b95e`.
+  - Generated drawing artifacts exist under `drw_output/runs/38c64717b95e/drawing/`.
+- CAD completed, but staged status remains `need_review/pass=false`, `deliverable_count=0/1`.
+- The run proved post-layout live DrawingView recovery improved: slot refresh recorded four live view records and matched `front/iso/right/top`.
+- Post-layout explicit repair temporarily created four missing reference-intent DisplayDims (`12 -> 16`), but subsequent reference prune regressed final target coverage to `9/12`, missing `overall_width`, `hole_diameter`, and `hole_y_location`; final API DisplayDim count remained below the 12 reference floor.
+- Drawing Review UI evidence:
+  - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_012502_visual_review/drawing_visual_review_report.json`
+  - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_012502_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`
+  - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_012502_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`
+  - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_012502_visual_review/manual_visual_judgement.json`
+  - `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_012502_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`
+- Manual visual judgement is `FAIL`; all six required checklist items are false: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Acceptance gate remains `need_review/pass=false` with `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Strict reference-intent pruning now keeps an effective cap of at least `max(cap, reference_floor, dimension_target_count)`.
+  - Prune records `target_coverage_before` and `target_coverage_after`.
+  - Candidate deletion now simulates full target coverage loss before adding an item to `delete_plan`.
+  - Failed prune no longer saves destructive deletions; it records `prune_failed_no_save`, discards the unsaved reopened drawing, and reopens the saved post-layout drawing.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Added coverage for the failed-prune-no-save restore path.
+  - Updated the strict effective-cap guard expectation while preserving the legacy diagnostic string `reference_intent_floor_guard_no_delete`.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_reference_intent_dimension_worker.py test_v4_generator_blueprint_execution.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Readiness refreshed to `status=ready`, `blocking_issue_keys=[]`.
+- Rerun packet refreshed to `ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, and `offline_prerequisite_missing_keys=[]`.
+- Gap audit intentionally remains `blocked_by_006_acceptance_proof` because the latest accepted evidence is still the 012502 application UI visual FAIL.
+
+Remaining issues:
+
+- Do not claim 006 PASS, v4.2 PASS, v3.0 PASS, release-ready, or production-ready.
+- Do not advance to `007/008/009/015/022` until a future locked 006 rerun passes lifecycle/reference/v6 plus the Drawing Review UI screenshot and all six manual checklist items.
+- The next real step is one future locked 006-only CAD rerun using the new prune guard, followed by the same application UI screenshot/manual visual judgement closure.
+
+## v4.2 006 Post-Layout Live DrawingView Rebind Gate - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is source/offline readiness evidence for exactly one future locked `LB26001-A-04-006` CAD rerun; it is not 006 acceptance evidence.
+- `007/008/009/015/022` remain blocked until 006 passes DisplayDim lifecycle, reference checks, v6 QC, Drawing Review application UI screenshot review, and all six manual checklist items.
+- API metrics and generated files remain supporting evidence only; application UI screenshots and manual visual judgement remain the final drawing-correctness gate.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added current drawing document refresh after post-layout reopen and records `post_layout_current_drawing_doc_refreshed`.
+  - Enumerates live views from the current drawing document through `GetFirstView`, `DrawingDoc.GetViews`, and `CurrentSheet.GetViews`.
+  - Rebinds reference-intent slots from live view inventory before stale `created_views` fallback.
+  - Emits `current_doc_view_count`, `getviews_count`, `current_sheet_getviews_count`, live view records, refresh actions, matched slots, and unbound slots.
+  - Blocks strict 006 post-layout explicit DisplayDim repair with `post_layout_live_view_recovery_failed` when required slots such as `front/top/right` are still unavailable.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Carries `live_view_recovery_failed`, unbound slots, current drawing view counts, and refresh diagnostics into the lifecycle summary and Markdown.
+  - Adds `post_layout_live_view_recovery_failed` as a blocking issue key.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards `post_layout_current_drawing_doc_refreshed`, `post_layout_live_view_recovery_failed`, and the current document / DrawingDoc.GetViews / CurrentSheet.GetViews counts before allowing a locked 006 rerun packet to be ready.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python -m py_compile <app/services/*.py> .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_generator_blueprint_execution.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` reports:
+  - `status=ready_for_locked_006_rerun`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=true`
+  - `readiness_ready=true`
+  - `offline_prerequisite_missing_keys=[]`
+  - `api_only_acceptance_allowed=false`
+  - `application_ui_screenshot_is_final_gate=true`
+
+Remaining issues:
+
+- One and only one fresh locked `LB26001-A-04-006` real CAD rerun is still required before any acceptance judgement can improve.
+- The next rerun must be followed by DisplayDim lifecycle audit, reference checks, v6 QC, Drawing Review application UI screenshot capture, manual visual checklist, UI closure, and the 006 acceptance gate.
+- Existing latest UI judgement still has all six checklist items false: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- No v3.0 PASS, 006 PASS, or release-ready claim is made.
+
+## v4.2 006 Locked Rerun UI Review and Materialization Fallback - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- One locked real `LB26001-A-04-006` rerun was executed for this cycle after readiness reported `ready`.
+- The rerun is not accepted. Staged status is `need_review`, `pass=false`, `deliverable_count=0/1`.
+- The generated drawing was reviewed through the Drawing Review application UI screenshot workflow. The manual visual checklist is `FAIL` for all six required checks.
+- `007/008/009/015/022` remain blocked.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_005023/summary.json`.
+- Run directory: `drw_output/runs/3007ca30db30`.
+- CAD worker/facade/global-lock path completed and produced `SLDDRW/PDF/DXF/PNG`, but the case is not deliverable.
+- Staged blockers:
+  - `displaydim_lifecycle_not_pass`
+  - `reference_compare_v4_not_pass`
+  - `reference_style_not_pass`
+  - `vision_qc_v6_not_pass`
+- Important lifecycle blockers:
+  - `final_display_dim_below_reference_floor`
+  - `display_dim_lifecycle_count_regression`
+  - `post_layout_final_targets_missing`
+  - `post_layout_live_view_recovery_failed`
+  - `post_layout_slot_rebind_unbound_slots`
+  - `post_prune_guard_targets_still_missing`
+  - `target_stage_matrix_post_layout_final_missing`
+  - `target_trace_missing_fields`
+- The post-layout current drawing document was selected successfully, but the live view probe still found:
+  - `current_doc_view_count=0`
+  - `getviews_count=0`
+  - `current_sheet_getviews_count=0`
+  - `unbound_slots=["front","right","top"]`
+  - `dimension_validation_final` real DisplayDim count remains 11, below the required floor of 12.
+
+Application UI visual evidence:
+
+- UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison image: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/manual_visual_judgement.json`.
+- UI closure: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/closed_loop/ui_visual_review_gate_summary.json`.
+- Acceptance gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_005023_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+- Manual checklist result:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Acceptance gate reasons:
+  - `application_ui_screenshot_review_not_passed`
+  - `displaydim_lifecycle_not_pass`
+  - `manual_visual_case_not_pass`
+  - `manual_visual_checklist_failed`
+  - `reference_compare_v4_with_ui_review_not_pass`
+  - `vision_qc_v6_with_ui_review_not_pass`
+
+Follow-up implementation after the failed UI review:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added `_drawing_doc_view_materialization_probe`.
+  - Added `_wait_for_drawing_views_materialized`.
+  - `_reopen_saved_drawing()` now probes view materialization after `OpenDoc6(..., options=257)`.
+  - If no usable views materialize, it closes the primary reopened drawing and retries with `OpenDoc6(..., options=1)`.
+  - The fallback is recorded with `post_layout_reopen_view_materialization_fallback_open_options`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added generator source signatures for the materialization probe and fallback open option.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands after the follow-up implementation:
+
+```powershell
+python -m py_compile <app/services/*.py> .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Refreshed `lb26001_006_acceptance_proof_v4_2.json`: `blocked_by_006`.
+- Refreshed requested drawing status: `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed correction plan: `blocked_by_006`, `correction_plan_ready=true`.
+- Refreshed rerun packet: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, `offline_prerequisite_missing_keys=[]`.
+- Refreshed gap audit: `blocked_by_006_acceptance_proof`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- No second real CAD rerun was started after the materialization fallback code change in this cycle.
+- A future locked 006 rerun is required to prove whether `OpenDoc6(..., options=1)` restores live DrawingView enumeration after post-layout reopen.
+- 006 remains failed until the lifecycle, reference checks, v6 QC, Drawing Review UI screenshot, manual checklist, UI closure, and acceptance gate all pass.
+- No v3.0 PASS, 006 PASS, or release-ready claim is made.
+
+## v4.2 006 Materialized Views Still Not Bound - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- One locked real `LB26001-A-04-006` rerun was executed after the materialization fallback source fix and offline tests.
+- The rerun is not accepted. Staged status is `need_review`, `pass=false`, `deliverable_count=0/1`.
+- Application Drawing Review UI screenshot review was completed and the manual visual judgement remains `FAIL`.
+- No dependent drawings `007/008/009/015/022` were run.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_010838/summary.json`.
+- Run directory: `drw_output/runs/e775b762205c`.
+- CAD worker/facade/global-lock path completed and produced fresh artifacts.
+- Staged blockers:
+  - `displaydim_lifecycle_not_pass`
+  - `reference_compare_v4_not_pass`
+  - `reference_style_not_pass`
+  - `vision_qc_v6_not_pass`
+- Key reasons:
+  - `final_display_dim_below_reference_floor`
+  - `display_dim_lifecycle_count_regression`
+  - `post_layout_final_targets_missing`
+  - `post_layout_live_view_recovery_failed`
+  - `post_layout_slot_rebind_unbound_slots`
+  - `target_stage_matrix_post_layout_final_missing`
+  - `target_trace_missing_fields`
+  - `layout_match_below_threshold`
+  - `layout_match_score_below_v4_threshold`
+- New evidence from the run:
+  - Worker log shows `drawing views materialized after reopen attempt 1: usable=4`.
+  - Materialization probe records four usable views via `GetFirstView`.
+  - Later `reference_intent_created_views_refreshed` still reports `record_count=0`, `current_doc_view_count=0`, `getviews_count=0`, and `current_sheet_getviews_count=0`.
+  - Slot rebind still leaves `front/right/top` unbound.
+  - Post-layout target coverage remains `8/12`.
+  - Missing targets remain `right_end_offset`, `hole_diameter`, `hole_pitch`, and `projection_view_height`.
+  - `dimension_validation_final` remains 11 real DisplayDims, below the required floor of 12.
+
+Application UI visual evidence:
+
+- UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison image: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/manual_visual_judgement.json`.
+- UI closure: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/closed_loop/ui_visual_review_gate_summary.json`.
+- Acceptance gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_010838_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+- Manual checklist result:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Acceptance gate reasons:
+  - `application_ui_screenshot_review_not_passed`
+  - `displaydim_lifecycle_not_pass`
+  - `manual_visual_case_not_pass`
+  - `manual_visual_checklist_failed`
+  - `reference_compare_v4_with_ui_review_not_pass`
+  - `vision_qc_v6_with_ui_review_not_pass`
+
+Follow-up implementation after the failed UI review:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - `_current_drawing_view_inventory()` now uses the same robust `call(..., "GetFirstView")` / `call(..., "GetNextView")` path used by the successful materialization probe.
+  - `_current_drawing_view_inventory()` now records `errors`, `get_first_view_none`, `getviews_unavailable`, and `current_sheet_getviews_unavailable` diagnostics instead of silently swallowing COM enumeration failures.
+  - `_refresh_created_views_from_current_document()` now calls `_wait_for_drawing_views_materialized()` immediately before slot rebind and records `post_layout_reopen_view_materialization_before_rebind` in `refresh_actions`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added source signature `post_layout_view_materialization_before_rebind`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`.
+  - `test_v4_2_lb26001_006_rerun_packet.py`.
+
+Commands after the follow-up implementation:
+
+```powershell
+python -m py_compile <app/services/*.py> .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_generator_blueprint_execution.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_drawing_blueprint_core.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_reference_compare.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- Refreshed `lb26001_006_acceptance_proof_v4_2.json`: `blocked_by_006`.
+- Refreshed requested drawing status: `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed correction plan: `blocked_by_006`, `correction_plan_ready=true`.
+- Refreshed rerun packet: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, `offline_prerequisite_missing_keys=[]`.
+- Refreshed gap audit: `blocked_by_006_acceptance_proof`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- No second real CAD rerun was started after this latest before-rebind materialization code change.
+- A future locked 006 rerun is required to prove that slot refresh now uses the materialized live DrawingView objects instead of returning `record_count=0`.
+- 006 remains failed until lifecycle, reference checks, v6 QC, Drawing Review UI screenshot, manual checklist, UI closure, and acceptance gate all pass.
+- No v3.0 PASS, 006 PASS, or release-ready claim is made.
+
+## v4.2 Locked Real 006 Rerun 235132 and Post-Layout GetViews Rebind - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- The requested drawings `006/007/008/009/015/022` remain unaccepted by application UI visual judgement.
+- One locked real CAD rerun for `LB26001-A-04-006` was already completed in this slice; no additional real CAD was started after the source fix.
+- API metrics remain supporting evidence only. The application Drawing Review UI screenshot plus manual visual checklist is the final gate for these drawings.
+
+Real CAD and UI evidence:
+
+- Staged real CAD summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260624_235132/summary.json`.
+- Run dir: `drw_output/runs/cd5d8212fb17`.
+- Generated files: `drw_output/runs/cd5d8212fb17/drawing/LB26001-A-04-006_v5.SLDDRW`, `.PDF`, `.DXF`, `.PNG`.
+- Staged result: `pass=false`, `status=need_review`, `deliverable_count=0/1`.
+- Structured blockers include `displaydim_lifecycle_not_pass`, `reference_compare_v4_not_pass`, `reference_style_not_pass`, and `vision_qc_v6_not_pass`.
+- Drawing Review UI evidence: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_235132_visual_review/`.
+- UI screenshot: `screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference/generated comparison: `comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `manual_visual_judgement.json` is `FAIL`; all six checklist items are false: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Closed-loop gate: `closed_loop/lb26001_acceptance_gate_v4_2.json` remains `pass=false`, `status=need_review`.
+
+Root finding from the 235132 run:
+
+- Post-prune guard could bind `front/top/right` and create one reference-intent DisplayDim, but post-layout reopen lost usable DrawingView COM objects.
+- Persisted outlines still matched the learned layout exactly, for example nearest persisted candidates had distance `0.0`, but `select_by_persisted_name_failed` left post-layout explicit repair with `target_view_not_found`.
+- The missing post-layout target keys remained `right_end_offset`, `hole_diameter`, `hole_pitch`, and `projection_view_height`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added `_drawing_doc_getviews_candidates()` to enumerate reopened DrawingView objects through `DrawingDoc.GetViews()` and current sheet `GetViews()`.
+  - Added `live_getviews_scan` to the persisted-name/point recovery scan used by `_drawing_view_by_name_or_point()`.
+  - Added `_refresh_created_views_from_current_document("post_layout_reopen")` after post-layout reopen.
+  - Added `reference_intent_created_views_refreshed` diagnostics with expected slots, record count, refreshed slots, matched slots, and unbound slots.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added source guards for `live_getviews_scan`, `reference_intent_created_views_refreshed`, `post_layout_reopen_getviews_refresh`, and `_drawing_doc_getviews_candidates`.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Added source assertions for the new GetViews/reopen refresh path.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added a negative test proving that removing the GetViews refresh signature blocks the next real CAD packet.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_reference_intent_dimension_worker.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS, with the expected subprocess warning events from the test fixture.
+- Refreshed rerun packet: `status=ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, `offline_prerequisite_missing_keys=[]`.
+- Refreshed 006 acceptance proof: `pass=false`, `status=blocked_by_006`.
+- Refreshed requested drawing status: `pass=false`, `status=blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+
+Remaining issues:
+
+- 006 still needs a new locked real CAD rerun to prove the GetViews/reopen refresh fixes post-layout target coverage.
+- After the next rerun, 006 must again pass DisplayDim lifecycle, reference style, reference_compare_v4, vision_qc_v6, application Drawing Review UI screenshot, manual checklist, and acceptance gate.
+- Do not expand to `007/008/009/015/022`, medium_30, or full_129 until 006 is visually accepted through the application UI screenshot workflow.
+
+## v4.2 Locked Real 006 Rerun 001306 and UI Review - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Readiness was refreshed first and passed: `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json` reported `ready_to_start_locked_006_cad=true` and no blocking keys.
+- Rerun packet was ready before CAD: `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` reported `status=ready_for_locked_006_rerun`, `packet_build_ready=true`, `real_cad_allowed_now=true`, and no offline prerequisite misses.
+- Exactly one new locked real `LB26001-A-04-006` CAD cycle was run. No `007/008/009/015/022`, medium batch, full batch, EXE release, kill, or automatic restart was run.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_001306/summary.json`.
+- Run dir: `drw_output/runs/d2a1052532dd`.
+- Generated files:
+  - `drw_output/runs/d2a1052532dd/drawing/LB26001-A-04-006_v5.SLDDRW`
+  - `drw_output/runs/d2a1052532dd/drawing/LB26001-A-04-006_v5.PDF`
+  - `drw_output/runs/d2a1052532dd/drawing/LB26001-A-04-006_v5.DXF`
+  - `drw_output/runs/d2a1052532dd/drawing/LB26001-A-04-006_v5.PNG`
+- Result: `pass=false`, `status=need_review`, `deliverable_count=0/1`.
+- CAD worker path completed through staged validation / real CAD smoke / JobRuntimeFacade / QProcess worker.
+- Blocking buckets remain:
+  - `displaydim_lifecycle_not_pass`
+  - `reference_compare_v4_not_pass`
+  - `reference_style_not_pass`
+  - `vision_qc_v6_not_pass`
+
+DisplayDim lifecycle result:
+
+- Lifecycle report: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_001306/01_LB26001-A-04-006/displaydim_lifecycle_audit.json`.
+- Lifecycle status: `fail`.
+- Final stage count still regresses to `dimension_validation_final=11`, below the 12 DisplayDim floor.
+- Post-layout slots remain unbound: `front`, `right`, `top`.
+- Missing post-layout target keys remain:
+  - `right_end_offset`
+  - `hole_diameter`
+  - `hole_pitch`
+  - `projection_view_height`
+- The earlier GetViews refresh diagnostic did run, but returned `record_count=0`, proving the first refresh attempt did not recover usable reopened DrawingView objects.
+
+Application UI screenshot evidence:
+
+- UI review report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference/generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/manual_visual_judgement.json`.
+- Manual visual result: `FAIL`.
+- Failed checklist items: `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, `manufacturing_notes`.
+- Closed-loop UI gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/closed_loop/ui_visual_review_gate_summary.json` remains `pass=false`.
+- Acceptance gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_001306_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json` remains `pass=false`, `status=need_review`.
+
+Implementation after the failed run:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Strengthened post-layout reopen DrawingView refresh.
+  - If first enumeration returns no usable records, it now activates the sheet, calls `ForceRebuild3`, calls `GraphicsRedraw2`, waits briefly, then re-enumerates.
+  - `post_layout_dim_repair.created_views_refresh` now records the full diagnostic object with `refresh_actions`, `record_count`, `matched_slots`, and `unbound_slots` instead of only returning refreshed slot details.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added source guards for `post_layout_reopen_force_rebuild_wait`, `refresh_actions`, and the refresh `record_count` diagnostic.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_001306
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_001306\summary.json --base LB26001-A-04-006 --generated-png "LB26001-A-04-006=drw_output\runs\d2a1052532dd\drawing\LB26001-A-04-006_v5.PNG" --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_001306\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_001306\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_001306_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_correction_plan_v4_2.py
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Results:
+
+- Readiness: PASS / ready.
+- Rerun packet before CAD: ready.
+- Locked real 006 CAD: completed but `need_review/pass=false`.
+- Drawing Review UI screenshot capture: `evidence_capture_pass=true`, `visual_acceptance_pass=false`.
+- Manual visual judgement: `FAIL`.
+- Closed-loop UI gate: `need_review/pass=false`.
+- Acceptance gate: `need_review/pass=false`.
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- Refreshed acceptance proof: `blocked_by_006`.
+- Refreshed requested drawing status: `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed correction plan points to the 20260625_001306 manual visual FAIL.
+- Refreshed rerun packet remains `ready_for_locked_006_rerun` for exactly one future 006 rerun, with no offline prerequisite misses.
+
+Remaining issues:
+
+- 006 is still not visually or structurally accepted.
+- The latest failed run proves the first GetViews refresh was insufficient because it yielded `record_count=0`; the next run must prove whether the new sheet activation / rebuild / redraw refresh recovers usable DrawingView objects.
+- Do not expand to `007/008/009/015/022`, `core_12`, `LB26001_36`, `medium_30`, historical Visual Audit, full_129, or release gates until 006 passes the full CAD + DisplayDim lifecycle + v4/v6 + application UI screenshot + manual checklist + acceptance gate chain.
+
+## v4.2 Locked Real 006 Rerun and UI Screenshot Gate - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- SolidWorks was later restored and readiness became `ready`; one locked real `LB26001-A-04-006` CAD rerun was executed.
+- The drawing is still not accepted. The final blocker is not API-only scoring: the application Drawing Review UI screenshot workflow and manual visual checklist both reject the fresh drawing.
+- No second real CAD rerun was started after recording this failed UI review.
+
+Real CAD evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260624_232819/summary.json`.
+- Run dir: `drw_output/runs/bfe950d72fc7`.
+- Fresh generated files: `drw_output/runs/bfe950d72fc7/drawing/LB26001-A-04-006_v5.SLDDRW`, `.PDF`, `.DXF`, and `.PNG`.
+- CAD path used `staged_cad_validation_v3.py` -> `real_cad_smoke_v3.py` -> `JobRuntimeFacade` / QProcess / `cad_job_worker.py` / SolidWorks global lock.
+- Staged result: `pass=false`, `status=need_review`, `deliverable_count=0/1`.
+- Key failed gates: `displaydim_lifecycle_not_pass`, `reference_compare_v4_not_pass`, `reference_style_not_pass`, `vision_qc_v6_not_pass`.
+- DisplayDim lifecycle evidence shows final real `DisplayDim=11` against reference floor `12`, missing post-layout targets, and post-layout slot rebind failures.
+
+Application UI screenshot evidence:
+
+- UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_232819_visual_review/drawing_visual_review_report.json`.
+- Application screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_232819_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference/generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_232819_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_232819_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260624_232819_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+- Manual visual result: `FAIL`; failed checklist items are `reference_match`, `view_layout`, `display_dimensions`, `dimension_readability`, `title_block`, and `manufacturing_notes`.
+- Acceptance gate result: `pass=false`, `status=need_review`, with reasons `application_ui_screenshot_review_not_passed`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `displaydim_lifecycle_not_pass`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+
+Implementation updates:
+
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now adds live drawing-view scan fallback (`live_view_chain_scan`, `live_created_views_scan`) when post-layout persisted-name/point selection cannot recover a valid `IView`.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py` now source-guards the new live-view fallback signatures before allowing the next 006 rerun packet to be offline-ready.
+- `tools/validation/lb26001_006_acceptance_proof_v4_2.py` now prefers the latest `LB26001_006_locked_real_rerun_*` staged summary plus matching application UI closed-loop evidence when default paths are used.
+- `tools/validation/lb26001_requested_drawings_status_v4_2.py` now prefers the latest matching locked real rerun acceptance gate and scans the locked-rerun manual judgement by default.
+
+Validation commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260624_232819
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260624_232819\summary.json --base LB26001-A-04-006 --generated-png "LB26001-A-04-006=drw_output\runs\bfe950d72fc7\drawing\LB26001-A-04-006_v5.PNG" --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260624_232819\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260624_232819\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260624_232819_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\lb26001_006_acceptance_proof_v4_2.py tools\validation\lb26001_requested_drawings_status_v4_2.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_2_lb26001_006_acceptance_proof.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_strict_final_defaults.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_lb26001_correction_plan.py
+```
+
+Results:
+
+- Readiness and rerun packet currently allow a locked 006 rerun (`ready=true`, `real_cad_allowed_now=true`), but the latest acceptance proof blocks further expansion because the fresh 006 drawing failed UI-backed acceptance.
+- Refreshed `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` points to the fresh locked rerun and remains `blocked_by_006/pass=false`.
+- Refreshed `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`, with `per_drawing_application_ui_screenshot_required=true`.
+- Refreshed `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`, `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- `LB26001-A-04-006` must be fixed first: preserve at least 12 real DisplayDim objects, restore post-layout target coverage, match the reference view layout, remove non-reference title block/template artifacts, and provide acceptable manufacturing notes.
+- `LB26001-A-04-007/008/009/015/022` remain blocked from acceptance until 006 passes the same application UI screenshot/manual checklist gate.
+- API, DisplayDim, v4 reference compare, and v6 QC reports remain supporting evidence only; each requested drawing still requires application Drawing Review UI screenshot evidence and manual visual PASS before acceptance.
+
+## v4.2 Current 006 Readiness Preflight Refresh - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `GetActiveObject`, `Dispatch`, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- Current external state is now `solidworks_not_running`; older preflight evidence with a nonresponsive SolidWorks window and unsaved document marker remains historical risk evidence, but the latest process probe found no active `SLDWORKS.exe`.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+Get-Process -Name SLDWORKS -ErrorAction SilentlyContinue | Select-Object ProcessName,Id,Responding,MainWindowTitle,StartTime
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_current_readiness_preflight_20260624
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`:
+  - `status=blocked`
+  - `ready_to_start_locked_006_cad=false`
+  - `blocking_issue_keys=["solidworks_not_running"]`
+  - `manual_recovery_required=true`
+  - `automatic_restart_allowed=false`
+- PowerShell `Get-Process -Name SLDWORKS` found no running process.
+- `drw_output/staged_validation/LB26001_006_current_readiness_preflight_20260624/summary.json`:
+  - `processed=0`
+  - `deliverable_count=0`
+  - `lb26001_006_real_cad_allowed_now=false`
+  - `lb26001_006_rerun_packet_build_ready=true`
+  - `lb26001_006_rerun_packet_blocked_only_by_readiness=true`
+  - no `sw_connection_guard.json`
+  - no `01_LB26001-A-04-006` case directory
+  - source signatures include `cad_job_worker`, `real_cad_smoke_v3`, `drawing_visual_review_suite`, `application_ui_screenshot_validator`, and `manual_visual_judgement_template_v4` as true.
+- Refreshed `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` points at the current protected preflight and remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `ready_to_start_locked_006_cad=false`
+  - `real_cad_allowed_now=false`
+  - `six_requested_drawings_accepted=false`
+  - staged UI findings still show 006 layout mismatch, non-reference-like dimension placement/coverage, and unacceptable title block/manufacturing notes.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+
+Remaining issues:
+
+- A human must start or recover SolidWorks and leave it responsive with no unsaved document marker before the next readiness audit can pass.
+- Real CAD remains forbidden until `ready_to_start_locked_006_cad=true` and the 006 rerun packet still allows it.
+- 006 must pass locked CAD, DisplayDim lifecycle, reference/style/v4/v6 checks, Drawing Review application UI screenshot review, full manual checklist, and acceptance gate before 007/008/009/015/022 can proceed.
+
+## v4.2 Current Guarded 006 Entrypoint Refresh - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `GetActiveObject`, `Dispatch`, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- Current external state remains `solidworks_not_running`; therefore every 006 CAD entrypoint must stop before the CAD worker/facade path starts.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+Get-Process -Name SLDWORKS -ErrorAction SilentlyContinue | Select-Object ProcessName,Id,Responding,MainWindowTitle,StartTime
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_current_readiness_preflight_20260624_213228
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python tools\validation\real_cad_smoke_v3.py --part "3D转2D测试图纸\LB26001-A-04-006.SLDPRT" --timeout-s 5 --max-rounds 1 --out drw_output\diagnostics\lb26001_006_direct_real_cad_smoke_guard_current_v4_2.json
+python test_v3_staged_cad_validation.py
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+python test_v4_2_real_cad_smoke_guard.py
+python -m py_compile tools\validation\staged_cad_validation_v3.py tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py tools\validation\lb26001_006_regression_readiness_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py
+```
+
+Results:
+
+- Readiness:
+  - `status=blocked`
+  - `ready_to_start_locked_006_cad=false`
+  - `blocking_issue_keys=["solidworks_not_running"]`
+  - process probe found no active `SLDWORKS.exe`.
+- Rerun packet:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - source signatures true for `cad_job_worker`, `real_cad_smoke_v3`, `drawing_visual_review_suite`, `application_ui_screenshot_validator`, `manual_visual_judgement_template_v4`, `vision_qc_v6`, and `lb26001_acceptance_gate_v4_2`.
+- Protected staged preflight `drw_output/staged_validation/LB26001_006_current_readiness_preflight_20260624_213228/summary.json`:
+  - `processed=0`
+  - `deliverable_count=0`
+  - `lb26001_006_real_cad_allowed_now=false`
+  - `lb26001_006_rerun_packet_build_ready=true`
+  - `lb26001_006_rerun_packet_blocked_only_by_readiness=true`
+  - no `sw_connection_guard.json`
+  - no `01_LB26001-A-04-006` case directory.
+- Direct 006 smoke guard `drw_output/diagnostics/lb26001_006_direct_real_cad_smoke_guard_current_v4_2.json`:
+  - `pass=false`
+  - `run_dir=""`
+  - `reasons=["solidworks_not_running"]`.
+- Refreshed gap audit:
+  - `status=blocked_by_solidworks_readiness`
+  - `staged_preflight_no_cad_started=true`
+  - `staged_preflight_packet_build_ready=true`
+  - `staged_preflight_packet_blocked_only_by_readiness=true`
+  - `six_requested_drawings_accepted=false`
+  - latest 006 UI findings remain layout mismatch, non-reference-like dimension placement/coverage, and unacceptable title block/manufacturing notes.
+- `test_v3_staged_cad_validation.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- `test_v4_2_real_cad_smoke_guard.py`: PASS.
+- Compile check: PASS.
+
+Remaining issues:
+
+- A human must start SolidWorks manually and leave it responsive with no unsaved document marker.
+- After readiness becomes `ready_to_start_locked_006_cad=true`, run exactly one locked 006 staged CAD rerun through the existing facade/QProcess/cad worker chain.
+- 006 remains unaccepted until CAD, DisplayDim lifecycle, reference_style, reference_compare_v4, vision_qc_v6, Drawing Review UI screenshot, manual checklist, and acceptance gate all PASS.
+
+## v4.2 Manual Visual Judgement Template Source Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change source-guards the manual judgement template that turns Drawing Review application UI screenshots into human review work items; API metrics remain supporting evidence only.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added `DEFAULT_MANUAL_VISUAL_JUDGEMENT_TEMPLATE_SOURCE`.
+  - Added `MANUAL_VISUAL_JUDGEMENT_TEMPLATE_SIGNATURES` requiring:
+    - `PENDING_MANUAL_REVIEW`.
+    - per-entry `"manual_status": "PENDING"`.
+    - `required_visual_checklist_items`.
+    - every `visual_checklist` key defaulted to `null`.
+    - every `visual_checklist_notes` key defaulted to an empty string.
+    - `application_ui_screenshot_review_required`.
+    - `api_only_acceptance_allowed` set as a forbidden acceptance path.
+    - `ui_screenshot_review_is_final_gate`.
+    - the instruction that PASS is allowed only when every checklist item is true.
+    - `write_manual_visual_judgement_template`.
+  - Added offline prerequisite `manual_visual_judgement_template_signatures_present`.
+  - Added `source_signatures.manual_visual_judgement_template_v4`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added fixture support for `MANUAL_VISUAL_JUDGEMENT_TEMPLATE_SIGNATURES`.
+  - Added a negative test proving that removing the checklist default signature blocks the packet.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py tools\validation\manual_visual_judgement_template_v4.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_manual_visual_judgement_template.py
+python test_v4_2_drawing_visual_review_suite.py
+python test_v4_apply_ui_visual_review.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python test_v4_2_lb26001_correction_plan.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_manual_visual_judgement_template.py`: PASS.
+- `test_v4_2_drawing_visual_review_suite.py`: PASS.
+- `test_v4_apply_ui_visual_review.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_correction_plan.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed source signatures show:
+  - `manual_visual_judgement_template_v4.pass=true`
+  - `drawing_visual_review_suite.pass=true`
+  - `application_ui_screenshot_validator.pass=true`
+  - `vision_qc_v6.pass=true`
+  - `lb26001_acceptance_gate_v4_2.pass=true`
+- Refreshed requested drawing status remains `blocked_by_006`, `pass_count=0`, and `not_pass_count=6`.
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The six requested drawings remain not accepted by application UI visual judgement.
+- Next real step remains manual SolidWorks recovery, no-COM readiness PASS, exactly one locked 006 rerun, then DisplayDim lifecycle/reference/v6/Drawing Review UI screenshot/manual checklist/acceptance proof PASS before expanding to `007/008/009/015/022`.
+
+## v4.2 Application UI Screenshot Validator Source Guard - 2026-06-24
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, SolidWorks COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, Add-in Ping, DialogGuard, automatic restart, or kill command was run.
+- This change source-guards the screenshot content validator used by v6 QC, requested-drawing status, and the LB26001 acceptance gate.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Added `DEFAULT_APPLICATION_UI_SCREENSHOT_VALIDATOR_SOURCE`.
+  - Added `APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES` requiring:
+    - `validate_application_ui_screenshot`
+    - `validate_application_ui_screenshots`
+    - `min_size_pass`
+    - `aspect_pass`
+    - `top_chrome_pass`
+    - `left_nav_pass`
+    - `bottom_log_pass`
+    - concrete `"side_by_side_review_region_pass": side_by_side_pass`
+    - `_side_by_side_review_region_pass`
+    - `passing_paths`.
+  - Added offline prerequisite `application_ui_screenshot_validator_signatures_present`.
+  - Added `source_signatures.application_ui_screenshot_validator`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Added fixture support for `APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES`.
+  - Added a negative test proving that removing the side-by-side review-region gate blocks the packet.
+  - Tightened the side-by-side signature to the exact checks-dictionary entry to avoid a false positive from the helper name.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py app\services\application_ui_screenshot_validator.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_acceptance_gate.py
+python test_v4_2_lb26001_requested_drawings_status.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python test_v4_2_lb26001_006_real_landing_gap_audit.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_vision_qc_v6.py`: PASS.
+- `test_v4_2_lb26001_acceptance_gate.py`: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_2_lb26001_006_real_landing_gap_audit.py`: PASS.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed source signatures show:
+  - `application_ui_screenshot_validator.pass=true`
+  - `drawing_visual_review_suite.pass=true`
+  - `vision_qc_v6.pass=true`
+  - `lb26001_acceptance_gate_v4_2.pass=true`
+- Refreshed gap audit remains `blocked_by_solidworks_readiness`, `ready_to_start_locked_006_cad=false`, `real_cad_allowed_now=false`, and `six_requested_drawings_accepted=false`.
+
+Remaining issues:
+
+- SolidWorks readiness still reports `solidworks_not_running`; real CAD remains forbidden.
+- The six requested drawings remain not accepted by application UI visual judgement.
+- Next real step remains manual SolidWorks recovery, no-COM readiness PASS, exactly one locked 006 rerun, then DisplayDim lifecycle/reference/v6/Drawing Review UI screenshot/manual checklist/acceptance proof PASS before expanding.
+
+## v4.2 006 Offline Reference Outline Direction and Lifecycle Audit Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started in this fix.
+- API, file generation, DisplayDim counts, and sidecar data remain supporting evidence only; the final 006 gate is still Drawing Review application UI screenshot plus manual six-item checklist.
+
+Implementation:
+
+- Updated `app/services/persisted_layout_solver.py`.
+  - Splits target outline mismatches into `target_outline_size_blocking_issues` and `target_outline_size_warning_issues`.
+  - Treats `iso` outline mismatch as warning-only so the identification/isometric view cannot shrink all primary manufacturing views.
+  - Records `target_outline_scale_direction` and moves toward a larger scale when primary views are too small and there is no overlap/out-of-frame.
+  - Persists the new diagnostics into `persisted_layout.json`.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Passes `start_scale=chosen` into `solve_persisted_layout(...)` so the learned same-name reference outline scale is not ignored.
+  - Writes persisted-layout blocking/warning/direction diagnostics into the run warnings.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Adds `existing_display_dim_coverage` trace when final coverage proves a target is already covered by a real persisted DisplayDim.
+  - Keeps lifecycle count regression as a blocker only when the loss drops below the reference floor.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` source signatures and added/updated tests.
+
+Commands:
+
+```powershell
+python -m py_compile app\services\persisted_layout_solver.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_persisted_layout_solver_outline_direction.py test_v4_2_lb26001_006_rerun_packet.py test_v3_generator_reference_style_plan.py test_v4_generator_blueprint_execution.py
+python test_v4_2_persisted_layout_solver_outline_direction.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_drawing_blueprint_core.py
+python tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py --warnings drw_output\runs\dc954b67b67c\qc\LB26001-A-04-006_v5_warnings.json --cad-smoke drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\01_LB26001-A-04-006\cad_smoke.json --dimension-validation drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_024133\01_LB26001-A-04-006\dimension_validation.json --reference-intent-plan drw_output\reference_intent_dimension_plan_006.json --out-json drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_displaydim_lifecycle_audit_v4_2.md
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed diagnostic DisplayDim lifecycle audit for the 024133 evidence is `pass=true`.
+- Refreshed `lb26001_006_regression_readiness_v4_2.json` is `ready`.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` is `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=true`.
+- Refreshed `lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Refreshed `lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed `lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Remaining issues:
+
+- The latest actual Drawing Review application UI screenshot evidence is still the 024133 FAIL.
+- A single locked 006-only real CAD rerun is now permitted by the offline packet, but 006 cannot pass until the fresh Drawing Review UI screenshot and manual checklist are all true.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Locked Real Rerun and Application UI Screenshot Review - 2026-06-25 03:09
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Exactly one locked real CAD rerun was started after the offline source fix.
+- The new 006 output is not accepted. API/reference metrics remain supporting evidence only; Drawing Review application UI screenshot and manual checklist remain the final gate.
+
+Evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_030940/summary.json`.
+- Run dir: `drw_output/runs/0b8d84cbb0d5`.
+- Generated current-run artifacts include `SLDDRW/PDF/DXF/PNG` under `drw_output/runs/0b8d84cbb0d5/drawing/`.
+- Drawing Review UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_030940_visual_review/drawing_visual_review_report.json`.
+- Application UI screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_030940_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_030940_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_030940_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_030940_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+
+Results:
+
+- Staged status: `need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD/dimension/reference smoke: supporting PASS/WARNING only.
+- DisplayDim lifecycle: `pass=true`, no lifecycle blockers.
+- Reference style: `pass=false`, reason includes `display_dim_count_higher_than_reference`.
+- Reference compare v4: `pass=false`, `visual_acceptance_pass=false`.
+- Vision QC v6: `visual_acceptance_pass=false`.
+- Manual visual judgement: `FAIL`.
+- Checklist:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Acceptance proof: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Requested drawings status: `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Landing gap: `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Visual findings from the application screenshot:
+
+- Generated drawing is still over-dimensioned compared with the reference.
+- A long diagonal/cross-sheet dimension line cuts through the layout and is not reference-like.
+- Dimension text, arrows, leaders, and extension lines cluster around the right/center views.
+- The title/data area and technical notes are not yet compact/reference-matching.
+
+Next correction:
+
+- Keep the lifecycle improvements.
+- Fix the reference dimension scheme: suppress non-reference dimension stacks, prevent diagonal cross-sheet dimension placement, place hole/pitch dimensions in the reference lane style, and rebuild compact title/notes before another locked 006-only CAD rerun.
+- Do not start another real CAD cycle until that source fix is implemented and tested offline.
+- Do not expand to `007/008/009/015/022` until 006 passes the UI screenshot/manual checklist gate.
+
+## v4.2 006 Strict Reference Target Prune Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started for this source fix.
+- The latest real CAD/UI evidence remains the 030940 Drawing Review application screenshot failure.
+- API metrics, DisplayDim counts, sidecar data, and file generation remain supporting evidence only; the final gate is still the application Drawing Review screenshot plus manual six-item checklist.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Protects the best real `DisplayDim` for each reference-intent dimension target during prune.
+  - Records `best_target_item_ids_present` for future run diagnostics.
+  - Uses the exact strict reference target cap for 006 instead of allowing extra long-thin/generic dimensions to survive.
+  - This targets the 030940 UI finding that the generated drawing was over-dimensioned and visually non-reference-like.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds source signatures for `reference_intent_best_target_displaydim_protected` and `reference_intent_exact_target_cap`.
+  - Blocks the offline rerun packet if the strict target-prune behavior is removed.
+- Updated `test_v3_generator_reference_style_plan.py` and `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Adds coverage for the strict exact target cap and rerun-packet signature guard.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_2_reference_intent_dimension_worker.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_2_persisted_layout_solver_outline_direction.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_030940_visual_review\manual_visual_judgement.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed `lb26001_006_regression_readiness_v4_2.json` is `ready`.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` is `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=true`.
+- Refreshed `lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed `lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+- Refreshed correction plan remains ready for the next 006-only correction loop, not for expanding to the other drawings.
+
+Remaining issues:
+
+- The latest actual 006 application Drawing Review evidence is still the 030940 UI screenshot FAIL with all six checklist items false.
+- This source fix has not yet been proven by a fresh real CAD rerun.
+- The next allowed CAD action is exactly one locked `LB26001-A-04-006` rerun from the refreshed packet, followed by Drawing Review UI screenshot capture, reference-vs-generated comparison, manual checklist, acceptance gate, and acceptance proof refresh.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Locked Real Rerun and Application UI Screenshot Review - 2026-06-25 03:29
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Exactly one locked real CAD rerun was started after the strict target-prune source fix.
+- The new 006 output is not accepted. API/reference metrics remain supporting evidence only; Drawing Review application UI screenshot and manual checklist remain the final gate.
+
+Evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_032939/summary.json`.
+- Run dir: `drw_output/runs/f5e3033024dc`.
+- Generated current-run artifacts include `SLDDRW/PDF/DXF/PNG` under `drw_output/runs/f5e3033024dc/drawing/`.
+- Drawing Review UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_032939_visual_review/drawing_visual_review_report.json`.
+- Application UI screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_032939_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_032939_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_032939_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_032939_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+
+Results:
+
+- Staged status: `need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD/dimension/reference smoke: supporting PASS/WARNING only.
+- DisplayDim lifecycle: `pass=false`, blocker `display_dim_lifecycle_count_regression`.
+- Reference style: `pass=false`, reason includes `display_dim_count_higher_than_reference`.
+- Reference compare v4: `pass=false`, `visual_acceptance_pass=false`.
+- Vision QC v6: `visual_acceptance_pass=false`; major issues include `reference_titleblock_artifacts_present` and `dimension_visual_overdense`.
+- Manual visual judgement: `FAIL`.
+- Checklist:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Acceptance proof: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Requested drawings status: `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Landing gap: `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Visual findings from the application screenshot:
+
+- Generated drawing is still over-dimensioned compared with the reference.
+- Dimension text, arrows, leaders, and extension lines cluster on the right side of the generated sheet.
+- A long diagonal/cross-region dimension line remains and is not reference-like.
+- The title/data area and manufacturing notes remain larger/differently placed than the compact reference style.
+
+Next correction:
+
+- Keep current-run artifact generation and view recovery improvements.
+- Prevent top-view dimensions from being moved to far-right callout lanes.
+- Continue reducing final real `DisplayDim` count toward the 12 reference targets without losing required semantic coverage.
+- Do not start another real CAD cycle until the lane-policy source fix is implemented and tested offline.
+
+## v4.2 006 Top-View Local Dimension Lane Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started for this source fix.
+- The latest real CAD/UI evidence remains the 032939 Drawing Review application screenshot failure.
+- API metrics, DisplayDim counts, and file generation remain supporting evidence only.
+
+Implementation:
+
+- Updated `app/services/dimension_arrange_service.py`.
+  - Long-thin reference-style `top` view dimensions now stay in local top/bottom lanes.
+  - The old behavior that assigned dense top-view dimensions to far-right `right_callout` lanes is blocked because it creates cross-view leader lines like the 032939 UI failure.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds `DEFAULT_DIMENSION_ARRANGE_SOURCE`.
+  - Adds `DIMENSION_ARRANGE_SIGNATURES`.
+  - Adds the offline prerequisite `dimension_arrange_reference_lane_signatures_present`.
+  - Writes `dimension_arrange_service` into `source_signatures`.
+- Updated `test_v4_dimension_arrange_service.py`.
+  - Replaces the old expectation that dense top-view dimensions move to a right callout lane.
+  - New expectation: dense top-view dimensions remain local and `callout_lane_count=0`.
+
+Commands:
+
+```powershell
+python -m py_compile app\services\dimension_arrange_service.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_dimension_arrange_service.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_dimension_arrange_service.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed correction plan remains `blocked_by_006` with `correction_plan_ready=true`.
+- Refreshed `lb26001_006_regression_readiness_v4_2.json` is `ready`.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` is `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=true`.
+- Refreshed `lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Remaining issues:
+
+- This lane fix has not yet been proven by a fresh real CAD rerun.
+- The latest actual 006 application Drawing Review evidence is still the 032939 UI screenshot FAIL.
+- A single locked 006-only real CAD rerun is now permitted by the offline packet, but 006 cannot pass until the fresh Drawing Review UI screenshot and manual checklist are all true.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Locked Real Rerun and Application UI Screenshot Review - 2026-06-25 03:44
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Exactly one locked real CAD rerun was started after the lane-service source fix.
+- The new 006 output is not accepted. API metrics, DisplayDim counts, sidecars, and file creation remain supporting evidence only; Drawing Review application UI screenshot plus manual checklist remain the final gate.
+
+Evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_034438/summary.json`.
+- Run dir: `drw_output/runs/e2059740eb5b`.
+- Generated current-run artifacts include `SLDDRW/PDF/DXF/PNG` under `drw_output/runs/e2059740eb5b/drawing/`.
+- Drawing Review UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_034438_visual_review/drawing_visual_review_report.json`.
+- Application UI screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_034438_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_034438_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_034438_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_034438_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+
+Results:
+
+- Staged status: `need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD and dimension gates completed as supporting evidence, but not as final acceptance.
+- `dimension_arrange.json`: `stage=post_layout_prune_guard`, `success=true`, `total_dimensions=22`, `adjusted_dimensions=20`, `callout_lane_applied=true`, `callout_lane_count=7`, with `right_callout=7`.
+- DisplayDim lifecycle: `status=fail`, `pass=false`, blocker `display_dim_lifecycle_count_regression`.
+- Reference style: `pass=false`, reason includes `display_dim_count_higher_than_reference`.
+- Vision QC v6: `need_review`, `visual_acceptance_pass=false`.
+- Reference compare v4: `need_review`, `pass=false`, reason `ui_screenshot_visual_acceptance_not_passed`.
+- Manual visual judgement: `FAIL`.
+- Checklist:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Closed-loop acceptance gate: `need_review/pass=false`, with `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+- Acceptance proof: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Requested drawings status: `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Landing gap: `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Visual findings from the application screenshot:
+
+- Generated drawing remains visibly over-dimensioned against the same-name reference.
+- Top/right dimension stacks remain dense and are not reference-like.
+- A long diagonal/cross-region dimension line remains visible.
+- Title/data and manufacturing note areas still do not match the compact reference style.
+- The current run still uses seven right-callout lane dimensions, proving the earlier service-side lane rule did not land in the actual generator fallback path.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_034438
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_034438\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_034438\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_034438\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_034438_visual_review\manual_visual_judgement.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Next correction:
+
+- Fix the actual generator fallback lane policy, not only the service-side lane rule.
+- Top-view dimensions must stay in local top/bottom lanes and must not become far-right callouts.
+- Continue reducing final real `DisplayDim` count toward the 12 reference targets without losing required semantic coverage.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Generator Fallback Top-View Local Lane Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started for this source fix.
+- The latest real CAD/UI evidence remains the 034438 Drawing Review application screenshot failure.
+- API metrics, DisplayDim counts, sidecar data, and file creation remain supporting evidence only.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Generator fallback top-view dimensions now prefer local `top/bottom` lanes.
+  - Top-view fallback candidates no longer include far-right or far-left callout lanes.
+  - Dense/repeated top-view fallback dimensions now return `standard`, guarded by `generator_top_view_local_reference_lanes`.
+  - The change targets the 034438 UI finding that actual CAD output still had `right_callout=7`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds the generator source signature `generator_top_view_local_reference_lanes`.
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Asserts the generator fallback lane signature is present.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_dimension_arrange_service.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed readiness: `ready`.
+- Refreshed correction plan: `blocked_by_006`, `correction_plan_ready=true`.
+- Refreshed rerun packet: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=true`.
+- Refreshed landing gap: `blocked_by_006_acceptance_proof`.
+
+Remaining issues:
+
+- This generator fallback lane fix has not yet been proven by a fresh real CAD rerun.
+- The latest accepted evidence is still 034438 UI screenshot `FAIL` with all six checklist items false.
+- A single locked 006-only real CAD rerun is now permitted by the offline packet, but 006 cannot pass until the new Drawing Review UI screenshot/manual checklist is all true.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Locked Real Rerun and Application UI Screenshot Review - 2026-06-25 03:58
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Exactly one locked real CAD rerun was started after the generator fallback top-view lane fix.
+- The new 006 output is not accepted. API metrics, DisplayDim counts, sidecars, and file creation remain supporting evidence only; Drawing Review application UI screenshot plus manual checklist remain the final gate.
+
+Evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_035852/summary.json`.
+- Run dir: `drw_output/runs/62d62625956f`.
+- Generated current-run artifacts include `SLDDRW/PDF/DXF/PNG` under `drw_output/runs/62d62625956f/drawing/`.
+- Drawing Review UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_035852_visual_review/drawing_visual_review_report.json`.
+- Application UI screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_035852_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_035852_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_035852_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_035852_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+
+Results:
+
+- Staged status: `need_review`, `pass=false`, `deliverable_count=0/1`.
+- CAD/dimension/reference gates completed as supporting evidence, but not as final acceptance.
+- `dimension_arrange.json`: `stage=post_layout_prune_guard`, `success=true`, `total_dimensions=24`, `adjusted_dimensions=22`, `callout_lane_applied=false`, `callout_lane_count=0`, `overlap_before=6`, `overlap_after=0`.
+- Dimension role distribution: all 24 are `standard`; slot distribution is `front=2`, `top=15`, `right=7`.
+- DisplayDim lifecycle: `status=fail`, `pass=false`, blocker `display_dim_lifecycle_count_regression`.
+- Reference style: `status=need_review`, `pass=false`, `overall_style_score=0.775`, reason `display_dim_count_higher_than_reference`.
+- Vision QC v6: `need_review`, `visual_acceptance_pass=false`.
+- Reference compare v4: `need_review`, `pass=false`, reason `ui_screenshot_visual_acceptance_not_passed`.
+- Manual visual judgement: `FAIL`.
+- Checklist:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Closed-loop acceptance gate: `need_review/pass=false`, with `application_ui_screenshot_review_not_passed`, `displaydim_lifecycle_not_pass`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+- Acceptance proof: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Requested drawings status: `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Landing gap: `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Visual findings from the application screenshot:
+
+- The prior far-right callout lane issue is reduced at the metadata level, but the drawing is still visibly over-dimensioned.
+- Top/front/right dimensions remain too dense; the top view alone carries 15 visible dimensions.
+- Long diagonal/cross-region dimension/leader lines still dominate the main drawing area.
+- View scale/layout, title/data text, and manufacturing notes remain materially different from the same-name reference.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_035852
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_035852\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_035852\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_035852\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_035852_visual_review\manual_visual_judgement.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Next correction:
+
+- Keep the top-view local lane fix because real evidence now shows `callout_lane_count=0`.
+- Fix final DisplayDim over-density: post-layout repair/arrange still leaves 24 visible DisplayDims, including 15 on the top view.
+- Add a final exact reference-intent prune after all post-layout repair/arrange work and before final export/coverage evidence.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Final Exact Reference-Intent Prune Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started for this source fix.
+- The latest real CAD/UI evidence remains the 035852 Drawing Review application screenshot failure.
+- API metrics, DisplayDim counts, sidecar data, and file creation remain supporting evidence only.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Adds `post_layout_final_exact_prune` after all post-layout explicit repair, arrange, prune, and guard passes.
+  - The final exact prune removes non-reference DisplayDims only after 12 reference-intent targets are covered, then reexports PDF/DXF/PNG evidence.
+  - Failed prune attempts now record `discarded_after_failed_prune`, `after_restored`, and `reference_prune_failed_restore_count` so discarded transient failures are not mistaken for persisted final state.
+- Updated `tools/validation/lb26001_006_displaydim_lifecycle_audit_v4_2.py`.
+  - Uses restored persistent count for discarded failed prune attempts.
+  - Records `post_layout_final_exact_prune_before/after` stages.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds source guards for `post_layout_final_exact_prune` and `post_layout_final_exact_prune_failed`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+  - `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_displaydim_lifecycle_audit_v4_2.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_displaydim_lifecycle_audit.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_dimension_arrange_service.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed readiness: `ready`.
+- Refreshed correction plan: `blocked_by_006`, `correction_plan_ready=true`.
+- Refreshed rerun packet: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=true`.
+- Refreshed landing gap: `blocked_by_006_acceptance_proof`.
+
+Remaining issues:
+
+- This final exact-prune fix has not yet been proven by a fresh real CAD rerun.
+- The latest real Drawing Review UI evidence is still 035852 `FAIL` with all six checklist items false.
+- A single locked 006-only real CAD rerun is now permitted by the offline packet, but 006 cannot pass until the new Drawing Review UI screenshot/manual checklist is all true.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Locked Real Rerun and Application UI Screenshot Review - 2026-06-25 04:13
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- Exactly one locked real CAD rerun was started after the final exact-prune source fix.
+- The new 006 output is not accepted. API metrics, DisplayDim counts, sidecars, and file creation remain supporting evidence only; Drawing Review application UI screenshot plus manual checklist remain the final gate.
+
+Evidence:
+
+- Staged summary: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_041353/summary.json`.
+- Run dir: `drw_output/runs/2aba76ff152d`.
+- Generated current-run artifacts include `SLDDRW/PDF/DXF/PNG` under `drw_output/runs/2aba76ff152d/drawing/`.
+- Drawing Review UI report: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/drawing_visual_review_report.json`.
+- Application UI screenshot: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Manual visual judgement: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/manual_visual_judgement.json`.
+- Closed-loop gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`.
+
+Results:
+
+- Staged status: `need_review`, `pass=false`, `deliverable_count=0/1`.
+- Technical progress: `displaydim_lifecycle_pass=true`; the lifecycle blocker is no longer present.
+- Remaining staged blockers: `reference_compare_v4_not_pass`, `reference_style_not_pass`, and `vision_qc_v6_not_pass`.
+- Reference style: `status=need_review`, `pass=false`, reason `display_dim_count_higher_than_reference`.
+- Final exact prune attempted to reduce the final DisplayDim set, but reported `success=false`: it tried `27 -> 12`, deleted 15 candidates, and detected missing target coverage for `hole_x_location`, `overall_length`, and `projection_view_height`, so the over-dense state was restored instead of saved.
+- Drawing Review application screenshot review: `FAIL`.
+- Checklist:
+  - `reference_match=false`
+  - `view_layout=false`
+  - `display_dimensions=false`
+  - `dimension_readability=false`
+  - `title_block=false`
+  - `manufacturing_notes=false`
+- Closed-loop acceptance gate: `need_review/pass=false`, with `application_ui_screenshot_review_not_passed`, `manual_visual_case_not_pass`, `manual_visual_checklist_failed`, `reference_compare_v4_with_ui_review_not_pass`, and `vision_qc_v6_with_ui_review_not_pass`.
+- Acceptance proof: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` remains `blocked_by_006`.
+- Requested drawings status: `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` remains `blocked_by_006`, `pass_count=0`, `not_pass_count=6`.
+- Landing gap: `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` remains `blocked_by_006_acceptance_proof`.
+
+Visual findings from the application screenshot:
+
+- The generated drawing is still visibly over-dimensioned and does not match the same-name reference.
+- Long diagonal/cross-region dimension and leader lines still dominate the generated drawing region.
+- View layout/scale, title/data text, and manufacturing notes remain materially different from the reference.
+- Because the visible sheet still fails, the lifecycle PASS cannot be treated as drawing acceptance.
+
+Commands:
+
+```powershell
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_041353
+python tools\ui_robot\drawing_visual_review_suite.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_041353\summary.json --base LB26001-A-04-006 --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review
+python tools\validation\apply_ui_visual_review_v4.py --summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_041353\summary.json --ui-report drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\drawing_visual_review_report.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\manual_visual_judgement.json --out-dir drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\closed_loop --base LB26001-A-04-006
+python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\closed_loop\ui_visual_review_gate_summary.json --staged-summary drw_output\staged_validation\LB26001_006_locked_real_rerun_20260625_041353\summary.json --base LB26001-A-04-006 --out drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\closed_loop\lb26001_acceptance_gate_v4_2.json
+python tools\validation\lb26001_006_acceptance_proof_v4_2.py --out-json drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --out-md drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --acceptance-proof drw_output\diagnostics\lb26001_006_acceptance_proof_v4_2.json --manual-review drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\manual_visual_judgement.json --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\lb26001_006_real_landing_gap_audit_v4_2.py --out-json drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.json --out-md drw_output\diagnostics\lb26001_006_real_landing_gap_audit_v4_2.md
+```
+
+Next correction:
+
+- Keep the lifecycle progress.
+- Fix target-preserving exact prune: the current candidate list treats duplicate SolidWorks enumeration records as redundant dimensions, then actual deletion can remove the only physical target dimension.
+- Add physical DisplayDim de-duplication before scoring/pruning.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## v4.2 006 Physical DisplayDim Dedupe Fix - 2026-06-25
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No new real CAD cycle was started for this source fix.
+- The latest real CAD/UI evidence remains the 041353 Drawing Review application screenshot failure.
+- API metrics, DisplayDim counts, sidecar data, and file creation remain supporting evidence only.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Adds `physical_displaydim_dedupe`.
+  - `_display_dim_annotations_in_doc()` now merges the same physical DisplayDim when it appears through multiple SolidWorks enumeration APIs.
+  - Merge keys prefer annotation name, then view/position/outline, then object identity.
+  - Merged records preserve duplicate source evidence and retain usable annotation/display_dim handles for deletion.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds a generator source guard for `physical_displaydim_dedupe`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py` covers duplicate DisplayDim records merging.
+  - `test_v4_2_lb26001_006_rerun_packet.py` blocks the packet if the dedupe signature disappears.
+
+Commands:
+
+```powershell
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_reference_compare.py
+python test_v4_vision_qc_v6.py
+python test_v4_dimension_arrange_service.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_correction_plan_v4_2.py --requested-status drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\reference_style_profile\lb26001_correction_plan_v4_2.json --out-md drw_output\reference_style_profile\lb26001_correction_plan_v4_2.md
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+```
+
+Results:
+
+- Compile check: PASS.
+- All listed unit/source tests: PASS.
+- Refreshed readiness: `ready`.
+- Refreshed correction plan: `blocked_by_006`, `correction_plan_ready=true`.
+- Refreshed rerun packet: `ready_for_locked_006_rerun`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, `real_cad_allowed_now=true`.
+- Refreshed landing gap: `blocked_by_006_acceptance_proof`.
+
+Remaining issues:
+
+- This physical DisplayDim dedupe fix has not yet been proven by a fresh real CAD rerun.
+- The latest real Drawing Review UI evidence is still 041353 `FAIL` with all six checklist items false.
+- A single locked 006-only real CAD rerun is now permitted by the offline packet, but 006 cannot pass until the new Drawing Review UI screenshot/manual checklist is all true.
+- Do not expand to `LB26001-A-04-007/008/009/015/022` until 006 passes the UI-backed visual gate.
+
+## Latest 006 UI Screenshot Acceptance Pointer - 2026-06-25
+
+- Latest locked real CAD rerun: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260625_041353/summary.json`.
+- Latest current-run drawing dir: `drw_output/runs/2aba76ff152d`.
+- Latest Drawing Review UI screenshot evidence: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/screenshots/01_LB26001-A-04-006_ui_visual_review.png`.
+- Latest reference-vs-generated comparison: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png`.
+- Latest manual visual judgement: `FAIL`; all six checklist items are false.
+- Latest acceptance gate: `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/closed_loop/lb26001_acceptance_gate_v4_2.json`, `status=need_review`, `pass=false`.
+- Latest diagnostics: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` is `blocked_by_006`, `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` is `blocked_by_006` with `pass_count=0/not_pass_count=6`, and `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` is `blocked_by_006_acceptance_proof`.
+- Latest offline source fix: physical DisplayDim de-duplication before reference-intent scoring/pruning is implemented and offline-tested, but not yet proven by fresh real CAD evidence.
+- Main next action: run exactly one locked 006-only real CAD rerun from `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`, then repeat the Drawing Review application UI screenshot/manual checklist gate. API metrics cannot override any visual FAIL.

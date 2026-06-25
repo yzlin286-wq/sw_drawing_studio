@@ -1,0 +1,370 @@
+# v2.0 Task 5 / v2.1 Task 7: Blueprint Rules Center
+# 按 part_class 选择制图规则
+# 不同规则控制 views、dimension_policy、titlebar_policy、vision_policy
+#
+# v2.1 改进:
+#   - 每个 part_class 新增 dimension_policy_detail (required/optional)
+#   - required: 必须标注的尺寸类型（缺失则降级）
+#   - optional: 可选标注的尺寸类型（有则加分，无则不扣分）
+#   - 用于 blueprint_decision.json 的可解释化输出
+
+# 默认规则（所有 part_class 的回退规则）
+default:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+    - name: "左视图"
+      type: "left"
+      scale: "auto"
+  dimension_policy: "outline_only"
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - overall_height
+    optional:
+      - hole_diameter
+      - hole_position
+      - fillet_radius
+      - chamfer
+    note: "默认规则：仅标注外形尺寸，其他尺寸可选"
+  titlebar_policy: "standard"
+  vision_policy: "basic"
+  tolerance_policy: "general"
+  notes_policy: "standard"
+
+# 特征零件（普通机械加工件）
+feature_part:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+    - name: "左视图"
+      type: "left"
+      scale: "auto"
+    - name: "等轴测"
+      type: "iso"
+      scale: "auto"
+      optional: true
+  dimension_policy: "full"  # 完整尺寸标注
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - overall_height
+      - hole_diameter
+      - hole_position
+      - fillet_radius
+      - chamfer
+    optional:
+      - surface_roughness
+      - tolerance
+      - thread_spec
+    note: "特征零件：外形+孔+圆角+倒角必须标注，粗糙度/公差/螺纹可选"
+  titlebar_policy: "standard"
+  vision_policy: "strict"
+  tolerance_policy: "detailed"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - auto_dimension
+      - outline_dimension
+    require_display_dim: true
+    min_display_dim_count: 3
+
+# 细长件（轴/杆类）
+long_thin:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+      orientation: "landscape"  # 横向放置
+    - name: "剖面图"
+      type: "section"
+      scale: "auto"
+      optional: true
+  dimension_policy: "length_critical"  # 长度尺寸优先
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_diameter
+      - chamfer
+      - surface_roughness
+    optional:
+      - tolerance
+      - thread_spec
+      - hole_position
+    note: "细长件：长度+直径+倒角+粗糙度必须标注，公差/螺纹可选"
+  titlebar_policy: "standard"
+  vision_policy: "strict"
+  tolerance_policy: "length_focus"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - outline_dimension
+    require_display_dim: true
+    min_display_dim_count: 2
+
+# 微小零件
+tiny_part:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "enlarged"  # 放大比例
+      scale_factor: 2.0
+    - name: "俯视图"
+      type: "top"
+      scale: "enlarged"
+      scale_factor: 2.0
+  dimension_policy: "enlarged"  # 放大标注
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - overall_height
+    optional:
+      - hole_diameter
+      - fillet_radius
+    note: "微小零件：外形尺寸必须标注（放大），其他可选"
+  titlebar_policy: "standard"
+  vision_policy: "lenient"  # 宽松视觉质检
+  tolerance_policy: "general"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - outline_dimension
+    require_display_dim: false
+    min_display_dim_count: 0
+
+# 紧固件（螺丝/螺栓/螺母）
+fastener:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+  dimension_policy: "standard_annotation"  # 标准件标注
+  dimension_policy_detail:
+    required:
+      - thread_spec
+      - overall_length
+    optional:
+      - head_diameter
+      - chamfer
+    note: "紧固件：螺纹规格+长度必须标注，头部直径/倒角可选"
+  titlebar_policy: "standard"
+  vision_policy: "lenient"
+  tolerance_policy: "standard"
+  notes_policy: "standard_part"
+  dimension_engine:
+    strategy_order:
+      - standard_annotation
+    require_display_dim: false  # 紧固件不强制 DisplayDim
+    min_display_dim_count: 0
+    allow_note_annotation: true
+
+# 弹簧
+spring:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+  dimension_policy: "standard_annotation"  # 标准件标注
+  dimension_policy_detail:
+    required:
+      - spring_free_length
+      - spring_outer_diameter
+      - spring_wire_diameter
+      - spring_coil_count
+    optional:
+      - spring_direction
+      - surface_roughness
+    note: "弹簧：自由长+外径+线径+圈数必须标注，旋向/粗糙度可选"
+  titlebar_policy: "standard"
+  vision_policy: "lenient"
+  tolerance_policy: "standard"
+  notes_policy: "standard_part"
+  dimension_engine:
+    strategy_order:
+      - standard_annotation
+    require_display_dim: false
+    min_display_dim_count: 0
+    allow_note_annotation: true
+
+# 采购件
+purchased_part:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "等轴测"
+      type: "iso"
+      scale: "auto"
+  dimension_policy: "standard_annotation"  # 采购件标注
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_diameter
+    optional:
+      - spec_mark
+      - manufacturer
+    note: "采购件：外形尺寸必须标注，规格/厂家标记可选"
+  titlebar_policy: "standard"
+  vision_policy: "lenient"
+  tolerance_policy: "standard"
+  notes_policy: "purchased_part"
+  dimension_engine:
+    strategy_order:
+      - standard_annotation
+    require_display_dim: false
+    min_display_dim_count: 0
+    allow_note_annotation: true
+
+# 钣金件
+sheet_metal:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "展开图"
+      type: "flat_pattern"
+      scale: "auto"
+  dimension_policy: "full"  # 完整尺寸标注
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - thickness
+      - bend_angle
+      - bend_radius
+      - hole_diameter
+      - hole_position
+    optional:
+      - surface_roughness
+      - tolerance
+      - chamfer
+    note: "钣金件：外形+厚度+弯角+弯曲半径+孔必须标注，粗糙度/公差/倒角可选"
+  titlebar_policy: "standard"
+  vision_policy: "strict"
+  tolerance_policy: "sheet_metal"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - auto_dimension
+      - outline_dimension
+    require_display_dim: true
+    min_display_dim_count: 3
+
+# 焊接件
+weldment:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+    - name: "等轴测"
+      type: "iso"
+      scale: "auto"
+  dimension_policy: "full"
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - overall_height
+      - weld_symbol
+      - member_length
+    optional:
+      - hole_diameter
+      - hole_position
+      - surface_roughness
+    note: "焊接件：外形+焊接符号+构件长度必须标注，孔/粗糙度可选"
+  titlebar_policy: "standard"
+  vision_policy: "strict"
+  tolerance_policy: "weldment"
+  notes_policy: "weldment"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - auto_dimension
+      - outline_dimension
+    require_display_dim: true
+    min_display_dim_count: 2
+
+# 导入几何体（无特征）
+imported_body:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+    - name: "左视图"
+      type: "left"
+      scale: "auto"
+  dimension_policy: "outline_only"
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - overall_height
+    optional:
+      - hole_diameter
+      - hole_position
+    note: "导入几何体：仅标注外形尺寸，其他尺寸受限于无特征无法自动提取"
+  titlebar_policy: "standard"
+  vision_policy: "basic"
+  tolerance_policy: "general"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - outline_dimension
+      - standard_annotation
+    require_display_dim: false
+    min_display_dim_count: 0
+
+# 板状件（钣金回退）
+sheet_like:
+  views:
+    - name: "主视图"
+      type: "front"
+      scale: "auto"
+    - name: "俯视图"
+      type: "top"
+      scale: "auto"
+  dimension_policy: "outline_only"
+  dimension_policy_detail:
+    required:
+      - overall_length
+      - overall_width
+      - thickness
+    optional:
+      - hole_diameter
+      - hole_position
+      - chamfer
+    note: "板状件：长+宽+厚度必须标注，孔/倒角可选"
+  titlebar_policy: "standard"
+  vision_policy: "basic"
+  tolerance_policy: "general"
+  notes_policy: "standard"
+  dimension_engine:
+    strategy_order:
+      - insert_model_annotations
+      - outline_dimension
+    require_display_dim: true
+    min_display_dim_count: 2

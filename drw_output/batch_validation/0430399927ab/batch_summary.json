@@ -1,0 +1,136 @@
+{
+  "batch_id": "0430399927ab",
+  "started_at": "2026-06-18 23:54:49",
+  "finished_at": "2026-06-19 00:03:44",
+  "total": 5,
+  "success": 0,
+  "warning": 0,
+  "failed": 5,
+  "items": [
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "run_id": "8c9a357165c1",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-26-1-V3-V02.SLDPRT",
+      "run_id": "d0b0ab634d50",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "run_id": "33093792e54a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-M3x8十字螺丝-1-V3-V02.SLDPRT",
+      "run_id": "7f093354291a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+      "run_id": "6654b643ed7a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped",
+        "titlebar_complete",
+        "model_2d_consistency"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    }
+  ]
+}

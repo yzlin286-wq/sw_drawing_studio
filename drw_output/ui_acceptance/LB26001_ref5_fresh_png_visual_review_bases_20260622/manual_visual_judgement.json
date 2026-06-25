@@ -1,0 +1,102 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "generated_at": "2026-06-22 22:18:00",
+  "review_scope": "source_ui_screenshot_visual_review",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "fail_count": 5,
+  "warning_count": 0,
+  "pass_count": 0,
+  "entries": [
+    {
+      "base": "LB26001-A-04-007",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/01_LB26001-A-04-007_ui_visual_review.png",
+      "generated_png": "drw_output/runs/7786247413ed/drawing/LB26001-A-04-007_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-007.png",
+      "reasons": [
+        "generated view family and layout do not match the compact same-name reference drawing",
+        "radial and diameter dimension callouts are crowded around the circular view and are not placed like the reference",
+        "generated drawing adds a different section/side-view composition and bottom linework that changes the visual drawing standard",
+        "technical notes and roughness placement are not aligned with the reference"
+      ],
+      "next_fix_suggestions": [
+        "derive view count and view slots from the 007 reference instead of generic front/top/iso placement",
+        "limit circular-part callout density and move radial callouts outside the view envelope",
+        "reserve the reference note area and suppress extra linework not present in the reference"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/02_LB26001-A-04-008_ui_visual_review.png",
+      "generated_png": "drw_output/runs/3731f36b1259/drawing/LB26001-A-04-008_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-008.png",
+      "reasons": [
+        "generated main and side views are shifted and scaled differently from the reference",
+        "the prominent red reference warning note is missing from the generated drawing",
+        "dimension and note density is materially different from the concise reference style",
+        "supporting style evidence still includes qc_dimension_fallback_not_displaydim"
+      ],
+      "next_fix_suggestions": [
+        "learn and reproduce the red warning-note rule for 008",
+        "use reference view centers and vertical spacing exactly for the plate and side views",
+        "avoid accepting fallback dimension evidence as final DisplayDim proof"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/03_LB26001-A-04-009_ui_visual_review.png",
+      "generated_png": "drw_output/runs/c6151f29704b/drawing/LB26001-A-04-009_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-009.png",
+      "reasons": [
+        "structured staged validation is already need_review because DisplayDim count is below threshold",
+        "generated dimension cluster is crowded and does not match the reference circular-part annotation style",
+        "generated side view proportions and placement differ from the reference",
+        "technical notes are placed differently from the reference"
+      ],
+      "next_fix_suggestions": [
+        "fix the real DisplayDim count floor first for 009",
+        "learn the reference circular-part dimension cluster instead of applying generic AutoDimension output",
+        "rerun fresh CAD and UI screenshot review after the dimension gate passes"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/04_LB26001-A-04-015_ui_visual_review.png",
+      "generated_png": "drw_output/runs/8453d3aa8d49/drawing/LB26001-A-04-015_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-015.png",
+      "reasons": [
+        "generated drawing loses the dense machined-plate dimensioning pattern visible in the reference",
+        "main view is too small and displaced relative to the reference drawing",
+        "top-left generated dimension stack and linework crowd the view instead of following the reference callout grouping",
+        "technical notes and roughness placement are not visually matched"
+      ],
+      "next_fix_suggestions": [
+        "implement a dense machined-plate policy for 015 with reference-based hole/slot callout grouping",
+        "increase main view scale and place dimensions around the same safe bands used by the reference",
+        "separate structural view linework from dimension extension lines"
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/05_LB26001-A-04-022_ui_visual_review.png",
+      "generated_png": "drw_output/runs/a6f2d315a39e/drawing/LB26001-A-04-022_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-022.png",
+      "reasons": [
+        "generated drawing overproduces long dimension chains that dominate the sheet and cross the model area",
+        "view positions and annotation distribution differ from the reference multi-view layout",
+        "generated dimension text is dense and less readable than the reference",
+        "technical notes and roughness placement are not aligned with the reference"
+      ],
+      "next_fix_suggestions": [
+        "cap dimension chain length and split dimensions into reference-like left/right/bottom groups",
+        "place 022 views using the learned reference slots before dimension insertion",
+        "reject generated screenshots where dimension extension lines occupy the title/note safe area"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"event_type": "warning", "job_id": "skip_running", "timestamp": "2026-06-24T21:06:47", "data": {"action": "skipped", "reason": "skipped by user", "process_killed": true, "orphan_descendant_cleanup": []}, "message": "作业已跳过", "type": "warning"}

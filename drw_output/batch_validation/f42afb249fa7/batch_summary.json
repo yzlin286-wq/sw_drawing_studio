@@ -1,0 +1,2949 @@
+{
+  "batch_id": "f42afb249fa7",
+  "started_at": "2026-06-18 19:25:33",
+  "finished_at": "2026-06-18 22:26:12",
+  "total": 129,
+  "success": 0,
+  "warning": 1,
+  "failed": 128,
+  "items": [
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "run_id": "ddd0fa411371",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-26-1-V3-V02.SLDPRT",
+      "run_id": "0923e953d65c",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "run_id": "ce20bbfa4539",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-M3x8十字螺丝-1-V3-V02.SLDPRT",
+      "run_id": "4715be8cc596",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+      "run_id": "9d46a7599618",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)-V02-2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\0.6X5X10压缩弹簧(线径x外径x长度)-V02-2.SLDPRT",
+      "run_id": "76dabdb96666",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\0.6X5X10压缩弹簧(线径x外径x长度)-V02.SLDPRT",
+      "run_id": "dea165463cf7",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "0.6X5X10压缩弹簧(线径x外径x长度)",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\0.6X5X10压缩弹簧(线径x外径x长度).SLDPRT",
+      "run_id": "f226aefd63d1",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "1.3x1.8x37铜管(内径x外径x长度）",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\1.3x1.8x37铜管(内径x外径x长度）.SLDPRT",
+      "run_id": "96f05975ef5b",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "1.55x18xL20压缩弹簧 线径1.55外径D18内径14.7-ICT-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\1.55x18xL20压缩弹簧 线径1.55外径D18内径14.7-ICT-V02.SLDPRT",
+      "run_id": "99dddb99b1e7",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "230012 扫码枪 VF4160 万酷-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\230012 扫码枪 VF4160 万酷-V02.sldprt",
+      "run_id": "602f982861be",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "230023-230017-QTN-0076 SAS-PICE ADAPTER-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\230023-230017-QTN-0076 SAS-PICE ADAPTER-V02.SLDPRT",
+      "run_id": "8627614d4ee2",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "3x10（圆头销钉）",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\3x10（圆头销钉）.SLDPRT",
+      "run_id": "4b0606be1e63",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "4-U_2-6NVME-BP-PCB-CHANGSHA",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\4-U_2-6NVME-BP-PCB-CHANGSHA.SLDPRT",
+      "run_id": "b228da681507",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "4-U_2-BP-PCB-CHANGSHA",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\4-U_2-BP-PCB-CHANGSHA.SLDPRT",
+      "run_id": "4475b3f9f2bd",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "6-LED-YDL0-00135-100-HSG7_2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\6-LED-YDL0-00135-100-HSG7_2.SLDPRT",
+      "run_id": "68b5fbb0aa91",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "6-LED-YDL0-00256-100-HSG7_2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\6-LED-YDL0-00256-100-HSG7_2.SLDPRT",
+      "run_id": "c655b688a245",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "6x10xM3(防静电赛钢)",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\6x10xM3(防静电赛钢).SLDPRT",
+      "run_id": "2b0d0536194a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID10",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID10.SLDPRT",
+      "run_id": "2044cd1cbbcc",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID11",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID11.SLDPRT",
+      "run_id": "fd18f3e1e278",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID13",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID13.SLDPRT",
+      "run_id": "e6a0fd63f212",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID14",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID14.SLDPRT",
+      "run_id": "9f15fc8a9ece",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID16",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID16.SLDPRT",
+      "run_id": "ff2f04242a5a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID18",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID18.SLDPRT",
+      "run_id": "c414f018c383",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID2.SLDPRT",
+      "run_id": "172c513ccf8f",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID5",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID5.SLDPRT",
+      "run_id": "8a85fcdd7b29",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "ABSORBER_2-1-SOLID9",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\ABSORBER_2-1-SOLID9.SLDPRT",
+      "run_id": "ee8931148a68",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "B5-PH-11M30-1653407-16-C01_FAST",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\B5-PH-11M30-1653407-16-C01_FAST.SLDPRT",
+      "run_id": "85e22d9f31a4",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "CP-30A0.6-2R2.0行程杯头探针组件",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\CP-30A0.6-2R2.0行程杯头探针组件.SLDPRT",
+      "run_id": "44eba0128a8b",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "DEFAULT-10059",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\DEFAULT-10059.SLDPRT",
+      "run_id": "552d7659c74f",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "DEFAULT-3133",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\DEFAULT-3133.SLDPRT",
+      "run_id": "541bbdaff421",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "DEFAULT-6045",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\DEFAULT-6045.SLDPRT",
+      "run_id": "54d4b984431a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "DEFAULT-8657",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\DEFAULT-8657.SLDPRT",
+      "run_id": "d9a9cbcecadc",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "G846A082XXXT4EU",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\G846A082XXXT4EU.SLDPRT",
+      "run_id": "4e430630f936",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "G846A082XXXT4EU_3",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\G846A082XXXT4EU_3.SLDPRT",
+      "run_id": "8805a549ca28",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "GP-1T3.2-M2-L32X9.5L-CD",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\GP-1T3.2-M2-L32X9.5L-CD.SLDPRT",
+      "run_id": "f6a9c4cb48c8",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "GP-1T3.2-M2头部-CD",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\GP-1T3.2-M2头部-CD.SLDPRT",
+      "run_id": "992b5d59448c",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "GP-2T-5.0X行程9LX35总长弹性顶针-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\GP-2T-5.0X行程9LX35总长弹性顶针-V02.SLDPRT",
+      "run_id": "eeb3440d667b",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "GP-2T-5.0X行程9LX35总长弹性顶针",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\GP-2T-5.0X行程9LX35总长弹性顶针.SLDPRT",
+      "run_id": "b8558a36db24",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 050 201 050 A2000 尖针",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 201 050 A2000 尖针.SLDPRT",
+      "run_id": "b0c0bfbb3400",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 050 214 050 A2000 直上四爪",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 214 050 A2000 直上四爪.SLDPRT",
+      "run_id": "4807190aae7c",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 050 297 050 A2000 四面尖头",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 297 050 A2000 四面尖头.SLDPRT",
+      "run_id": "01a552fb8b2d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 050 303 090 A2000 杯头V",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 303 090 A2000 杯头V.SLDPRT",
+      "run_id": "7e871db74fba",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 050 307 150 A2000  90° 3刃凿",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 307 150 A2000  90° 3刃凿.SLDPRT",
+      "run_id": "58fa0262c019",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_GKS 100 303 150 A2000 杯头V",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 100 303 150 A2000 杯头V.SLDPRT",
+      "run_id": "28730d1ff561",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_KS-050 47 E08 方尾",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_KS-050 47 E08 方尾.SLDPRT",
+      "run_id": "db216e222047",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_KS-050 E08 V-30 带线",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_KS-050 E08 V-30 带线.SLDPRT",
+      "run_id": "35f71df05dfa",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_KS-100 47 25绕线针套",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_KS-100 47 25绕线针套.SLDPRT",
+      "run_id": "d3660f2ad3b6",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUN_KS-100 47G绕线针套",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_KS-100 47G绕线针套.SLDPRT",
+      "run_id": "4ecd07d7118a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "INGUNKS-100 30G绕线针套",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUNKS-100 30G绕线针套.SLDPRT",
+      "run_id": "ed7fff838ce7",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB25006_N4RX0(Chengdu)_6U2(1X6)_FCT_Fixture_NVME_V01^2U.2硬盘转卡-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB25006_N4RX0(Chengdu)_6U2(1X6)_FCT_Fixture_NVME_V01^2U.2硬盘转卡-V02.SLDPRT",
+      "run_id": "e34243966895",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-001",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+      "run_id": "8823efa974a9",
+      "vision_score": 55,
+      "reference_diff": {
+        "similarity": 40,
+        "structural_diff": "生成图采用轴测图+双侧视图+俯视图+空白标题栏的分散布局；参考案例仅保留主俯视图与单一侧视图，聚焦孔位标识与附加说明，无轴测图与空白标题栏区块",
+        "missing_elements": [
+          "孔位基准标签(A/B/C/D/E/F/G/H)",
+          "X/Y/0坐标轴定位标注",
+          "\"未标注尺寸按3D加工\"提示文本",
+          "硬盘槽位更新说明文本",
+          "\"未注尺寸请核对3D图档\"提示文本"
+        ]
+      },
+      "hard_fail": [],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": true,
+      "qc_pass_count": 11,
+      "status": "warning",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-002",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDPRT",
+      "run_id": "6787a0ead76c",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-003",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+      "run_id": "93b9742d35f5",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-004",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-004.SLDPRT",
+      "run_id": "76cddb2fc323",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "view_overlap"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-005",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-005.SLDPRT",
+      "run_id": "bed694f4b17d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-006",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+      "run_id": "919b6ff9ede0",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-007.SLDPRT",
+      "run_id": "6605fb04dccb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-008.SLDPRT",
+      "run_id": "0361137366ed",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 11,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT",
+      "run_id": "2c70d4cb6006",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-015.SLDPRT",
+      "run_id": "cc8250ee687d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 11,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-016",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-016.SLDPRT",
+      "run_id": "c6b5eb4a9c0d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-021",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-021.SLDPRT",
+      "run_id": "663df79018c6",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-022.SLDPRT",
+      "run_id": "3be38a747af2",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-023",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-023.SLDPRT",
+      "run_id": "0950c055511d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-024",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-024.SLDPRT",
+      "run_id": "ddf6029dc7d6",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-025",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-025.SLDPRT",
+      "run_id": "b399c6b19d7e",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-026",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-026.SLDPRT",
+      "run_id": "b90dcedb9f9a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-031",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-031.SLDPRT",
+      "run_id": "8246a78c21dd",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-032",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-032.SLDPRT",
+      "run_id": "9381c354d6d9",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-033",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-033.SLDPRT",
+      "run_id": "dd9b87ecf5c9",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-034",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-034.SLDPRT",
+      "run_id": "22d0bc2c9038",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-035",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-035.SLDPRT",
+      "run_id": "a2d5ca1836f6",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-036",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-036.SLDPRT",
+      "run_id": "f62e47caaa08",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-037",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-037.SLDPRT",
+      "run_id": "0e1041d64d7e",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-038",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-038.SLDPRT",
+      "run_id": "c5c1d5117f22",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-039",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-039.SLDPRT",
+      "run_id": "cf3d799d8361",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-040",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-040.SLDPRT",
+      "run_id": "5a3e6282cc10",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-041",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-041.SLDPRT",
+      "run_id": "d63881dca743",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-042",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-042.SLDPRT",
+      "run_id": "8f6f036526eb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-044",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-044.SLDPRT",
+      "run_id": "01ac2ec5520c",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-045",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-045.SLDPRT",
+      "run_id": "1639652a02cc",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-046",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-046.SLDPRT",
+      "run_id": "a5691d84dffb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-047",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-047.SLDPRT",
+      "run_id": "ea2d4a64a8fd",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-048",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-048.SLDPRT",
+      "run_id": "3933e3380003",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-049",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-049.SLDPRT",
+      "run_id": "af1edd05aaa9",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LB26001-A-04-050",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-050.SLDPRT",
+      "run_id": "75fe831d6c94",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LDP2683-55B78-9H_3D",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LDP2683-55B78-9H_3D.SLDPRT",
+      "run_id": "c0a3259879d7",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "LED 导光管D1.8铜管-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LED 导光管D1.8铜管-V02.SLDPRT",
+      "run_id": "fa661e65f680",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "OFG31-d12-L15-改小版-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\OFG31-d12-L15-改小版-V02.SLDPRT",
+      "run_id": "7da61b990f74",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "Open CASCADE STEP translator 7.5 1",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\Open CASCADE STEP translator 7.5 1.SLDPRT",
+      "run_id": "0b23e0fddf7e",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "Open CASCADE STEP translator 7.5 2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\Open CASCADE STEP translator 7.5 2.SLDPRT",
+      "run_id": "6955ab705adf",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "Open CASCADE STEP translator 7.5 4",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\Open CASCADE STEP translator 7.5 4.SLDPRT",
+      "run_id": "4756ae07e058",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "Open CASCADE STEP translator 7.5 5",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\Open CASCADE STEP translator 7.5 5.SLDPRT",
+      "run_id": "86784a5d3fb1",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头-V02-2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头-V02-2.SLDPRT",
+      "run_id": "27264f1bd06a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头-V02.SLDPRT",
+      "run_id": "1c659fc08206",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02-2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02-2.SLDPRT",
+      "run_id": "aa031876ab58",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头固定件A-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件A-V02.SLDPRT",
+      "run_id": "8b9dd5ceb79e",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头固定件B-V02-2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02-2.SLDPRT",
+      "run_id": "a9384fd3ac83",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "QTN-0488  MCIO 74Pin CABLE改头固定件B-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02.SLDPRT",
+      "run_id": "d1738d7d1cdb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "SKIN_GROUP1_1_1_1_2_1_1_3_1_2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\SKIN_GROUP1_1_1_1_2_1_1_3_1_2.SLDPRT",
+      "run_id": "756bfa7778bc",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "SM-SMQ1-01-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\SM-SMQ1-01-V02.SLDPRT",
+      "run_id": "647635f59d2f",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "SM-SMQ1-02-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\SM-SMQ1-02-V02.SLDPRT",
+      "run_id": "726134d83d99",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "SM-SMQ1-03-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\SM-SMQ1-03-V02.SLDPRT",
+      "run_id": "927f6ce0de5b",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "SMS-0023_2x4-1.0-8pin仿生头pcb",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\SMS-0023_2x4-1.0-8pin仿生头pcb.SLDPRT",
+      "run_id": "12a4a94a6453",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC4-00200-000",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC4-00200-000.SLDPRT",
+      "run_id": "9bb164ae9464",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC6-00475-100_2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC6-00475-100_2.SLDPRT",
+      "run_id": "fb180569533d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U.SLDPRT",
+      "run_id": "9a5f70590667",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_2.SLDPRT",
+      "run_id": "f69a3e3ff5eb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_3",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_3.SLDPRT",
+      "run_id": "1581ab013ffe",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_4",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_4.SLDPRT",
+      "run_id": "0918adfc033b",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_5",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_5.SLDPRT",
+      "run_id": "7ae654fc01ef",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_6",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_6.SLDPRT",
+      "run_id": "68bb09dfd949",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "YAC7-00526-000-JD2U_7",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\YAC7-00526-000-JD2U_7.SLDPRT",
+      "run_id": "159d2111c597",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 7,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02-2.SLDPRT",
+      "run_id": "aa0c464af06f",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\一字等高螺丝3x12xM2(杆径X长度X螺纹)-V02.SLDPRT",
+      "run_id": "9034667c3580",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "一字等高螺丝3x12xM2(杆径X长度X螺纹)",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\一字等高螺丝3x12xM2(杆径X长度X螺纹).SLDPRT",
+      "run_id": "d404ad0f9f7f",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "压棒1-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\压棒1-V02.SLDPRT",
+      "run_id": "741ba77931b0",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "压棒2-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\压棒2-V02.SLDPRT",
+      "run_id": "73ff978c41cb",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "压棒3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\压棒3-V02.SLDPRT",
+      "run_id": "fb6116cd29a2",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "圆铝柱D10xL30xM4 铝棒-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\圆铝柱D10xL30xM4 铝棒-V02.SLDPRT",
+      "run_id": "1430edba8f69",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "导柱12-50-M6-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\导柱12-50-M6-V02.SLDPRT",
+      "run_id": "1f3ef33a48d3",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "导柱16-65-M8-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\导柱16-65-M8-V02.SLDPRT",
+      "run_id": "8018fc359488",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "导柱d12-L60-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\导柱d12-L60-V02.SLDPRT",
+      "run_id": "a8601901bd6d",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "尖压棒 6x30xM3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\尖压棒 6x30xM3-V02.SLDPRT",
+      "run_id": "92e01602eed5",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "开关探针140mil-3.56mm D2.65PLK-415-0-02-300-A-23-02-E YHD+针套M4外螺牙-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\开关探针140mil-3.56mm D2.65PLK-415-0-02-300-A-23-02-E YHD+针套M4外螺牙-V02.SLDPRT",
+      "run_id": "b0e896e24f56",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "开关针140mil-3.56mm D2.65PLK-415-0-02-300-A-23-02-E YHD+针套M4外螺牙",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\开关针140mil-3.56mm D2.65PLK-415-0-02-300-A-23-02-E YHD+针套M4外螺牙.SLDPRT",
+      "run_id": "6b348ee31809",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "昆仑BP_6xU2_NVME-J20仿生头8pin",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\昆仑BP_6xU2_NVME-J20仿生头8pin.SLDPRT",
+      "run_id": "9bf9dba4fa7a",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "铜套-LMK12-标准型-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\铜套-LMK12-标准型-V02.SLDPRT",
+      "run_id": "a3e79759d722",
+      "vision_score": null,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 10,
+      "status": "failed",
+      "error": ""
+    }
+  ]
+}

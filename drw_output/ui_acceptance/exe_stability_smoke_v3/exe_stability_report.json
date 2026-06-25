@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-06-21 20:13:51",
+  "mode": "windows_exe_navigation_stability",
+  "exe": "dist_v3_smoke\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_stability_smoke_v3",
+  "pass": true,
+  "duration_requested_s": 8.0,
+  "duration_observed_s": 8.95,
+  "sample_interval_s": 2.0,
+  "screenshot_interval_s": 3.0,
+  "page_wait_s": 0.3,
+  "sample_count": 2,
+  "screenshot_count": 2,
+  "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\stability_samples.jsonl",
+  "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\screenshots",
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\screenshots\\001_elapsed_4s_01_dashboard.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 16,
+      "avg_luma": 237.83,
+      "page": "Dashboard",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\screenshots\\002_final.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 9,
+      "avg_luma": 238.32,
+      "page": "Single Drawing",
+      "min_bytes": 50000,
+      "pass": true
+    }
+  ],
+  "checks": {
+    "duration_met": true,
+    "process_alive_final": true,
+    "samples_written": true,
+    "sample_count": 2,
+    "screenshots_pass": true,
+    "full_cycle_required": false,
+    "all_pages_visited": true,
+    "page_counts": {
+      "Dashboard": 1,
+      "Single Drawing": 1,
+      "Job Queue": 0,
+      "Visual Audit": 0,
+      "Drawing Review": 0,
+      "Batch Validation": 0,
+      "System Health": 0,
+      "Logs & Diagnostics": 0,
+      "Settings": 0
+    },
+    "failure_count": 0
+  },
+  "failures": [],
+  "artifacts": {
+    "ui_events": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\ui_events.jsonl",
+    "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\stability_samples.jsonl",
+    "report_json": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\exe_stability_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\exe_stability_report.md",
+    "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_smoke_v3\\screenshots"
+  },
+  "remaining_gates": [
+    "This validates EXE navigation stability; staged real CAD validation remains separate.",
+    "Historical visual audit 100 percent coverage remains pending."
+  ]
+}

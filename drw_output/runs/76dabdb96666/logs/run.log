@@ -1,0 +1,8 @@
+[2026-06-18 19:30:58] === Full pipeline start ===
+[2026-06-18 19:30:58] strategy=v6_recommended
+[2026-06-18 19:30:58] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\0.6X5X10压缩弹簧(线径x外径x长度)-V02-2.SLDPRT
+[2026-06-18 19:30:58] sw_revision=33.5.0
+[2026-06-18 19:30:58] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 19:32:06] qc_loop exit_code=0
+[2026-06-18 19:32:08] bom rows=1
+[2026-06-18 19:32:08] === Full pipeline done. drawing_usable=False ===

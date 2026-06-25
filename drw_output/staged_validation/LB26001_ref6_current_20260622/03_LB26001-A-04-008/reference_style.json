@@ -1,0 +1,173 @@
+{
+  "base": "LB26001-A-04-008",
+  "status": "pass_with_warning",
+  "pass": true,
+  "view_style_score": 1.0,
+  "dimension_style_score": 0.667,
+  "layout_style_score": 1.0,
+  "overall_style_score": 0.85,
+  "reference": {
+    "base": "LB26001-A-04-008",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-008.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 2,
+    "view_types": {
+      "7": 1,
+      "4": 1
+    },
+    "display_dim_count": 2,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.041008,
+          0.116083,
+          0.139408,
+          0.180483
+        ],
+        "center_m": [
+          0.090208,
+          0.148283
+        ],
+        "size_m": [
+          0.0984,
+          0.0644
+        ],
+        "center_norm": [
+          0.3037,
+          0.7061
+        ],
+        "size_norm": [
+          0.3313,
+          0.3067
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.041008,
+          0.083648,
+          0.139408,
+          0.094448
+        ],
+        "center_m": [
+          0.090208,
+          0.089048
+        ],
+        "size_m": [
+          0.0984,
+          0.0108
+        ],
+        "center_norm": [
+          0.3037,
+          0.424
+        ],
+        "size_norm": [
+          0.3313,
+          0.0514
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-008_reference.json",
+    "source": "csharp_sidecar"
+  },
+  "generated": {
+    "base": "LB26001-A-04-008",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\17a3afd0ad43\\drawing\\LB26001-A-04-008_v5.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 2,
+    "view_types": {
+      "7": 1,
+      "4": 1
+    },
+    "display_dim_count": 3,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.041008,
+          0.116083,
+          0.139408,
+          0.180483
+        ],
+        "center_m": [
+          0.090208,
+          0.148283
+        ],
+        "size_m": [
+          0.0984,
+          0.0644
+        ],
+        "center_norm": [
+          0.3037,
+          0.7061
+        ],
+        "size_norm": [
+          0.3313,
+          0.3067
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.041008,
+          0.083648,
+          0.139408,
+          0.094448
+        ],
+        "center_m": [
+          0.090208,
+          0.089048
+        ],
+        "size_m": [
+          0.0984,
+          0.0108
+        ],
+        "center_norm": [
+          0.3037,
+          0.424
+        ],
+        "size_norm": [
+          0.3313,
+          0.0514
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-008_generated.json",
+    "source": "csharp_sidecar"
+  },
+  "qc_display_dim_count": 16,
+  "differences": [
+    {
+      "key": "qc_dimension_fallback_not_displaydim",
+      "severity": "warning",
+      "reference": "reference_display_dim=2",
+      "generated": "generated_display_dim=3; qc_display_dim=16",
+      "fix_suggestion": "Keep QC-derived sidecar dimensions separate from real CAD DisplayDim counts."
+    }
+  ],
+  "reasons": [
+    "qc_dimension_fallback_not_displaydim"
+  ],
+  "schema": "sw_drawing_studio.reference_style_case.v1",
+  "generated_at": "2026-06-22 16:36:07",
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-008.SLDPRT",
+  "reference_compare_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_ref6_current_20260622\\03_LB26001-A-04-008\\reference_compare.json",
+  "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_ref6_current_20260622\\03_LB26001-A-04-008\\dimension_validation.json"
+}

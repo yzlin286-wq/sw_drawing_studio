@@ -1,0 +1,168 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\昆仑BP_6xU2_NVME-J20仿生头8pin.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    }
+  ],
+  "issues_in": [],
+  "scale": "1:2",
+  "bbox_m": [
+    0.006500000000000096,
+    0.0199999999999999,
+    0.01620000000000041
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.07024999999999985,
+      0.11000000000000017,
+      0.08975000000000015,
+      0.16999999999999987
+    ],
+    "top": [
+      0.07024999999999985,
+      0.05569999999999939,
+      0.08975000000000015,
+      0.10430000000000061
+    ],
+    "right": [
+      0.1556999999999994,
+      0.11000000000000017,
+      0.2043000000000006,
+      0.16999999999999987
+    ],
+    "iso": [
+      0.20900000000000013,
+      0.15900000000000009,
+      0.2509999999999999,
+      0.2009999999999999
+    ]
+  },
+  "real_outlines_m": {
+    "front": [
+      0.07417499999999998,
+      0.13080000000000003,
+      0.08582500000000003,
+      0.1492
+    ],
+    "top": [
+      0.07417499999999998,
+      0.07174999999999991,
+      0.08582500000000003,
+      0.08825000000000012
+    ],
+    "right": [
+      0.17174999999999987,
+      0.13080000000000003,
+      0.1882500000000001,
+      0.1492
+    ],
+    "iso": [
+      0.22178716901676623,
+      0.16940073792327426,
+      0.23821283098323373,
+      0.19059926207672573
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

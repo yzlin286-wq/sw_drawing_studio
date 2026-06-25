@@ -1,0 +1,25 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 01:49:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/1492e0377567",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_reference_intent_scored_prune_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "visual_findings": [
+        "Reference-intent scoring improved dimension selection and distribution compared with the prior generic AutoDimension layout.",
+        "The angled hole/radius/thread callout stack still overlaps the top view and is not drafter-acceptable.",
+        "The staged CAD worker failed after generation because legacy quality_check hit SolidWorks OpenDoc6 RPC failure, so this case remains need_review/fail and not deliverable."
+      ],
+      "required_next_action": "Move hole/radius/thread callouts into a protected leader lane outside the top-view box and rerun 006 staged CAD plus application UI screenshot review."
+    }
+  ],
+  "acceptance_rule": "Application UI screenshot visual PASS is required before any drawing can be accepted."
+}

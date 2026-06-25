@@ -1,0 +1,331 @@
+{
+  "schema": "sw_drawing_studio.lb26001_acceptance_gate.v4_2",
+  "generated_at": "2026-06-25 02:48:16",
+  "gate_summaries": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\ui_visual_review_gate_summary.json"
+  ],
+  "staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\summary.json",
+  "requested_bases": [
+    "LB26001-A-04-006"
+  ],
+  "primary_base": "LB26001-A-04-006",
+  "dependent_bases": [
+    "LB26001-A-04-007",
+    "LB26001-A-04-008",
+    "LB26001-A-04-009",
+    "LB26001-A-04-015",
+    "LB26001-A-04-022"
+  ],
+  "primary_pass": false,
+  "expansion_requested": false,
+  "status": "need_review",
+  "pass": false,
+  "api_is_not_final_judgement": true,
+  "per_drawing_application_ui_screenshot_required": true,
+  "base_results": [
+    {
+      "base": "LB26001-A-04-006",
+      "entry_present": true,
+      "pass": false,
+      "vision_qc_v6_visual_acceptance_pass": false,
+      "reference_compare_v4_pass": false,
+      "ui_screenshot_file_count": 1,
+      "ui_screenshot_files": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "ui_screenshot_content_check_pass": true,
+      "ui_screenshot_paths_existing_application_ui": [
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      ],
+      "ui_screenshot_content_checks": [
+        {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "pass": true,
+          "exists": true,
+          "width": 2600,
+          "height": 1400,
+          "reasons": [],
+          "checks": {
+            "min_size_pass": true,
+            "aspect_pass": true,
+            "top_chrome_pass": true,
+            "left_nav_pass": true,
+            "bottom_log_pass": true,
+            "side_by_side_review_region_pass": true
+          }
+        }
+      ],
+      "ui_screenshot_review_case_match": false,
+      "ui_screenshot_review_case_match_details": {
+        "required": true,
+        "pass": false,
+        "base": "LB26001-A-04-006",
+        "matching_count": 1,
+        "manual_case_status_pass": false,
+        "visual_checklist_required": true,
+        "visual_checklist_pass": false,
+        "required_visual_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "missing_visual_checklist_items": [],
+        "failed_visual_checklist_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "not_passed_visual_checklist_items": [
+          "dimension_readability",
+          "display_dimensions",
+          "manufacturing_notes",
+          "reference_match",
+          "title_block",
+          "view_layout"
+        ]
+      },
+      "manual_case_status_pass": false,
+      "manual_visual_checklist_required": true,
+      "manual_visual_checklist_pass": false,
+      "manual_visual_checklist_missing_items": [],
+      "manual_visual_checklist_failed_items": [
+        "reference_match",
+        "view_layout",
+        "display_dimensions",
+        "dimension_readability",
+        "title_block",
+        "manufacturing_notes"
+      ],
+      "manual_visual_checklist_not_passed_items": [
+        "dimension_readability",
+        "display_dimensions",
+        "manufacturing_notes",
+        "reference_match",
+        "title_block",
+        "view_layout"
+      ],
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\drawing_visual_review_report.json",
+      "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+      "source_ui_report_mode": "source_qt_application_ui_screenshot",
+      "source_ui_report_application_ui_ok": true,
+      "generated_png_source_required": true,
+      "generated_png_source_pass": true,
+      "generated_png_source_evidence": {
+        "base": "LB26001-A-04-006",
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\dc954b67b67c\\drawing\\LB26001-A-04-006_v5.PNG",
+        "source": "run_dir",
+        "exists": true,
+        "strict_sample": true,
+        "under_run_dir": true,
+        "under_legacy_v5": false,
+        "strict_source_pass": true,
+        "reasons": [],
+        "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+      },
+      "displaydim_lifecycle_required": true,
+      "displaydim_lifecycle_pass": false,
+      "displaydim_lifecycle_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\01_LB26001-A-04-006\\displaydim_lifecycle_audit.json",
+      "displaydim_lifecycle_report_exists": true,
+      "displaydim_lifecycle_report_pass": false,
+      "displaydim_lifecycle_blocking_issue_keys": [
+        "display_dim_lifecycle_count_regression",
+        "target_trace_missing_fields",
+        "display_dim_lifecycle_count_regression",
+        "target_trace_missing_fields"
+      ],
+      "vision_qc_v6_with_ui_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+      "reference_compare_v4_with_ui_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\reference_compare_v4_with_ui_review\\LB26001-A-04-006.json",
+      "gate_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\ui_visual_review_gate_summary.json",
+      "reasons": [
+        "ui_screenshot_visual_acceptance_not_passed",
+        "layout_match_below_threshold",
+        "layout_match_score_below_v4_threshold"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "key": "vision_qc_v6_with_ui_review_not_pass",
+      "severity": "major",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_v6_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+        "vision_qc_v6_status": "need_review",
+        "reasons": [
+          "ui_screenshot_visual_acceptance_not_passed",
+          "layout_match_below_threshold",
+          "layout_match_score_below_v4_threshold"
+        ]
+      },
+      "fix_suggestion": "Fix the drawing and obtain a passing v6 visual QC result backed by application UI screenshot judgement.",
+      "api_is_not_final_judgement": true
+    },
+    {
+      "key": "application_ui_screenshot_review_not_passed",
+      "severity": "critical",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_v6_with_ui_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+        "ui_screenshot_review_pass": false,
+        "ui_screenshot_review_method_ok": true,
+        "ui_screenshot_review_case_match": false,
+        "ui_screenshot_file_count": 1,
+        "ui_screenshot_files": [
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        ]
+      },
+      "fix_suggestion": "Fix the drawing defects found in the application Drawing Review UI screenshot workflow and rerun the visual judgement.",
+      "api_is_not_final_judgement": true
+    },
+    {
+      "key": "manual_visual_case_not_pass",
+      "severity": "critical",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_v6_with_ui_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+        "manual_case_status_pass": false,
+        "ui_screenshot_review_case_match": false,
+        "ui_screenshot_review_case_match_details": {
+          "required": true,
+          "pass": false,
+          "base": "LB26001-A-04-006",
+          "matching_count": 1,
+          "manual_case_status_pass": false,
+          "visual_checklist_required": true,
+          "visual_checklist_pass": false,
+          "required_visual_checklist_items": [
+            "reference_match",
+            "view_layout",
+            "display_dimensions",
+            "dimension_readability",
+            "title_block",
+            "manufacturing_notes"
+          ],
+          "missing_visual_checklist_items": [],
+          "failed_visual_checklist_items": [
+            "reference_match",
+            "view_layout",
+            "display_dimensions",
+            "dimension_readability",
+            "title_block",
+            "manufacturing_notes"
+          ],
+          "not_passed_visual_checklist_items": [
+            "dimension_readability",
+            "display_dimensions",
+            "manufacturing_notes",
+            "reference_match",
+            "title_block",
+            "view_layout"
+          ]
+        }
+      },
+      "fix_suggestion": "Record a PASS manual visual judgement for this exact drawing from the application Drawing Review UI screenshot workflow.",
+      "api_is_not_final_judgement": true
+    },
+    {
+      "key": "manual_visual_checklist_failed",
+      "severity": "critical",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_v6_with_ui_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+        "manual_case_status_pass": false,
+        "manual_visual_checklist_required": true,
+        "manual_visual_checklist_pass": false,
+        "manual_visual_checklist_failed_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ],
+        "manual_visual_checklist_not_passed_items": [
+          "dimension_readability",
+          "display_dimensions",
+          "manufacturing_notes",
+          "reference_match",
+          "title_block",
+          "view_layout"
+        ]
+      },
+      "fix_suggestion": "Fix the drawing defects marked false in the application Drawing Review UI visual checklist before accepting this drawing.",
+      "api_is_not_final_judgement": true
+    },
+    {
+      "key": "displaydim_lifecycle_not_pass",
+      "severity": "critical",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\summary.json",
+        "staged_summary_exists": true,
+        "staged_case_present": true,
+        "displaydim_lifecycle_required": true,
+        "displaydim_lifecycle_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\01_LB26001-A-04-006\\displaydim_lifecycle_audit.json",
+        "displaydim_lifecycle_report_exists": true,
+        "displaydim_lifecycle_status": "fail",
+        "displaydim_lifecycle_case_pass": false,
+        "displaydim_lifecycle_report_pass": false,
+        "displaydim_lifecycle_pass": false,
+        "displaydim_lifecycle_blocking_issue_keys": [
+          "display_dim_lifecycle_count_regression",
+          "target_trace_missing_fields",
+          "display_dim_lifecycle_count_regression",
+          "target_trace_missing_fields"
+        ]
+      },
+      "fix_suggestion": "Fix real SolidWorks DisplayDim persistence and target coverage, then rerun the lifecycle audit until it passes.",
+      "api_is_not_final_judgement": true
+    },
+    {
+      "key": "reference_compare_v4_with_ui_review_not_pass",
+      "severity": "critical",
+      "base": "LB26001-A-04-006",
+      "source": "lb26001_acceptance_gate_v4_2",
+      "confidence": 1.0,
+      "evidence": {
+        "reference_compare_v4_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_024133_visual_review\\closed_loop\\reference_compare_v4_with_ui_review\\LB26001-A-04-006.json",
+        "reference_compare_v4_status": "need_review",
+        "reasons": [
+          "ui_screenshot_visual_acceptance_not_passed",
+          "layout_match_below_threshold",
+          "layout_match_score_below_v4_threshold"
+        ]
+      },
+      "fix_suggestion": "Resolve strict v4 reference comparison blockers before accepting this drawing.",
+      "api_is_not_final_judgement": true
+    }
+  ],
+  "reasons": [
+    "application_ui_screenshot_review_not_passed",
+    "displaydim_lifecycle_not_pass",
+    "manual_visual_case_not_pass",
+    "manual_visual_checklist_failed",
+    "reference_compare_v4_with_ui_review_not_pass",
+    "vision_qc_v6_with_ui_review_not_pass"
+  ],
+  "fix_suggestions": [
+    "Fix the drawing and obtain a passing v6 visual QC result backed by application UI screenshot judgement.",
+    "Fix the drawing defects found in the application Drawing Review UI screenshot workflow and rerun the visual judgement.",
+    "Record a PASS manual visual judgement for this exact drawing from the application Drawing Review UI screenshot workflow.",
+    "Fix the drawing defects marked false in the application Drawing Review UI visual checklist before accepting this drawing.",
+    "Fix real SolidWorks DisplayDim persistence and target coverage, then rerun the lifecycle audit until it passes.",
+    "Resolve strict v4 reference comparison blockers before accepting this drawing."
+  ]
+}

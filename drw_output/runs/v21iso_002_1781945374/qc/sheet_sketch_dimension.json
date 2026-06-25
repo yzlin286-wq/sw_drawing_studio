@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "method": "pywin32_sheet_sketch",
+  "timestamp": "2026-06-20 16:49:52",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-002.SLDDRW",
+  "addin_created_dim_count": 1,
+  "reason": "AddDimension2 成功创建尺寸（对话框自动关闭）",
+  "dim_before": 12,
+  "dialogs_dismissed": 4,
+  "dialog_titles": [
+    "Windows 输入体验",
+    "Windows 输入体验",
+    "修改",
+    "Windows 输入体验"
+  ],
+  "dim_value_set": false,
+  "dim_value_error": "Property '<unknown>.SystemValue' can not be set.",
+  "dim_after": 12,
+  "saved": true
+}

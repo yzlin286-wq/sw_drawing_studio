@@ -1,0 +1,55 @@
+{
+  "schema": "sw_drawing_studio.reference_dim_attempt_plan.v2",
+  "status": "source_probe_pass",
+  "note": "Reference-aware attempts do not force legacy minimum 5 for known low-dimension reference samples.",
+  "samples": {
+    "LB26001-A-04-006": {
+      "reference_display_dim_floor": 12,
+      "effective_dimension_floor": 12,
+      "reference_aware_attempts_from_zero": 14,
+      "legacy_attempts_from_zero": 14,
+      "reference_aware_attempts_from_eight": 6,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-007": {
+      "reference_display_dim_floor": 8,
+      "effective_dimension_floor": 8,
+      "reference_aware_attempts_from_zero": 10,
+      "legacy_attempts_from_zero": 10,
+      "reference_aware_attempts_from_eight": 0,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-008": {
+      "reference_display_dim_floor": 2,
+      "effective_dimension_floor": 2,
+      "reference_aware_attempts_from_zero": 2,
+      "legacy_attempts_from_zero": 5,
+      "reference_aware_attempts_from_eight": 0,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-009": {
+      "reference_display_dim_floor": 4,
+      "effective_dimension_floor": 4,
+      "reference_aware_attempts_from_zero": 4,
+      "legacy_attempts_from_zero": 6,
+      "reference_aware_attempts_from_eight": 0,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-015": {
+      "reference_display_dim_floor": 14,
+      "effective_dimension_floor": 14,
+      "reference_aware_attempts_from_zero": 16,
+      "legacy_attempts_from_zero": 16,
+      "reference_aware_attempts_from_eight": 8,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    },
+    "LB26001-A-04-022": {
+      "reference_display_dim_floor": 25,
+      "effective_dimension_floor": 25,
+      "reference_aware_attempts_from_zero": 27,
+      "legacy_attempts_from_zero": 27,
+      "reference_aware_attempts_from_eight": 19,
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+    }
+  }
+}

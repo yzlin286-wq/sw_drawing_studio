@@ -1,0 +1,105 @@
+{
+  "LB26001-A-04-006": {
+    "view_keys": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "learned_front_m": [
+      0.11,
+      0.16955
+    ],
+    "learned_front_mm": [
+      110.0,
+      169.55
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-007": {
+    "view_keys": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "learned_front_m": [
+      0.094935,
+      0.153854
+    ],
+    "learned_front_mm": [
+      94.935,
+      153.854
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-008": {
+    "view_keys": [
+      "front",
+      "top"
+    ],
+    "learned_front_m": [
+      0.090208,
+      0.148283
+    ],
+    "learned_front_mm": [
+      90.208,
+      148.283
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-009": {
+    "view_keys": [
+      "front",
+      "top",
+      "right"
+    ],
+    "learned_front_m": [
+      0.104362,
+      0.143196
+    ],
+    "learned_front_mm": [
+      104.362,
+      143.196
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-015": {
+    "view_keys": [
+      "front",
+      "top"
+    ],
+    "learned_front_m": [
+      0.104977,
+      0.155809
+    ],
+    "learned_front_mm": [
+      104.977,
+      155.809
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  },
+  "LB26001-A-04-022": {
+    "view_keys": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "learned_front_m": [
+      0.11,
+      0.1448
+    ],
+    "learned_front_mm": [
+      110.0,
+      144.8
+    ],
+    "uses_old_default_80_140": false,
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_reference_style_profile.json"
+  }
+}

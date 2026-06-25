@@ -1,0 +1,14 @@
+{
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "PASS",
+  "visual_acceptance_pass": true,
+  "source_ui_report": "drw_output\\_apply_ui_visual_review_debug\\ui\\drawing_visual_review_report.json",
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "PASS",
+      "visual_acceptance_pass": true,
+      "ui_screenshot": "drw_output\\_apply_ui_visual_review_debug\\ui\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    }
+  ]
+}

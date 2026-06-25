@@ -1,0 +1,41 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 01:34:00",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/093ab290e2c9",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_reference_intent_quota4_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass",
+        "reference_style": "pass",
+        "reference_compare_v4": "need_review",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The generated drawing now keeps the same-name reference structural style gates green and includes right projected-view dimensions.",
+        "The drawing is still not reference-intent-led: dimensions remain AutoDimension-like baseline groups rather than the reference drawing's concise end, hole-position, and inspection-oriented blue dimension placement.",
+        "The generated front/top/right dimension groups are visually heavier and located differently from the reference, so a drafter would still need manual cleanup before manufacturing release.",
+        "Titlebar and notes are present, but API/style pass is supporting evidence only; the application UI screenshot remains the final visual gate."
+      ],
+      "improvement_evidence": {
+        "previous_run": "drw_output/runs/133b5cfc1a5d",
+        "current_run": "drw_output/runs/093ab290e2c9",
+        "reference_style_status": "pass",
+        "reference_display_dim_floor": 12,
+        "right_projected_view_dimensions_attempted": true
+      },
+      "required_next_action": "Replace generic AutoDimension-generated baseline groups with explicit SolidWorks dimension creation for long_thin reference intents: overall envelope, end offsets, hole center positions, projected-view size, and inspection reference dimensions."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

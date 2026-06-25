@@ -1,0 +1,293 @@
+{
+  "schema": "sw_drawing_studio.reference_compare.v4",
+  "version": "v4.0",
+  "generated_at": "2026-06-24 15:06:08",
+  "base": "LB26001-A-04-006",
+  "mode": "reference_compare_v4",
+  "thresholds": {
+    "view_match": 0.9,
+    "dimension_match": 0.8,
+    "titlebar_match": 0.85,
+    "notes_match": 0.85,
+    "layout_match": 0.8
+  },
+  "artifacts": {
+    "drawing_blueprint": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9558b08c8f63\\qc\\drawing_blueprint.json",
+    "reference_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\reference_profiles_v4.json",
+    "dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_explicit_displaydim_visible_entities_20260623\\01_LB26001-A-04-006\\dimension_validation.json",
+    "vision_qc_v6": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\closed_loop_manual_screenshot_bind_20260624\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+    "generator_warnings": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9558b08c8f63\\qc\\LB26001-A-04-006_v5_warnings.json",
+    "legacy_reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_explicit_displaydim_visible_entities_20260623\\01_LB26001-A-04-006\\reference_compare.json",
+    "legacy_reference_style": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_explicit_displaydim_visible_entities_20260623\\01_LB26001-A-04-006\\reference_style.json"
+  },
+  "status": "fail",
+  "pass": false,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "scores": {
+    "view_match": 1.0,
+    "dimension_match": 0.917,
+    "titlebar_match": 1.0,
+    "notes_match": 1.0,
+    "layout_match": 1.0,
+    "symbol_match": 1.0,
+    "drawing_purpose_match": 1.0,
+    "overall_score": 0.98
+  },
+  "view_match_score": 1.0,
+  "dimension_match_score": 0.917,
+  "titlebar_match_score": 1.0,
+  "notes_match_score": 1.0,
+  "layout_match_score": 1.0,
+  "symbol_match_score": 1.0,
+  "drawing_purpose_match_score": 1.0,
+  "overall_score": 0.98,
+  "reference": {
+    "base": "LB26001-A-04-006",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 12,
+    "sheet_size": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "scale": "reference",
+    "roughness_symbol_count": 0,
+    "datum_symbol_count": 0,
+    "notes_count": 0
+  },
+  "generated": {
+    "base": "LB26001-A-04-006",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 11,
+    "display_dim_count_source": "dimension_validation.dimension_validation.display_dim_count",
+    "note_dim_count": 0,
+    "reference_intent_target_coverage": {
+      "required": true,
+      "expected_target_count": 12,
+      "expected_target_keys": [
+        "overall_length",
+        "overall_width",
+        "overall_height",
+        "left_end_offset",
+        "right_end_offset",
+        "hole_diameter",
+        "hole_x_location",
+        "hole_y_location",
+        "hole_pitch",
+        "projection_view_width",
+        "projection_view_height",
+        "small_feature_location"
+      ],
+      "coverage_present": false,
+      "final_stage_required": true,
+      "final_stage_present": false,
+      "snapshot_count": 0,
+      "latest_stage": "",
+      "latest_display_dim_count": 0,
+      "covered_count": 0,
+      "covered_target_keys": [],
+      "missing_target_keys": [
+        "hole_diameter",
+        "hole_pitch",
+        "hole_x_location",
+        "hole_y_location",
+        "left_end_offset",
+        "overall_height",
+        "overall_length",
+        "overall_width",
+        "projection_view_height",
+        "projection_view_width",
+        "right_end_offset",
+        "small_feature_location"
+      ],
+      "lost_target_keys": [],
+      "stage_delta": {},
+      "persisted_after_reopen": false,
+      "latest_snapshot": {}
+    },
+    "drawing_purpose": "manufacturing",
+    "part_class": "long_thin",
+    "projected_view_methods": [
+      {
+        "slot": "top",
+        "sw_view_type": "4",
+        "create_method": "projection_api",
+        "projected_from": "front"
+      },
+      {
+        "slot": "right",
+        "sw_view_type": "4",
+        "create_method": "projection_api",
+        "projected_from": "front"
+      }
+    ]
+  },
+  "differences": [
+    {
+      "key": "display_dim_lower_than_reference",
+      "severity": "critical",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.dimension",
+      "confidence": 1.0,
+      "evidence": {
+        "reference_display_dim_count": 12,
+        "required_display_dim_count": 12,
+        "generated_display_dim_count": 11,
+        "generated_display_dim_count_source": "dimension_validation.dimension_validation.display_dim_count"
+      },
+      "fix_suggestion": "Generate real SolidWorks DisplayDim objects until the drawing reaches the reference baseline.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "reference_intent_target_coverage_missing",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.dimension_targets",
+      "confidence": 1.0,
+      "evidence": {
+        "expected_target_count": 12,
+        "expected_target_keys": [
+          "overall_length",
+          "overall_width",
+          "overall_height",
+          "left_end_offset",
+          "right_end_offset",
+          "hole_diameter",
+          "hole_x_location",
+          "hole_y_location",
+          "hole_pitch",
+          "projection_view_width",
+          "projection_view_height",
+          "small_feature_location"
+        ]
+      },
+      "fix_suggestion": "Run the v4.2 generator with reference_intent_target_coverage snapshots before accepting this drawing.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "ui_screenshot_visual_acceptance_not_passed",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "application_ui_screenshot_review",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_status": "need_review",
+        "visual_acceptance_pass": false,
+        "ui_screenshot_review": {
+          "required": true,
+          "pass": false,
+          "manual_review_status": "fail",
+          "manual_review_error": "",
+          "manual_review_method": "application_drawing_review_ui_screenshot",
+          "manual_review_method_ok": true,
+          "ui_screenshot_evidence_present": true,
+          "ui_screenshot_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+          ],
+          "ui_screenshot_paths_existing": [
+            "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+          ],
+          "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623\\drawing_visual_review_report.json",
+          "source_ui_report_exists": true,
+          "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+          "source_ui_report_mode": "source_qt_application_ui_screenshot",
+          "source_ui_report_application_ui_ok": true,
+          "case_match": {
+            "required": true,
+            "pass": false,
+            "base": "LB26001-A-04-006",
+            "matching_count": 1,
+            "manual_case_status_pass": false,
+            "visual_checklist_required": true,
+            "visual_checklist_pass": false,
+            "required_visual_checklist_items": [
+              "reference_match",
+              "view_layout",
+              "display_dimensions",
+              "dimension_readability",
+              "title_block",
+              "manufacturing_notes"
+            ],
+            "missing_visual_checklist_items": [],
+            "failed_visual_checklist_items": [
+              "reference_match",
+              "view_layout",
+              "display_dimensions",
+              "dimension_readability",
+              "title_block",
+              "manufacturing_notes"
+            ],
+            "not_passed_visual_checklist_items": [
+              "dimension_readability",
+              "display_dimensions",
+              "manufacturing_notes",
+              "reference_match",
+              "title_block",
+              "view_layout"
+            ]
+          },
+          "generated_png_source_required": true,
+          "generated_png_source_pass": true,
+          "generated_png_source_evidence": {
+            "base": "LB26001-A-04-006",
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\9558b08c8f63\\drawing\\LB26001-A-04-006_v5.PNG",
+            "source": "drawing_visual_review_report_path_inference",
+            "exists": true,
+            "strict_sample": true,
+            "under_run_dir": true,
+            "under_legacy_v5": false,
+            "strict_source_pass": true,
+            "reasons": [],
+            "acceptance_rule": "For LB26001-A-04-006/007/008/009/015/022, Drawing Review UI evidence must use the generated PNG from the current run_dir; stale drw_output/v5 images are diagnostic only."
+          },
+          "source": "application_ui_screenshot_review",
+          "api_is_not_final_judgement": true
+        },
+        "api_is_not_final_judgement": true
+      },
+      "fix_suggestion": "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    }
+  ],
+  "reasons": [
+    "display_dim_lower_than_reference",
+    "reference_intent_target_coverage_missing",
+    "ui_screenshot_visual_acceptance_not_passed"
+  ],
+  "failure_bucket": [
+    "display_dim_lower_than_reference",
+    "reference_intent_target_coverage_missing",
+    "ui_screenshot_visual_acceptance_not_passed"
+  ],
+  "fix_suggestions": [
+    "Generate real SolidWorks DisplayDim objects until the drawing reaches the reference baseline.",
+    "Run the v4.2 generator with reference_intent_target_coverage snapshots before accepting this drawing.",
+    "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance."
+  ]
+}

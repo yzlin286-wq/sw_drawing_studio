@@ -1,0 +1,19 @@
+{
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-035.SLDPRT",
+  "part_name": "LB26001-A-04-035.SLDPRT",
+  "part_class": "tiny_part",
+  "reason": "tiny_part length=19.5mm",
+  "bbox_mm": [
+    19.500000000000004,
+    31.067913032529752,
+    8.0
+  ],
+  "is_standard": false,
+  "std_no": "",
+  "std_spec": "",
+  "long_thin_ratio": 0.63,
+  "is_tiny": true,
+  "is_sheet_like": false,
+  "has_features": null,
+  "history_dim_total": 4
+}

@@ -1,0 +1,17 @@
+{
+  "success": false,
+  "method": "pywin32_sheet_sketch",
+  "timestamp": "2026-06-22 12:19:22",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\_dim_probe\\LB26001-A-04-006_v5_sheetdim_probe.SLDDRW",
+  "addin_created_dim_count": 0,
+  "reason": "AddDimension2 失败: (-2147023170, '远程过程调用失败。', None, None)",
+  "dim_before": 0,
+  "dialogs_dismissed": 51,
+  "dialog_titles": [
+    "修改"
+  ],
+  "dim_after": 0,
+  "save_error": "<unknown>.Save",
+  "save_error_2": "<unknown>.Save3",
+  "saved": false
+}

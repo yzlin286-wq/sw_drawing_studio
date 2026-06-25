@@ -1,0 +1,27 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\SwDrawingStudioAddin.AddinAPI]
+@="SwDrawingStudioAddin.AddinAPI"
+
+[HKEY_CLASSES_ROOT\SwDrawingStudioAddin.AddinAPI\CLSID]
+@="{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}"
+
+[HKEY_CLASSES_ROOT\CLSID\{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}]
+@="SwDrawingStudioAddin.AddinAPI"
+
+[HKEY_CLASSES_ROOT\CLSID\{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}\InprocServer32]
+@="mscoree.dll"
+"ThreadingModel"="Both"
+"Class"="SwDrawingStudioAddin.AddinAPI"
+"Assembly"="SwDrawingStudioAddin, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+"RuntimeVersion"="v4.0.30319"
+
+[HKEY_CLASSES_ROOT\CLSID\{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}\InprocServer32\0.0.0.0]
+"Class"="SwDrawingStudioAddin.AddinAPI"
+"Assembly"="SwDrawingStudioAddin, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+"RuntimeVersion"="v4.0.30319"
+
+[HKEY_CLASSES_ROOT\CLSID\{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}\ProgId]
+@="SwDrawingStudioAddin.AddinAPI"
+
+[HKEY_CLASSES_ROOT\CLSID\{B8F3E2A1-7C4D-4E5F-9A6B-1D2E3F4A5B6C}\Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}]

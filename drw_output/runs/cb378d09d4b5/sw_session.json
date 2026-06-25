@@ -1,0 +1,13 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 05:18:08",
+  "source": "cad_job_worker",
+  "status": "connected",
+  "connection_method": "get_active_object",
+  "sw_pid": 27624,
+  "sw_revision": "33.5.0",
+  "visible": true,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": ""
+}

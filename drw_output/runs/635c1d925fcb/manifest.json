@@ -1,0 +1,56 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "part_base": "LB26001-A-04-006",
+  "run_id": "635c1d925fcb",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\635c1d925fcb",
+  "generated_at": "2026-06-22 21:39:17",
+  "returncode": 1,
+  "line_count": 35,
+  "core_files_ok": false,
+  "drawing_usable": {
+    "pass": false,
+    "reason": "subprocess_exit_code_1"
+  },
+  "hard_fail": [
+    "cad_subprocess_failed",
+    "subprocess_failed"
+  ],
+  "warnings": [],
+  "qc_pass": false,
+  "qc_score_pass_count": 0,
+  "dimension_grade": "",
+  "dimension_sources": {},
+  "display_dim_count": 0,
+  "note_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {},
+  "final_quality": {},
+  "vision_final_quality_error": "skipped_on_worker_failure",
+  "output_files": {
+    "drawing": [],
+    "qc": [],
+    "logs": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\635c1d925fcb\\manifest.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\635c1d925fcb\\sw_session.json"
+    ]
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\635c1d925fcb\\sw_session.json",
+  "failure_reason": "subprocess_exit_code_1",
+  "failure_bucket": "cad_subprocess_failed",
+  "fix_suggestion": "查看 job_event_log.jsonl 中的子进程尾部日志，修复 CAD/QC 子流程失败原因后重试。",
+  "recoverable": true,
+  "failure_evidence": [
+    "[DONE] {\"slddrw\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.SLDDRW\", \"pdf\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.PDF\", \"dxf\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.DXF\", \"png\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5.PNG\", \"warnings\": \"C:\\\\Users\\\\Vision\\\\Desktop\\\\SW 相关\\\\drw_output\\\\v5\\\\LB26001-A-04-006_v5_warnings.json\", \"scale\": \"1:5\", \"section\": false, \"section_helper_called\": false, \"centers\": {\"front\": [0.11, 0.16955], \"top\": [0.11, 0.1249], \"right\": [0.2156, 0.16955], \"iso\": [0.238346, 0.100382]}, \"real_overlap_pairs\": [], \"bbox_m\": [0.23, 0.013000000000000001, 0.012]}",
+    "[loop] 等待 1.5s 让 SolidWorks 完成异步刷盘...",
+    "[loop] qc_log.md 已写: C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md",
+    "========== 汇总 ==========",
+    "final_pass = False",
+    "final_path = ",
+    "  round 1: pass=False pass_count=0/12 issues=['__file_missing__']",
+    "qc_log.md = C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md"
+  ]
+}

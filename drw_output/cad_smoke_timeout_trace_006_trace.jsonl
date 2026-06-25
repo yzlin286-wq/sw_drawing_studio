@@ -1,0 +1,11 @@
+{"ts": "2026-06-22T08:37:49", "epoch": 1782088669.217499, "stage": "parent_start", "guard_timeout_s": 7, "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_trace_006.json"}
+{"ts": "2026-06-22T08:37:49", "epoch": 1782088669.2315373, "stage": "parent_child_started", "child_pid": 20284}
+{"ts": "2026-06-22T08:37:49", "epoch": 1782088669.4547367, "stage": "child_started", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_trace_006.json"}
+{"ts": "2026-06-22T08:37:49", "epoch": 1782088669.4613125, "stage": "child_run_smoke_call"}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.059385, "stage": "run_smoke_enter", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "timeout_s": 1, "max_rounds": 1}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.0988247, "stage": "qcore_ready"}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.0988247, "stage": "facade_construct_start"}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.1058652, "stage": "facade_construct_done"}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.1071427, "stage": "signals_connected"}
+{"ts": "2026-06-22T08:37:50", "epoch": 1782088670.1071427, "stage": "start_cad_job_call_start"}
+{"ts": "2026-06-22T08:37:56", "epoch": 1782088676.2352338, "stage": "parent_guard_timeout", "child_pid": 20284}

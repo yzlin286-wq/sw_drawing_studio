@@ -1,0 +1,80 @@
+{
+  "batch_id": "7e350189d73d",
+  "started_at": "2026-06-18 19:15:54",
+  "finished_at": "2026-06-18 19:20:50",
+  "total": 3,
+  "success": 0,
+  "warning": 0,
+  "failed": 3,
+  "items": [
+    {
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "run_id": "aba4fc553c07",
+      "vision_score": 25,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-26-1-V3-V02.SLDPRT",
+      "run_id": "1da10564aca8",
+      "vision_score": 35,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    },
+    {
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "sldprt_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "run_id": "ca76ba469e2b",
+      "vision_score": 25,
+      "reference_diff": null,
+      "hard_fail": [
+        "png_missing",
+        "dim_total_too_low",
+        "qc_pass_too_low"
+      ],
+      "warnings": [
+        "refdoc_correct",
+        "has_datum_a",
+        "has_ra_note",
+        "gb_titlebar_complete",
+        "gb_has_section_view_or_skipped"
+      ],
+      "drawing_usable": false,
+      "qc_pass_count": 9,
+      "status": "failed",
+      "error": ""
+    }
+  ]
+}

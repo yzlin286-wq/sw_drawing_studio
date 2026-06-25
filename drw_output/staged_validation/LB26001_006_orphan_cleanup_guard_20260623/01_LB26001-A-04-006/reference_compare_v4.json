@@ -1,0 +1,258 @@
+{
+  "schema": "sw_drawing_studio.reference_compare.v4",
+  "version": "v4.0",
+  "generated_at": "2026-06-23 15:30:47",
+  "base": "LB26001-A-04-006",
+  "mode": "reference_compare_v4",
+  "thresholds": {
+    "view_match": 0.9,
+    "dimension_match": 0.8,
+    "titlebar_match": 0.85,
+    "notes_match": 0.85,
+    "layout_match": 0.8
+  },
+  "artifacts": {
+    "drawing_blueprint": "missing",
+    "reference_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\reference_profiles_v4.json",
+    "dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_orphan_cleanup_guard_20260623\\01_LB26001-A-04-006\\dimension_validation.json",
+    "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_orphan_cleanup_guard_20260623\\01_LB26001-A-04-006\\vision_qc_v6.json",
+    "legacy_reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_orphan_cleanup_guard_20260623\\01_LB26001-A-04-006\\reference_compare.json",
+    "legacy_reference_style": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_orphan_cleanup_guard_20260623\\01_LB26001-A-04-006\\reference_style.json"
+  },
+  "status": "fail",
+  "pass": false,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "scores": {
+    "view_match": 0.0,
+    "dimension_match": 0.0,
+    "titlebar_match": 1.0,
+    "notes_match": 1.0,
+    "layout_match": 1.0,
+    "symbol_match": 1.0,
+    "drawing_purpose_match": 0.0,
+    "overall_score": 0.5
+  },
+  "view_match_score": 0.0,
+  "dimension_match_score": 0.0,
+  "titlebar_match_score": 1.0,
+  "notes_match_score": 1.0,
+  "layout_match_score": 1.0,
+  "symbol_match_score": 1.0,
+  "drawing_purpose_match_score": 0.0,
+  "overall_score": 0.5,
+  "reference": {
+    "base": "LB26001-A-04-006",
+    "view_count": 4,
+    "view_types": {
+      "7": 2,
+      "4": 2
+    },
+    "display_dim_count": 12,
+    "sheet_size": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "scale": "reference",
+    "roughness_symbol_count": 0,
+    "datum_symbol_count": 0,
+    "notes_count": 0
+  },
+  "generated": {
+    "base": "LB26001-A-04-006",
+    "view_count": 0,
+    "view_types": {},
+    "display_dim_count": 0,
+    "display_dim_count_source": "missing",
+    "note_dim_count": 0,
+    "drawing_purpose": "",
+    "part_class": "",
+    "projected_view_methods": []
+  },
+  "differences": [
+    {
+      "key": "drawing_blueprint_missing",
+      "severity": "critical",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4",
+      "confidence": 1.0,
+      "evidence": {
+        "source": "missing"
+      },
+      "fix_suggestion": "Generate drawing_blueprint.json before accepting the drawing.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_count_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_count",
+      "confidence": 1.0,
+      "evidence": {
+        "reference": 4,
+        "generated": 0
+      },
+      "fix_suggestion": "Create every required view from DrawingBlueprint.view_plan before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_type_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_types",
+      "confidence": 1.0,
+      "evidence": {
+        "view_type": "7",
+        "reference": 2,
+        "generated": 0
+      },
+      "fix_suggestion": "Match the reference drawing view type family before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_type_lower_than_reference",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.view_types",
+      "confidence": 1.0,
+      "evidence": {
+        "view_type": "4",
+        "reference": 2,
+        "generated": 0
+      },
+      "fix_suggestion": "Match the reference drawing view type family before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "display_dim_lower_than_reference",
+      "severity": "critical",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.dimension",
+      "confidence": 1.0,
+      "evidence": {
+        "reference_display_dim_count": 12,
+        "required_display_dim_count": 12,
+        "generated_display_dim_count": 0,
+        "generated_display_dim_count_source": "missing"
+      },
+      "fix_suggestion": "Generate real SolidWorks DisplayDim objects until the drawing reaches the reference baseline.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "ui_screenshot_visual_acceptance_not_passed",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "application_ui_screenshot_review",
+      "confidence": 1.0,
+      "evidence": {
+        "vision_qc_status": "need_review",
+        "visual_acceptance_pass": false,
+        "ui_screenshot_review": {},
+        "api_is_not_final_judgement": true
+      },
+      "fix_suggestion": "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "view_match_score_below_v4_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.score",
+      "confidence": 1.0,
+      "evidence": {
+        "score": 0.0,
+        "threshold": 0.9
+      },
+      "fix_suggestion": "Correct the drawing against the same-name reference before accepting the staged case.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    },
+    {
+      "key": "dimension_match_score_below_v4_threshold",
+      "severity": "major",
+      "bbox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source": "reference_compare_v4.score",
+      "confidence": 1.0,
+      "evidence": {
+        "score": 0.0,
+        "threshold": 0.8
+      },
+      "fix_suggestion": "Correct the drawing against the same-name reference before accepting the staged case.",
+      "auto_fix_available": false,
+      "human_review_status": "pending"
+    }
+  ],
+  "reasons": [
+    "drawing_blueprint_missing",
+    "view_count_lower_than_reference",
+    "view_type_lower_than_reference",
+    "view_type_lower_than_reference",
+    "display_dim_lower_than_reference",
+    "ui_screenshot_visual_acceptance_not_passed",
+    "view_match_score_below_v4_threshold",
+    "dimension_match_score_below_v4_threshold"
+  ],
+  "failure_bucket": [
+    "dimension_match_score_below_v4_threshold",
+    "display_dim_lower_than_reference",
+    "drawing_blueprint_missing",
+    "ui_screenshot_visual_acceptance_not_passed",
+    "view_count_lower_than_reference",
+    "view_match_score_below_v4_threshold",
+    "view_type_lower_than_reference"
+  ],
+  "fix_suggestions": [
+    "Generate drawing_blueprint.json before accepting the drawing.",
+    "Create every required view from DrawingBlueprint.view_plan before acceptance.",
+    "Match the reference drawing view type family before acceptance.",
+    "Generate real SolidWorks DisplayDim objects until the drawing reaches the reference baseline.",
+    "Use the application Drawing Review UI to screenshot and judge this drawing against the reference before acceptance.",
+    "Correct the drawing against the same-name reference before accepting the staged case."
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "section_helper_failed",
+      "msg": "create_section_in_active_drawing 返回 False"
+    },
+    {
+      "code": "section_vba_fail",
+      "msg": "(-2147352571, '类型不匹配。', None, 5)"
+    },
+    {
+      "code": "part_class",
+      "msg": "spring: filename match: 弹簧"
+    },
+    {
+      "code": "dim_via_sidecar",
+      "msg": "ok",
+      "annotations_added": 5,
+      "standard_annotation_present": true,
+      "fallback_mode": "python_invoke_member"
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [
+    "__subprocess_timeout__"
+  ],
+  "scale": "5:1",
+  "bbox_m": [
+    0.007146085192610289,
+    0.030840526534821843,
+    0.007305271576892747
+  ],
+  "centers_m": {
+    "front": [
+      0.08,
+      0.14
+    ],
+    "top": [
+      0.08,
+      0.08
+    ],
+    "right": [
+      0.18,
+      0.14
+    ],
+    "iso": [
+      0.23,
+      0.18
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.07285391480738972,
+      0.10915947346517817,
+      0.08714608519261029,
+      0.17084052653482185
+    ],
+    "top": [
+      0.07285391480738972,
+      0.07269472842310726,
+      0.08714608519261029,
+      0.08730527157689275
+    ],
+    "right": [
+      0.17269472842310724,
+      0.10915947346517817,
+      0.18730527157689275,
+      0.17084052653482185
+    ],
+    "iso": [
+      0.20841163142562472,
+      0.1584116314256247,
+      0.2515883685743753,
+      0.2015883685743753
+    ]
+  },
+  "real_outlines_m": {
+    "工程图视图1": [
+      0.06865391480738972,
+      0.10495947346517817,
+      0.09134608519261028,
+      0.17504052653482186
+    ],
+    "工程图视图2": [
+      0.06865391480738972,
+      0.06849472842310726,
+      0.09134608519261028,
+      0.09150527157689274
+    ],
+    "工程图视图3": [
+      0.16849472842310723,
+      0.10495947346517817,
+      0.19150527157689276,
+      0.17504052653482186
+    ],
+    "工程图视图4": [
+      0.21558134763093828,
+      0.12743669795507884,
+      0.24441865236906174,
+      0.198
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": true,
+  "section_view": false,
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

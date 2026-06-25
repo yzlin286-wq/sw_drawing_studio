@@ -1,0 +1,31 @@
+{
+  "schema": "sw_drawing_studio.drawing_blueprint.v4",
+  "base": "LB26001-A-04-006",
+  "part_class": "machined_part",
+  "drawing_purpose": "manufacturing",
+  "view_plan": [
+    {
+      "slot": "front",
+      "view_type": "named",
+      "required": true,
+      "sw_view_type": "7",
+      "create_method": "named_view"
+    }
+  ],
+  "dimension_plan": {
+    "required_display_dim_count": 1,
+    "reference_display_dim_count": 1,
+    "allow_note_substitution": false
+  },
+  "annotation_plan": {},
+  "titlebar_plan": {
+    "required_fields": [
+      "drawing_no"
+    ],
+    "missing_fields": []
+  },
+  "notes_plan": {},
+  "validation_plan": {
+    "require_ui_visual_review": true
+  }
+}

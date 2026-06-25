@@ -1,0 +1,63 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v4_2",
+  "generated_at": "2026-06-25 01:17:35",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "review_mode": "application_drawing_review_ui_screenshot",
+  "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\drawing_visual_review_report.json",
+  "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\drawing_visual_review_report.json",
+  "required_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "reviewer": "Codex application UI screenshot visual review",
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "manual_status": "FAIL",
+      "visual_acceptance_pass": false,
+      "ui_screenshot": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\e775b762205c\\drawing\\LB26001-A-04-006_v5.PNG",
+      "comparison_png": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\drawing_visual_review_report.json",
+      "drawing_visual_review_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_010838_visual_review\\drawing_visual_review_report.json",
+      "review_mode": "application_drawing_review_ui_screenshot",
+      "application_ui_screenshot_review_required": true,
+      "ui_screenshot_is_final_gate": true,
+      "api_only_acceptance_allowed": false,
+      "api_is_not_final_judgement": true,
+      "visual_checklist": {
+        "reference_match": false,
+        "view_layout": false,
+        "display_dimensions": false,
+        "dimension_readability": false,
+        "title_block": false,
+        "manufacturing_notes": false
+      },
+      "visual_checklist_notes": {
+        "reference_match": "Generated drawing remains visibly different from the same-name reference in composition, annotation style, and sheet treatment.",
+        "view_layout": "Generated front/top/right/isometric view placement still does not follow the reference layout; the main views are arranged and scaled differently.",
+        "display_dimensions": "Required reference-intent targets are still not preserved; staged lifecycle evidence reports missing post-layout targets and final DisplayDim below the reference floor.",
+        "dimension_readability": "Generated dimensions remain clustered and small around the main and projected views, with manufacturing callouts hard to read at UI review scale.",
+        "title_block": "Generated lower-right title/table treatment remains different from the compact reference style.",
+        "manufacturing_notes": "Reference-style blue technical annotations and manufacturing notes are missing or not reproduced with matching placement and completeness."
+      },
+      "findings": [
+        "The Drawing Review application UI screenshot was captured from the fresh run_dir PNG for run e775b762205c.",
+        "The materialization fallback improved live view probing, but the generated drawing still fails the visible reference comparison.",
+        "Structured evidence still reports post-layout live view recovery failure for front/right/top and missing targets right_end_offset, hole_diameter, hole_pitch, and projection_view_height.",
+        "API/reference scores are supporting evidence only and do not override this visual checklist failure."
+      ],
+      "required_correction": "Revise 006 generation so slot rebinding uses the materialized live DrawingView objects, all 12 reference-intent DisplayDim targets persist through dimension_validation_final, and the visible layout/title block/notes match the same-name reference before any dependent drawing is attempted.",
+      "reviewed_at": "2026-06-25 01:17:35"
+    }
+  ]
+}

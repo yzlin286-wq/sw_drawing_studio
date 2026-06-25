@@ -1,0 +1,478 @@
+{
+  "run_id": "sheetdim_probe",
+  "timestamp": "2026-06-22 12:19:31",
+  "sw_pid": 22164,
+  "summary": {
+    "total_actions": 51,
+    "dialogs_dismissed": 51,
+    "dialogs_skipped": 0,
+    "errors": 0,
+    "dismissed_titles": [
+      "修改"
+    ],
+    "skipped_titles": [],
+    "sw_pid": 22164,
+    "run_id": "sheetdim_probe"
+  },
+  "actions": [
+    {
+      "timestamp": "2026-06-22 12:19:23.587",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:23.738",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:23.889",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.040",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.192",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.343",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.494",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.646",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.797",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:24.949",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.100",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.251",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.403",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.555",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.706",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:25.857",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.009",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.161",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.312",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.463",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.614",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.766",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:26.917",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.069",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.221",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.371",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.522",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.673",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.825",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:27.976",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.127",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.279",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.430",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.581",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.732",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:28.884",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.035",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.187",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.338",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.490",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.641",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.792",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:29.944",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.095",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.246",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.398",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.549",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.701",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:30.853",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:31.004",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    },
+    {
+      "timestamp": "2026-06-22 12:19:31.155",
+      "hwnd": 26484090,
+      "title": "修改",
+      "window_class": "#32770",
+      "pid": 22164,
+      "action": "dismissed",
+      "reason": "PostMessage VK_RETURN"
+    }
+  ]
+}

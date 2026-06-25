@@ -1,0 +1,71 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_recheck.v1",
+  "created_at": "2026-06-22",
+  "method": "Application UI screenshot side-by-side visual review. API and sidecar metrics are supporting evidence only.",
+  "overall_status": "FAIL",
+  "pass_count": 0,
+  "fail_count": 6,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "visual_findings": [
+        "Generated view family and dimension density do not match the same-name reference.",
+        "Dense generated dimension cluster/callout placement reduces readability.",
+        "Notes and roughness area do not match the reference drawing layout."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/01_LB26001-A-04-007_ui_visual_review.png",
+      "visual_findings": [
+        "Generated circular view and side/profile placement differ from the compact reference layout.",
+        "Callouts crowd around the circular feature instead of following the reference pattern.",
+        "Generated drawing includes a different composition and cannot be accepted from API pass evidence alone."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/02_LB26001-A-04-008_ui_visual_review.png",
+      "visual_findings": [
+        "Generated view scale and placement differ from the two-view reference.",
+        "The prominent red reference warning note is missing in the generated drawing.",
+        "Generated notes and dimension evidence remain visually incomplete."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/03_LB26001-A-04-009_ui_visual_review.png",
+      "visual_findings": [
+        "Generated drawing is already structurally need_review/fail for dimension coverage.",
+        "Circular-part dimensions and side-view placement differ from the reference.",
+        "Generated layout is sparse in some zones and crowded near the main circular view."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/04_LB26001-A-04-015_ui_visual_review.png",
+      "visual_findings": [
+        "Generated drawing loses the dense machined-plate dimensioning pattern visible in the reference.",
+        "Main view scale and placement do not match the reference.",
+        "Hole/callout grouping is incomplete compared with the reference drawing."
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "verdict": "FAIL",
+      "screenshot": "drw_output/ui_acceptance/LB26001_ref5_fresh_png_visual_review_bases_20260622/screenshots/05_LB26001-A-04-022_ui_visual_review.png",
+      "visual_findings": [
+        "Generated dimension chains dominate and cross the sheet instead of matching the reference layout.",
+        "View slots and annotation grouping differ from the same-name reference.",
+        "The generated drawing is not visually acceptable despite supporting API metrics."
+      ]
+    }
+  ],
+  "acceptance_rule": "Do not accept any of the six drawings until fresh generated PNGs pass explicit-base application UI screenshot review, one screenshot and one judgement per drawing."
+}

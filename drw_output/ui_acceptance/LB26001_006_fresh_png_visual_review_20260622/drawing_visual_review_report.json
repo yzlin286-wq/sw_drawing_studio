@@ -1,0 +1,59 @@
+{
+  "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+  "generated_at": "2026-06-22 21:53:17",
+  "mode": "source_qt_application_ui_screenshot",
+  "summary": "drw_output\\staged_validation\\LB26001_006_fresh_png_probe_20260622\\summary.json",
+  "out_dir": "drw_output\\ui_acceptance\\LB26001_006_fresh_png_visual_review_20260622",
+  "total": 1,
+  "screenshot_pass": true,
+  "image_inputs_loaded": true,
+  "evidence_capture_pass": true,
+  "visual_acceptance_status": "pending_manual_visual_judgement",
+  "visual_acceptance_pass": false,
+  "pass": false,
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\97691dfbacc7",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\97691dfbacc7\\drawing\\LB26001-A-04-006_v5.PNG",
+      "comparison_png": {
+        "path": "drw_output\\ui_acceptance\\LB26001_006_fresh_png_visual_review_20260622\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+        "saved": true,
+        "width": 1800,
+        "height": 1200,
+        "reference_loaded": true,
+        "generated_loaded": true
+      },
+      "ui_screenshot": {
+        "path": "drw_output\\ui_acceptance\\LB26001_006_fresh_png_visual_review_20260622\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+        "saved": true,
+        "size_bytes": 10938925,
+        "width": 2600,
+        "height": 1400,
+        "sample_unique_colors": 16,
+        "avg_luma": 245.25,
+        "min_bytes": 90000,
+        "pass": true
+      },
+      "supporting_status": {
+        "cad_status": "pass_with_warning",
+        "dimension_status": "pass_with_warning",
+        "reference_status": "pass",
+        "reference_style_status": "pass",
+        "dimension_reasons": [],
+        "reference_reasons": [],
+        "reference_style_reasons": []
+      },
+      "visual_verdict": "pending_manual_visual_judgement",
+      "notes": [
+        "Screenshot captured from the application Drawing Review page.",
+        "Do not treat API pass/fail as the final drawing correctness decision."
+      ]
+    }
+  ],
+  "remaining_gates": [
+    "Manual visual judgement still must mark each drawing PASS/WARNING/FAIL.",
+    "This is source-level application UI evidence, not EXE-level Windows robot evidence."
+  ]
+}

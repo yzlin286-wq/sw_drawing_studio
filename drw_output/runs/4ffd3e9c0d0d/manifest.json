@@ -1,0 +1,161 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+  "part_base": "-弹簧压棒弹簧-1-V3-V02",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d",
+  "generated_at": "2026-06-22 02:51:16",
+  "returncode": 0,
+  "line_count": 67,
+  "core_files_ok": true,
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "hard_fail": [],
+  "warnings": [
+    "dim_total_zero_purchased_with_std_anno",
+    "qc_pass_too_low_purchased_c_grade",
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "titlebar_complete"
+  ],
+  "qc_pass": false,
+  "qc_score_pass_count": 9,
+  "dimension_grade": "C",
+  "dimension_sources": {
+    "display_dim_count": 0,
+    "note_dim_count": 5,
+    "standard_annotation_present": true,
+    "sidecar_overall": {
+      "overall_length": 30.840526534821844,
+      "overall_width": 7.305271576892746,
+      "overall_height": 7.146085192610289,
+      "fastener_spec": "",
+      "spring_spec": "弹簧"
+    },
+    "sources_summary": [
+      "sidecar_note=5",
+      "standard_annotation=true"
+    ]
+  },
+  "display_dim_count": 0,
+  "note_dim_count": 5,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {
+    "total": 71,
+    "layout": {
+      "score": 20,
+      "max": 20,
+      "details": {
+        "view_overlap": 8,
+        "view_in_frame": 7,
+        "scale_in_set": 5
+      }
+    },
+    "dimension": {
+      "score": 23,
+      "max": 35,
+      "details": {
+        "dim_total": 8,
+        "associativity": 8,
+        "overall": 7
+      }
+    },
+    "titlebar": {
+      "score": 6,
+      "max": 10,
+      "details": {
+        "keys": 6,
+        "gb_titlebar": 0
+      }
+    },
+    "annotation": {
+      "score": 5,
+      "max": 15,
+      "details": {
+        "tech_note": 0,
+        "ra_note": 0,
+        "datum_a": 0,
+        "standard_annotation": 5
+      }
+    },
+    "visual_clarity": {
+      "score": 17,
+      "max": 20,
+      "details": {
+        "text_height": 5,
+        "png": 8,
+        "vision": 4
+      }
+    },
+    "grade_label": "B",
+    "reasons": [
+      "dimension.dim_total=0 但有 sidecar/标准标注",
+      "titlebar.gb_titlebar: 不完整",
+      "annotation.tech_note: 缺失",
+      "visual.vision: 未评估"
+    ]
+  },
+  "final_quality": {
+    "version": "v2.1",
+    "status": "pass_with_warning",
+    "reason": "通过但有 warning (geo=8, vision=5)",
+    "conflict": false,
+    "conflict_reason": "",
+    "deliverable": true,
+    "has_manual_review": false,
+    "manual_review": {},
+    "geo_qc": {
+      "pass": true,
+      "hard_fail": [],
+      "warnings_count": 8,
+      "drawing_usable_pass": true,
+      "dimension_grade": "C",
+      "usable_for": [
+        "procurement",
+        "assembly"
+      ]
+    },
+    "vision_qc": {
+      "pass": true,
+      "critical": 0,
+      "major": 0,
+      "minor": 5,
+      "total_issues": 5
+    },
+    "drawing_accuracy_score": 71,
+    "recommendation": "图纸达 C 级，仅限采购/装配使用"
+  },
+  "vision_final_quality_error": "",
+  "output_files": {
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\drawing\\-弹簧压棒弹簧-1-V3-V02_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\-弹簧压棒弹簧-1-V3-V02_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\-弹簧压棒弹簧-1-V3-V02_v5_warnings.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\dimension_sidecar_result.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\part_class.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\vision_qc_v2.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\qc\\final_quality.json"
+    ],
+    "logs": []
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\4ffd3e9c0d0d\\sw_session.json"
+}

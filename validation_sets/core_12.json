@@ -1,0 +1,79 @@
+{
+  "version": "v1.7",
+  "description": "v1.7 核心验证集 12 件",
+  "created_at": "2026-06-19",
+  "items": [
+    {
+      "index": 1,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-001.SLDPRT",
+      "base": "LB26001-A-04-001",
+      "category": "lb26001"
+    },
+    {
+      "index": 2,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-002.SLDPRT",
+      "base": "LB26001-A-04-002",
+      "category": "lb26001"
+    },
+    {
+      "index": 3,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-003.SLDPRT",
+      "base": "LB26001-A-04-003",
+      "category": "lb26001"
+    },
+    {
+      "index": 4,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-004.SLDPRT",
+      "base": "LB26001-A-04-004",
+      "category": "lb26001"
+    },
+    {
+      "index": 5,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-005.SLDPRT",
+      "base": "LB26001-A-04-005",
+      "category": "lb26001"
+    },
+    {
+      "index": 6,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-007.SLDPRT",
+      "base": "LB26001-A-04-007",
+      "category": "lb26001"
+    },
+    {
+      "index": 7,
+      "part_path": "3D转2D测试图纸/LB26001-A-04-009.SLDPRT",
+      "base": "LB26001-A-04-009",
+      "category": "lb26001"
+    },
+    {
+      "index": 8,
+      "part_path": "3D转2D测试图纸/-M3x8十字螺丝-1-V3-V02.SLDPRT",
+      "base": "-M3x8十字螺丝-1-V3-V02",
+      "category": "small_part"
+    },
+    {
+      "index": 9,
+      "part_path": "3D转2D测试图纸/-弹簧压棒弹簧-1-V3-V02.SLDPRT",
+      "base": "-弹簧压棒弹簧-1-V3-V02",
+      "category": "small_part"
+    },
+    {
+      "index": 10,
+      "part_path": "3D转2D测试图纸/-AK-15-AC-25-1-V3-V02.SLDPRT",
+      "base": "-AK-15-AC-25-1-V3-V02",
+      "category": "small_part"
+    },
+    {
+      "index": 11,
+      "part_path": "3D转2D测试图纸/-AK-15-AC-26-1-V3-V02.SLDPRT",
+      "base": "-AK-15-AC-26-1-V3-V02",
+      "category": "small_part"
+    },
+    {
+      "index": 12,
+      "part_path": "3D转2D测试图纸/-AK-15-AC-27-1-V3-V02.SLDPRT",
+      "base": "-AK-15-AC-27-1-V3-V02",
+      "category": "small_part"
+    }
+  ]
+}

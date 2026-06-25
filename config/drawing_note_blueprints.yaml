@@ -1,0 +1,81 @@
+machined_part:
+  required_notes:
+    - "技术要求："
+    - "未注倒角 C0.5。"
+    - "未注粗糙度 Ra3.2。"
+    - "去毛刺，锐边倒钝。"
+  optional_notes:
+    - "未注线性尺寸公差按 GB/T 1804-m。"
+    - "表面不得有划伤、裂纹、压痕。"
+  manufacturing_required: true
+
+sheet_metal:
+  required_notes:
+    - "技术要求："
+    - "展开尺寸以 DXF 为准。"
+    - "未注折弯半径按工艺要求。"
+    - "去毛刺，锐边倒钝。"
+  optional_notes:
+    - "未注线性尺寸公差按 GB/T 1804-m。"
+    - "表面处理按图样或工艺文件。"
+  manufacturing_required: true
+
+long_thin:
+  required_notes:
+    - "技术要求："
+    - "总长和装配关键尺寸为重点检验尺寸。"
+    - "未注粗糙度 Ra3.2。"
+    - "去毛刺，锐边倒钝。"
+  optional_notes:
+    - "运输和装夹过程不得弯曲变形。"
+  manufacturing_required: true
+
+tiny_part:
+  required_notes:
+    - "技术要求："
+    - "图中视图可按放大比例表达。"
+    - "关键尺寸需全检。"
+  optional_notes:
+    - "未注倒角 C0.2。"
+  manufacturing_required: true
+
+fastener:
+  required_notes:
+    - "标准件，按采购规格或国家标准执行。"
+    - "规格见标题栏或 BOM。"
+  optional_notes:
+    - "装配尺寸仅供参考。"
+  manufacturing_required: false
+
+spring:
+  required_notes:
+    - "弹簧件，按外购图纸或规格书执行。"
+    - "关键参数：线径、外径、自由长、圈数、旋向。"
+  optional_notes:
+    - "热处理和表面处理按供应商规范。"
+  manufacturing_required: false
+
+purchased_part:
+  required_notes:
+    - "外购件，按供应商图纸或规格书执行。"
+    - "装配尺寸供参考。"
+  optional_notes:
+    - "品牌、型号和规格以采购文件为准。"
+  manufacturing_required: false
+
+assembly:
+  required_notes:
+    - "装配图，关键装配尺寸和 BOM 为准。"
+    - "零件制造尺寸见对应零件图。"
+  optional_notes:
+    - "装配后运动件应灵活无卡滞。"
+  manufacturing_required: false
+
+default:
+  required_notes:
+    - "技术要求："
+    - "未注线性尺寸公差按 GB/T 1804-m。"
+    - "去毛刺，锐边倒钝。"
+  optional_notes:
+    - "未注粗糙度 Ra3.2。"
+  manufacturing_required: true

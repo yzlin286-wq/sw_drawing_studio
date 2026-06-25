@@ -1,0 +1,233 @@
+{
+  "schema": "sw_drawing_studio.lb26001_correction_test_matrix.v1",
+  "generated_at": "2026-06-22 11:37:26",
+  "status": "ready_for_real_cad_when_solidworks_responds",
+  "pass": true,
+  "source_standard_status": "standard_ready",
+  "source_gap_status": "fail",
+  "source_gap_pass": false,
+  "sample_count": 2,
+  "missing_part_paths": [],
+  "preconditions": [
+    "SolidWorks 进程必须可响应，且 COM active-object probe 成功。",
+    "重启或重跑修正测试前，必须先保存所有打开的 SolidWorks 工作。",
+    "必须通过 JobRuntimeFacade/QProcess worker 执行；UI 线程不得直接调用 SolidWorks COM。",
+    "必须把 SLDPRT/SLDASM 复制到 run_dir/input_work；不得修改原始测试 CAD 文件。",
+    "不得降低 QC 阈值，也不得把 Note/OCR/QC sidecar 数值计为真实 DisplayDim。"
+  ],
+  "pilot_case": "LB26001-A-04-006",
+  "entries": [
+    {
+      "sequence": 1,
+      "base": "LB26001-A-04-006",
+      "part_path": "drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+      "part_exists": true,
+      "reference_drawing": "C:/ref/LB26001-A-04-006.SLDDRW",
+      "must_not_modify_original_part": true,
+      "required_view_count": 4,
+      "required_view_types": {
+        "7": 2,
+        "4": 2
+      },
+      "display_dim_floor": 12,
+      "layout_slots_center_norm": {
+        "front": [
+          0.37,
+          0.8
+        ],
+        "top": [
+          0.37,
+          0.59
+        ]
+      },
+      "layout_tolerance_norm": 0.08,
+      "section_policy": {
+        "automatic_section_or_detail_allowed": false
+      },
+      "current_gap": {
+        "status": "fail",
+        "pass": false,
+        "view_style_score": 0.4,
+        "dimension_style_score": 0.0,
+        "layout_style_score": 0.2,
+        "overall_style_score": 0.2,
+        "generated_drawing": "C:/generated/LB26001-A-04-006_v5.SLDDRW"
+      },
+      "current_difference_keys": [
+        "display_dim_count_lower_than_reference",
+        "generated_all_named_model_views"
+      ],
+      "command_templates": {
+        "real_cad_smoke": "python tools\\validation\\real_cad_smoke_v3.py --part \"drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT\" --timeout-s 900 --max-rounds 1 --out drw_output\\cad_smoke_stylefix_006.json",
+        "dimension_validation": "python tools\\validation\\dimension_validation_smoke_v3.py --run-dir <fresh_run_dir> --cad-smoke drw_output\\cad_smoke_stylefix_006.json --out drw_output\\dimension_validation_stylefix_006.json",
+        "reference_compare": "python tools\\validation\\reference_compare_smoke_v3.py --run-dir <fresh_run_dir> --part \"drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT\" --reference-dir \"3D转2D测试图纸\" --cad-smoke drw_output\\cad_smoke_stylefix_006.json --out drw_output\\reference_compare_stylefix_006.json --metrics-mode sidecar_first --sidecar-timeout-s 120"
+      },
+      "acceptance_criteria": [
+        {
+          "key": "fresh_cad_artifacts",
+          "severity": "fail",
+          "required": "fresh run_dir with manifest, sw_session, job_event_log, SLDDRW, PDF, DXF, PNG, qc, vision_qc, final_quality"
+        },
+        {
+          "key": "worker_events",
+          "severity": "fail",
+          "required": "job_started/progress/heartbeat/job_finished or job_failed with reason"
+        },
+        {
+          "key": "view_count_exact",
+          "severity": "need_review",
+          "required": 4
+        },
+        {
+          "key": "view_type_counts_exact",
+          "severity": "need_review",
+          "required": {
+            "7": 2,
+            "4": 2
+          }
+        },
+        {
+          "key": "real_displaydim_floor",
+          "severity": "fail",
+          "required": "DisplayDim >= 12"
+        },
+        {
+          "key": "layout_center_tolerance",
+          "severity": "need_review",
+          "required": {
+            "slots": {
+              "front": [
+                0.37,
+                0.8
+              ],
+              "top": [
+                0.37,
+                0.59
+              ]
+            },
+            "tolerance_norm": 0.08
+          }
+        },
+        {
+          "key": "no_extra_section_or_detail",
+          "severity": "need_review",
+          "required": true
+        },
+        {
+          "key": "no_displaydim_substitution",
+          "severity": "fail",
+          "required": "Do not count Note/OCR/QC sidecar/visual-only text as real DisplayDim."
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "base": "LB26001-A-04-008",
+      "part_path": "drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-008.SLDPRT",
+      "part_exists": true,
+      "reference_drawing": "C:/ref/LB26001-A-04-008.SLDDRW",
+      "must_not_modify_original_part": true,
+      "required_view_count": 2,
+      "required_view_types": {
+        "7": 1,
+        "4": 1
+      },
+      "display_dim_floor": 2,
+      "layout_slots_center_norm": {
+        "front": [
+          0.3,
+          0.7
+        ],
+        "top": [
+          0.3,
+          0.42
+        ]
+      },
+      "layout_tolerance_norm": 0.08,
+      "section_policy": {
+        "automatic_section_or_detail_allowed": false
+      },
+      "current_gap": {
+        "status": "need_review",
+        "pass": false,
+        "view_style_score": null,
+        "dimension_style_score": null,
+        "layout_style_score": null,
+        "overall_style_score": null,
+        "generated_drawing": ""
+      },
+      "current_difference_keys": [
+        "view_count_not_equal_reference"
+      ],
+      "command_templates": {
+        "real_cad_smoke": "python tools\\validation\\real_cad_smoke_v3.py --part \"drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-008.SLDPRT\" --timeout-s 900 --max-rounds 1 --out drw_output\\cad_smoke_stylefix_008.json",
+        "dimension_validation": "python tools\\validation\\dimension_validation_smoke_v3.py --run-dir <fresh_run_dir> --cad-smoke drw_output\\cad_smoke_stylefix_008.json --out drw_output\\dimension_validation_stylefix_008.json",
+        "reference_compare": "python tools\\validation\\reference_compare_smoke_v3.py --run-dir <fresh_run_dir> --part \"drw_output\\_lb26001_matrix_test\\ok\\3D转2D测试图纸\\LB26001-A-04-008.SLDPRT\" --reference-dir \"3D转2D测试图纸\" --cad-smoke drw_output\\cad_smoke_stylefix_008.json --out drw_output\\reference_compare_stylefix_008.json --metrics-mode sidecar_first --sidecar-timeout-s 120"
+      },
+      "acceptance_criteria": [
+        {
+          "key": "fresh_cad_artifacts",
+          "severity": "fail",
+          "required": "fresh run_dir with manifest, sw_session, job_event_log, SLDDRW, PDF, DXF, PNG, qc, vision_qc, final_quality"
+        },
+        {
+          "key": "worker_events",
+          "severity": "fail",
+          "required": "job_started/progress/heartbeat/job_finished or job_failed with reason"
+        },
+        {
+          "key": "view_count_exact",
+          "severity": "need_review",
+          "required": 2
+        },
+        {
+          "key": "view_type_counts_exact",
+          "severity": "need_review",
+          "required": {
+            "7": 1,
+            "4": 1
+          }
+        },
+        {
+          "key": "real_displaydim_floor",
+          "severity": "fail",
+          "required": "DisplayDim >= 2"
+        },
+        {
+          "key": "layout_center_tolerance",
+          "severity": "need_review",
+          "required": {
+            "slots": {
+              "front": [
+                0.3,
+                0.7
+              ],
+              "top": [
+                0.3,
+                0.42
+              ]
+            },
+            "tolerance_norm": 0.08
+          }
+        },
+        {
+          "key": "no_extra_section_or_detail",
+          "severity": "need_review",
+          "required": true
+        },
+        {
+          "key": "no_displaydim_substitution",
+          "severity": "fail",
+          "required": "Do not count Note/OCR/QC sidecar/visual-only text as real DisplayDim."
+        }
+      ]
+    }
+  ],
+  "current_gap_difference_counts": {
+    "display_dim_count_lower_than_reference": 1,
+    "generated_all_named_model_views": 1,
+    "view_count_not_equal_reference": 1
+  },
+  "after_all_six_pass_command": "python tools\\validation\\staged_cad_validation_v3.py --set-name LB26001_36 --out-root drw_output\\staged_validation",
+  "non_release_note": "本矩阵只是修正测试计划和离线验收清单；只有 fresh CAD 输出通过上述门槛后，才能作为可交付图纸证明。"
+}

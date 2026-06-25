@@ -1,0 +1,65 @@
+{
+  "score": 25,
+  "issues": [
+    {
+      "key": "dim_count_sufficient",
+      "severity": "warning",
+      "description": "有效标注尺寸数量为0，远低于加工所需的最低尺寸要求",
+      "fix_suggestion": "补全零件所有必要的定形、定位尺寸，符合GB/T 4458.4要求"
+    },
+    {
+      "key": "centermark_count_sufficient",
+      "severity": "warning",
+      "description": "圆心标记仅1个，未覆盖所有圆形回转特征",
+      "fix_suggestion": "为所有圆形/回转特征添加符合国标的圆心标记"
+    },
+    {
+      "key": "has_tech_note",
+      "severity": "warning",
+      "description": "技术要求块格式不符合规范，未检测到有效技术要求关键字",
+      "fix_suggestion": "规范技术要求格式，逐条用阿拉伯数字编号，放置于图纸下方或标题栏左侧"
+    },
+    {
+      "key": "has_ra_note",
+      "severity": "warning",
+      "description": "未检测到有效的表面粗糙度统一标注关键字",
+      "fix_suggestion": "按照GB/T 131-2006规范标注统一粗糙度要求，放置于标题栏右上角，明确标注符号与参数"
+    },
+    {
+      "key": "has_datum_a",
+      "severity": "warning",
+      "description": "基准A标注不规范，未按国标要求设置基准代号与标识",
+      "fix_suggestion": "按照GB/T 1182-2008规范标注基准A的符号与大写字母代号"
+    },
+    {
+      "key": "refdoc_correct",
+      "severity": "warning",
+      "description": "引用文档匹配错误，无有效匹配的引用文档，存在4项错误引用",
+      "fix_suggestion": "修正引用文档，确保文件名匹配、引用内容正确有效"
+    },
+    {
+      "key": "gb_titlebar_complete",
+      "severity": "warning",
+      "description": "标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段",
+      "fix_suggestion": "补全标题栏所有GB要求的核心字段，放置于图纸右下角"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "severity": "warning",
+      "description": "未绘制剖视图，无法表达零件内部结构",
+      "fix_suggestion": "补充必要的剖视图，清晰表达零件内部轮廓，符合GB/T 17452要求"
+    }
+  ],
+  "summary": "本工程图存在尺寸完全缺失、标题栏核心字段不全、无剖视图等多项严重国标违规问题，无法用于生产，需全面整改。",
+  "png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ca76ba469e2b\\drawing\\-AK-15-AC-27-1-V3-V02_v5_vision_ref.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":25,\"issues\":[{\"key\":\"dim_count_sufficient\",\"desc\":\"有效标注尺寸数量为0，远低于加工所需的最低尺寸要求\",\"fix\":\"补全零件所有必要的定形、定位尺寸，符合GB/T 4458.4要求\"},{\"key\":\"centermark_count_sufficient\",\"desc\":\"圆心标记仅1个，未覆盖所有圆形回转特征\",\"fix\":\"为所有圆形/回转特征添加符合国标的圆心标记\"},{\"key\":\"has_tech_note\",\"desc\":\"技术要求块格式不符合规范，未检测到有效技术要求关键字\",\"fix\":\"规范技术要求格式，逐条用阿拉伯数字编号，放置于图纸下方或标题栏左侧\"},{\"key\":\"has_ra_note\",\"desc\":\"未检测到有效的表面粗糙度统一标注关键字\",\"fix\":\"按照GB/T 131-2006规范标注统一粗糙度要求，放置于标题栏右上角，明确标注符号与参数\"},{\"key\":\"has_datum_a\",\"desc\":\"基准A标注不规范，未按国标要求设置基准代号与标识\",\"fix\":\"按照GB/T 1182-2008规范标注基准A的符号与大写字母代号\"},{\"key\":\"refdoc_correct\",\"desc\":\"引用文档匹配错误，无有效匹配的引用文档，存在4项错误引用\",\"fix\":\"修正引用文档，确保文件名匹配、引用内容正确有效\"},{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失品名、图号、材质、数量、设计、日期共6项核心必填字段\",\"fix\":\"补全标题栏所有GB要求的核心字段，放置于图纸右下角\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"未绘制剖视图，无法表达零件内部结构\",\"fix\":\"补充必要的剖视图，清晰表达零件内部轮廓，符合GB/T 17452要求\"}],\"summary\":\"本工程图存在尺寸完全缺失、标题栏核心字段不全、无剖视图等多项严重国标违规问题，无法用于生产，需全面整改。\",\"reference_diff\":null}",
+  "error": "",
+  "reference_diff": null,
+  "reference_png": null,
+  "threshold": 60,
+  "pass": false,
+  "image_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ca76ba469e2b\\drawing\\-AK-15-AC-27-1-V3-V02_v5_vision_ref.png",
+  "model": "doubao-seed-2.0-pro",
+  "vision_json": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ca76ba469e2b\\drawing\\-AK-15-AC-27-1-V3-V02_v5_vision_ref.json"
+}

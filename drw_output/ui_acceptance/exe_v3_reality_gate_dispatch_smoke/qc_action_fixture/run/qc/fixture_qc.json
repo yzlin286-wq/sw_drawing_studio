@@ -1,0 +1,26 @@
+{
+  "pass": true,
+  "checks": {
+    "all_13_keys_present": {
+      "pass": true,
+      "present_count": 13
+    },
+    "dim_count_sufficient": {
+      "dim_total": 6
+    },
+    "has_tech_note": {
+      "pass": true
+    },
+    "text_height_ge_3_5mm": {
+      "pass": true
+    },
+    "vision_score": {
+      "score": 95
+    }
+  },
+  "hard_fail": [],
+  "warnings": [],
+  "part_class": "feature_part",
+  "has_valid_sidecar_annotation": false,
+  "standard_annotation_present": true
+}

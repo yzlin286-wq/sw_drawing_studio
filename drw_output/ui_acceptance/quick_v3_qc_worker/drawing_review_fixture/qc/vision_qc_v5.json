@@ -1,0 +1,47 @@
+{
+  "version": "v5",
+  "issues": [
+    {
+      "key": "titlebar_missing_fields",
+      "severity": "major",
+      "source": "ocr",
+      "confidence": 0.86,
+      "bbox": [
+        0.68,
+        0.76,
+        0.24,
+        0.12
+      ],
+      "description": "标题栏核心字段缺失",
+      "evidence": {
+        "missing": [
+          "part_no",
+          "material",
+          "date"
+        ]
+      },
+      "fix_suggestion": "补齐标题栏 CustomProperty 并重新生成图纸。",
+      "auto_fix_available": false,
+      "human_review": "pending"
+    },
+    {
+      "key": "datum_a_missing",
+      "severity": "minor",
+      "source": "geometry",
+      "confidence": 0.78,
+      "bbox": [
+        0.18,
+        0.22,
+        0.18,
+        0.16
+      ],
+      "description": "未检测到基准 A",
+      "evidence": {
+        "template_match": "none"
+      },
+      "fix_suggestion": "根据主定位面添加 Datum A 标识。",
+      "auto_fix_available": true,
+      "human_review": "pending"
+    }
+  ]
+}

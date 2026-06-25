@@ -1,0 +1,28 @@
+[qc_loop_v6] absolute part_path=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-009.SLDPRT
+[main] part_path = C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-009.SLDPRT
+[loop] part_path = C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\LB26001-A-04-009.SLDPRT
+[loop] max_rounds = 3
+
+========== 第 1/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT']
+[loop] v5 超时 240.0s (limit=240s)
+
+========== 第 2/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT', 'c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\issues_to_fix.json']
+[loop] v5 超时 240.0s (limit=240s)
+
+========== 第 3/3 轮 ==========
+[loop] subprocess: ['C:\\Users\\Vision\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-u', 'C:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py', 'C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-009.SLDPRT', 'c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\issues_to_fix.json']
+[loop] v5 超时 240.0s (limit=240s)
+[loop] qc_log.md 已写: c:\Users\Vision\Desktop\SW 相关\.trae\specs\enforce-drawing-quality\qc_log.md
+
+========== 汇总 ==========
+final_pass = False
+final_path = c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-009_v5.SLDDRW
+  round 1: pass=False pass_count=0/12 issues=['__subprocess_timeout__']
+  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']
+  round 3: pass=False pass_count=0/12 issues=['__subprocess_timeout__']
+qc_log.md = c:\Users\Vision\Desktop\SW 相关\.trae\specs\enforce-drawing-quality\qc_log.md
+[runner] using v6
+
+[runner] exit_code=0

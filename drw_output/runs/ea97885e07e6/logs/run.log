@@ -1,0 +1,10 @@
+[2026-06-19 00:50:15] === Full pipeline start ===
+[2026-06-19 00:50:15] strategy=v6_recommended
+[2026-06-19 00:50:15] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\-弹簧压棒弹簧-1-V3-V02.SLDPRT
+[2026-06-19 00:50:15] sw_revision=33.5.0
+[2026-06-19 00:50:15] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-19 00:52:33] qc_loop exit_code=0
+[2026-06-19 00:52:33] PNG 回退渲染: PDF→-弹簧压棒弹簧-1-V3-V02_v5.PNG (202KB)
+[2026-06-19 00:52:33] PNG 回退后重评: png_missing 已从 hard_fail 移除，drawing_usable.pass 已重算
+[2026-06-19 00:52:35] bom rows=1
+[2026-06-19 00:52:35] === Full pipeline done. drawing_usable=False ===

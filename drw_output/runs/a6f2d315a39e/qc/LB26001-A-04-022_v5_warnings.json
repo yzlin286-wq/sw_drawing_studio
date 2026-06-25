@@ -1,0 +1,2564 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-022.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "reference_sheet_template_policy",
+      "policy": "strip_default_template_artifacts",
+      "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json",
+      "reason": "same-name reference layout controls visible sheet/titleblock style"
+    },
+    {
+      "code": "reference_sheet_artifact_cleanup",
+      "actions": [
+        {
+          "action": "setup_sheet_template_none",
+          "ok": true
+        },
+        {
+          "action": "delete_selected_template_entities",
+          "mode": "EditTemplate",
+          "mode_ok": null,
+          "select_ok": null,
+          "segment_select": {
+            "selected": 0,
+            "details": [
+              {
+                "name": "Line1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line2",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line2@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line2",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line2@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.01
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.01
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.287,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.287,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.2
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.2
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.01,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.01,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.015
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.015
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.195
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.195
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.025,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.025,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.015
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.015
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.055
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.055
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.102,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.102,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.028
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.028
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.041
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.041
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.137,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.137,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.182,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.182,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.227,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.227,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.252,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.252,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              }
+            ]
+          },
+          "delete_ok": true,
+          "delete_method": "EditDelete"
+        },
+        {
+          "action": "delete_selected_template_entities",
+          "mode": "EditSheet",
+          "mode_ok": null,
+          "select_ok": null,
+          "segment_select": {
+            "selected": 4,
+            "details": [
+              {
+                "name": "Line1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line1@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line2",
+                "type": "SKETCHSEGMENT",
+                "ok": true
+              },
+              {
+                "name": "Line3",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line3@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line4@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line5@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line6@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line7@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line8@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line9@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line10@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line11@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line12@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line13@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line14@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line15@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line16@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line17@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line18@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line19@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line20@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line21@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line22@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line23@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line24@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line25@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line26@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line27@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line28@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line29@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line30@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line31@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line32@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line33@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line34@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line35@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line36@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line37@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line38@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line39@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40@图纸1",
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "name": "Line40@图纸1",
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.01
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.01
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.287,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": true
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.2
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1485,
+                  0.2
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.01,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.01,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.015
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.015
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.282,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.195
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.1535,
+                  0.195
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.025,
+                  0.105
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.025,
+                  0.105
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.015
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": true
+              },
+              {
+                "point": [
+                  0.282,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": true
+              },
+              {
+                "point": [
+                  0.192,
+                  0.055
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.055
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.102,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.102,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.028
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.028
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.041
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.192,
+                  0.041
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.137,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.137,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.182,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.182,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.227,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.227,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.252,
+                  0.035
+                ],
+                "type": "SKETCHSEGMENT",
+                "ok": false
+              },
+              {
+                "point": [
+                  0.252,
+                  0.035
+                ],
+                "type": "EXTSKETCHSEGMENT",
+                "ok": false
+              }
+            ]
+          },
+          "delete_ok": true,
+          "delete_method": "EditDelete"
+        }
+      ],
+      "reason": "same-name reference screenshot must not inherit the default drawing template frame/titleblock"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "OK",
+      "key": "section_view_exempt_reference_style",
+      "msg": "同名参考图未使用剖视图；已按参考图跳过自动剖视，保持视图数量一致"
+    },
+    {
+      "code": "reference_autodim_applied",
+      "before": 0,
+      "after": 25,
+      "reference_display_dim_floor": 25
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [],
+  "scale": "5:1",
+  "bbox_m": [
+    0.06,
+    0.056,
+    0.01
+  ],
+  "centers_m": {
+    "front": [
+      0.11,
+      0.1448
+    ],
+    "top": [
+      0.11,
+      0.0734
+    ],
+    "right": [
+      0.21,
+      0.1448
+    ],
+    "iso": [
+      0.24722,
+      0.09526
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.08,
+      0.11680000000000001,
+      0.14,
+      0.1728
+    ],
+    "top": [
+      0.08,
+      0.0684,
+      0.14,
+      0.07840000000000001
+    ],
+    "right": [
+      0.205,
+      0.11680000000000001,
+      0.215,
+      0.1728
+    ],
+    "iso": [
+      0.22622,
+      0.07425999999999999,
+      0.26822,
+      0.11626
+    ]
+  },
+  "real_outlines_m": {
+    "工程图视图1": [
+      0.0908,
+      0.1266,
+      0.1292,
+      0.16300000000000003
+    ],
+    "工程图视图2": [
+      0.0908,
+      0.06669999999999997,
+      0.1292,
+      0.08010000000000005
+    ],
+    "工程图视图3": [
+      0.20329999999999993,
+      0.1266,
+      0.21670000000000006,
+      0.16300000000000003
+    ],
+    "工程图视图4": [
+      0.2306456313292354,
+      0.0724848576551508,
+      0.26379436867076456,
+      0.1180351423448492
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": false,
+  "section_view": false,
+  "display_dim_count_before_sidecar": 25,
+  "display_dim_count_final": 25,
+  "png_render": {
+    "success": true,
+    "pdf_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-022_v5.PDF",
+    "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-022_v5.PNG",
+    "dpi": 300,
+    "reason": "成功渲染第一页",
+    "timestamp": "2026-06-22 22:05:26",
+    "width": 3508,
+    "height": 2481
+  },
+  "reference_autodim": {
+    "applied": true,
+    "before": 0,
+    "after": 25,
+    "calls_used": 1,
+    "attempts": [
+      {
+        "view": "front",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.11,
+          0.1448
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.110000,0.144800",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 0,
+            "after": 25,
+            "delta": 25
+          }
+        ]
+      }
+    ]
+  },
+  "post_layout_dim_repair": {
+    "attempted": true,
+    "before": 25,
+    "after": 25,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": false,
+        "errors": 0,
+        "warnings": 0,
+        "method": "save_failed",
+        "reason": "<unknown>.Extension; <unknown>.Save3"
+      },
+      "open_errors": 0,
+      "open_warnings": 128
+    },
+    "save": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "reexported": true,
+    "png_render": {
+      "success": true,
+      "pdf_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-022_v5.PDF",
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-022_v5.PNG",
+      "dpi": 300,
+      "reason": "成功渲染第一页",
+      "timestamp": "2026-06-22 22:05:26",
+      "width": 3508,
+      "height": 2481
+    }
+  },
+  "reference_dim_prune": {
+    "enabled": true,
+    "cap": 38,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": true,
+        "errors": 0,
+        "warnings": 0,
+        "method": "Extension.SaveAs"
+      },
+      "open_errors": 0,
+      "open_warnings": 0
+    },
+    "prune": {
+      "cap": 38,
+      "before": 26,
+      "after": 26,
+      "deleted": 0,
+      "attempted": 0,
+      "success": true,
+      "reasons": []
+    },
+    "save": {},
+    "success": true
+  },
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

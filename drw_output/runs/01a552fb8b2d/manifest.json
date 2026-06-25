@@ -1,0 +1,69 @@
+{
+  "run_id": "01a552fb8b2d",
+  "started_at": "2026-06-18 20:27:27",
+  "finished_at": "2026-06-18 20:29:36",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\INGUN_GKS 050 297 050 A2000 四面尖头.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\input\\INGUN_GKS 050 297 050 A2000 四面尖头.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\drawing\\INGUN_GKS 050 297 050 A2000 四面尖头_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\drawing\\INGUN_GKS 050 297 050 A2000 四面尖头_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\drawing\\INGUN_GKS 050 297 050 A2000 四面尖头_v5.DXF"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\qc\\INGUN_GKS 050 297 050 A2000 四面尖头_v5_qc.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\01a552fb8b2d\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [
+    "png_missing",
+    "dim_total_too_low",
+    "qc_pass_too_low"
+  ],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped"
+  ],
+  "drawing_usable": {
+    "pass": false,
+    "criteria": {
+      "files_exported": false,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 0,
+      "qc_pass_count": 9,
+      "vision_score": null
+    }
+  },
+  "qc_pass_count": 9,
+  "score_total": 12,
+  "vision_score": null,
+  "dim_total": 0,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "skip",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

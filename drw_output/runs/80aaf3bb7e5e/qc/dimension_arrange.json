@@ -1,0 +1,52 @@
+{
+  "run_id": "LB26001-A-04-006",
+  "timestamp": "2026-06-23 17:00:07",
+  "stage": "pre_export",
+  "attempted": true,
+  "success": false,
+  "source": "generator_display_dim_annotation_chain",
+  "total_dimensions": 0,
+  "adjusted_dimensions": 0,
+  "callout_lane_applied": false,
+  "callout_lane_count": 0,
+  "overlap_before": 0,
+  "overlap_after": 0,
+  "titlebar_collision_before": 0,
+  "titlebar_collision_after": 0,
+  "avoid_collision_before": 0,
+  "avoid_collision_after": 0,
+  "line_crossing_before": 0,
+  "line_crossing_after": 0,
+  "reason": "no_displaydim_annotations",
+  "sheet_size": [
+    0.297,
+    0.21
+  ],
+  "titlebar_box": [
+    0.20196,
+    0.0,
+    0.297,
+    0.0378
+  ],
+  "notes_box": [
+    0.17225999999999997,
+    0.0378,
+    0.29106,
+    0.0735
+  ],
+  "avoid_boxes": [
+    [
+      0.20196,
+      0.0,
+      0.297,
+      0.0378
+    ],
+    [
+      0.17225999999999997,
+      0.0378,
+      0.29106,
+      0.0735
+    ]
+  ],
+  "dimensions": []
+}

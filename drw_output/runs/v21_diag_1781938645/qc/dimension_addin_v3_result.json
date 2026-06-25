@@ -1,0 +1,15 @@
+{
+  "success": false,
+  "method": "addin",
+  "reason": "OpenDoc6 Drawing 返回 null",
+  "timestamp": "2026-06-20 14:57:25",
+  "engine_version": "v3.0",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDDRW",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\v21_diag_1781938645",
+  "policy": {
+    "part_class": "feature_part",
+    "dimension_policy": "full",
+    "required_dims": "[\"overall_length"
+  }
+}

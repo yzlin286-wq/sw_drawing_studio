@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-06-20 02:35:13",
+  "dll_exists": true,
+  "dll_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\SwDrawingStudioAddin\\bin\\SwDrawingStudioAddin.dll",
+  "com_registered": true,
+  "sw_addin_registered": true,
+  "sw_running": true,
+  "addin_loaded": true,
+  "ping_result": true,
+  "method": "dispatch",
+  "reason": "Ping 成功",
+  "available": true
+}

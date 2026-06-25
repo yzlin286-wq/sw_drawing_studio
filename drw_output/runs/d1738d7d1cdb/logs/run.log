@@ -1,0 +1,8 @@
+[2026-06-18 21:47:12] === Full pipeline start ===
+[2026-06-18 21:47:12] strategy=v6_recommended
+[2026-06-18 21:47:12] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\QTN-0488  MCIO 74Pin CABLE改头固定件B-V02.SLDPRT
+[2026-06-18 21:47:12] sw_revision=33.5.0
+[2026-06-18 21:47:12] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 21:49:23] qc_loop exit_code=0
+[2026-06-18 21:49:25] bom rows=1
+[2026-06-18 21:49:25] === Full pipeline done. drawing_usable=False ===

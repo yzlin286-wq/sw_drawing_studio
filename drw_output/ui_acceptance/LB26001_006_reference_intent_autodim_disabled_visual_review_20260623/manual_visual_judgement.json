@@ -1,0 +1,43 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "created_at": "2026-06-23 17:03:10",
+  "method": "application_drawing_review_ui_screenshot",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "pass_count": 0,
+  "fail_count": 1,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "verdict": "FAIL",
+      "run_dir": "drw_output/runs/80aaf3bb7e5e",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_reference_intent_autodim_disabled_visual_review_20260623/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "comparison_png": "drw_output/ui_acceptance/LB26001_006_reference_intent_autodim_disabled_visual_review_20260623/comparison_images/01_LB26001-A-04-006_reference_vs_generated.png",
+      "supporting_structured_status": {
+        "cad": "pass_with_warning",
+        "dimension": "pass_with_warning",
+        "reference": "pass_with_warning",
+        "reference_style": "fail",
+        "reference_compare_v4": "fail",
+        "vision_qc_v6": "need_review"
+      },
+      "visual_findings": [
+        "The application Drawing Review screenshot was captured successfully and was used as the acceptance evidence.",
+        "The previous dense slanted AutoDimension callout stack is no longer visible after disabling reference-intent AutoDimension.",
+        "The generated drawing is still visually unacceptable because most reference-style DisplayDim dimensions are missing from the front, top, and right views.",
+        "The reference drawing has concise readable dimensions and a compact right-side callout group; the generated drawing now lacks the required dimensions instead of matching that style.",
+        "API/status fields remain supporting evidence only and do not override this FAIL visual judgement."
+      ],
+      "improvement_evidence": {
+        "current_staged_summary": "drw_output/staged_validation/LB26001_006_reference_intent_autodim_disabled_20260623/summary.json",
+        "current_run": "drw_output/runs/80aaf3bb7e5e",
+        "reference_intent_autodimension_disabled": true,
+        "post_layout_reference_intent_autodimension_disabled": true,
+        "display_dim_count": 8,
+        "reference_display_dim_floor": 12
+      },
+      "required_next_action": "Keep AutoDimension disabled for 006 reference-intent acceptance, then implement reliable explicit SolidWorks DisplayDim creation or model-dimension seeding for the copied input_work part until the application Drawing Review UI screenshot visually matches the same-name reference."
+    }
+  ],
+  "acceptance_rule": "A drawing is not accepted until the application Drawing Review UI screenshot is visually judged PASS against the same-name reference drawing."
+}

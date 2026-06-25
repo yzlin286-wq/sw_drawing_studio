@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-06-21 19:03:53",
+  "mode": "source_qt_mock_stability",
+  "pass": true,
+  "scenario": "normal_pass",
+  "duration_requested_s": 0.6,
+  "duration_observed_s": 1.7,
+  "sample_interval_s": 0.2,
+  "screenshot_interval_s": 0.4,
+  "job_id": "398edc90",
+  "final_status": "completed",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\mock_20260621_190351_398edc90",
+  "job_event_log": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\mock_20260621_190351_398edc90\\job_event_log.jsonl",
+  "samples_jsonl": "drw_output\\ui_acceptance\\mock_stability_unit\\stability_samples.jsonl",
+  "screenshots_dir": "drw_output\\ui_acceptance\\mock_stability_unit\\screenshots",
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_unit\\screenshots\\01_start.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 40,
+      "avg_luma": 238.96,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_unit\\screenshots\\02_elapsed_0s.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 39,
+      "avg_luma": 239.08,
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\mock_stability_unit\\screenshots\\03_final.png",
+      "saved": true,
+      "size_bytes": 5439770,
+      "width": 1810,
+      "height": 1000,
+      "sample_unique_colors": 39,
+      "avg_luma": 239.08,
+      "min_bytes": 50000,
+      "pass": true
+    }
+  ],
+  "checks": {
+    "job_started": true,
+    "job_completed": true,
+    "duration_met": true,
+    "sample_count": 1,
+    "samples_written": true,
+    "screenshots_pass": true,
+    "event_log_exists": true,
+    "event_log_count": 8,
+    "required_events_present": true,
+    "missing_events": [],
+    "window_visible_final": true,
+    "job_queue_page_final": true,
+    "failures": []
+  },
+  "remaining_gates": [
+    "This is source-level Qt stability evidence, not Windows-level EXE click automation.",
+    "The separate 2-hour UI stability gate remains pending.",
+    "Real SolidWorks validation and historical visual audit coverage remain pending."
+  ]
+}

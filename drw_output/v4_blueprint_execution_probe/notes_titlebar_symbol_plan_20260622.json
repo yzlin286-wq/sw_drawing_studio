@@ -1,0 +1,152 @@
+{
+  "schema": "sw_drawing_studio.v4_blueprint_execution_probe",
+  "source_blueprints": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v4_blueprint_smoke\\20260622_blueprint_execution_notes_titlebar_rerun\\drawing_blueprints_v4.json",
+  "status": "pass",
+  "pass": true,
+  "cases": [
+    {
+      "base": "LB26001-A-04-006",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-006"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-006\n品名: LB26001-A-04-006",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    },
+    {
+      "base": "LB26001-A-04-007",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-007"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-007\n品名: LB26001-A-04-007",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    },
+    {
+      "base": "LB26001-A-04-008",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-008"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-008\n品名: LB26001-A-04-008",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    },
+    {
+      "base": "LB26001-A-04-009",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-009"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-009\n品名: LB26001-A-04-009",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-015"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-015\n品名: LB26001-A-04-015",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    },
+    {
+      "base": "LB26001-A-04-022",
+      "pass": true,
+      "annotation_flags": {
+        "roughness_required": true,
+        "datum_required": false,
+        "gtol_required": false
+      },
+      "note_plan_count": 1,
+      "titlebar_plan_count": 1,
+      "titlebar_overrides": {
+        "图号": "LB26001-A-04-022"
+      },
+      "note_preview": "技术要求：\n未注倒角 C0.5。\n未注粗糙度 Ra3.2。\n去毛刺，锐边倒钝。",
+      "note_position_m": [
+        0.17626,
+        0.0675
+      ],
+      "titlebar_preview": "图号: LB26001-A-04-022\n品名: LB26001-A-04-022",
+      "titlebar_position_m": [
+        0.20496,
+        0.0338
+      ]
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_2",
+  "version": "v4.2",
+  "generated_at": "2026-06-23 15:42:48",
+  "base": "LB26001-A-04-006",
+  "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+  "reference_display_dim_count": 12,
+  "required_display_dim_count": 12,
+  "allow_note_substitution": false,
+  "api_is_supporting_only": true,
+  "ui_screenshot_acceptance_required": true,
+  "reference_view_slots": {
+    "front": {
+      "reference_view_name": "工程图视图1",
+      "sw_view_type": "7",
+      "center_norm": [
+        0.3704,
+        0.8074
+      ],
+      "size_norm": [
+        0.4155,
+        0.071
+      ],
+      "expected_create_method": "named_or_standard"
+    },
+    "iso": {
+      "reference_view_name": "工程图视图4",
+      "sw_view_type": "7",
+      "center_norm": [
+        0.8025,
+        0.478
+      ],
+      "size_norm": [
+        0.1723,
+        0.1702
+      ],
+      "expected_create_method": "named_or_standard"
+    },
+    "right": {
+      "reference_view_name": "工程图视图2",
+      "sw_view_type": "4",
+      "center_norm": [
+        0.7259,
+        0.8074
+      ],
+      "size_norm": [
+        0.0485,
+        0.071
+      ],
+      "expected_create_method": "projection_api"
+    },
+    "top": {
+      "reference_view_name": "工程图视图3",
+      "sw_view_type": "4",
+      "center_norm": [
+        0.3704,
+        0.5948
+      ],
+      "size_norm": [
+        0.4155,
+        0.0686
+      ],
+      "expected_create_method": "projection_api"
+    }
+  },
+  "dimension_groups": [
+    {
+      "key": "overall_envelope",
+      "label": "overall length/width/height",
+      "target_views": [
+        "front",
+        "top",
+        "right"
+      ],
+      "required_count": 3,
+      "source_reference_rule": "match same-name 006 envelope dimensions"
+    },
+    {
+      "key": "end_offsets",
+      "label": "left and right end offsets",
+      "target_views": [
+        "top"
+      ],
+      "required_count": 2,
+      "source_reference_rule": "keep end-offset dimensions outside the long top view"
+    },
+    {
+      "key": "hole_locations",
+      "label": "hole diameter and center locations",
+      "target_views": [
+        "top"
+      ],
+      "required_count": 4,
+      "source_reference_rule": "group hole callouts into a compact readable lane"
+    },
+    {
+      "key": "small_projected_view",
+      "label": "right-side projected view size and small-feature location",
+      "target_views": [
+        "right"
+      ],
+      "required_count": 3,
+      "source_reference_rule": "dimension the small projection without replacing it with a named view"
+    },
+    {
+      "key": "radius_chamfer_thread",
+      "label": "radius/chamfer/thread callouts when detected",
+      "target_views": [
+        "front",
+        "top",
+        "right"
+      ],
+      "required_count": 0,
+      "optional": true,
+      "source_reference_rule": "add only when geometry/reference notes prove the feature is present"
+    }
+  ],
+  "dimensions": [
+    {
+      "key": "overall_length",
+      "group": "overall_envelope",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "front",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "above",
+      "priority": 10,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "overall_width",
+      "group": "overall_envelope",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_vertical",
+      "preferred_side": "left",
+      "priority": 11,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "overall_height",
+      "group": "overall_envelope",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "preferred_side": "right",
+      "priority": 12,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "left_end_offset",
+      "group": "end_offsets",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "below",
+      "priority": 20,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "right_end_offset",
+      "group": "end_offsets",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "below",
+      "priority": 21,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "hole_diameter",
+      "group": "hole_locations",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "diameter",
+      "preferred_side": "callout_right",
+      "priority": 30,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "hole_x_location",
+      "group": "hole_locations",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "above",
+      "priority": 31,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "hole_y_location",
+      "group": "hole_locations",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_vertical",
+      "preferred_side": "left",
+      "priority": 32,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "hole_pitch",
+      "group": "hole_locations",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "above",
+      "priority": 33,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "projection_view_width",
+      "group": "small_projected_view",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "right",
+      "expected_type": "linear_horizontal",
+      "preferred_side": "above",
+      "priority": 40,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "projection_view_height",
+      "group": "small_projected_view",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "preferred_side": "right",
+      "priority": 41,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    },
+    {
+      "key": "small_feature_location",
+      "group": "small_projected_view",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "preferred_side": "left",
+      "priority": 42,
+      "required": true,
+      "create_as": "SolidWorks DisplayDim",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true
+    }
+  ],
+  "fallback_policy": "need_review_when_real_displaydim_unavailable",
+  "status": "plan_ready_requires_cad_worker_lock",
+  "reasons": [
+    "reference_intent_dimensions_replace_generic_autodimension",
+    "notes_do_not_count_as_display_dim",
+    "ui_screenshot_review_is_final_gate"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "version": "v2.0",
+  "run_id": "v2_test",
+  "pdf_path": "",
+  "png_path": "drw_output\\runs\\8823efa974a9\\drawing\\LB26001-A-04-001_v5_vision_ref.png",
+  "timestamp": "2026-06-20 04:46:20",
+  "steps": {
+    "symbol_detection": {
+      "symbols": {
+        "success": true,
+        "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8823efa974a9\\drawing\\LB26001-A-04-001_v5_vision_ref.png",
+        "symbols": [],
+        "symbol_count": 0,
+        "reason": "OpenCV 未安装，跳过模板匹配",
+        "timestamp": "2026-06-20 04:46:20"
+      },
+      "ra": null
+    },
+    "yolo_detection": {
+      "success": true,
+      "png_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8823efa974a9\\drawing\\LB26001-A-04-001_v5_vision_ref.png",
+      "detections": [],
+      "detection_count": 0,
+      "by_type": {},
+      "method": "none",
+      "reason": "OpenCV 未安装，跳过 YOLO 检测",
+      "timestamp": "2026-06-20 04:46:20"
+    },
+    "llm_review": {
+      "success": true,
+      "review": {
+        "overall_assessment": "pass",
+        "issues": [
+          {
+            "key": "no_surface_finish",
+            "severity": "minor",
+            "description": "未检测到表面粗糙度符号",
+            "fix_suggestion": "添加 Ra 符号"
+          }
+        ],
+        "summary": "规则复核: 1 个问题",
+        "method": "rule_based"
+      },
+      "reason": "LLM 调用失败，使用规则复核: LLMClient.__init__() missing 1 required positional argument: 'provider_cfg'",
+      "timestamp": "2026-06-20 04:46:20"
+    }
+  },
+  "issues": [
+    {
+      "key": "no_surface_finish",
+      "severity": "minor",
+      "source": "llm",
+      "description": "未检测到表面粗糙度符号",
+      "fix_suggestion": "添加 Ra 符号"
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "critical": 0,
+    "major": 0,
+    "minor": 1,
+    "info": 0
+  },
+  "checks": {
+    "pdf_render": {
+      "pass": false,
+      "reason": "PDF 文件不存在"
+    },
+    "ocr": {
+      "pass": false,
+      "reason": "PDF 不存在，跳过 OCR"
+    },
+    "symbol_detection": {
+      "pass": true,
+      "reason": "检测到 0 个符号"
+    },
+    "yolo_detection": {
+      "pass": true,
+      "reason": "检测到 0 个元素 (method=none)"
+    },
+    "llm_review": {
+      "pass": true,
+      "reason": "LLM 复核完成"
+    }
+  },
+  "success": false,
+  "reason": "Vision QC v3 有问题"
+}

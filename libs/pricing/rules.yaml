@@ -1,0 +1,13 @@
+profit: 0.15
+tax: 0.13
+packing_factor: 0.02
+moq: 10
+moq_factor: 1.2
+material_price_cny_per_kg:
+  Q235: 6.0
+  Q345: 7.5
+  S304: 22.0
+  S316: 32.0
+  6061: 28.0
+  6063: 25.0
+  H62: 55.0

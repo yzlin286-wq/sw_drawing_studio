@@ -1,0 +1,16 @@
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.0406532, "stage": "parent_start", "guard_timeout_s": 7, "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_trace2_006.json"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.0540009, "stage": "parent_child_started", "child_pid": 31196}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.2531018, "stage": "child_started", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\cad_smoke_timeout_trace2_006.json"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.2591796, "stage": "child_run_smoke_call"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.8701286, "stage": "run_smoke_enter", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "timeout_s": 1, "max_rounds": 1}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.9144158, "stage": "qcore_ready"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.9154215, "stage": "facade_construct_start"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.9154215, "stage": "facade_construct_done"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.916418, "stage": "signals_connected"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.916418, "stage": "start_cad_job_call_start"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.916418, "stage": "facade_start_cad_job_enter", "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT", "timeout_s": 1, "max_rounds": 1}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.916418, "stage": "facade_ensure_initialized_start"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.9282146, "stage": "facade_ensure_initialized_done"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.9282146, "stage": "facade_new_run_import_start", "job_id": "1a662368"}
+{"ts": "2026-06-22T08:41:35", "epoch": 1782088895.929214, "stage": "facade_new_run_call_start", "job_id": "1a662368"}
+{"ts": "2026-06-22T08:41:42", "epoch": 1782088902.0597675, "stage": "parent_guard_timeout", "child_pid": 31196}

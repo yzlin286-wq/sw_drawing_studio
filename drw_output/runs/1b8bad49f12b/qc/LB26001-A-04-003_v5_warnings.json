@@ -1,0 +1,321 @@
+{
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+  "warnings": [
+    {
+      "code": "mass_err",
+      "msg": "(-2147352573, '找不到成员。', None, None)"
+    },
+    {
+      "code": "prop_missing",
+      "key": "机型",
+      "msg": "标题栏属性 [机型] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "品名",
+      "msg": "标题栏属性 [品名] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "类别",
+      "msg": "标题栏属性 [类别] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "材质",
+      "msg": "标题栏属性 [材质] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "表面处理",
+      "msg": "标题栏属性 [表面处理] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "设计",
+      "msg": "标题栏属性 [设计] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "日期",
+      "msg": "标题栏属性 [日期] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "Material",
+      "msg": "标题栏属性 [Material] 缺失"
+    },
+    {
+      "code": "prop_missing",
+      "key": "重量",
+      "msg": "标题栏属性 [重量] 缺失"
+    },
+    {
+      "code": "layer_mgr_none",
+      "msg": "GetLayerManager / LayerMgr 均失败"
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "front",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "top",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "right",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "display_mode_fail",
+      "view": "iso",
+      "msg": "Property '<unknown>.DisplayMode' can not be set."
+    },
+    {
+      "code": "dim_import3_exc",
+      "msg": "<unknown>.InsertModelAnnotations3"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "diagonal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "horizontal"
+    },
+    {
+      "code": "force_dim_edge_select_failed",
+      "kind": "vertical"
+    },
+    {
+      "code": "OK",
+      "key": "section_view_exempt_reference_style",
+      "msg": "同名参考图未使用剖视图；已按参考图跳过自动剖视，保持视图数量一致"
+    },
+    {
+      "code": "reference_autodim_applied",
+      "before": 0,
+      "after": 12,
+      "reference_display_dim_floor": 6
+    },
+    {
+      "code": "reference_display_dim_pruned",
+      "cap": 9,
+      "before": 14,
+      "after": 9,
+      "deleted": 5
+    },
+    {
+      "code": "png_fallback_to_pdf",
+      "msg": "PNG 由 run_manager PDF→PyMuPDF 回退生成"
+    }
+  ],
+  "issues_in": [],
+  "scale": "5:1",
+  "bbox_m": [
+    0.28,
+    0.015,
+    0.012
+  ],
+  "centers_m": {
+    "front": [
+      0.11,
+      0.1703
+    ],
+    "top": [
+      0.11,
+      0.1274
+    ],
+    "right": [
+      0.21,
+      0.1703
+    ],
+    "iso": [
+      0.231564,
+      0.115289
+    ]
+  },
+  "predicted_outlines_m": {
+    "front": [
+      0.08199999999999999,
+      0.1688,
+      0.138,
+      0.1718
+    ],
+    "top": [
+      0.08199999999999999,
+      0.1262,
+      0.138,
+      0.12860000000000002
+    ],
+    "right": [
+      0.20879999999999999,
+      0.1688,
+      0.2112,
+      0.1718
+    ],
+    "iso": [
+      0.21196399999999999,
+      0.095689,
+      0.251164,
+      0.134889
+    ]
+  },
+  "real_outlines_m": {
+    "工程图视图1": [
+      0.0778,
+      0.1646,
+      0.14220000000000002,
+      0.17600000000000002
+    ],
+    "工程图视图2": [
+      0.0778,
+      0.12200000000000001,
+      0.14220000000000002,
+      0.13280000000000003
+    ],
+    "工程图视图3": [
+      0.2045999999999999,
+      0.1646,
+      0.2154000000000001,
+      0.17600000000000002
+    ],
+    "工程图视图4": [
+      0.20671648198935283,
+      0.09794463034955982,
+      0.25641151801064715,
+      0.1326333696504402
+    ]
+  },
+  "real_overlap_pairs": [],
+  "section_helper_called": false,
+  "section_view": false,
+  "display_dim_count_before_sidecar": 7,
+  "display_dim_count_final": 7,
+  "reference_autodim": {
+    "applied": true,
+    "before": 0,
+    "after": 12,
+    "calls_used": 2,
+    "attempts": [
+      {
+        "view": "front",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.11,
+          0.1703
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.110000,0.170300",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 0,
+            "after": 4,
+            "delta": 4
+          }
+        ]
+      },
+      {
+        "view": "top",
+        "type": "",
+        "outline": [],
+        "point": [
+          0.11,
+          0.1274
+        ],
+        "selected": true,
+        "select_reason": "<point>:DRAWINGVIEW:0.110000,0.127400",
+        "calls": [
+          {
+            "label": "preselect_baseline_above_right",
+            "returned": "1",
+            "before": 4,
+            "after": 12,
+            "delta": 8
+          }
+        ]
+      }
+    ]
+  },
+  "post_layout_dim_repair": {
+    "attempted": true,
+    "before": 7,
+    "after": 7,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": false,
+        "errors": 0,
+        "warnings": 0,
+        "method": "save_failed",
+        "reason": "<unknown>.Extension; <unknown>.Save3"
+      },
+      "open_errors": 0,
+      "open_warnings": 128
+    },
+    "save": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "reexported": true
+  },
+  "reference_dim_prune": {
+    "enabled": true,
+    "cap": 9,
+    "reopen": {
+      "success": true,
+      "save": {
+        "success": true,
+        "errors": 0,
+        "warnings": 0,
+        "method": "Extension.SaveAs"
+      },
+      "open_errors": 0,
+      "open_warnings": 0
+    },
+    "prune": {
+      "cap": 9,
+      "before": 14,
+      "after": 9,
+      "deleted": 5,
+      "attempted": 5,
+      "success": true,
+      "reasons": []
+    },
+    "save": {
+      "success": true,
+      "errors": 0,
+      "warnings": 0,
+      "method": "Extension.SaveAs"
+    },
+    "success": true
+  },
+  "text_height": 0.005,
+  "cached_cfg_name": "默认"
+}

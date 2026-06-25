@@ -1,0 +1,62 @@
+{
+  "score": 35,
+  "issues": [
+    {
+      "key": "gb_titlebar_complete",
+      "severity": "warning",
+      "description": "标题栏缺失6组GB要求的核心字段：品名|机型、图号、材质、数量、设计、日期",
+      "fix_suggestion": "按照GB要求补充标题栏所有必填核心字段，放置在图纸右下角"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "severity": "warning",
+      "description": "未绘制必要的剖视图，无法清晰表达零件内部结构",
+      "fix_suggestion": "根据零件内部结构特征补充对应剖视图，明确内部构造与尺寸"
+    },
+    {
+      "key": "has_datum_a",
+      "severity": "warning",
+      "description": "未定义基准A，形位公差无对应基准依托",
+      "fix_suggestion": "在对应基准要素处标注基准A符号，明确基准位置"
+    },
+    {
+      "key": "has_ra_note",
+      "severity": "warning",
+      "description": "粗糙度标注不规范，未按GB要求在标题栏右上角统一标注全图其余粗糙度",
+      "fix_suggestion": "在标题栏右上角标注全图统一粗糙度要求，格式为'其余Ra3.2'"
+    },
+    {
+      "key": "refdoc_correct",
+      "severity": "warning",
+      "description": "关联参考文档匹配错误，无匹配的有效参考文档，存在4项错误",
+      "fix_suggestion": "修正关联的参考文档，确保图纸引用的外部文件正确有效"
+    },
+    {
+      "key": "has_tech_note",
+      "severity": "warning",
+      "description": "技术要求标注不规范，校验关键字不匹配",
+      "fix_suggestion": "调整技术要求内容与放置位置，采用阿拉伯数字逐条编号，放置在标题栏左侧或图纸下方"
+    }
+  ],
+  "summary": "本工程图基础视图布局合规，但存在标题栏核心字段缺失、无剖视图、基准未定义、粗糙度与参考文档错误等多项严重不合规项，不符合中国GB机械制图规范要求",
+  "png": "drw_output\\v5\\LB26001-A-04-001_v5_vision_ref.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":35,\"issues\":[{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失6组GB要求的核心字段：品名|机型、图号、材质、数量、设计、日期\",\"fix\":\"按照GB要求补充标题栏所有必填核心字段，放置在图纸右下角\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"未绘制必要的剖视图，无法清晰表达零件内部结构\",\"fix\":\"根据零件内部结构特征补充对应剖视图，明确内部构造与尺寸\"},{\"key\":\"has_datum_a\",\"desc\":\"未定义基准A，形位公差无对应基准依托\",\"fix\":\"在对应基准要素处标注基准A符号，明确基准位置\"},{\"key\":\"has_ra_note\",\"desc\":\"粗糙度标注不规范，未按GB要求在标题栏右上角统一标注全图其余粗糙度\",\"fix\":\"在标题栏右上角标注全图统一粗糙度要求，格式为'其余Ra3.2'\"},{\"key\":\"refdoc_correct\",\"desc\":\"关联参考文档匹配错误，无匹配的有效参考文档，存在4项错误\",\"fix\":\"修正关联的参考文档，确保图纸引用的外部文件正确有效\"},{\"key\":\"has_tech_note\",\"desc\":\"技术要求标注不规范，校验关键字不匹配\",\"fix\":\"调整技术要求内容与放置位置，采用阿拉伯数字逐条编号，放置在标题栏左侧或图纸下方\"}],\"summary\":\"本工程图基础视图布局合规，但存在标题栏核心字段缺失、无剖视图、基准未定义、粗糙度与参考文档错误等多项严重不合规项，不符合中国GB机械制图规范要求\",\"reference_diff\":{\"similarity\":40,\"structural_diff\":\"案例图仅保留主视图与单一侧视图，主视图标注了全部孔位基准代号、XY坐标系与侧边尺寸，标注逻辑清晰；自动生成图额外增加了轴测视图与多余侧视图，主视图无孔位基准与坐标标注，视图布局与标注逻辑差异显著\",\"missing_elements\":[\"孔位基准代号标注\",\"XY坐标系尺寸标注\",\"主视图侧边尺寸标注\",\"未注尺寸按3D加工说明\",\"硬盘槽位变更备注说明\"]}}",
+  "error": "",
+  "reference_diff": {
+    "similarity": 40,
+    "structural_diff": "案例图仅保留主视图与单一侧视图，主视图标注了全部孔位基准代号、XY坐标系与侧边尺寸，标注逻辑清晰；自动生成图额外增加了轴测视图与多余侧视图，主视图无孔位基准与坐标标注，视图布局与标注逻辑差异显著",
+    "missing_elements": [
+      "孔位基准代号标注",
+      "XY坐标系尺寸标注",
+      "主视图侧边尺寸标注",
+      "未注尺寸按3D加工说明",
+      "硬盘槽位变更备注说明"
+    ]
+  },
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-001.png",
+  "threshold": 60,
+  "pass": false,
+  "image_path": "drw_output\\v5\\LB26001-A-04-001_v5_vision_ref.png",
+  "model": "doubao-seed-2.0-pro"
+}

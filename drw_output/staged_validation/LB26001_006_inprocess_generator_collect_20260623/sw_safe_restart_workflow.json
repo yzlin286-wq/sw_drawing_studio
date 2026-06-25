@@ -1,0 +1,30 @@
+{
+  "schema": "sw_drawing_studio.sw_safe_restart_workflow.v4",
+  "generated_at": "2026-06-23 16:06:12",
+  "connection_status": "pass",
+  "failure_bucket": "",
+  "auto_kill_allowed": false,
+  "user_confirmed": false,
+  "steps": [
+    {
+      "key": "save_or_close_unsaved_documents",
+      "status": "not_needed",
+      "message": "请先在 SolidWorks 中保存或关闭所有未保存文档。"
+    },
+    {
+      "key": "manual_close_solidworks_if_unresponsive",
+      "status": "optional",
+      "message": "若 SolidWorks 无响应，请由用户手动关闭或重启，软件不得自动杀死用户未确认的进程。"
+    },
+    {
+      "key": "restart_solidworks",
+      "status": "waiting_for_user_confirmation",
+      "message": "用户确认后可执行安全重启流程，然后重新 Add-in Ping。"
+    },
+    {
+      "key": "rerun_addin_ping",
+      "status": "pending",
+      "message": "重启后必须重新运行 Add-in Ping 和 OpenDoc6 probe。"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "part_name": "LB26001-A-04-006",
+      "part": "drw_output\\_apply_ui_visual_review_debug\\LB26001-A-04-006.SLDPRT",
+      "run_dir": "drw_output\\_apply_ui_visual_review_debug\\runs\\case",
+      "case_dir": "drw_output\\_apply_ui_visual_review_debug\\stage\\01_LB26001-A-04-006"
+    }
+  ]
+}

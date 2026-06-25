@@ -1,0 +1,130 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_ui_correction_evidence.v4_2",
+  "base": "LB26001-A-04-006",
+  "generated_at": "2026-06-25 03:29:44",
+  "source_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_032939\\lb26001_006_rerun_packet_v4_2.json",
+  "packet_status": "ready_for_locked_006_rerun",
+  "packet_build_ready": true,
+  "real_cad_allowed_at_packet_time": true,
+  "api_is_not_final_judgement": true,
+  "application_ui_screenshot_is_final_gate": true,
+  "current_006_ui_verdict": {
+    "status": "manual_visual_checklist_failed",
+    "pass": false,
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\manual_visual_judgement.json",
+    "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\drawing_visual_review_report.json",
+    "source_ui_report_mode": "source_qt_application_ui_screenshot",
+    "generated_png_source_pass": true,
+    "application_ui_screenshot_content_check_pass": true,
+    "failed_visual_checklist_items": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "latest_manual_visual_checklist": {
+      "reference_match": false,
+      "view_layout": false,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "latest_manual_visual_checklist_notes": {
+      "reference_match": "Generated drawing still does not visually match the same-name reference: dimension scheme, title/notes placement, and drawing density are substantially different.",
+      "view_layout": "The same general views are present, but the generated sheet is not reference-like: the main views are shifted/differently scaled and the large diagonal dimension crosses the layout.",
+      "display_dimensions": "Real DisplayDims exist and lifecycle audit passes, but the visible dimension set is over-dimensioned compared with the reference and includes non-reference dimension stacks.",
+      "dimension_readability": "Dimension text, arrows, leaders, and extension lines cluster around the right/center views; several labels are too dense or visually ambiguous for manufacturing use.",
+      "title_block": "The lower title/data area does not match the compact reference title block placement and remains visually inconsistent with the reference drawing.",
+      "manufacturing_notes": "Technical notes are present but placed/styled differently from the reference and are not yet sufficient as a reference-matching manufacturing note block."
+    },
+    "latest_manual_findings": [
+      "Application Drawing Review UI screenshot was inspected side by side with the reference image.",
+      "This run improved the technical lifecycle: DisplayDim lifecycle now passes and generated artifacts are current-run SLDDRW/PDF/DXF/PNG.",
+      "Visual acceptance still fails because the generated drawing remains over-dimensioned and visibly different from the reference drawing.",
+      "The long diagonal dimension line and dense right-side dimension stack make the drawing unsuitable for manufacturing review in its current form.",
+      "API metrics are supporting evidence only; this UI screenshot review remains the final gate and is FAIL."
+    ],
+    "correction_plan_direct_ui_findings_used_for_correction": false,
+    "correction_plan_effective_failed_visual_checks": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "correction_actions": [
+      {
+        "check": "reference_match",
+        "source_note": "Generated drawing still does not visually match the same-name reference: dimension scheme, title/notes placement, and drawing density are substantially different.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+      },
+      {
+        "check": "view_layout",
+        "source_note": "The same general views are present, but the generated sheet is not reference-like: the main views are shifted/differently scaled and the large diagonal dimension crosses the layout.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
+      },
+      {
+        "check": "display_dimensions",
+        "source_note": "Real DisplayDims exist and lifecycle audit passes, but the visible dimension set is over-dimensioned compared with the reference and includes non-reference dimension stacks.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+      },
+      {
+        "check": "dimension_readability",
+        "source_note": "Dimension text, arrows, leaders, and extension lines cluster around the right/center views; several labels are too dense or visually ambiguous for manufacturing use.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+      },
+      {
+        "check": "title_block",
+        "source_note": "The lower title/data area does not match the compact reference title block placement and remains visually inconsistent with the reference drawing.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+      },
+      {
+        "check": "manufacturing_notes",
+        "source_note": "Technical notes are present but placed/styled differently from the reference and are not yet sufficient as a reference-matching manufacturing note block.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+      }
+    ],
+    "latest_manual_required_correction": "Keep the DisplayDim lifecycle improvements, then learn the reference dimension scheme more strictly: remove non-reference dimension stacks, prevent diagonal cross-sheet dimension placement, place hole/pitch dimensions in the same lane style as the reference, and rebuild the compact title/notes area before another locked 006-only CAD rerun.",
+    "ui_screenshot_files": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "application_ui_screenshot_paths_existing_application_ui": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "generated_png": "drw_output\\runs\\0b8d84cbb0d5\\drawing\\LB26001-A-04-006_v5.PNG",
+    "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png"
+  },
+  "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+  "failed_visual_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "latest_manual_findings": [
+    "Application Drawing Review UI screenshot was inspected side by side with the reference image.",
+    "This run improved the technical lifecycle: DisplayDim lifecycle now passes and generated artifacts are current-run SLDDRW/PDF/DXF/PNG.",
+    "Visual acceptance still fails because the generated drawing remains over-dimensioned and visibly different from the reference drawing.",
+    "The long diagonal dimension line and dense right-side dimension stack make the drawing unsuitable for manufacturing review in its current form.",
+    "API metrics are supporting evidence only; this UI screenshot review remains the final gate and is FAIL."
+  ],
+  "latest_manual_required_correction": "Keep the DisplayDim lifecycle improvements, then learn the reference dimension scheme more strictly: remove non-reference dimension stacks, prevent diagonal cross-sheet dimension placement, place hole/pitch dimensions in the same lane style as the reference, and rebuild the compact title/notes area before another locked 006-only CAD rerun.",
+  "ui_screenshot_files": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_030940_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+  ],
+  "generated_png": "drw_output\\runs\\0b8d84cbb0d5\\drawing\\LB26001-A-04-006_v5.PNG",
+  "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png"
+}

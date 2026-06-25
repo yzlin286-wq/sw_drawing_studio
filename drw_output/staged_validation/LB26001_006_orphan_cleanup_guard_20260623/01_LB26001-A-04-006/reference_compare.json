@@ -1,0 +1,191 @@
+{
+  "generated_at": "2026-06-23 15:30:47",
+  "mode": "reference_compare_smoke_v3",
+  "metrics_mode": "sidecar_first",
+  "sidecar_timeout_s": 180,
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "reference_drawing": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+  "generated_drawing": "",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\191afa2934fb",
+  "connection_method": "get_active_object",
+  "connection_probe": {
+    "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+    "method": "get_active_object",
+    "status": "blocked_by_solidworks_lock",
+    "reason": "SolidWorks 正被另一个任务使用",
+    "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+    "owner": {
+      "owner_project": "sw_drawing_studio",
+      "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+      "owner_job_id": "7d3d109e",
+      "owner_run_id": "191afa2934fb",
+      "owner_pid": 28840,
+      "owner_worker_pid": 28840,
+      "operation": "cad_job_worker.generate_drawing",
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+      "sw_pid": null,
+      "heartbeat_at": "2026-06-23T15:30:44",
+      "heartbeat_age_s": 3.303,
+      "stale_lock": false
+    },
+    "elapsed_ms": 1125,
+    "returncode": 2,
+    "attempts": [
+      {
+        "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+        "method": "get_active_object",
+        "status": "blocked_by_solidworks_lock",
+        "reason": "SolidWorks 正被另一个任务使用",
+        "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+        "owner": {
+          "owner_project": "sw_drawing_studio",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_job_id": "7d3d109e",
+          "owner_run_id": "191afa2934fb",
+          "owner_pid": 28840,
+          "owner_worker_pid": 28840,
+          "operation": "cad_job_worker.generate_drawing",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+          "sw_pid": null,
+          "heartbeat_at": "2026-06-23T15:30:44",
+          "heartbeat_age_s": 3.303,
+          "stale_lock": false
+        },
+        "elapsed_ms": 1125,
+        "returncode": 2
+      }
+    ],
+    "connection_method": "get_active_object"
+  },
+  "reference_metrics": {
+    "schema": "sw_drawing_studio.reference_metrics.v1",
+    "source": "solidworks_com_probe",
+    "generated_at": "2026-06-23 15:30:47",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "exists": true,
+    "success": false,
+    "status": "error",
+    "reason": "solidworks_com_unavailable: SolidWorks 正被另一个任务使用",
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference.json",
+    "view_count": 0,
+    "view_types": {},
+    "view_names": [],
+    "view_outlines": [],
+    "display_dim_count": 0,
+    "display_dim_annotation_count": 0,
+    "display_dim_count_source": "",
+    "annotation_count": 0,
+    "file_size_bytes": 289467,
+    "warnings": [],
+    "failure_bucket": "solidworks_com_unavailable",
+    "connection_probe": {
+      "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+      "method": "get_active_object",
+      "status": "blocked_by_solidworks_lock",
+      "reason": "SolidWorks 正被另一个任务使用",
+      "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+      "owner": {
+        "owner_project": "sw_drawing_studio",
+        "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+        "owner_job_id": "7d3d109e",
+        "owner_run_id": "191afa2934fb",
+        "owner_pid": 28840,
+        "owner_worker_pid": 28840,
+        "operation": "cad_job_worker.generate_drawing",
+        "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+        "sw_pid": null,
+        "heartbeat_at": "2026-06-23T15:30:44",
+        "heartbeat_age_s": 3.303,
+        "stale_lock": false
+      },
+      "elapsed_ms": 1125,
+      "returncode": 2,
+      "attempts": [
+        {
+          "schema": "sw_drawing_studio.solidworks_com_probe.v1",
+          "method": "get_active_object",
+          "status": "blocked_by_solidworks_lock",
+          "reason": "SolidWorks 正被另一个任务使用",
+          "fix_suggestion": "等待当前 CAD job 完成，或手动确认后释放 stale lock",
+          "owner": {
+            "owner_project": "sw_drawing_studio",
+            "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+            "owner_job_id": "7d3d109e",
+            "owner_run_id": "191afa2934fb",
+            "owner_pid": 28840,
+            "owner_worker_pid": 28840,
+            "operation": "cad_job_worker.generate_drawing",
+            "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+            "sw_pid": null,
+            "heartbeat_at": "2026-06-23T15:30:44",
+            "heartbeat_age_s": 3.303,
+            "stale_lock": false
+          },
+          "elapsed_ms": 1125,
+          "returncode": 2
+        }
+      ],
+      "connection_method": "get_active_object"
+    }
+  },
+  "generated_metrics": {
+    "path": "",
+    "success": false,
+    "reason": "generated drawing missing"
+  },
+  "sidecar_artifacts": {
+    "reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-006_reference.json",
+    "generated": null
+  },
+  "view_match_score": 0.0,
+  "dimension_match_score": 0.0,
+  "titlebar_match_score": 0.0,
+  "annotation_match_score": 1.0,
+  "layout_match_score": 1.0,
+  "overall_score": 0.35,
+  "status": "fail",
+  "differences": [
+    {
+      "key": "reference_metrics_unavailable",
+      "severity": "need_review",
+      "reference": "solidworks_com_unavailable: SolidWorks 正被另一个任务使用",
+      "generated": "",
+      "fix_suggestion": "Verify SolidWorks can open the reference SLDDRW and extract drawing views."
+    },
+    {
+      "key": "generated_metrics_unavailable",
+      "severity": "fail",
+      "reference": "",
+      "generated": "generated drawing missing",
+      "fix_suggestion": "Regenerate the smoke drawing and rerun comparison."
+    }
+  ],
+  "metric_quality": {
+    "reference": {
+      "usable": false,
+      "weak_reasons": [
+        "reference_metrics_unavailable"
+      ],
+      "annotation_evidence_skipped": []
+    },
+    "generated": {
+      "usable": false,
+      "weak_reasons": [
+        "generated_metrics_unavailable"
+      ],
+      "fallbacks": []
+    }
+  },
+  "pass": false,
+  "reasons": [
+    "solidworks_com_unavailable",
+    "reference_metrics_unavailable",
+    "generated_metrics_unavailable"
+  ],
+  "failure_bucket": "solidworks_com_unavailable",
+  "fix_suggestions": [
+    "保存当前 SolidWorks 文档后重启 SolidWorks，再重新运行参考对比。",
+    "Verify SolidWorks can open the reference SLDDRW and extract drawing views.",
+    "Regenerate the smoke drawing and rerun comparison."
+  ]
+}

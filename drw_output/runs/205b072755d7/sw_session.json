@@ -1,0 +1,13 @@
+{
+  "schema": "sw_drawing_studio.sw_session.v1",
+  "generated_at": "2026-06-22 09:16:31",
+  "source": "cad_job_worker",
+  "status": "not_collected",
+  "connection_method": "skipped_on_worker_failure",
+  "sw_pid": null,
+  "sw_revision": "",
+  "visible": null,
+  "active_doc_title": "",
+  "active_doc_path": "",
+  "reason": "subprocess_exit_code_1"
+}

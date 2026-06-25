@@ -1,0 +1,1 @@
+{"version": "v5", "success": true, "issues": [{"key": "missing_ra", "severity": "minor", "source": "template", "confidence": 0.7, "bbox": [0, 0, 0, 0], "fix_suggestion": "补充粗糙度符号", "evidence": []}]}

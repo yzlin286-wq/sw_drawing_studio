@@ -1,0 +1,8 @@
+[2026-06-18 21:49:25] === Full pipeline start ===
+[2026-06-18 21:49:25] strategy=v6_recommended
+[2026-06-18 21:49:25] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\SKIN_GROUP1_1_1_1_2_1_1_3_1_2.SLDPRT
+[2026-06-18 21:49:25] sw_revision=33.5.0
+[2026-06-18 21:49:25] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 21:51:52] qc_loop exit_code=0
+[2026-06-18 21:51:54] bom rows=1
+[2026-06-18 21:51:54] === Full pipeline done. drawing_usable=False ===

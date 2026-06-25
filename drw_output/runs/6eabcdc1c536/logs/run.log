@@ -1,0 +1,5 @@
+[2026-06-19 00:08:19] === Full pipeline start ===
+[2026-06-19 00:08:19] strategy=v6_recommended
+[2026-06-19 00:08:19] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\-AK-15-AC-26-1-V3-V02.SLDPRT
+[2026-06-19 00:08:19] sw_revision=33.5.0
+[2026-06-19 00:08:19] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py

@@ -1,0 +1,233 @@
+{
+  "LB26001-A-04-015": {
+    "part": "LB26001-A-04-015",
+    "success": true,
+    "reason": "",
+    "duration": 48.2,
+    "returncode": 0,
+    "stdout_tail": "pcnt=11≥10)，终止循环\n[loop] qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-015_v5.SLDDRW\n  round 1: pass=False pass_count=11/12 issues=['has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-016": {
+    "part": "LB26001-A-04-016",
+    "success": false,
+    "reason": "timeout (300s)",
+    "duration": 300.0
+  },
+  "LB26001-A-04-021": {
+    "part": "LB26001-A-04-021",
+    "success": false,
+    "reason": "timeout (300s)",
+    "duration": 300.0
+  },
+  "LB26001-A-04-022": {
+    "part": "LB26001-A-04-022",
+    "success": true,
+    "reason": "",
+    "duration": 46.1,
+    "returncode": 0,
+    "stdout_tail": "md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-022_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-023": {
+    "part": "LB26001-A-04-023",
+    "success": true,
+    "reason": "",
+    "duration": 52.5,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-023_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-024": {
+    "part": "LB26001-A-04-024",
+    "success": false,
+    "reason": "timeout (300s)",
+    "duration": 300.0
+  },
+  "LB26001-A-04-025": {
+    "part": "LB26001-A-04-025",
+    "success": true,
+    "reason": "",
+    "duration": 49.4,
+    "returncode": 0,
+    "stdout_tail": "md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-025_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-026": {
+    "part": "LB26001-A-04-026",
+    "success": true,
+    "reason": "",
+    "duration": 49.3,
+    "returncode": 0,
+    "stdout_tail": "md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-026_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-031": {
+    "part": "LB26001-A-04-031",
+    "success": true,
+    "reason": "",
+    "duration": 53.4,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-031_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-032": {
+    "part": "LB26001-A-04-032",
+    "success": true,
+    "reason": "",
+    "duration": 49.1,
+    "returncode": 0,
+    "stdout_tail": "md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-032_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-033": {
+    "part": "LB26001-A-04-033",
+    "success": true,
+    "reason": "",
+    "duration": 52.0,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-033_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-034": {
+    "part": "LB26001-A-04-034",
+    "success": true,
+    "reason": "",
+    "duration": 299.4,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-035": {
+    "part": "LB26001-A-04-035",
+    "success": true,
+    "reason": "",
+    "duration": 37.3,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-035_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-036": {
+    "part": "LB26001-A-04-036",
+    "success": true,
+    "reason": "",
+    "duration": 34.5,
+    "returncode": 0,
+    "stdout_tail": "pcnt=11≥10)，终止循环\n[loop] qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-036_v5.SLDDRW\n  round 1: pass=False pass_count=11/12 issues=['has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-037": {
+    "part": "LB26001-A-04-037",
+    "success": true,
+    "reason": "",
+    "duration": 297.2,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-038": {
+    "part": "LB26001-A-04-038",
+    "success": true,
+    "reason": "",
+    "duration": 36.3,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-038_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-039": {
+    "part": "LB26001-A-04-039",
+    "success": true,
+    "reason": "",
+    "duration": 296.6,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-040": {
+    "part": "LB26001-A-04-040",
+    "success": false,
+    "reason": "timeout (300s)",
+    "duration": 300.0
+  },
+  "LB26001-A-04-041": {
+    "part": "LB26001-A-04-041",
+    "success": true,
+    "reason": "",
+    "duration": 295.9,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-042": {
+    "part": "LB26001-A-04-042",
+    "success": true,
+    "reason": "",
+    "duration": 38.1,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-042_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-044": {
+    "part": "LB26001-A-04-044",
+    "success": true,
+    "reason": "",
+    "duration": 296.4,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-045": {
+    "part": "LB26001-A-04-045",
+    "success": true,
+    "reason": "",
+    "duration": 37.2,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-045_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-046": {
+    "part": "LB26001-A-04-046",
+    "success": true,
+    "reason": "",
+    "duration": 36.9,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-046_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-047": {
+    "part": "LB26001-A-04-047",
+    "success": true,
+    "reason": "",
+    "duration": 36.7,
+    "returncode": 0,
+    "stdout_tail": "qc_log.md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-047_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['dim_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-048": {
+    "part": "LB26001-A-04-048",
+    "success": true,
+    "reason": "",
+    "duration": 296.4,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-049": {
+    "part": "LB26001-A-04-049",
+    "success": true,
+    "reason": "",
+    "duration": 296.0,
+    "returncode": 0,
+    "stdout_tail": "ch_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\n  round 2: pass=False pass_count=0/12 issues=['__subprocess_timeout__']\n  round 3: pass=False pass_count=9/12 issues=['dim_count_sufficient', 'centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  },
+  "LB26001-A-04-050": {
+    "part": "LB26001-A-04-050",
+    "success": true,
+    "reason": "",
+    "duration": 46.3,
+    "returncode": 0,
+    "stdout_tail": "md 已写: c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n\n========== 汇总 ==========\nfinal_pass = True\nfinal_path = c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-050_v5.SLDDRW\n  round 1: pass=False pass_count=10/12 issues=['centermark_count_sufficient', 'has_tech_note', 'has_ra_note', 'has_datum_a', 'refdoc_correct', 'gb_titlebar_complete', 'gb_has_section_view_or_skipped']\nqc_log.md = c:\\Users\\Vision\\Desktop\\SW 相关\\.trae\\specs\\enforce-drawing-quality\\qc_log.md\n",
+    "stderr_tail": ""
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "version": "v2.1",
+  "status": "fail",
+  "reason": "几何 QC hard_fail: ['dim_total_zero']",
+  "conflict": false,
+  "conflict_reason": "",
+  "deliverable": false,
+  "has_manual_review": false,
+  "manual_review": {},
+  "geo_qc": {
+    "pass": false,
+    "hard_fail": [
+      "dim_total_zero"
+    ],
+    "warnings_count": 7,
+    "drawing_usable_pass": false,
+    "dimension_grade": "D",
+    "usable_for": []
+  },
+  "vision_qc": {
+    "pass": false,
+    "critical": 1,
+    "major": 0,
+    "minor": 4,
+    "total_issues": 5
+  },
+  "drawing_accuracy_score": 56,
+  "recommendation": "图纸不可交付，需修复 hard_fail 项后重新生成"
+}

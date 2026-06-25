@@ -1,0 +1,51 @@
+{
+  "run_id": "b7a4376ada90",
+  "started_at": "2026-06-19 14:05:11",
+  "finished_at": "2026-06-19 14:12:04",
+  "app_version": "1.1.0",
+  "sw_revision": "33.5.0",
+  "strategy": "v6_recommended",
+  "input_part_path_abs": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDPRT",
+  "output_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90",
+  "output_files": {
+    "input": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\input\\LB26001-A-04-001.SLDPRT"
+    ],
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\drawing\\LB26001-A-04-001_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\drawing\\LB26001-A-04-001_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\drawing\\LB26001-A-04-001_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\drawing\\LB26001-A-04-001_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\qc\\LB26001-A-04-001_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\qc\\LB26001-A-04-001_v5_vision.json"
+    ],
+    "bom": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\bom\\bom.csv",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\bom\\bom.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\bom\\bom.json"
+    ],
+    "quote": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\quote\\process_route.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\quote\\process_route.xlsx",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\quote\\quote.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\quote\\quote.md",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\b7a4376ada90\\quote\\quote.xlsx"
+    ]
+  },
+  "hard_fail": [],
+  "warnings": [],
+  "drawing_usable": {},
+  "qc_pass_count": 0,
+  "score_total": 12,
+  "vision_score": 65,
+  "dim_total": 0,
+  "bom_status": "ok",
+  "process_status": "ok",
+  "quote_status": "ok total=21.15",
+  "llm_status": "ok",
+  "fallback_used": false,
+  "exception_summary": [],
+  "notes": []
+}

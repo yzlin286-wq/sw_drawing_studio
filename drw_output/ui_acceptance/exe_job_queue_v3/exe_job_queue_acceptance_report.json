@@ -1,0 +1,237 @@
+{
+  "generated_at": "2026-06-21 23:08:52",
+  "mode": "windows_exe_job_queue_acceptance",
+  "exe": "dist_v3_smoke\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_job_queue_v3",
+  "pass": false,
+  "checks": {
+    "normal_pass_completed": true,
+    "timeout_failed": true,
+    "retry_count_changed": true,
+    "retry_final_failed": true,
+    "cancelled": true,
+    "skip_completed": true,
+    "skip_event_logged": false,
+    "open_run_dir_exercised": false,
+    "screenshots_pass": true,
+    "process_alive_before_cleanup": true,
+    "failure_count": 0
+  },
+  "failures": [],
+  "jobs": {
+    "normal_pass": {
+      "job_id": "534a5997",
+      "part": "mock_normal_pass",
+      "stage": "done",
+      "progress": "100%",
+      "status": "completed",
+      "retry_count": "0",
+      "duration": "1.0",
+      "sw_pid": "33276",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "534a5997",
+        "mock_normal_pass",
+        "done",
+        "100%",
+        "completed",
+        "0",
+        "1.0",
+        "33276"
+      ],
+      "run_dir": ""
+    },
+    "timeout": {
+      "job_id": "38136956",
+      "part": "mock_timeout",
+      "stage": "mock_step_8/8",
+      "progress": "100%",
+      "status": "failed",
+      "retry_count": "0",
+      "duration": "1.0",
+      "sw_pid": "27096",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "38136956",
+        "mock_timeout",
+        "mock_step_8/8",
+        "100%",
+        "failed",
+        "0",
+        "1.0",
+        "27096"
+      ]
+    },
+    "retry_timeout": {
+      "started": {
+        "job_id": "38136956",
+        "part": "mock_timeout",
+        "stage": "mock_step_8/8",
+        "progress": "100%",
+        "status": "running",
+        "retry_count": "1",
+        "duration": "0",
+        "sw_pid": "27816",
+        "last_event": "",
+        "action": "",
+        "values": [
+          "38136956",
+          "mock_timeout",
+          "mock_step_8/8",
+          "100%",
+          "running",
+          "1",
+          "0",
+          "27816"
+        ]
+      },
+      "final": {
+        "job_id": "38136956",
+        "part": "mock_timeout",
+        "stage": "mock_step_8/8",
+        "progress": "100%",
+        "status": "failed",
+        "retry_count": "1",
+        "duration": "2.0",
+        "sw_pid": "27816",
+        "last_event": "",
+        "action": "",
+        "values": [
+          "38136956",
+          "mock_timeout",
+          "mock_step_8/8",
+          "100%",
+          "failed",
+          "1",
+          "2.0",
+          "27816"
+        ]
+      }
+    },
+    "cancel": {
+      "job_id": "75f7c939",
+      "part": "mock_normal_pass",
+      "stage": "mock_step_31/60",
+      "progress": "52%",
+      "status": "cancelled",
+      "retry_count": "0",
+      "duration": "3.0",
+      "sw_pid": "37484",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "75f7c939",
+        "mock_normal_pass",
+        "mock_step_31/60",
+        "52%",
+        "cancelled",
+        "0",
+        "3.0",
+        "37484"
+      ]
+    },
+    "skip": {
+      "job_id": "f10bf9a2",
+      "part": "mock_normal_pass",
+      "stage": "mock_step_33/60",
+      "progress": "55%",
+      "status": "completed",
+      "retry_count": "0",
+      "duration": "4.0",
+      "sw_pid": "8140",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "f10bf9a2",
+        "mock_normal_pass",
+        "mock_step_33/60",
+        "55%",
+        "completed",
+        "0",
+        "4.0",
+        "8140"
+      ],
+      "run_dir": "",
+      "event_log_has_skipped": false
+    }
+  },
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\01_job_queue_loaded.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 26,
+      "avg_luma": 232.4,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\02_normal_pass_completed.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 18,
+      "avg_luma": 236.66,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\03_timeout_failed_ui_responsive.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 18,
+      "avg_luma": 233.2,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\04_timeout_retry_failed.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 18,
+      "avg_luma": 233.74,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\05_cancelled.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 25,
+      "avg_luma": 230.91,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\06_skipped.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 24,
+      "avg_luma": 230.85,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots\\07_final.png",
+      "size_bytes": 8341592,
+      "width": 2316,
+      "height": 1200,
+      "sample_unique_colors": 24,
+      "avg_luma": 230.85,
+      "pass": true
+    }
+  ],
+  "artifacts": {
+    "ui_events": "drw_output\\ui_acceptance\\exe_job_queue_v3\\ui_events.jsonl",
+    "screenshots_dir": "drw_output\\ui_acceptance\\exe_job_queue_v3\\screenshots",
+    "report_json": "drw_output\\ui_acceptance\\exe_job_queue_v3\\exe_job_queue_acceptance_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_job_queue_v3\\exe_job_queue_acceptance_report.md"
+  },
+  "remaining_gates": [
+    "Historical visual audit 100 percent coverage remains pending.",
+    "v3.0 staged real CAD validation remains pending.",
+    "Final dist/sw_drawing_studio.exe remains pending.",
+    "Final release_log_v3_0.md remains pending."
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "source_summary": "drw_output\\staged_validation\\LB26001_ref2_skipimport_cap_20260622\\summary.json",
+  "rows": [
+    {
+      "base": "LB26001-A-04-008",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\43da95846ba5",
+      "case_status": "need_review",
+      "case_reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "style_status": "need_review",
+      "style_reasons": [
+        "display_dim_count_higher_than_reference"
+      ],
+      "ref_dims": 2,
+      "gen_dims": 16,
+      "ref_status": "pass",
+      "ref_reasons": [],
+      "before_sidecar": 16,
+      "final_memory": 16,
+      "autodim": {
+        "applied": false,
+        "before": null,
+        "after": null,
+        "attempts": []
+      },
+      "prune": {
+        "enabled": true,
+        "cap": 2,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 2,
+          "before": 16,
+          "after": 16,
+          "deleted": 14,
+          "attempted": 14,
+          "success": false,
+          "reasons": [
+            "display_dim_count_remains_above_cap:16>2"
+          ]
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": false
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "display_mode_fail",
+        "display_mode_fail",
+        "reference_model_dim_import_skipped",
+        "dim_import3_exc",
+        "OK",
+        "reference_display_dim_pruned",
+        "reference_display_dim_prune_failed",
+        "part_class",
+        "dim_via_sidecar",
+        "png_fallback_to_pdf"
+      ],
+      "reference_warnings": [
+        {
+          "code": "reference_model_dim_import_skipped",
+          "reference_display_dim_floor": 2,
+          "msg": "同名参考图为极简尺寸风格，跳过模型尺寸全量导入以避免过标注。"
+        },
+        {
+          "code": "reference_display_dim_pruned",
+          "cap": 2,
+          "before": 16,
+          "after": 16,
+          "deleted": 14
+        },
+        {
+          "code": "reference_display_dim_prune_failed",
+          "cap": 2,
+          "result": {
+            "enabled": true,
+            "cap": 2,
+            "reopen": {
+              "success": true,
+              "save": {
+                "success": true,
+                "errors": 0,
+                "warnings": 0,
+                "method": "Extension.SaveAs"
+              },
+              "open_errors": 0,
+              "open_warnings": 0
+            },
+            "prune": {
+              "cap": 2,
+              "before": 16,
+              "after": 16,
+              "deleted": 14,
+              "attempted": 14,
+              "success": false,
+              "reasons": [
+                "display_dim_count_remains_above_cap:16>2"
+              ]
+            },
+            "save": {
+              "success": true,
+              "errors": 0,
+              "warnings": 0,
+              "method": "Extension.SaveAs"
+            },
+            "success": false
+          }
+        }
+      ]
+    },
+    {
+      "base": "LB26001-A-04-015",
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\8bd5bec600b4",
+      "case_status": "need_review",
+      "case_reasons": [
+        "display_dim_count_lower_than_reference",
+        "display_dim_count_lower_than_reference"
+      ],
+      "style_status": "fail",
+      "style_reasons": [
+        "display_dim_count_lower_than_reference"
+      ],
+      "ref_dims": 14,
+      "gen_dims": 12,
+      "ref_status": "pass_with_warning",
+      "ref_reasons": [
+        "display_dim_count_lower_than_reference"
+      ],
+      "before_sidecar": 8,
+      "final_memory": 8,
+      "autodim": {
+        "applied": false,
+        "before": 8,
+        "after": 8,
+        "calls_used": 2,
+        "attempts": [
+          {
+            "view": "front",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.155809
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.155809",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          },
+          {
+            "view": "top",
+            "type": "",
+            "outline": [],
+            "point": [
+              0.104977,
+              0.078414
+            ],
+            "selected": true,
+            "select_reason": "<point>:DRAWINGVIEW:0.104977,0.078414",
+            "calls": [
+              {
+                "label": "preselect_baseline_above_right",
+                "returned": "1",
+                "before": 8,
+                "after": 8,
+                "delta": 0
+              }
+            ]
+          }
+        ]
+      },
+      "prune": {
+        "enabled": true,
+        "cap": 21,
+        "reopen": {
+          "success": true,
+          "save": {
+            "success": true,
+            "errors": 0,
+            "warnings": 0,
+            "method": "Extension.SaveAs"
+          },
+          "open_errors": 0,
+          "open_warnings": 0
+        },
+        "prune": {
+          "cap": 21,
+          "before": 95,
+          "after": 21,
+          "deleted": 74,
+          "attempted": 74,
+          "success": true,
+          "reasons": []
+        },
+        "save": {
+          "success": true,
+          "errors": 0,
+          "warnings": 0,
+          "method": "Extension.SaveAs"
+        },
+        "success": true
+      },
+      "warning_codes": [
+        "mass_err",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "prop_missing",
+        "layer_mgr_none",
+        "display_mode_fail",
+        "display_mode_fail",
+        "dim_import3_exc",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "force_dim_edge_select_failed",
+        "OK",
+        "reference_autodim_no_increase",
+        "reference_display_dim_pruned",
+        "part_class",
+        "dim_via_sidecar",
+        "reference_display_dim_floor_unmet",
+        "png_fallback_to_pdf"
+      ],
+      "reference_warnings": [
+        {
+          "code": "reference_autodim_no_increase",
+          "before": 8,
+          "after": 8,
+          "reference_display_dim_floor": 14
+        },
+        {
+          "code": "reference_display_dim_pruned",
+          "cap": 21,
+          "before": 95,
+          "after": 21,
+          "deleted": 74
+        },
+        {
+          "code": "reference_display_dim_floor_unmet",
+          "msg": "DisplayDim 8 < reference 14; gap=6",
+          "reference_display_dim_floor": 14,
+          "generated_display_dim_count": 8
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+solidworks_path: C:/Program Files/SOLIDWORKS Corp/SOLIDWORKS/SLDWORKS.exe
+drwdot_template: templates/gb_a4_landscape.drwdot
+output_dir: c:/Users/Vision/Desktop/SW 相关/drw_output/v5
+max_qc_rounds: 3
+vision_min_score: 80

@@ -1,0 +1,117 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_ui_correction_evidence.v4_2",
+  "base": "LB26001-A-04-006",
+  "generated_at": "2026-06-25 02:21:14",
+  "source_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_022109\\lb26001_006_rerun_packet_v4_2.json",
+  "packet_status": "ready_for_locked_006_rerun",
+  "packet_build_ready": true,
+  "real_cad_allowed_at_packet_time": true,
+  "api_is_not_final_judgement": true,
+  "application_ui_screenshot_is_final_gate": true,
+  "current_006_ui_verdict": {
+    "status": "manual_visual_checklist_failed",
+    "pass": false,
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\manual_visual_judgement.json",
+    "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\drawing_visual_review_report.json",
+    "source_ui_report_mode": "source_qt_application_ui_screenshot",
+    "generated_png_source_pass": true,
+    "application_ui_screenshot_content_check_pass": true,
+    "failed_visual_checklist_items": [
+      "reference_match",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "latest_manual_visual_checklist": {
+      "reference_match": false,
+      "view_layout": true,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "latest_manual_visual_checklist_notes": {
+      "reference_match": "Generated drawing still does not visually match the same-name reference drawing; the dimension and notes/title areas differ substantially.",
+      "view_layout": "The four expected views are present and roughly follow the reference front/top/right/iso placement.",
+      "display_dimensions": "The dimension scheme still differs from the reference; lifecycle evidence reports final missing targets overall_height and hole_diameter after the prune guard.",
+      "dimension_readability": "Dimension text and leaders remain crowded around the main/top views, including long diagonal leader geometry unlike the reference's clean dimension lanes.",
+      "title_block": "Lower-sheet title/data placement and compact reference style are still not visually equivalent.",
+      "manufacturing_notes": "Technical notes are present but do not match the reference note placement, style, or manufacturing-readiness expectation closely enough for release."
+    },
+    "latest_manual_findings": [
+      "Application Drawing Review screenshot confirms the generated drawing is still not acceptable for manufacturing review.",
+      "The new post_layout_prune_guard ran, but final evidence still loses overall_height and hole_diameter target coverage.",
+      "The primary visible blocker remains dimension lane placement and readability around the main/top views."
+    ],
+    "correction_plan_direct_ui_findings_used_for_correction": false,
+    "correction_plan_effective_failed_visual_checks": [
+      "reference_match",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "correction_actions": [
+      {
+        "check": "reference_match",
+        "source_note": "Generated drawing still does not visually match the same-name reference drawing; the dimension and notes/title areas differ substantially.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
+      },
+      {
+        "check": "display_dimensions",
+        "source_note": "The dimension scheme still differs from the reference; lifecycle evidence reports final missing targets overall_height and hole_diameter after the prune guard.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
+      },
+      {
+        "check": "dimension_readability",
+        "source_note": "Dimension text and leaders remain crowded around the main/top views, including long diagonal leader geometry unlike the reference's clean dimension lanes.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
+      },
+      {
+        "check": "title_block",
+        "source_note": "Lower-sheet title/data placement and compact reference style are still not visually equivalent.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
+      },
+      {
+        "check": "manufacturing_notes",
+        "source_note": "Technical notes are present but do not match the reference note placement, style, or manufacturing-readiness expectation closely enough for release.",
+        "source_type": "manual_visual_checklist",
+        "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
+      }
+    ],
+    "latest_manual_required_correction": "Preserve overall_height and hole_diameter through the final post-layout persistence pass, then place reference-intent dimensions into clean lanes matching the reference instead of clustered diagonal stacks. Repeat one locked 006 CAD rerun and Drawing Review UI screenshot validation before expanding to 007/008/009/015/022.",
+    "ui_screenshot_files": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "application_ui_screenshot_paths_existing_application_ui": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+    ],
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "generated_png": "C:\\Users\\Vision\\Desktop\\SW 鐩稿叧\\drw_output\\runs\\7ba8c89aea5d\\drawing\\LB26001-A-04-006_v5.PNG",
+    "reference_png": "C:\\Users\\Vision\\Desktop\\SW 鐩稿叧\\drw_output\\case_library\\LB26001-A-04-006.png"
+  },
+  "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+  "failed_visual_checklist_items": [
+    "reference_match",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "latest_manual_findings": [
+    "Application Drawing Review screenshot confirms the generated drawing is still not acceptable for manufacturing review.",
+    "The new post_layout_prune_guard ran, but final evidence still loses overall_height and hole_diameter target coverage.",
+    "The primary visible blocker remains dimension lane placement and readability around the main/top views."
+  ],
+  "latest_manual_required_correction": "Preserve overall_height and hole_diameter through the final post-layout persistence pass, then place reference-intent dimensions into clean lanes matching the reference instead of clustered diagonal stacks. Repeat one locked 006 CAD rerun and Drawing Review UI screenshot validation before expanding to 007/008/009/015/022.",
+  "ui_screenshot_files": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_020105_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+  ],
+  "generated_png": "C:\\Users\\Vision\\Desktop\\SW 鐩稿叧\\drw_output\\runs\\7ba8c89aea5d\\drawing\\LB26001-A-04-006_v5.PNG",
+  "reference_png": "C:\\Users\\Vision\\Desktop\\SW 鐩稿叧\\drw_output\\case_library\\LB26001-A-04-006.png"
+}

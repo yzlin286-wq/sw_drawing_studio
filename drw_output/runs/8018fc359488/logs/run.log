@@ -1,0 +1,8 @@
+[2026-06-18 22:18:08] === Full pipeline start ===
+[2026-06-18 22:18:08] strategy=v6_recommended
+[2026-06-18 22:18:08] input_part=C:\Users\Vision\Desktop\SW 相关\3D转2D测试图纸\导柱16-65-M8-V02.SLDPRT
+[2026-06-18 22:18:08] sw_revision=33.5.0
+[2026-06-18 22:18:08] qc_script=C:\Users\Vision\Desktop\SW 相关\.trae\specs\build-v6-and-validate-exe-ui\drw_qc_loop_v6.py
+[2026-06-18 22:19:20] qc_loop exit_code=0
+[2026-06-18 22:19:21] bom rows=1
+[2026-06-18 22:19:21] === Full pipeline done. drawing_usable=False ===

@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-06-21 23:49:37",
+  "mode": "windows_exe_job_queue_acceptance",
+  "exe": "dist\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese",
+  "pass": true,
+  "checks": {
+    "normal_pass_completed": true,
+    "timeout_failed": true,
+    "retry_count_changed": true,
+    "retry_final_failed": true,
+    "cancelled": true,
+    "skip_completed": true,
+    "skip_event_logged": true,
+    "open_run_dir_exercised": true,
+    "screenshots_pass": true,
+    "process_alive_before_cleanup": true,
+    "failure_count": 0
+  },
+  "failures": [],
+  "jobs": {
+    "normal_pass": {
+      "job_id": "6b15d2d2",
+      "part": "mock_normal_pass",
+      "stage": "done",
+      "progress": "100%",
+      "status": "completed",
+      "retry_count": "0",
+      "duration": "1.0",
+      "sw_pid": "28344",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "6b15d2d2",
+        "mock_normal_pass",
+        "done",
+        "100%",
+        "completed",
+        "0",
+        "1.0",
+        "28344"
+      ],
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\drw_output\\runs\\mock_20260621_234852_6b15d2d2"
+    },
+    "timeout": {
+      "job_id": "21986b32",
+      "part": "mock_timeout",
+      "stage": "mock_step_8/8",
+      "progress": "100%",
+      "status": "failed",
+      "retry_count": "0",
+      "duration": "2.0",
+      "sw_pid": "31484",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "21986b32",
+        "mock_timeout",
+        "mock_step_8/8",
+        "100%",
+        "failed",
+        "0",
+        "2.0",
+        "31484"
+      ]
+    },
+    "retry_timeout": {
+      "started": {
+        "job_id": "21986b32",
+        "part": "mock_timeout",
+        "stage": "mock_step_8/8",
+        "progress": "100%",
+        "status": "running",
+        "retry_count": "1",
+        "duration": "0",
+        "sw_pid": "35800",
+        "last_event": "",
+        "action": "",
+        "values": [
+          "21986b32",
+          "mock_timeout",
+          "mock_step_8/8",
+          "100%",
+          "running",
+          "1",
+          "0",
+          "35800"
+        ]
+      },
+      "final": {
+        "job_id": "21986b32",
+        "part": "mock_timeout",
+        "stage": "mock_step_8/8",
+        "progress": "100%",
+        "status": "failed",
+        "retry_count": "1",
+        "duration": "2.0",
+        "sw_pid": "35800",
+        "last_event": "",
+        "action": "",
+        "values": [
+          "21986b32",
+          "mock_timeout",
+          "mock_step_8/8",
+          "100%",
+          "failed",
+          "1",
+          "2.0",
+          "35800"
+        ]
+      }
+    },
+    "cancel": {
+      "job_id": "5eeb74e0",
+      "part": "mock_normal_pass",
+      "stage": "mock_step_31/60",
+      "progress": "52%",
+      "status": "cancelled",
+      "retry_count": "0",
+      "duration": "3.0",
+      "sw_pid": "7828",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "5eeb74e0",
+        "mock_normal_pass",
+        "mock_step_31/60",
+        "52%",
+        "cancelled",
+        "0",
+        "3.0",
+        "7828"
+      ]
+    },
+    "skip": {
+      "job_id": "b7d877a4",
+      "part": "mock_normal_pass",
+      "stage": "mock_step_32/60",
+      "progress": "53%",
+      "status": "completed",
+      "retry_count": "0",
+      "duration": "4.0",
+      "sw_pid": "27172",
+      "last_event": "",
+      "action": "",
+      "values": [
+        "b7d877a4",
+        "mock_normal_pass",
+        "mock_step_32/60",
+        "53%",
+        "completed",
+        "0",
+        "4.0",
+        "27172"
+      ],
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\drw_output\\runs\\mock_20260621_234932_b7d877a4",
+      "event_log_has_skipped": true
+    }
+  },
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\01_job_queue_loaded.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 21,
+      "avg_luma": 229.31,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\02_normal_pass_completed.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 21,
+      "avg_luma": 231.58,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\03_timeout_failed_ui_responsive.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 23,
+      "avg_luma": 226.88,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\04_timeout_retry_failed.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 23,
+      "avg_luma": 227.02,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\05_cancelled.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 26,
+      "avg_luma": 228.49,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\06_skipped.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 32,
+      "avg_luma": 226.28,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots\\07_final.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 32,
+      "avg_luma": 226.28,
+      "pass": true
+    }
+  ],
+  "run_roots_checked": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs",
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\drw_output\\runs"
+  ],
+  "artifacts": {
+    "ui_events": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\ui_events.jsonl",
+    "screenshots_dir": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\screenshots",
+    "report_json": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\exe_job_queue_acceptance_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_job_queue_v3_chinese\\exe_job_queue_acceptance_report.md"
+  },
+  "remaining_gates": [
+    "Historical visual audit 100 percent coverage remains pending.",
+    "v3.0 staged real CAD validation remains pending.",
+    "Final dist/sw_drawing_studio.exe remains pending.",
+    "Final release_log_v3_0.md remains pending."
+  ]
+}

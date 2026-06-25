@@ -1,0 +1,30 @@
+{
+  "schema": "sw_drawing_studio.manual_visual_judgement.v1",
+  "generated_at": "2026-06-22 21:55:00",
+  "review_scope": "source_ui_screenshot_visual_review",
+  "overall_status": "FAIL",
+  "visual_acceptance_pass": false,
+  "fail_count": 1,
+  "warning_count": 0,
+  "pass_count": 0,
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "status": "FAIL",
+      "ui_screenshot": "drw_output/ui_acceptance/LB26001_006_fresh_png_visual_review_20260622/screenshots/01_LB26001-A-04-006_ui_visual_review.png",
+      "generated_png": "drw_output/runs/97691dfbacc7/drawing/LB26001-A-04-006_v5.PNG",
+      "reference_png": "drw_output/case_library/LB26001-A-04-006.png",
+      "reasons": [
+        "fresh PNG is now generated and the stale lower-left titleblock/frame artifact is gone",
+        "dimension layout is still visually unacceptable: oversized dimension stack and hole callout overlap the main view",
+        "generated layout does not match the same-name reference drawing positions and annotation density",
+        "technical notes and roughness note placement differ from the reference"
+      ],
+      "next_fix_suggestions": [
+        "derive a concise dimension policy from the reference profile instead of forcing AutoDimension to the DisplayDim floor",
+        "place hole callout text outside the view envelope and cap text height for reference-style drawings",
+        "use UI screenshot visual review as the final gate after each generator change"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "schema": "sw_drawing_studio.worker_manifest.v1",
+  "job_type": "cad",
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+  "part_base": "LB26001-A-04-006",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3",
+  "generated_at": "2026-06-22 07:12:32",
+  "returncode": 0,
+  "line_count": 37,
+  "core_files_ok": true,
+  "drawing_usable": {
+    "pass": true,
+    "criteria": {
+      "files_exported": true,
+      "view_in_frame": true,
+      "view_overlap_ok": true,
+      "dim_total": 8,
+      "qc_pass_count": 10,
+      "vision_score": null
+    }
+  },
+  "hard_fail": [],
+  "warnings": [
+    "refdoc_correct",
+    "has_datum_a",
+    "has_ra_note",
+    "gb_titlebar_complete",
+    "gb_has_section_view_or_skipped",
+    "titlebar_complete",
+    "model_2d_consistency",
+    "non_model_associative_dimension"
+  ],
+  "qc_pass": false,
+  "qc_score_pass_count": 10,
+  "dimension_grade": "B",
+  "dimension_sources": {
+    "display_dim_count": 8,
+    "note_dim_count": 0,
+    "standard_annotation_present": false,
+    "sidecar_overall": null,
+    "sources_summary": [
+      "model_display_dim=8"
+    ]
+  },
+  "display_dim_count": 8,
+  "note_dim_count": 0,
+  "model_associative_dim_count": 0,
+  "addin_dimension_count": 0,
+  "docmgr_reference_count": 0,
+  "drawing_accuracy_score": {
+    "total": 76,
+    "layout": {
+      "score": 20,
+      "max": 20,
+      "details": {
+        "view_overlap": 8,
+        "view_in_frame": 7,
+        "scale_in_set": 5
+      }
+    },
+    "dimension": {
+      "score": 31,
+      "max": 35,
+      "details": {
+        "dim_total": 20,
+        "associativity": 4,
+        "overall": 7
+      }
+    },
+    "titlebar": {
+      "score": 6,
+      "max": 10,
+      "details": {
+        "keys": 6,
+        "gb_titlebar": 0
+      }
+    },
+    "annotation": {
+      "score": 2,
+      "max": 15,
+      "details": {
+        "tech_note": 0,
+        "ra_note": 0,
+        "datum_a": 0,
+        "standard_annotation": 2
+      }
+    },
+    "visual_clarity": {
+      "score": 17,
+      "max": 20,
+      "details": {
+        "text_height": 5,
+        "png": 8,
+        "vision": 4
+      }
+    },
+    "grade_label": "B",
+    "reasons": [
+      "dimension.associativity: non_model",
+      "titlebar.gb_titlebar: 不完整",
+      "annotation.tech_note: 缺失",
+      "visual.vision: 未评估"
+    ]
+  },
+  "final_quality": {
+    "version": "v2.1",
+    "status": "pass_with_warning",
+    "reason": "通过但有 warning (geo=8, vision=4)",
+    "conflict": false,
+    "conflict_reason": "",
+    "deliverable": true,
+    "has_manual_review": false,
+    "manual_review": {},
+    "geo_qc": {
+      "pass": true,
+      "hard_fail": [],
+      "warnings_count": 8,
+      "drawing_usable_pass": true,
+      "dimension_grade": "B",
+      "usable_for": [
+        "manufacturing",
+        "assembly",
+        "procurement"
+      ]
+    },
+    "vision_qc": {
+      "pass": true,
+      "critical": 0,
+      "major": 0,
+      "minor": 4,
+      "total_issues": 4
+    },
+    "drawing_accuracy_score": 76,
+    "recommendation": "图纸可用，建议复核 warning 项后交付"
+  },
+  "vision_final_quality_error": "",
+  "output_files": {
+    "drawing": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\drawing\\LB26001-A-04-006_v5.PDF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\drawing\\LB26001-A-04-006_v5.DXF",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\drawing\\LB26001-A-04-006_v5.PNG"
+    ],
+    "qc": [
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\qc\\LB26001-A-04-006_v5_qc.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\qc\\LB26001-A-04-006_v5_warnings.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\qc\\vision_qc_v2.json",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\qc\\final_quality.json"
+    ],
+    "logs": []
+  },
+  "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\99083eda91c3\\sw_session.json"
+}

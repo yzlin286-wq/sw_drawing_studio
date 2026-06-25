@@ -1,0 +1,181 @@
+[
+  {
+    "base": "LB26001-A-04-001",
+    "status": "warning",
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 11,
+    "dim_total": 44,
+    "drawing_usable": true,
+    "run_id": "06b8946148bb"
+  },
+  {
+    "base": "LB26001-A-04-002",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_zero",
+      "qc_pass_too_low"
+    ],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "3a8658acc506"
+  },
+  {
+    "base": "LB26001-A-04-003",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_too_low",
+      "qc_pass_too_low"
+    ],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency"
+    ],
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "fc371fda6331"
+  },
+  {
+    "base": "LB26001-A-04-004",
+    "status": "warning",
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 11,
+    "dim_total": 64,
+    "drawing_usable": true,
+    "run_id": "e09401b21ac9"
+  },
+  {
+    "base": "LB26001-A-04-005",
+    "status": "warning",
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 10,
+    "dim_total": 8,
+    "drawing_usable": true,
+    "run_id": "8bddde7a78d5"
+  },
+  {
+    "base": "LB26001-A-04-006",
+    "status": "warning",
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 10,
+    "dim_total": 8,
+    "drawing_usable": true,
+    "run_id": "51df09710df0"
+  },
+  {
+    "base": "LB26001-A-04-007",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_too_low",
+      "qc_pass_too_low"
+    ],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency"
+    ],
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "84d85f127fd6"
+  },
+  {
+    "base": "LB26001-A-04-008",
+    "status": "warning",
+    "hard_fail": [],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency",
+      "non_model_associative_dimension"
+    ],
+    "qc_pass": 11,
+    "dim_total": 32,
+    "drawing_usable": true,
+    "run_id": "f4a58eba8ddd"
+  },
+  {
+    "base": "LB26001-A-04-009",
+    "status": "failed",
+    "hard_fail": [
+      "dim_total_too_low",
+      "qc_pass_too_low"
+    ],
+    "warnings": [
+      "refdoc_correct",
+      "has_datum_a",
+      "has_ra_note",
+      "gb_titlebar_complete",
+      "gb_has_section_view_or_skipped",
+      "titlebar_complete",
+      "model_2d_consistency"
+    ],
+    "qc_pass": 9,
+    "dim_total": 0,
+    "drawing_usable": false,
+    "run_id": "331d185b8e5d"
+  }
+]

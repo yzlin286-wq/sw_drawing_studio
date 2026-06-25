@@ -1,0 +1,9 @@
+﻿{
+    "pid":  21032,
+    "started_at":  "2026-06-25 02:41:33",
+    "out_dir":  "drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133",
+    "abs_out_dir":  "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133",
+    "stdout":  "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\staged_stdout.log",
+    "stderr":  "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133\\staged_stderr.log",
+    "command":  "python tools\\validation\\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_024133"
+}

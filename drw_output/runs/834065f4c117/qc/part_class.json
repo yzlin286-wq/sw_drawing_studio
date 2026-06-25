@@ -1,0 +1,19 @@
+{
+  "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\-AK-15-AC-25-1-V3-V02.SLDPRT",
+  "part_name": "-AK-15-AC-25-1-V3-V02.SLDPRT",
+  "part_class": "purchased_part",
+  "reason": "filename match: AC-25",
+  "bbox_mm": [
+    33.0,
+    10.0,
+    10.0
+  ],
+  "is_standard": false,
+  "std_no": "",
+  "std_spec": "",
+  "long_thin_ratio": 3.3,
+  "is_tiny": false,
+  "is_sheet_like": false,
+  "has_features": null,
+  "history_dim_total": 0
+}

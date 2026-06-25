@@ -1,0 +1,33 @@
+﻿png_render_ok: True -> c:\Users\Vision\Desktop\SW 相关\drw_output\v5\LB26001-A-04-001_v5.PNG
+LLM: LLMClient(base_url='https://api.ccagent.cn/v1', model='glm-5.1', vision_model='doubao-seed-2.0-pro', api_key=sk-r***, temperature=0.2, timeout=60.0)
+{
+  "score": 55,
+  "issues": [
+    {
+      "key": "gb_titlebar_complete",
+      "desc": "标题栏缺失6组核心必填字段：品名/机型、图号、材质、数量、设计、日期，不符合GB制图要求",
+      "fix": "按照GB/T 14689要求补全上述核心字段，将标题栏放置于图纸右下角标准位置"
+    },
+    {
+      "key": "gb_has_section_view_or_skipped",
+      "desc": "未绘制必要剖视图，无法清晰表达零件内部结构，不符合GB/T 17452视图表达要求",
+      "fix": "根据该钣金零件的结构特征，补充必要剖视图，明确内部安装结构与板厚特征"
+    },
+    {
+      "key": "has_datum_a",
+      "desc": "未标注符合GB规范的基准A代号，无对应形位公差定义",
+      "fix": "按照GB/T 1182-2008要求，使用带方框的大写字母、填充基准三角绘制基准A标识，补充对应形位公差要求"
+    },
+    {
+      "key": "refdoc_correct",
+      "desc": "无有效引用参考文档，关联文档匹配错误",
+      "fix": "补全该零件所属上层装配、设计依据等参考文档，确保引用编号与名称准确有效"
+    }
+  ],
+  "summary": "本工程图技术要求、粗糙度标注基本合规，但存在标题栏核心字段缺失、无必要剖视图、基准标识不规范、无有效参考文档等严重问题，不符合GB机械制图规范，需逐项整改。",
+  "png": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5_vision.png",
+  "png_ok": true,
+  "raw_text": "{\"score\":55,\"issues\":[{\"key\":\"gb_titlebar_complete\",\"desc\":\"标题栏缺失6组核心必填字段：品名/机型、图号、材质、数量、设计、日期，不符合GB制图要求\",\"fix\":\"按照GB/T 14689要求补全上述核心字段，将标题栏放置于图纸右下角标准位置\"},{\"key\":\"gb_has_section_view_or_skipped\",\"desc\":\"未绘制必要剖视图，无法清晰表达零件内部结构，不符合GB/T 17452视图表达要求\",\"fix\":\"根据该钣金零件的结构特征，补充必要剖视图，明确内部安装结构与板厚特征\"},{\"key\":\"has_datum_a\",\"desc\":\"未标注符合GB规范的基准A代号，无对应形位公差定义\",\"fix\":\"按照GB/T 1182-2008要求，使用带方框的大写字母、填充基准三角绘制基准A标识，补充对应形位公差要求\"},{\"key\":\"refdoc_correct\",\"desc\":\"无有效引用参考文档，关联文档匹配错误\",\"fix\":\"补全该零件所属上层装配、设计依据等参考文档，确保引用编号与名称准确有效\"}],\"summary\":\"本工程图技术要求、粗糙度标注基本合规，但存在标题栏核心字段缺失、无必要剖视图、基准标识不规范、无有效参考文档等严重问题，不符合GB机械制图规范，需逐项整改。\"}",
+  "error": "",
+  "vision_json": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-001_v5_vision.json"
+}

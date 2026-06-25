@@ -1,0 +1,44 @@
+{
+  "run_id": "ui_acceptance_review",
+  "status": "manual_confirmed",
+  "issue_key": "titlebar_missing_fields",
+  "decision": "confirmed_issue",
+  "timestamp": "2026-06-21 18:34:04",
+  "base_name": "LB26001-A-04-040_v5",
+  "history": [
+    {
+      "run_id": "ui_acceptance_review",
+      "status": "manual_confirmed",
+      "issue_key": "titlebar_missing_fields",
+      "decision": "confirmed_false_positive",
+      "timestamp": "2026-06-21 18:34:04",
+      "base_name": "LB26001-A-04-040_v5",
+      "history": [
+        {
+          "run_id": "ui_acceptance_review",
+          "status": "manual_confirmed",
+          "issue_key": "titlebar_missing_fields",
+          "decision": "confirmed_false_positive",
+          "timestamp": "2026-06-21 18:34:04",
+          "base_name": "LB26001-A-04-040_v5"
+        }
+      ]
+    },
+    {
+      "run_id": "ui_acceptance_review",
+      "status": "manual_confirmed",
+      "issue_key": "titlebar_missing_fields",
+      "decision": "confirmed_false_positive",
+      "timestamp": "2026-06-21 18:34:04",
+      "base_name": "LB26001-A-04-040_v5"
+    },
+    {
+      "run_id": "ui_acceptance_review",
+      "status": "manual_confirmed",
+      "issue_key": "titlebar_missing_fields",
+      "decision": "confirmed_issue",
+      "timestamp": "2026-06-21 18:34:04",
+      "base_name": "LB26001-A-04-040_v5"
+    }
+  ]
+}

@@ -1,0 +1,927 @@
+{
+  "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_2",
+  "version": "v4.2",
+  "generated_at": "2026-06-25 00:13:11",
+  "base": "LB26001-A-04-006",
+  "drawing_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d2a1052532dd\\drawing\\LB26001-A-04-006_v5.SLDDRW",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\d2a1052532dd",
+  "source_plan_status": "plan_ready_requires_cad_worker_lock",
+  "requires_solidworks_lock": true,
+  "ui_thread_may_execute": false,
+  "allowed_entrypoint": "cad_job_worker",
+  "direct_com_called": false,
+  "acceptance_trace_requirements": {
+    "required_fields": [
+      "target_key",
+      "view_slot",
+      "selected_entity",
+      "add_method",
+      "display_dim_count_before",
+      "display_dim_count_after",
+      "target_covered_after_attempt",
+      "persisted_after_reopen"
+    ],
+    "required_stages": [
+      "pre_saveas",
+      "post_saveas_reopen_prune",
+      "pre_export_final",
+      "post_layout_final"
+    ],
+    "final_stage_required": "post_layout_final",
+    "all_dimension_targets_must_persist_after_reopen": true,
+    "generic_autodimension_acceptance_allowed": false
+  },
+  "operations": [
+    {
+      "index": 1,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "overall_length",
+      "group": "overall_envelope",
+      "functional_role": "overall_envelope_length",
+      "reading_group": "01_overall_envelope",
+      "readability_group": "overall_envelope",
+      "manufacturing_story_role": "establish_part_envelope_before_feature_details",
+      "target_view": "front",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "above",
+      "placement_lane": {
+        "view_slot": "front",
+        "side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 0,
+        "station": 0.5,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 2,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "overall_width",
+      "group": "overall_envelope",
+      "functional_role": "overall_envelope_width",
+      "reading_group": "01_overall_envelope",
+      "readability_group": "overall_envelope",
+      "manufacturing_story_role": "establish_part_envelope_before_feature_details",
+      "target_view": "top",
+      "expected_type": "linear_vertical",
+      "expected_add_method": "AddVerticalDimension2",
+      "preferred_side": "right",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.58,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "projection_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddVerticalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 3,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "overall_height",
+      "group": "overall_envelope",
+      "functional_role": "overall_envelope_height",
+      "reading_group": "01_overall_envelope",
+      "readability_group": "overall_envelope",
+      "manufacturing_story_role": "establish_part_envelope_before_feature_details",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "expected_add_method": "AddVerticalDimension2",
+      "preferred_side": "right",
+      "placement_lane": {
+        "view_slot": "right",
+        "side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.56,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "projection_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddVerticalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 4,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "left_end_offset",
+      "group": "end_offsets",
+      "functional_role": "left_end_machining_stop",
+      "reading_group": "02_end_offsets",
+      "readability_group": "end_offsets",
+      "manufacturing_story_role": "locate_machining_stops_from_part_ends",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "below",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "below",
+        "lane_family": "outside_bottom",
+        "lane_index": 0,
+        "station": 0.18,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 5,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "right_end_offset",
+      "group": "end_offsets",
+      "functional_role": "right_end_machining_stop",
+      "reading_group": "02_end_offsets",
+      "readability_group": "end_offsets",
+      "manufacturing_story_role": "locate_machining_stops_from_part_ends",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "below",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "below",
+        "lane_family": "outside_bottom",
+        "lane_index": 1,
+        "station": 0.82,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 6,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "hole_diameter",
+      "group": "hole_locations",
+      "functional_role": "hole_size_for_drilling_and_inspection",
+      "reading_group": "03_hole_locations",
+      "readability_group": "hole_locations",
+      "manufacturing_story_role": "locate_and_size_holes_for_drilling_inspection",
+      "target_view": "top",
+      "expected_type": "diameter",
+      "expected_add_method": "AddDiameterDimension2",
+      "preferred_side": "callout_right",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "callout_right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.54,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "circular_edges",
+          "hole_edges",
+          "visible_model_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddDiameterDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 7,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "hole_x_location",
+      "group": "hole_locations",
+      "functional_role": "hole_center_long_axis_location",
+      "reading_group": "03_hole_locations",
+      "readability_group": "hole_locations",
+      "manufacturing_story_role": "locate_and_size_holes_for_drilling_inspection",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "above",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 1,
+        "station": 0.38,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 8,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "hole_y_location",
+      "group": "hole_locations",
+      "functional_role": "hole_center_transverse_location",
+      "reading_group": "03_hole_locations",
+      "readability_group": "hole_locations",
+      "manufacturing_story_role": "locate_and_size_holes_for_drilling_inspection",
+      "target_view": "top",
+      "expected_type": "linear_vertical",
+      "expected_add_method": "AddVerticalDimension2",
+      "preferred_side": "callout_right",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "callout_right",
+        "lane_family": "outside_right",
+        "lane_index": 1,
+        "station": 0.46,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "projection_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddVerticalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 9,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "hole_pitch",
+      "group": "hole_locations",
+      "functional_role": "hole_center_to_center_pitch",
+      "reading_group": "03_hole_locations",
+      "readability_group": "hole_locations",
+      "manufacturing_story_role": "locate_and_size_holes_for_drilling_inspection",
+      "target_view": "top",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "above",
+      "placement_lane": {
+        "view_slot": "top",
+        "side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 2,
+        "station": 0.7,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 10,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "projection_view_width",
+      "group": "small_projected_view",
+      "functional_role": "projected_view_width",
+      "reading_group": "04_small_projected_view",
+      "readability_group": "small_projected_view",
+      "manufacturing_story_role": "explain_small_projection_without_overloading_primary_view",
+      "target_view": "right",
+      "expected_type": "linear_horizontal",
+      "expected_add_method": "AddHorizontalDimension2",
+      "preferred_side": "above",
+      "placement_lane": {
+        "view_slot": "right",
+        "side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 0,
+        "station": 0.5,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "hole_center_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddHorizontalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 11,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "projection_view_height",
+      "group": "small_projected_view",
+      "functional_role": "projected_view_height",
+      "reading_group": "04_small_projected_view",
+      "readability_group": "small_projected_view",
+      "manufacturing_story_role": "explain_small_projection_without_overloading_primary_view",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "expected_add_method": "AddVerticalDimension2",
+      "preferred_side": "right",
+      "placement_lane": {
+        "view_slot": "right",
+        "side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.5,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "projection_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddVerticalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    },
+    {
+      "index": 12,
+      "operation": "create_or_verify_display_dimension",
+      "dimension_key": "small_feature_location",
+      "group": "small_projected_view",
+      "functional_role": "small_feature_transverse_location",
+      "reading_group": "04_small_projected_view",
+      "readability_group": "small_projected_view",
+      "manufacturing_story_role": "explain_small_projection_without_overloading_primary_view",
+      "target_view": "right",
+      "expected_type": "linear_vertical",
+      "expected_add_method": "AddVerticalDimension2",
+      "preferred_side": "left",
+      "placement_lane": {
+        "view_slot": "right",
+        "side": "left",
+        "lane_family": "outside_left",
+        "lane_index": 1,
+        "station": 0.35,
+        "outside_gap_m": 0.01,
+        "stack_gap_m": 0.004,
+        "avoid_view_overlap": true,
+        "avoid_title_notes_zone": true,
+        "readability_required": true
+      },
+      "allowed_witness_entity": {
+        "preferred": [
+          "visible_linear_edges",
+          "projection_edges",
+          "silhouette_edges"
+        ],
+        "reject": [
+          "title_block_line",
+          "note_text",
+          "cosmetic_thread_annotation"
+        ],
+        "must_be_visible_in_target_view": true
+      },
+      "prune_protection_policy": {
+        "protected": true,
+        "delete_only_if_target_covered_elsewhere": true,
+        "delete_only_if_final_floor_preserved": true,
+        "required_final_stage": "post_layout_final",
+        "blocker_when_lost": "reference_intent_target_lost_after_prune",
+        "reason": "reference_intent_target_real_displaydim_must_persist"
+      },
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "fallback_policy": "need_review_when_real_displaydim_unavailable",
+      "forbid_note_substitution": true,
+      "generic_autodimension_acceptance_allowed": false,
+      "trace_required_fields": [
+        "target_key",
+        "view_slot",
+        "selected_entity",
+        "add_method",
+        "display_dim_count_before",
+        "display_dim_count_after",
+        "target_covered_after_attempt",
+        "persisted_after_reopen"
+      ],
+      "acceptance_trace": {
+        "must_record_target_key": true,
+        "must_record_view_slot": true,
+        "must_record_selected_entity": true,
+        "must_record_add_method": "AddVerticalDimension2",
+        "must_record_before_after_count": true,
+        "must_prove_target_covered_after_attempt": true,
+        "must_persist_after_reopen": true,
+        "final_required_stage": "post_layout_final"
+      },
+      "requires_solidworks_lock": true,
+      "allowed_entrypoint": "cad_job_worker",
+      "status": "queued_requires_worker_lock"
+    }
+  ],
+  "operation_count": 12,
+  "status": "contract_ready_requires_cad_worker_lock",
+  "failure_status_without_lock": "blocked_by_solidworks_lock"
+}

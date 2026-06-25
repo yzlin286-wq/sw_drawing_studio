@@ -1,0 +1,503 @@
+{
+  "original": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+  "generated": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\LB26001-A-04-001.SLDDRW",
+  "orig": {
+    "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-001.SLDDRW",
+    "title": "LB26001-A-04-001 - 图纸1",
+    "sheets": [
+      {
+        "name": "图纸1",
+        "paper_code": 6,
+        "scale_num": 1.0,
+        "scale_den": 5.0,
+        "first_angle": 1,
+        "width_m": 0.297,
+        "height_m": 0.21
+      }
+    ],
+    "views": [
+      {
+        "name": "图纸1",
+        "type": 1,
+        "orient": "",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 68,
+        "ann_types": {
+          "View": 1,
+          "NoteBlock": 65,
+          "BlockInst": 2
+        }
+      },
+      {
+        "name": "工程图视图1",
+        "type": 7,
+        "orient": "*上视",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 179,
+        "ann_types": {
+          "DisplayDim": 22,
+          "NoteBlock": 78,
+          "CenterMark": 78,
+          "DimLine": 1
+        }
+      },
+      {
+        "name": "工程图视图3",
+        "type": 4,
+        "orient": "",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 514,
+        "ann_types": {
+          "DisplayDim": 22,
+          "DatumTag": 1,
+          "AreaHatch": 491
+        }
+      }
+    ],
+    "ann_total_by_type": {
+      "View": 1,
+      "NoteBlock": 143,
+      "BlockInst": 2,
+      "DisplayDim": 44,
+      "CenterMark": 78,
+      "DimLine": 1,
+      "DatumTag": 1,
+      "AreaHatch": 491
+    },
+    "ann_total": 761,
+    "props_per_manager": [
+      {
+        "cfg": "(doc)",
+        "key_count": 13,
+        "filled": 0
+      }
+    ],
+    "props_source": "(doc)",
+    "props": {
+      "SWFormatSize": "",
+      "机型": "",
+      "品名": "",
+      "图号": "",
+      "类别": "",
+      "数量": "",
+      "材质": "",
+      "表面处理": "",
+      "设计": "",
+      "日期": "",
+      "UNIT_OF_MEASURE": "",
+      "Material": "",
+      "重量": ""
+    },
+    "props_key_present": {
+      "SWFormatSize": true,
+      "机型": true,
+      "品名": true,
+      "图号": true,
+      "类别": true,
+      "数量": true,
+      "材质": true,
+      "表面处理": true,
+      "设计": true,
+      "日期": true,
+      "UNIT_OF_MEASURE": true,
+      "Material": true,
+      "重量": true
+    }
+  },
+  "gen": {
+    "file": "c:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\LB26001-A-04-001.SLDDRW",
+    "title": "LB26001-A-04-001 - 图纸1",
+    "sheets": [
+      {
+        "name": "图纸1",
+        "paper_code": 6,
+        "scale_num": 1.0,
+        "scale_den": 5.0,
+        "first_angle": 1,
+        "width_m": 0.297,
+        "height_m": 0.21
+      }
+    ],
+    "views": [
+      {
+        "name": "图纸1",
+        "type": 1,
+        "orient": "",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 3,
+        "ann_types": {
+          "NoteBlock": 3
+        }
+      },
+      {
+        "name": "工程图视图1",
+        "type": 7,
+        "orient": "*前视",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 0,
+        "ann_types": {}
+      },
+      {
+        "name": "工程图视图2",
+        "type": 7,
+        "orient": "*上视",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 100,
+        "ann_types": {
+          "DisplayDim": 22,
+          "CenterMark": 78
+        }
+      },
+      {
+        "name": "工程图视图3",
+        "type": 7,
+        "orient": "*右视",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 0,
+        "ann_types": {}
+      },
+      {
+        "name": "工程图视图4",
+        "type": 7,
+        "orient": "*等轴测",
+        "scale": [
+          1.0,
+          5.0
+        ],
+        "ann_total": 22,
+        "ann_types": {
+          "DisplayDim": 22
+        }
+      }
+    ],
+    "ann_total_by_type": {
+      "NoteBlock": 3,
+      "DisplayDim": 44,
+      "CenterMark": 78
+    },
+    "ann_total": 125,
+    "props_per_manager": [
+      {
+        "cfg": "(doc)",
+        "key_count": 13,
+        "filled": 0
+      }
+    ],
+    "props_source": "(doc)",
+    "props": {
+      "SWFormatSize": "",
+      "机型": "",
+      "品名": "",
+      "图号": "",
+      "类别": "",
+      "数量": "",
+      "材质": "",
+      "表面处理": "",
+      "设计": "",
+      "日期": "",
+      "UNIT_OF_MEASURE": "",
+      "Material": "",
+      "重量": ""
+    },
+    "props_key_present": {
+      "SWFormatSize": true,
+      "机型": true,
+      "品名": true,
+      "图号": true,
+      "类别": true,
+      "数量": true,
+      "材质": true,
+      "表面处理": true,
+      "设计": true,
+      "日期": true,
+      "UNIT_OF_MEASURE": true,
+      "Material": true,
+      "重量": true
+    }
+  },
+  "compare": {
+    "sheet": {
+      "paper_code": {
+        "orig": 6,
+        "gen": 6,
+        "ok": "✅"
+      },
+      "first_angle": {
+        "orig": 1,
+        "gen": 1,
+        "ok": "✅"
+      },
+      "scale": {
+        "orig": "1.0:5.0",
+        "gen": "1.0:5.0",
+        "ok": "✅"
+      },
+      "size": {
+        "orig_mm": [
+          297,
+          210
+        ],
+        "gen_mm": [
+          297,
+          210
+        ]
+      }
+    },
+    "views": {
+      "count_orig": 2,
+      "count_gen": 4,
+      "count_match": "❌",
+      "type_dist_orig": {
+        "7": 1,
+        "4": 1
+      },
+      "type_dist_gen": {
+        "7": 4
+      },
+      "orient_orig": {
+        "*上视": 1,
+        "": 1
+      },
+      "orient_gen": {
+        "*前视": 1,
+        "*上视": 1,
+        "*右视": 1,
+        "*等轴测": 1
+      }
+    },
+    "properties": {
+      "total": 13,
+      "key_orig_present": 13,
+      "key_gen_present": 13,
+      "value_orig_present": 0,
+      "value_gen_present": 0,
+      "value_match": 0,
+      "table": [
+        {
+          "key": "SWFormatSize",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "机型",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "品名",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "图号",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "类别",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "数量",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "材质",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "表面处理",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "设计",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "日期",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "UNIT_OF_MEASURE",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "Material",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        },
+        {
+          "key": "重量",
+          "orig": "",
+          "gen": "",
+          "orig_key_present": true,
+          "gen_key_present": true,
+          "orig_has_value": false,
+          "gen_has_value": false,
+          "same_value": true
+        }
+      ]
+    },
+    "annotations": {
+      "orig_total": 761,
+      "gen_total": 125,
+      "table": [
+        {
+          "type": "AreaHatch",
+          "orig": 491,
+          "gen": 0,
+          "ratio_gen_over_orig": 0.0
+        },
+        {
+          "type": "BlockInst",
+          "orig": 2,
+          "gen": 0,
+          "ratio_gen_over_orig": 0.0
+        },
+        {
+          "type": "CenterMark",
+          "orig": 78,
+          "gen": 78,
+          "ratio_gen_over_orig": 1.0
+        },
+        {
+          "type": "DatumTag",
+          "orig": 1,
+          "gen": 0,
+          "ratio_gen_over_orig": 0.0
+        },
+        {
+          "type": "DimLine",
+          "orig": 1,
+          "gen": 0,
+          "ratio_gen_over_orig": 0.0
+        },
+        {
+          "type": "DisplayDim",
+          "orig": 44,
+          "gen": 44,
+          "ratio_gen_over_orig": 1.0
+        },
+        {
+          "type": "NoteBlock",
+          "orig": 143,
+          "gen": 3,
+          "ratio_gen_over_orig": 0.021
+        },
+        {
+          "type": "View",
+          "orig": 1,
+          "gen": 0,
+          "ratio_gen_over_orig": 0.0
+        }
+      ]
+    },
+    "files": {
+      ".SLDDRW": {
+        "orig_kb": 1836.3,
+        "gen_kb": 1475.2
+      },
+      ".PDF": {
+        "orig_kb": 0.0,
+        "gen_kb": 128.6
+      },
+      ".DXF": {
+        "orig_kb": 0.0,
+        "gen_kb": 2430.2
+      }
+    },
+    "score": {
+      "score": 77,
+      "max": 100,
+      "pct": 77.0
+    }
+  }
+}

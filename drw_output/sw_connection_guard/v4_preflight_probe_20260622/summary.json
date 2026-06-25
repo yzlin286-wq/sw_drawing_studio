@@ -1,0 +1,12 @@
+{
+  "schema": "sw_drawing_studio.sw_connection_guard_probe.summary",
+  "status": "pass",
+  "pass": true,
+  "connected": true,
+  "safe_to_start_cad_job": true,
+  "do_not_continue_batch": false,
+  "failure_bucket": "",
+  "reason": "",
+  "guard_report": "drw_output\\sw_connection_guard\\v4_preflight_probe_20260622\\sw_connection_guard.json",
+  "workflow_report": "drw_output\\sw_connection_guard\\v4_preflight_probe_20260622\\sw_safe_restart_workflow.json"
+}

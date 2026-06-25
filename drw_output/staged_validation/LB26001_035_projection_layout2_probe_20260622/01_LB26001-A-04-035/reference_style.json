@@ -1,0 +1,267 @@
+{
+  "base": "LB26001-A-04-035",
+  "status": "pass",
+  "pass": true,
+  "view_style_score": 1.0,
+  "dimension_style_score": 0.688,
+  "layout_style_score": 1.0,
+  "overall_style_score": 0.86,
+  "reference": {
+    "base": "LB26001-A-04-035",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-035.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 1,
+      "4": 3
+    },
+    "display_dim_count": 11,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.056464,
+          0.114042,
+          0.103864,
+          0.184578
+        ],
+        "center_m": [
+          0.080164,
+          0.14931
+        ],
+        "size_m": [
+          0.0474,
+          0.070536
+        ],
+        "center_norm": [
+          0.2699,
+          0.711
+        ],
+        "size_norm": [
+          0.1596,
+          0.3359
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.056464,
+          0.060011,
+          0.103864,
+          0.084411
+        ],
+        "center_m": [
+          0.080164,
+          0.072211
+        ],
+        "size_m": [
+          0.0474,
+          0.0244
+        ],
+        "center_norm": [
+          0.2699,
+          0.3439
+        ],
+        "size_norm": [
+          0.1596,
+          0.1162
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline_m": [
+          0.148903,
+          0.114042,
+          0.173303,
+          0.184578
+        ],
+        "center_m": [
+          0.161103,
+          0.14931
+        ],
+        "size_m": [
+          0.0244,
+          0.070536
+        ],
+        "center_norm": [
+          0.5424,
+          0.711
+        ],
+        "size_norm": [
+          0.0822,
+          0.3359
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "4",
+        "outline_m": [
+          0.195651,
+          0.05623,
+          0.242942,
+          0.137818
+        ],
+        "center_m": [
+          0.219297,
+          0.097024
+        ],
+        "size_m": [
+          0.047291,
+          0.081588
+        ],
+        "center_norm": [
+          0.7384,
+          0.462
+        ],
+        "size_norm": [
+          0.1592,
+          0.3885
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-035_reference.json",
+    "source": "csharp_sidecar"
+  },
+  "generated": {
+    "base": "LB26001-A-04-035",
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\080707444560\\drawing\\LB26001-A-04-035_v5.SLDDRW",
+    "success": true,
+    "reason": "",
+    "view_count": 4,
+    "view_types": {
+      "7": 1,
+      "4": 3
+    },
+    "display_dim_count": 16,
+    "annotation_count": 0,
+    "sheet_size_m": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "view_layout": [
+      {
+        "name": "工程图视图1",
+        "type": "7",
+        "outline_m": [
+          0.056464,
+          0.114042,
+          0.103864,
+          0.184578
+        ],
+        "center_m": [
+          0.080164,
+          0.14931
+        ],
+        "size_m": [
+          0.0474,
+          0.070536
+        ],
+        "center_norm": [
+          0.2699,
+          0.711
+        ],
+        "size_norm": [
+          0.1596,
+          0.3359
+        ]
+      },
+      {
+        "name": "工程图视图2",
+        "type": "4",
+        "outline_m": [
+          0.056464,
+          0.060011,
+          0.103864,
+          0.084411
+        ],
+        "center_m": [
+          0.080164,
+          0.072211
+        ],
+        "size_m": [
+          0.0474,
+          0.0244
+        ],
+        "center_norm": [
+          0.2699,
+          0.3439
+        ],
+        "size_norm": [
+          0.1596,
+          0.1162
+        ]
+      },
+      {
+        "name": "工程图视图3",
+        "type": "4",
+        "outline_m": [
+          0.148903,
+          0.114042,
+          0.173303,
+          0.184578
+        ],
+        "center_m": [
+          0.161103,
+          0.14931
+        ],
+        "size_m": [
+          0.0244,
+          0.070536
+        ],
+        "center_norm": [
+          0.5424,
+          0.711
+        ],
+        "size_norm": [
+          0.0822,
+          0.3359
+        ]
+      },
+      {
+        "name": "工程图视图4",
+        "type": "4",
+        "outline_m": [
+          0.195652,
+          0.05623,
+          0.242942,
+          0.137818
+        ],
+        "center_m": [
+          0.219297,
+          0.097024
+        ],
+        "size_m": [
+          0.047291,
+          0.081588
+        ],
+        "center_norm": [
+          0.7384,
+          0.462
+        ],
+        "size_norm": [
+          0.1592,
+          0.3885
+        ]
+      }
+    ],
+    "sidecar_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_metrics_sidecar\\LB26001-A-04-035_generated.json",
+    "source": "csharp_sidecar"
+  },
+  "qc_display_dim_count": 4,
+  "differences": [],
+  "reasons": [],
+  "schema": "sw_drawing_studio.reference_style_case.v1",
+  "generated_at": "2026-06-22 19:48:25",
+  "part": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-035.SLDPRT",
+  "reference_compare_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_035_projection_layout2_probe_20260622\\01_LB26001-A-04-035\\reference_compare.json",
+  "dimension_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_035_projection_layout2_probe_20260622\\01_LB26001-A-04-035\\dimension_validation.json"
+}

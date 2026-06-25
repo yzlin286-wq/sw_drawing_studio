@@ -1,0 +1,97 @@
+{
+  "version": "v2.1",
+  "run_id": "v21iso_003_1781945410",
+  "timestamp": "2026-06-20 16:50:10",
+  "part_class": "feature_part",
+  "part_class_explanation": "part_class=feature_part; reason=default; history dim_total=0 (suspect imported_body)",
+  "part_class_source": {
+    "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-003.SLDPRT",
+    "part_name": "LB26001-A-04-003.SLDPRT",
+    "part_class": "feature_part",
+    "reason": "default; history dim_total=0 (suspect imported_body)",
+    "bbox_mm": null,
+    "is_standard": false,
+    "std_no": "",
+    "std_spec": "",
+    "long_thin_ratio": null,
+    "is_tiny": false,
+    "is_sheet_like": false,
+    "has_features": null,
+    "history_dim_total": 0
+  },
+  "dimension_policy": {
+    "policy": "full",
+    "required_dims": [
+      "overall_length",
+      "overall_width",
+      "overall_height",
+      "hole_diameter",
+      "hole_position",
+      "fillet_radius",
+      "chamfer"
+    ],
+    "optional_dims": [
+      "surface_roughness",
+      "tolerance",
+      "thread_spec"
+    ],
+    "note": "特征零件：外形+孔+圆角+倒角必须标注，粗糙度/公差/螺纹可选",
+    "strategy_order": [
+      "insert_model_annotations",
+      "auto_dimension",
+      "outline_dimension"
+    ],
+    "require_display_dim": true,
+    "min_display_dim_count": 3,
+    "allow_note_annotation": false,
+    "explanation": "part_class=feature_part 选择 dimension_policy=full: 特征零件：外形+孔+圆角+倒角必须标注，粗糙度/公差/螺纹可选. 必须标注 7 类尺寸，可选标注 3 类尺寸，最少 DisplayDim 数量=3."
+  },
+  "vision_policy": {
+    "policy": "strict",
+    "explanation": "严格视觉质检：用于 feature_part/long_thin/sheet_metal/weldment 等需要完整尺寸标注的零件"
+  },
+  "titlebar_policy": {
+    "policy": "standard",
+    "explanation": "标题栏策略=standard"
+  },
+  "tolerance_policy": {
+    "policy": "detailed",
+    "explanation": "详细公差标注（每个尺寸单独标注公差）"
+  },
+  "views": [
+    {
+      "name": "主视图",
+      "type": "front",
+      "scale": "auto"
+    },
+    {
+      "name": "俯视图",
+      "type": "top",
+      "scale": "auto"
+    },
+    {
+      "name": "左视图",
+      "type": "left",
+      "scale": "auto"
+    },
+    {
+      "name": "等轴测",
+      "type": "iso",
+      "scale": "auto",
+      "optional": true
+    }
+  ],
+  "notes_policy": "standard",
+  "blueprint_yaml_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\config\\drawing_blueprints.yaml",
+  "blueprint_matched": true,
+  "blueprint_fallback_used": false,
+  "summary": {
+    "part_class": "feature_part",
+    "dimension_policy": "full",
+    "vision_policy": "strict",
+    "required_dims_count": 7,
+    "optional_dims_count": 3,
+    "min_display_dim_count": 3,
+    "require_display_dim": true
+  }
+}
