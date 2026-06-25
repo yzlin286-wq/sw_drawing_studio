@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 02:10:45",
+  "generated_at": "2026-06-26 02:23:44",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -43,12 +43,13 @@
     {
       "key": "ui_thread_direct_risk_zero",
       "status": "pass",
-      "message": "UI/service direct SolidWorks, probe, and blocking-risk buckets must remain zero.",
+      "message": "UI/service direct SolidWorks, probe, QThreadPool, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
         "entrypoint_count": 529,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
+        "ui_threadpool_worker_count": 0,
         "service_direct_risk_count": 0,
         "system_health_ui_thread_direct_probe_count": 0,
         "worker_backed_model_client_count": 1,
@@ -62,15 +63,16 @@
     {
       "key": "solidworks_entrypoint_scan_report_pass",
       "status": "pass",
-      "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, subprocess, or sleep risks.",
+      "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, subprocess, or sleep risks.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T02:10:36",
+        "generated_at": "2026-06-26T02:23:35",
         "status": "pass",
         "entrypoint_count": 529,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
+        "ui_threadpool_worker_count": 0,
         "service_direct_risk_count": 0,
         "system_health_ui_thread_direct_probe_count": 0,
         "external_addin_host_lock_contract_status": "pass"
@@ -83,7 +85,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T02:10:36",
+        "generated_at": "2026-06-26T02:20:58",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -98,7 +100,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T02:10:36",
+        "generated_at": "2026-06-26T02:20:59",
         "level": "OK",
         "counts": {
           "solidworks_processes": 0,
@@ -405,7 +407,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 854382
+          "size_bytes": 857413
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -445,7 +447,7 @@
         "visual_audit_index": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
           "exists": true,
-          "size_bytes": 630386
+          "size_bytes": 614236
         },
         "stability_20min_mock": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",

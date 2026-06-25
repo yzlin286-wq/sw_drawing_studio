@@ -11900,3 +11900,51 @@ Remaining issues:
 
 - System Health is better guarded against future UI-thread regressions, but 006 drawing acceptance is still unproven.
 - 006 still requires a fresh locked real CAD rerun, application Drawing Review UI screenshot evidence, and a passing manual visual checklist before any 007/008/009/015/022 expansion.
+
+## v4.4 Legacy UI ThreadPool Worker Removal Guard - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, SaveAs, CloseDoc, automatic restart, or SolidWorks session mutation was run.
+- This change further tightens the UI-thread isolation contract; it does not make 006 accepted.
+
+Implementation:
+
+- Updated `app/ui/_workers.py`.
+  - Replaced the old in-process long-task worker definitions with a deprecated compatibility stub.
+  - Legacy imports now fail loudly and point callers to `JobRuntimeFacade` / QProcess workers.
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Adds `Qt ThreadPool worker` detection for `QThreadPool`, `QRunnable`, `LLMWorker`, and `RunnerWorker`.
+  - Counts UI hits as `ui_threadpool_worker_count` and treats them as UI risks.
+- Updated `tools/validation/run_solidworks_stability_gate_v4_4.py`.
+  - Carries `ui_threadpool_worker_count` into `solidworks_stability_gate_v4_4.json`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Requires `ui_threadpool_worker_count=0` in both the stability summary and raw entrypoint report before stability/product gates can advance.
+- Updated tests:
+  - `test_v4_1_solidworks_entrypoint_scan.py` asserts the legacy UI worker module no longer contains threadpool worker tokens and that the scan reports zero UI threadpool workers.
+  - `test_v4_4_product_evidence_gate.py` proves Product Gate blocks if a UI threadpool worker count returns.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\ui\_workers.py app\services\solidworks_entrypoint_scanner.py tools\validation\run_solidworks_stability_gate_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v4_1_solidworks_entrypoint_scan.py test_v4_4_product_evidence_gate.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed SolidWorks Stability Gate: `status=pass`, `pass=true`, `warning_reasons=[]`, `ui_threadpool_worker_count=0`.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`.
+- Product Gate allowed actions remain all false, including `006_application_ui_review_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- UI threadpool regression is now guarded, but the active product status remains not ready.
+- 006 still needs a fresh locked real CAD rerun and Drawing Review UI screenshot/manual checklist PASS before any sample expansion.

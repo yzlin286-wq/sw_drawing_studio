@@ -29,6 +29,7 @@ PATTERNS: dict[str, re.Pattern[str]] = {
         r"(?:from\s+app\.services\.system_health_service\s+import\s+.*\bcollect_system_health\b|"
         r"(?<!def )\bcollect_system_health\s*\()"
     ),
+    "Qt ThreadPool worker": re.compile(r"\b(?:QThreadPool|QRunnable|LLMWorker|RunnerWorker)\b"),
     "subprocess.run": re.compile(r"\bsubprocess\.run\s*\("),
     "subprocess.Popen": re.compile(r"\bsubprocess\.Popen\s*\("),
     "os.system": re.compile(r"\bos\.system\s*\("),
@@ -61,6 +62,7 @@ COM_PATTERNS = {
 BLOCKING_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.system", "time.sleep"}
 DOCMGR_PATTERNS = {"DocMgr probe"}
 SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect"}
+UI_THREADPOOL_PATTERNS = {"Qt ThreadPool worker"}
 ALLOWED_UI_SUBPROCESS_HINTS = ("explorer", "startfile")
 
 SKIP_DIRS = {
@@ -152,10 +154,16 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             or "subprocess.run" in entry["patterns"]
         )
     ]
+    ui_threadpool_workers = [
+        entry for entry in entries
+        if entry.get("scope") == "ui"
+        and any(pattern in set(entry["patterns"]) for pattern in UI_THREADPOOL_PATTERNS)
+    ]
     external_host_lock_contract = _external_addin_host_lock_contract(root)
     status = "warning" if (
         unguarded
         or ui_thread_risks
+        or ui_threadpool_workers
         or service_direct_risks
         or (addin_hosted and external_host_lock_contract.get("status") != "pass")
     ) else "pass"
@@ -180,6 +188,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "background_watchdog_probe_count": len(background_watchdog_probe),
         "external_addin_host_lock_contract_status": external_host_lock_contract.get("status"),
         "ui_thread_direct_risk_count": len(ui_thread_risks),
+        "ui_threadpool_worker_count": len(ui_threadpool_workers),
         "service_direct_risk_count": len(service_direct_risks),
         "system_health_ui_thread_direct_probe_count": len(system_health_ui_direct),
         "status": status,
@@ -187,12 +196,14 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             "no_com_without_global_lock": True,
             "ui_thread_no_solidworks_com": True,
             "ui_thread_no_long_subprocess": True,
+            "ui_thread_no_qthreadpool_long_workers": True,
             "system_health_ui_thread_no_addin_ping_docmgr_or_subprocess_run": True,
             "visual_audit_no_solidworks": True,
             "api_metrics_are_supporting_only": True,
         },
         "external_addin_host_lock_contract": external_host_lock_contract,
         "ui_thread_direct_risks": ui_thread_risks,
+        "ui_threadpool_workers": ui_threadpool_workers,
         "service_direct_risks": service_direct_risks,
         "system_health_ui_thread_direct_probe": system_health_ui_direct,
         "unguarded_or_unknown": unguarded,
@@ -278,7 +289,7 @@ def _is_ui_thread_risk(scope: str, patterns: list[str], text: str) -> bool:
     if scope != "ui":
         return False
     names = set(patterns)
-    if names & (COM_PATTERNS | DOCMGR_PATTERNS | SYSTEM_HEALTH_DIRECT_PATTERNS):
+    if names & (COM_PATTERNS | DOCMGR_PATTERNS | SYSTEM_HEALTH_DIRECT_PATTERNS | UI_THREADPOOL_PATTERNS):
         return True
     if names & BLOCKING_PATTERNS and not _is_allowed_ui_subprocess(patterns, text):
         return True
@@ -309,6 +320,8 @@ def _is_service_direct_risk(scope: str, patterns: list[str], guard_status: str) 
 def _risk_bucket(rel: str, scope: str, patterns: list[str], guard_status: str, text: str) -> str:
     names = set(patterns)
     if _is_ui_thread_risk(scope, patterns, text):
+        if names & UI_THREADPOOL_PATTERNS:
+            return "ui_thread_qthreadpool_worker"
         return "ui_thread_direct_blocking_or_com"
     if _is_service_direct_risk(scope, patterns, guard_status):
         return "service_direct_com_or_probe"

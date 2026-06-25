@@ -11,6 +11,7 @@ def main() -> None:
     service_report = scan_solidworks_entrypoints()
     assert service_report["schema"] == "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4"
     assert "ui_thread_direct_risk_count" in service_report
+    assert "ui_threadpool_worker_count" in service_report
     assert "service_direct_risk_count" in service_report
     assert "system_health_ui_thread_direct_probe_count" in service_report
     report = write_report()
@@ -26,6 +27,7 @@ def main() -> None:
     )
     assert data["system_health_ui_thread_direct_probe_count"] == 0
     assert data["ui_thread_direct_risk_count"] == 0
+    assert data["ui_threadpool_worker_count"] == 0
     assert data["service_direct_risk_count"] == 0
     assert data["external_addin_host_lock_contract_status"] == "pass"
     assert not any(
@@ -36,6 +38,14 @@ def main() -> None:
     for ui_path in ["app/ui/system_health_page.py", "app/ui/home_page.py"]:
         source = Path(ui_path).read_text(encoding="utf-8")
         assert "collect_system_health" not in source
+    legacy_worker_source = Path("app/ui/_workers.py").read_text(encoding="utf-8")
+    for token in ["QThreadPool", "QRunnable", "LLMWorker", "RunnerWorker"]:
+        assert token not in legacy_worker_source
+    assert not any(
+        entry["file"].startswith("app/ui/")
+        and "Qt ThreadPool worker" in set(entry.get("patterns") or [])
+        for entry in data["entries"]
+    )
     print("OK test_v4_1_solidworks_entrypoint_scan")
 
 
