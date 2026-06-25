@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 02:57:55",
+  "generated_at": "2026-06-26 03:06:36",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -227,6 +227,50 @@
       }
     },
     {
+      "key": "lb26001_006_ui_defect_buckets_ready",
+      "status": "pass",
+      "message": "006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+        "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
+        "generated_at": "2026-06-25 21:41:12",
+        "base": "LB26001-A-04-006",
+        "status": "blocked_by_solidworks_readiness",
+        "pass": false,
+        "release_ready": false,
+        "api_only_acceptance_allowed": false,
+        "application_ui_screenshot_is_final_gate": true,
+        "ui_final_gate_review_mode": "application_drawing_review_ui_screenshot",
+        "ui_final_gate_visual_acceptance_pass": false,
+        "ui_report_screenshot_pass": true,
+        "ui_report_evidence_capture_pass": true,
+        "readiness_synced": true,
+        "readiness_status": "blocked",
+        "current_readiness_status": "blocked",
+        "active_bucket_count": 5,
+        "active_buckets": [
+          "dimension_lane_wrong",
+          "dimension_visual_overdense",
+          "note_missing_or_wrong",
+          "projection_view_style_mismatch",
+          "titlebar_incomplete"
+        ],
+        "bucket_keys": [
+          "callout_missing",
+          "dimension_lane_wrong",
+          "dimension_visual_overdense",
+          "note_missing_or_wrong",
+          "projection_view_style_mismatch",
+          "titlebar_incomplete"
+        ],
+        "missing_bucket_keys": [],
+        "missing_active_bucket_keys": [],
+        "active_without_blocker_keys": [],
+        "defect_plan_ready": true,
+        "defect_closure_pass": false
+      }
+    },
+    {
       "key": "reference_intent_006_proof_pass",
       "status": "pass",
       "message": "006 reference-intent plan proof must pass while remaining supporting evidence only.",
@@ -407,7 +451,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 870205
+          "size_bytes": 872850
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -616,6 +660,7 @@
     "reference_intent_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
     "reference_intent_contract": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
     "rerun_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json",
+    "ui_defect_buckets": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
     "regeneration_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
     "acceptance_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
     "ui_visual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json",

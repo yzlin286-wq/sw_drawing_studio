@@ -27,6 +27,7 @@ DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_00
 DEFAULT_REFERENCE_INTENT_PLAN = REPO_ROOT / "drw_output" / "reference_intent_dimension_plan_006.json"
 DEFAULT_REFERENCE_INTENT_CONTRACT = REPO_ROOT / "drw_output" / "reference_intent_dimension_contract_006.json"
 DEFAULT_RERUN_PACKET = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
+DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
 DEFAULT_REGENERATION_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regeneration_evidence_gate_v4_4.json"
 DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
 DEFAULT_UI_VISUAL_REVIEW = (
@@ -59,6 +60,14 @@ DEFAULT_FINAL_ARTIFACTS = {
 DEFAULT_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation.json"
 DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation_normalized.json"
 DEFAULT_VISUAL_AUDIT_SCHEMA_GAP = REPO_ROOT / "drw_output" / "diagnostics" / "visual_audit_schema_gap_v4_4.json"
+REQUIRED_ACTIVE_006_DEFECT_BUCKETS = {
+    "dimension_visual_overdense",
+    "dimension_lane_wrong",
+    "note_missing_or_wrong",
+    "titlebar_incomplete",
+    "projection_view_style_mismatch",
+}
+REQUIRED_006_DEFECT_BUCKETS = REQUIRED_ACTIVE_006_DEFECT_BUCKETS | {"callout_missing"}
 
 
 def build_product_evidence_gate(
@@ -72,6 +81,7 @@ def build_product_evidence_gate(
     reference_intent_plan_path: Path = DEFAULT_REFERENCE_INTENT_PLAN,
     reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
     rerun_packet_path: Path = DEFAULT_RERUN_PACKET,
+    ui_defect_buckets_path: Path = DEFAULT_UI_DEFECT_BUCKETS,
     regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
     ui_visual_review_path: Path = DEFAULT_UI_VISUAL_REVIEW,
@@ -93,6 +103,7 @@ def build_product_evidence_gate(
     reference_intent_plan = _read_json(reference_intent_plan_path)
     reference_intent_contract = _read_json(reference_intent_contract_path)
     rerun_packet = _read_json(rerun_packet_path)
+    ui_defect_buckets = _read_json(ui_defect_buckets_path)
     regeneration_gate = _read_json(regeneration_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
     ui_visual_review = _read_json(ui_visual_review_path)
@@ -215,6 +226,18 @@ def build_product_evidence_gate(
             "real_cad_allowed_now": rerun_packet.get("real_cad_allowed_now"),
             "expected_packet_status": "ready_for_locked_006_rerun" if readiness_ok else "blocked_by_solidworks_readiness",
         },
+    )
+    ui_defect_buckets_ok, ui_defect_buckets_details = _ui_defect_buckets_check(
+        ui_defect_buckets_path,
+        ui_defect_buckets,
+        readiness,
+    )
+    _add_check(
+        checks,
+        "lb26001_006_ui_defect_buckets_ready",
+        ui_defect_buckets_ok,
+        "006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.",
+        ui_defect_buckets_details,
     )
     _add_check(
         checks,
@@ -438,6 +461,7 @@ def build_product_evidence_gate(
         rerun_packet_ok=(
             _check_pass(checks, "lb26001_006_rerun_packet_ready")
             and _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
+            and _check_pass(checks, "lb26001_006_ui_defect_buckets_ready")
         ),
         regeneration_ok=_check_pass(checks, "regeneration_006_fresh_evidence_pass"),
         acceptance_ok=(
@@ -476,6 +500,7 @@ def build_product_evidence_gate(
             "reference_intent_plan": str(reference_intent_plan_path),
             "reference_intent_contract": str(reference_intent_contract_path),
             "rerun_packet": str(rerun_packet_path),
+            "ui_defect_buckets": str(ui_defect_buckets_path),
             "regeneration_gate": str(regeneration_gate_path),
             "acceptance_proof": str(acceptance_proof_path),
             "ui_visual_review": str(ui_visual_review_path),
@@ -575,6 +600,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
     if (
         not _check_pass(checks, "lb26001_006_rerun_packet_ready")
         or not _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
+        or not _check_pass(checks, "lb26001_006_ui_defect_buckets_ready")
     ):
         return "blocked_by_006_rerun_packet"
     if not _check_pass(checks, "regeneration_006_fresh_evidence_pass"):
@@ -882,6 +908,82 @@ def _rerun_packet_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]
         "offline_prerequisite_missing_keys": payload.get("offline_prerequisite_missing_keys") or [],
         "source_signature_summary": _source_signature_summary(payload.get("source_signatures")),
     }
+
+
+def _ui_defect_buckets_check(
+    path: Path,
+    payload: dict[str, Any],
+    readiness: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    buckets = [item for item in payload.get("buckets") or [] if isinstance(item, dict)]
+    bucket_keys = {str(item.get("key") or "") for item in buckets}
+    active_buckets = {str(item.get("key") or "") for item in buckets if item.get("active") is True}
+    active_blockers = {
+        str(item.get("key") or "")
+        for item in buckets
+        if item.get("active") is True and item.get("blocks_006_acceptance") is True
+    }
+    missing_bucket_keys = sorted(REQUIRED_006_DEFECT_BUCKETS - bucket_keys)
+    missing_active_bucket_keys = sorted(REQUIRED_ACTIVE_006_DEFECT_BUCKETS - active_buckets)
+    active_without_blocker_keys = sorted(REQUIRED_ACTIVE_006_DEFECT_BUCKETS - active_blockers)
+    readiness_summary = payload.get("solidworks_readiness") if isinstance(payload.get("solidworks_readiness"), dict) else {}
+    ui_final_gate = payload.get("ui_final_gate") if isinstance(payload.get("ui_final_gate"), dict) else {}
+    readiness_status_current = readiness.get("status") or ""
+    readiness_ready_current = readiness.get("ready_to_start_locked_006_cad") is True
+    readiness_synced = (
+        readiness_summary.get("status") == readiness_status_current
+        and (readiness_summary.get("ready_to_start_locked_006_cad") is True) == readiness_ready_current
+    )
+    visual_pass = ui_final_gate.get("visual_acceptance_pass") is True
+    report_pass = payload.get("pass") is True and payload.get("status") == "pass"
+    defect_closure_pass = bool(report_pass and visual_pass and int(payload.get("active_bucket_count") or 0) == 0)
+    defect_plan_ready = bool(
+        payload.get("status") in {"needs_006_fix", "blocked_by_solidworks_readiness"}
+        and visual_pass is False
+        and not missing_bucket_keys
+        and not missing_active_bucket_keys
+        and not active_without_blocker_keys
+    )
+    details = {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "base": payload.get("base"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "release_ready": payload.get("release_ready"),
+        "api_only_acceptance_allowed": payload.get("api_only_acceptance_allowed"),
+        "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate"),
+        "ui_final_gate_review_mode": ui_final_gate.get("review_mode"),
+        "ui_final_gate_visual_acceptance_pass": ui_final_gate.get("visual_acceptance_pass"),
+        "ui_report_screenshot_pass": ui_final_gate.get("ui_report_screenshot_pass"),
+        "ui_report_evidence_capture_pass": ui_final_gate.get("ui_report_evidence_capture_pass"),
+        "readiness_synced": readiness_synced,
+        "readiness_status": readiness_summary.get("status"),
+        "current_readiness_status": readiness_status_current,
+        "active_bucket_count": payload.get("active_bucket_count"),
+        "active_buckets": sorted(active_buckets),
+        "bucket_keys": sorted(bucket_keys),
+        "missing_bucket_keys": missing_bucket_keys,
+        "missing_active_bucket_keys": missing_active_bucket_keys,
+        "active_without_blocker_keys": active_without_blocker_keys,
+        "defect_plan_ready": defect_plan_ready,
+        "defect_closure_pass": defect_closure_pass,
+    }
+    passed = bool(
+        payload.get("schema") == "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4"
+        and payload.get("base") == BASE
+        and payload.get("release_ready") is False
+        and payload.get("api_only_acceptance_allowed") is False
+        and payload.get("application_ui_screenshot_is_final_gate") is True
+        and ui_final_gate.get("review_mode") == "application_drawing_review_ui_screenshot"
+        and ui_final_gate.get("ui_report_screenshot_pass") is True
+        and ui_final_gate.get("ui_report_evidence_capture_pass") is True
+        and readiness_synced
+        and not missing_bucket_keys
+        and (defect_plan_ready or defect_closure_pass)
+    )
+    return passed, details
 
 
 def _regeneration_gate_pass(payload: dict[str, Any]) -> bool:
@@ -1269,6 +1371,7 @@ def main() -> int:
     parser.add_argument("--reference-intent-plan", default=str(DEFAULT_REFERENCE_INTENT_PLAN))
     parser.add_argument("--reference-intent-contract", default=str(DEFAULT_REFERENCE_INTENT_CONTRACT))
     parser.add_argument("--rerun-packet", default=str(DEFAULT_RERUN_PACKET))
+    parser.add_argument("--ui-defect-buckets", default=str(DEFAULT_UI_DEFECT_BUCKETS))
     parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
     parser.add_argument("--ui-visual-review", default=str(DEFAULT_UI_VISUAL_REVIEW))
@@ -1289,6 +1392,7 @@ def main() -> int:
         reference_intent_plan_path=_repo_path(args.reference_intent_plan),
         reference_intent_contract_path=_repo_path(args.reference_intent_contract),
         rerun_packet_path=_repo_path(args.rerun_packet),
+        ui_defect_buckets_path=_repo_path(args.ui_defect_buckets),
         regeneration_gate_path=_repo_path(args.regeneration_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),
         ui_visual_review_path=_repo_path(args.ui_visual_review),

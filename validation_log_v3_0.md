@@ -12093,3 +12093,46 @@ Remaining issues:
 - The normalized issue index can guide raw backfill/regeneration, but it is not release evidence and cannot replace raw historical artifact compliance.
 - `lossy_normalized_issue_count=5903` still requires human review/backfill before final Visual Audit acceptance.
 - 006 still needs the next allowed locked real CAD rerun, Drawing Review application UI screenshot evidence, and manual visual checklist PASS before expanding to 007/008/009/015/022.
+
+## v4.4 Product Gate 006 UI Defect Bucket Guard - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change tightens the pre-rerun Product Gate contract. It does not accept 006, does not unlock 007/008/009/015/022, and does not replace the application UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Reads `drw_output/diagnostics/lb26001_006_ui_defect_buckets_v4_4.json` directly.
+  - Adds `lb26001_006_ui_defect_buckets_ready`.
+  - Requires base `LB26001-A-04-006`, API-only acceptance disabled, application UI screenshot final gate enabled, readiness state synchronized, all required bucket keys present, and the five currently proven active buckets to block 006 acceptance.
+  - Requires `callout_missing` to remain present as the next screenshot recheck bucket even when it is not independently proven active.
+  - Includes the defect bucket report path in Product Gate `source_artifacts`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Test fixtures now model both a passed UI defect closure and an active 006 fix plan.
+  - Added a regression proving incomplete UI defect bucket evidence blocks `locked_006_cad_rerun_allowed_now`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`.
+- New check `lb26001_006_ui_defect_buckets_ready` is `pass`.
+- New check details record `defect_plan_ready=true`, `missing_bucket_keys=[]`, and the active buckets from the current failed 006 UI screenshot review.
+- Allowed actions remain false for `locked_006_cad_rerun_allowed_now`, `expand_007_008_009_015_022_allowed`, `lb26001_36_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- 006 still cannot be regenerated until SolidWorks readiness permits exactly one locked 006 CAD worker run.
+- After that run, 006 still requires a fresh Drawing Review application UI screenshot and manual visual checklist PASS.
+- 007/008/009/015/022, staged CAD validation, full Visual Audit, and release remain blocked.
