@@ -154,6 +154,8 @@ GENERATOR_SIGNATURES = {
     "reference_callout_review_plan": "reference_callout_review_plan_required",
     "ui_defect_reference_callout_review_plan": "ui_defect_bucket_reference_callout_review_plan",
     "reference_callout_required_keys": "reference_callout_review_required_keys",
+    "ui_defect_bucket_closure_contract": "ui_defect_bucket_closure_contract",
+    "ui_defect_bucket_closure_pass_conditions": "ui_review_bucket_pass_conditions",
 }
 
 CAD_WORKER_SIGNATURES = {

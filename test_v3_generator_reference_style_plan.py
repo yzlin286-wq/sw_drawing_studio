@@ -660,6 +660,36 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                     "application_ui_screenshot_is_final_gate": True,
                     "expansion_allowed_now": False,
                     "active_buckets": ["callout_missing", "dimension_visual_overdense"],
+                    "bucket_closure_contract": [
+                        {
+                            "bucket": "dimension_visual_overdense",
+                            "source_failure_evidence": ["application_drawing_review_ui_screenshot"],
+                            "repair_inputs": ["lb26001_006_ui_defect_buckets_v4_4"],
+                            "implementation_guard_keys": ["generator.physical_displaydim_dedupe"],
+                            "post_rerun_required_evidence": [
+                                "application_drawing_review_ui_screenshot",
+                                "manual_visual_judgement",
+                            ],
+                            "ui_review_pass_condition": "DisplayDim set must match reference intent.",
+                            "api_or_displaydim_metric_alone_can_close": False,
+                        },
+                        {
+                            "bucket": "callout_missing",
+                            "source_failure_evidence": ["application_drawing_review_ui_screenshot"],
+                            "repair_inputs": ["reference_intent_dimension_plan_006"],
+                            "implementation_guard_keys": ["generator.reference_callout_review_plan"],
+                            "post_rerun_required_evidence": [
+                                "application_drawing_review_ui_screenshot",
+                                "manual_visual_judgement",
+                                "reference_callout_checklist",
+                            ],
+                            "ui_review_pass_condition": "Callout checklist must prove required callouts.",
+                            "api_or_displaydim_metric_alone_can_close": False,
+                            "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                            "absence_check_keys": ["radius_callout"],
+                            "reference_callout_checklist_required": True,
+                        },
+                    ],
                 },
                 ensure_ascii=False,
             ),
@@ -683,6 +713,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
 
     callout_plan = blueprint["dimension_plan"]["reference_callout_review_plan"]
     constraints = blueprint["dimension_plan"]["visual_defect_constraints"]
+    closure_contract = blueprint["dimension_plan"]["ui_defect_bucket_closure_contract"]
     assert callout_plan["schema"] == "sw_drawing_studio.reference_callout_review_plan.v4_4"
     assert callout_plan["notes_do_not_count_as_display_dim"] is True
     assert callout_plan["application_ui_screenshot_required"] is True
@@ -695,7 +726,28 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert constraints["callout_presence_recheck_required"] is True
     assert constraints["reference_callout_review_required_keys"] == callout_plan["required_keys"]
     assert constraints["reference_callout_absence_check_keys"] == ["radius_callout"]
+    assert [item["bucket"] for item in closure_contract] == [
+        "dimension_visual_overdense",
+        "callout_missing",
+    ]
+    assert constraints["bucket_closure_contract_buckets"] == [
+        "dimension_visual_overdense",
+        "callout_missing",
+    ]
+    assert constraints["ui_review_bucket_pass_conditions"]["dimension_visual_overdense"] == (
+        "DisplayDim set must match reference intent."
+    )
+    assert constraints["ui_review_bucket_pass_conditions"]["callout_missing"] == (
+        "Callout checklist must prove required callouts."
+    )
+    assert constraints["api_or_displaydim_metric_alone_can_close"] is False
+    assert closure_contract[1]["reference_callout_checklist_required"] is True
+    assert closure_contract[1]["required_callout_keys"] == [
+        "thread_callout_m4_6h",
+        "surface_finish_rest_3_2",
+    ]
     assert "ui_defect_bucket_reference_callout_review_plan" in blueprint["dimension_plan"]["reasons"]
+    assert "ui_defect_bucket_closure_contract" in blueprint["dimension_plan"]["reasons"]
 
 
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:

@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 03:47:02",
+  "generated_at": "2026-06-26 04:05:42",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -993,6 +993,16 @@
           {
             "key": "reference_callout_required_keys",
             "signature": "reference_callout_review_required_keys",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_closure_contract",
+            "signature": "ui_defect_bucket_closure_contract",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_closure_pass_conditions",
+            "signature": "ui_review_bucket_pass_conditions",
             "present": true
           }
         ],
@@ -2260,6 +2270,16 @@
         {
           "key": "reference_callout_required_keys",
           "signature": "reference_callout_review_required_keys",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_closure_contract",
+          "signature": "ui_defect_bucket_closure_contract",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_closure_pass_conditions",
+          "signature": "ui_review_bucket_pass_conditions",
           "present": true
         }
       ],

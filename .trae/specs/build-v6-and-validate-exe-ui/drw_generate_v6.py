@@ -1012,10 +1012,38 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     for item in (ui_defects.get("active_buckets") or [])
                     if str(item).strip()
                 ]
+                closure_contract = []
+                for item in (ui_defects.get("bucket_closure_contract") or []):
+                    if not isinstance(item, dict):
+                        continue
+                    bucket = str(item.get("bucket") or "").strip()
+                    if not bucket:
+                        continue
+                    contract_item = {
+                        "bucket": bucket,
+                        "source_failure_evidence": list(item.get("source_failure_evidence") or []),
+                        "repair_inputs": list(item.get("repair_inputs") or []),
+                        "implementation_guard_keys": list(item.get("implementation_guard_keys") or []),
+                        "post_rerun_required_evidence": list(item.get("post_rerun_required_evidence") or []),
+                        "ui_review_pass_condition": str(item.get("ui_review_pass_condition") or ""),
+                        "api_or_displaydim_metric_alone_can_close": bool(
+                            item.get("api_or_displaydim_metric_alone_can_close")
+                        ),
+                    }
+                    if bucket == "callout_missing":
+                        contract_item["required_callout_keys"] = list(item.get("required_callout_keys") or [])
+                        contract_item["absence_check_keys"] = list(item.get("absence_check_keys") or [])
+                        contract_item["reference_callout_checklist_required"] = bool(
+                            item.get("reference_callout_checklist_required")
+                        )
+                    closure_contract.append(contract_item)
                 ui_defect_trace = {
                     "path": ui_defect_buckets_path,
                     "status": str(ui_defects.get("status") or ""),
                     "active_buckets": active_buckets,
+                    "bucket_closure_contract_buckets": [
+                        str(item.get("bucket") or "") for item in closure_contract if item.get("bucket")
+                    ],
                     "application_ui_screenshot_is_final_gate": bool(
                         ui_defects.get("application_ui_screenshot_is_final_gate")
                     ),
@@ -1024,6 +1052,11 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                 }
                 source_inputs["lb26001_006_ui_defect_buckets"] = ui_defect_trace
                 dimension_plan["ui_defect_buckets"] = ui_defect_trace
+                # ui_defect_bucket_closure_contract:
+                # keep the Drawing Review screenshot closure contract attached
+                # to the generated 006 plan so the next UI review can close each
+                # defect bucket by visual judgement, not by API metrics alone.
+                dimension_plan["ui_defect_bucket_closure_contract"] = closure_contract
                 # reference_intent_ui_defect_bucket_constraints:
                 # turn the latest application-UI FAIL buckets into hard generator
                 # constraints for the next 006-only CAD run.
@@ -1044,6 +1077,15 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     constraints["reference_callout_absence_check_keys"] = list(
                         callout_review_plan.get("absence_check_keys") or []
                     )
+                    constraints["bucket_closure_contract_buckets"] = [
+                        str(item.get("bucket") or "") for item in closure_contract if item.get("bucket")
+                    ]
+                    constraints["ui_review_bucket_pass_conditions"] = {
+                        str(item.get("bucket") or ""): str(item.get("ui_review_pass_condition") or "")
+                        for item in closure_contract
+                        if item.get("bucket")
+                    }
+                    constraints["api_or_displaydim_metric_alone_can_close"] = False
                 layout_plan = blueprint_data.setdefault("layout_plan", {})
                 if isinstance(layout_plan, dict):
                     if "projection_view_style_mismatch" in active_buckets:
@@ -1058,6 +1100,7 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "ui_defect_bucket_reject_generic_autodim_survivors",
                     "ui_defect_bucket_compact_local_lanes",
                     "ui_defect_bucket_reference_callout_review_plan",
+                    "ui_defect_bucket_closure_contract",
                 ]:
                     if reason not in reasons:
                         reasons.append(reason)

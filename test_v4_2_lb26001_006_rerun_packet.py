@@ -731,6 +731,21 @@ def test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_mi
     ]
 
 
+def test_006_rerun_packet_blocks_when_generator_bucket_closure_contract_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="ui_defect_bucket_closure_contract",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "ui_defect_bucket_closure_contract"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1142,6 +1157,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
     test_006_rerun_packet_blocks_when_generator_strict_target_match_missing()
     test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing()
+    test_006_rerun_packet_blocks_when_generator_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()

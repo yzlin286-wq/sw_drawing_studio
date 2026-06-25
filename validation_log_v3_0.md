@@ -12402,3 +12402,54 @@ Remaining issues:
 - Raw historical issue schema still does not pass; normalized/overlay evidence is supporting-only.
 - `drw_output/visual_audit_report_v3_0.xlsx` is still missing.
 - Full-scope Visual Audit remains blocked until 006 and then the requested six drawings pass application UI screenshot review.
+
+## v4.4 006 Generator Closure Contract Propagation - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change tightens Task 5 so the per-bucket UI closure contract is carried into the next 006 generator plan. It does not accept 006 and does not unlock `007/008/009/015/022`.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Reads `bucket_closure_contract` from `LB26001_006_UI_DEFECT_BUCKETS_PATH`.
+  - Writes `dimension_plan.ui_defect_bucket_closure_contract`.
+  - Writes `visual_defect_constraints.bucket_closure_contract_buckets`.
+  - Writes `visual_defect_constraints.ui_review_bucket_pass_conditions`.
+  - Writes `visual_defect_constraints.api_or_displaydim_metric_alone_can_close=false`.
+  - Adds `ui_defect_bucket_closure_contract` to the generator reasons list.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds generator source signatures for `ui_defect_bucket_closure_contract` and `ui_review_bucket_pass_conditions`.
+  - A locked 006 CAD rerun is now blocked if this closure-contract propagation is removed from the generator.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed 006 rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Generator source signature check passes with `missing_signatures=[]`.
+- Product Gate remains `blocked_by_solidworks_readiness`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks is still not running; readiness remains `solidworks_not_running`.
+- 006 still requires exactly one locked CAD worker rerun and application Drawing Review UI screenshot PASS.
+- API metrics, DisplayDim counts, reference JSON, and generator contract presence remain supporting evidence only.
