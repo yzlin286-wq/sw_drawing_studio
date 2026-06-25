@@ -1,0 +1,148 @@
+{
+  "schema": "sw_drawing_studio.visual_audit_raw_issue_repair_plan.v4_4",
+  "generated_at": "2026-06-26 02:53:38",
+  "status": "repair_overlay_ready_requires_raw_backfill",
+  "pass": true,
+  "release_ready": false,
+  "solidworks_runtime_called": false,
+  "historical_artifacts_modified": false,
+  "in_place_mutation_allowed": false,
+  "normalized_supporting_only": true,
+  "normalized_cannot_replace_raw": true,
+  "raw_artifacts_remain_source_of_truth": true,
+  "raw_issue_schema_pass": false,
+  "raw_issue_count": 7004,
+  "raw_noncompliant_issue_count": 5931,
+  "raw_failure_count": 5931,
+  "normalized_issue_count": 7004,
+  "normalized_validation_pass": true,
+  "normalized_index_covers_raw_issue_count": true,
+  "normalized_records_for_all_raw_failures": true,
+  "missing_replacement_count": 0,
+  "lossy_normalized_issue_count": 5903,
+  "requires_human_review_for_lossy_records": true,
+  "normalization_warning_counts": {
+    "auto_fix_available_missing_or_invalid_default_false": 5756,
+    "evidence_missing_synthesized_from_legacy_record": 5667,
+    "bbox_missing_or_invalid_default_full_page": 5578,
+    "confidence_missing_or_invalid_default_zero": 5260,
+    "severity_missing_default_major": 5045,
+    "issue_was_not_object": 4958
+  },
+  "lossy_warning_counts": {
+    "bbox_missing_or_invalid_default_full_page": 5578,
+    "confidence_missing_or_invalid_default_zero": 5260,
+    "evidence_missing_synthesized_from_legacy_record": 5667,
+    "issue_was_not_object": 4958
+  },
+  "raw_missing_field_counts": {
+    "human_review_status": 5931,
+    "auto_fix_available": 5756,
+    "evidence": 5667,
+    "fix_suggestion": 5452,
+    "bbox": 5349,
+    "confidence": 5260,
+    "source": 5259,
+    "severity": 5045,
+    "key": 4965
+  },
+  "raw_invalid_field_counts": {
+    "issue_must_be_object": 4958,
+    "bbox_width_height_must_be_positive": 229
+  },
+  "top_raw_failure_sources": [
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-001_vision_qc_v4.json",
+      "failure_count": 32
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-002_vision_qc_v4.json",
+      "failure_count": 32
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-004_vision_qc_v4.json",
+      "failure_count": 32
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-005_vision_qc_v4.json",
+      "failure_count": 32
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/-AK-15-AC-25-1-V3-V02_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/-AK-15-AC-26-1-V3-V02_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/-AK-15-AC-27-1-V3-V02_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/-M3x8十字螺丝-1-V3-V02_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/-弹簧压棒弹簧-1-V3-V02_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-003_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-007_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/LB26001-A-04-009_vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/v22_validation/vision_qc_v4/qc/vision_qc_v4.json",
+      "failure_count": 31
+    },
+    {
+      "file": "drw_output/ui_acceptance/LB26001_ref6_visual_review_manual_20260623/closed_loop_codex_structured_20260624/lb26001_acceptance_gate_v4_2.json",
+      "failure_count": 25
+    },
+    {
+      "file": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_final_20260624/lb26001_acceptance_gate_v4_2.json",
+      "failure_count": 15
+    },
+    {
+      "file": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_current_v4_2_20260624/lb26001_acceptance_gate_v4_2.json",
+      "failure_count": 11
+    },
+    {
+      "file": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_strict_status_detail_20260624/lb26001_acceptance_gate_v4_2.json",
+      "failure_count": 11
+    },
+    {
+      "file": "drw_output/ui_acceptance/LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623/closed_loop_template_pending_20260624/lb26001_acceptance_gate_v4_2.json",
+      "failure_count": 11
+    },
+    {
+      "file": "drw_output/runs/0918adfc033b/qc/YAC7-00526-000-JD2U_4_v5_qc.json",
+      "failure_count": 10
+    },
+    {
+      "file": "drw_output/runs/0bf957d377b5/qc/vision_qc_v2.json",
+      "failure_count": 10
+    }
+  ],
+  "missing_replacements": [],
+  "source_artifacts": {
+    "raw_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+    "normalized_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+    "normalized_issue_index": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit\\normalized_issue_index.json"
+  },
+  "allowed_next_actions": {
+    "use_as_release_pass": false,
+    "use_as_raw_schema_replacement": false,
+    "write_back_after_user_approval_and_backup": true,
+    "regenerate_full_visual_audit_after_requested_six_pass": true
+  },
+  "next_required_action": "Normalized replacement coverage exists for every raw failure, but it is supporting-only evidence. After the requested UI-gated drawing sequence allows full Visual Audit, back up or regenerate the raw artifacts and rerun raw issue schema validation; records with lossy defaults require human review."
+}

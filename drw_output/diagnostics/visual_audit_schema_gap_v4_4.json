@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
-  "generated_at": "2026-06-26 01:24:26",
+  "generated_at": "2026-06-26 02:53:48",
   "status": "raw_issue_schema_noncompliant",
   "pass": false,
   "release_ready": false,
@@ -10,9 +10,12 @@
   "solidworks_runtime_called": false,
   "normalized_supporting_only": true,
   "normalized_cannot_replace_raw": true,
+  "raw_issue_repair_plan_present": true,
+  "raw_issue_repair_plan_ready": true,
+  "raw_issue_repair_plan_cannot_replace_raw": true,
   "raw_issue_schema_pass": false,
   "normalized_issue_schema_pass": true,
-  "raw_noncompliant_issue_count": 4330,
+  "raw_noncompliant_issue_count": 5931,
   "normalized_noncompliant_issue_count": 0,
   "visual_audit_report_final_present": false,
   "visual_audit_index_present": true,
@@ -22,33 +25,34 @@
     "normalized_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
     "product_evidence_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\product_evidence_gate_v4_4.json",
     "visual_audit_index": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
-    "visual_audit_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx"
+    "visual_audit_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+    "raw_issue_repair_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_raw_issue_repair_plan_v4_4.json"
   },
   "raw_issue_schema_summary": {
     "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
     "exists": true,
     "schema": "sw_drawing_studio.issue_schema_validation.v1",
-    "generated_at": "2026-06-22 11:25:15",
+    "generated_at": "2026-06-26 02:53:25",
     "status": "fail",
     "pass": false,
-    "issue_count": 4538,
-    "noncompliant_issue_count": 4330,
+    "issue_count": 7004,
+    "noncompliant_issue_count": 5931,
     "failure_bucket": [
       "vision_issue_schema_incomplete"
     ],
     "missing_field_counts_top": {
-      "human_review_status": 4330,
-      "evidence": 4306,
-      "auto_fix_available": 4159,
-      "fix_suggestion": 4091,
-      "confidence": 3899,
-      "source": 3898,
-      "bbox": 3752,
-      "severity": 3684,
-      "key": 3608
+      "human_review_status": 5931,
+      "auto_fix_available": 5756,
+      "evidence": 5667,
+      "fix_suggestion": 5452,
+      "bbox": 5349,
+      "confidence": 5260,
+      "source": 5259,
+      "severity": 5045,
+      "key": 4965
     },
     "invalid_field_counts_top": {
-      "issue_must_be_object": 3608,
+      "issue_must_be_object": 4958,
       "bbox_width_height_must_be_positive": 229
     },
     "top_failure_files": [
@@ -101,10 +105,10 @@
     "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
     "exists": true,
     "schema": "sw_drawing_studio.issue_schema_validation.v1",
-    "generated_at": "2026-06-22 11:26:17",
+    "generated_at": "2026-06-26 02:53:25",
     "status": "pass",
     "pass": true,
-    "issue_count": 4538,
+    "issue_count": 7004,
     "noncompliant_issue_count": 0,
     "failure_bucket": [],
     "missing_field_counts_top": {},
@@ -113,6 +117,20 @@
     "fix_suggestions": [
       "No action needed; all discovered visual issues satisfy the required schema."
     ]
+  },
+  "raw_issue_repair_plan_summary": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_raw_issue_repair_plan_v4_4.json",
+    "exists": true,
+    "schema": "sw_drawing_studio.visual_audit_raw_issue_repair_plan.v4_4",
+    "generated_at": "2026-06-26 02:53:38",
+    "status": "repair_overlay_ready_requires_raw_backfill",
+    "pass": true,
+    "release_ready": false,
+    "raw_noncompliant_issue_count": 5931,
+    "missing_replacement_count": 0,
+    "lossy_normalized_issue_count": 5903,
+    "normalized_cannot_replace_raw": true,
+    "historical_artifacts_modified": false
   },
   "checks": [
     {
@@ -131,27 +149,27 @@
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
         "exists": true,
         "schema": "sw_drawing_studio.issue_schema_validation.v1",
-        "generated_at": "2026-06-22 11:25:15",
+        "generated_at": "2026-06-26 02:53:25",
         "status": "fail",
         "pass": false,
-        "issue_count": 4538,
-        "noncompliant_issue_count": 4330,
+        "issue_count": 7004,
+        "noncompliant_issue_count": 5931,
         "failure_bucket": [
           "vision_issue_schema_incomplete"
         ],
         "missing_field_counts_top": {
-          "human_review_status": 4330,
-          "evidence": 4306,
-          "auto_fix_available": 4159,
-          "fix_suggestion": 4091,
-          "confidence": 3899,
-          "source": 3898,
-          "bbox": 3752,
-          "severity": 3684,
-          "key": 3608
+          "human_review_status": 5931,
+          "auto_fix_available": 5756,
+          "evidence": 5667,
+          "fix_suggestion": 5452,
+          "bbox": 5349,
+          "confidence": 5260,
+          "source": 5259,
+          "severity": 5045,
+          "key": 4965
         },
         "invalid_field_counts_top": {
-          "issue_must_be_object": 3608,
+          "issue_must_be_object": 4958,
           "bbox_width_height_must_be_positive": 229
         },
         "top_failure_files": [
@@ -217,10 +235,10 @@
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
         "exists": true,
         "schema": "sw_drawing_studio.issue_schema_validation.v1",
-        "generated_at": "2026-06-22 11:26:17",
+        "generated_at": "2026-06-26 02:53:25",
         "status": "pass",
         "pass": true,
-        "issue_count": 4538,
+        "issue_count": 7004,
         "noncompliant_issue_count": 0,
         "failure_bucket": [],
         "missing_field_counts_top": {},
@@ -248,7 +266,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
         "exists": true,
-        "size_bytes": 630386,
+        "size_bytes": 614236,
         "schema": null,
         "generated_at": "2026-06-25 21:22:44",
         "total_files": 2112,
@@ -268,9 +286,11 @@
           "solidworks_readiness_for_006",
           "regeneration_006_fresh_evidence_pass",
           "application_ui_006_acceptance_pass",
+          "canonical_006_ui_visual_review_pass",
           "requested_ref6_ui_status_pass",
           "final_release_artifacts_present",
           "exe_ui_and_stability_proof_pass",
+          "cad_smoke_dimension_reference_proof_pass",
           "visual_audit_schema_proof_pass"
         ]
       }

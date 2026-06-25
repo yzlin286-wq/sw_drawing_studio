@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 02:46:11",
+  "generated_at": "2026-06-26 02:57:55",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -407,7 +407,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 866011
+          "size_bytes": 870205
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -561,8 +561,8 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
           "status": "fail",
           "pass": false,
-          "issue_count": 4538,
-          "noncompliant_issue_count": 4330,
+          "issue_count": 7004,
+          "noncompliant_issue_count": 5931,
           "failure_bucket": [
             "vision_issue_schema_incomplete"
           ]
@@ -571,7 +571,7 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
           "status": "pass",
           "pass": true,
-          "issue_count": 4538,
+          "issue_count": 7004,
           "noncompliant_issue_count": 0,
           "failure_bucket": []
         },
@@ -579,7 +579,7 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_schema_gap_v4_4.json",
           "status": "raw_issue_schema_noncompliant",
           "pass": false,
-          "raw_noncompliant_issue_count": 4330,
+          "raw_noncompliant_issue_count": 5931,
           "normalized_noncompliant_issue_count": 0,
           "visual_audit_report_final_present": false,
           "visual_audit_full_scope_allowed_now": false,

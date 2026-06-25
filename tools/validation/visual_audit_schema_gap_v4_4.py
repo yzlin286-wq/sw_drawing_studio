@@ -15,6 +15,7 @@ DEFAULT_NORMALIZED_ISSUE_SCHEMA = REPO_ROOT / "drw_output" / "issue_schema_valid
 DEFAULT_PRODUCT_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.json"
 DEFAULT_VISUAL_AUDIT_INDEX = REPO_ROOT / "drw_output" / "visual_audit_index.json"
 DEFAULT_VISUAL_AUDIT_REPORT = REPO_ROOT / "drw_output" / "visual_audit_report_v3_0.xlsx"
+DEFAULT_RAW_ISSUE_REPAIR_PLAN = REPO_ROOT / "drw_output" / "diagnostics" / "visual_audit_raw_issue_repair_plan_v4_4.json"
 DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "visual_audit_schema_gap_v4_4.json"
 DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "visual_audit_schema_gap_v4_4.md"
 
@@ -26,17 +27,20 @@ def build_visual_audit_schema_gap(
     product_gate_path: Path = DEFAULT_PRODUCT_GATE,
     visual_audit_index_path: Path = DEFAULT_VISUAL_AUDIT_INDEX,
     visual_audit_report_path: Path = DEFAULT_VISUAL_AUDIT_REPORT,
+    raw_issue_repair_plan_path: Path | None = None,
     out_json: Path | None = None,
     out_md: Path | None = None,
 ) -> dict[str, Any]:
     raw = _read_json(raw_issue_schema_path)
     normalized = _read_json(normalized_issue_schema_path)
     product_gate = _read_json(product_gate_path)
+    repair_plan = _read_json(raw_issue_repair_plan_path) if raw_issue_repair_plan_path else {}
 
     raw_exists = raw_issue_schema_path.exists() and raw_issue_schema_path.is_file()
     normalized_exists = normalized_issue_schema_path.exists() and normalized_issue_schema_path.is_file()
     index_exists = visual_audit_index_path.exists() and visual_audit_index_path.is_file()
     report_exists = visual_audit_report_path.exists() and visual_audit_report_path.is_file()
+    repair_plan_exists = bool(raw_issue_repair_plan_path and raw_issue_repair_plan_path.exists() and raw_issue_repair_plan_path.is_file())
     allowed_actions = product_gate.get("allowed_actions") if isinstance(product_gate.get("allowed_actions"), dict) else {}
     full_scope_allowed = allowed_actions.get("visual_audit_full_scope_allowed") is True
 
@@ -113,6 +117,9 @@ def build_visual_audit_schema_gap(
         "solidworks_runtime_called": False,
         "normalized_supporting_only": True,
         "normalized_cannot_replace_raw": True,
+        "raw_issue_repair_plan_present": repair_plan_exists,
+        "raw_issue_repair_plan_ready": repair_plan.get("pass") is True,
+        "raw_issue_repair_plan_cannot_replace_raw": True,
         "raw_issue_schema_pass": raw.get("pass") is True and int(raw.get("noncompliant_issue_count") or 0) == 0,
         "normalized_issue_schema_pass": normalized.get("pass") is True
         and int(normalized.get("noncompliant_issue_count") or 0) == 0,
@@ -127,9 +134,11 @@ def build_visual_audit_schema_gap(
             "product_evidence_gate": str(product_gate_path),
             "visual_audit_index": str(visual_audit_index_path),
             "visual_audit_report": str(visual_audit_report_path),
+            "raw_issue_repair_plan": str(raw_issue_repair_plan_path) if raw_issue_repair_plan_path else "",
         },
         "raw_issue_schema_summary": _issue_schema_summary(raw_issue_schema_path, raw),
         "normalized_issue_schema_summary": _issue_schema_summary(normalized_issue_schema_path, normalized),
+        "raw_issue_repair_plan_summary": _raw_issue_repair_plan_summary(raw_issue_repair_plan_path, repair_plan),
         "checks": checks,
         "blocking_issue_keys": [item["key"] for item in failed],
         "next_required_action": _next_required_action(status),
@@ -153,6 +162,8 @@ def render_markdown(payload: dict[str, Any]) -> str:
         "- Release ready: `false`",
         "- Normalized schema proof is supporting-only: `true`",
         "- Normalized proof cannot replace raw historical issue compliance: `true`",
+        f"- Raw issue repair plan present: `{str(payload.get('raw_issue_repair_plan_present')).lower()}`",
+        f"- Raw issue repair plan can replace raw: `{str(not payload.get('raw_issue_repair_plan_cannot_replace_raw')).lower()}`",
         f"- Raw noncompliant issues: `{payload.get('raw_noncompliant_issue_count')}`",
         f"- Final Visual Audit report present: `{str(payload.get('visual_audit_report_final_present')).lower()}`",
         f"- Full-scope Visual Audit allowed now: `{str(payload.get('visual_audit_full_scope_allowed_now')).lower()}`",
@@ -264,6 +275,23 @@ def _visual_audit_index_summary(path: Path) -> dict[str, Any]:
     }
 
 
+def _raw_issue_repair_plan_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists() and path.is_file()),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "release_ready": payload.get("release_ready"),
+        "raw_noncompliant_issue_count": payload.get("raw_noncompliant_issue_count"),
+        "missing_replacement_count": payload.get("missing_replacement_count"),
+        "lossy_normalized_issue_count": payload.get("lossy_normalized_issue_count"),
+        "normalized_cannot_replace_raw": payload.get("normalized_cannot_replace_raw"),
+        "historical_artifacts_modified": payload.get("historical_artifacts_modified"),
+    }
+
+
 def _top_mapping(value: Any, limit: int = 10) -> dict[str, Any]:
     if not isinstance(value, dict):
         return {}
@@ -307,6 +335,7 @@ def main() -> int:
     parser.add_argument("--product-gate", default=str(DEFAULT_PRODUCT_GATE))
     parser.add_argument("--visual-audit-index", default=str(DEFAULT_VISUAL_AUDIT_INDEX))
     parser.add_argument("--visual-audit-report", default=str(DEFAULT_VISUAL_AUDIT_REPORT))
+    parser.add_argument("--raw-issue-repair-plan", default=str(DEFAULT_RAW_ISSUE_REPAIR_PLAN))
     parser.add_argument("--out-json", default=str(DEFAULT_OUT_JSON))
     parser.add_argument("--out-md", default=str(DEFAULT_OUT_MD))
     args = parser.parse_args()
@@ -316,6 +345,7 @@ def main() -> int:
         product_gate_path=_repo_path(args.product_gate),
         visual_audit_index_path=_repo_path(args.visual_audit_index),
         visual_audit_report_path=_repo_path(args.visual_audit_report),
+        raw_issue_repair_plan_path=_repo_path(args.raw_issue_repair_plan),
         out_json=_repo_path(args.out_json),
         out_md=_repo_path(args.out_md),
     )

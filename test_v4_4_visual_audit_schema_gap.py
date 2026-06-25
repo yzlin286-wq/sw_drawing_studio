@@ -140,8 +140,50 @@ def test_visual_audit_schema_gap_blocks_validation_sequence() -> None:
 
         assert result["pass"] is False
         assert result["status"] == "blocked_by_validation_sequence"
-        assert result["visual_audit_full_scope_allowed_now"] is False
-        assert "visual_audit_full_scope_allowed" in set(result["blocking_issue_keys"])
+    assert result["visual_audit_full_scope_allowed_now"] is False
+    assert "visual_audit_full_scope_allowed" in set(result["blocking_issue_keys"])
+
+
+def test_visual_audit_schema_gap_includes_repair_plan_as_supporting_only() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(
+            Path(tmp),
+            raw_pass=False,
+            normalized_pass=True,
+            final_report=False,
+            full_scope_allowed=False,
+        )
+        repair_plan = _write_json(
+            Path(tmp) / "visual_audit_raw_issue_repair_plan_v4_4.json",
+            {
+                "schema": "sw_drawing_studio.visual_audit_raw_issue_repair_plan.v4_4",
+                "status": "repair_overlay_ready_requires_raw_backfill",
+                "pass": True,
+                "release_ready": False,
+                "raw_noncompliant_issue_count": 7,
+                "missing_replacement_count": 0,
+                "lossy_normalized_issue_count": 5,
+                "normalized_cannot_replace_raw": True,
+                "historical_artifacts_modified": False,
+            },
+        )
+
+        result = build_visual_audit_schema_gap(
+            raw_issue_schema_path=paths["raw"],
+            normalized_issue_schema_path=paths["normalized"],
+            product_gate_path=paths["product_gate"],
+            visual_audit_index_path=paths["index"],
+            visual_audit_report_path=paths["report"],
+            raw_issue_repair_plan_path=repair_plan,
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "raw_issue_schema_noncompliant"
+        assert "raw_issue_schema_pass" in set(result["blocking_issue_keys"])
+        assert result["raw_issue_repair_plan_present"] is True
+        assert result["raw_issue_repair_plan_ready"] is True
+        assert result["raw_issue_repair_plan_cannot_replace_raw"] is True
+        assert result["raw_issue_repair_plan_summary"]["lossy_normalized_issue_count"] == 5
 
 
 def test_visual_audit_schema_gap_tool_is_file_only() -> None:
@@ -167,5 +209,6 @@ if __name__ == "__main__":
     test_visual_audit_schema_gap_blocks_raw_failure_even_when_normalized_passes()
     test_visual_audit_schema_gap_blocks_missing_final_report()
     test_visual_audit_schema_gap_blocks_validation_sequence()
+    test_visual_audit_schema_gap_includes_repair_plan_as_supporting_only()
     test_visual_audit_schema_gap_tool_is_file_only()
     print("PASS test_v4_4_visual_audit_schema_gap")

@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.issue_schema_validation.v1",
-  "generated_at": "2026-06-22 11:26:17",
+  "generated_at": "2026-06-26 02:53:25",
   "required_fields": [
     "key",
     "severity",
@@ -16,8 +16,8 @@
   "pass": true,
   "scanned_files": 1,
   "files_with_issues": 1,
-  "issue_count": 4538,
-  "compliant_issue_count": 4538,
+  "issue_count": 7004,
+  "compliant_issue_count": 7004,
   "noncompliant_issue_count": 0,
   "failure_bucket": [],
   "missing_field_counts": {},

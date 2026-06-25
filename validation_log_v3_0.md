@@ -12038,3 +12038,58 @@ Remaining issues:
 
 - This prevents an experimental refdoc path from bypassing the global lock, but 006 drawing acceptance is still unproven.
 - 006 still needs the next allowed locked real CAD rerun, followed by Drawing Review application UI screenshot evidence and manual visual checklist PASS.
+
+## v4.4 Visual Audit Raw Issue Repair Readiness - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This evidence is file-only diagnostics for historical Visual Audit issue schema repair planning. It does not accept 006, does not unlock 007/008/009/015/022, and does not replace application UI screenshot review.
+
+Implementation:
+
+- Added `tools/validation/visual_audit_raw_issue_repair_plan_v4_4.py`.
+  - Reads the raw issue schema validation report, normalized issue schema validation report, and `drw_output/visual_audit/normalized_issue_index.json`.
+  - Writes `drw_output/diagnostics/visual_audit_raw_issue_repair_plan_v4_4.json/.md`.
+  - Confirms whether each raw schema failure has a traceable normalized replacement by `(source_file, issue_path)`.
+  - Marks normalized evidence as supporting-only, with `normalized_cannot_replace_raw=true`, `raw_artifacts_remain_source_of_truth=true`, and `historical_artifacts_modified=false`.
+- Updated `tools/validation/visual_audit_schema_gap_v4_4.py`.
+  - Includes the raw issue repair plan summary as supporting-only evidence.
+  - Still blocks final Visual Audit schema proof on `raw_issue_schema_pass`, missing final Visual Audit report, and validation sequencing.
+- Added `test_v4_4_visual_audit_raw_issue_repair_plan.py`.
+- Updated `test_v4_4_visual_audit_schema_gap.py`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\visual_audit_raw_issue_repair_plan_v4_4.py tools\validation\visual_audit_schema_gap_v4_4.py test_v4_4_visual_audit_raw_issue_repair_plan.py test_v4_4_visual_audit_schema_gap.py
+python -B test_v4_4_visual_audit_raw_issue_repair_plan.py
+python -B test_v4_4_visual_audit_schema_gap.py
+python -B test_v3_issue_schema_validation.py
+python -B test_v3_normalize_issue_index.py
+python -B tools\validation\issue_schema_validation_v3.py --out drw_output\issue_schema_validation.json
+python -B tools\validation\normalize_issue_index_v3.py --out drw_output\visual_audit\normalized_issue_index.json --validation-out drw_output\issue_schema_validation_normalized.json
+python -B tools\validation\visual_audit_raw_issue_repair_plan_v4_4.py --out-json drw_output\diagnostics\visual_audit_raw_issue_repair_plan_v4_4.json --out-md drw_output\diagnostics\visual_audit_raw_issue_repair_plan_v4_4.md
+python -B tools\validation\visual_audit_schema_gap_v4_4.py --out-json drw_output\diagnostics\visual_audit_schema_gap_v4_4.json --out-md drw_output\diagnostics\visual_audit_schema_gap_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_visual_audit_raw_issue_repair_plan.py`: PASS.
+- `test_v4_4_visual_audit_schema_gap.py`: PASS.
+- `test_v3_issue_schema_validation.py`: PASS.
+- `test_v3_normalize_issue_index.py`: PASS.
+- Raw issue schema validation remains failing: `issue_count=7004`, `noncompliant_issue_count=5931`.
+- Normalized issue schema validation passes: `issue_count=7004`, `noncompliant_issue_count=0`.
+- Raw issue repair plan status is `repair_overlay_ready_requires_raw_backfill`, with `missing_replacement_count=0` and `lossy_normalized_issue_count=5903`.
+- Visual Audit Schema Gap remains `status=raw_issue_schema_noncompliant` and `pass=false`; blocking keys remain `raw_issue_schema_pass`, `final_visual_audit_report_present`, and `visual_audit_full_scope_allowed`.
+- Product Gate remains `blocked_by_solidworks_readiness`; all release and expansion actions remain false.
+
+Remaining issues:
+
+- The normalized issue index can guide raw backfill/regeneration, but it is not release evidence and cannot replace raw historical artifact compliance.
+- `lossy_normalized_issue_count=5903` still requires human review/backfill before final Visual Audit acceptance.
+- 006 still needs the next allowed locked real CAD rerun, Drawing Review application UI screenshot evidence, and manual visual checklist PASS before expanding to 007/008/009/015/022.

@@ -5,7 +5,9 @@
 - Release ready: `false`
 - Normalized schema proof is supporting-only: `true`
 - Normalized proof cannot replace raw historical issue compliance: `true`
-- Raw noncompliant issues: `4330`
+- Raw issue repair plan present: `true`
+- Raw issue repair plan can replace raw: `false`
+- Raw noncompliant issues: `5931`
 - Final Visual Audit report present: `false`
 - Full-scope Visual Audit allowed now: `false`
 
@@ -13,8 +15,8 @@
 
 - Status: `fail`
 - PASS: `false`
-- Issue count: `4538`
-- Noncompliant issue count: `4330`
+- Issue count: `7004`
+- Noncompliant issue count: `5931`
 - Failure buckets: `vision_issue_schema_incomplete`
 
 ## Checks
