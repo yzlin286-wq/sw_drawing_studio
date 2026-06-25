@@ -12136,3 +12136,45 @@ Remaining issues:
 - 006 still cannot be regenerated until SolidWorks readiness permits exactly one locked 006 CAD worker run.
 - After that run, 006 still requires a fresh Drawing Review application UI screenshot and manual visual checklist PASS.
 - 007/008/009/015/022, staged CAD validation, full Visual Audit, and release remain blocked.
+
+## v4.4 006 Readiness Canonical UI Evidence Route - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change corrects the no-COM readiness evidence route. It does not accept 006, does not unlock 007/008/009/015/022, and does not replace the application UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+  - Default `ui_gate` now points to `drw_output/ui_acceptance/LB26001_006_locked_real_rerun_20260625_041353_visual_review/closed_loop/ui_visual_review_gate_summary.json`.
+  - Default expansion gate now points to the matching `closed_loop/lb26001_acceptance_gate_v4_2.json`.
+  - The readiness audit still remains file/process-state only and does not call SolidWorks COM.
+- Updated `test_v4_2_006_regression_readiness.py`.
+  - Asserts the default readiness route uses the latest canonical 006 UI closure directory.
+- Refreshed readiness, rerun packet, and Product Gate diagnostics.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py
+python -B test_v4_2_006_regression_readiness.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- Refreshed readiness remains `status=blocked`, `ready_to_start_locked_006_cad=false`, with blocking key `solidworks_not_running`.
+- Readiness now references current run `drw_output/runs/2aba76ff152d`, current-run generated PNG source evidence, and the current application UI screenshot from `LB26001_006_locked_real_rerun_20260625_041353_visual_review`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate remains `blocked_by_solidworks_readiness`; `locked_006_cad_rerun_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- SolidWorks is still not running, so the next real CAD step remains blocked.
+- The next allowed CAD action, once readiness is safe, is exactly one locked 006-only CAD worker run followed by Drawing Review application UI screenshot review.

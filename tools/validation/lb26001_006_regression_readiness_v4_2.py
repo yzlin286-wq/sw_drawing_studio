@@ -26,8 +26,8 @@ DEFAULT_UI_GATE = (
     REPO_ROOT
     / "drw_output"
     / "ui_acceptance"
-    / "LB26001_006_explicit_displaydim_visible_entities_visual_review_20260623"
-    / "closed_loop_strict_final_20260624"
+    / "LB26001_006_locked_real_rerun_20260625_041353_visual_review"
+    / "closed_loop"
     / "ui_visual_review_gate_summary.json"
 )
 DEFAULT_EXPANSION_GATE = DEFAULT_UI_GATE.parent / "lb26001_acceptance_gate_v4_2.json"

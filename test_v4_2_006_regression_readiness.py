@@ -182,9 +182,11 @@ def test_006_regression_readiness_does_not_block_on_stale_solidworks_lock() -> N
     assert "solidworks_lock_is_stale" in markdown
 
 
-def test_006_regression_readiness_defaults_to_strict_final_ui_gate() -> None:
-    assert "closed_loop_strict_final_20260624" in str(DEFAULT_UI_GATE)
-    assert "closed_loop_strict_final_20260624" in str(DEFAULT_EXPANSION_GATE)
+def test_006_regression_readiness_defaults_to_latest_canonical_ui_gate() -> None:
+    assert "LB26001_006_locked_real_rerun_20260625_041353_visual_review" in str(DEFAULT_UI_GATE)
+    assert "closed_loop" in str(DEFAULT_UI_GATE)
+    assert "LB26001_006_locked_real_rerun_20260625_041353_visual_review" in str(DEFAULT_EXPANSION_GATE)
+    assert "closed_loop" in str(DEFAULT_EXPANSION_GATE)
 
 
 def test_006_regression_readiness_markdown_explains_manual_recovery_without_cad_start() -> None:
@@ -218,6 +220,6 @@ if __name__ == "__main__":
     test_006_regression_readiness_allows_next_rerun_when_solidworks_is_safe()
     test_006_regression_readiness_blocks_existing_solidworks_lock()
     test_006_regression_readiness_does_not_block_on_stale_solidworks_lock()
-    test_006_regression_readiness_defaults_to_strict_final_ui_gate()
+    test_006_regression_readiness_defaults_to_latest_canonical_ui_gate()
     test_006_regression_readiness_markdown_explains_manual_recovery_without_cad_start()
     print("PASS test_v4_2_006_regression_readiness")
