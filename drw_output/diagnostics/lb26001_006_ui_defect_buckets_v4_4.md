@@ -6,6 +6,15 @@
 - Active buckets: `dimension_visual_overdense, dimension_lane_wrong, note_missing_or_wrong, titlebar_incomplete, projection_view_style_mismatch`
 - SolidWorks readiness: `blocked`
 
+## Required Next Screenshot Checks
+
+- `dimension_visual_overdense`: visible DisplayDim density matches the 12-target reference-intent set
+- `dimension_lane_wrong`: dimension text/leaders stay in compact local reference lanes without cross-region clutter
+- `note_missing_or_wrong`: manufacturing notes and roughness text match the reference note region
+- `titlebar_incomplete`: title/data area uses only the compact reference-like fields
+- `projection_view_style_mismatch`: front/top/right/iso view scale and composition match the reference
+- `callout_missing`: M4-6H through-thread, 4-3.3 hole callout, Ra3.2 rest roughness, and radius/chamfer absence are explicitly checked
+
 ## Bucket Evidence
 
 ### dimension_visual_overdense

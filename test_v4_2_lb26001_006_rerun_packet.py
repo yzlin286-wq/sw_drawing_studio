@@ -169,6 +169,7 @@ def _build_packet_fixture(
     include_failed_items: bool = True,
     stale_correction_plan: bool = False,
     stale_screenshot_content_status: bool = False,
+    omit_ui_defect_callout_next_check: bool = False,
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -244,6 +245,25 @@ def _build_packet_fixture(
             ["target_key", "selected_entity", "persisted_after_reopen"],
         )
         ui_defect_buckets = root / "lb26001_006_ui_defect_buckets_v4_4.json"
+        required_active_buckets = [
+            "dimension_visual_overdense",
+            "dimension_lane_wrong",
+            "note_missing_or_wrong",
+            "titlebar_incomplete",
+            "projection_view_style_mismatch",
+        ]
+        required_next_buckets = required_active_buckets + ([] if omit_ui_defect_callout_next_check else ["callout_missing"])
+        next_screenshot_checklist = [
+            {"bucket": key, "required": True}
+            for key in required_active_buckets
+        ]
+        if not omit_ui_defect_callout_next_check:
+            next_screenshot_checklist.append({
+                "bucket": "callout_missing",
+                "required": True,
+                "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                "absence_check_keys": ["radius_callout", "chamfer_callout"],
+            })
         ui_defect_buckets.write_text(
             json.dumps(
                 {
@@ -253,13 +273,13 @@ def _build_packet_fixture(
                     "api_only_acceptance_allowed": False,
                     "application_ui_screenshot_is_final_gate": True,
                     "expansion_allowed_now": False,
-                    "active_buckets": [
-                        "dimension_visual_overdense",
-                        "dimension_lane_wrong",
-                        "note_missing_or_wrong",
-                        "titlebar_incomplete",
-                        "projection_view_style_mismatch",
-                    ],
+                    "active_buckets": required_active_buckets,
+                    "required_bucket_keys": required_active_buckets + ["callout_missing"],
+                    "missing_bucket_keys": [],
+                    "required_next_screenshot_check_buckets": required_next_buckets,
+                    "next_screenshot_checklist": next_screenshot_checklist,
+                    "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                    "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -350,6 +370,8 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert packet["reference_intent_artifacts"]["contract"]["pass"] is True
     assert packet["ui_defect_buckets"]["pass"] is True
     assert "dimension_visual_overdense" in packet["ui_defect_buckets"]["active_buckets"]
+    assert "callout_missing" in packet["ui_defect_buckets"]["required_next_screenshot_check_buckets"]
+    assert packet["ui_defect_buckets"]["callout_next_check_ok"] is True
     assert packet["expansion_policy"]["006_must_pass_first"] is True
     assert "LB26001-A-04-006" in result["markdown"]
     assert "Do not run real CAD" in result["markdown"]
@@ -669,6 +691,21 @@ def test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_mi
     assert packet["source_signatures"]["generator"]["missing_signatures"] == [
         "reference_callout_required_keys"
     ]
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_callout_next_check=True,
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_check_buckets"] == ["callout_missing"]
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_checklist_buckets"] == ["callout_missing"]
+    assert packet["ui_defect_buckets"]["callout_next_check_ok"] is False
 
 
 def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
@@ -1037,6 +1074,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
     test_006_rerun_packet_blocks_when_generator_strict_target_match_missing()
     test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing()
+    test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()

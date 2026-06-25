@@ -954,6 +954,17 @@ def _ui_defect_buckets_check(
     missing_bucket_keys = sorted(REQUIRED_006_DEFECT_BUCKETS - bucket_keys)
     missing_active_bucket_keys = sorted(REQUIRED_ACTIVE_006_DEFECT_BUCKETS - active_buckets)
     active_without_blocker_keys = sorted(REQUIRED_ACTIVE_006_DEFECT_BUCKETS - active_blockers)
+    next_check_buckets = {str(item) for item in payload.get("required_next_screenshot_check_buckets") or []}
+    checklist_items = [item for item in payload.get("next_screenshot_checklist") or [] if isinstance(item, dict)]
+    checklist_buckets = {str(item.get("bucket") or "") for item in checklist_items}
+    missing_next_check_buckets = sorted(REQUIRED_006_DEFECT_BUCKETS - next_check_buckets)
+    missing_next_checklist_buckets = sorted(REQUIRED_006_DEFECT_BUCKETS - checklist_buckets)
+    callout_check = next((item for item in checklist_items if item.get("bucket") == "callout_missing"), {})
+    callout_next_check_ok = (
+        {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
+        <= set(callout_check.get("required_callout_keys") or [])
+        and {"radius_callout", "chamfer_callout"} <= set(callout_check.get("absence_check_keys") or [])
+    )
     readiness_summary = payload.get("solidworks_readiness") if isinstance(payload.get("solidworks_readiness"), dict) else {}
     ui_final_gate = payload.get("ui_final_gate") if isinstance(payload.get("ui_final_gate"), dict) else {}
     readiness_status_current = readiness.get("status") or ""
@@ -971,6 +982,9 @@ def _ui_defect_buckets_check(
         and not missing_bucket_keys
         and not missing_active_bucket_keys
         and not active_without_blocker_keys
+        and not missing_next_check_buckets
+        and not missing_next_checklist_buckets
+        and callout_next_check_ok
     )
     details = {
         "path": str(path),
@@ -995,6 +1009,10 @@ def _ui_defect_buckets_check(
         "missing_bucket_keys": missing_bucket_keys,
         "missing_active_bucket_keys": missing_active_bucket_keys,
         "active_without_blocker_keys": active_without_blocker_keys,
+        "required_next_screenshot_check_buckets": sorted(next_check_buckets),
+        "missing_next_check_buckets": missing_next_check_buckets,
+        "missing_next_checklist_buckets": missing_next_checklist_buckets,
+        "callout_next_check_ok": callout_next_check_ok,
         "defect_plan_ready": defect_plan_ready,
         "defect_closure_pass": defect_closure_pass,
     }
@@ -1009,6 +1027,9 @@ def _ui_defect_buckets_check(
         and ui_final_gate.get("ui_report_evidence_capture_pass") is True
         and readiness_synced
         and not missing_bucket_keys
+        and not missing_next_check_buckets
+        and not missing_next_checklist_buckets
+        and callout_next_check_ok
         and (defect_plan_ready or defect_closure_pass)
     )
     return passed, details

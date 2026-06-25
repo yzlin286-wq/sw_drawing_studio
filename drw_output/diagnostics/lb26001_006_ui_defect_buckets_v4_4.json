@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-25 21:41:12",
+  "generated_at": "2026-06-26 03:33:49",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -43,6 +43,92 @@
     "titlebar_incomplete",
     "projection_view_style_mismatch"
   ],
+  "required_bucket_keys": [
+    "dimension_visual_overdense",
+    "dimension_lane_wrong",
+    "note_missing_or_wrong",
+    "titlebar_incomplete",
+    "projection_view_style_mismatch",
+    "callout_missing"
+  ],
+  "missing_bucket_keys": [],
+  "required_next_screenshot_check_buckets": [
+    "dimension_visual_overdense",
+    "dimension_lane_wrong",
+    "note_missing_or_wrong",
+    "titlebar_incomplete",
+    "projection_view_style_mismatch",
+    "callout_missing"
+  ],
+  "next_screenshot_checklist": [
+    {
+      "bucket": "dimension_visual_overdense",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "visible DisplayDim density matches the 12-target reference-intent set",
+      "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006"
+    },
+    {
+      "bucket": "dimension_lane_wrong",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "dimension text/leaders stay in compact local reference lanes without cross-region clutter",
+      "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006"
+    },
+    {
+      "bucket": "note_missing_or_wrong",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "manufacturing notes and roughness text match the reference note region",
+      "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006"
+    },
+    {
+      "bucket": "titlebar_incomplete",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "title/data area uses only the compact reference-like fields",
+      "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006"
+    },
+    {
+      "bucket": "projection_view_style_mismatch",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "front/top/right/iso view scale and composition match the reference",
+      "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006"
+    },
+    {
+      "bucket": "callout_missing",
+      "required": true,
+      "review_method": "application_drawing_review_ui_screenshot",
+      "expected_ui_evidence": "M4-6H through-thread, 4-3.3 hole callout, Ra3.2 rest roughness, and radius/chamfer absence are explicitly checked",
+      "pass_condition": "manual_visual_judgement reference_callout_checklist proves required callouts present and radius/chamfer are not fabricated",
+      "required_callout_keys": [
+        "thread_callout_m4_6h",
+        "surface_finish_rest_3_2"
+      ],
+      "absence_check_keys": [
+        "radius_callout",
+        "chamfer_callout"
+      ]
+    }
+  ],
+  "reference_callout_review_required_keys": [
+    "thread_callout_m4_6h",
+    "surface_finish_rest_3_2"
+  ],
+  "reference_callout_absence_check_keys": [
+    "radius_callout",
+    "chamfer_callout"
+  ],
+  "source_artifacts": {
+    "manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+    "ui_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+    "staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json",
+    "vision_qc_v6": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006\\vision_qc_v6.json",
+    "reference_style": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006\\reference_style.json",
+    "readiness": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+    "warnings": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\qc\\LB26001-A-04-006_v5_warnings.json"
+  },
   "buckets": [
     {
       "key": "dimension_visual_overdense",

@@ -116,10 +116,31 @@ def main() -> None:
         assert "titlebar_incomplete" in active
         assert "projection_view_style_mismatch" in active
         assert "callout_missing" not in active
+        assert report["required_bucket_keys"] == [
+            "dimension_visual_overdense",
+            "dimension_lane_wrong",
+            "note_missing_or_wrong",
+            "titlebar_incomplete",
+            "projection_view_style_mismatch",
+            "callout_missing",
+        ]
+        assert report["missing_bucket_keys"] == []
+        assert set(report["required_next_screenshot_check_buckets"]) == set(report["required_bucket_keys"])
+        checklist = {item["bucket"]: item for item in report["next_screenshot_checklist"]}
+        assert set(checklist) == set(report["required_bucket_keys"])
+        assert checklist["callout_missing"]["required_callout_keys"] == [
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        ]
+        assert checklist["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]
+        assert report["reference_callout_review_required_keys"] == ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+        assert report["reference_callout_absence_check_keys"] == ["radius_callout", "chamfer_callout"]
+        assert report["source_artifacts"]["manual_review"] == str(manual)
         assert report["solidworks_readiness"]["blocking_issue_keys"] == ["solidworks_not_running"]
         markdown = render_markdown(report)
         assert "Do not run full_129" in markdown
         assert "dimension_visual_overdense" in markdown
+        assert "callout_missing" in markdown
 
     print("PASS test_v4_4_lb26001_006_ui_defect_buckets")
 

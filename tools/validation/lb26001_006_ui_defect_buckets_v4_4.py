@@ -278,6 +278,9 @@ def build_report(
     ]
 
     active_buckets = [item["key"] for item in buckets if item["active"]]
+    bucket_keys = {str(item.get("key") or "") for item in buckets}
+    required_bucket_keys = list(BUCKET_ORDER)
+    required_next_screenshot_check_buckets = list(BUCKET_ORDER)
     solidworks_blocking = list(readiness.get("blocking_issue_keys") or [])
     ready = bool(readiness.get("ready_to_start_locked_006_cad"))
     visual_pass = bool(manual_review.get("visual_acceptance_pass"))
@@ -319,6 +322,21 @@ def build_report(
         },
         "active_bucket_count": len(active_buckets),
         "active_buckets": active_buckets,
+        "required_bucket_keys": required_bucket_keys,
+        "missing_bucket_keys": sorted(set(required_bucket_keys) - bucket_keys),
+        "required_next_screenshot_check_buckets": required_next_screenshot_check_buckets,
+        "next_screenshot_checklist": _next_screenshot_checklist(required_next_screenshot_check_buckets),
+        "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+        "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
+        "source_artifacts": {
+            "manual_review": str(manual_review_path),
+            "ui_report": str(ui_report_path),
+            "staged_summary": str(staged_summary_path),
+            "vision_qc_v6": str(vision_qc_path),
+            "reference_style": str(reference_style_path),
+            "readiness": str(readiness_path),
+            "warnings": warnings_path,
+        },
         "buckets": buckets,
         "next_allowed_action": (
             "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
@@ -334,6 +352,35 @@ def build_report(
     }
 
 
+def _next_screenshot_checklist(bucket_keys: list[str]) -> list[dict[str, Any]]:
+    labels = {
+        "dimension_visual_overdense": "visible DisplayDim density matches the 12-target reference-intent set",
+        "dimension_lane_wrong": "dimension text/leaders stay in compact local reference lanes without cross-region clutter",
+        "note_missing_or_wrong": "manufacturing notes and roughness text match the reference note region",
+        "titlebar_incomplete": "title/data area uses only the compact reference-like fields",
+        "projection_view_style_mismatch": "front/top/right/iso view scale and composition match the reference",
+        "callout_missing": "M4-6H through-thread, 4-3.3 hole callout, Ra3.2 rest roughness, and radius/chamfer absence are explicitly checked",
+    }
+    checklist: list[dict[str, Any]] = []
+    for key in bucket_keys:
+        item = {
+            "bucket": key,
+            "required": True,
+            "review_method": "application_drawing_review_ui_screenshot",
+            "expected_ui_evidence": labels.get(key, key),
+            "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006",
+        }
+        if key == "callout_missing":
+            item["required_callout_keys"] = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+            item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
+            item["pass_condition"] = (
+                "manual_visual_judgement reference_callout_checklist proves required callouts present "
+                "and radius/chamfer are not fabricated"
+            )
+        checklist.append(item)
+    return checklist
+
+
 def render_markdown(report: dict[str, Any]) -> str:
     lines = [
         f"# {BASE} UI Defect Buckets v4.4",
@@ -344,8 +391,15 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Active buckets: `{', '.join(report.get('active_buckets') or []) or 'none'}`",
         f"- SolidWorks readiness: `{(report.get('solidworks_readiness') or {}).get('status')}`",
         "",
-        "## Bucket Evidence",
+        "## Required Next Screenshot Checks",
+        "",
     ]
+    for item in report.get("next_screenshot_checklist") or []:
+        lines.append(f"- `{item.get('bucket')}`: {item.get('expected_ui_evidence')}")
+    lines.extend([
+        "",
+        "## Bucket Evidence",
+    ])
     for bucket in report.get("buckets") or []:
         lines.extend([
             "",

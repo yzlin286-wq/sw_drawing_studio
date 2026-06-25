@@ -12241,3 +12241,54 @@ Remaining issues:
 - SolidWorks readiness still blocks the next real CAD step.
 - 006 still needs exactly one locked CAD worker rerun, followed by application Drawing Review UI screenshot review and manual visual checklist PASS.
 - The reference-intent proof is an offline plan/contract proof only; it is not drawing acceptance evidence.
+
+## v4.4 006 Defect Bucket Next Screenshot Checklist - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change tightens Task 5 evidence for the next 006-only correction loop. It does not accept 006 and does not unlock `007/008/009/015/022`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+  - Adds top-level `required_bucket_keys`, `missing_bucket_keys`, `required_next_screenshot_check_buckets`, `next_screenshot_checklist`, `reference_callout_review_required_keys`, `reference_callout_absence_check_keys`, and `source_artifacts`.
+  - The next screenshot checklist now explicitly covers all six Task 5 buckets: `dimension_visual_overdense`, `dimension_lane_wrong`, `note_missing_or_wrong`, `titlebar_incomplete`, `projection_view_style_mismatch`, and `callout_missing`.
+  - `callout_missing` now requires explicit UI review evidence for `thread_callout_m4_6h`, `surface_finish_rest_3_2`, plus radius/chamfer absence checks.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - The 006 packet now blocks offline readiness if the UI defect artifact does not carry the complete next-screenshot checklist.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Product Gate now records and requires `missing_next_check_buckets=[]`, `missing_next_checklist_buckets=[]`, and `callout_next_check_ok=true` for `lb26001_006_ui_defect_buckets_ready`.
+- Updated tests:
+  - `test_v4_4_lb26001_006_ui_defect_buckets.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_ui_defect_buckets_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_lb26001_006_ui_defect_buckets.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_ui_defect_buckets.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed UI defect buckets remain `status=blocked_by_solidworks_readiness`, `pass=false`; active buckets remain the five proven UI failures, while `required_next_screenshot_check_buckets` includes all six Task 5 buckets including `callout_missing`.
+- Refreshed rerun packet is `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`; `ui_defect_buckets.callout_next_check_ok=true`.
+- Refreshed Product Gate remains `blocked_by_solidworks_readiness`; `lb26001_006_ui_defect_buckets_ready=pass`, while all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks is still not running; readiness remains `solidworks_not_running`.
+- The next allowed CAD action, after readiness becomes safe, is still exactly one locked 006-only CAD worker run.
+- The next application Drawing Review UI screenshot must explicitly judge all six Task 5 buckets, including `callout_missing`; without that UI screenshot PASS, 006 remains not accepted.

@@ -386,6 +386,18 @@ def _fixture(
                 },
                 "active_bucket_count": len(ui_defect_active),
                 "active_buckets": ui_defect_active,
+                "required_bucket_keys": required_active_defect_buckets + ["callout_missing"],
+                "missing_bucket_keys": [],
+                "required_next_screenshot_check_buckets": required_active_defect_buckets + ["callout_missing"],
+                "next_screenshot_checklist": [
+                    {"bucket": key, "required": True}
+                    for key in required_active_defect_buckets
+                ] + [{
+                    "bucket": "callout_missing",
+                    "required": True,
+                    "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                    "absence_check_keys": ["radius_callout", "chamfer_callout"],
+                }],
                 "buckets": ui_defect_buckets,
             },
         ),
@@ -731,6 +743,31 @@ def test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_inco
         assert check["details"]["defect_closure_pass"] is False
 
 
+def test_product_evidence_gate_blocks_locked_006_when_callout_next_screenshot_check_is_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        ui_defect_path = paths["ui_defect_buckets"]
+        payload = json.loads(ui_defect_path.read_text(encoding="utf-8"))
+        payload["required_next_screenshot_check_buckets"] = [
+            key for key in payload["required_next_screenshot_check_buckets"] if key != "callout_missing"
+        ]
+        payload["next_screenshot_checklist"] = [
+            item for item in payload["next_screenshot_checklist"] if item.get("bucket") != "callout_missing"
+        ]
+        _write_json(ui_defect_path, payload)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "lb26001_006_ui_defect_buckets_ready" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "lb26001_006_ui_defect_buckets_ready")
+        assert check["details"]["missing_next_check_buckets"] == ["callout_missing"]
+        assert check["details"]["missing_next_checklist_buckets"] == ["callout_missing"]
+        assert check["details"]["callout_next_check_ok"] is False
+
+
 def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), acceptance_pass=False, requested_pass=False))
@@ -961,6 +998,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_incomplete()
+    test_product_evidence_gate_blocks_locked_006_when_callout_next_screenshot_check_is_missing()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()

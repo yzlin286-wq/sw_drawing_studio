@@ -398,14 +398,30 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         for item in (payload.get("active_buckets") or [])
         if str(item).strip()
     ]
-    expected = {
+    expected_active = {
         "dimension_visual_overdense",
         "dimension_lane_wrong",
         "note_missing_or_wrong",
         "titlebar_incomplete",
         "projection_view_style_mismatch",
     }
-    missing_active = sorted(expected - set(active_buckets))
+    expected_all = expected_active | {"callout_missing"}
+    next_check_buckets = {
+        str(item)
+        for item in (payload.get("required_next_screenshot_check_buckets") or [])
+        if str(item).strip()
+    }
+    checklist_items = [item for item in payload.get("next_screenshot_checklist") or [] if isinstance(item, dict)]
+    checklist_buckets = {str(item.get("bucket") or "") for item in checklist_items}
+    callout_check = next((item for item in checklist_items if item.get("bucket") == "callout_missing"), {})
+    callout_next_check_ok = (
+        {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
+        <= set(callout_check.get("required_callout_keys") or [])
+        and {"radius_callout", "chamfer_callout"} <= set(callout_check.get("absence_check_keys") or [])
+    )
+    missing_active = sorted(expected_active - set(active_buckets))
+    missing_next_check = sorted(expected_all - next_check_buckets)
+    missing_checklist = sorted(expected_all - checklist_buckets)
     pass_ = (
         path.exists()
         and payload.get("base") == PRIMARY_BASE
@@ -414,6 +430,9 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         and payload.get("api_only_acceptance_allowed") is False
         and payload.get("expansion_allowed_now") is False
         and not missing_active
+        and not missing_next_check
+        and not missing_checklist
+        and callout_next_check_ok
     )
     return {
         "path": str(path),
@@ -423,6 +442,10 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "active_bucket_count": len(active_buckets),
         "active_buckets": active_buckets,
         "missing_required_active_buckets": missing_active,
+        "required_next_screenshot_check_buckets": sorted(next_check_buckets),
+        "missing_next_screenshot_check_buckets": missing_next_check,
+        "missing_next_screenshot_checklist_buckets": missing_checklist,
+        "callout_next_check_ok": callout_next_check_ok,
         "solidworks_readiness": payload.get("solidworks_readiness") or {},
     }
 
