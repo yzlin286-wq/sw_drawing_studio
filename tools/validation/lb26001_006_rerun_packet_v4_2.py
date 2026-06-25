@@ -165,6 +165,10 @@ VISION_QC_V6_SIGNATURES = {
     "reference_visual_grid_signature": "_ink_grid_signature",
     "reference_visual_grid_layout_match": "grid_layout_match",
     "dimension_cluster_issue": "dimension_visual_clustered_unreadable",
+    "reference_callout_check": "_reference_callout_checks",
+    "reference_callout_issue": "reference_callout_visual_check_missing",
+    "reference_callout_manual_checklist": "reference_callout_checklist",
+    "reference_callout_not_displaydim": "notes_do_not_count_as_display_dim",
     "template_policy_supporting_api_guard": "api_is_not_final_judgement",
 }
 

@@ -896,6 +896,21 @@ def test_006_rerun_packet_blocks_when_v6_reference_grid_signature_missing() -> N
     ]
 
 
+def test_006_rerun_packet_blocks_when_v6_reference_callout_signature_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_vision_qc_v6_signature="reference_callout_issue",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "vision_qc_v6_ui_template_policy_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["vision_qc_v6"]["missing_signatures"] == [
+        "reference_callout_issue"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_application_ui_screenshot_validator_signature_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1022,6 +1037,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_manual_visual_judgement_template_signature_missing()
     test_006_rerun_packet_blocks_when_v6_template_policy_signature_missing()
     test_006_rerun_packet_blocks_when_v6_reference_grid_signature_missing()
+    test_006_rerun_packet_blocks_when_v6_reference_callout_signature_missing()
     test_006_rerun_packet_blocks_when_application_ui_screenshot_validator_signature_missing()
     test_006_rerun_packet_blocks_when_dimension_visual_readability_signature_missing()
     test_006_rerun_packet_blocks_when_manual_ui_acceptance_signature_is_missing()

@@ -166,6 +166,11 @@ def apply_reference_intent_dimension_targets(
     plan.required_display_dim_count = max(plan.required_display_dim_count, required_count, len(targets))
     plan.reference_display_dim_count = max(plan.reference_display_dim_count, reference_count)
     plan.dimension_targets = targets
+    plan.reference_callouts = [
+        dict(item)
+        for item in (intent_plan.get("reference_callouts") or [])
+        if isinstance(item, dict)
+    ]
     plan.dimension_priority = _merge_unique([item["key"] for item in targets] + plan.dimension_priority)
     if intent_plan.get("dimension_groups"):
         plan.dimension_intent_groups = list(intent_plan.get("dimension_groups") or plan.dimension_intent_groups)

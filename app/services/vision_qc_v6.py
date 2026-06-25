@@ -243,6 +243,20 @@ def run_vision_qc_v6(
             item["description"],
         ))
 
+    reference_callouts = _reference_callout_checks(blueprint, manual_review, inferred_base)
+    result["checks"]["reference_callouts"] = reference_callouts
+    if reference_callouts.get("required") and not reference_callouts.get("pass"):
+        issues.append(_issue(
+            "reference_callout_visual_check_missing",
+            "major",
+            reference_callouts.get("bbox_norm") or _bbox_or_full(drawing_objects.get("ink_bbox")),
+            "reference_callout_ui_review",
+            0.82,
+            reference_callouts,
+            "In the Drawing Review UI screenshot judgement, explicitly confirm each same-name reference callout such as M4-6H, hole-size callouts, and Ra3.2/rest roughness before accepting 006.",
+            "Reference manufacturing callouts are required, but the application UI screenshot review has not proven every required callout is present.",
+        ))
+
     if reference_png_path and reference_png_path.exists():
         reference_compare = _compare_reference_png(png_path, reference_png_path)
         result["checks"]["reference_visual_compare"] = reference_compare
@@ -369,6 +383,190 @@ def _symbol_checks(blueprint: dict[str, Any], drawing_objects: dict[str, Any]) -
         "section_arrow_candidate_count": drawing_objects.get("section_arrow_candidate_count", 0),
         "missing": missing,
     }
+
+
+def _reference_callout_checks(
+    blueprint: dict[str, Any],
+    manual_review: dict[str, Any],
+    base: str = "",
+) -> dict[str, Any]:
+    # reference_callout_visual_check_missing:
+    # This is a UI-evidence gate for manufacturing callouts, not a DisplayDim
+    # substitute and not an API acceptance shortcut.
+    callouts = _required_reference_callouts(blueprint)
+    if not callouts:
+        return {
+            "required": False,
+            "pass": True,
+            "source": "DrawingBlueprint.dimension_plan.reference_callouts",
+            "api_is_not_final_judgement": True,
+            "notes_do_not_count_as_display_dim": True,
+        }
+    checklist = _manual_reference_callout_checklist(manual_review, base)
+    confirmed: list[str] = []
+    missing: list[str] = []
+    failed: list[str] = []
+    callout_results: list[dict[str, Any]] = []
+    for item in callouts:
+        key = str(item.get("key") or "").strip()
+        expected_type = str(item.get("expected_type") or "").strip()
+        source_text = str(
+            ((item.get("source_reference_evidence") or {}).get("source_text"))
+            or item.get("reference_value")
+            or ""
+        )
+        aliases = _reference_callout_aliases(key, expected_type, source_text)
+        value = None
+        matched_alias = ""
+        for alias in aliases:
+            if alias in checklist:
+                value = checklist.get(alias)
+                matched_alias = alias
+                break
+        if value is True:
+            confirmed.append(key)
+        elif value is False:
+            failed.append(key)
+        else:
+            missing.append(key)
+        callout_results.append({
+            "key": key,
+            "expected_type": expected_type,
+            "source_text": source_text,
+            "confirmed": value is True,
+            "failed": value is False,
+            "matched_alias": matched_alias,
+            "create_as": str(item.get("create_as") or ""),
+            "forbid_note_substitution_for_displaydim": bool(
+                item.get("forbid_note_substitution_for_displaydim")
+                or item.get("forbid_note_substitution")
+            ),
+        })
+    layout = blueprint.get("layout_plan") or {}
+    bbox = layout.get("notes_box_norm") or [0.58, 0.18, 0.40, 0.17]
+    return {
+        "required": True,
+        "pass": not missing and not failed,
+        "source": "DrawingBlueprint.dimension_plan.reference_callouts",
+        "base": base,
+        "required_count": len(callouts),
+        "confirmed_count": len(confirmed),
+        "confirmed_callouts": confirmed,
+        "missing_required_callouts": missing,
+        "failed_required_callouts": failed,
+        "manual_callout_checklist_present": bool(checklist),
+        "manual_callout_checklist_keys": sorted(checklist),
+        "callouts": callout_results,
+        "bbox_norm": bbox,
+        "api_is_not_final_judgement": True,
+        "ui_screenshot_acceptance_required": True,
+        "notes_do_not_count_as_display_dim": True,
+    }
+
+
+def _required_reference_callouts(blueprint: dict[str, Any]) -> list[dict[str, Any]]:
+    dimension_plan = blueprint.get("dimension_plan") or {}
+    raw = (
+        blueprint.get("reference_callouts")
+        or dimension_plan.get("reference_callouts")
+        or []
+    )
+    result: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        fallback = str(item.get("fallback_policy") or "").strip()
+        key = str(item.get("key") or "").strip()
+        if not key:
+            continue
+        if fallback.startswith("do_not_create_unless"):
+            continue
+        if item.get("is_manufacturing_dimension") is False:
+            continue
+        result.append(dict(item))
+    return result
+
+
+def _manual_reference_callout_checklist(manual_review: dict[str, Any], base: str = "") -> dict[str, bool]:
+    keys = [
+        "reference_callout_checklist",
+        "callout_checklist",
+        "manufacturing_callout_checklist",
+        "ui_callout_checklist",
+    ]
+    merged: dict[str, bool] = {}
+
+    def add_values(container: dict[str, Any]) -> None:
+        for key in keys:
+            value = container.get(key)
+            if not isinstance(value, dict):
+                continue
+            for raw_key, raw_value in value.items():
+                normalized = _normalize_callout_key(raw_key)
+                if normalized:
+                    merged[normalized] = raw_value is True
+
+    add_values(manual_review)
+    for container_key in ["cases", "entries"]:
+        for item in manual_review.get(container_key) or []:
+            if not isinstance(item, dict):
+                continue
+            entry_base = str(item.get("base") or "")
+            if base and entry_base and entry_base != base:
+                continue
+            add_values(item)
+    return merged
+
+
+def _reference_callout_aliases(key: str, expected_type: str, source_text: str) -> list[str]:
+    aliases = [
+        _normalize_callout_key(key),
+        _normalize_callout_key(expected_type),
+        _normalize_callout_key(source_text),
+    ]
+    if "m4" in _normalize_callout_key(source_text) or "m4" in _normalize_callout_key(key):
+        aliases.extend([
+            "m4_6h",
+            "thread_callout_m4_6h",
+            "thread_callout",
+        ])
+    if "3_2" in _normalize_callout_key(source_text) or "roughness" in _normalize_callout_key(expected_type):
+        aliases.extend([
+            "ra3_2",
+            "surface_finish_rest_3_2",
+            "surface_finish_callout",
+            "roughness",
+        ])
+    if "3_3" in _normalize_callout_key(source_text) or "hole" in _normalize_callout_key(key):
+        aliases.extend([
+            "hole_callout",
+            "hole_diameter",
+            "hole_size_callout",
+            "4_3_3",
+        ])
+    return [item for item in _unique_text(aliases) if item]
+
+
+def _normalize_callout_key(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if not text:
+        return ""
+    replacements = {
+        "⌀": "diameter",
+        "φ": "diameter",
+        "Φ": "diameter",
+        "√": "",
+        "-": "_",
+        ".": "_",
+        " ": "_",
+        "/": "_",
+        "\\": "_",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = re.sub(r"[^a-z0-9_\u4e00-\u9fff]+", "_", text)
+    text = re.sub(r"_+", "_", text).strip("_")
+    return text
 
 
 def _reference_sheet_template_artifact_check(

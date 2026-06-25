@@ -58,6 +58,7 @@ def test_blueprint_schema_contains_required_v4_plans() -> None:
     assert schema["$defs"]["DimensionPlan"]["properties"]["allow_note_substitution"]["const"] is False
     assert "dimension_intent_groups" in schema["$defs"]["DimensionPlan"]["properties"]
     assert "dimension_targets" in schema["$defs"]["DimensionPlan"]["properties"]
+    assert "reference_callouts" in schema["$defs"]["DimensionPlan"]["properties"]
     assert "view_dimension_quotas" in schema["$defs"]["DimensionPlan"]["properties"]
     assert schema["$defs"]["ValidationPlan"]["properties"]["forbid_named_view_as_projected"]["const"] is True
 
@@ -81,6 +82,10 @@ def test_reference_profile_builds_blueprint_with_projection_and_displaydim_floor
         assert data["dimension_plan"]["required_display_dim_count"] == 12
         assert data["dimension_plan"]["allow_note_substitution"] is False
         assert len(data["dimension_plan"]["dimension_targets"]) == 12
+        assert {item["key"] for item in data["dimension_plan"]["reference_callouts"]} >= {
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        }
         assert all(item["create_as"] == "SolidWorks DisplayDim" for item in data["dimension_plan"]["dimension_targets"])
         assert data["reference_storyboard"]["narrative"] == "readable_manufacturing_drawing"
         assert data["reference_storyboard"]["primary_reading_order"] == ["front", "top", "right", "iso"]
@@ -132,6 +137,10 @@ def test_long_thin_blueprint_adds_reference_intent_dimension_quotas() -> None:
         assert plan["required_display_dim_count"] == 12
         assert plan["view_dimension_quotas"] == {"front": 3, "top": 6, "right": 3}
         assert len(plan["dimension_targets"]) == 12
+        assert {item["key"] for item in plan["reference_callouts"]} >= {
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        }
         assert {item["key"] for item in plan["dimension_targets"]} >= {"hole_diameter", "hole_x_location", "projection_view_height"}
         targets = {item["key"]: item for item in plan["dimension_targets"]}
         assert targets["hole_diameter"]["functional_role"] == "hole_size_for_drilling_and_inspection"

@@ -56,6 +56,9 @@ Evidence added in this slice:
 - Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` is `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false` because the current readiness blocker is `solidworks_not_running`.
 - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: under active UI defect buckets, reference-intent target coverage now uses `ui_defect_strict_reference_intent_target_match`; a DisplayDim must match the target's preferred side, type-compatible side, and stricter score floor before it can protect target coverage. This directly addresses the 20260625_041353 UI screenshot finding where weak AutoDimension-style survivors kept the final drawing over-dense.
 - `tools/validation/lb26001_006_rerun_packet_v4_2.py` now source-guards `ui_defect_strict_reference_intent_target_match`, and `test_v3_generator_reference_style_plan.py` proves wrong-side/far-station weak matches do not count as 006 target coverage while a correct top-side pitch dimension does.
+- `app/services/drawing_blueprint_model.py` and `app/services/dimension_planner.py`: `DimensionPlan` now carries `reference_callouts` from the 006 reference-intent plan into DrawingBlueprint evidence.
+- `app/services/vision_qc_v6.py`: new `reference_callout_visual_check_missing` gate requires application UI manual review to include a per-callout checklist for required same-name reference manufacturing callouts, including `thread_callout_m4_6h` and `surface_finish_rest_3_2`. The gate records `notes_do_not_count_as_display_dim=true`; callout proof does not replace real DisplayDim requirements.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py` source-guards the v6 reference-callout UI checklist behavior so the next 006 rerun packet cannot silently drop it.
 
 Validation commands:
 
@@ -73,6 +76,12 @@ python test_v4_4_lb26001_006_ui_defect_buckets.py
 python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
 python test_v3_generator_reference_style_plan.py
 python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -m py_compile app\services\drawing_blueprint_model.py app\services\dimension_planner.py app\services\vision_qc_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_drawing_blueprint_core.py test_v4_2_reference_intent_dimension_planner.py test_v4_vision_qc_v6.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_drawing_blueprint_core.py
+python test_v4_2_reference_intent_dimension_planner.py
+python test_v4_vision_qc_v6.py
 python test_v4_2_lb26001_006_rerun_packet.py
 python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
 python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md

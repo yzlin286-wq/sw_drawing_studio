@@ -19,6 +19,11 @@ def test_006_reference_intent_dimension_plan_has_required_contract_fields() -> N
     assert plan["ui_screenshot_acceptance_required"] is True
     assert {"front", "top", "right", "iso"}.issubset(set(plan["reference_view_slots"]))
     assert len(plan["dimensions"]) >= 12
+    callouts = {item["key"]: item for item in plan["reference_callouts"]}
+    assert {"thread_callout_m4_6h", "surface_finish_rest_3_2"} <= set(callouts)
+    assert callouts["thread_callout_m4_6h"]["create_as"] != "SolidWorks DisplayDim"
+    assert callouts["thread_callout_m4_6h"]["forbid_note_substitution_for_displaydim"] is True
+    assert callouts["surface_finish_rest_3_2"]["create_as"] == "manufacturing note/symbol; does not count as DisplayDim"
 
     for dimension in plan["dimensions"]:
         assert dimension["source_reference"].endswith("LB26001-A-04-006.SLDDRW")

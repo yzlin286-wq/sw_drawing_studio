@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-25 22:45:58",
+  "generated_at": "2026-06-25 23:13:26",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1020,6 +1020,26 @@
           {
             "key": "dimension_cluster_issue",
             "signature": "dimension_visual_clustered_unreadable",
+            "present": true
+          },
+          {
+            "key": "reference_callout_check",
+            "signature": "_reference_callout_checks",
+            "present": true
+          },
+          {
+            "key": "reference_callout_issue",
+            "signature": "reference_callout_visual_check_missing",
+            "present": true
+          },
+          {
+            "key": "reference_callout_manual_checklist",
+            "signature": "reference_callout_checklist",
+            "present": true
+          },
+          {
+            "key": "reference_callout_not_displaydim",
+            "signature": "notes_do_not_count_as_display_dim",
             "present": true
           },
           {
@@ -2242,6 +2262,26 @@
         {
           "key": "dimension_cluster_issue",
           "signature": "dimension_visual_clustered_unreadable",
+          "present": true
+        },
+        {
+          "key": "reference_callout_check",
+          "signature": "_reference_callout_checks",
+          "present": true
+        },
+        {
+          "key": "reference_callout_issue",
+          "signature": "reference_callout_visual_check_missing",
+          "present": true
+        },
+        {
+          "key": "reference_callout_manual_checklist",
+          "signature": "reference_callout_checklist",
+          "present": true
+        },
+        {
+          "key": "reference_callout_not_displaydim",
+          "signature": "notes_do_not_count_as_display_dim",
           "present": true
         },
         {

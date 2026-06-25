@@ -38,6 +38,7 @@ class DimensionPlan:
     inspection_dims: list[str] = field(default_factory=list)
     dimension_intent_groups: list[dict[str, Any]] = field(default_factory=list)
     dimension_targets: list[dict[str, Any]] = field(default_factory=list)
+    reference_callouts: list[dict[str, Any]] = field(default_factory=list)
     view_dimension_quotas: dict[str, int] = field(default_factory=dict)
     dimension_priority: list[str] = field(default_factory=list)
     fallback_policy: str = "need_review_when_real_displaydim_unavailable"
@@ -255,6 +256,7 @@ def blueprint_json_schema() -> dict[str, Any]:
                     "inspection_dims": {"type": "array", "items": {"type": "string"}},
                     "dimension_intent_groups": {"type": "array", "items": {"type": "object"}},
                     "dimension_targets": {"type": "array", "items": {"type": "object"}},
+                    "reference_callouts": {"type": "array", "items": {"type": "object"}},
                     "view_dimension_quotas": {
                         "type": "object",
                         "additionalProperties": {"type": "integer", "minimum": 0},

@@ -55,9 +55,48 @@ def _reference_style_blueprint() -> dict:
     return blueprint
 
 
+def _reference_callout_blueprint() -> dict:
+    blueprint = json.loads(json.dumps(_blueprint(), ensure_ascii=False))
+    blueprint["dimension_plan"]["reference_callouts"] = [
+        {
+            "key": "thread_callout_m4_6h",
+            "target_view": "top",
+            "expected_type": "thread_callout",
+            "is_manufacturing_dimension": True,
+            "reference_value": "M4-6H 完全贯穿",
+            "source_reference_evidence": {"source_text": "M4-6H 完全贯穿"},
+            "forbid_note_substitution_for_displaydim": True,
+            "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim",
+        },
+        {
+            "key": "surface_finish_rest_3_2",
+            "target_view": "sheet_notes",
+            "expected_type": "surface_finish_callout",
+            "is_manufacturing_dimension": True,
+            "reference_value": "3.2 其余",
+            "source_reference_evidence": {"source_text": "3.2 其余"},
+            "create_as": "manufacturing note/symbol; does not count as DisplayDim",
+        },
+        {
+            "key": "radius_callout",
+            "target_view": "front/top/right",
+            "expected_type": "radius_callout",
+            "is_manufacturing_dimension": False,
+            "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+        },
+    ]
+    return blueprint
+
+
 def _write_blueprint(path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(_blueprint(), ensure_ascii=False, indent=2), encoding="utf-8")
+    return path
+
+
+def _write_reference_callout_blueprint(path: Path) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(_reference_callout_blueprint(), ensure_ascii=False, indent=2), encoding="utf-8")
     return path
 
 
@@ -299,6 +338,77 @@ def test_vision_qc_v6_records_blueprint_and_supporting_api_as_non_final_evidence
         assert "titlebar" in result["checks"]
         assert "notes" in result["checks"]
         assert "dimension_visuals" in result["checks"]
+
+
+def test_vision_qc_v6_requires_reference_callout_ui_checklist_for_006() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        run_dir = root / "run"
+        png = _draw_visual_png(root / "drawing.png")
+        blueprint = _write_reference_callout_blueprint(run_dir / "qc" / "drawing_blueprint.json")
+
+        result = run_vision_qc_v6(
+            png_path=png,
+            run_dir=run_dir,
+            blueprint_path=blueprint,
+        )
+        callouts = result["checks"]["reference_callouts"]
+        keys = {issue["key"] for issue in result["issues"]}
+
+        assert callouts["required"] is True
+        assert callouts["pass"] is False
+        assert callouts["manual_callout_checklist_present"] is False
+        assert set(callouts["missing_required_callouts"]) == {
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        }
+        assert callouts["notes_do_not_count_as_display_dim"] is True
+        assert "reference_callout_visual_check_missing" in keys
+
+
+def test_vision_qc_v6_accepts_reference_callout_checklist_without_counting_notes_as_displaydims() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        run_dir = root / "run"
+        png = _draw_visual_png(root / "drawing.png")
+        blueprint = _write_reference_callout_blueprint(run_dir / "qc" / "drawing_blueprint.json")
+        manual_review = root / "manual_visual_judgement.json"
+        manual_review.write_text(
+            json.dumps(
+                {
+                    "entries": [
+                        {
+                            "base": "LB26001-A-04-006",
+                            "reference_callout_checklist": {
+                                "thread_callout_m4_6h": True,
+                                "surface_finish_rest_3_2": True,
+                            },
+                        }
+                    ]
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+
+        result = run_vision_qc_v6(
+            png_path=png,
+            run_dir=run_dir,
+            blueprint_path=blueprint,
+            manual_review_path=manual_review,
+        )
+        callouts = result["checks"]["reference_callouts"]
+        keys = {issue["key"] for issue in result["issues"]}
+
+        assert callouts["pass"] is True
+        assert set(callouts["confirmed_callouts"]) == {
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        }
+        assert callouts["notes_do_not_count_as_display_dim"] is True
+        assert "reference_callout_visual_check_missing" not in keys
+        assert result["checks"]["ui_screenshot_review"]["pass"] is False
 
 
 def test_vision_qc_v6_rejects_manual_pass_without_application_screenshot_evidence() -> None:
@@ -845,6 +955,8 @@ if __name__ == "__main__":
     test_vision_qc_v6_rejects_clustered_reference_dimensions_as_unreadable()
     test_vision_qc_v6_rejects_reference_grid_mismatch_even_when_bbox_matches()
     test_vision_qc_v6_records_blueprint_and_supporting_api_as_non_final_evidence()
+    test_vision_qc_v6_requires_reference_callout_ui_checklist_for_006()
+    test_vision_qc_v6_accepts_reference_callout_checklist_without_counting_notes_as_displaydims()
     test_vision_qc_v6_rejects_manual_pass_without_application_screenshot_evidence()
     test_vision_qc_v6_accepts_manual_pass_with_application_screenshot_evidence()
     test_vision_qc_v6_rejects_plain_png_claimed_as_application_screenshot()
