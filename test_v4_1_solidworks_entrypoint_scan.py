@@ -28,6 +28,14 @@ def main() -> None:
     assert data["ui_thread_direct_risk_count"] == 0
     assert data["service_direct_risk_count"] == 0
     assert data["external_addin_host_lock_contract_status"] == "pass"
+    assert not any(
+        entry["file"].startswith("app/ui/")
+        and "System Health direct collect" in set(entry.get("patterns") or [])
+        for entry in data["entries"]
+    )
+    for ui_path in ["app/ui/system_health_page.py", "app/ui/home_page.py"]:
+        source = Path(ui_path).read_text(encoding="utf-8")
+        assert "collect_system_health" not in source
     print("OK test_v4_1_solidworks_entrypoint_scan")
 
 

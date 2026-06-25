@@ -1,16 +1,16 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T01:49:42",
+  "generated_at": "2026-06-26T02:10:36",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 333,
-  "entrypoint_count": 522,
-  "guarded_count": 138,
+  "entrypoint_count": 529,
+  "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
   "external_addin_needs_host_lock_count": 20,
   "document_manager_com_count": 27,
   "validation_tool_requires_manual_lock_count": 47,
   "maintenance_tool_count": 13,
-  "test_or_fixture_count": 15,
+  "test_or_fixture_count": 18,
   "legacy_experiment_count": 235,
   "bounded_probe_worker_launcher_count": 4,
   "system_health_worker_probe_service_count": 1,
@@ -1854,6 +1854,34 @@
       "text": "proc = subprocess.run("
     },
     {
+      "file": "test_v2_3_system_health_page.py",
+      "line": 17,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.system_health_service import collect_system_health, find_row"
+    },
+    {
+      "file": "test_v2_3_system_health_page.py",
+      "line": 38,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, result = collect_system_health()"
+    },
+    {
       "file": "test_v3_mock_stability_runner.py",
       "line": 29,
       "patterns": [
@@ -1908,6 +1936,20 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "def OpenDoc6(self, path, *_args):"
+    },
+    {
+      "file": "test_v3_system_health_com_probe.py",
+      "line": 26,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, summary = health.collect_system_health()"
     },
     {
       "file": "test_v4_2_cad_worker_lock_conflict.py",
@@ -8710,6 +8752,34 @@
       "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
     },
     {
+      "file": "app/services/diagnostics.py",
+      "line": 63,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "guarded",
+      "scope": "service",
+      "risk_bucket": "global_lock_guarded",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.system_health_service import collect_system_health, system_health_payload"
+    },
+    {
+      "file": "app/services/diagnostics.py",
+      "line": 65,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "guarded",
+      "scope": "service",
+      "risk_bucket": "global_lock_guarded",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, result = collect_system_health()"
+    },
+    {
       "file": "app/services/dialog_guard.py",
       "line": 1,
       "patterns": [
@@ -11068,6 +11138,34 @@
       "text": "sw = win32com.client.Dispatch(\"SldWorks.Application\")"
     },
     {
+      "file": "app/workers/health_check_worker.py",
+      "line": 60,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "worker_process",
+      "scope": "worker",
+      "risk_bucket": "worker_process_allowed",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.system_health_service import collect_system_health, system_health_payload"
+    },
+    {
+      "file": "app/workers/health_check_worker.py",
+      "line": 62,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "worker_process",
+      "scope": "worker",
+      "risk_bucket": "worker_process_allowed",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, summary = collect_system_health("
+    },
+    {
       "file": "app/workers/mock_long_job_worker.py",
       "line": 60,
       "patterns": [
@@ -11656,6 +11754,34 @@
       "text": "proc = subprocess.run("
     },
     {
+      "file": "test_v2_3_system_health_page.py",
+      "line": 17,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.system_health_service import collect_system_health, find_row"
+    },
+    {
+      "file": "test_v2_3_system_health_page.py",
+      "line": 38,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, result = collect_system_health()"
+    },
+    {
       "file": "test_v3_mock_stability_runner.py",
       "line": 29,
       "patterns": [
@@ -11710,6 +11836,20 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "def OpenDoc6(self, path, *_args):"
+    },
+    {
+      "file": "test_v3_system_health_com_probe.py",
+      "line": 26,
+      "patterns": [
+        "System Health direct collect"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "rows, summary = health.collect_system_health()"
     },
     {
       "file": "test_v4_2_cad_worker_lock_conflict.py",

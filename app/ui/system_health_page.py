@@ -21,7 +21,6 @@ from app.services.job_runtime_facade import get_job_runtime_facade
 from app.services.system_health_service import (
     HealthRow,
     build_summary_text,
-    collect_system_health,
     count_status,
     find_row,
     health_rows_from_dicts,

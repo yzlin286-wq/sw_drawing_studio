@@ -14,7 +14,8 @@ from PySide6.QtCore import QEventLoop, QTimer
 from PySide6.QtWidgets import QApplication
 
 from app.ui.main_window import NAV_ITEMS, PAGE_HEALTH, MainWindow
-from app.ui.system_health_page import SystemHealthPage, collect_system_health, find_row
+from app.services.system_health_service import collect_system_health, find_row
+from app.ui.system_health_page import SystemHealthPage
 
 
 REQUIRED_GROUPS = {"SolidWorks", "Vision", "Data", "License", "UI-Worker"}

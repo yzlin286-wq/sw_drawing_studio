@@ -11851,3 +11851,52 @@ Remaining issues:
 
 - 006 still needs exactly one fresh locked real CAD rerun, followed by Drawing Review application UI screenshot evidence and manual visual judgement.
 - `007/008/009/015/022`, `LB26001_36`, `medium_30`, `full_129`, and release remain blocked until the UI-backed 006 visual gate passes.
+
+## v4.4 System Health UI-Thread Isolation Guard - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, SaveAs, CloseDoc, automatic restart, or SolidWorks session mutation was run.
+- This change strengthens the SolidWorks Stability Gate and UI-thread isolation evidence only.
+
+Implementation:
+
+- Updated `app/ui/system_health_page.py`.
+  - Removed the direct `collect_system_health` import from the UI module.
+  - The page still starts health checks through `JobRuntimeFacade.start_system_health_check(...)` and renders worker results.
+- Updated `test_v2_3_system_health_page.py`.
+  - Health collection contract tests now import `collect_system_health` and `find_row` directly from `app.services.system_health_service`, not through the UI page module.
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Adds `System Health direct collect` detection for UI imports/calls of `collect_system_health`.
+  - Counts that pattern as a UI-thread risk when it appears under `app/ui/*`.
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Asserts no UI page contains `collect_system_health`.
+  - Asserts the generated scanner report has no UI entry with `System Health direct collect`.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\ui\system_health_page.py app\services\solidworks_entrypoint_scanner.py test_v2_3_system_health_page.py test_v2_3_home_page_health_worker.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v2_3_home_page_health_worker.py
+python -B test_v2_3_system_health_page.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v2_3_home_page_health_worker.py`: PASS.
+- `test_v2_3_system_health_page.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- Refreshed SolidWorks Stability Gate: `status=pass`, `pass=true`, `warning_reasons=[]`.
+- Refreshed `unguarded_solidworks_entrypoints.json`: `entrypoint_count=529`, `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `service_direct_risk_count=0`, `system_health_ui_thread_direct_probe_count=0`, `external_addin_host_lock_contract_status=pass`.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`.
+- Product Gate allowed actions remain all false, including `006_application_ui_review_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- System Health is better guarded against future UI-thread regressions, but 006 drawing acceptance is still unproven.
+- 006 still requires a fresh locked real CAD rerun, application Drawing Review UI screenshot evidence, and a passing manual visual checklist before any 007/008/009/015/022 expansion.

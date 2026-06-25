@@ -25,6 +25,10 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "Add-in Ping": re.compile(r"(?:\bPing\s*\(|\bAddInPing\s*\(|\baddin_ping\s*\(|\b_probe_addin_ping\s*\()", re.IGNORECASE),
     "DocMgr probe": re.compile(r"(?:\bprobe_docmgr\s*\(|\bSWDM[A-Za-z0-9_]*\b)", re.IGNORECASE),
     "SolidWorks COM probe": re.compile(r"\bprobe_solidworks_connection\s*\("),
+    "System Health direct collect": re.compile(
+        r"(?:from\s+app\.services\.system_health_service\s+import\s+.*\bcollect_system_health\b|"
+        r"(?<!def )\bcollect_system_health\s*\()"
+    ),
     "subprocess.run": re.compile(r"\bsubprocess\.run\s*\("),
     "subprocess.Popen": re.compile(r"\bsubprocess\.Popen\s*\("),
     "os.system": re.compile(r"\bos\.system\s*\("),
@@ -56,6 +60,7 @@ COM_PATTERNS = {
 
 BLOCKING_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.system", "time.sleep"}
 DOCMGR_PATTERNS = {"DocMgr probe"}
+SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect"}
 ALLOWED_UI_SUBPROCESS_HINTS = ("explorer", "startfile")
 
 SKIP_DIRS = {
@@ -143,6 +148,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         and entry["file"] in {"app/ui/system_health_page.py", "app/ui/home_page.py"}
         and (
             any(pattern in set(entry["patterns"]) for pattern in COM_PATTERNS | DOCMGR_PATTERNS)
+            or any(pattern in set(entry["patterns"]) for pattern in SYSTEM_HEALTH_DIRECT_PATTERNS)
             or "subprocess.run" in entry["patterns"]
         )
     ]
@@ -272,7 +278,7 @@ def _is_ui_thread_risk(scope: str, patterns: list[str], text: str) -> bool:
     if scope != "ui":
         return False
     names = set(patterns)
-    if names & (COM_PATTERNS | DOCMGR_PATTERNS):
+    if names & (COM_PATTERNS | DOCMGR_PATTERNS | SYSTEM_HEALTH_DIRECT_PATTERNS):
         return True
     if names & BLOCKING_PATTERNS and not _is_allowed_ui_subprocess(patterns, text):
         return True
