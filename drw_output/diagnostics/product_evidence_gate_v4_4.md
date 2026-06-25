@@ -12,6 +12,7 @@
 - `locked_006_cad_rerun_allowed_now`: `false`
 - `006_application_ui_review_allowed_now`: `false`
 - `expand_007_008_009_015_022_allowed`: `false`
+- `requested_ref6_complete`: `false`
 - `lb26001_36_allowed`: `false`
 - `medium_30_allowed`: `false`
 - `visual_audit_full_scope_allowed`: `false`

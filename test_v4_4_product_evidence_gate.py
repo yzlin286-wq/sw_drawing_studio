@@ -141,7 +141,9 @@ def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> 
         assert result["pass"] is False
         assert result["status"] == "blocked_by_solidworks_readiness"
         assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
-        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is True
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
         assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
 
 
@@ -154,6 +156,18 @@ def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -
         assert result["do_not_expand_007_008_009_015_022"] is True
         assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
         assert "application_ui_006_acceptance_pass" in set(result["blocking_issue_keys"])
+
+
+def test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), acceptance_pass=True, requested_pass=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is True
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
 
 
 def test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing() -> None:
@@ -186,6 +200,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_can_pass_complete_fixture()
     test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
+    test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_tool_is_file_only()
     print("PASS test_v4_4_product_evidence_gate")

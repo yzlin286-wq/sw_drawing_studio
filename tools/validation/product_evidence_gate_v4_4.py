@@ -312,13 +312,15 @@ def _allowed_actions(
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok)
     ui_review = bool(regeneration_ok)
-    expand_ref6 = bool(acceptance_ok and requested_ok)
-    lb26001_36 = bool(expand_ref6)
+    expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
+    ref6_complete = bool(requested_ok)
+    lb26001_36 = bool(stability_ok and readiness_ok and ref6_complete)
     full_129 = bool(lb26001_36 and final_artifacts_ok)
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
         "006_application_ui_review_allowed_now": ui_review,
         "expand_007_008_009_015_022_allowed": expand_ref6,
+        "requested_ref6_complete": ref6_complete,
         "lb26001_36_allowed": lb26001_36,
         "medium_30_allowed": lb26001_36,
         "visual_audit_full_scope_allowed": lb26001_36,
