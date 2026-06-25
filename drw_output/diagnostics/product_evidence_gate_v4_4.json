@@ -1,0 +1,193 @@
+{
+  "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
+  "generated_at": "2026-06-26 00:06:19",
+  "status": "blocked_by_solidworks_readiness",
+  "pass": false,
+  "release_ready": false,
+  "base": "LB26001-A-04-006",
+  "dependent_bases": [
+    "LB26001-A-04-007",
+    "LB26001-A-04-008",
+    "LB26001-A-04-009",
+    "LB26001-A-04-015",
+    "LB26001-A-04-022"
+  ],
+  "api_only_acceptance_allowed": false,
+  "application_ui_screenshot_is_final_gate": true,
+  "do_not_run_full_129": true,
+  "do_not_run_LB26001_36": true,
+  "do_not_expand_007_008_009_015_022": true,
+  "allowed_actions": {
+    "locked_006_cad_rerun_allowed_now": false,
+    "006_application_ui_review_allowed_now": false,
+    "expand_007_008_009_015_022_allowed": false,
+    "lb26001_36_allowed": false,
+    "medium_30_allowed": false,
+    "visual_audit_full_scope_allowed": false,
+    "full_129_allowed": false,
+    "release_allowed": false
+  },
+  "checks": [
+    {
+      "key": "solidworks_stability_gate_pass",
+      "status": "pass",
+      "message": "SolidWorks stability gate must pass with no warnings.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
+        "status": "pass",
+        "pass": true,
+        "warning_reasons": []
+      }
+    },
+    {
+      "key": "ui_thread_direct_risk_zero",
+      "status": "pass",
+      "message": "UI/service direct SolidWorks, probe, and blocking-risk buckets must remain zero.",
+      "details": {
+        "status": "pass",
+        "entrypoint_count": 522,
+        "unguarded_or_unknown_count": 0,
+        "ui_thread_direct_risk_count": 0,
+        "service_direct_risk_count": 0,
+        "system_health_ui_thread_direct_probe_count": 0,
+        "worker_backed_model_client_count": 1,
+        "legacy_service_adapter_count": 1,
+        "background_watchdog_probe_count": 1,
+        "validation_tool_requires_manual_lock_count": 47,
+        "external_addin_needs_host_lock_count": 20,
+        "external_addin_host_lock_contract_status": "pass"
+      }
+    },
+    {
+      "key": "solidworks_readiness_for_006",
+      "status": "fail",
+      "message": "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+        "status": "blocked",
+        "ready_to_start_locked_006_cad": false,
+        "blocking_issue_keys": [
+          "solidworks_not_running"
+        ]
+      }
+    },
+    {
+      "key": "reference_intent_006_proof_pass",
+      "status": "pass",
+      "message": "006 reference-intent plan proof must pass while remaining supporting evidence only.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_reference_intent_proof_v4_4.json",
+        "status": "plan_proof_pass_requires_locked_cad_run",
+        "pass": true,
+        "base": "LB26001-A-04-006",
+        "dimension_count": 12
+      }
+    },
+    {
+      "key": "regeneration_006_fresh_evidence_pass",
+      "status": "fail",
+      "message": "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
+        "status": "blocked_by_missing_fresh_006_run",
+        "pass": false,
+        "run_id": "",
+        "blocking_issue_keys": [
+          "explicit_006_run_evidence_source"
+        ]
+      }
+    },
+    {
+      "key": "application_ui_006_acceptance_pass",
+      "status": "fail",
+      "message": "006 must pass the application Drawing Review UI screenshot and manual visual checklist.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
+        "status": "blocked_by_006",
+        "pass": false,
+        "blocking_issue_keys": [
+          "staged_case_not_deliverable",
+          "staged_reference_style_not_pass",
+          "staged_vision_qc_v6_not_pass",
+          "staged_reference_compare_v4_not_pass",
+          "ui_gate_not_pass",
+          "direct_ui_screenshot_recheck_not_pass",
+          "manual_visual_case_not_pass",
+          "manual_visual_checklist_not_pass",
+          "v6_with_ui_not_pass",
+          "reference_compare_v4_with_ui_not_pass",
+          "acceptance_gate_not_pass"
+        ],
+        "manual_visual_checklist_failed_items": [
+          "reference_match",
+          "view_layout",
+          "display_dimensions",
+          "dimension_readability",
+          "title_block",
+          "manufacturing_notes"
+        ]
+      }
+    },
+    {
+      "key": "requested_ref6_ui_status_pass",
+      "status": "fail",
+      "message": "All six requested reference samples must have application UI screenshot PASS before expansion is complete.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
+        "status": "blocked_by_006",
+        "pass": false,
+        "pass_count": 0,
+        "not_pass_count": 6,
+        "primary_acceptance_proof_status": "blocked_by_006"
+      }
+    },
+    {
+      "key": "final_release_artifacts_present",
+      "status": "fail",
+      "message": "Final release artifacts must exist before release/full_129 completion can be claimed.",
+      "details": {
+        "release_log": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\release_log_v3_0.md",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "visual_audit_report": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "exe_ui_robot_result": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "stability_20min_mock": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "stability_2h_ui": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
+          "exists": false,
+          "size_bytes": 0
+        }
+      }
+    }
+  ],
+  "blocking_issue_keys": [
+    "solidworks_readiness_for_006",
+    "regeneration_006_fresh_evidence_pass",
+    "application_ui_006_acceptance_pass",
+    "requested_ref6_ui_status_pass",
+    "final_release_artifacts_present"
+  ],
+  "source_artifacts": {
+    "stability_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
+    "readiness": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+    "reference_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_reference_intent_proof_v4_4.json",
+    "regeneration_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
+    "acceptance_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
+    "requested_status": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json"
+  },
+  "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
+}

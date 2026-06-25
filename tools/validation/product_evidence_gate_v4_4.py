@@ -1,0 +1,396 @@
+from __future__ import annotations
+
+import argparse
+import json
+import time
+from pathlib import Path
+from typing import Any
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SCHEMA = "sw_drawing_studio.product_evidence_gate.v4_4"
+BASE = "LB26001-A-04-006"
+DEPENDENT_BASES = [
+    "LB26001-A-04-007",
+    "LB26001-A-04-008",
+    "LB26001-A-04-009",
+    "LB26001-A-04-015",
+    "LB26001-A-04-022",
+]
+
+DEFAULT_STABILITY_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "solidworks_stability_gate_v4_4.json"
+DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
+DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_reference_intent_proof_v4_4.json"
+DEFAULT_REGENERATION_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regeneration_evidence_gate_v4_4.json"
+DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
+DEFAULT_REQUESTED_STATUS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_requested_drawings_status_v4_2.json"
+DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.json"
+DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.md"
+
+DEFAULT_FINAL_ARTIFACTS = {
+    "release_log": REPO_ROOT / "release_log_v3_0.md",
+    "visual_audit_report": REPO_ROOT / "drw_output" / "visual_audit_report_v3_0.xlsx",
+    "exe_ui_robot_result": REPO_ROOT / "exe_ui_robot_result_v3_0.json",
+    "stability_20min_mock": REPO_ROOT / "stability_20min_mock_v3_0.json",
+    "stability_2h_ui": REPO_ROOT / "stability_2h_ui_v3_0.json",
+}
+
+
+def build_product_evidence_gate(
+    *,
+    stability_gate_path: Path = DEFAULT_STABILITY_GATE,
+    readiness_path: Path = DEFAULT_READINESS,
+    reference_proof_path: Path = DEFAULT_REFERENCE_PROOF,
+    regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
+    acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
+    requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
+    final_artifacts: dict[str, Path] | None = None,
+    out_json: Path | None = None,
+    out_md: Path | None = None,
+) -> dict[str, Any]:
+    final_artifacts = final_artifacts or DEFAULT_FINAL_ARTIFACTS
+    stability_gate = _read_json(stability_gate_path)
+    readiness = _read_json(readiness_path)
+    reference_proof = _read_json(reference_proof_path)
+    regeneration_gate = _read_json(regeneration_gate_path)
+    acceptance_proof = _read_json(acceptance_proof_path)
+    requested_status = _read_json(requested_status_path)
+
+    checks: list[dict[str, Any]] = []
+    _add_check(
+        checks,
+        "solidworks_stability_gate_pass",
+        stability_gate.get("pass") is True
+        and stability_gate.get("status") == "pass"
+        and not list(stability_gate.get("warning_reasons") or []),
+        "SolidWorks stability gate must pass with no warnings.",
+        {
+            "path": str(stability_gate_path),
+            "status": stability_gate.get("status"),
+            "pass": stability_gate.get("pass"),
+            "warning_reasons": stability_gate.get("warning_reasons") or [],
+        },
+    )
+    entrypoint_summary = stability_gate.get("entrypoint_summary") or {}
+    _add_check(
+        checks,
+        "ui_thread_direct_risk_zero",
+        int(entrypoint_summary.get("unguarded_or_unknown_count") or 0) == 0
+        and int(entrypoint_summary.get("ui_thread_direct_risk_count") or 0) == 0
+        and int(entrypoint_summary.get("service_direct_risk_count") or 0) == 0
+        and int(entrypoint_summary.get("system_health_ui_thread_direct_probe_count") or 0) == 0,
+        "UI/service direct SolidWorks, probe, and blocking-risk buckets must remain zero.",
+        entrypoint_summary,
+    )
+    _add_check(
+        checks,
+        "solidworks_readiness_for_006",
+        readiness.get("ready_to_start_locked_006_cad") is True and readiness.get("status") == "ready",
+        "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
+        {
+            "path": str(readiness_path),
+            "status": readiness.get("status"),
+            "ready_to_start_locked_006_cad": readiness.get("ready_to_start_locked_006_cad"),
+            "blocking_issue_keys": readiness.get("blocking_issue_keys") or [],
+        },
+    )
+    _add_check(
+        checks,
+        "reference_intent_006_proof_pass",
+        reference_proof.get("pass") is True
+        and reference_proof.get("base") == BASE
+        and reference_proof.get("report_is_drawing_acceptance_evidence") is False
+        and reference_proof.get("api_only_acceptance_allowed") is False,
+        "006 reference-intent plan proof must pass while remaining supporting evidence only.",
+        {
+            "path": str(reference_proof_path),
+            "status": reference_proof.get("status"),
+            "pass": reference_proof.get("pass"),
+            "base": reference_proof.get("base"),
+            "dimension_count": (reference_proof.get("dimension_summary") or {}).get("count"),
+        },
+    )
+    _add_check(
+        checks,
+        "regeneration_006_fresh_evidence_pass",
+        regeneration_gate.get("pass") is True
+        and regeneration_gate.get("base") == BASE
+        and bool(regeneration_gate.get("run_id"))
+        and bool(regeneration_gate.get("run_dir"))
+        and regeneration_gate.get("report_is_drawing_acceptance_evidence") is False,
+        "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
+        {
+            "path": str(regeneration_gate_path),
+            "status": regeneration_gate.get("status"),
+            "pass": regeneration_gate.get("pass"),
+            "run_id": regeneration_gate.get("run_id"),
+            "blocking_issue_keys": regeneration_gate.get("blocking_issue_keys") or [],
+        },
+    )
+    ui_closure = acceptance_proof.get("ui_closure_evidence") or {}
+    _add_check(
+        checks,
+        "application_ui_006_acceptance_pass",
+        acceptance_proof.get("pass") is True
+        and acceptance_proof.get("base") == BASE
+        and acceptance_proof.get("application_ui_screenshot_is_final_gate") is True
+        and ui_closure.get("direct_ui_screenshot_recheck_method_ok") is True
+        and ui_closure.get("direct_ui_screenshot_recheck_pass") is True
+        and ui_closure.get("manual_visual_checklist_pass") is True,
+        "006 must pass the application Drawing Review UI screenshot and manual visual checklist.",
+        {
+            "path": str(acceptance_proof_path),
+            "status": acceptance_proof.get("status"),
+            "pass": acceptance_proof.get("pass"),
+            "blocking_issue_keys": acceptance_proof.get("blocking_issue_keys") or [],
+            "manual_visual_checklist_failed_items": ui_closure.get("manual_visual_checklist_failed_items") or [],
+        },
+    )
+    matrix = requested_status.get("per_drawing_ui_review_matrix") or []
+    matrix_by_base = {
+        str(item.get("base") or ""): item
+        for item in matrix
+        if isinstance(item, dict) and str(item.get("base") or "")
+    }
+    _add_check(
+        checks,
+        "requested_ref6_ui_status_pass",
+        requested_status.get("pass") is True
+        and requested_status.get("pass_count") == 6
+        and all((matrix_by_base.get(base) or {}).get("pass") is True for base in [BASE, *DEPENDENT_BASES]),
+        "All six requested reference samples must have application UI screenshot PASS before expansion is complete.",
+        {
+            "path": str(requested_status_path),
+            "status": requested_status.get("status"),
+            "pass": requested_status.get("pass"),
+            "pass_count": requested_status.get("pass_count"),
+            "not_pass_count": requested_status.get("not_pass_count"),
+            "primary_acceptance_proof_status": requested_status.get("primary_acceptance_proof_status"),
+        },
+    )
+
+    final_artifact_evidence = _final_artifact_evidence(final_artifacts)
+    _add_check(
+        checks,
+        "final_release_artifacts_present",
+        all(item.get("exists") and int(item.get("size_bytes") or 0) > 0 for item in final_artifact_evidence.values()),
+        "Final release artifacts must exist before release/full_129 completion can be claimed.",
+        final_artifact_evidence,
+    )
+
+    failed = [item for item in checks if item["status"] != "pass"]
+    status = _status_from_checks(checks)
+    allowed_actions = _allowed_actions(
+        stability_ok=_check_pass(checks, "solidworks_stability_gate_pass") and _check_pass(checks, "ui_thread_direct_risk_zero"),
+        readiness_ok=_check_pass(checks, "solidworks_readiness_for_006"),
+        reference_ok=_check_pass(checks, "reference_intent_006_proof_pass"),
+        regeneration_ok=_check_pass(checks, "regeneration_006_fresh_evidence_pass"),
+        acceptance_ok=_check_pass(checks, "application_ui_006_acceptance_pass"),
+        requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
+        final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
+    )
+    payload = {
+        "schema": SCHEMA,
+        "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "status": status,
+        "pass": not failed,
+        "release_ready": bool(not failed and allowed_actions["release_allowed"]),
+        "base": BASE,
+        "dependent_bases": DEPENDENT_BASES,
+        "api_only_acceptance_allowed": False,
+        "application_ui_screenshot_is_final_gate": True,
+        "do_not_run_full_129": not allowed_actions["full_129_allowed"],
+        "do_not_run_LB26001_36": not allowed_actions["lb26001_36_allowed"],
+        "do_not_expand_007_008_009_015_022": not allowed_actions["expand_007_008_009_015_022_allowed"],
+        "allowed_actions": allowed_actions,
+        "checks": checks,
+        "blocking_issue_keys": [item["key"] for item in failed],
+        "source_artifacts": {
+            "stability_gate": str(stability_gate_path),
+            "readiness": str(readiness_path),
+            "reference_proof": str(reference_proof_path),
+            "regeneration_gate": str(regeneration_gate_path),
+            "acceptance_proof": str(acceptance_proof_path),
+            "requested_status": str(requested_status_path),
+        },
+        "next_required_action": _next_required_action(status),
+    }
+    if out_json is not None:
+        out_json.parent.mkdir(parents=True, exist_ok=True)
+        out_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    if out_md is not None:
+        out_md.parent.mkdir(parents=True, exist_ok=True)
+        out_md.write_text(render_markdown(payload), encoding="utf-8")
+    return payload
+
+
+def render_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Product Evidence Gate v4.4",
+        "",
+        f"- Status: `{payload.get('status')}`",
+        f"- PASS: `{str(payload.get('pass')).lower()}`",
+        f"- Release ready: `{str(payload.get('release_ready')).lower()}`",
+        f"- Do not run full_129: `{str(payload.get('do_not_run_full_129')).lower()}`",
+        f"- Do not run LB26001_36: `{str(payload.get('do_not_run_LB26001_36')).lower()}`",
+        f"- Do not expand 007/008/009/015/022: `{str(payload.get('do_not_expand_007_008_009_015_022')).lower()}`",
+        "",
+        "## Allowed Actions",
+        "",
+    ]
+    for key, value in (payload.get("allowed_actions") or {}).items():
+        lines.append(f"- `{key}`: `{str(value).lower()}`")
+    lines.extend(["", "## Checks", ""])
+    for item in payload.get("checks") or []:
+        lines.append(f"- `{item.get('status')}` `{item.get('key')}`: {item.get('message')}")
+    lines.extend(["", "## Blocking Issues", ""])
+    keys = payload.get("blocking_issue_keys") or []
+    lines.extend([f"- `{key}`" for key in keys] or ["- None"])
+    lines.extend(["", "## Next Required Action", "", str(payload.get("next_required_action") or ""), ""])
+    return "\n".join(lines)
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _add_check(
+    checks: list[dict[str, Any]],
+    key: str,
+    passed: bool,
+    message: str,
+    details: dict[str, Any] | None = None,
+) -> None:
+    checks.append({
+        "key": key,
+        "status": "pass" if passed else "fail",
+        "message": message,
+        "details": details or {},
+    })
+
+
+def _check_pass(checks: list[dict[str, Any]], key: str) -> bool:
+    for item in checks:
+        if item.get("key") == key:
+            return item.get("status") == "pass"
+    return False
+
+
+def _status_from_checks(checks: list[dict[str, Any]]) -> str:
+    if not _check_pass(checks, "solidworks_stability_gate_pass") or not _check_pass(checks, "ui_thread_direct_risk_zero"):
+        return "blocked_by_solidworks_stability_gate"
+    if not _check_pass(checks, "reference_intent_006_proof_pass"):
+        return "blocked_by_006_reference_intent"
+    if not _check_pass(checks, "solidworks_readiness_for_006"):
+        return "blocked_by_solidworks_readiness"
+    if not _check_pass(checks, "regeneration_006_fresh_evidence_pass"):
+        return "blocked_by_006_regeneration_evidence"
+    if not _check_pass(checks, "application_ui_006_acceptance_pass"):
+        return "blocked_by_006_application_ui_review"
+    if not _check_pass(checks, "requested_ref6_ui_status_pass"):
+        return "blocked_by_requested_ref6_ui_review"
+    if not _check_pass(checks, "final_release_artifacts_present"):
+        return "warning_not_release_ready"
+    return "pass"
+
+
+def _allowed_actions(
+    *,
+    stability_ok: bool,
+    readiness_ok: bool,
+    reference_ok: bool,
+    regeneration_ok: bool,
+    acceptance_ok: bool,
+    requested_ok: bool,
+    final_artifacts_ok: bool,
+) -> dict[str, bool]:
+    locked_006 = bool(stability_ok and readiness_ok and reference_ok)
+    ui_review = bool(regeneration_ok)
+    expand_ref6 = bool(acceptance_ok and requested_ok)
+    lb26001_36 = bool(expand_ref6)
+    full_129 = bool(lb26001_36 and final_artifacts_ok)
+    return {
+        "locked_006_cad_rerun_allowed_now": locked_006,
+        "006_application_ui_review_allowed_now": ui_review,
+        "expand_007_008_009_015_022_allowed": expand_ref6,
+        "lb26001_36_allowed": lb26001_36,
+        "medium_30_allowed": lb26001_36,
+        "visual_audit_full_scope_allowed": lb26001_36,
+        "full_129_allowed": full_129,
+        "release_allowed": full_129,
+    }
+
+
+def _final_artifact_evidence(final_artifacts: dict[str, Path]) -> dict[str, dict[str, Any]]:
+    evidence: dict[str, dict[str, Any]] = {}
+    for key, path in final_artifacts.items():
+        exists = path.exists() and path.is_file()
+        evidence[key] = {
+            "path": str(path),
+            "exists": exists,
+            "size_bytes": path.stat().st_size if exists else 0,
+        }
+    return evidence
+
+
+def _next_required_action(status: str) -> str:
+    if status == "blocked_by_solidworks_readiness":
+        return "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
+    if status == "blocked_by_006_regeneration_evidence":
+        return "Produce a fresh 006 run through the locked CAD worker and pass the regeneration evidence gate."
+    if status == "blocked_by_006_application_ui_review":
+        return "Open Drawing Review in the application, capture side-by-side screenshots, and pass the manual visual checklist."
+    if status == "blocked_by_requested_ref6_ui_review":
+        return "Only after 006 passes, process 007/008/009/015/022 with per-drawing UI screenshot evidence."
+    if status == "warning_not_release_ready":
+        return "Complete final EXE, stability, Visual Audit, and release artifacts before release."
+    if status == "pass":
+        return "All product evidence gates passed."
+    return "Fix the failing product evidence checks before advancing the validation stage."
+
+
+def _repo_path(value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else (REPO_ROOT / path).resolve()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Build the v4.4 product evidence gate report.")
+    parser.add_argument("--stability-gate", default=str(DEFAULT_STABILITY_GATE))
+    parser.add_argument("--readiness", default=str(DEFAULT_READINESS))
+    parser.add_argument("--reference-proof", default=str(DEFAULT_REFERENCE_PROOF))
+    parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
+    parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
+    parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
+    parser.add_argument("--out-json", default=str(DEFAULT_OUT_JSON))
+    parser.add_argument("--out-md", default=str(DEFAULT_OUT_MD))
+    args = parser.parse_args()
+    payload = build_product_evidence_gate(
+        stability_gate_path=_repo_path(args.stability_gate),
+        readiness_path=_repo_path(args.readiness),
+        reference_proof_path=_repo_path(args.reference_proof),
+        regeneration_gate_path=_repo_path(args.regeneration_gate),
+        acceptance_proof_path=_repo_path(args.acceptance_proof),
+        requested_status_path=_repo_path(args.requested_status),
+        out_json=_repo_path(args.out_json),
+        out_md=_repo_path(args.out_md),
+    )
+    print(json.dumps({
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys"),
+        "allowed_actions": payload.get("allowed_actions"),
+        "out_json": str(_repo_path(args.out_json)),
+        "out_md": str(_repo_path(args.out_md)),
+    }, ensure_ascii=False))
+    return 0 if payload.get("pass") else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
