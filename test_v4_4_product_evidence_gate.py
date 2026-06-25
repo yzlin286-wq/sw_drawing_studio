@@ -140,8 +140,15 @@ def _fixture(
     final = {
         "dist_exe": root / "dist" / "sw_drawing_studio.exe",
         "release_log": root / "release_log_v3_0.md",
-        "visual_audit_report": root / "visual_audit_report_v3_0.xlsx",
+        "validation_log": root / "validation_log_v3_0.md",
+        "ui_acceptance_report": root / "ui_acceptance_report_v3_0.md",
         "exe_ui_robot_result": root / "exe_ui_robot_result_v3_0.json",
+        "cad_smoke": root / "cad_smoke_v3_0.json",
+        "dimension_validation_smoke": root / "dimension_validation_smoke.json",
+        "reference_compare_smoke": root / "reference_compare_smoke.json",
+        "reference_comparison_report": root / "drw_output" / "reference_comparison_report_v3_0.xlsx",
+        "visual_audit_report": root / "drw_output" / "visual_audit_report_v3_0.xlsx",
+        "visual_audit_index": root / "drw_output" / "visual_audit_index.json",
         "stability_20min_mock": root / "stability_20min_mock_v3_0.json",
         "stability_2h_ui": root / "stability_2h_ui_v3_0.json",
     }

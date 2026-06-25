@@ -30,8 +30,15 @@ DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_ga
 DEFAULT_FINAL_ARTIFACTS = {
     "dist_exe": REPO_ROOT / "dist" / "sw_drawing_studio.exe",
     "release_log": REPO_ROOT / "release_log_v3_0.md",
-    "visual_audit_report": REPO_ROOT / "drw_output" / "visual_audit_report_v3_0.xlsx",
+    "validation_log": REPO_ROOT / "validation_log_v3_0.md",
+    "ui_acceptance_report": REPO_ROOT / "ui_acceptance_report_v3_0.md",
     "exe_ui_robot_result": REPO_ROOT / "exe_ui_robot_result_v3_0.json",
+    "cad_smoke": REPO_ROOT / "cad_smoke_v3_0.json",
+    "dimension_validation_smoke": REPO_ROOT / "dimension_validation_smoke.json",
+    "reference_compare_smoke": REPO_ROOT / "reference_compare_smoke.json",
+    "reference_comparison_report": REPO_ROOT / "drw_output" / "reference_comparison_report_v3_0.xlsx",
+    "visual_audit_report": REPO_ROOT / "drw_output" / "visual_audit_report_v3_0.xlsx",
+    "visual_audit_index": REPO_ROOT / "drw_output" / "visual_audit_index.json",
     "stability_20min_mock": REPO_ROOT / "stability_20min_mock_v3_0.json",
     "stability_2h_ui": REPO_ROOT / "stability_2h_ui_v3_0.json",
 }

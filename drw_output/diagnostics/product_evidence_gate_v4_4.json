@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 00:37:05",
+  "generated_at": "2026-06-26 00:43:21",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -157,8 +157,13 @@
           "exists": false,
           "size_bytes": 0
         },
-        "visual_audit_report": {
-          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+        "validation_log": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
+          "exists": true,
+          "size_bytes": 842303
+        },
+        "ui_acceptance_report": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
           "exists": false,
           "size_bytes": 0
         },
@@ -166,6 +171,36 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
           "exists": false,
           "size_bytes": 0
+        },
+        "cad_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "dimension_validation_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dimension_validation_smoke.json",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "reference_compare_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\reference_compare_smoke.json",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "reference_comparison_report": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_comparison_report_v3_0.xlsx",
+          "exists": true,
+          "size_bytes": 24143
+        },
+        "visual_audit_report": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "visual_audit_index": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+          "exists": true,
+          "size_bytes": 630386
         },
         "stability_20min_mock": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
