@@ -11990,3 +11990,51 @@ Remaining issues:
 
 - 006 still needs a fresh locked real CAD rerun and Drawing Review UI screenshot/manual checklist PASS before any 007/008/009/015/022 expansion.
 - Final release still requires EXE UI robot, stability evidence, final Visual Audit workbook, final release log, and the semantic CAD/dimension/reference smoke JSON artifacts.
+
+## v4.4 Refdoc Relink Strategy Lock Guard - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, ReplaceViewModel, RunMacro2, SaveAs, CloseDoc, automatic restart, or SolidWorks session mutation was run.
+- This change tightens the SolidWorks global-lock contract for an experimental service path; it does not accept 006 or unlock later batches.
+
+Implementation:
+
+- Updated `app/services/refdoc_relink_service.py`.
+  - `_strategy_pywin32_late(...)` now requires the current CAD worker lock before any `ReplaceViewModel` path can execute.
+  - `_strategy_vba_macro(...)` now requires the current CAD worker lock before any `RunMacro2` path can execute.
+  - `_strategy_dotnet_sidecar(...)` now requires the current CAD worker lock before sidecar subprocess execution.
+  - `_verify_after_relink(...)` now requires the current CAD worker lock before reading active drawing references from SolidWorks.
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Added source-contract check `refdoc_relink_strategies_require_current_job_lock`.
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Asserts the scanner report keeps the refdoc relink strategy lock contract green.
+- Added `test_v4_4_refdoc_relink_lock_guard.py`.
+  - Proves private refdoc relink strategies and the public entrypoint return `blocked_by_solidworks_lock` without an active worker lock.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\refdoc_relink_service.py app\services\solidworks_entrypoint_scanner.py test_v4_4_refdoc_relink_lock_guard.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_refdoc_relink_lock_guard.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_refdoc_relink_lock_guard.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, `service_direct_risk_count=0`, and records `refdoc_relink_strategies_require_current_job_lock=status: pass`.
+- Refreshed SolidWorks Stability Gate remains `status=pass`, `pass=true`, `warning_reasons=[]`.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`; `full_129_allowed=false`, `lb26001_36_allowed=false`, `expand_007_008_009_015_022_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- This prevents an experimental refdoc path from bypassing the global lock, but 006 drawing acceptance is still unproven.
+- 006 still needs the next allowed locked real CAD rerun, followed by Drawing Review application UI screenshot evidence and manual visual checklist PASS.

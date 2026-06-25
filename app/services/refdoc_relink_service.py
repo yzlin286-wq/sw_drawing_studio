@@ -41,8 +41,21 @@ def _lock_blocked_payload(guard: dict[str, Any], view_names: list[str], strategy
     }
 
 
+def _lock_blocked_attempt(guard: dict[str, Any]) -> dict:
+    return {
+        "ok": False,
+        "message": "blocked_by_solidworks_lock",
+        "status": "blocked_by_solidworks_lock",
+        "failure_bucket": "solidworks_lock_conflict",
+        "lock_conflict": guard,
+    }
+
+
 def _strategy_pywin32_late(drawing_path: str, part_path: str, view_names: list[str]) -> dict:
     """复用 v6 [9.8/9] 路径：drw.ReplaceViewModel(part_abs, names_arr, inst_arr)"""
+    guard = require_current_job_lock("refdoc_relink_service._strategy_pywin32_late")
+    if not guard.get("ok"):
+        return _lock_blocked_attempt(guard)
     try:
         import win32com.client
         from win32com.client import VARIANT
@@ -75,6 +88,9 @@ def _strategy_ensure_dispatch(*args, **kwargs) -> dict:
 
 
 def _strategy_vba_macro(drawing_path: str, part_path: str, view_names: list[str]) -> dict:
+    guard = require_current_job_lock("refdoc_relink_service._strategy_vba_macro")
+    if not guard.get("ok"):
+        return _lock_blocked_attempt(guard)
     swp = REPO_ROOT / "templates" / "macros" / "relink_refdoc.swp"
     if not swp.exists():
         return {"ok": False, "message": f"not_implemented (relink_refdoc.swp 缺失: {swp})"}
@@ -88,6 +104,9 @@ def _strategy_vba_macro(drawing_path: str, part_path: str, view_names: list[str]
 
 
 def _strategy_dotnet_sidecar(drawing_path: str, part_path: str, view_names: list[str]) -> dict:
+    guard = require_current_job_lock("refdoc_relink_service._strategy_dotnet_sidecar")
+    if not guard.get("ok"):
+        return _lock_blocked_attempt(guard)
     exe = REPO_ROOT / "tools" / "SwRelink" / "SwRelink.exe"
     if not exe.exists():
         return {"ok": False, "message": f"not_implemented (SwRelink.exe 缺失: {exe})"}
@@ -105,6 +124,16 @@ def _strategy_dotnet_sidecar(drawing_path: str, part_path: str, view_names: list
 
 def _verify_after_relink(drawing_path: str, part_path: str, view_names: list[str]) -> dict:
     """SaveAs/refresh 后检查视图引用是否落到位"""
+    guard = require_current_job_lock("refdoc_relink_service._verify_after_relink")
+    if not guard.get("ok"):
+        return {
+            "name_match_count": 0,
+            "ref_present_count": 0,
+            "bad_ref_count": len(view_names),
+            "status": "blocked_by_solidworks_lock",
+            "failure_bucket": "solidworks_lock_conflict",
+            "lock_conflict": guard,
+        }
     name_match = 0
     ref_present = 0
     bad_ref = 0

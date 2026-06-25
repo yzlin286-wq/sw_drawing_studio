@@ -507,6 +507,17 @@ def _external_addin_host_lock_contract(root: Path) -> dict[str, Any]:
         "Dimension sidecar entrypoint checks the active job lock before invoking C# sidecar or Python COM fallback.",
     )
     add(
+        "refdoc_relink_strategies_require_current_job_lock",
+        "app/services/refdoc_relink_service.py",
+        [
+            'require_current_job_lock("refdoc_relink_service._strategy_pywin32_late")',
+            'require_current_job_lock("refdoc_relink_service._strategy_vba_macro")',
+            'require_current_job_lock("refdoc_relink_service._strategy_dotnet_sidecar")',
+            'require_current_job_lock("refdoc_relink_service._verify_after_relink")',
+        ],
+        "Refdoc relink strategy helpers require the active CAD worker lock before ReplaceViewModel, RunMacro2, sidecar execution, or verification.",
+    )
+    add(
         "v6_generator_sidecar_runs_inside_worker_pipeline",
         ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
         ["run_dimension_sidecar(", "SW_DRAWING_STUDIO_LOCK_JOB_ID"],

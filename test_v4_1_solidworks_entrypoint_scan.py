@@ -30,6 +30,12 @@ def main() -> None:
     assert data["ui_threadpool_worker_count"] == 0
     assert data["service_direct_risk_count"] == 0
     assert data["external_addin_host_lock_contract_status"] == "pass"
+    contract_checks = {
+        item.get("key"): item
+        for item in data["external_addin_host_lock_contract"]["checks"]
+        if isinstance(item, dict)
+    }
+    assert contract_checks["refdoc_relink_strategies_require_current_job_lock"]["status"] == "pass"
     assert not any(
         entry["file"].startswith("app/ui/")
         and "System Health direct collect" in set(entry.get("patterns") or [])

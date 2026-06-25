@@ -1,8 +1,8 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T02:23:49",
+  "generated_at": "2026-06-26T02:44:20",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
-  "scanned_files": 333,
+  "scanned_files": 334,
   "entrypoint_count": 529,
   "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
@@ -36,7 +36,7 @@
     "schema": "sw_drawing_studio.external_addin_host_lock_contract.v4_4",
     "status": "pass",
     "pass": true,
-    "check_count": 6,
+    "check_count": 7,
     "failed_count": 0,
     "checks": [
       {
@@ -73,6 +73,13 @@
         "status": "pass",
         "missing": [],
         "note": "Dimension sidecar entrypoint checks the active job lock before invoking C# sidecar or Python COM fallback."
+      },
+      {
+        "key": "refdoc_relink_strategies_require_current_job_lock",
+        "file": "app/services/refdoc_relink_service.py",
+        "status": "pass",
+        "missing": [],
+        "note": "Refdoc relink strategy helpers require the active CAD worker lock before ReplaceViewModel, RunMacro2, sidecar execution, or verification."
       },
       {
         "key": "v6_generator_sidecar_runs_inside_worker_pipeline",
@@ -9725,7 +9732,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 50,
+      "line": 63,
       "patterns": [
         "GetActiveObject"
       ],
@@ -9739,7 +9746,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 61,
+      "line": 74,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -9753,7 +9760,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 65,
+      "line": 78,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -9767,7 +9774,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 83,
+      "line": 99,
       "patterns": [
         "GetActiveObject"
       ],
@@ -9781,7 +9788,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 84,
+      "line": 100,
       "patterns": [
         "RunMacro2"
       ],
@@ -9795,7 +9802,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 97,
+      "line": 116,
       "patterns": [
         "subprocess.run"
       ],
@@ -9809,7 +9816,7 @@
     },
     {
       "file": "app/services/refdoc_relink_service.py",
-      "line": 114,
+      "line": 143,
       "patterns": [
         "GetActiveObject"
       ],
