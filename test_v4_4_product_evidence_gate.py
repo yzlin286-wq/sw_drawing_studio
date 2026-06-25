@@ -542,6 +542,21 @@ def _fixture(
                 "visual_audit_full_scope_allowed_now": gap_pass,
                 "normalized_supporting_only": True,
                 "normalized_cannot_replace_raw": True,
+                "raw_issue_backfill_overlay_present": True,
+                "raw_issue_backfill_overlay_ready": True,
+                "raw_issue_backfill_overlay_cannot_replace_raw": True,
+                "raw_issue_backfill_overlay_summary": {
+                    "status": "overlay_ready_requires_human_review",
+                    "pass": True,
+                    "raw_failure_count": 0 if raw_issue_schema_pass else 7,
+                    "overlay_record_count": 0 if raw_issue_schema_pass else 7,
+                    "missing_replacement_count": 0,
+                    "lossy_overlay_record_count": 0 if raw_issue_schema_pass else 5,
+                    "jsonl_line_count": 0 if raw_issue_schema_pass else 7,
+                    "jsonl_sha256": "fixture-sha256",
+                    "historical_artifacts_modified": False,
+                    "normalized_cannot_replace_raw": True,
+                },
                 "blocking_issue_keys": [] if gap_pass else ["raw_issue_schema_pass"],
             },
         ),
@@ -933,6 +948,12 @@ def test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails() -> N
         assert check["details"]["normalized_proof_is_supporting_only"] is True
         assert check["details"]["visual_audit_schema_gap"]["pass"] is False
         assert check["details"]["visual_audit_schema_gap"]["normalized_supporting_only"] is True
+        assert check["details"]["visual_audit_schema_gap"]["raw_issue_backfill_overlay_ready"] is True
+        assert check["details"]["visual_audit_schema_gap"]["raw_issue_backfill_overlay_cannot_replace_raw"] is True
+        assert (
+            check["details"]["visual_audit_schema_gap"]["raw_issue_backfill_overlay_summary"]["overlay_record_count"]
+            == 7
+        )
 
 
 def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing() -> None:

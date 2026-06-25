@@ -442,6 +442,14 @@ def build_product_evidence_gate(
                 "visual_audit_full_scope_allowed_now": visual_audit_schema_gap.get("visual_audit_full_scope_allowed_now"),
                 "normalized_supporting_only": visual_audit_schema_gap.get("normalized_supporting_only"),
                 "normalized_cannot_replace_raw": visual_audit_schema_gap.get("normalized_cannot_replace_raw"),
+                "raw_issue_backfill_overlay_present": visual_audit_schema_gap.get("raw_issue_backfill_overlay_present"),
+                "raw_issue_backfill_overlay_ready": visual_audit_schema_gap.get("raw_issue_backfill_overlay_ready"),
+                "raw_issue_backfill_overlay_cannot_replace_raw": visual_audit_schema_gap.get(
+                    "raw_issue_backfill_overlay_cannot_replace_raw"
+                ),
+                "raw_issue_backfill_overlay_summary": visual_audit_schema_gap.get(
+                    "raw_issue_backfill_overlay_summary"
+                ) or {},
                 "blocking_issue_keys": visual_audit_schema_gap.get("blocking_issue_keys") or [],
             },
             "normalized_proof_is_supporting_only": True,

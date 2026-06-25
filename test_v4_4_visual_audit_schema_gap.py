@@ -186,6 +186,51 @@ def test_visual_audit_schema_gap_includes_repair_plan_as_supporting_only() -> No
         assert result["raw_issue_repair_plan_summary"]["lossy_normalized_issue_count"] == 5
 
 
+def test_visual_audit_schema_gap_includes_backfill_overlay_as_supporting_only() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(
+            Path(tmp),
+            raw_pass=False,
+            normalized_pass=True,
+            final_report=False,
+            full_scope_allowed=False,
+        )
+        overlay = _write_json(
+            Path(tmp) / "visual_audit_raw_issue_backfill_overlay_v4_4.json",
+            {
+                "schema": "sw_drawing_studio.visual_audit_raw_issue_backfill_overlay.v4_4",
+                "status": "overlay_ready_requires_human_review",
+                "pass": True,
+                "release_ready": False,
+                "raw_failure_count": 7,
+                "overlay_record_count": 7,
+                "missing_replacement_count": 0,
+                "lossy_overlay_record_count": 5,
+                "normalized_cannot_replace_raw": True,
+                "historical_artifacts_modified": False,
+                "output_jsonl": {"line_count": 7, "sha256": "abc123"},
+            },
+        )
+
+        result = build_visual_audit_schema_gap(
+            raw_issue_schema_path=paths["raw"],
+            normalized_issue_schema_path=paths["normalized"],
+            product_gate_path=paths["product_gate"],
+            visual_audit_index_path=paths["index"],
+            visual_audit_report_path=paths["report"],
+            raw_issue_backfill_overlay_path=overlay,
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "raw_issue_schema_noncompliant"
+        assert "raw_issue_schema_pass" in set(result["blocking_issue_keys"])
+        assert result["raw_issue_backfill_overlay_present"] is True
+        assert result["raw_issue_backfill_overlay_ready"] is True
+        assert result["raw_issue_backfill_overlay_cannot_replace_raw"] is True
+        assert result["raw_issue_backfill_overlay_summary"]["overlay_record_count"] == 7
+        assert result["raw_issue_backfill_overlay_summary"]["jsonl_sha256"] == "abc123"
+
+
 def test_visual_audit_schema_gap_tool_is_file_only() -> None:
     source = Path("tools/validation/visual_audit_schema_gap_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -210,5 +255,6 @@ if __name__ == "__main__":
     test_visual_audit_schema_gap_blocks_missing_final_report()
     test_visual_audit_schema_gap_blocks_validation_sequence()
     test_visual_audit_schema_gap_includes_repair_plan_as_supporting_only()
+    test_visual_audit_schema_gap_includes_backfill_overlay_as_supporting_only()
     test_visual_audit_schema_gap_tool_is_file_only()
     print("PASS test_v4_4_visual_audit_schema_gap")

@@ -12343,3 +12343,62 @@ Remaining issues:
 - SolidWorks is still not running; readiness remains `solidworks_not_running`.
 - The next allowed CAD action, after readiness becomes safe, is exactly one locked 006-only CAD worker run.
 - 006 still requires fresh regenerated artifacts plus application Drawing Review UI screenshot PASS before any expansion to `007/008/009/015/022`.
+
+## v4.4 Visual Audit Raw Issue Backfill Overlay - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, historical artifact mutation, or SolidWorks session mutation was run.
+- This change materializes a non-destructive overlay for future raw issue backfill/review. It does not make raw issue schema pass and does not replace the missing final `visual_audit_report_v3_0.xlsx`.
+
+Implementation:
+
+- Added `tools/validation/visual_audit_raw_issue_backfill_overlay_v4_4.py`.
+  - Reads `drw_output/issue_schema_validation.json` and `drw_output/visual_audit/normalized_issue_index.json`.
+  - Writes `drw_output/visual_audit/raw_issue_backfill_overlay_v4_4.jsonl`.
+  - Writes `drw_output/diagnostics/visual_audit_raw_issue_backfill_overlay_v4_4.json` and `.md`.
+  - Each JSONL record maps one raw schema failure to the normalized replacement issue, preserves source file and `issue_path`, and marks lossy records for human review.
+  - The overlay explicitly sets `historical_artifacts_modified=false`, `raw_schema_replacement_allowed=false`, and `normalized_cannot_replace_raw=true`.
+- Updated `tools/validation/visual_audit_schema_gap_v4_4.py`.
+  - Adds `raw_issue_backfill_overlay_present`, `raw_issue_backfill_overlay_ready`, `raw_issue_backfill_overlay_cannot_replace_raw`, and `raw_issue_backfill_overlay_summary`.
+  - Still blocks on `raw_issue_schema_pass`, `final_visual_audit_report_present`, and `visual_audit_full_scope_allowed`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Surfaces overlay readiness inside `visual_audit_schema_proof_pass` details while still requiring raw schema PASS and final Visual Audit report.
+- Added/updated tests:
+  - `test_v4_4_visual_audit_raw_issue_backfill_overlay.py`
+  - `test_v4_4_visual_audit_schema_gap.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Commands:
+
+```powershell
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B -m py_compile tools\validation\visual_audit_raw_issue_backfill_overlay_v4_4.py tools\validation\visual_audit_schema_gap_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_visual_audit_raw_issue_backfill_overlay.py test_v4_4_visual_audit_schema_gap.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_visual_audit_raw_issue_backfill_overlay.py
+python -B test_v4_4_visual_audit_schema_gap.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\visual_audit_raw_issue_backfill_overlay_v4_4.py --out-jsonl drw_output\visual_audit\raw_issue_backfill_overlay_v4_4.jsonl --out-summary drw_output\diagnostics\visual_audit_raw_issue_backfill_overlay_v4_4.json --out-md drw_output\diagnostics\visual_audit_raw_issue_backfill_overlay_v4_4.md
+python -B tools\validation\visual_audit_schema_gap_v4_4.py --out-json drw_output\diagnostics\visual_audit_schema_gap_v4_4.json --out-md drw_output\diagnostics\visual_audit_schema_gap_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Readiness remains `status=blocked`, `ready=false`, with `blocking_issue_keys=["solidworks_not_running"]`.
+- Stability Gate remains `status=pass`, `pass=true`, with `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `ui_threadpool_worker_count=0`, and `solidworks_processes=0`.
+- Compile check: PASS.
+- `test_v4_4_visual_audit_raw_issue_backfill_overlay.py`: PASS.
+- `test_v4_4_visual_audit_schema_gap.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Backfill overlay: `status=overlay_ready_requires_human_review`, `pass=true`, `raw_failure_count=5931`, `overlay_record_count=5931`, `missing_replacement_count=0`, `lossy_overlay_record_count=5903`.
+- Overlay JSONL: `drw_output/visual_audit/raw_issue_backfill_overlay_v4_4.jsonl`, `line_count=5931`, `size_bytes=14629000`, SHA256 `99a311feaac66d01d2b45d61972d3aaa1a467851b547af47fe237054141b78d8`.
+- Visual Audit schema gap remains `status=raw_issue_schema_noncompliant`, `pass=false`; blocking keys remain `raw_issue_schema_pass`, `final_visual_audit_report_present`, and `visual_audit_full_scope_allowed`.
+- Product Gate remains `blocked_by_solidworks_readiness`; all follow-on actions remain false, including `visual_audit_full_scope_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- Raw historical issue schema still does not pass; normalized/overlay evidence is supporting-only.
+- `drw_output/visual_audit_report_v3_0.xlsx` is still missing.
+- Full-scope Visual Audit remains blocked until 006 and then the requested six drawings pass application UI screenshot review.

@@ -7,6 +7,8 @@
 - Normalized proof cannot replace raw historical issue compliance: `true`
 - Raw issue repair plan present: `true`
 - Raw issue repair plan can replace raw: `false`
+- Raw issue backfill overlay present: `true`
+- Raw issue backfill overlay can replace raw: `false`
 - Raw noncompliant issues: `5931`
 - Final Visual Audit report present: `false`
 - Full-scope Visual Audit allowed now: `false`
