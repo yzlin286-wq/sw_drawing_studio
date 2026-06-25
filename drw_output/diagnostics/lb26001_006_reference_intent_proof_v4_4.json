@@ -1,0 +1,370 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_reference_intent_proof.v4_4",
+  "generated_at": "2026-06-25 23:40:13",
+  "base": "LB26001-A-04-006",
+  "status": "plan_proof_pass_requires_locked_cad_run",
+  "pass": true,
+  "release_ready": false,
+  "report_is_drawing_acceptance_evidence": false,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_acceptance_required": true,
+  "notes_count_as_displaydim": false,
+  "solidworks_com_called": false,
+  "source_files": {
+    "plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+    "contract": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
+    "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png"
+  },
+  "dimension_summary": {
+    "count": 12,
+    "keys": [
+      "hole_diameter",
+      "hole_pitch",
+      "hole_x_location",
+      "hole_y_location",
+      "left_end_offset",
+      "overall_height",
+      "overall_length",
+      "overall_width",
+      "projection_view_height",
+      "projection_view_width",
+      "right_end_offset",
+      "small_feature_location"
+    ],
+    "required_keys_present": true,
+    "right_projected_view_keys": [
+      "projection_view_width",
+      "projection_view_height",
+      "small_feature_location"
+    ]
+  },
+  "callout_summary": {
+    "count": 4,
+    "keys": [
+      "chamfer_callout",
+      "radius_callout",
+      "surface_finish_rest_3_2",
+      "thread_callout_m4_6h"
+    ],
+    "required_callouts_present": true,
+    "absence_checked_callouts": [
+      "radius_callout",
+      "chamfer_callout"
+    ]
+  },
+  "checks": [
+    {
+      "key": "plan_file_exists",
+      "status": "pass",
+      "message": "reference intent plan artifact exists",
+      "details": {}
+    },
+    {
+      "key": "plan_schema",
+      "status": "pass",
+      "message": "reference intent plan schema is v4.4",
+      "details": {}
+    },
+    {
+      "key": "plan_base",
+      "status": "pass",
+      "message": "reference intent plan is for LB26001-A-04-006",
+      "details": {}
+    },
+    {
+      "key": "source_reference_exists",
+      "status": "pass",
+      "message": "same-name source reference SLDDRW exists",
+      "details": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW"
+      }
+    },
+    {
+      "key": "reference_png_exists",
+      "status": "pass",
+      "message": "reference PNG used for visual value reading exists",
+      "details": {
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png"
+      }
+    },
+    {
+      "key": "required_dimension_keys",
+      "status": "pass",
+      "message": "006 has exactly the required 12 reference-intent DisplayDim targets",
+      "details": {
+        "missing": [],
+        "extra": [],
+        "keys": [
+          "hole_diameter",
+          "hole_pitch",
+          "hole_x_location",
+          "hole_y_location",
+          "left_end_offset",
+          "overall_height",
+          "overall_length",
+          "overall_width",
+          "projection_view_height",
+          "projection_view_width",
+          "right_end_offset",
+          "small_feature_location"
+        ]
+      }
+    },
+    {
+      "key": "required_dimension_fields",
+      "status": "pass",
+      "message": "every DisplayDim target has source_reference, target_view, expected_type, manufacturing flag, fallback policy, and evidence",
+      "details": {
+        "failures": {}
+      }
+    },
+    {
+      "key": "displaydim_not_note_policy",
+      "status": "pass",
+      "message": "all 12 manufacturing targets must be real SolidWorks DisplayDim, not Note or generic AutoDimension acceptance",
+      "details": {
+        "failures": []
+      }
+    },
+    {
+      "key": "reference_values",
+      "status": "pass",
+      "message": "visual reference values cover total length/width/height, end offsets, hole stations, pitch, and right projection",
+      "details": {
+        "failures": []
+      }
+    },
+    {
+      "key": "target_views",
+      "status": "pass",
+      "message": "reference-intent targets are assigned to the correct front/top/right view",
+      "details": {
+        "failures": []
+      }
+    },
+    {
+      "key": "expected_dimension_types",
+      "status": "pass",
+      "message": "reference-intent targets use expected linear/diameter types",
+      "details": {
+        "failures": []
+      }
+    },
+    {
+      "key": "right_projected_view_dimensions",
+      "status": "pass",
+      "message": "right-side small projected view has width, height, and small-feature location targets",
+      "details": {
+        "keys": [
+          "projection_view_width",
+          "projection_view_height",
+          "small_feature_location"
+        ]
+      }
+    },
+    {
+      "key": "reference_callout_keys",
+      "status": "pass",
+      "message": "reference callouts cover M4-6H, surface finish, and radius/chamfer absence checks",
+      "details": {
+        "missing": [],
+        "keys": [
+          "chamfer_callout",
+          "radius_callout",
+          "surface_finish_rest_3_2",
+          "thread_callout_m4_6h"
+        ]
+      }
+    },
+    {
+      "key": "thread_callout_policy",
+      "status": "pass",
+      "message": "M4-6H callout is required visual manufacturing evidence and cannot replace DisplayDim",
+      "details": {
+        "callout": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "fallback_policy": "need_review_when_real_callout_unavailable",
+          "api_is_supporting_only": true,
+          "ui_screenshot_acceptance_required": true,
+          "key": "thread_callout_m4_6h",
+          "target_view": "top",
+          "expected_type": "thread_callout",
+          "is_manufacturing_dimension": true,
+          "reference_value": "M4-6H 完全贯穿",
+          "source_reference_evidence": {
+            "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
+            "source_text": "M4-6H 完全贯穿",
+            "extraction_method": "manual_visual_reading_from_reference_png"
+          },
+          "forbid_note_substitution_for_displaydim": true,
+          "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim"
+        }
+      }
+    },
+    {
+      "key": "surface_finish_policy",
+      "status": "pass",
+      "message": "3.2 rest surface-finish note is required callout evidence but does not count as DisplayDim",
+      "details": {
+        "callout": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "fallback_policy": "need_review_when_real_callout_unavailable",
+          "api_is_supporting_only": true,
+          "ui_screenshot_acceptance_required": true,
+          "key": "surface_finish_rest_3_2",
+          "target_view": "sheet_notes",
+          "expected_type": "surface_finish_callout",
+          "is_manufacturing_dimension": true,
+          "reference_value": "3.2 其余",
+          "source_reference_evidence": {
+            "visual_reading": "Upper-right sheet note reads 3.2 其余.",
+            "source_text": "3.2 其余",
+            "extraction_method": "manual_visual_reading_from_reference_png"
+          },
+          "create_as": "manufacturing note/symbol; does not count as DisplayDim"
+        }
+      }
+    },
+    {
+      "key": "radius_chamfer_absence_policy",
+      "status": "pass",
+      "message": "radius/chamfer are recorded as visually absent and must not be fabricated",
+      "details": {
+        "radius": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+          "api_is_supporting_only": true,
+          "ui_screenshot_acceptance_required": true,
+          "key": "radius_callout",
+          "target_view": "front/top/right",
+          "expected_type": "radius_callout",
+          "is_manufacturing_dimension": false,
+          "reference_value": null,
+          "source_reference_evidence": {
+            "visual_reading": "No radius callout is visually present in the reference PNG.",
+            "source_text": "",
+            "extraction_method": "manual_visual_absence_check"
+          }
+        },
+        "chamfer": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+          "api_is_supporting_only": true,
+          "ui_screenshot_acceptance_required": true,
+          "key": "chamfer_callout",
+          "target_view": "front/top/right",
+          "expected_type": "chamfer_callout",
+          "is_manufacturing_dimension": false,
+          "reference_value": null,
+          "source_reference_evidence": {
+            "visual_reading": "No chamfer callout is visually present in the reference PNG.",
+            "source_text": "",
+            "extraction_method": "manual_visual_absence_check"
+          }
+        }
+      }
+    },
+    {
+      "key": "api_and_ui_policy",
+      "status": "pass",
+      "message": "plan requires UI screenshot acceptance and forbids Note substitution",
+      "details": {
+        "allow_note_substitution": false,
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true
+      }
+    },
+    {
+      "key": "acceptance_trace_requirements",
+      "status": "pass",
+      "message": "plan requires selected entity, add method, before/after counts, target coverage, and post-layout persistence trace",
+      "details": {
+        "required_fields": [
+          "target_key",
+          "view_slot",
+          "selected_entity",
+          "add_method",
+          "display_dim_count_before",
+          "display_dim_count_after",
+          "target_covered_after_attempt",
+          "persisted_after_reopen"
+        ],
+        "required_stages": [
+          "pre_saveas",
+          "post_saveas_reopen_prune",
+          "pre_export_final",
+          "post_layout_final"
+        ],
+        "final_stage_required": "post_layout_final",
+        "all_dimension_targets_must_persist_after_reopen": true,
+        "generic_autodimension_acceptance_allowed": false
+      }
+    },
+    {
+      "key": "contract_file_exists",
+      "status": "pass",
+      "message": "reference-intent execution contract exists",
+      "details": {}
+    },
+    {
+      "key": "contract_schema",
+      "status": "pass",
+      "message": "execution contract schema is v4.4",
+      "details": {}
+    },
+    {
+      "key": "contract_base",
+      "status": "pass",
+      "message": "execution contract is for LB26001-A-04-006",
+      "details": {}
+    },
+    {
+      "key": "contract_lock_policy",
+      "status": "pass",
+      "message": "execution contract can only run through the CAD worker while holding the SolidWorks global lock",
+      "details": {
+        "requires_solidworks_lock": true,
+        "ui_thread_may_execute": false,
+        "allowed_entrypoint": "cad_job_worker",
+        "direct_com_called": false
+      }
+    },
+    {
+      "key": "contract_operations",
+      "status": "pass",
+      "message": "execution contract has one locked worker operation for each required DisplayDim target",
+      "details": {
+        "operation_count": 12,
+        "operation_keys": [
+          "hole_diameter",
+          "hole_pitch",
+          "hole_x_location",
+          "hole_y_location",
+          "left_end_offset",
+          "overall_height",
+          "overall_length",
+          "overall_width",
+          "projection_view_height",
+          "projection_view_width",
+          "right_end_offset",
+          "small_feature_location"
+        ]
+      }
+    },
+    {
+      "key": "contract_operation_policy",
+      "status": "pass",
+      "message": "each contract operation keeps lock, entrypoint, no-Note, and no-generic-AutoDimension acceptance policy",
+      "details": {
+        "failures": []
+      }
+    }
+  ],
+  "blocking_issue_keys": [],
+  "next_required_action": "Run exactly one locked 006 CAD worker via JobRuntimeFacade, then judge the result in the application Drawing Review UI screenshot workflow."
+}

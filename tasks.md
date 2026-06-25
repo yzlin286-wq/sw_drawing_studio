@@ -41,6 +41,7 @@ Generated: 2026-06-21
 - [x] Explicitly record radius/chamfer as visually absent in the reference PNG; do not create them unless geometry or reference evidence proves them.
 - [x] Regenerate `drw_output/reference_intent_dimension_contract_006.json` with schema `sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4`, 12 operations, current-job SolidWorks lock requirement, and no UI-thread execution.
 - [x] Add `test_v4_4_reference_intent_plan_006.py`.
+- [x] Add offline Task 2 proof bundle. `tools/validation/lb26001_006_reference_intent_proof_v4_4.py` writes `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.json` and `.md`; current proof is `status=plan_proof_pass_requires_locked_cad_run`, `pass=true`, `release_ready=false`, `report_is_drawing_acceptance_evidence=false`, `dimension_summary.count=12`, right-side projected-view keys are `projection_view_width/projection_view_height/small_feature_location`, required callouts include `thread_callout_m4_6h` and `surface_finish_rest_3_2`, and absence-checked callouts are `radius_callout/chamfer_callout`. `test_v4_4_lb26001_006_reference_intent_proof.py` proves missing right-projection targets, Note substitution, or unlocked contract policy fail the proof.
 - [ ] Use the plan only in a fresh locked 006 CAD worker run; plan readiness is not drawing acceptance.
 
 ## v4.4 006 UI Defect Buckets - 2026-06-25
