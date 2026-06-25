@@ -44,6 +44,9 @@ def _fixture(
     rerun_packet_real_cad_allowed_now: bool | None = None,
     ui_visual_review_pass: bool | None = None,
     ui_visual_review_screenshot_exists: bool = True,
+    entrypoint_report_pass: bool = True,
+    lock_test_report_pass: bool = True,
+    conflict_report_ok: bool = True,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -78,6 +81,49 @@ def _fixture(
                     "ui_thread_direct_risk_count": 0,
                     "service_direct_risk_count": 0,
                     "system_health_ui_thread_direct_probe_count": 0,
+                },
+            },
+        ),
+        "entrypoint": _write_json(
+            root / "unguarded_solidworks_entrypoints.json",
+            {
+                "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
+                "status": "pass" if entrypoint_report_pass else "warning",
+                "entrypoint_count": 10,
+                "unguarded_or_unknown_count": 0 if entrypoint_report_pass else 1,
+                "ui_thread_direct_risk_count": 0 if entrypoint_report_pass else 1,
+                "service_direct_risk_count": 0,
+                "system_health_ui_thread_direct_probe_count": 0,
+                "external_addin_host_lock_contract_status": "pass" if entrypoint_report_pass else "fail",
+            },
+        ),
+        "lock_test": _write_json(
+            root / "solidworks_lock_test_result.json",
+            {
+                "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
+                "status": "pass" if lock_test_report_pass else "fail",
+                "pass": lock_test_report_pass,
+                "failure": "" if lock_test_report_pass else "second_owner_not_blocked",
+                "checks": [
+                    {"key": "first_job_acquires_lock", "status": "pass"},
+                    {"key": "second_job_blocked_by_owner", "status": "pass" if lock_test_report_pass else "fail"},
+                ],
+            },
+        ),
+        "conflict": _write_json(
+            root / "conflict_report.json",
+            {
+                "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
+                "level": "OK" if conflict_report_ok else "WARNING",
+                "lock_reason": "no_active_solidworks_lock" if conflict_report_ok else "solidworks_process_detected",
+                "fix_suggestion": "" if conflict_report_ok else "Close or serialize SolidWorks before CAD work.",
+                "counts": {
+                    "solidworks_processes": 0 if conflict_report_ok else 1,
+                    "cad_job_workers": 0,
+                    "batch_job_workers": 0,
+                    "waiting_jobs": 0,
+                    "smoke_leftovers": 0,
+                    "dialog_guards": 0,
                 },
             },
         ),
@@ -263,6 +309,9 @@ def _fixture(
 def _build(paths: dict[str, Path]) -> dict:
     return build_product_evidence_gate(
         stability_gate_path=paths["stability"],
+        entrypoint_report_path=paths["entrypoint"],
+        lock_test_report_path=paths["lock_test"],
+        conflict_report_path=paths["conflict"],
         readiness_path=paths["readiness"],
         reference_proof_path=paths["reference"],
         rerun_packet_path=paths["rerun_packet"],
@@ -301,6 +350,43 @@ def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> 
         assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_ready" not in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_readiness_state_current" not in set(result["blocking_issue_keys"])
+
+
+def test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), entrypoint_report_pass=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "solidworks_entrypoint_scan_report_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_entrypoint_scan_report_pass")
+        assert check["details"]["ui_thread_direct_risk_count"] == 1
+
+
+def test_product_evidence_gate_blocks_when_lock_test_report_fails() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), lock_test_report_pass=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "solidworks_lock_test_report_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_lock_test_report_pass")
+        assert check["details"]["failed_checks"] == ["second_job_blocked_by_owner"]
+
+
+def test_product_evidence_gate_blocks_when_conflict_report_warns() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), conflict_report_ok=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "solidworks_conflict_report_ok" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
+        assert check["details"]["counts"]["solidworks_processes"] == 1
 
 
 def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing() -> None:
@@ -471,6 +557,9 @@ def test_product_evidence_gate_tool_is_file_only() -> None:
 if __name__ == "__main__":
     test_product_evidence_gate_can_pass_complete_fixture()
     test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked()
+    test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
+    test_product_evidence_gate_blocks_when_lock_test_report_fails()
+    test_product_evidence_gate_blocks_when_conflict_report_warns()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()

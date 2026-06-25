@@ -19,6 +19,9 @@ DEPENDENT_BASES = [
 ]
 
 DEFAULT_STABILITY_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "solidworks_stability_gate_v4_4.json"
+DEFAULT_ENTRYPOINT_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "unguarded_solidworks_entrypoints.json"
+DEFAULT_LOCK_TEST_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "solidworks_lock_test_result.json"
+DEFAULT_CONFLICT_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "conflict_report.json"
 DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
 DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_reference_intent_proof_v4_4.json"
 DEFAULT_RERUN_PACKET = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
@@ -59,6 +62,9 @@ DEFAULT_VISUAL_AUDIT_SCHEMA_GAP = REPO_ROOT / "drw_output" / "diagnostics" / "vi
 def build_product_evidence_gate(
     *,
     stability_gate_path: Path = DEFAULT_STABILITY_GATE,
+    entrypoint_report_path: Path = DEFAULT_ENTRYPOINT_REPORT,
+    lock_test_report_path: Path = DEFAULT_LOCK_TEST_REPORT,
+    conflict_report_path: Path = DEFAULT_CONFLICT_REPORT,
     readiness_path: Path = DEFAULT_READINESS,
     reference_proof_path: Path = DEFAULT_REFERENCE_PROOF,
     rerun_packet_path: Path = DEFAULT_RERUN_PACKET,
@@ -75,6 +81,9 @@ def build_product_evidence_gate(
 ) -> dict[str, Any]:
     final_artifacts = final_artifacts or DEFAULT_FINAL_ARTIFACTS
     stability_gate = _read_json(stability_gate_path)
+    entrypoint_report = _read_json(entrypoint_report_path)
+    lock_test_report = _read_json(lock_test_report_path)
+    conflict_report = _read_json(conflict_report_path)
     readiness = _read_json(readiness_path)
     reference_proof = _read_json(reference_proof_path)
     rerun_packet = _read_json(rerun_packet_path)
@@ -112,6 +121,34 @@ def build_product_evidence_gate(
         and int(entrypoint_summary.get("system_health_ui_thread_direct_probe_count") or 0) == 0,
         "UI/service direct SolidWorks, probe, and blocking-risk buckets must remain zero.",
         entrypoint_summary,
+    )
+    _add_check(
+        checks,
+        "solidworks_entrypoint_scan_report_pass",
+        entrypoint_report.get("status") == "pass"
+        and int(entrypoint_report.get("unguarded_or_unknown_count") or 0) == 0
+        and int(entrypoint_report.get("ui_thread_direct_risk_count") or 0) == 0
+        and int(entrypoint_report.get("service_direct_risk_count") or 0) == 0
+        and int(entrypoint_report.get("system_health_ui_thread_direct_probe_count") or 0) == 0
+        and entrypoint_report.get("external_addin_host_lock_contract_status") == "pass",
+        "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, subprocess, or sleep risks.",
+        _entrypoint_report_summary(entrypoint_report_path, entrypoint_report),
+    )
+    _add_check(
+        checks,
+        "solidworks_lock_test_report_pass",
+        lock_test_report.get("pass") is True
+        and lock_test_report.get("status") == "pass"
+        and _all_lock_checks_pass(lock_test_report.get("checks")),
+        "SolidWorks global-lock test report must pass every lock ownership/conflict check.",
+        _lock_test_summary(lock_test_report_path, lock_test_report),
+    )
+    _add_check(
+        checks,
+        "solidworks_conflict_report_ok",
+        conflict_report.get("level") == "OK" and _counts_all_zero(conflict_report.get("counts")),
+        "Current conflict report must be OK with no SolidWorks process, CAD/batch worker, waiting job, smoke leftover, or DialogGuard conflict.",
+        _conflict_report_summary(conflict_report_path, conflict_report),
     )
     _add_check(
         checks,
@@ -342,7 +379,13 @@ def build_product_evidence_gate(
     failed = [item for item in checks if item["status"] != "pass"]
     status = _status_from_checks(checks)
     allowed_actions = _allowed_actions(
-        stability_ok=_check_pass(checks, "solidworks_stability_gate_pass") and _check_pass(checks, "ui_thread_direct_risk_zero"),
+        stability_ok=(
+            _check_pass(checks, "solidworks_stability_gate_pass")
+            and _check_pass(checks, "ui_thread_direct_risk_zero")
+            and _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
+            and _check_pass(checks, "solidworks_lock_test_report_pass")
+            and _check_pass(checks, "solidworks_conflict_report_ok")
+        ),
         readiness_ok=_check_pass(checks, "solidworks_readiness_for_006"),
         reference_ok=_check_pass(checks, "reference_intent_006_proof_pass"),
         rerun_packet_ok=(
@@ -377,6 +420,9 @@ def build_product_evidence_gate(
         "blocking_issue_keys": [item["key"] for item in failed],
         "source_artifacts": {
             "stability_gate": str(stability_gate_path),
+            "entrypoint_report": str(entrypoint_report_path),
+            "lock_test_report": str(lock_test_report_path),
+            "conflict_report": str(conflict_report_path),
             "readiness": str(readiness_path),
             "reference_proof": str(reference_proof_path),
             "rerun_packet": str(rerun_packet_path),
@@ -458,7 +504,13 @@ def _check_pass(checks: list[dict[str, Any]], key: str) -> bool:
 
 
 def _status_from_checks(checks: list[dict[str, Any]]) -> str:
-    if not _check_pass(checks, "solidworks_stability_gate_pass") or not _check_pass(checks, "ui_thread_direct_risk_zero"):
+    if (
+        not _check_pass(checks, "solidworks_stability_gate_pass")
+        or not _check_pass(checks, "ui_thread_direct_risk_zero")
+        or not _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
+        or not _check_pass(checks, "solidworks_lock_test_report_pass")
+        or not _check_pass(checks, "solidworks_conflict_report_ok")
+    ):
         return "blocked_by_solidworks_stability_gate"
     if not _check_pass(checks, "reference_intent_006_proof_pass"):
         return "blocked_by_006_reference_intent"
@@ -526,6 +578,63 @@ def _final_artifact_evidence(final_artifacts: dict[str, Path]) -> dict[str, dict
             "size_bytes": path.stat().st_size if exists else 0,
         }
     return evidence
+
+
+def _entrypoint_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "status": payload.get("status"),
+        "entrypoint_count": payload.get("entrypoint_count"),
+        "unguarded_or_unknown_count": payload.get("unguarded_or_unknown_count"),
+        "ui_thread_direct_risk_count": payload.get("ui_thread_direct_risk_count"),
+        "service_direct_risk_count": payload.get("service_direct_risk_count"),
+        "system_health_ui_thread_direct_probe_count": payload.get("system_health_ui_thread_direct_probe_count"),
+        "external_addin_host_lock_contract_status": payload.get("external_addin_host_lock_contract_status"),
+    }
+
+
+def _lock_test_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    checks = [item for item in payload.get("checks") or [] if isinstance(item, dict)]
+    failed = [item.get("key") for item in checks if item.get("status") != "pass"]
+    return {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "failure": payload.get("failure"),
+        "check_count": len(checks),
+        "failed_checks": failed,
+    }
+
+
+def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "level": payload.get("level"),
+        "counts": payload.get("counts") or {},
+        "lock_reason": payload.get("lock_reason"),
+        "fix_suggestion": payload.get("fix_suggestion"),
+    }
+
+
+def _all_lock_checks_pass(value: Any) -> bool:
+    if not isinstance(value, list) or not value:
+        return False
+    return all(isinstance(item, dict) and item.get("status") == "pass" for item in value)
+
+
+def _counts_all_zero(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    try:
+        return all(int(item or 0) == 0 for item in value.values())
+    except (TypeError, ValueError):
+        return False
 
 
 def _rerun_packet_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
@@ -672,6 +781,9 @@ def _repo_path(value: str) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build the v4.4 product evidence gate report.")
     parser.add_argument("--stability-gate", default=str(DEFAULT_STABILITY_GATE))
+    parser.add_argument("--entrypoint-report", default=str(DEFAULT_ENTRYPOINT_REPORT))
+    parser.add_argument("--lock-test-report", default=str(DEFAULT_LOCK_TEST_REPORT))
+    parser.add_argument("--conflict-report", default=str(DEFAULT_CONFLICT_REPORT))
     parser.add_argument("--readiness", default=str(DEFAULT_READINESS))
     parser.add_argument("--reference-proof", default=str(DEFAULT_REFERENCE_PROOF))
     parser.add_argument("--rerun-packet", default=str(DEFAULT_RERUN_PACKET))
@@ -687,6 +799,9 @@ def main() -> int:
     args = parser.parse_args()
     payload = build_product_evidence_gate(
         stability_gate_path=_repo_path(args.stability_gate),
+        entrypoint_report_path=_repo_path(args.entrypoint_report),
+        lock_test_report_path=_repo_path(args.lock_test_report),
+        conflict_report_path=_repo_path(args.conflict_report),
         readiness_path=_repo_path(args.readiness),
         reference_proof_path=_repo_path(args.reference_proof),
         rerun_packet_path=_repo_path(args.rerun_packet),

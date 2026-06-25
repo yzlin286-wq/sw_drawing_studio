@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 01:42:37",
+  "generated_at": "2026-06-26 01:49:54",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -57,6 +57,59 @@
         "validation_tool_requires_manual_lock_count": 47,
         "external_addin_needs_host_lock_count": 20,
         "external_addin_host_lock_contract_status": "pass"
+      }
+    },
+    {
+      "key": "solidworks_entrypoint_scan_report_pass",
+      "status": "pass",
+      "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, subprocess, or sleep risks.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
+        "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
+        "generated_at": "2026-06-26T01:49:42",
+        "status": "pass",
+        "entrypoint_count": 522,
+        "unguarded_or_unknown_count": 0,
+        "ui_thread_direct_risk_count": 0,
+        "service_direct_risk_count": 0,
+        "system_health_ui_thread_direct_probe_count": 0,
+        "external_addin_host_lock_contract_status": "pass"
+      }
+    },
+    {
+      "key": "solidworks_lock_test_report_pass",
+      "status": "pass",
+      "message": "SolidWorks global-lock test report must pass every lock ownership/conflict check.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
+        "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
+        "generated_at": "2026-06-26T01:49:42",
+        "status": "pass",
+        "pass": true,
+        "failure": "",
+        "check_count": 6,
+        "failed_checks": []
+      }
+    },
+    {
+      "key": "solidworks_conflict_report_ok",
+      "status": "pass",
+      "message": "Current conflict report must be OK with no SolidWorks process, CAD/batch worker, waiting job, smoke leftover, or DialogGuard conflict.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
+        "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
+        "generated_at": "2026-06-26T01:49:42",
+        "level": "OK",
+        "counts": {
+          "solidworks_processes": 0,
+          "cad_job_workers": 0,
+          "batch_job_workers": 0,
+          "waiting_jobs": 0,
+          "smoke_leftovers": 0,
+          "dialog_guards": 0
+        },
+        "lock_reason": "no_active_solidworks_lock",
+        "fix_suggestion": ""
       }
     },
     {
@@ -299,7 +352,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 849693
+          "size_bytes": 850609
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -455,6 +508,9 @@
   ],
   "source_artifacts": {
     "stability_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
+    "entrypoint_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
+    "lock_test_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
+    "conflict_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
     "readiness": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
     "reference_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_reference_intent_proof_v4_4.json",
     "rerun_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json",
