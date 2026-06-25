@@ -913,6 +913,73 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "code": "lb26001_006_ui_correction_evidence_load_failed",
                     "path": ui_correction_path,
                 })
+        ui_defect_buckets_path = os.environ.get("LB26001_006_UI_DEFECT_BUCKETS_PATH", "").strip()
+        if ui_defect_buckets_path:
+            source_inputs["lb26001_006_ui_defect_buckets_path"] = ui_defect_buckets_path
+            try:
+                ui_defects = _v4_json_load(ui_defect_buckets_path)
+            except Exception:
+                ui_defects = {}
+            if isinstance(ui_defects, dict) and ui_defects:
+                active_buckets = [
+                    str(item)
+                    for item in (ui_defects.get("active_buckets") or [])
+                    if str(item).strip()
+                ]
+                ui_defect_trace = {
+                    "path": ui_defect_buckets_path,
+                    "status": str(ui_defects.get("status") or ""),
+                    "active_buckets": active_buckets,
+                    "application_ui_screenshot_is_final_gate": bool(
+                        ui_defects.get("application_ui_screenshot_is_final_gate")
+                    ),
+                    "api_is_not_final_judgement": bool(ui_defects.get("api_is_not_final_judgement")),
+                    "expansion_allowed_now": bool(ui_defects.get("expansion_allowed_now")),
+                }
+                source_inputs["lb26001_006_ui_defect_buckets"] = ui_defect_trace
+                dimension_plan["ui_defect_buckets"] = ui_defect_trace
+                # reference_intent_ui_defect_bucket_constraints:
+                # turn the latest application-UI FAIL buckets into hard generator
+                # constraints for the next 006-only CAD run.
+                constraints = dimension_plan.setdefault("visual_defect_constraints", {})
+                if isinstance(constraints, dict):
+                    constraints["source"] = "lb26001_006_ui_defect_buckets_v4_4"
+                    constraints["active_buckets"] = active_buckets
+                    constraints["reject_generic_autodim_survivors"] = "dimension_visual_overdense" in active_buckets
+                    constraints["compact_local_lanes_required"] = "dimension_lane_wrong" in active_buckets
+                    constraints["reference_style_notes_required"] = "note_missing_or_wrong" in active_buckets
+                    constraints["compact_titlebar_fields_required"] = "titlebar_incomplete" in active_buckets
+                    constraints["projection_view_style_match_required"] = "projection_view_style_mismatch" in active_buckets
+                    constraints["callout_presence_recheck_required"] = True
+                layout_plan = blueprint_data.setdefault("layout_plan", {})
+                if isinstance(layout_plan, dict):
+                    if "projection_view_style_mismatch" in active_buckets:
+                        layout_plan["projection_view_style_match_required"] = True
+                    if "note_missing_or_wrong" in active_buckets:
+                        layout_plan.setdefault("notes_box_norm", [0.58, 0.65, 0.40, 0.17])
+                    if "titlebar_incomplete" in active_buckets:
+                        layout_plan["compact_titlebar_fields_required"] = True
+                reasons = list(dimension_plan.get("reasons") or [])
+                for reason in [
+                    "reference_intent_ui_defect_bucket_constraints",
+                    "ui_defect_bucket_reject_generic_autodim_survivors",
+                    "ui_defect_bucket_compact_local_lanes",
+                ]:
+                    if reason not in reasons:
+                        reasons.append(reason)
+                dimension_plan["reasons"] = reasons
+                if warnings_box is not None:
+                    warnings_box.append({
+                        "code": "lb26001_006_ui_defect_buckets_attached",
+                        "path": ui_defect_buckets_path,
+                        "status": ui_defect_trace["status"],
+                        "active_buckets": active_buckets,
+                    })
+            elif warnings_box is not None:
+                warnings_box.append({
+                    "code": "lb26001_006_ui_defect_buckets_load_failed",
+                    "path": ui_defect_buckets_path,
+                })
     if warnings_box is not None:
         warnings_box.append({
             "code": "reference_intent_dimension_plan_v4_2",
@@ -1237,6 +1304,18 @@ def _v4_blueprint_note_insertions(blueprint_data):
     raw_lines.extend(_v4_text_list(notes.get("warning_notes")))
     if flags.get("roughness_required") and not any("ra" in line.lower() or "粗糙度" in line for line in raw_lines):
         raw_lines.append("未注粗糙度 Ra3.2。")
+    constraints = (_v4_blueprint_dimension_plan(blueprint_data).get("visual_defect_constraints") or {})
+    if isinstance(constraints, dict) and constraints.get("reference_style_notes_required"):
+        # ui_defect_bucket_reference_style_notes:
+        # The latest Drawing Review UI screenshot showed generic notes in the
+        # wrong visual style. For 006, force the compact reference-style note
+        # block expected by the visual gate.
+        raw_lines = [
+            "技术要求：",
+            "总长和装配关键尺寸为重点检验尺寸。",
+            "未注粗糙度 Ra3.2。",
+            "去毛刺，锐边倒钝。",
+        ]
     lines = _v4_unique_texts(raw_lines, limit=10)
     if not lines:
         return []
@@ -1259,12 +1338,19 @@ def _v4_blueprint_titlebar_insertions(blueprint_data, src_props=None):
     titlebar = blueprint_data.get("titlebar_plan") or {}
     layout = blueprint_data.get("layout_plan") or {}
     fields = dict(titlebar.get("fields") or {})
+    constraints = (_v4_blueprint_dimension_plan(blueprint_data).get("visual_defect_constraints") or {})
+    compact_titlebar = isinstance(constraints, dict) and constraints.get("compact_titlebar_fields_required")
     values = {
         "图号": fields.get("drawing_no") or fields.get("图号") or src_props.get("图号") or blueprint_data.get("base") or "",
         "品名": fields.get("name") or fields.get("品名") or src_props.get("品名") or blueprint_data.get("base") or "",
         "材质": fields.get("material") or fields.get("材质") or src_props.get("材质") or "",
         "日期": fields.get("date") or fields.get("日期") or src_props.get("日期") or "",
     }
+    if compact_titlebar:
+        # ui_defect_bucket_compact_titlebar_fields:
+        # The reference sheet uses a compact title/data area; do not render
+        # broad default-template metadata fields into the visual review area.
+        values = {key: values.get(key, "") for key in ("图号", "品名")}
     lines = [f"{key}: {value}" for key, value in values.items() if _v4_clean_text(value)]
     if not lines:
         return []

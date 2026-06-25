@@ -243,6 +243,29 @@ def _build_packet_fixture(
             root / "reference_intent_dimension_contract_006.json",
             ["target_key", "selected_entity", "persisted_after_reopen"],
         )
+        ui_defect_buckets = root / "lb26001_006_ui_defect_buckets_v4_4.json"
+        ui_defect_buckets.write_text(
+            json.dumps(
+                {
+                    "base": "LB26001-A-04-006",
+                    "status": "blocked_by_solidworks_readiness",
+                    "pass": False,
+                    "api_only_acceptance_allowed": False,
+                    "application_ui_screenshot_is_final_gate": True,
+                    "expansion_allowed_now": False,
+                    "active_buckets": [
+                        "dimension_visual_overdense",
+                        "dimension_lane_wrong",
+                        "note_missing_or_wrong",
+                        "titlebar_incomplete",
+                        "projection_view_style_mismatch",
+                    ],
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
         readiness = {
             "status": "ready" if readiness_ready else "blocked",
             "ready_to_start_locked_006_cad": readiness_ready,
@@ -261,6 +284,7 @@ def _build_packet_fixture(
             ),
             reference_intent_plan_path=plan,
             reference_intent_contract_path=contract,
+            ui_defect_buckets_path=ui_defect_buckets,
             cad_worker_source_path=cad_worker_source,
             correction_plan_source_path=correction_plan_source,
             generator_source_path=generator_source,
@@ -324,6 +348,8 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert packet["source_signatures"]["lb26001_006_acceptance_proof_v4_2"]["pass"] is True
     assert packet["reference_intent_artifacts"]["plan"]["pass"] is True
     assert packet["reference_intent_artifacts"]["contract"]["pass"] is True
+    assert packet["ui_defect_buckets"]["pass"] is True
+    assert "dimension_visual_overdense" in packet["ui_defect_buckets"]["active_buckets"]
     assert packet["expansion_policy"]["006_must_pass_first"] is True
     assert "LB26001-A-04-006" in result["markdown"]
     assert "Do not run real CAD" in result["markdown"]
@@ -597,6 +623,36 @@ def test_006_rerun_packet_blocks_when_generator_displaydim_dedupe_is_missing() -
     assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
     assert packet["source_signatures"]["generator"]["missing_signatures"] == [
         "physical_displaydim_dedupe"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="ui_defect_bucket_constraints",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "ui_defect_bucket_constraints"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_cad_worker_signature="ui_defect_bucket_generator_env",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "cad_worker_ui_correction_evidence_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["cad_job_worker"]["missing_signatures"] == [
+        "ui_defect_bucket_generator_env"
     ]
 
 
@@ -933,6 +989,8 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_prune_guard_arrange_guard_is_missing()
     test_006_rerun_packet_blocks_when_generator_final_exact_prune_failure_guard_is_missing()
     test_006_rerun_packet_blocks_when_generator_displaydim_dedupe_is_missing()
+    test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
+    test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()
     test_006_rerun_packet_blocks_when_generator_live_view_recovery_blocker_is_missing()

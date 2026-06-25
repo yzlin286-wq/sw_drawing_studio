@@ -49,6 +49,8 @@ Generated: 2026-06-21
 - [x] Generate `drw_output/diagnostics/lb26001_006_ui_defect_buckets_v4_4.json` and `.md` from the latest application Drawing Review UI screenshot failure at `LB26001_006_locked_real_rerun_20260625_041353_visual_review`.
 - [x] Active 006 defect buckets are `dimension_visual_overdense`, `dimension_lane_wrong`, `note_missing_or_wrong`, `titlebar_incomplete`, and `projection_view_style_mismatch`; `callout_missing` is recorded as a required next screenshot check but is not independently proven by the latest evidence.
 - [x] Add `test_v4_4_lb26001_006_ui_defect_buckets.py`.
+- [x] Pass `lb26001_006_ui_defect_buckets_v4_4.json` through `cad_job_worker.py` into generator env `LB26001_006_UI_DEFECT_BUCKETS_PATH`; the v6 generator now turns those application-UI failure buckets into 006-only hard visual constraints for generic-dimension rejection, compact local lanes, reference-style notes, compact titlebar fields, projection-style matching, and callout recheck.
+- [x] Extend `tools/validation/lb26001_006_rerun_packet_v4_2.py` and `test_v4_2_lb26001_006_rerun_packet.py` so missing UI-defect-bucket evidence or source signatures blocks offline packet readiness. Refreshed packet remains `blocked_by_solidworks_readiness` with `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false` because current readiness blocks on `solidworks_not_running`.
 - [ ] Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker; do not run CAD while readiness is `blocked`.
 
 ## v4.1 Immediate SolidWorks Conflict Control

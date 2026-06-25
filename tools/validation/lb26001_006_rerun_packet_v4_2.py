@@ -39,6 +39,7 @@ DEFAULT_CORRECTION_PLAN = REPO_ROOT / "drw_output" / "reference_style_profile" /
 DEFAULT_CORRECTION_PLAN_SOURCE = REPO_ROOT / "tools" / "validation" / "lb26001_correction_plan_v4_2.py"
 DEFAULT_REFERENCE_INTENT_PLAN = REPO_ROOT / "drw_output" / "reference_intent_dimension_plan_006.json"
 DEFAULT_REFERENCE_INTENT_CONTRACT = REPO_ROOT / "drw_output" / "reference_intent_dimension_contract_006.json"
+DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
 DEFAULT_CAD_WORKER_SOURCE = REPO_ROOT / "app" / "workers" / "cad_job_worker.py"
 DEFAULT_GENERATOR_SOURCE = REPO_ROOT / ".trae" / "specs" / "build-v6-and-validate-exe-ui" / "drw_generate_v6.py"
 DEFAULT_REFERENCE_COMPARE_SOURCE = REPO_ROOT / "app" / "services" / "reference_compare_v4.py"
@@ -128,12 +129,21 @@ GENERATOR_SIGNATURES = {
     "ui_correction_evidence_env": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
     "ui_correction_evidence_source_input": "lb26001_006_ui_correction_evidence_path",
     "ui_correction_evidence_warning": "lb26001_006_ui_correction_evidence_attached",
+    "ui_defect_buckets_env": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
+    "ui_defect_buckets_source_input": "lb26001_006_ui_defect_buckets_path",
+    "ui_defect_bucket_constraints": "reference_intent_ui_defect_bucket_constraints",
+    "ui_defect_reject_autodim": "ui_defect_bucket_reject_generic_autodim_survivors",
+    "ui_defect_compact_lanes": "ui_defect_bucket_compact_local_lanes",
+    "ui_defect_compact_notes": "ui_defect_bucket_reference_style_notes",
+    "ui_defect_compact_titlebar": "ui_defect_bucket_compact_titlebar_fields",
 }
 
 CAD_WORKER_SIGNATURES = {
     "ui_correction_evidence_helper": "_prepare_lb26001_006_ui_correction_evidence",
     "ui_correction_evidence_sidecar": "lb26001_006_ui_correction_evidence.json",
     "ui_correction_evidence_rerun_packet_env": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+    "ui_defect_bucket_report_default": "lb26001_006_ui_defect_buckets_v4_4.json",
+    "ui_defect_bucket_generator_env": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
     "ui_correction_evidence_generator_env": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
     "ui_correction_evidence_manifest_key": "ui_correction_evidence",
 }
@@ -373,6 +383,42 @@ def _reference_intent_artifact_status(path: Path, expected_keys: list[str] | Non
     }
 
 
+def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
+    payload = _read_json(path)
+    active_buckets = [
+        str(item)
+        for item in (payload.get("active_buckets") or [])
+        if str(item).strip()
+    ]
+    expected = {
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+    }
+    missing_active = sorted(expected - set(active_buckets))
+    pass_ = (
+        path.exists()
+        and payload.get("base") == PRIMARY_BASE
+        and payload.get("pass") is False
+        and payload.get("application_ui_screenshot_is_final_gate") is True
+        and payload.get("api_only_acceptance_allowed") is False
+        and payload.get("expansion_allowed_now") is False
+        and not missing_active
+    )
+    return {
+        "path": str(path),
+        "exists": path.exists(),
+        "status": payload.get("status"),
+        "pass": pass_,
+        "active_bucket_count": len(active_buckets),
+        "active_buckets": active_buckets,
+        "missing_required_active_buckets": missing_active,
+        "solidworks_readiness": payload.get("solidworks_readiness") or {},
+    }
+
+
 def _prerequisite(key: str, passed: bool, evidence: dict[str, Any], fix_suggestion: str) -> dict[str, Any]:
     return {
         "key": key,
@@ -465,6 +511,7 @@ def build_rerun_packet(
     correction_plan: dict[str, Any],
     reference_intent_plan_path: Path = DEFAULT_REFERENCE_INTENT_PLAN,
     reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
+    ui_defect_buckets_path: Path = DEFAULT_UI_DEFECT_BUCKETS,
     correction_plan_source_path: Path = DEFAULT_CORRECTION_PLAN_SOURCE,
     cad_worker_source_path: Path = DEFAULT_CAD_WORKER_SOURCE,
     generator_source_path: Path = DEFAULT_GENERATOR_SOURCE,
@@ -537,6 +584,7 @@ def build_rerun_packet(
         reference_intent_contract_path,
         expected_keys=["target_key", "selected_entity", "persisted_after_reopen"],
     )
+    ui_defect_buckets = _ui_defect_bucket_status(ui_defect_buckets_path)
 
     readiness_blockers = [str(item) for item in readiness.get("blocking_issue_keys") or [] if str(item).strip()]
     prerequisites = [
@@ -643,6 +691,12 @@ def build_rerun_packet(
             reference_intent_contract["pass"],
             reference_intent_contract,
             "Regenerate the 006 worker contract with target_key, selected_entity, and persisted_after_reopen fields.",
+        ),
+        _prerequisite(
+            "006_ui_defect_buckets_ready",
+            ui_defect_buckets["pass"],
+            ui_defect_buckets,
+            "Regenerate lb26001_006_ui_defect_buckets_v4_4.json from the latest application Drawing Review UI screenshot failure.",
         ),
         _prerequisite(
             "cad_worker_ui_correction_evidence_signatures_present",
@@ -869,6 +923,7 @@ def build_rerun_packet(
             "generated_png": current_006.get("generated_png"),
             "reference_png": current_006.get("reference_png"),
         },
+        "ui_defect_buckets": ui_defect_buckets,
         "offline_prerequisites": prerequisites,
         "source_signatures": {
             "cad_job_worker": cad_worker_signatures,
@@ -944,6 +999,7 @@ def write_rerun_packet(
     correction_plan_path: Path = DEFAULT_CORRECTION_PLAN,
     reference_intent_plan_path: Path = DEFAULT_REFERENCE_INTENT_PLAN,
     reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
+    ui_defect_buckets_path: Path = DEFAULT_UI_DEFECT_BUCKETS,
     correction_plan_source_path: Path = DEFAULT_CORRECTION_PLAN_SOURCE,
     cad_worker_source_path: Path = DEFAULT_CAD_WORKER_SOURCE,
     generator_source_path: Path = DEFAULT_GENERATOR_SOURCE,
@@ -969,6 +1025,7 @@ def write_rerun_packet(
         correction_plan=_read_json(correction_plan_path),
         reference_intent_plan_path=reference_intent_plan_path,
         reference_intent_contract_path=reference_intent_contract_path,
+        ui_defect_buckets_path=ui_defect_buckets_path,
         correction_plan_source_path=correction_plan_source_path,
         cad_worker_source_path=cad_worker_source_path,
         generator_source_path=generator_source_path,
@@ -1000,6 +1057,7 @@ def main() -> int:
     parser.add_argument("--cad-worker-source", default=str(DEFAULT_CAD_WORKER_SOURCE))
     parser.add_argument("--reference-intent-plan", default=str(DEFAULT_REFERENCE_INTENT_PLAN))
     parser.add_argument("--reference-intent-contract", default=str(DEFAULT_REFERENCE_INTENT_CONTRACT))
+    parser.add_argument("--ui-defect-buckets", default=str(DEFAULT_UI_DEFECT_BUCKETS))
     parser.add_argument("--generator-source", default=str(DEFAULT_GENERATOR_SOURCE))
     parser.add_argument("--reference-compare-source", default=str(DEFAULT_REFERENCE_COMPARE_SOURCE))
     parser.add_argument(
@@ -1030,6 +1088,7 @@ def main() -> int:
         cad_worker_source_path=_repo_path(args.cad_worker_source),
         reference_intent_plan_path=_repo_path(args.reference_intent_plan),
         reference_intent_contract_path=_repo_path(args.reference_intent_contract),
+        ui_defect_buckets_path=_repo_path(args.ui_defect_buckets),
         generator_source_path=_repo_path(args.generator_source),
         reference_compare_source_path=_repo_path(args.reference_compare_source),
         application_ui_screenshot_validator_source_path=_repo_path(args.application_ui_screenshot_validator_source),

@@ -1,15 +1,17 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-25 04:29:42",
+  "generated_at": "2026-06-25 21:50:39",
   "base": "LB26001-A-04-006",
-  "status": "ready_for_locked_006_rerun",
+  "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "report_is_acceptance_evidence": false,
   "packet_build_ready": true,
-  "real_cad_allowed_now": true,
-  "readiness_ready": true,
-  "readiness_status": "ready",
-  "readiness_blocking_issue_keys": [],
+  "real_cad_allowed_now": false,
+  "readiness_ready": false,
+  "readiness_status": "blocked",
+  "readiness_blocking_issue_keys": [
+    "solidworks_not_running"
+  ],
   "offline_prerequisite_missing_keys": [],
   "must_not_run_real_cad_when_blocked": true,
   "api_is_not_final_judgement": true,
@@ -275,14 +277,40 @@
     "generated_png": "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
     "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png"
   },
+  "ui_defect_buckets": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+    "exists": true,
+    "status": "blocked_by_solidworks_readiness",
+    "pass": true,
+    "active_bucket_count": 5,
+    "active_buckets": [
+      "dimension_visual_overdense",
+      "dimension_lane_wrong",
+      "note_missing_or_wrong",
+      "titlebar_incomplete",
+      "projection_view_style_mismatch"
+    ],
+    "missing_required_active_buckets": [],
+    "solidworks_readiness": {
+      "status": "blocked",
+      "ready_to_start_locked_006_cad": false,
+      "blocking_issue_keys": [
+        "solidworks_not_running"
+      ],
+      "automatic_restart_allowed": false,
+      "manual_recovery_required": true
+    }
+  },
   "offline_prerequisites": [
     {
       "key": "readiness_report_loaded",
       "pass": true,
       "evidence": {
-        "status": "ready",
-        "ready_to_start_locked_006_cad": true,
-        "blocking_issue_keys": []
+        "status": "blocked",
+        "ready_to_start_locked_006_cad": false,
+        "blocking_issue_keys": [
+          "solidworks_not_running"
+        ]
       },
       "fix_suggestion": "Regenerate lb26001_006_regression_readiness_v4_2.json."
     },
@@ -434,6 +462,35 @@
       "fix_suggestion": "Regenerate the 006 worker contract with target_key, selected_entity, and persisted_after_reopen fields."
     },
     {
+      "key": "006_ui_defect_buckets_ready",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+        "exists": true,
+        "status": "blocked_by_solidworks_readiness",
+        "pass": true,
+        "active_bucket_count": 5,
+        "active_buckets": [
+          "dimension_visual_overdense",
+          "dimension_lane_wrong",
+          "note_missing_or_wrong",
+          "titlebar_incomplete",
+          "projection_view_style_mismatch"
+        ],
+        "missing_required_active_buckets": [],
+        "solidworks_readiness": {
+          "status": "blocked",
+          "ready_to_start_locked_006_cad": false,
+          "blocking_issue_keys": [
+            "solidworks_not_running"
+          ],
+          "automatic_restart_allowed": false,
+          "manual_recovery_required": true
+        }
+      },
+      "fix_suggestion": "Regenerate lb26001_006_ui_defect_buckets_v4_4.json from the latest application Drawing Review UI screenshot failure."
+    },
+    {
       "key": "cad_worker_ui_correction_evidence_signatures_present",
       "pass": true,
       "evidence": {
@@ -454,6 +511,16 @@
           {
             "key": "ui_correction_evidence_rerun_packet_env",
             "signature": "SWDS_LB26001_006_RERUN_PACKET_PATH",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_report_default",
+            "signature": "lb26001_006_ui_defect_buckets_v4_4.json",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_generator_env",
+            "signature": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
             "present": true
           },
           {
@@ -827,6 +894,41 @@
           {
             "key": "ui_correction_evidence_warning",
             "signature": "lb26001_006_ui_correction_evidence_attached",
+            "present": true
+          },
+          {
+            "key": "ui_defect_buckets_env",
+            "signature": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
+            "present": true
+          },
+          {
+            "key": "ui_defect_buckets_source_input",
+            "signature": "lb26001_006_ui_defect_buckets_path",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_constraints",
+            "signature": "reference_intent_ui_defect_bucket_constraints",
+            "present": true
+          },
+          {
+            "key": "ui_defect_reject_autodim",
+            "signature": "ui_defect_bucket_reject_generic_autodim_survivors",
+            "present": true
+          },
+          {
+            "key": "ui_defect_compact_lanes",
+            "signature": "ui_defect_bucket_compact_local_lanes",
+            "present": true
+          },
+          {
+            "key": "ui_defect_compact_notes",
+            "signature": "ui_defect_bucket_reference_style_notes",
+            "present": true
+          },
+          {
+            "key": "ui_defect_compact_titlebar",
+            "signature": "ui_defect_bucket_compact_titlebar_fields",
             "present": true
           }
         ],
@@ -1644,6 +1746,16 @@
           "present": true
         },
         {
+          "key": "ui_defect_bucket_report_default",
+          "signature": "lb26001_006_ui_defect_buckets_v4_4.json",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_generator_env",
+          "signature": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
+          "present": true
+        },
+        {
           "key": "ui_correction_evidence_generator_env",
           "signature": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
           "present": true
@@ -2009,6 +2121,41 @@
         {
           "key": "ui_correction_evidence_warning",
           "signature": "lb26001_006_ui_correction_evidence_attached",
+          "present": true
+        },
+        {
+          "key": "ui_defect_buckets_env",
+          "signature": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
+          "present": true
+        },
+        {
+          "key": "ui_defect_buckets_source_input",
+          "signature": "lb26001_006_ui_defect_buckets_path",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_constraints",
+          "signature": "reference_intent_ui_defect_bucket_constraints",
+          "present": true
+        },
+        {
+          "key": "ui_defect_reject_autodim",
+          "signature": "ui_defect_bucket_reject_generic_autodim_survivors",
+          "present": true
+        },
+        {
+          "key": "ui_defect_compact_lanes",
+          "signature": "ui_defect_bucket_compact_local_lanes",
+          "present": true
+        },
+        {
+          "key": "ui_defect_compact_notes",
+          "signature": "ui_defect_bucket_reference_style_notes",
+          "present": true
+        },
+        {
+          "key": "ui_defect_compact_titlebar",
+          "signature": "ui_defect_bucket_compact_titlebar_fields",
           "present": true
         }
       ],

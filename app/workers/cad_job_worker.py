@@ -1143,11 +1143,25 @@ def _prepare_lb26001_006_ui_correction_evidence(base: str, qc_dir: Path) -> dict
     verdict = packet.get("current_006_ui_verdict") if isinstance(packet, dict) else {}
     if not isinstance(verdict, dict):
         verdict = {}
+    bucket_path = Path(
+        os.environ.get(
+            "SWDS_LB26001_006_UI_DEFECT_BUCKETS_PATH",
+            str(runtime_path("drw_output") / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"),
+        )
+    )
+    try:
+        bucket_report = json.loads(bucket_path.read_text(encoding="utf-8-sig"))
+    except Exception:
+        bucket_report = {}
+    active_buckets = list(bucket_report.get("active_buckets") or []) if isinstance(bucket_report, dict) else []
     evidence = {
         "schema": "sw_drawing_studio.lb26001_006_ui_correction_evidence.v4_2",
         "base": base,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "source_packet": str(packet_path),
+        "ui_defect_buckets_report": str(bucket_path),
+        "ui_defect_buckets_status": str(bucket_report.get("status") or "") if isinstance(bucket_report, dict) else "",
+        "active_defect_buckets": active_buckets,
         "packet_status": str(packet.get("status") or ""),
         "packet_build_ready": bool(packet.get("packet_build_ready")),
         "real_cad_allowed_at_packet_time": bool(packet.get("real_cad_allowed_now")),
@@ -1170,6 +1184,8 @@ def _prepare_lb26001_006_ui_correction_evidence(base: str, qc_dir: Path) -> dict
         "base": base,
         "path": str(out_path),
         "source_packet": str(packet_path),
+        "ui_defect_buckets_report": str(bucket_path),
+        "active_defect_buckets": active_buckets,
         "failed_visual_check_count": len(evidence["failed_visual_checklist_items"]),
         "latest_manual_finding_count": len(evidence["latest_manual_findings"]),
         "comparison_image": evidence["comparison_image"],
@@ -1485,6 +1501,8 @@ def main() -> int:
     ui_correction_evidence = reference_intent_contract.get("ui_correction_evidence")
     if isinstance(ui_correction_evidence, dict) and ui_correction_evidence.get("path"):
         env["LB26001_006_UI_CORRECTION_EVIDENCE_PATH"] = str(ui_correction_evidence["path"])
+    if isinstance(ui_correction_evidence, dict) and ui_correction_evidence.get("ui_defect_buckets_report"):
+        env["LB26001_006_UI_DEFECT_BUCKETS_PATH"] = str(ui_correction_evidence["ui_defect_buckets_report"])
 
     cmd = pipeline_command(qc_script_key, [part_path])
     _worker_trace(output_dir, "pipeline_command_ready", cmd=cmd)

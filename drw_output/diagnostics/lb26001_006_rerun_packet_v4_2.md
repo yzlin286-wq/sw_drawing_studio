@@ -1,9 +1,9 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-25 04:29:42`
-- Status: `ready_for_locked_006_rerun`
-- Real CAD allowed now: `True`
-- Readiness blockers: `none`
+- Generated at: `2026-06-25 21:50:39`
+- Status: `blocked_by_solidworks_readiness`
+- Real CAD allowed now: `False`
+- Readiness blockers: `solidworks_not_running`
 - Offline missing prerequisites: `none`
 - This packet is not acceptance evidence; the application UI screenshot judgement remains the final gate.
 
@@ -40,4 +40,4 @@
 
 ## Block Policy
 
-006 may be run once through the locked CAD path, then must be closed through Drawing Review UI screenshots.
+Do not run real CAD while readiness or offline prerequisites are blocked.

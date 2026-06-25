@@ -50,6 +50,10 @@ Evidence added in this slice:
 - `drw_output/diagnostics/lb26001_006_ui_defect_buckets_v4_4.json` and `.md`: generated from the latest application Drawing Review UI screenshot failure (`LB26001_006_locked_real_rerun_20260625_041353_visual_review`). Status is `blocked_by_solidworks_readiness`, `pass=false`, `release_ready=false`, and `expansion_allowed_now=false`.
 - Active buckets are `dimension_visual_overdense`, `dimension_lane_wrong`, `note_missing_or_wrong`, `titlebar_incomplete`, and `projection_view_style_mismatch`; `callout_missing` is recorded as a next screenshot check but is not independently proven by the latest evidence.
 - `test_v4_4_lb26001_006_ui_defect_buckets.py`: verifies bucket classification, SolidWorks readiness blocking, UI screenshot final-gate policy, and the hard no-expansion/no-full_129 rules.
+- `app/workers/cad_job_worker.py`: now carries the UI defect-bucket report path into 006 UI-correction evidence and exports `LB26001_006_UI_DEFECT_BUCKETS_PATH` for the generator, without calling SolidWorks from the UI thread.
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: now converts the latest application Drawing Review UI failure buckets into hard 006 generator constraints: reject generic AutoDimension survivors, keep compact local dimension lanes, force reference-style notes, use compact titlebar fields, match projection-view style, and require callout presence recheck.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py` and `test_v4_2_lb26001_006_rerun_packet.py`: now require the UI defect-bucket report plus CAD-worker/generator source signatures before a 006 rerun packet can be offline-ready.
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` is `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false` because the current readiness blocker is `solidworks_not_running`.
 
 Validation commands:
 
@@ -57,6 +61,11 @@ Validation commands:
 python -m py_compile app\workers\diagnostics_action_worker.py app\workers\llm_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\log_panel.py app\ui\logs_diagnostics_page.py app\ui\main_window.py app\ui\settings_dialog.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py tools\validation\run_solidworks_stability_gate_v4_4.py app\services\solidworks_entrypoint_scanner.py app\workers\batch_job_worker.py app\workers\cad_job_worker.py app\services\solidworks_resource_audit.py tools\validation\lb26001_006_ui_defect_buckets_v4_4.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_solidworks_stability_gate.py test_v4_4_reference_intent_plan_006.py test_v4_4_lb26001_006_ui_defect_buckets.py
 python tools\validation\run_solidworks_stability_gate_v4_4.py
 python test_v4_4_solidworks_stability_gate.py
+python test_v4_4_reference_intent_plan_006.py
+python test_v4_4_lb26001_006_ui_defect_buckets.py
+python -m py_compile app\workers\cad_job_worker.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
 python test_v4_4_reference_intent_plan_006.py
 python test_v4_4_lb26001_006_ui_defect_buckets.py
 python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
