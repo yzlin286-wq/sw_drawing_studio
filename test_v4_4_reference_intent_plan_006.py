@@ -21,6 +21,16 @@ REQUIRED_DIM_FIELDS = {
     "reference_value_status",
 }
 
+REQUIRED_CALLOUT_FIELDS = {
+    "source_reference",
+    "target_view",
+    "expected_type",
+    "is_manufacturing_dimension",
+    "fallback_policy",
+    "source_reference_evidence",
+    "reference_value",
+}
+
 
 def main() -> None:
     base = "LB26001-A-04-006"
@@ -54,6 +64,11 @@ def main() -> None:
     assert by_key["hole_diameter"]["reference_value"]["thread"] == "M4-6H"
 
     callouts = {item["key"]: item for item in plan.get("reference_callouts") or []}
+    for item in callouts.values():
+        missing = sorted(field for field in REQUIRED_CALLOUT_FIELDS if field not in item)
+        assert not missing, (item.get("key"), missing)
+        assert item["source_reference_evidence"]
+
     assert callouts["thread_callout_m4_6h"]["reference_value"] == "M4-6H 完全贯穿"
     assert callouts["surface_finish_rest_3_2"]["reference_value"] == "3.2 其余"
     assert callouts["radius_callout"]["reference_value"] is None

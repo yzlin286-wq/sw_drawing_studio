@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_reference_intent_proof.v4_4",
-  "generated_at": "2026-06-25 23:40:13",
+  "generated_at": "2026-06-26 03:22:48",
   "base": "LB26001-A-04-006",
   "status": "plan_proof_pass_requires_locked_cad_run",
   "pass": true,
@@ -175,6 +175,14 @@
           "surface_finish_rest_3_2",
           "thread_callout_m4_6h"
         ]
+      }
+    },
+    {
+      "key": "reference_callout_fields",
+      "status": "pass",
+      "message": "every reference callout has source reference, target view, expected type, manufacturing flag, fallback policy, and evidence",
+      "details": {
+        "failures": {}
       }
     },
     {

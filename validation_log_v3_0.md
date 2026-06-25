@@ -12178,3 +12178,66 @@ Remaining issues:
 
 - SolidWorks is still not running, so the next real CAD step remains blocked.
 - The next allowed CAD action, once readiness is safe, is exactly one locked 006-only CAD worker run followed by Drawing Review application UI screenshot review.
+
+## v4.4 Stability + 006 Reference Callout Traceability Refresh - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This slice refreshes Task 1 stability evidence and tightens Task 2 reference-callout traceability. It does not accept 006 and does not unlock `007/008/009/015/022`.
+
+Implementation:
+
+- Refreshed `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`, `solidworks_lock_test_result.json`, `conflict_report.json`, and `solidworks_stability_gate_v4_4.json`.
+- Updated `tools/validation/lb26001_006_reference_intent_proof_v4_4.py`.
+  - Adds `reference_callout_fields` proof coverage.
+  - Empty callout evidence now fails the proof.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `reference_intent_006_plan_complete` now requires every reference callout to carry `source_reference`, `target_view`, `expected_type`, `is_manufacturing_dimension`, `fallback_policy`, `source_reference_evidence`, and `reference_value`.
+  - Empty callout evidence now blocks Product Gate reference-intent completion.
+- Updated tests:
+  - `test_v4_4_reference_intent_plan_006.py`
+  - `test_v4_4_lb26001_006_reference_intent_proof.py`
+  - `test_v4_4_product_evidence_gate.py`
+- Regenerated:
+  - `drw_output/reference_intent_dimension_plan_006.json`
+  - `drw_output/reference_intent_dimension_contract_006.json`
+  - `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.json`
+  - `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.md`
+  - `drw_output/diagnostics/product_evidence_gate_v4_4.json`
+  - `drw_output/diagnostics/product_evidence_gate_v4_4.md`
+
+Commands:
+
+```powershell
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B test_v4_4_solidworks_stability_gate.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_1_solidworks_global_lock.py
+python -B -m py_compile app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py tools\validation\lb26001_006_reference_intent_proof_v4_4.py test_v4_4_reference_intent_plan_006.py test_v4_4_lb26001_006_reference_intent_proof.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --drawing drw_output\runs\<fresh_run_dir>\drawing\LB26001-A-04-006_v5.SLDDRW --run-dir drw_output\runs\<fresh_run_dir> --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B test_v4_4_reference_intent_plan_006.py
+python -B test_v4_4_lb26001_006_reference_intent_proof.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_2_006_regression_readiness.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Stability Gate: `status=pass`, `pass=true`, `release_ready=false`.
+- Entry point scan: `entrypoint_count=529`, `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `ui_threadpool_worker_count=0`, `service_direct_risk_count=0`, `system_health_ui_thread_direct_probe_count=0`.
+- Lock test: `status=pass`, `check_count=6`.
+- Conflict report: `level=OK`, with zero SolidWorks process, CAD worker, batch worker, waiting job, smoke leftover, or DialogGuard counts.
+- 006 reference-intent proof: `status=plan_proof_pass_requires_locked_cad_run`, `pass=true`, `dimension_summary.count=12`, right projected view keys are `projection_view_width`, `projection_view_height`, and `small_feature_location`; callout keys are `thread_callout_m4_6h`, `surface_finish_rest_3_2`, `radius_callout`, and `chamfer_callout`.
+- Product Gate selected checks pass: `solidworks_stability_gate_pass`, `solidworks_entrypoint_scan_report_pass`, `solidworks_lock_test_report_pass`, `solidworks_conflict_report_ok`, `reference_intent_006_proof_pass`, `reference_intent_006_plan_complete`, and `reference_intent_006_contract_locked_worker_only`.
+- Product Gate overall remains `blocked_by_solidworks_readiness`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `expand_007_008_009_015_022_allowed`, `lb26001_36_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks readiness still blocks the next real CAD step.
+- 006 still needs exactly one locked CAD worker rerun, followed by application Drawing Review UI screenshot review and manual visual checklist PASS.
+- The reference-intent proof is an offline plan/contract proof only; it is not drawing acceptance evidence.

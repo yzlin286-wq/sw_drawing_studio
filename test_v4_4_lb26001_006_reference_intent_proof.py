@@ -110,6 +110,27 @@ def test_006_reference_intent_proof_blocks_note_substitution_and_unlocked_contra
         assert "contract_operation_policy" in keys
 
 
+def test_006_reference_intent_proof_blocks_missing_callout_evidence() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        plan_path = root / "plan.json"
+        contract_path = root / "contract.json"
+        plan = _copy_json(DEFAULT_PLAN, plan_path)
+        _copy_json(DEFAULT_CONTRACT, contract_path)
+        plan["reference_callouts"][0]["source_reference"] = ""
+        plan["reference_callouts"][0]["source_reference_evidence"] = {}
+        _write_json(plan_path, plan)
+
+        result = build_reference_intent_proof(
+            plan_path=plan_path,
+            contract_path=contract_path,
+        )
+
+        keys = set(result["blocking_issue_keys"])
+        assert result["pass"] is False
+        assert "reference_callout_fields" in keys
+
+
 def test_006_reference_intent_proof_tool_is_file_only() -> None:
     source = Path("tools/validation/lb26001_006_reference_intent_proof_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -129,5 +150,6 @@ if __name__ == "__main__":
     test_006_reference_intent_proof_passes_current_artifacts()
     test_006_reference_intent_proof_blocks_missing_right_projected_view_target()
     test_006_reference_intent_proof_blocks_note_substitution_and_unlocked_contract()
+    test_006_reference_intent_proof_blocks_missing_callout_evidence()
     test_006_reference_intent_proof_tool_is_file_only()
     print("PASS test_v4_4_lb26001_006_reference_intent_proof")

@@ -30,6 +30,7 @@
 - `pass` `expected_dimension_types`: reference-intent targets use expected linear/diameter types
 - `pass` `right_projected_view_dimensions`: right-side small projected view has width, height, and small-feature location targets
 - `pass` `reference_callout_keys`: reference callouts cover M4-6H, surface finish, and radius/chamfer absence checks
+- `pass` `reference_callout_fields`: every reference callout has source reference, target view, expected type, manufacturing flag, fallback policy, and evidence
 - `pass` `thread_callout_policy`: M4-6H callout is required visual manufacturing evidence and cannot replace DisplayDim
 - `pass` `surface_finish_policy`: 3.2 rest surface-finish note is required callout evidence but does not count as DisplayDim
 - `pass` `radius_chamfer_absence_policy`: radius/chamfer are recorded as visually absent and must not be fabricated

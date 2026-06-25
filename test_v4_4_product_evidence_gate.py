@@ -297,8 +297,26 @@ def _fixture(
                         "reference_value_status": "visual_reading_recorded",
                         "create_as": "manufacturing note/symbol; does not count as DisplayDim",
                     },
-                    {"key": "radius_callout", "reference_value": None},
-                    {"key": "chamfer_callout", "reference_value": None},
+                    {
+                        "key": "radius_callout",
+                        "target_view": "front/top/right",
+                        "expected_type": "radius_callout",
+                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "is_manufacturing_dimension": False,
+                        "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+                        "source_reference_evidence": {"source_text": "", "extraction_method": "manual_visual_absence_check"},
+                        "reference_value": None,
+                    },
+                    {
+                        "key": "chamfer_callout",
+                        "target_view": "front/top/right",
+                        "expected_type": "chamfer_callout",
+                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "is_manufacturing_dimension": False,
+                        "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+                        "source_reference_evidence": {"source_text": "", "extraction_method": "manual_visual_absence_check"},
+                        "reference_value": None,
+                    },
                 ],
             },
         ),
@@ -623,6 +641,24 @@ def test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target(
         assert check["details"]["missing_dimension_keys"] == ["small_feature_location"]
 
 
+def test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        plan_path = paths["reference_intent_plan"]
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        plan["reference_callouts"][2]["source_reference_evidence"] = {}
+        _write_json(plan_path, plan)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
+        assert check["details"]["callout_missing_fields"] == {"radius_callout": ["source_reference_evidence"]}
+
+
 def test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), reference_plan_note_substitution=True))
@@ -919,6 +955,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_lock_test_report_fails()
     test_product_evidence_gate_blocks_when_conflict_report_warns()
     test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target()
+    test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence()
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
     test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()

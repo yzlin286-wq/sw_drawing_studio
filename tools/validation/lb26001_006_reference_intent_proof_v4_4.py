@@ -31,6 +31,16 @@ REQUIRED_DIMENSION_FIELDS = {
     "generic_autodimension_acceptance_allowed",
 }
 
+REQUIRED_CALLOUT_FIELDS = {
+    "source_reference",
+    "target_view",
+    "expected_type",
+    "is_manufacturing_dimension",
+    "fallback_policy",
+    "source_reference_evidence",
+    "reference_value",
+}
+
 REQUIRED_DIMENSION_KEYS = {
     "overall_length",
     "overall_width",
@@ -335,6 +345,21 @@ def _check_reference_callouts(checks: list[dict[str, Any]], plan: dict[str, Any]
         "reference callouts cover M4-6H, surface finish, and radius/chamfer absence checks",
         {"missing": sorted(required - set(callouts)), "keys": sorted(callouts)},
     )
+    field_failures: dict[str, list[str]] = {}
+    for key, item in callouts.items():
+        missing_fields = [
+            field for field in REQUIRED_CALLOUT_FIELDS
+            if _callout_field_missing(item, field)
+        ]
+        if missing_fields:
+            field_failures[key] = sorted(missing_fields)
+    _add_check(
+        checks,
+        "reference_callout_fields",
+        not field_failures,
+        "every reference callout has source reference, target view, expected type, manufacturing flag, fallback policy, and evidence",
+        {"failures": field_failures},
+    )
     thread = callouts.get("thread_callout_m4_6h") or {}
     surface = callouts.get("surface_finish_rest_3_2") or {}
     radius = callouts.get("radius_callout") or {}
@@ -408,6 +433,16 @@ def _check_policy(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
         "plan requires selected entity, add method, before/after counts, target coverage, and post-layout persistence trace",
         trace,
     )
+
+
+def _callout_field_missing(item: dict[str, Any], field: str) -> bool:
+    if field not in item:
+        return True
+    if field == "reference_value":
+        return False
+    if field == "is_manufacturing_dimension":
+        return not isinstance(item.get(field), bool)
+    return not bool(item.get(field))
 
 
 def _check_execution_contract(

@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-25 21:21:28",
+  "generated_at": "2026-06-26 03:19:51",
   "base": "LB26001-A-04-006",
   "drawing_path": "drw_output\\runs\\<fresh_run_dir>\\drawing\\LB26001-A-04-006_v5.SLDDRW",
   "run_dir": "drw_output\\runs\\<fresh_run_dir>",

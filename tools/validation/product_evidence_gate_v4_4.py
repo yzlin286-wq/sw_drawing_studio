@@ -744,11 +744,27 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "reference_value",
         "reference_value_status",
     }
+    required_callout_fields = {
+        "source_reference",
+        "target_view",
+        "expected_type",
+        "is_manufacturing_dimension",
+        "fallback_policy",
+        "source_reference_evidence",
+        "reference_value",
+    }
     dim_missing_fields = {
         str(item.get("key") or f"index_{index}"): sorted(field for field in required_fields if field not in item)
         for index, item in enumerate(dims)
     }
     dim_missing_fields = {key: value for key, value in dim_missing_fields.items() if value}
+    callout_missing_fields = {
+        str(item.get("key") or f"index_{index}"): sorted(
+            field for field in required_callout_fields if _callout_field_missing(item, field)
+        )
+        for index, item in enumerate(callouts)
+    }
+    callout_missing_fields = {key: value for key, value in callout_missing_fields.items() if value}
     note_substitution_keys = [
         str(item.get("key") or "")
         for item in dims
@@ -774,6 +790,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "missing_dimension_keys": sorted(required_dim_keys - dim_keys),
         "missing_callout_keys": sorted(required_callouts - callout_keys),
         "dimension_missing_fields": dim_missing_fields,
+        "callout_missing_fields": callout_missing_fields,
         "note_substitution_keys": sorted(filter(None, note_substitution_keys)),
         "generic_autodim_allowed_keys": sorted(filter(None, generic_autodim_allowed_keys)),
         "callout_note_substitution_forbidden": _callouts_forbid_displaydim_substitution(callouts),
@@ -790,6 +807,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and not details["missing_dimension_keys"]
         and not details["missing_callout_keys"]
         and not dim_missing_fields
+        and not callout_missing_fields
         and not note_substitution_keys
         and not generic_autodim_allowed_keys
         and details["callout_note_substitution_forbidden"] is True
@@ -876,6 +894,16 @@ def _callouts_forbid_displaydim_substitution(callouts: list[dict[str, Any]]) -> 
         if item.get("forbid_note_substitution_for_displaydim") is False:
             return False
     return True
+
+
+def _callout_field_missing(item: dict[str, Any], field: str) -> bool:
+    if field not in item:
+        return True
+    if field == "reference_value":
+        return False
+    if field == "is_manufacturing_dimension":
+        return not isinstance(item.get(field), bool)
+    return not bool(item.get(field))
 
 
 def _all_lock_checks_pass(value: Any) -> bool:
