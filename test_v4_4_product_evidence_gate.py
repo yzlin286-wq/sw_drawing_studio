@@ -251,6 +251,19 @@ def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
         assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(paths["final_artifacts"]["exe_ui_robot_result"], {"mode": "source_qt_ui_robot", "pass": True})  # type: ignore[index]
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
+
+
 def test_product_evidence_gate_tool_is_file_only() -> None:
     source = Path("tools/validation/product_evidence_gate_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -274,5 +287,6 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
+    test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
     test_product_evidence_gate_tool_is_file_only()
     print("PASS test_v4_4_product_evidence_gate")
