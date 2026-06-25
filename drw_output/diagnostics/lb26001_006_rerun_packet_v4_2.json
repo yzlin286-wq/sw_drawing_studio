@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-25 21:50:39",
+  "generated_at": "2026-06-25 22:45:58",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -929,6 +929,11 @@
           {
             "key": "ui_defect_compact_titlebar",
             "signature": "ui_defect_bucket_compact_titlebar_fields",
+            "present": true
+          },
+          {
+            "key": "ui_defect_strict_target_match",
+            "signature": "ui_defect_strict_reference_intent_target_match",
             "present": true
           }
         ],
@@ -2156,6 +2161,11 @@
         {
           "key": "ui_defect_compact_titlebar",
           "signature": "ui_defect_bucket_compact_titlebar_fields",
+          "present": true
+        },
+        {
+          "key": "ui_defect_strict_target_match",
+          "signature": "ui_defect_strict_reference_intent_target_match",
           "present": true
         }
       ],

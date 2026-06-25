@@ -873,6 +873,95 @@ def test_generator_reports_reference_intent_target_coverage_from_display_dims() 
     assert target_map["projection_view_height"]["persisted_after_reopen"] is False
 
 
+def test_generator_strict_ui_defect_target_match_rejects_weak_autodim_survivors() -> None:
+    module = _load_generator()
+    dimension_plan = {
+        "visual_defect_constraints": {
+            "reject_generic_autodim_survivors": True,
+            "compact_local_lanes_required": True,
+            "callout_presence_recheck_required": True,
+        },
+        "dimension_targets": [
+            {
+                "key": "hole_pitch",
+                "group": "hole_locations",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "priority": 9,
+                "placement_lane": {"station": 0.70},
+            },
+            {
+                "key": "hole_y_location",
+                "group": "hole_locations",
+                "target_view": "top",
+                "expected_type": "linear_vertical",
+                "preferred_side": "callout_right",
+                "priority": 32,
+                "placement_lane": {"station": 0.46},
+            },
+        ],
+    }
+    outline = (0.0, 0.0, 10.0, 1.0)
+    weak_items = [
+        {
+            "_slot": "top",
+            "slot": "top",
+            "view_outline": outline,
+            "position": [7.0, -0.30],
+            "view": "top_view",
+            "source": "wrong_side_bottom",
+        },
+        {
+            "_slot": "top",
+            "slot": "top",
+            "view_outline": outline,
+            "position": [1.0, 1.30],
+            "view": "top_view",
+            "source": "far_station_top",
+        },
+        {
+            "_slot": "top",
+            "slot": "top",
+            "view_outline": outline,
+            "position": [10.25, 0.46],
+            "view": "top_view",
+            "source": "right_vertical_callout",
+        },
+    ]
+
+    weak_coverage = module._reference_intent_target_coverage_from_items(
+        weak_items,
+        dimension_plan=dimension_plan,
+    )
+
+    assert weak_coverage["covered_target_keys"] == ["hole_y_location"]
+    assert weak_coverage["missing_target_keys"] == ["hole_pitch"]
+    assert weak_coverage["matched_items"][0]["target_key"] == "hole_y_location"
+
+    repaired_coverage = module._reference_intent_target_coverage_from_items(
+        weak_items
+        + [
+            {
+                "_slot": "top",
+                "slot": "top",
+                "view_outline": outline,
+                "position": [7.0, 1.30],
+                "view": "top_view",
+                "source": "correct_top_pitch",
+            }
+        ],
+        dimension_plan=dimension_plan,
+    )
+
+    assert set(repaired_coverage["covered_target_keys"]) == {"hole_pitch", "hole_y_location"}
+    pitch_result = {
+        item["target_key"]: item for item in repaired_coverage["target_results"]
+    }["hole_pitch"]
+    assert pitch_result["best_display_dim"]["target_match"]["strict_ui_defect_match"] is True
+    assert pitch_result["best_display_dim"]["target_match"]["side_matches_preferred"] is True
+
+
 def test_generator_deduplicates_physical_displaydims_from_multiple_enumerators() -> None:
     module = _load_generator()
     items = [
@@ -1600,6 +1689,7 @@ if __name__ == "__main__":
     test_generator_source_blocks_reference_intent_autodim_after_ui_failure()
     test_generator_scores_long_thin_display_dims_by_reference_intent()
     test_generator_reports_reference_intent_target_coverage_from_display_dims()
+    test_generator_strict_ui_defect_target_match_rejects_weak_autodim_survivors()
     test_generator_prioritizes_missing_reference_intent_targets_for_repair()
     test_generator_checks_reference_intent_target_coverage_truthfully()
     test_generator_ranks_reference_intent_entities_by_target_type()

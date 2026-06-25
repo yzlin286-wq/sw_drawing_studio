@@ -54,6 +54,8 @@ Evidence added in this slice:
 - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: now converts the latest application Drawing Review UI failure buckets into hard 006 generator constraints: reject generic AutoDimension survivors, keep compact local dimension lanes, force reference-style notes, use compact titlebar fields, match projection-view style, and require callout presence recheck.
 - `tools/validation/lb26001_006_rerun_packet_v4_2.py` and `test_v4_2_lb26001_006_rerun_packet.py`: now require the UI defect-bucket report plus CAD-worker/generator source signatures before a 006 rerun packet can be offline-ready.
 - Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` is `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false` because the current readiness blocker is `solidworks_not_running`.
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: under active UI defect buckets, reference-intent target coverage now uses `ui_defect_strict_reference_intent_target_match`; a DisplayDim must match the target's preferred side, type-compatible side, and stricter score floor before it can protect target coverage. This directly addresses the 20260625_041353 UI screenshot finding where weak AutoDimension-style survivors kept the final drawing over-dense.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py` now source-guards `ui_defect_strict_reference_intent_target_match`, and `test_v3_generator_reference_style_plan.py` proves wrong-side/far-station weak matches do not count as 006 target coverage while a correct top-side pitch dimension does.
 
 Validation commands:
 
@@ -68,6 +70,11 @@ python test_v4_2_lb26001_006_rerun_packet.py
 python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
 python test_v4_4_reference_intent_plan_006.py
 python test_v4_4_lb26001_006_ui_defect_buckets.py
+python -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v3_generator_reference_style_plan.py
+python test_v4_generator_blueprint_execution.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
 python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
 python tools\validation\lb26001_006_ui_defect_buckets_v4_4.py
 python test_v4_1_solidworks_entrypoint_scan.py

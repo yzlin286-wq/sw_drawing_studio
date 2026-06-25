@@ -136,6 +136,7 @@ GENERATOR_SIGNATURES = {
     "ui_defect_compact_lanes": "ui_defect_bucket_compact_local_lanes",
     "ui_defect_compact_notes": "ui_defect_bucket_reference_style_notes",
     "ui_defect_compact_titlebar": "ui_defect_bucket_compact_titlebar_fields",
+    "ui_defect_strict_target_match": "ui_defect_strict_reference_intent_target_match",
 }
 
 CAD_WORKER_SIGNATURES = {

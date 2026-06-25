@@ -2490,6 +2490,40 @@ def _reference_intent_side_alias(value):
     return side or "unknown"
 
 
+def _reference_intent_visual_defect_constraints(dimension_plan):
+    plan = dimension_plan if isinstance(dimension_plan, dict) else {}
+    constraints = plan.get("visual_defect_constraints") or {}
+    return constraints if isinstance(constraints, dict) else {}
+
+
+def _reference_intent_strict_ui_defect_match(dimension_plan):
+    constraints = _reference_intent_visual_defect_constraints(dimension_plan)
+    return bool(
+        constraints.get("reject_generic_autodim_survivors")
+        or constraints.get("compact_local_lanes_required")
+        or constraints.get("callout_presence_recheck_required")
+    )
+
+
+def _reference_intent_match_score_floor(dimension_plan):
+    # ui_defect_strict_reference_intent_target_match:
+    # Application Drawing Review UI failures proved that weak slot/station
+    # matches let AutoDimension-style survivors masquerade as target coverage.
+    return 3.5 if _reference_intent_strict_ui_defect_match(dimension_plan) else 1.5
+
+
+def _reference_intent_expected_side_compatible(expected_type, side_alias):
+    expected = str(expected_type or "").strip().lower()
+    side = _reference_intent_side_alias(side_alias)
+    if "horizontal" in expected:
+        return side in {"top", "bottom"}
+    if "vertical" in expected:
+        return side in {"left", "right"}
+    if "diameter" in expected:
+        return side in {"left", "right", "top", "bottom"}
+    return True
+
+
 def _reference_intent_target_fraction(target):
     lane = (target or {}).get("placement_lane") or {}
     try:
@@ -2520,6 +2554,7 @@ def _match_reference_intent_target_for_display_dim(item, *, layout_plan=None, di
     targets = [target for target in (plan.get("dimension_targets") or []) if isinstance(target, dict)]
     if not targets:
         return {}
+    strict_ui_defect_match = _reference_intent_strict_ui_defect_match(plan)
     slot = str(item.get("_slot") or item.get("slot") or _slot_for_display_dim_item(item, layout_plan)).strip().lower()
     outline = _view_outline_from_display_dim_item(item)
     position = _coerce_sheet_point(item.get("position"))
@@ -2549,6 +2584,13 @@ def _match_reference_intent_target_for_display_dim(item, *, layout_plan=None, di
         if target_slot and slot and target_slot != slot:
             continue
         preferred = _reference_intent_side_alias(target.get("preferred_side"))
+        expected_type = str(target.get("expected_type") or "")
+        side_matches_preferred = bool(preferred and preferred == side_alias)
+        type_side_compatible = _reference_intent_expected_side_compatible(expected_type, side_alias)
+        if strict_ui_defect_match and preferred and not side_matches_preferred:
+            continue
+        if strict_ui_defect_match and not type_side_compatible:
+            continue
         target_fraction = _reference_intent_target_fraction(target)
         side_score = 3.0 if preferred == side_alias else 0.0
         if side_alias in {"left", "right"} and preferred in {"left", "right"}:
@@ -2561,6 +2603,8 @@ def _match_reference_intent_target_for_display_dim(item, *, layout_plan=None, di
             priority_score = max(0.0, 0.25 - min(100, int(target.get("priority") or 0)) / 400.0)
         except Exception:
             priority_score = 0.0
+        if strict_ui_defect_match and station_delta > 0.28:
+            continue
         score = side_score + station_score + priority_score
         if score > best_score:
             best_score = score
@@ -2571,7 +2615,7 @@ def _match_reference_intent_target_for_display_dim(item, *, layout_plan=None, di
                 "reading_group": str(target.get("reading_group") or ""),
                 "readability_group": str(target.get("readability_group") or ""),
                 "target_view": target_slot,
-                "expected_type": str(target.get("expected_type") or ""),
+                "expected_type": expected_type,
                 "preferred_side": str(target.get("preferred_side") or ""),
                 "placement_lane": dict(target.get("placement_lane") or {}),
                 "allowed_witness_entity": dict(target.get("allowed_witness_entity") or {}),
@@ -2581,6 +2625,9 @@ def _match_reference_intent_target_for_display_dim(item, *, layout_plan=None, di
                 "target_fraction": round(float(target_fraction), 4),
                 "station_delta": round(float(station_delta), 4),
                 "match_score": round(float(score), 4),
+                "strict_ui_defect_match": bool(strict_ui_defect_match),
+                "side_matches_preferred": bool(side_matches_preferred),
+                "type_side_compatible": bool(type_side_compatible),
             }
     return best
 
@@ -2721,7 +2768,7 @@ def _reference_intent_target_coverage_from_items(items, *, layout_plan=None, dim
             match_score = float(match.get("match_score") or 0.0)
         except Exception:
             match_score = 0.0
-        if match_score < 1.5:
+        if match_score < _reference_intent_match_score_floor(dimension_plan):
             continue
         entry = by_key[key]
         entry["matched_count"] = int(entry.get("matched_count") or 0) + 1
@@ -3506,7 +3553,7 @@ def _prune_display_dims_to_cap(
             match_score = float(match.get("match_score") or 0.0)
         except Exception:
             match_score = 0.0
-        if match_score < 1.5:
+        if match_score < _reference_intent_match_score_floor(dimension_plan):
             return {}
         return match
 
