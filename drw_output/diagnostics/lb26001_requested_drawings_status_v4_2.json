@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
-  "generated_at": "2026-06-25 04:20:11",
+  "generated_at": "2026-06-26 00:54:40",
   "requested_bases": [
     "LB26001-A-04-006",
     "LB26001-A-04-007",
@@ -29,8 +29,10 @@
     "acceptance_gate_not_pass"
   ],
   "readiness_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
-  "readiness_status": "ready",
-  "readiness_blocking_issue_keys": [],
+  "readiness_status": "blocked",
+  "readiness_blocking_issue_keys": [
+    "solidworks_not_running"
+  ],
   "manual_reviews": [
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json"
   ],

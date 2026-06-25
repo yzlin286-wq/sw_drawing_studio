@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.vision_qc_v6",
   "version": "v6",
-  "generated_at": "2026-06-25 04:19:50",
+  "generated_at": "2026-06-26 00:50:59",
   "base": "LB26001-A-04-006",
   "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
   "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
@@ -6387,6 +6387,13 @@
       "section_arrow_candidate_count": 84,
       "missing": []
     },
+    "reference_callouts": {
+      "required": false,
+      "pass": true,
+      "source": "DrawingBlueprint.dimension_plan.reference_callouts",
+      "api_is_not_final_judgement": true,
+      "notes_do_not_count_as_display_dim": true
+    },
     "reference_visual_compare": {
       "success": true,
       "generated_ink_bbox": [
@@ -6624,6 +6631,6 @@
       "api_is_not_final_judgement": true
     }
   },
-  "duration_s": 2.129,
+  "duration_s": 2.068,
   "status": "need_review"
 }

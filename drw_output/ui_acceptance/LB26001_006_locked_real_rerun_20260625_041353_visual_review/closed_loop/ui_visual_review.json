@@ -1,0 +1,53 @@
+{
+  "schema": "sw_drawing_studio.ui_visual_review.v4_4",
+  "generated_at": "2026-06-26 00:51:02",
+  "review_method": "application_drawing_review_ui_screenshot",
+  "status": "need_review",
+  "pass": false,
+  "visual_acceptance_pass": false,
+  "api_is_not_final_judgement": true,
+  "api_only_acceptance_allowed": false,
+  "application_ui_screenshot_is_final_gate": true,
+  "summary": "drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json",
+  "ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+  "manual_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+  "effective_manual_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+  "source_ui_report_injected": false,
+  "gate_summary": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review_gate_summary.json",
+  "total": 1,
+  "pass_count": 0,
+  "fail_count": 1,
+  "blocking_issue_keys": [
+    "vision_qc_v6_with_ui_not_pass",
+    "reference_compare_v4_with_ui_not_pass"
+  ],
+  "entries": [
+    {
+      "base": "LB26001-A-04-006",
+      "status": "need_review",
+      "pass": false,
+      "visual_acceptance_pass": false,
+      "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+      "application_ui_screenshot": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "vision_qc_v6_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
+      "reference_compare_v4_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\reference_compare_v4_with_ui_review\\LB26001-A-04-006.json",
+      "checks": {
+        "ui_report_entry_pass": true,
+        "manual_review_entry_screenshot_pass": true,
+        "vision_qc_v6_visual_acceptance_pass": false,
+        "reference_compare_v4_pass": false,
+        "generated_png_source_pass": true
+      },
+      "blocking_issue_keys": [
+        "vision_qc_v6_with_ui_not_pass",
+        "reference_compare_v4_with_ui_not_pass"
+      ],
+      "reasons": [
+        "ui_screenshot_visual_acceptance_not_passed"
+      ]
+    }
+  ],
+  "next_required_action": "Fix the generated drawing and rerun the application Drawing Review UI screenshot review."
+}

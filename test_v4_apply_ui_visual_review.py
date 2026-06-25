@@ -199,10 +199,13 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
             "v4_single": (out_dir / "reference_compare_v4_with_ui_review.json").exists(),
             "effective_manual": (out_dir / "manual_visual_judgement_with_source.json").exists(),
             "summary": (out_dir / "ui_visual_review_gate_summary.json").exists(),
+            "canonical_ui_visual_review": (out_dir / "ui_visual_review.json").exists(),
         }
+        canonical = json.loads((out_dir / "ui_visual_review.json").read_text(encoding="utf-8"))
 
     assert result["pass"] is False
     assert result["status"] == "need_review"
+    assert result["ui_visual_review"].endswith("ui_visual_review.json")
     assert result["source_ui_report_injected"] is True
     assert result["effective_manual_review"].endswith("manual_visual_judgement_with_source.json")
     assert result["entries"][0]["vision_qc_v6_visual_acceptance_pass"] is False
@@ -223,7 +226,16 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
         "v4_single": True,
         "effective_manual": True,
         "summary": True,
+        "canonical_ui_visual_review": True,
     }
+    assert canonical["schema"] == "sw_drawing_studio.ui_visual_review.v4_4"
+    assert canonical["review_method"] == "application_drawing_review_ui_screenshot"
+    assert canonical["application_ui_screenshot_is_final_gate"] is True
+    assert canonical["api_only_acceptance_allowed"] is False
+    assert canonical["pass"] is False
+    assert canonical["entries"][0]["base"] == base
+    assert canonical["entries"][0]["application_ui_screenshot"] == str(screenshot)
+    assert "reference_compare_v4_with_ui_not_pass" in canonical["blocking_issue_keys"]
     assert result["ui_report_entries_all_pass"] is True
     assert result["manual_review_entries_all_pass"] is True
     assert result["vision_qc_v6_all_pass"] is False

@@ -278,6 +278,87 @@ def _manual_entry_screenshot_gate(
     }
 
 
+def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    checks = {
+        "ui_report_entry_pass": bool(entry.get("ui_report_entry_pass")),
+        "manual_review_entry_screenshot_pass": bool(entry.get("manual_review_entry_screenshot_pass")),
+        "vision_qc_v6_visual_acceptance_pass": bool(entry.get("vision_qc_v6_visual_acceptance_pass")),
+        "reference_compare_v4_pass": bool(entry.get("reference_compare_v4_pass")),
+        "generated_png_source_pass": (
+            not bool(entry.get("generated_png_source_required"))
+            or bool(entry.get("generated_png_source_pass"))
+        ),
+    }
+    passed = all(checks.values())
+    blocking_keys: list[str] = []
+    if not checks["ui_report_entry_pass"]:
+        blocking_keys.append("ui_report_entry_not_pass")
+    if not checks["manual_review_entry_screenshot_pass"]:
+        blocking_keys.append("manual_review_screenshot_not_bound")
+    if not checks["vision_qc_v6_visual_acceptance_pass"]:
+        blocking_keys.append("vision_qc_v6_with_ui_not_pass")
+    if not checks["reference_compare_v4_pass"]:
+        blocking_keys.append("reference_compare_v4_with_ui_not_pass")
+    if not checks["generated_png_source_pass"]:
+        blocking_keys.append("generated_png_source_not_current_run")
+    return {
+        "base": entry.get("base"),
+        "status": "pass" if passed else "need_review",
+        "pass": passed,
+        "visual_acceptance_pass": passed,
+        "run_dir": entry.get("run_dir"),
+        "case_dir": entry.get("case_dir"),
+        "generated_png": entry.get("generated_png"),
+        "application_ui_screenshot": entry.get("ui_report_entry_screenshot"),
+        "vision_qc_v6_with_ui_review": entry.get("vision_qc_v6_with_ui_review"),
+        "reference_compare_v4_with_ui_review": entry.get("reference_compare_v4_with_ui_review"),
+        "checks": checks,
+        "blocking_issue_keys": blocking_keys,
+        "reasons": list(entry.get("reasons") or []),
+    }
+
+
+def _canonical_ui_visual_review_payload(
+    *,
+    gate_payload: dict[str, Any],
+    out_dir: Path,
+) -> dict[str, Any]:
+    entries = [_canonical_entry(entry) for entry in gate_payload.get("entries") or []]
+    failed = [entry for entry in entries if not entry.get("pass")]
+    blocking_keys: list[str] = []
+    for entry in failed:
+        for key in entry.get("blocking_issue_keys") or []:
+            if key not in blocking_keys:
+                blocking_keys.append(key)
+    return {
+        "schema": "sw_drawing_studio.ui_visual_review.v4_4",
+        "generated_at": gate_payload.get("generated_at"),
+        "review_method": "application_drawing_review_ui_screenshot",
+        "status": "pass" if entries and not failed else "need_review",
+        "pass": bool(entries and not failed),
+        "visual_acceptance_pass": bool(entries and not failed),
+        "api_is_not_final_judgement": True,
+        "api_only_acceptance_allowed": False,
+        "application_ui_screenshot_is_final_gate": True,
+        "summary": gate_payload.get("summary"),
+        "ui_report": gate_payload.get("ui_report"),
+        "manual_review": gate_payload.get("manual_review"),
+        "effective_manual_review": gate_payload.get("effective_manual_review"),
+        "source_ui_report_injected": bool(gate_payload.get("source_ui_report_injected")),
+        "gate_summary": str(out_dir / "ui_visual_review_gate_summary.json"),
+        "total": len(entries),
+        "pass_count": len(entries) - len(failed),
+        "fail_count": len(failed),
+        "blocking_issue_keys": blocking_keys,
+        "entries": entries,
+        "next_required_action": (
+            "Fix the generated drawing and rerun the application Drawing Review UI screenshot review."
+            if failed
+            else "Use this UI visual review packet as screenshot-backed acceptance evidence."
+        ),
+    }
+
+
 def apply_ui_visual_review(
     *,
     summary_path: Path,
@@ -406,6 +487,9 @@ def apply_ui_visual_review(
         "entries": entries,
     }
     _write_json(out_dir / "ui_visual_review_gate_summary.json", payload)
+    canonical = _canonical_ui_visual_review_payload(gate_payload=payload, out_dir=out_dir)
+    _write_json(out_dir / "ui_visual_review.json", canonical)
+    payload["ui_visual_review"] = str(out_dir / "ui_visual_review.json")
     return payload
 
 
@@ -434,6 +518,7 @@ def main() -> int:
         "status": payload.get("status"),
         "total": payload.get("total"),
         "report": str(out_dir / "ui_visual_review_gate_summary.json"),
+        "ui_visual_review": str(out_dir / "ui_visual_review.json"),
     }, ensure_ascii=False))
     return 0 if payload.get("pass") else 1
 
