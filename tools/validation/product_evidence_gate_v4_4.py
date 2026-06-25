@@ -24,6 +24,8 @@ DEFAULT_LOCK_TEST_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "solidwork
 DEFAULT_CONFLICT_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "conflict_report.json"
 DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
 DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_reference_intent_proof_v4_4.json"
+DEFAULT_REFERENCE_INTENT_PLAN = REPO_ROOT / "drw_output" / "reference_intent_dimension_plan_006.json"
+DEFAULT_REFERENCE_INTENT_CONTRACT = REPO_ROOT / "drw_output" / "reference_intent_dimension_contract_006.json"
 DEFAULT_RERUN_PACKET = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
 DEFAULT_REGENERATION_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regeneration_evidence_gate_v4_4.json"
 DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
@@ -67,6 +69,8 @@ def build_product_evidence_gate(
     conflict_report_path: Path = DEFAULT_CONFLICT_REPORT,
     readiness_path: Path = DEFAULT_READINESS,
     reference_proof_path: Path = DEFAULT_REFERENCE_PROOF,
+    reference_intent_plan_path: Path = DEFAULT_REFERENCE_INTENT_PLAN,
+    reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
     rerun_packet_path: Path = DEFAULT_RERUN_PACKET,
     regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
@@ -86,6 +90,8 @@ def build_product_evidence_gate(
     conflict_report = _read_json(conflict_report_path)
     readiness = _read_json(readiness_path)
     reference_proof = _read_json(reference_proof_path)
+    reference_intent_plan = _read_json(reference_intent_plan_path)
+    reference_intent_contract = _read_json(reference_intent_contract_path)
     rerun_packet = _read_json(rerun_packet_path)
     regeneration_gate = _read_json(regeneration_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
@@ -223,6 +229,26 @@ def build_product_evidence_gate(
             "base": reference_proof.get("base"),
             "dimension_count": (reference_proof.get("dimension_summary") or {}).get("count"),
         },
+    )
+    plan_ok, plan_details = _reference_intent_plan_check(reference_intent_plan_path, reference_intent_plan)
+    _add_check(
+        checks,
+        "reference_intent_006_plan_complete",
+        plan_ok,
+        "006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.",
+        plan_details,
+    )
+    contract_ok, contract_details = _reference_intent_contract_check(
+        reference_intent_contract_path,
+        reference_intent_contract,
+        plan_details,
+    )
+    _add_check(
+        checks,
+        "reference_intent_006_contract_locked_worker_only",
+        contract_ok,
+        "006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.",
+        contract_details,
     )
     _add_check(
         checks,
@@ -388,6 +414,10 @@ def build_product_evidence_gate(
         ),
         readiness_ok=_check_pass(checks, "solidworks_readiness_for_006"),
         reference_ok=_check_pass(checks, "reference_intent_006_proof_pass"),
+        reference_plan_ok=(
+            _check_pass(checks, "reference_intent_006_plan_complete")
+            and _check_pass(checks, "reference_intent_006_contract_locked_worker_only")
+        ),
         rerun_packet_ok=(
             _check_pass(checks, "lb26001_006_rerun_packet_ready")
             and _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
@@ -425,6 +455,8 @@ def build_product_evidence_gate(
             "conflict_report": str(conflict_report_path),
             "readiness": str(readiness_path),
             "reference_proof": str(reference_proof_path),
+            "reference_intent_plan": str(reference_intent_plan_path),
+            "reference_intent_contract": str(reference_intent_contract_path),
             "rerun_packet": str(rerun_packet_path),
             "regeneration_gate": str(regeneration_gate_path),
             "acceptance_proof": str(acceptance_proof_path),
@@ -514,6 +546,11 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_solidworks_stability_gate"
     if not _check_pass(checks, "reference_intent_006_proof_pass"):
         return "blocked_by_006_reference_intent"
+    if (
+        not _check_pass(checks, "reference_intent_006_plan_complete")
+        or not _check_pass(checks, "reference_intent_006_contract_locked_worker_only")
+    ):
+        return "blocked_by_006_reference_intent"
     if not _check_pass(checks, "solidworks_readiness_for_006"):
         return "blocked_by_solidworks_readiness"
     if (
@@ -541,6 +578,7 @@ def _allowed_actions(
     stability_ok: bool,
     readiness_ok: bool,
     reference_ok: bool,
+    reference_plan_ok: bool,
     rerun_packet_ok: bool,
     regeneration_ok: bool,
     acceptance_ok: bool,
@@ -549,11 +587,11 @@ def _allowed_actions(
     exe_ui_stability_ok: bool,
     visual_audit_schema_ok: bool,
 ) -> dict[str, bool]:
-    locked_006 = bool(stability_ok and readiness_ok and reference_ok and rerun_packet_ok)
+    locked_006 = bool(stability_ok and readiness_ok and reference_ok and reference_plan_ok and rerun_packet_ok)
     ui_review = bool(regeneration_ok)
     expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
-    lb26001_36 = bool(stability_ok and readiness_ok and rerun_packet_ok and ref6_complete)
+    lb26001_36 = bool(stability_ok and readiness_ok and reference_plan_ok and rerun_packet_ok and ref6_complete)
     full_129 = bool(lb26001_36 and final_artifacts_ok and exe_ui_stability_ok and visual_audit_schema_ok)
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
@@ -620,6 +658,170 @@ def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, A
         "lock_reason": payload.get("lock_reason"),
         "fix_suggestion": payload.get("fix_suggestion"),
     }
+
+
+def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    dims = [item for item in payload.get("dimensions") or [] if isinstance(item, dict)]
+    callouts = [item for item in payload.get("reference_callouts") or [] if isinstance(item, dict)]
+    dim_keys = {str(item.get("key") or "") for item in dims}
+    callout_keys = {str(item.get("key") or "") for item in callouts}
+    required_dim_keys = {
+        "overall_length",
+        "overall_width",
+        "overall_height",
+        "left_end_offset",
+        "right_end_offset",
+        "hole_x_location",
+        "hole_y_location",
+        "hole_pitch",
+        "hole_diameter",
+        "projection_view_width",
+        "projection_view_height",
+        "small_feature_location",
+    }
+    required_callouts = {"thread_callout_m4_6h", "surface_finish_rest_3_2", "radius_callout", "chamfer_callout"}
+    required_fields = {
+        "source_reference",
+        "target_view",
+        "expected_type",
+        "is_manufacturing_dimension",
+        "fallback_policy",
+        "source_reference_evidence",
+        "reference_value",
+        "reference_value_status",
+    }
+    dim_missing_fields = {
+        str(item.get("key") or f"index_{index}"): sorted(field for field in required_fields if field not in item)
+        for index, item in enumerate(dims)
+    }
+    dim_missing_fields = {key: value for key, value in dim_missing_fields.items() if value}
+    note_substitution_keys = [
+        str(item.get("key") or "")
+        for item in dims
+        if item.get("create_as") != "SolidWorks DisplayDim" or item.get("forbid_note_substitution") is not True
+    ]
+    generic_autodim_allowed_keys = [
+        str(item.get("key") or "")
+        for item in dims
+        if item.get("generic_autodimension_acceptance_allowed") is not False
+    ]
+    details = {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "base": payload.get("base"),
+        "status": payload.get("status"),
+        "dimension_count": len(dims),
+        "required_display_dim_count": payload.get("required_display_dim_count"),
+        "reference_display_dim_count": payload.get("reference_display_dim_count"),
+        "allow_note_substitution": payload.get("allow_note_substitution"),
+        "ui_screenshot_acceptance_required": payload.get("ui_screenshot_acceptance_required"),
+        "api_is_supporting_only": payload.get("api_is_supporting_only"),
+        "missing_dimension_keys": sorted(required_dim_keys - dim_keys),
+        "missing_callout_keys": sorted(required_callouts - callout_keys),
+        "dimension_missing_fields": dim_missing_fields,
+        "note_substitution_keys": sorted(filter(None, note_substitution_keys)),
+        "generic_autodim_allowed_keys": sorted(filter(None, generic_autodim_allowed_keys)),
+        "callout_note_substitution_forbidden": _callouts_forbid_displaydim_substitution(callouts),
+    }
+    passed = bool(
+        payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_plan.v4_4"
+        and payload.get("base") == BASE
+        and payload.get("status") == "plan_ready_requires_cad_worker_lock"
+        and len(dims) == 12
+        and int(payload.get("required_display_dim_count") or 0) == 12
+        and payload.get("allow_note_substitution") is False
+        and payload.get("ui_screenshot_acceptance_required") is True
+        and payload.get("api_is_supporting_only") is True
+        and not details["missing_dimension_keys"]
+        and not details["missing_callout_keys"]
+        and not dim_missing_fields
+        and not note_substitution_keys
+        and not generic_autodim_allowed_keys
+        and details["callout_note_substitution_forbidden"] is True
+    )
+    return passed, details
+
+
+def _reference_intent_contract_check(
+    path: Path,
+    payload: dict[str, Any],
+    plan_details: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    operations = [item for item in payload.get("operations") or [] if isinstance(item, dict)]
+    op_keys = {str(item.get("dimension_key") or "") for item in operations}
+    missing_from_contract = sorted(
+        set(plan_details.get("missing_dimension_keys") or [])
+        or (
+            {
+                "overall_length",
+                "overall_width",
+                "overall_height",
+                "left_end_offset",
+                "right_end_offset",
+                "hole_x_location",
+                "hole_y_location",
+                "hole_pitch",
+                "hole_diameter",
+                "projection_view_width",
+                "projection_view_height",
+                "small_feature_location",
+            }
+            - op_keys
+        )
+    )
+    operations_missing_evidence = [
+        str(item.get("dimension_key") or f"index_{index}")
+        for index, item in enumerate(operations)
+        if not item.get("source_reference_evidence")
+    ]
+    non_manufacturing_ops = [
+        str(item.get("dimension_key") or f"index_{index}")
+        for index, item in enumerate(operations)
+        if item.get("is_manufacturing_dimension") is not True
+    ]
+    details = {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "base": payload.get("base"),
+        "status": payload.get("status"),
+        "requires_solidworks_lock": payload.get("requires_solidworks_lock"),
+        "ui_thread_may_execute": payload.get("ui_thread_may_execute"),
+        "direct_com_called": payload.get("direct_com_called"),
+        "allowed_entrypoint": payload.get("allowed_entrypoint"),
+        "operation_count": payload.get("operation_count"),
+        "operations_len": len(operations),
+        "missing_dimension_operations": missing_from_contract,
+        "operations_missing_evidence": operations_missing_evidence,
+        "non_manufacturing_operations": non_manufacturing_ops,
+    }
+    passed = bool(
+        payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4"
+        and payload.get("base") == BASE
+        and payload.get("status") == "contract_ready_requires_cad_worker_lock"
+        and payload.get("requires_solidworks_lock") is True
+        and payload.get("ui_thread_may_execute") is False
+        and payload.get("direct_com_called") is False
+        and int(payload.get("operation_count") or 0) == 12
+        and len(operations) == 12
+        and not missing_from_contract
+        and not operations_missing_evidence
+        and not non_manufacturing_ops
+    )
+    return passed, details
+
+
+def _callouts_forbid_displaydim_substitution(callouts: list[dict[str, Any]]) -> bool:
+    for item in callouts:
+        key = str(item.get("key") or "")
+        if key in {"thread_callout_m4_6h", "surface_finish_rest_3_2"}:
+            text = str(item.get("create_as") or "")
+            if "DisplayDim" in text and "not" not in text:
+                return False
+        if item.get("forbid_note_substitution_for_displaydim") is False:
+            return False
+    return True
 
 
 def _all_lock_checks_pass(value: Any) -> bool:
@@ -786,6 +988,8 @@ def main() -> int:
     parser.add_argument("--conflict-report", default=str(DEFAULT_CONFLICT_REPORT))
     parser.add_argument("--readiness", default=str(DEFAULT_READINESS))
     parser.add_argument("--reference-proof", default=str(DEFAULT_REFERENCE_PROOF))
+    parser.add_argument("--reference-intent-plan", default=str(DEFAULT_REFERENCE_INTENT_PLAN))
+    parser.add_argument("--reference-intent-contract", default=str(DEFAULT_REFERENCE_INTENT_CONTRACT))
     parser.add_argument("--rerun-packet", default=str(DEFAULT_RERUN_PACKET))
     parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
@@ -804,6 +1008,8 @@ def main() -> int:
         conflict_report_path=_repo_path(args.conflict_report),
         readiness_path=_repo_path(args.readiness),
         reference_proof_path=_repo_path(args.reference_proof),
+        reference_intent_plan_path=_repo_path(args.reference_intent_plan),
+        reference_intent_contract_path=_repo_path(args.reference_intent_contract),
         rerun_packet_path=_repo_path(args.rerun_packet),
         regeneration_gate_path=_repo_path(args.regeneration_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),

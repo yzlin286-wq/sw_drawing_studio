@@ -30,6 +30,8 @@
 - `pass` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
 - `pass` `lb26001_006_rerun_packet_readiness_state_current`: 006 rerun packet readiness state must match the current readiness result before real CAD can start.
 - `pass` `reference_intent_006_proof_pass`: 006 reference-intent plan proof must pass while remaining supporting evidence only.
+- `pass` `reference_intent_006_plan_complete`: 006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.
+- `pass` `reference_intent_006_contract_locked_worker_only`: 006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.
 - `fail` `regeneration_006_fresh_evidence_pass`: 006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.
 - `fail` `application_ui_006_acceptance_pass`: 006 must pass the application Drawing Review UI screenshot and manual visual checklist.
 - `fail` `canonical_006_ui_visual_review_pass`: 006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.

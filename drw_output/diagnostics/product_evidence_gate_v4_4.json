@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 01:49:54",
+  "generated_at": "2026-06-26 01:57:37",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -237,6 +237,51 @@
       }
     },
     {
+      "key": "reference_intent_006_plan_complete",
+      "status": "pass",
+      "message": "006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+        "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
+        "generated_at": "2026-06-25 21:21:10",
+        "base": "LB26001-A-04-006",
+        "status": "plan_ready_requires_cad_worker_lock",
+        "dimension_count": 12,
+        "required_display_dim_count": 12,
+        "reference_display_dim_count": 12,
+        "allow_note_substitution": false,
+        "ui_screenshot_acceptance_required": true,
+        "api_is_supporting_only": true,
+        "missing_dimension_keys": [],
+        "missing_callout_keys": [],
+        "dimension_missing_fields": {},
+        "note_substitution_keys": [],
+        "generic_autodim_allowed_keys": [],
+        "callout_note_substitution_forbidden": true
+      }
+    },
+    {
+      "key": "reference_intent_006_contract_locked_worker_only",
+      "status": "pass",
+      "message": "006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
+        "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
+        "generated_at": "2026-06-25 21:21:28",
+        "base": "LB26001-A-04-006",
+        "status": "contract_ready_requires_cad_worker_lock",
+        "requires_solidworks_lock": true,
+        "ui_thread_may_execute": false,
+        "direct_com_called": false,
+        "allowed_entrypoint": "cad_job_worker",
+        "operation_count": 12,
+        "operations_len": 12,
+        "missing_dimension_operations": [],
+        "operations_missing_evidence": [],
+        "non_manufacturing_operations": []
+      }
+    },
+    {
       "key": "regeneration_006_fresh_evidence_pass",
       "status": "fail",
       "message": "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
@@ -352,7 +397,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 850609
+          "size_bytes": 851567
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -513,6 +558,8 @@
     "conflict_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
     "readiness": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
     "reference_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_reference_intent_proof_v4_4.json",
+    "reference_intent_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+    "reference_intent_contract": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
     "rerun_packet": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json",
     "regeneration_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
     "acceptance_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",

@@ -47,6 +47,9 @@ def _fixture(
     entrypoint_report_pass: bool = True,
     lock_test_report_pass: bool = True,
     conflict_report_ok: bool = True,
+    reference_plan_complete: bool = True,
+    reference_plan_note_substitution: bool = False,
+    reference_contract_locked: bool = True,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -69,6 +72,47 @@ def _fixture(
     ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
     if ui_visual_review_screenshot_exists:
         _write_file(ui_screenshot)
+    required_dim_keys = [
+        "overall_length",
+        "overall_width",
+        "overall_height",
+        "left_end_offset",
+        "right_end_offset",
+        "hole_x_location",
+        "hole_y_location",
+        "hole_pitch",
+        "hole_diameter",
+        "projection_view_width",
+        "projection_view_height",
+        "small_feature_location",
+    ]
+    dim_keys = required_dim_keys if reference_plan_complete else required_dim_keys[:-1]
+    dimensions = [
+        {
+            "key": key,
+            "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+            "target_view": "front" if not key.startswith("projection") and key != "small_feature_location" else "right",
+            "expected_type": "linear_horizontal",
+            "is_manufacturing_dimension": True,
+            "fallback_policy": "need_review_when_real_displaydim_unavailable",
+            "source_reference_evidence": {"source_text": key},
+            "reference_value": 1,
+            "reference_value_status": "visual_reading_recorded",
+            "create_as": "Note" if reference_plan_note_substitution else "SolidWorks DisplayDim",
+            "forbid_note_substitution": not reference_plan_note_substitution,
+            "generic_autodimension_acceptance_allowed": False,
+        }
+        for key in dim_keys
+    ]
+    operations = [
+        {
+            "operation": "create_or_verify_display_dimension",
+            "dimension_key": item["key"],
+            "source_reference_evidence": item["source_reference_evidence"],
+            "is_manufacturing_dimension": True,
+        }
+        for item in dimensions
+    ]
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -144,6 +188,63 @@ def _fixture(
                 "report_is_drawing_acceptance_evidence": False,
                 "api_only_acceptance_allowed": False,
                 "dimension_summary": {"count": 12},
+            },
+        ),
+        "reference_intent_plan": _write_json(
+            root / "reference_intent_dimension_plan_006.json",
+            {
+                "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
+                "base": BASE,
+                "status": "plan_ready_requires_cad_worker_lock",
+                "required_display_dim_count": 12,
+                "reference_display_dim_count": 12,
+                "allow_note_substitution": False,
+                "ui_screenshot_acceptance_required": True,
+                "api_is_supporting_only": True,
+                "dimensions": dimensions,
+                "reference_callouts": [
+                    {
+                        "key": "thread_callout_m4_6h",
+                        "target_view": "top",
+                        "expected_type": "thread_callout",
+                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "is_manufacturing_dimension": True,
+                        "fallback_policy": "need_review_when_real_callout_unavailable",
+                        "source_reference_evidence": {"source_text": "M4-6H"},
+                        "reference_value": "M4-6H 完全贯穿",
+                        "reference_value_status": "visual_reading_recorded",
+                        "forbid_note_substitution_for_displaydim": True,
+                        "create_as": "SolidWorks hole/thread callout, not a substitute DisplayDim",
+                    },
+                    {
+                        "key": "surface_finish_rest_3_2",
+                        "target_view": "sheet_notes",
+                        "expected_type": "surface_finish_callout",
+                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "is_manufacturing_dimension": True,
+                        "fallback_policy": "need_review_when_real_callout_unavailable",
+                        "source_reference_evidence": {"source_text": "3.2 其余"},
+                        "reference_value": "3.2 其余",
+                        "reference_value_status": "visual_reading_recorded",
+                        "create_as": "manufacturing note/symbol; does not count as DisplayDim",
+                    },
+                    {"key": "radius_callout", "reference_value": None},
+                    {"key": "chamfer_callout", "reference_value": None},
+                ],
+            },
+        ),
+        "reference_intent_contract": _write_json(
+            root / "reference_intent_dimension_contract_006.json",
+            {
+                "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
+                "base": BASE,
+                "status": "contract_ready_requires_cad_worker_lock",
+                "requires_solidworks_lock": reference_contract_locked,
+                "ui_thread_may_execute": not reference_contract_locked,
+                "direct_com_called": False,
+                "allowed_entrypoint": "cad_job_worker",
+                "operation_count": len(operations),
+                "operations": operations,
             },
         ),
         "rerun_packet": _write_json(
@@ -314,6 +415,8 @@ def _build(paths: dict[str, Path]) -> dict:
         conflict_report_path=paths["conflict"],
         readiness_path=paths["readiness"],
         reference_proof_path=paths["reference"],
+        reference_intent_plan_path=paths["reference_intent_plan"],
+        reference_intent_contract_path=paths["reference_intent_contract"],
         rerun_packet_path=paths["rerun_packet"],
         regeneration_gate_path=paths["regeneration"],
         acceptance_proof_path=paths["acceptance"],
@@ -387,6 +490,46 @@ def test_product_evidence_gate_blocks_when_conflict_report_warns() -> None:
         assert "solidworks_conflict_report_ok" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
         assert check["details"]["counts"]["solidworks_processes"] == 1
+
+
+def test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), reference_plan_complete=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
+        assert check["details"]["missing_dimension_keys"] == ["small_feature_location"]
+
+
+def test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), reference_plan_note_substitution=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
+        assert "overall_length" in set(check["details"]["note_substitution_keys"])
+
+
+def test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), reference_contract_locked=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_contract_locked_worker_only" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "reference_intent_006_contract_locked_worker_only"
+        )
+        assert check["details"]["requires_solidworks_lock"] is False
+        assert check["details"]["ui_thread_may_execute"] is True
 
 
 def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing() -> None:
@@ -560,6 +703,9 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
     test_product_evidence_gate_blocks_when_lock_test_report_fails()
     test_product_evidence_gate_blocks_when_conflict_report_warns()
+    test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target()
+    test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
+    test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
