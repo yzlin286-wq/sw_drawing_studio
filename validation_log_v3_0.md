@@ -44,13 +44,23 @@ Evidence added in this slice:
 - `drw_output/reference_intent_dimension_contract_006.json`: regenerated with schema `sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4`, 12 operations, `requires_solidworks_lock=true`, and `ui_thread_may_execute=false`.
 - `test_v4_4_reference_intent_plan_006.py`: verifies the plan/contract schema, required fields, manufacturing dimension flags, visual reference values, no Note substitution, and CAD-worker lock contract.
 
+006 UI defect bucket evidence:
+
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`: refreshed after the GitHub sync; current status is `blocked`, `ready_to_start_locked_006_cad=false`, with `blocking_issue_keys=["solidworks_not_running"]`. Automatic restart remains forbidden; SolidWorks must be started manually before a locked 006 CAD rerun.
+- `drw_output/diagnostics/lb26001_006_ui_defect_buckets_v4_4.json` and `.md`: generated from the latest application Drawing Review UI screenshot failure (`LB26001_006_locked_real_rerun_20260625_041353_visual_review`). Status is `blocked_by_solidworks_readiness`, `pass=false`, `release_ready=false`, and `expansion_allowed_now=false`.
+- Active buckets are `dimension_visual_overdense`, `dimension_lane_wrong`, `note_missing_or_wrong`, `titlebar_incomplete`, and `projection_view_style_mismatch`; `callout_missing` is recorded as a next screenshot check but is not independently proven by the latest evidence.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: verifies bucket classification, SolidWorks readiness blocking, UI screenshot final-gate policy, and the hard no-expansion/no-full_129 rules.
+
 Validation commands:
 
 ```powershell
-python -m py_compile app\workers\diagnostics_action_worker.py app\workers\llm_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\log_panel.py app\ui\logs_diagnostics_page.py app\ui\main_window.py app\ui\settings_dialog.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py tools\validation\run_solidworks_stability_gate_v4_4.py app\services\solidworks_entrypoint_scanner.py app\workers\batch_job_worker.py app\workers\cad_job_worker.py app\services\solidworks_resource_audit.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_solidworks_stability_gate.py test_v4_4_reference_intent_plan_006.py
+python -m py_compile app\workers\diagnostics_action_worker.py app\workers\llm_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\log_panel.py app\ui\logs_diagnostics_page.py app\ui\main_window.py app\ui\settings_dialog.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py tools\validation\run_solidworks_stability_gate_v4_4.py app\services\solidworks_entrypoint_scanner.py app\workers\batch_job_worker.py app\workers\cad_job_worker.py app\services\solidworks_resource_audit.py tools\validation\lb26001_006_ui_defect_buckets_v4_4.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_solidworks_stability_gate.py test_v4_4_reference_intent_plan_006.py test_v4_4_lb26001_006_ui_defect_buckets.py
 python tools\validation\run_solidworks_stability_gate_v4_4.py
 python test_v4_4_solidworks_stability_gate.py
 python test_v4_4_reference_intent_plan_006.py
+python test_v4_4_lb26001_006_ui_defect_buckets.py
+python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python tools\validation\lb26001_006_ui_defect_buckets_v4_4.py
 python test_v4_1_solidworks_entrypoint_scan.py
 python test_v4_1_solidworks_global_lock.py
 python test_v4_1_solidworks_conflict_monitor.py
@@ -67,7 +77,7 @@ python app\workers\diagnostics_action_worker.py --job-id diag_smoke --action bui
 python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v4_4_diagnostics_worker --mock-duration-s 0.4
 ```
 
-Result: PASS for SolidWorks Stability Gate, 006 reference-intent plan/contract verification, diagnostics worker smoke, source-level UI robot quick suite, and regression tests; overall v4.4 remains WARNING because 006 still requires a fresh locked CAD worker run and application Drawing Review UI screenshot acceptance.
+Result: PASS for SolidWorks Stability Gate, 006 reference-intent plan/contract verification, 006 UI defect-bucket classification, diagnostics worker smoke, source-level UI robot quick suite, and regression tests; overall v4.4 remains WARNING because SolidWorks is currently not running and 006 still requires a fresh locked CAD worker run plus application Drawing Review UI screenshot acceptance.
 
 Evidence added in this slice:
 

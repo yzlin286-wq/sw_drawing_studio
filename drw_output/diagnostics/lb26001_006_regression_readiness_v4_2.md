@@ -1,18 +1,18 @@
 # LB26001-A-04-006 Readiness Recovery Checklist v4.2
 
-- Generated at: `2026-06-25 04:29:30`
-- Status: `ready`
-- ready_to_start_locked_006_cad: `True`
-- Manual recovery required: `False`
+- Generated at: `2026-06-25 21:35:21`
+- Status: `blocked`
+- ready_to_start_locked_006_cad: `False`
+- Manual recovery required: `True`
 - Automatic restart allowed: `False`
-- Blocking issue keys: ``
+- Blocking issue keys: `solidworks_not_running`
 
 ## Observed SolidWorks State
 
-- process_present: `True`
-- responding: `True`
-- pid: `25040`
-- main_window_title: `SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006_v5 - 图纸1 [只读]]`
+- process_present: `False`
+- responding: `None`
+- pid: ``
+- main_window_title: ``
 - global_lock_present: `False`
 - global_lock_stale: `False`
 
@@ -31,9 +31,10 @@
 
 ## Manual Recovery Steps
 
-1. Rerun this no-COM readiness audit after SolidWorks is responsive.
-2. Only when readiness is ready, rerun the no-COM 006 rerun packet.
-3. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.
+1. Start SolidWorks manually and leave it responsive with no unsaved document marker in the title bar.
+2. Rerun this no-COM readiness audit after SolidWorks is responsive.
+3. Only when readiness is ready, rerun the no-COM 006 rerun packet.
+4. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.
 
 ## Do Not
 
@@ -55,6 +56,7 @@
 
 ## Issues
 
+- `solidworks_not_running` severity=`critical` fix=`Start SolidWorks, open no unsaved work, and rerun this readiness audit before launching locked 006 CAD.`
 - `previous_006_v6_ui_gate_not_pass` severity=`info` fix=`This is expected for the previous failed run; rerun closure after the next fresh 006 CAD/UI screenshot attempt.`
 - `previous_006_v4_ui_gate_not_pass` severity=`info` fix=`This is expected for the previous failed run; next run must resolve strict v4 blockers.`
 - `lb26001_expansion_currently_blocked` severity=`info` fix=`This is expected until 006 passes; do not run acceptance on 007/008/009/015/022.`

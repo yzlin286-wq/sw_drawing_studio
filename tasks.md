@@ -42,6 +42,15 @@ Generated: 2026-06-21
 - [x] Add `test_v4_4_reference_intent_plan_006.py`.
 - [ ] Use the plan only in a fresh locked 006 CAD worker run; plan readiness is not drawing acceptance.
 
+## v4.4 006 UI Defect Buckets - 2026-06-25
+
+- [x] Refresh 006 no-COM readiness evidence: `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json` is currently `blocked` with `blocking_issue_keys=["solidworks_not_running"]`; automatic restart remains forbidden.
+- [x] Add `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+- [x] Generate `drw_output/diagnostics/lb26001_006_ui_defect_buckets_v4_4.json` and `.md` from the latest application Drawing Review UI screenshot failure at `LB26001_006_locked_real_rerun_20260625_041353_visual_review`.
+- [x] Active 006 defect buckets are `dimension_visual_overdense`, `dimension_lane_wrong`, `note_missing_or_wrong`, `titlebar_incomplete`, and `projection_view_style_mismatch`; `callout_missing` is recorded as a required next screenshot check but is not independently proven by the latest evidence.
+- [x] Add `test_v4_4_lb26001_006_ui_defect_buckets.py`.
+- [ ] Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker; do not run CAD while readiness is `blocked`.
+
 ## v4.1 Immediate SolidWorks Conflict Control
 
 - [~] Current v4.1 status remains `WARNING / NOT RELEASE READY`; do not resume broad real CAD batches until lock and conflict evidence is green.
