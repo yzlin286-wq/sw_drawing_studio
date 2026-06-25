@@ -39,7 +39,13 @@ def _fixture(
     final_artifacts: bool = True,
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
+    visual_audit_schema_gap_pass: bool | None = None,
 ) -> dict[str, Path]:
+    gap_pass = (
+        bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
+        if visual_audit_schema_gap_pass is None
+        else visual_audit_schema_gap_pass
+    )
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -136,6 +142,21 @@ def _fixture(
                 "failure_bucket": [] if normalized_issue_schema_pass else ["normalized_issue_schema_incomplete"],
             },
         ),
+        "visual_audit_schema_gap": _write_json(
+            root / "visual_audit_schema_gap_v4_4.json",
+            {
+                "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
+                "status": "pass" if gap_pass else "raw_issue_schema_noncompliant",
+                "pass": gap_pass,
+                "raw_noncompliant_issue_count": 0 if raw_issue_schema_pass else 7,
+                "normalized_noncompliant_issue_count": 0 if normalized_issue_schema_pass else 1,
+                "visual_audit_report_final_present": final_artifacts,
+                "visual_audit_full_scope_allowed_now": gap_pass,
+                "normalized_supporting_only": True,
+                "normalized_cannot_replace_raw": True,
+                "blocking_issue_keys": [] if gap_pass else ["raw_issue_schema_pass"],
+            },
+        ),
     }
     final = {
         "dist_exe": root / "dist" / "sw_drawing_studio.exe",
@@ -169,6 +190,7 @@ def _build(paths: dict[str, Path]) -> dict:
         requested_status_path=paths["requested"],
         issue_schema_validation_path=paths["issue_schema"],
         normalized_issue_schema_validation_path=paths["normalized_issue_schema"],
+        visual_audit_schema_gap_path=paths["visual_audit_schema_gap"],
         final_artifacts=paths["final_artifacts"],  # type: ignore[arg-type]
     )
 
@@ -242,6 +264,24 @@ def test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails() -> N
         assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
         assert check["details"]["normalized_proof_is_supporting_only"] is True
+        assert check["details"]["visual_audit_schema_gap"]["pass"] is False
+        assert check["details"]["visual_audit_schema_gap"]["normalized_supporting_only"] is True
+
+
+def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        paths["visual_audit_schema_gap"].unlink()
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        assert check["details"]["visual_audit_schema_gap"]["pass"] is None
 
 
 def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
@@ -293,6 +333,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
+    test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
     test_product_evidence_gate_tool_is_file_only()

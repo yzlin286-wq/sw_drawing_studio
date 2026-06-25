@@ -44,6 +44,7 @@ DEFAULT_FINAL_ARTIFACTS = {
 }
 DEFAULT_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation.json"
 DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation_normalized.json"
+DEFAULT_VISUAL_AUDIT_SCHEMA_GAP = REPO_ROOT / "drw_output" / "diagnostics" / "visual_audit_schema_gap_v4_4.json"
 
 
 def build_product_evidence_gate(
@@ -56,6 +57,7 @@ def build_product_evidence_gate(
     requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
     issue_schema_validation_path: Path = DEFAULT_ISSUE_SCHEMA_VALIDATION,
     normalized_issue_schema_validation_path: Path = DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION,
+    visual_audit_schema_gap_path: Path = DEFAULT_VISUAL_AUDIT_SCHEMA_GAP,
     final_artifacts: dict[str, Path] | None = None,
     out_json: Path | None = None,
     out_md: Path | None = None,
@@ -69,6 +71,7 @@ def build_product_evidence_gate(
     requested_status = _read_json(requested_status_path)
     issue_schema_validation = _read_json(issue_schema_validation_path)
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
+    visual_audit_schema_gap = _read_json(visual_audit_schema_gap_path)
 
     checks: list[dict[str, Any]] = []
     _add_check(
@@ -220,14 +223,20 @@ def build_product_evidence_gate(
     _add_check(
         checks,
         "visual_audit_schema_proof_pass",
-        bool(visual_audit_report.get("exists"))
-        and issue_schema_validation.get("pass") is True
-        and int(issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
-        and normalized_issue_schema_validation.get("pass") is True
-        and int(normalized_issue_schema_validation.get("noncompliant_issue_count") or 0) == 0,
+        (
+            bool(visual_audit_report.get("exists"))
+            and issue_schema_validation.get("pass") is True
+            and int(issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
+            and normalized_issue_schema_validation.get("pass") is True
+            and int(normalized_issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
+            and visual_audit_schema_gap.get("pass") is True
+            and visual_audit_schema_gap.get("normalized_supporting_only") is True
+            and visual_audit_schema_gap.get("normalized_cannot_replace_raw") is True
+        ),
         (
             "Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema "
-            "proof; normalized proof alone does not replace raw historical issue compliance."
+            "proof plus the v4.4 schema-gap diagnostic; normalized proof alone does not replace raw historical "
+            "issue compliance."
         ),
         {
             "visual_audit_report": visual_audit_report,
@@ -246,6 +255,18 @@ def build_product_evidence_gate(
                 "issue_count": normalized_issue_schema_validation.get("issue_count"),
                 "noncompliant_issue_count": normalized_issue_schema_validation.get("noncompliant_issue_count"),
                 "failure_bucket": normalized_issue_schema_validation.get("failure_bucket") or [],
+            },
+            "visual_audit_schema_gap": {
+                "path": str(visual_audit_schema_gap_path),
+                "status": visual_audit_schema_gap.get("status"),
+                "pass": visual_audit_schema_gap.get("pass"),
+                "raw_noncompliant_issue_count": visual_audit_schema_gap.get("raw_noncompliant_issue_count"),
+                "normalized_noncompliant_issue_count": visual_audit_schema_gap.get("normalized_noncompliant_issue_count"),
+                "visual_audit_report_final_present": visual_audit_schema_gap.get("visual_audit_report_final_present"),
+                "visual_audit_full_scope_allowed_now": visual_audit_schema_gap.get("visual_audit_full_scope_allowed_now"),
+                "normalized_supporting_only": visual_audit_schema_gap.get("normalized_supporting_only"),
+                "normalized_cannot_replace_raw": visual_audit_schema_gap.get("normalized_cannot_replace_raw"),
+                "blocking_issue_keys": visual_audit_schema_gap.get("blocking_issue_keys") or [],
             },
             "normalized_proof_is_supporting_only": True,
         },
@@ -289,6 +310,7 @@ def build_product_evidence_gate(
             "requested_status": str(requested_status_path),
             "issue_schema_validation": str(issue_schema_validation_path),
             "normalized_issue_schema_validation": str(normalized_issue_schema_validation_path),
+            "visual_audit_schema_gap": str(visual_audit_schema_gap_path),
         },
         "next_required_action": _next_required_action(status),
     }
@@ -486,6 +508,7 @@ def main() -> int:
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
     parser.add_argument("--issue-schema-validation", default=str(DEFAULT_ISSUE_SCHEMA_VALIDATION))
     parser.add_argument("--normalized-issue-schema-validation", default=str(DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION))
+    parser.add_argument("--visual-audit-schema-gap", default=str(DEFAULT_VISUAL_AUDIT_SCHEMA_GAP))
     parser.add_argument("--out-json", default=str(DEFAULT_OUT_JSON))
     parser.add_argument("--out-md", default=str(DEFAULT_OUT_MD))
     args = parser.parse_args()
@@ -498,6 +521,7 @@ def main() -> int:
         requested_status_path=_repo_path(args.requested_status),
         issue_schema_validation_path=_repo_path(args.issue_schema_validation),
         normalized_issue_schema_validation_path=_repo_path(args.normalized_issue_schema_validation),
+        visual_audit_schema_gap_path=_repo_path(args.visual_audit_schema_gap),
         out_json=_repo_path(args.out_json),
         out_md=_repo_path(args.out_md),
     )

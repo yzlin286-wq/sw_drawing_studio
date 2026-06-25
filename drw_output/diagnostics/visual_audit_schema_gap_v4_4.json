@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
-  "generated_at": "2026-06-26 01:17:28",
+  "generated_at": "2026-06-26 01:24:26",
   "status": "raw_issue_schema_noncompliant",
   "pass": false,
   "release_ready": false,
