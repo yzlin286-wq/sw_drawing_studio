@@ -34,6 +34,8 @@ DEFAULT_FINAL_ARTIFACTS = {
     "stability_20min_mock": REPO_ROOT / "stability_20min_mock_v3_0.json",
     "stability_2h_ui": REPO_ROOT / "stability_2h_ui_v3_0.json",
 }
+DEFAULT_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation.json"
+DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION = REPO_ROOT / "drw_output" / "issue_schema_validation_normalized.json"
 
 
 def build_product_evidence_gate(
@@ -44,6 +46,8 @@ def build_product_evidence_gate(
     regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
     requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
+    issue_schema_validation_path: Path = DEFAULT_ISSUE_SCHEMA_VALIDATION,
+    normalized_issue_schema_validation_path: Path = DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION,
     final_artifacts: dict[str, Path] | None = None,
     out_json: Path | None = None,
     out_md: Path | None = None,
@@ -55,6 +59,8 @@ def build_product_evidence_gate(
     regeneration_gate = _read_json(regeneration_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
     requested_status = _read_json(requested_status_path)
+    issue_schema_validation = _read_json(issue_schema_validation_path)
+    normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
 
     checks: list[dict[str, Any]] = []
     _add_check(
@@ -177,6 +183,40 @@ def build_product_evidence_gate(
         "Final release artifacts must exist before release/full_129 completion can be claimed.",
         final_artifact_evidence,
     )
+    visual_audit_report = final_artifact_evidence.get("visual_audit_report") or {}
+    _add_check(
+        checks,
+        "visual_audit_schema_proof_pass",
+        bool(visual_audit_report.get("exists"))
+        and issue_schema_validation.get("pass") is True
+        and int(issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
+        and normalized_issue_schema_validation.get("pass") is True
+        and int(normalized_issue_schema_validation.get("noncompliant_issue_count") or 0) == 0,
+        (
+            "Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema "
+            "proof; normalized proof alone does not replace raw historical issue compliance."
+        ),
+        {
+            "visual_audit_report": visual_audit_report,
+            "issue_schema_validation": {
+                "path": str(issue_schema_validation_path),
+                "status": issue_schema_validation.get("status"),
+                "pass": issue_schema_validation.get("pass"),
+                "issue_count": issue_schema_validation.get("issue_count"),
+                "noncompliant_issue_count": issue_schema_validation.get("noncompliant_issue_count"),
+                "failure_bucket": issue_schema_validation.get("failure_bucket") or [],
+            },
+            "normalized_issue_schema_validation": {
+                "path": str(normalized_issue_schema_validation_path),
+                "status": normalized_issue_schema_validation.get("status"),
+                "pass": normalized_issue_schema_validation.get("pass"),
+                "issue_count": normalized_issue_schema_validation.get("issue_count"),
+                "noncompliant_issue_count": normalized_issue_schema_validation.get("noncompliant_issue_count"),
+                "failure_bucket": normalized_issue_schema_validation.get("failure_bucket") or [],
+            },
+            "normalized_proof_is_supporting_only": True,
+        },
+    )
 
     failed = [item for item in checks if item["status"] != "pass"]
     status = _status_from_checks(checks)
@@ -188,6 +228,7 @@ def build_product_evidence_gate(
         acceptance_ok=_check_pass(checks, "application_ui_006_acceptance_pass"),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
+        visual_audit_schema_ok=_check_pass(checks, "visual_audit_schema_proof_pass"),
     )
     payload = {
         "schema": SCHEMA,
@@ -212,6 +253,8 @@ def build_product_evidence_gate(
             "regeneration_gate": str(regeneration_gate_path),
             "acceptance_proof": str(acceptance_proof_path),
             "requested_status": str(requested_status_path),
+            "issue_schema_validation": str(issue_schema_validation_path),
+            "normalized_issue_schema_validation": str(normalized_issue_schema_validation_path),
         },
         "next_required_action": _next_required_action(status),
     }
@@ -295,7 +338,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_006_application_ui_review"
     if not _check_pass(checks, "requested_ref6_ui_status_pass"):
         return "blocked_by_requested_ref6_ui_review"
-    if not _check_pass(checks, "final_release_artifacts_present"):
+    if not _check_pass(checks, "final_release_artifacts_present") or not _check_pass(checks, "visual_audit_schema_proof_pass"):
         return "warning_not_release_ready"
     return "pass"
 
@@ -309,13 +352,14 @@ def _allowed_actions(
     acceptance_ok: bool,
     requested_ok: bool,
     final_artifacts_ok: bool,
+    visual_audit_schema_ok: bool,
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok)
     ui_review = bool(regeneration_ok)
     expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and ref6_complete)
-    full_129 = bool(lb26001_36 and final_artifacts_ok)
+    full_129 = bool(lb26001_36 and final_artifacts_ok and visual_audit_schema_ok)
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
         "006_application_ui_review_allowed_now": ui_review,
@@ -351,7 +395,7 @@ def _next_required_action(status: str) -> str:
     if status == "blocked_by_requested_ref6_ui_review":
         return "Only after 006 passes, process 007/008/009/015/022 with per-drawing UI screenshot evidence."
     if status == "warning_not_release_ready":
-        return "Complete final EXE, stability, Visual Audit, and release artifacts before release."
+        return "Complete final EXE, stability, Visual Audit raw/normalized issue schema proof, and release artifacts before release."
     if status == "pass":
         return "All product evidence gates passed."
     return "Fix the failing product evidence checks before advancing the validation stage."
@@ -370,6 +414,8 @@ def main() -> int:
     parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
+    parser.add_argument("--issue-schema-validation", default=str(DEFAULT_ISSUE_SCHEMA_VALIDATION))
+    parser.add_argument("--normalized-issue-schema-validation", default=str(DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION))
     parser.add_argument("--out-json", default=str(DEFAULT_OUT_JSON))
     parser.add_argument("--out-md", default=str(DEFAULT_OUT_MD))
     args = parser.parse_args()
@@ -380,6 +426,8 @@ def main() -> int:
         regeneration_gate_path=_repo_path(args.regeneration_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),
         requested_status_path=_repo_path(args.requested_status),
+        issue_schema_validation_path=_repo_path(args.issue_schema_validation),
+        normalized_issue_schema_validation_path=_repo_path(args.normalized_issue_schema_validation),
         out_json=_repo_path(args.out_json),
         out_md=_repo_path(args.out_md),
     )

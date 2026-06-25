@@ -19,7 +19,17 @@ def _write_file(path: Path) -> Path:
     return path
 
 
-def _fixture(root: Path, *, readiness_ready: bool = True, regeneration_pass: bool = True, acceptance_pass: bool = True, requested_pass: bool = True, final_artifacts: bool = True) -> dict[str, Path]:
+def _fixture(
+    root: Path,
+    *,
+    readiness_ready: bool = True,
+    regeneration_pass: bool = True,
+    acceptance_pass: bool = True,
+    requested_pass: bool = True,
+    final_artifacts: bool = True,
+    raw_issue_schema_pass: bool = True,
+    normalized_issue_schema_pass: bool = True,
+) -> dict[str, Path]:
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -96,6 +106,26 @@ def _fixture(root: Path, *, readiness_ready: bool = True, regeneration_pass: boo
                 ],
             },
         ),
+        "issue_schema": _write_json(
+            root / "issue_schema_validation.json",
+            {
+                "status": "pass" if raw_issue_schema_pass else "fail",
+                "pass": raw_issue_schema_pass,
+                "issue_count": 10,
+                "noncompliant_issue_count": 0 if raw_issue_schema_pass else 7,
+                "failure_bucket": [] if raw_issue_schema_pass else ["vision_issue_schema_incomplete"],
+            },
+        ),
+        "normalized_issue_schema": _write_json(
+            root / "issue_schema_validation_normalized.json",
+            {
+                "status": "pass" if normalized_issue_schema_pass else "fail",
+                "pass": normalized_issue_schema_pass,
+                "issue_count": 10,
+                "noncompliant_issue_count": 0 if normalized_issue_schema_pass else 1,
+                "failure_bucket": [] if normalized_issue_schema_pass else ["normalized_issue_schema_incomplete"],
+            },
+        ),
     }
     final = {
         "release_log": root / "release_log_v3_0.md",
@@ -119,6 +149,8 @@ def _build(paths: dict[str, Path]) -> dict:
         regeneration_gate_path=paths["regeneration"],
         acceptance_proof_path=paths["acceptance"],
         requested_status_path=paths["requested"],
+        issue_schema_validation_path=paths["issue_schema"],
+        normalized_issue_schema_validation_path=paths["normalized_issue_schema"],
         final_artifacts=paths["final_artifacts"],  # type: ignore[arg-type]
     )
 
@@ -181,6 +213,19 @@ def test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
         assert "final_release_artifacts_present" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), raw_issue_schema_pass=False, normalized_issue_schema_pass=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        assert check["details"]["normalized_proof_is_supporting_only"] is True
+
+
 def test_product_evidence_gate_tool_is_file_only() -> None:
     source = Path("tools/validation/product_evidence_gate_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -202,5 +247,6 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
+    test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_tool_is_file_only()
     print("PASS test_v4_4_product_evidence_gate")

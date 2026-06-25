@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 00:16:21",
+  "generated_at": "2026-06-26 00:23:13",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -173,6 +173,37 @@
           "size_bytes": 0
         }
       }
+    },
+    {
+      "key": "visual_audit_schema_proof_pass",
+      "status": "fail",
+      "message": "Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema proof; normalized proof alone does not replace raw historical issue compliance.",
+      "details": {
+        "visual_audit_report": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+          "exists": false,
+          "size_bytes": 0
+        },
+        "issue_schema_validation": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+          "status": "fail",
+          "pass": false,
+          "issue_count": 4538,
+          "noncompliant_issue_count": 4330,
+          "failure_bucket": [
+            "vision_issue_schema_incomplete"
+          ]
+        },
+        "normalized_issue_schema_validation": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+          "status": "pass",
+          "pass": true,
+          "issue_count": 4538,
+          "noncompliant_issue_count": 0,
+          "failure_bucket": []
+        },
+        "normalized_proof_is_supporting_only": true
+      }
     }
   ],
   "blocking_issue_keys": [
@@ -180,7 +211,8 @@
     "regeneration_006_fresh_evidence_pass",
     "application_ui_006_acceptance_pass",
     "requested_ref6_ui_status_pass",
-    "final_release_artifacts_present"
+    "final_release_artifacts_present",
+    "visual_audit_schema_proof_pass"
   ],
   "source_artifacts": {
     "stability_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
@@ -188,7 +220,9 @@
     "reference_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_reference_intent_proof_v4_4.json",
     "regeneration_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
     "acceptance_proof": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
-    "requested_status": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json"
+    "requested_status": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
+    "issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+    "normalized_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json"
   },
   "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
 }
