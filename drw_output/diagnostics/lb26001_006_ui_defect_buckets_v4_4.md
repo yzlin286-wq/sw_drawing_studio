@@ -15,6 +15,15 @@
 - `projection_view_style_mismatch`: front/top/right/iso view scale and composition match the reference
 - `callout_missing`: M4-6H through-thread, 4-3.3 hole callout, Ra3.2 rest roughness, and radius/chamfer absence are explicitly checked
 
+## Bucket Closure Contract
+
+- `dimension_visual_overdense`: manual_visual_judgement must confirm the visible DisplayDim set is compact, readable, and matches the 12 reference-intent manufacturing targets.
+- `dimension_lane_wrong`: manual_visual_judgement must confirm leaders and text stay in compact local top/bottom lanes with no cross-region clutter.
+- `note_missing_or_wrong`: manual_visual_judgement must confirm manufacturing notes and roughness text match the reference note region.
+- `titlebar_incomplete`: manual_visual_judgement must confirm the title/data area uses only the compact reference-like fields.
+- `projection_view_style_mismatch`: manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference.
+- `callout_missing`: manual_visual_judgement reference_callout_checklist must prove required callouts are present and radius/chamfer callouts are not fabricated.
+
 ## Bucket Evidence
 
 ### dimension_visual_overdense

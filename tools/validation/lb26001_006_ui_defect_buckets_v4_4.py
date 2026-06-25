@@ -43,6 +43,78 @@ BUCKET_ORDER = [
     "projection_view_style_mismatch",
     "callout_missing",
 ]
+REQUIRED_CALLOUT_KEYS = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+CALLOUT_ABSENCE_CHECK_KEYS = ["radius_callout", "chamfer_callout"]
+
+COMMON_REPAIR_INPUTS = [
+    "application_drawing_review_ui_screenshot_failure",
+    "reference_intent_dimension_plan_006",
+    "reference_intent_dimension_contract_006",
+    "lb26001_006_ui_defect_buckets_v4_4",
+]
+COMMON_POST_RERUN_EVIDENCE = [
+    "fresh_run_manifest",
+    "generated_slddrw_pdf_dxf_png",
+    "reference_compare_v4",
+    "vision_qc_v6",
+    "application_drawing_review_ui_screenshot",
+    "manual_visual_judgement",
+]
+BUCKET_IMPLEMENTATION_GUARDS = {
+    "dimension_visual_overdense": [
+        "generator.physical_displaydim_dedupe",
+        "generator.ui_defect_reject_autodim",
+        "dimension_visual_validator.reference_style_readability_gate",
+    ],
+    "dimension_lane_wrong": [
+        "generator.ui_defect_compact_lanes",
+        "dimension_arrange.top_view_local_reference_lanes",
+        "vision_qc_v6.dimension_cluster_issue",
+    ],
+    "note_missing_or_wrong": [
+        "generator.ui_defect_compact_notes",
+        "vision_qc_v6.template_policy_supporting_api_guard",
+        "manual_visual_judgement_template.all_required_checklist_items",
+    ],
+    "titlebar_incomplete": [
+        "generator.ui_defect_compact_titlebar",
+        "vision_qc_v6.reference_sheet_template_artifact_check",
+        "drawing_visual_review_suite.application_ui_source_mode",
+    ],
+    "projection_view_style_mismatch": [
+        "generator.reference_outline_layout_extraction",
+        "generator.persisted_layout_target_outlines",
+        "reference_compare.post_layout_final_required",
+    ],
+    "callout_missing": [
+        "generator.reference_callout_review_plan",
+        "generator.reference_callout_required_keys",
+        "vision_qc_v6.reference_callout_manual_checklist",
+    ],
+}
+BUCKET_PASS_CONDITIONS = {
+    "dimension_visual_overdense": (
+        "manual_visual_judgement must confirm the visible DisplayDim set is compact, readable, "
+        "and matches the 12 reference-intent manufacturing targets."
+    ),
+    "dimension_lane_wrong": (
+        "manual_visual_judgement must confirm leaders and text stay in compact local top/bottom lanes "
+        "with no cross-region clutter."
+    ),
+    "note_missing_or_wrong": (
+        "manual_visual_judgement must confirm manufacturing notes and roughness text match the reference note region."
+    ),
+    "titlebar_incomplete": (
+        "manual_visual_judgement must confirm the title/data area uses only the compact reference-like fields."
+    ),
+    "projection_view_style_mismatch": (
+        "manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference."
+    ),
+    "callout_missing": (
+        "manual_visual_judgement reference_callout_checklist must prove required callouts are present "
+        "and radius/chamfer callouts are not fabricated."
+    ),
+}
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -281,6 +353,8 @@ def build_report(
     bucket_keys = {str(item.get("key") or "") for item in buckets}
     required_bucket_keys = list(BUCKET_ORDER)
     required_next_screenshot_check_buckets = list(BUCKET_ORDER)
+    bucket_closure_contract = _bucket_closure_contract(required_bucket_keys)
+    closure_contract_keys = {str(item.get("bucket") or "") for item in bucket_closure_contract}
     solidworks_blocking = list(readiness.get("blocking_issue_keys") or [])
     ready = bool(readiness.get("ready_to_start_locked_006_cad"))
     visual_pass = bool(manual_review.get("visual_acceptance_pass"))
@@ -326,8 +400,10 @@ def build_report(
         "missing_bucket_keys": sorted(set(required_bucket_keys) - bucket_keys),
         "required_next_screenshot_check_buckets": required_next_screenshot_check_buckets,
         "next_screenshot_checklist": _next_screenshot_checklist(required_next_screenshot_check_buckets),
-        "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
-        "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
+        "reference_callout_review_required_keys": REQUIRED_CALLOUT_KEYS,
+        "reference_callout_absence_check_keys": CALLOUT_ABSENCE_CHECK_KEYS,
+        "bucket_closure_contract": bucket_closure_contract,
+        "missing_bucket_closure_contract_keys": sorted(set(required_bucket_keys) - closure_contract_keys),
         "source_artifacts": {
             "manual_review": str(manual_review_path),
             "ui_report": str(ui_report_path),
@@ -371,14 +447,43 @@ def _next_screenshot_checklist(bucket_keys: list[str]) -> list[dict[str, Any]]:
             "pass_condition": "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006",
         }
         if key == "callout_missing":
-            item["required_callout_keys"] = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
-            item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
+            item["required_callout_keys"] = REQUIRED_CALLOUT_KEYS
+            item["absence_check_keys"] = CALLOUT_ABSENCE_CHECK_KEYS
             item["pass_condition"] = (
                 "manual_visual_judgement reference_callout_checklist proves required callouts present "
                 "and radius/chamfer are not fabricated"
             )
         checklist.append(item)
     return checklist
+
+
+def _bucket_closure_contract(bucket_keys: list[str]) -> list[dict[str, Any]]:
+    contracts: list[dict[str, Any]] = []
+    for key in bucket_keys:
+        post_rerun_evidence = list(COMMON_POST_RERUN_EVIDENCE)
+        if key == "callout_missing":
+            post_rerun_evidence.append("reference_callout_checklist")
+        item: dict[str, Any] = {
+            "bucket": key,
+            "source_failure_evidence": [
+                "application_drawing_review_ui_screenshot",
+                "manual_visual_judgement_failed_checklist",
+            ],
+            "repair_inputs": list(COMMON_REPAIR_INPUTS),
+            "implementation_guard_keys": list(BUCKET_IMPLEMENTATION_GUARDS.get(key, [])),
+            "post_rerun_required_evidence": post_rerun_evidence,
+            "ui_review_pass_condition": BUCKET_PASS_CONDITIONS.get(
+                key,
+                "manual_visual_judgement must mark this bucket pass for LB26001-A-04-006.",
+            ),
+            "api_or_displaydim_metric_alone_can_close": False,
+        }
+        if key == "callout_missing":
+            item["required_callout_keys"] = REQUIRED_CALLOUT_KEYS
+            item["absence_check_keys"] = CALLOUT_ABSENCE_CHECK_KEYS
+            item["reference_callout_checklist_required"] = True
+        contracts.append(item)
+    return contracts
 
 
 def render_markdown(report: dict[str, Any]) -> str:
@@ -396,6 +501,13 @@ def render_markdown(report: dict[str, Any]) -> str:
     ]
     for item in report.get("next_screenshot_checklist") or []:
         lines.append(f"- `{item.get('bucket')}`: {item.get('expected_ui_evidence')}")
+    lines.extend([
+        "",
+        "## Bucket Closure Contract",
+        "",
+    ])
+    for item in report.get("bucket_closure_contract") or []:
+        lines.append(f"- `{item.get('bucket')}`: {item.get('ui_review_pass_condition')}")
     lines.extend([
         "",
         "## Bucket Evidence",

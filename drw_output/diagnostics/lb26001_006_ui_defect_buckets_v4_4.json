@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-26 03:33:49",
+  "generated_at": "2026-06-26 03:46:57",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -120,6 +120,187 @@
     "radius_callout",
     "chamfer_callout"
   ],
+  "bucket_closure_contract": [
+    {
+      "bucket": "dimension_visual_overdense",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.physical_displaydim_dedupe",
+        "generator.ui_defect_reject_autodim",
+        "dimension_visual_validator.reference_style_readability_gate"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement must confirm the visible DisplayDim set is compact, readable, and matches the 12 reference-intent manufacturing targets.",
+      "api_or_displaydim_metric_alone_can_close": false
+    },
+    {
+      "bucket": "dimension_lane_wrong",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.ui_defect_compact_lanes",
+        "dimension_arrange.top_view_local_reference_lanes",
+        "vision_qc_v6.dimension_cluster_issue"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement must confirm leaders and text stay in compact local top/bottom lanes with no cross-region clutter.",
+      "api_or_displaydim_metric_alone_can_close": false
+    },
+    {
+      "bucket": "note_missing_or_wrong",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.ui_defect_compact_notes",
+        "vision_qc_v6.template_policy_supporting_api_guard",
+        "manual_visual_judgement_template.all_required_checklist_items"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement must confirm manufacturing notes and roughness text match the reference note region.",
+      "api_or_displaydim_metric_alone_can_close": false
+    },
+    {
+      "bucket": "titlebar_incomplete",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.ui_defect_compact_titlebar",
+        "vision_qc_v6.reference_sheet_template_artifact_check",
+        "drawing_visual_review_suite.application_ui_source_mode"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement must confirm the title/data area uses only the compact reference-like fields.",
+      "api_or_displaydim_metric_alone_can_close": false
+    },
+    {
+      "bucket": "projection_view_style_mismatch",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.reference_outline_layout_extraction",
+        "generator.persisted_layout_target_outlines",
+        "reference_compare.post_layout_final_required"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference.",
+      "api_or_displaydim_metric_alone_can_close": false
+    },
+    {
+      "bucket": "callout_missing",
+      "source_failure_evidence": [
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement_failed_checklist"
+      ],
+      "repair_inputs": [
+        "application_drawing_review_ui_screenshot_failure",
+        "reference_intent_dimension_plan_006",
+        "reference_intent_dimension_contract_006",
+        "lb26001_006_ui_defect_buckets_v4_4"
+      ],
+      "implementation_guard_keys": [
+        "generator.reference_callout_review_plan",
+        "generator.reference_callout_required_keys",
+        "vision_qc_v6.reference_callout_manual_checklist"
+      ],
+      "post_rerun_required_evidence": [
+        "fresh_run_manifest",
+        "generated_slddrw_pdf_dxf_png",
+        "reference_compare_v4",
+        "vision_qc_v6",
+        "application_drawing_review_ui_screenshot",
+        "manual_visual_judgement",
+        "reference_callout_checklist"
+      ],
+      "ui_review_pass_condition": "manual_visual_judgement reference_callout_checklist must prove required callouts are present and radius/chamfer callouts are not fabricated.",
+      "api_or_displaydim_metric_alone_can_close": false,
+      "required_callout_keys": [
+        "thread_callout_m4_6h",
+        "surface_finish_rest_3_2"
+      ],
+      "absence_check_keys": [
+        "radius_callout",
+        "chamfer_callout"
+      ],
+      "reference_callout_checklist_required": true
+    }
+  ],
+  "missing_bucket_closure_contract_keys": [],
   "source_artifacts": {
     "manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
     "ui_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",

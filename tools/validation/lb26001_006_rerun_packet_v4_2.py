@@ -32,6 +32,20 @@ REQUIRED_VISUAL_CHECKS = [
     "title_block",
     "manufacturing_notes",
 ]
+REQUIRED_ACTIVE_UI_DEFECT_BUCKETS = {
+    "dimension_visual_overdense",
+    "dimension_lane_wrong",
+    "note_missing_or_wrong",
+    "titlebar_incomplete",
+    "projection_view_style_mismatch",
+}
+REQUIRED_UI_DEFECT_BUCKETS = REQUIRED_ACTIVE_UI_DEFECT_BUCKETS | {"callout_missing"}
+REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
+CALLOUT_ABSENCE_CHECK_KEYS = {"radius_callout", "chamfer_callout"}
+REQUIRED_CLOSURE_EVIDENCE_KEYS = {
+    "application_drawing_review_ui_screenshot",
+    "manual_visual_judgement",
+}
 
 DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
 DEFAULT_REQUESTED_STATUS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_requested_drawings_status_v4_2.json"
@@ -398,14 +412,8 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         for item in (payload.get("active_buckets") or [])
         if str(item).strip()
     ]
-    expected_active = {
-        "dimension_visual_overdense",
-        "dimension_lane_wrong",
-        "note_missing_or_wrong",
-        "titlebar_incomplete",
-        "projection_view_style_mismatch",
-    }
-    expected_all = expected_active | {"callout_missing"}
+    expected_active = REQUIRED_ACTIVE_UI_DEFECT_BUCKETS
+    expected_all = REQUIRED_UI_DEFECT_BUCKETS
     next_check_buckets = {
         str(item)
         for item in (payload.get("required_next_screenshot_check_buckets") or [])
@@ -415,9 +423,41 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     checklist_buckets = {str(item.get("bucket") or "") for item in checklist_items}
     callout_check = next((item for item in checklist_items if item.get("bucket") == "callout_missing"), {})
     callout_next_check_ok = (
-        {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
-        <= set(callout_check.get("required_callout_keys") or [])
-        and {"radius_callout", "chamfer_callout"} <= set(callout_check.get("absence_check_keys") or [])
+        REQUIRED_CALLOUT_KEYS <= set(callout_check.get("required_callout_keys") or [])
+        and CALLOUT_ABSENCE_CHECK_KEYS <= set(callout_check.get("absence_check_keys") or [])
+    )
+    closure_items = [item for item in payload.get("bucket_closure_contract") or [] if isinstance(item, dict)]
+    closure_by_bucket = {str(item.get("bucket") or ""): item for item in closure_items}
+    missing_closure_contract = sorted(expected_all - set(closure_by_bucket))
+    incomplete_closure_contracts: dict[str, list[str]] = {}
+    for bucket in sorted(expected_all):
+        item = closure_by_bucket.get(bucket) or {}
+        missing_fields: list[str] = []
+        if not item.get("source_failure_evidence"):
+            missing_fields.append("source_failure_evidence")
+        if not item.get("repair_inputs"):
+            missing_fields.append("repair_inputs")
+        if not item.get("implementation_guard_keys"):
+            missing_fields.append("implementation_guard_keys")
+        post_evidence = set(item.get("post_rerun_required_evidence") or [])
+        if not REQUIRED_CLOSURE_EVIDENCE_KEYS <= post_evidence:
+            missing_fields.append("post_rerun_required_evidence")
+        if not str(item.get("ui_review_pass_condition") or "").strip():
+            missing_fields.append("ui_review_pass_condition")
+        if bucket == "callout_missing":
+            if not REQUIRED_CALLOUT_KEYS <= set(item.get("required_callout_keys") or []):
+                missing_fields.append("required_callout_keys")
+            if not CALLOUT_ABSENCE_CHECK_KEYS <= set(item.get("absence_check_keys") or []):
+                missing_fields.append("absence_check_keys")
+            if "reference_callout_checklist" not in post_evidence:
+                missing_fields.append("reference_callout_checklist")
+        if missing_fields:
+            incomplete_closure_contracts[bucket] = missing_fields
+    callout_closure_contract = closure_by_bucket.get("callout_missing") or {}
+    callout_closure_contract_ok = (
+        REQUIRED_CALLOUT_KEYS <= set(callout_closure_contract.get("required_callout_keys") or [])
+        and CALLOUT_ABSENCE_CHECK_KEYS <= set(callout_closure_contract.get("absence_check_keys") or [])
+        and "reference_callout_checklist" in set(callout_closure_contract.get("post_rerun_required_evidence") or [])
     )
     missing_active = sorted(expected_active - set(active_buckets))
     missing_next_check = sorted(expected_all - next_check_buckets)
@@ -433,6 +473,9 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         and not missing_next_check
         and not missing_checklist
         and callout_next_check_ok
+        and not missing_closure_contract
+        and not incomplete_closure_contracts
+        and callout_closure_contract_ok
     )
     return {
         "path": str(path),
@@ -446,6 +489,10 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "missing_next_screenshot_check_buckets": missing_next_check,
         "missing_next_screenshot_checklist_buckets": missing_checklist,
         "callout_next_check_ok": callout_next_check_ok,
+        "bucket_closure_contract_buckets": sorted(set(closure_by_bucket)),
+        "missing_bucket_closure_contract_keys": missing_closure_contract,
+        "incomplete_bucket_closure_contracts": incomplete_closure_contracts,
+        "callout_closure_contract_ok": callout_closure_contract_ok,
         "solidworks_readiness": payload.get("solidworks_readiness") or {},
     }
 

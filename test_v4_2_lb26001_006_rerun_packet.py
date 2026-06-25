@@ -170,6 +170,8 @@ def _build_packet_fixture(
     stale_correction_plan: bool = False,
     stale_screenshot_content_status: bool = False,
     omit_ui_defect_callout_next_check: bool = False,
+    omit_ui_defect_closure_contract_bucket: str = "",
+    omit_ui_defect_callout_closure_keys: bool = False,
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -264,6 +266,36 @@ def _build_packet_fixture(
                 "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
                 "absence_check_keys": ["radius_callout", "chamfer_callout"],
             })
+        bucket_closure_contract = []
+        for key in required_active_buckets + ["callout_missing"]:
+            if key == omit_ui_defect_closure_contract_bucket:
+                continue
+            item = {
+                "bucket": key,
+                "source_failure_evidence": [
+                    "application_drawing_review_ui_screenshot",
+                    "manual_visual_judgement_failed_checklist",
+                ],
+                "repair_inputs": [
+                    "reference_intent_dimension_plan_006",
+                    "reference_intent_dimension_contract_006",
+                    "lb26001_006_ui_defect_buckets_v4_4",
+                ],
+                "implementation_guard_keys": ["generator.ui_defect_bucket_constraints"],
+                "post_rerun_required_evidence": [
+                    "fresh_run_manifest",
+                    "application_drawing_review_ui_screenshot",
+                    "manual_visual_judgement",
+                ],
+                "ui_review_pass_condition": "fixture pass condition",
+                "api_or_displaydim_metric_alone_can_close": False,
+            }
+            if key == "callout_missing":
+                item["post_rerun_required_evidence"].append("reference_callout_checklist")
+                if not omit_ui_defect_callout_closure_keys:
+                    item["required_callout_keys"] = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+                    item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
+            bucket_closure_contract.append(item)
         ui_defect_buckets.write_text(
             json.dumps(
                 {
@@ -280,6 +312,8 @@ def _build_packet_fixture(
                     "next_screenshot_checklist": next_screenshot_checklist,
                     "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
                     "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
+                    "bucket_closure_contract": bucket_closure_contract,
+                    "missing_bucket_closure_contract_keys": [],
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -372,6 +406,10 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert "dimension_visual_overdense" in packet["ui_defect_buckets"]["active_buckets"]
     assert "callout_missing" in packet["ui_defect_buckets"]["required_next_screenshot_check_buckets"]
     assert packet["ui_defect_buckets"]["callout_next_check_ok"] is True
+    assert "dimension_lane_wrong" in packet["ui_defect_buckets"]["bucket_closure_contract_buckets"]
+    assert packet["ui_defect_buckets"]["missing_bucket_closure_contract_keys"] == []
+    assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"] == {}
+    assert packet["ui_defect_buckets"]["callout_closure_contract_ok"] is True
     assert packet["expansion_policy"]["006_must_pass_first"] is True
     assert "LB26001-A-04-006" in result["markdown"]
     assert "Do not run real CAD" in result["markdown"]
@@ -706,6 +744,36 @@ def test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing() -> 
     assert packet["ui_defect_buckets"]["missing_next_screenshot_check_buckets"] == ["callout_missing"]
     assert packet["ui_defect_buckets"]["missing_next_screenshot_checklist_buckets"] == ["callout_missing"]
     assert packet["ui_defect_buckets"]["callout_next_check_ok"] is False
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_closure_contract_bucket="dimension_lane_wrong",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_bucket_closure_contract_keys"] == ["dimension_lane_wrong"]
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_callout_closure_keys=True,
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["callout_closure_contract_ok"] is False
+    assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"]["callout_missing"] == [
+        "required_callout_keys",
+        "absence_check_keys",
+    ]
 
 
 def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
@@ -1075,6 +1143,8 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_strict_target_match_missing()
     test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
+    test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
+    test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()
     test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()

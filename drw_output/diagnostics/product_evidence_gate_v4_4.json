@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 03:36:16",
+  "generated_at": "2026-06-26 03:48:46",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -233,7 +233,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 03:33:49",
+        "generated_at": "2026-06-26 03:46:57",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -277,6 +277,17 @@
         "missing_next_check_buckets": [],
         "missing_next_checklist_buckets": [],
         "callout_next_check_ok": true,
+        "bucket_closure_contract_buckets": [
+          "callout_missing",
+          "dimension_lane_wrong",
+          "dimension_visual_overdense",
+          "note_missing_or_wrong",
+          "projection_view_style_mismatch",
+          "titlebar_incomplete"
+        ],
+        "missing_bucket_closure_contract_keys": [],
+        "incomplete_bucket_closure_contracts": {},
+        "callout_closure_contract_ok": true,
         "defect_plan_ready": true,
         "defect_closure_pass": false
       }
@@ -463,7 +474,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 884981
+          "size_bytes": 888737
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

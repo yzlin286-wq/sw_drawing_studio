@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 03:34:10",
+  "generated_at": "2026-06-26 03:47:02",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -302,6 +302,17 @@
     "missing_next_screenshot_check_buckets": [],
     "missing_next_screenshot_checklist_buckets": [],
     "callout_next_check_ok": true,
+    "bucket_closure_contract_buckets": [
+      "callout_missing",
+      "dimension_lane_wrong",
+      "dimension_visual_overdense",
+      "note_missing_or_wrong",
+      "projection_view_style_mismatch",
+      "titlebar_incomplete"
+    ],
+    "missing_bucket_closure_contract_keys": [],
+    "incomplete_bucket_closure_contracts": {},
+    "callout_closure_contract_ok": true,
     "solidworks_readiness": {
       "status": "blocked",
       "ready_to_start_locked_006_cad": false,
@@ -500,6 +511,17 @@
         "missing_next_screenshot_check_buckets": [],
         "missing_next_screenshot_checklist_buckets": [],
         "callout_next_check_ok": true,
+        "bucket_closure_contract_buckets": [
+          "callout_missing",
+          "dimension_lane_wrong",
+          "dimension_visual_overdense",
+          "note_missing_or_wrong",
+          "projection_view_style_mismatch",
+          "titlebar_incomplete"
+        ],
+        "missing_bucket_closure_contract_keys": [],
+        "incomplete_bucket_closure_contracts": {},
+        "callout_closure_contract_ok": true,
         "solidworks_readiness": {
           "status": "blocked",
           "ready_to_start_locked_006_cad": false,

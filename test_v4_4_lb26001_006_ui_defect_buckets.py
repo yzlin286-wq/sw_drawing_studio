@@ -135,12 +135,26 @@ def main() -> None:
         assert checklist["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]
         assert report["reference_callout_review_required_keys"] == ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
         assert report["reference_callout_absence_check_keys"] == ["radius_callout", "chamfer_callout"]
+        contract = {item["bucket"]: item for item in report["bucket_closure_contract"]}
+        assert set(contract) == set(report["required_bucket_keys"])
+        assert report["missing_bucket_closure_contract_keys"] == []
+        assert contract["dimension_visual_overdense"]["api_or_displaydim_metric_alone_can_close"] is False
+        assert "generator.physical_displaydim_dedupe" in contract["dimension_visual_overdense"]["implementation_guard_keys"]
+        assert "application_drawing_review_ui_screenshot" in contract["dimension_lane_wrong"]["post_rerun_required_evidence"]
+        assert "manual_visual_judgement" in contract["titlebar_incomplete"]["post_rerun_required_evidence"]
+        assert contract["callout_missing"]["required_callout_keys"] == [
+            "thread_callout_m4_6h",
+            "surface_finish_rest_3_2",
+        ]
+        assert contract["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]
+        assert "reference_callout_checklist" in contract["callout_missing"]["post_rerun_required_evidence"]
         assert report["source_artifacts"]["manual_review"] == str(manual)
         assert report["solidworks_readiness"]["blocking_issue_keys"] == ["solidworks_not_running"]
         markdown = render_markdown(report)
         assert "Do not run full_129" in markdown
         assert "dimension_visual_overdense" in markdown
         assert "callout_missing" in markdown
+        assert "Bucket Closure Contract" in markdown
 
     print("PASS test_v4_4_lb26001_006_ui_defect_buckets")
 

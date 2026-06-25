@@ -12292,3 +12292,54 @@ Remaining issues:
 - SolidWorks is still not running; readiness remains `solidworks_not_running`.
 - The next allowed CAD action, after readiness becomes safe, is still exactly one locked 006-only CAD worker run.
 - The next application Drawing Review UI screenshot must explicitly judge all six Task 5 buckets, including `callout_missing`; without that UI screenshot PASS, 006 remains not accepted.
+
+## v4.4 006 Defect Bucket Closure Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change adds offline closure-contract evidence for the next 006-only correction loop. It does not accept 006 and does not unlock `007/008/009/015/022`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+  - Adds top-level `bucket_closure_contract` and `missing_bucket_closure_contract_keys`.
+  - Each Task 5 bucket now records source failure evidence, repair inputs, implementation guard keys, post-rerun required evidence, a UI screenshot pass condition, and `api_or_displaydim_metric_alone_can_close=false`.
+  - `callout_missing` additionally requires `reference_callout_checklist`, `thread_callout_m4_6h`, `surface_finish_rest_3_2`, and radius/chamfer absence checks.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - The 006 rerun packet now blocks offline readiness when any required bucket closure contract is missing or incomplete.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Product Gate now records and requires `missing_bucket_closure_contract_keys=[]`, `incomplete_bucket_closure_contracts={}`, and `callout_closure_contract_ok=true` for `lb26001_006_ui_defect_buckets_ready`.
+- Updated tests:
+  - `test_v4_4_lb26001_006_ui_defect_buckets.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_ui_defect_buckets_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_lb26001_006_ui_defect_buckets.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_ui_defect_buckets.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed UI defect buckets remain `status=blocked_by_solidworks_readiness`, `pass=false`, with `bucket_closure_contract` count `6` and `missing_bucket_closure_contract_keys=[]`.
+- Refreshed rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`; `ui_defect_buckets.missing_bucket_closure_contract_keys=[]` and `ui_defect_buckets.callout_closure_contract_ok=true`.
+- Refreshed Product Gate remains `blocked_by_solidworks_readiness`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks is still not running; readiness remains `solidworks_not_running`.
+- The next allowed CAD action, after readiness becomes safe, is exactly one locked 006-only CAD worker run.
+- 006 still requires fresh regenerated artifacts plus application Drawing Review UI screenshot PASS before any expansion to `007/008/009/015/022`.
