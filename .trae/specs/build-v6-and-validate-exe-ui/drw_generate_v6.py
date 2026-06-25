@@ -60,6 +60,67 @@ def _ensure_solidworks_global_lock(operation, part_path=""):
     )
 
 
+def _solidworks_doc_registry_event(
+    event_type,
+    *,
+    role="",
+    path="",
+    title="",
+    doc_type="",
+    stage="",
+    close_verified=None,
+    reason="",
+    extra=None,
+):
+    registry = os.environ.get("SWDS_SOLIDWORKS_DOC_REGISTRY", "").strip()
+    if not registry:
+        return
+    try:
+        Path(registry).parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "schema": "sw_drawing_studio.solidworks_document_registry.v1",
+            "event_type": str(event_type),
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "job_id": os.environ.get("JOB_ID") or os.environ.get("SW_DRAWING_STUDIO_LOCK_JOB_ID") or "",
+            "role": str(role or ""),
+            "path": str(path or ""),
+            "title": str(title or ""),
+            "doc_type": str(doc_type or ""),
+            "stage": str(stage or ""),
+            "owned_by_job": True,
+            "close_verified": close_verified,
+            "reason": str(reason or ""),
+            "extra": extra or {},
+        }
+        with open(registry, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(payload, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
+def _doc_title(doc):
+    try:
+        return str(call(doc, "GetTitle") or "")
+    except Exception:
+        return ""
+
+
+def _doc_path(doc):
+    try:
+        return str(call(doc, "GetPathName") or "")
+    except Exception:
+        return ""
+
+
+def _same_abs_path(a, b):
+    if not a or not b:
+        return False
+    try:
+        return os.path.normcase(os.path.abspath(str(a))) == os.path.normcase(os.path.abspath(str(b)))
+    except Exception:
+        return str(a).lower() == str(b).lower()
+
+
 def _apply_horizontal_dimension_text_policy(doc, warnings_box=None, log_fn=log, reason=""):
     attempts = []
     targets = []
@@ -4312,7 +4373,19 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 pn = d.GetPathName if not callable(getattr(d,"GetPathName",None)) else d.GetPathName()
                 if (str(t).startswith("工程图") or str(t).startswith("Drawing") or
                     (pn and os.path.normcase(os.path.abspath(pn)) == os.path.normcase(os.path.abspath(target_drw)))):
+                    if not (pn and _same_abs_path(pn, target_drw)):
+                        continue
                     sw.CloseDoc(t)
+                    _solidworks_doc_registry_event(
+                        "solidworks_doc_closed",
+                        role="generated_drawing",
+                        path=pn,
+                        title=t,
+                        doc_type="drawing",
+                        stage="preflight_close_previous_target",
+                        close_verified=True,
+                        reason="same target drawing path",
+                    )
             except Exception: pass
     except Exception: pass
     for ext_ in (".SLDDRW", ".PDF", ".DXF"):

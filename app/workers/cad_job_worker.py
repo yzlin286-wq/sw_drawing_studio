@@ -208,6 +208,51 @@ def _resource_block_payload(snapshot: dict | None, cleanup: dict | None = None) 
     }
 
 
+def _finalize_solidworks_resources(
+    *,
+    job_id: str,
+    output_dir: str,
+    resource_audit: SolidWorksResourceAudit,
+    solidworks_lock: dict,
+    registry_event_cursor: int,
+    release_reason: str,
+) -> dict:
+    registry_event_cursor = _emit_document_registry_events(job_id, output_dir, registry_event_cursor)
+    cleanup = cleanup_job_owned_documents(output_dir, job_id)
+    registry_event_cursor = _emit_document_registry_events(job_id, output_dir, registry_event_cursor)
+    registry_summary = cleanup.get("registry_summary") or summarize_document_registry(output_dir)
+    _emit(
+        "solidworks_cleanup_finished",
+        job_id,
+        data={
+            "status": cleanup.get("status"),
+            "pass": bool(cleanup.get("pass")),
+            "cleanup_records": cleanup.get("cleanup_records") or [],
+            "document_registry": registry_summary,
+        },
+        message="SolidWorks job-owned document cleanup finished",
+    )
+    after_snapshot = resource_audit.capture(
+        "after_cad_cleanup",
+        lock_result=solidworks_lock,
+        registry_summary=registry_summary,
+    )
+    if after_snapshot.get("resource_blockers"):
+        _emit(
+            "solidworks_resource_blocked",
+            job_id,
+            data=_resource_block_payload(after_snapshot, cleanup),
+            message="SolidWorks resource audit found blockers after CAD cleanup",
+        )
+    release = release_lock(job_id, release_reason)
+    return {
+        "cleanup": cleanup,
+        "after_resource_audit": after_snapshot,
+        "release": release,
+        "registry_event_cursor": registry_event_cursor,
+    }
+
+
 def _copy_if_exists(
     src: Path,
     dst_dir: Path,
@@ -1307,7 +1352,17 @@ def main() -> int:
                 )
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_resource_pressure_before")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_resource_pressure_before",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _emit(
             "solidworks_resource_blocked",
             job_id,
@@ -1353,7 +1408,17 @@ def main() -> int:
                 )
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "reference_intent_contract_prepare_failed")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="reference_intent_contract_prepare_failed",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _emit(
             "job_failed",
             job_id,
@@ -1402,6 +1467,8 @@ def main() -> int:
     env["QC_LOOP_MAX_ROUNDS"] = str(max_rounds)
     env["JOB_ID"] = job_id
     env["SW_DRAWING_STUDIO_LOCK_JOB_ID"] = job_id
+    env[DOC_REGISTRY_ENV] = str(document_registry_path(output_dir))
+    env[RESOURCE_AUDIT_ENV] = str(resource_audit.path)
     if os.environ.get("CAD_WORKER_SUBPROCESS_GENERATOR", "") != "1":
         env["QC_LOOP_INPROCESS_GENERATOR"] = "1"
     if output_dir:
@@ -1492,7 +1559,17 @@ def main() -> int:
                 )
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_timeout")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_timeout",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _emit("job_failed", job_id,
               data={
                   "error": f"子进程超时 ({timeout_s}s)",
@@ -1532,7 +1609,17 @@ def main() -> int:
                 )
             except Exception as manifest_exc:
                 result_data["artifact_collect_error"] = str(manifest_exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_exception")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_exception",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _emit("job_failed", job_id,
               data={
                   "error": str(exc),
@@ -1579,7 +1666,17 @@ def main() -> int:
                 )
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_orphan_descendants")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_orphan_descendants",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _emit("job_failed", job_id,
               data={
                   "error": result_data["error"],
@@ -1648,7 +1745,17 @@ def main() -> int:
                 result_data["worker_manifest"] = manifest
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_finished")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_finished",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _worker_trace(output_dir, "emit_job_finished", result_data=result_data)
         _emit("job_finished", job_id,
               data={"result": result_data},
@@ -1692,7 +1799,17 @@ def main() -> int:
                 result_data["worker_manifest"] = manifest
             except Exception as exc:
                 result_data["artifact_collect_error"] = str(exc)
-        result_data["solidworks_lock_release"] = release_lock(job_id, "cad_job_worker_failed")
+        _resource_final = _finalize_solidworks_resources(
+            job_id=job_id,
+            output_dir=output_dir,
+            resource_audit=resource_audit,
+            solidworks_lock=solidworks_lock,
+            registry_event_cursor=registry_event_cursor,
+            release_reason="cad_job_worker_failed",
+        )
+        result_data["solidworks_cleanup"] = _resource_final["cleanup"]
+        result_data["solidworks_resource_audit_after"] = _resource_final["after_resource_audit"]
+        result_data["solidworks_lock_release"] = _resource_final["release"]
         _worker_trace(output_dir, "emit_job_failed", result_data=result_data)
         _emit("job_failed", job_id,
               data={
