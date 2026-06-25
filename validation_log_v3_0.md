@@ -11811,3 +11811,43 @@ Remaining issues:
 - Latest diagnostics: `drw_output/diagnostics/lb26001_006_acceptance_proof_v4_2.json` is `blocked_by_006`, `drw_output/diagnostics/lb26001_requested_drawings_status_v4_2.json` is `blocked_by_006` with `pass_count=0/not_pass_count=6`, and `drw_output/diagnostics/lb26001_006_real_landing_gap_audit_v4_2.json` is `blocked_by_006_acceptance_proof`.
 - Latest offline source fix: physical DisplayDim de-duplication before reference-intent scoring/pruning is implemented and offline-tested, but not yet proven by fresh real CAD evidence.
 - Main next action: run exactly one locked 006-only real CAD rerun from `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`, then repeat the Drawing Review application UI screenshot/manual checklist gate. API metrics cannot override any visual FAIL.
+
+## v4.4 Product Evidence Gate 006 UI Contract Hardening - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No CAD, COM, OpenDoc6, SaveAs, CloseDoc, automatic restart, or SolidWorks session mutation was run.
+- The change is a Product Evidence Gate hardening step only; it does not make `LB26001-A-04-006` visually accepted.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `regeneration_006_fresh_evidence_pass` now requires the regeneration gate to carry the v4.4 schema, exact 006 base, fresh PASS status, run id/dir, `report_is_drawing_acceptance_evidence=false`, `api_only_acceptance_allowed=false`, `ui_screenshot_acceptance_required=true`, `application_drawing_review_ui_required=true`, and `solidworks_runtime_called=false`.
+  - `expand_007_008_009_015_022_allowed` now also requires `regeneration_006_fresh_evidence_pass`, so a stale 006 run or relaxed API/UI contract cannot unlock the five dependent drawings.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - The complete fixture now models the regeneration UI contract fields.
+  - New regression coverage proves a gate with API-only acceptance enabled, missing UI screenshot requirement, or runtime SolidWorks call is blocked before UI review and expansion.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py test_v4_4_lb26001_006_regeneration_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_regeneration_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_4_lb26001_006_regeneration_evidence_gate.py`: PASS.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`.
+- Blocking keys remain `solidworks_readiness_for_006`, `regeneration_006_fresh_evidence_pass`, `application_ui_006_acceptance_pass`, `canonical_006_ui_visual_review_pass`, `requested_ref6_ui_status_pass`, `final_release_artifacts_present`, `exe_ui_and_stability_proof_pass`, and `visual_audit_schema_proof_pass`.
+- Allowed actions remain all false, including `006_application_ui_review_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- 006 still needs exactly one fresh locked real CAD rerun, followed by Drawing Review application UI screenshot evidence and manual visual judgement.
+- `007/008/009/015/022`, `LB26001_36`, `medium_30`, `full_129`, and release remain blocked until the UI-backed 006 visual gate passes.

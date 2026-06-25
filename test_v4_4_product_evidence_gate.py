@@ -50,6 +50,7 @@ def _fixture(
     reference_plan_complete: bool = True,
     reference_plan_note_substitution: bool = False,
     reference_contract_locked: bool = True,
+    regeneration_ui_contract: bool = True,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -278,12 +279,18 @@ def _fixture(
         "regeneration": _write_json(
             root / "regeneration.json",
             {
+                "schema": "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4",
                 "base": BASE,
                 "pass": regeneration_pass,
                 "status": "regeneration_evidence_pass_requires_application_ui_screenshot_review" if regeneration_pass else "blocked_by_missing_fresh_006_run",
+                "release_ready": False,
                 "run_id": "run006" if regeneration_pass else "",
                 "run_dir": str(root / "runs" / "run006") if regeneration_pass else "",
                 "report_is_drawing_acceptance_evidence": False,
+                "api_only_acceptance_allowed": False if regeneration_ui_contract else True,
+                "ui_screenshot_acceptance_required": regeneration_ui_contract,
+                "application_drawing_review_ui_required": regeneration_ui_contract,
+                "solidworks_runtime_called": False if regeneration_ui_contract else True,
                 "blocking_issue_keys": [] if regeneration_pass else ["explicit_006_run_evidence_source"],
             },
         ),
@@ -573,6 +580,22 @@ def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -
         assert "application_ui_006_acceptance_pass" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), regeneration_ui_contract=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_regeneration_evidence"
+        assert result["allowed_actions"]["006_application_ui_review_allowed_now"] is False
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "regeneration_006_fresh_evidence_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "regeneration_006_fresh_evidence_pass")
+        assert check["details"]["api_only_acceptance_allowed"] is True
+        assert check["details"]["ui_screenshot_acceptance_required"] is False
+        assert check["details"]["application_drawing_review_ui_required"] is False
+        assert check["details"]["solidworks_runtime_called"] is True
+
+
 def test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=False))
@@ -709,6 +732,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
+    test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()

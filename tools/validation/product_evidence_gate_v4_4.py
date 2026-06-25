@@ -253,19 +253,9 @@ def build_product_evidence_gate(
     _add_check(
         checks,
         "regeneration_006_fresh_evidence_pass",
-        regeneration_gate.get("pass") is True
-        and regeneration_gate.get("base") == BASE
-        and bool(regeneration_gate.get("run_id"))
-        and bool(regeneration_gate.get("run_dir"))
-        and regeneration_gate.get("report_is_drawing_acceptance_evidence") is False,
+        _regeneration_gate_pass(regeneration_gate),
         "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
-        {
-            "path": str(regeneration_gate_path),
-            "status": regeneration_gate.get("status"),
-            "pass": regeneration_gate.get("pass"),
-            "run_id": regeneration_gate.get("run_id"),
-            "blocking_issue_keys": regeneration_gate.get("blocking_issue_keys") or [],
-        },
+        _regeneration_gate_summary(regeneration_gate_path, regeneration_gate),
     )
     ui_closure = acceptance_proof.get("ui_closure_evidence") or {}
     _add_check(
@@ -589,7 +579,7 @@ def _allowed_actions(
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok and reference_plan_ok and rerun_packet_ok)
     ui_review = bool(regeneration_ok)
-    expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
+    expand_ref6 = bool(stability_ok and readiness_ok and regeneration_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and reference_plan_ok and rerun_packet_ok and ref6_complete)
     full_129 = bool(lb26001_36 and final_artifacts_ok and exe_ui_stability_ok and visual_audit_schema_ok)
@@ -853,6 +843,41 @@ def _rerun_packet_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]
         "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate"),
         "offline_prerequisite_missing_keys": payload.get("offline_prerequisite_missing_keys") or [],
         "source_signature_summary": _source_signature_summary(payload.get("source_signatures")),
+    }
+
+
+def _regeneration_gate_pass(payload: dict[str, Any]) -> bool:
+    return bool(
+        payload.get("schema") == "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4"
+        and payload.get("pass") is True
+        and payload.get("base") == BASE
+        and payload.get("status") == "regeneration_evidence_pass_requires_application_ui_screenshot_review"
+        and bool(payload.get("run_id"))
+        and bool(payload.get("run_dir"))
+        and payload.get("report_is_drawing_acceptance_evidence") is False
+        and payload.get("api_only_acceptance_allowed") is False
+        and payload.get("ui_screenshot_acceptance_required") is True
+        and payload.get("application_drawing_review_ui_required") is True
+        and payload.get("solidworks_runtime_called") is False
+        and not (payload.get("blocking_issue_keys") or [])
+    )
+
+
+def _regeneration_gate_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "base": payload.get("base"),
+        "run_id": payload.get("run_id"),
+        "run_dir": payload.get("run_dir"),
+        "report_is_drawing_acceptance_evidence": payload.get("report_is_drawing_acceptance_evidence"),
+        "api_only_acceptance_allowed": payload.get("api_only_acceptance_allowed"),
+        "ui_screenshot_acceptance_required": payload.get("ui_screenshot_acceptance_required"),
+        "application_drawing_review_ui_required": payload.get("application_drawing_review_ui_required"),
+        "solidworks_runtime_called": payload.get("solidworks_runtime_called"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
     }
 
 

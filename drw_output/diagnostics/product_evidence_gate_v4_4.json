@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 01:57:37",
+  "generated_at": "2026-06-26 02:04:40",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -287,9 +287,17 @@
       "message": "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regeneration_evidence_gate_v4_4.json",
+        "schema": "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4",
         "status": "blocked_by_missing_fresh_006_run",
         "pass": false,
+        "base": "LB26001-A-04-006",
         "run_id": "",
+        "run_dir": "",
+        "report_is_drawing_acceptance_evidence": false,
+        "api_only_acceptance_allowed": false,
+        "ui_screenshot_acceptance_required": true,
+        "application_drawing_review_ui_required": true,
+        "solidworks_runtime_called": false,
         "blocking_issue_keys": [
           "explicit_006_run_evidence_source"
         ]
