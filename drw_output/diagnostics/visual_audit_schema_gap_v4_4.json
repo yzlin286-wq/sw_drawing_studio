@@ -1,0 +1,285 @@
+{
+  "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
+  "generated_at": "2026-06-26 01:17:28",
+  "status": "raw_issue_schema_noncompliant",
+  "pass": false,
+  "release_ready": false,
+  "visual_audit_schema_evidence_pass": false,
+  "api_only_acceptance_allowed": false,
+  "application_ui_screenshot_is_final_gate_for_requested_drawings": true,
+  "solidworks_runtime_called": false,
+  "normalized_supporting_only": true,
+  "normalized_cannot_replace_raw": true,
+  "raw_issue_schema_pass": false,
+  "normalized_issue_schema_pass": true,
+  "raw_noncompliant_issue_count": 4330,
+  "normalized_noncompliant_issue_count": 0,
+  "visual_audit_report_final_present": false,
+  "visual_audit_index_present": true,
+  "visual_audit_full_scope_allowed_now": false,
+  "source_artifacts": {
+    "raw_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+    "normalized_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+    "product_evidence_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\product_evidence_gate_v4_4.json",
+    "visual_audit_index": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+    "visual_audit_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx"
+  },
+  "raw_issue_schema_summary": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+    "exists": true,
+    "schema": "sw_drawing_studio.issue_schema_validation.v1",
+    "generated_at": "2026-06-22 11:25:15",
+    "status": "fail",
+    "pass": false,
+    "issue_count": 4538,
+    "noncompliant_issue_count": 4330,
+    "failure_bucket": [
+      "vision_issue_schema_incomplete"
+    ],
+    "missing_field_counts_top": {
+      "human_review_status": 4330,
+      "evidence": 4306,
+      "auto_fix_available": 4159,
+      "fix_suggestion": 4091,
+      "confidence": 3899,
+      "source": 3898,
+      "bbox": 3752,
+      "severity": 3684,
+      "key": 3608
+    },
+    "invalid_field_counts_top": {
+      "issue_must_be_object": 3608,
+      "bbox_width_height_must_be_positive": 229
+    },
+    "top_failure_files": [
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-001_vision_qc_v4.json",
+        "failure_count": 32
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-002_vision_qc_v4.json",
+        "failure_count": 32
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-004_vision_qc_v4.json",
+        "failure_count": 32
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-005_vision_qc_v4.json",
+        "failure_count": 32
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-25-1-V3-V02_vision_qc_v4.json",
+        "failure_count": 31
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-26-1-V3-V02_vision_qc_v4.json",
+        "failure_count": 31
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-27-1-V3-V02_vision_qc_v4.json",
+        "failure_count": 31
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-M3x8十字螺丝-1-V3-V02_vision_qc_v4.json",
+        "failure_count": 31
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-弹簧压棒弹簧-1-V3-V02_vision_qc_v4.json",
+        "failure_count": 31
+      },
+      {
+        "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-003_vision_qc_v4.json",
+        "failure_count": 31
+      }
+    ],
+    "fix_suggestions": [
+      "Regenerate this Vision QC artifact with v5 schema or normalize the issue record to include key, severity, bbox, source, confidence, evidence, fix_suggestion, auto_fix_available, and human_review_status."
+    ]
+  },
+  "normalized_issue_schema_summary": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+    "exists": true,
+    "schema": "sw_drawing_studio.issue_schema_validation.v1",
+    "generated_at": "2026-06-22 11:26:17",
+    "status": "pass",
+    "pass": true,
+    "issue_count": 4538,
+    "noncompliant_issue_count": 0,
+    "failure_bucket": [],
+    "missing_field_counts_top": {},
+    "invalid_field_counts_top": {},
+    "top_failure_files": [],
+    "fix_suggestions": [
+      "No action needed; all discovered visual issues satisfy the required schema."
+    ]
+  },
+  "checks": [
+    {
+      "key": "raw_issue_schema_report_present",
+      "status": "pass",
+      "message": "Raw historical visual issue schema validation report must exist.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json"
+      }
+    },
+    {
+      "key": "raw_issue_schema_pass",
+      "status": "fail",
+      "message": "Raw historical visual issues must satisfy the final required issue schema.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+        "exists": true,
+        "schema": "sw_drawing_studio.issue_schema_validation.v1",
+        "generated_at": "2026-06-22 11:25:15",
+        "status": "fail",
+        "pass": false,
+        "issue_count": 4538,
+        "noncompliant_issue_count": 4330,
+        "failure_bucket": [
+          "vision_issue_schema_incomplete"
+        ],
+        "missing_field_counts_top": {
+          "human_review_status": 4330,
+          "evidence": 4306,
+          "auto_fix_available": 4159,
+          "fix_suggestion": 4091,
+          "confidence": 3899,
+          "source": 3898,
+          "bbox": 3752,
+          "severity": 3684,
+          "key": 3608
+        },
+        "invalid_field_counts_top": {
+          "issue_must_be_object": 3608,
+          "bbox_width_height_must_be_positive": 229
+        },
+        "top_failure_files": [
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-001_vision_qc_v4.json",
+            "failure_count": 32
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-002_vision_qc_v4.json",
+            "failure_count": 32
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-004_vision_qc_v4.json",
+            "failure_count": 32
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-005_vision_qc_v4.json",
+            "failure_count": 32
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-25-1-V3-V02_vision_qc_v4.json",
+            "failure_count": 31
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-26-1-V3-V02_vision_qc_v4.json",
+            "failure_count": 31
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-AK-15-AC-27-1-V3-V02_vision_qc_v4.json",
+            "failure_count": 31
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-M3x8十字螺丝-1-V3-V02_vision_qc_v4.json",
+            "failure_count": 31
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\-弹簧压棒弹簧-1-V3-V02_vision_qc_v4.json",
+            "failure_count": 31
+          },
+          {
+            "file": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v22_validation\\vision_qc_v4\\LB26001-A-04-003_vision_qc_v4.json",
+            "failure_count": 31
+          }
+        ],
+        "fix_suggestions": [
+          "Regenerate this Vision QC artifact with v5 schema or normalize the issue record to include key, severity, bbox, source, confidence, evidence, fix_suggestion, auto_fix_available, and human_review_status."
+        ]
+      }
+    },
+    {
+      "key": "normalized_issue_schema_report_present",
+      "status": "pass",
+      "message": "Normalized issue schema validation report must exist as supporting evidence.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json"
+      }
+    },
+    {
+      "key": "normalized_issue_schema_pass",
+      "status": "pass",
+      "message": "Normalized issue schema proof must pass, but it remains supporting-only evidence.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+        "exists": true,
+        "schema": "sw_drawing_studio.issue_schema_validation.v1",
+        "generated_at": "2026-06-22 11:26:17",
+        "status": "pass",
+        "pass": true,
+        "issue_count": 4538,
+        "noncompliant_issue_count": 0,
+        "failure_bucket": [],
+        "missing_field_counts_top": {},
+        "invalid_field_counts_top": {},
+        "top_failure_files": [],
+        "fix_suggestions": [
+          "No action needed; all discovered visual issues satisfy the required schema."
+        ]
+      }
+    },
+    {
+      "key": "final_visual_audit_report_present",
+      "status": "fail",
+      "message": "Final visual_audit_report_v3_0.xlsx must exist before release evidence can pass.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+        "exists": false,
+        "size_bytes": 0
+      }
+    },
+    {
+      "key": "visual_audit_index_present",
+      "status": "pass",
+      "message": "Visual Audit index must exist as full-scope inventory evidence.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+        "exists": true,
+        "size_bytes": 630386,
+        "schema": null,
+        "generated_at": "2026-06-25 21:22:44",
+        "total_files": 2112,
+        "total_bases": 136
+      }
+    },
+    {
+      "key": "visual_audit_full_scope_allowed",
+      "status": "fail",
+      "message": "Full-scope Visual Audit must wait until the product gate allows it after the requested six drawings pass.",
+      "details": {
+        "product_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\product_evidence_gate_v4_4.json",
+        "product_gate_status": "blocked_by_solidworks_readiness",
+        "product_gate_pass": false,
+        "visual_audit_full_scope_allowed": false,
+        "product_gate_blocking_issue_keys": [
+          "solidworks_readiness_for_006",
+          "regeneration_006_fresh_evidence_pass",
+          "application_ui_006_acceptance_pass",
+          "requested_ref6_ui_status_pass",
+          "final_release_artifacts_present",
+          "exe_ui_and_stability_proof_pass",
+          "visual_audit_schema_proof_pass"
+        ]
+      }
+    }
+  ],
+  "blocking_issue_keys": [
+    "raw_issue_schema_pass",
+    "final_visual_audit_report_present",
+    "visual_audit_full_scope_allowed"
+  ],
+  "next_required_action": "Do not treat normalized issue schema output as release evidence. After 006 and the requested six drawings pass application UI screenshot review, rerun full-scope Visual Audit and raw schema validation so historical visual issues are regenerated or corrected with the required fields."
+}
