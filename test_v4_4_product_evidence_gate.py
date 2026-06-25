@@ -40,11 +40,25 @@ def _fixture(
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
     visual_audit_schema_gap_pass: bool | None = None,
+    rerun_packet_build_ready: bool = True,
+    rerun_packet_real_cad_allowed_now: bool | None = None,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
         if visual_audit_schema_gap_pass is None
         else visual_audit_schema_gap_pass
+    )
+    packet_real_cad_allowed = (
+        bool(rerun_packet_build_ready and readiness_ready)
+        if rerun_packet_real_cad_allowed_now is None
+        else rerun_packet_real_cad_allowed_now
+    )
+    packet_status = (
+        "offline_prerequisites_missing"
+        if not rerun_packet_build_ready
+        else "ready_for_locked_006_rerun"
+        if packet_real_cad_allowed
+        else "blocked_by_solidworks_readiness"
     )
     paths = {
         "stability": _write_json(
@@ -78,6 +92,34 @@ def _fixture(
                 "report_is_drawing_acceptance_evidence": False,
                 "api_only_acceptance_allowed": False,
                 "dimension_summary": {"count": 12},
+            },
+        ),
+        "rerun_packet": _write_json(
+            root / "rerun_packet.json",
+            {
+                "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
+                "base": BASE,
+                "status": packet_status,
+                "pass": False,
+                "report_is_acceptance_evidence": False,
+                "packet_build_ready": rerun_packet_build_ready,
+                "real_cad_allowed_now": packet_real_cad_allowed,
+                "readiness_ready": readiness_ready,
+                "readiness_status": "ready" if readiness_ready else "blocked",
+                "offline_prerequisite_missing_keys": []
+                if rerun_packet_build_ready
+                else ["generator_repair_signatures_present"],
+                "api_only_acceptance_allowed": False,
+                "application_ui_screenshot_is_final_gate": True,
+                "source_signatures": {
+                    "generator": {
+                        "pass": rerun_packet_build_ready,
+                        "missing_signatures": []
+                        if rerun_packet_build_ready
+                        else ["reference_callout_review_plan_required"],
+                    },
+                    "cad_job_worker": {"pass": True, "missing_signatures": []},
+                },
             },
         ),
         "regeneration": _write_json(
@@ -185,6 +227,7 @@ def _build(paths: dict[str, Path]) -> dict:
         stability_gate_path=paths["stability"],
         readiness_path=paths["readiness"],
         reference_proof_path=paths["reference"],
+        rerun_packet_path=paths["rerun_packet"],
         regeneration_gate_path=paths["regeneration"],
         acceptance_proof_path=paths["acceptance"],
         requested_status_path=paths["requested"],
@@ -217,6 +260,38 @@ def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> 
         assert result["allowed_actions"]["lb26001_36_allowed"] is False
         assert result["allowed_actions"]["full_129_allowed"] is False
         assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
+        assert "lb26001_006_rerun_packet_ready" not in set(result["blocking_issue_keys"])
+        assert "lb26001_006_rerun_packet_readiness_state_current" not in set(result["blocking_issue_keys"])
+
+
+def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), rerun_packet_build_ready=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "lb26001_006_rerun_packet_ready" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "lb26001_006_rerun_packet_ready")
+        assert check["details"]["offline_prerequisite_missing_keys"] == ["generator_repair_signatures_present"]
+        assert check["details"]["source_signature_summary"]["generator"]["pass"] is False
+
+
+def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), readiness_ready=True, rerun_packet_real_cad_allowed_now=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "lb26001_006_rerun_packet_readiness_state_current" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "lb26001_006_rerun_packet_readiness_state_current"
+        )
+        assert check["details"]["readiness_ok"] is True
+        assert check["details"]["expected_packet_status"] == "ready_for_locked_006_rerun"
 
 
 def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -> None:
@@ -329,6 +404,8 @@ def test_product_evidence_gate_tool_is_file_only() -> None:
 if __name__ == "__main__":
     test_product_evidence_gate_can_pass_complete_fixture()
     test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked()
+    test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
+    test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()

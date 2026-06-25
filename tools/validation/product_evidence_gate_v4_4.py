@@ -21,6 +21,7 @@ DEPENDENT_BASES = [
 DEFAULT_STABILITY_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "solidworks_stability_gate_v4_4.json"
 DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
 DEFAULT_REFERENCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_reference_intent_proof_v4_4.json"
+DEFAULT_RERUN_PACKET = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
 DEFAULT_REGENERATION_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regeneration_evidence_gate_v4_4.json"
 DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
 DEFAULT_REQUESTED_STATUS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_requested_drawings_status_v4_2.json"
@@ -52,6 +53,7 @@ def build_product_evidence_gate(
     stability_gate_path: Path = DEFAULT_STABILITY_GATE,
     readiness_path: Path = DEFAULT_READINESS,
     reference_proof_path: Path = DEFAULT_REFERENCE_PROOF,
+    rerun_packet_path: Path = DEFAULT_RERUN_PACKET,
     regeneration_gate_path: Path = DEFAULT_REGENERATION_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
     requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
@@ -66,12 +68,14 @@ def build_product_evidence_gate(
     stability_gate = _read_json(stability_gate_path)
     readiness = _read_json(readiness_path)
     reference_proof = _read_json(reference_proof_path)
+    rerun_packet = _read_json(rerun_packet_path)
     regeneration_gate = _read_json(regeneration_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
     requested_status = _read_json(requested_status_path)
     issue_schema_validation = _read_json(issue_schema_validation_path)
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
     visual_audit_schema_gap = _read_json(visual_audit_schema_gap_path)
+    readiness_ok = readiness.get("ready_to_start_locked_006_cad") is True and readiness.get("status") == "ready"
 
     checks: list[dict[str, Any]] = []
     _add_check(
@@ -102,13 +106,59 @@ def build_product_evidence_gate(
     _add_check(
         checks,
         "solidworks_readiness_for_006",
-        readiness.get("ready_to_start_locked_006_cad") is True and readiness.get("status") == "ready",
+        readiness_ok,
         "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
         {
             "path": str(readiness_path),
             "status": readiness.get("status"),
             "ready_to_start_locked_006_cad": readiness.get("ready_to_start_locked_006_cad"),
             "blocking_issue_keys": readiness.get("blocking_issue_keys") or [],
+        },
+    )
+    rerun_packet_ready = (
+        rerun_packet.get("packet_build_ready") is True
+        and rerun_packet.get("base") == BASE
+        and not list(rerun_packet.get("offline_prerequisite_missing_keys") or [])
+        and rerun_packet.get("report_is_acceptance_evidence") is False
+        and rerun_packet.get("api_only_acceptance_allowed") is False
+        and rerun_packet.get("application_ui_screenshot_is_final_gate") is True
+    )
+    rerun_packet_state_current = bool(
+        rerun_packet_ready
+        and (
+            (
+                readiness_ok
+                and rerun_packet.get("real_cad_allowed_now") is True
+                and rerun_packet.get("status") == "ready_for_locked_006_rerun"
+            )
+            or (
+                not readiness_ok
+                and rerun_packet.get("real_cad_allowed_now") is False
+                and rerun_packet.get("status") == "blocked_by_solidworks_readiness"
+            )
+        )
+    )
+    _add_check(
+        checks,
+        "lb26001_006_rerun_packet_ready",
+        rerun_packet_ready,
+        "006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.",
+        _rerun_packet_summary(rerun_packet_path, rerun_packet),
+    )
+    _add_check(
+        checks,
+        "lb26001_006_rerun_packet_readiness_state_current",
+        rerun_packet_state_current,
+        "006 rerun packet readiness state must match the current readiness result before real CAD can start.",
+        {
+            "path": str(rerun_packet_path),
+            "readiness_path": str(readiness_path),
+            "readiness_ok": readiness_ok,
+            "readiness_status": readiness.get("status"),
+            "packet_status": rerun_packet.get("status"),
+            "packet_readiness_ready": rerun_packet.get("readiness_ready"),
+            "real_cad_allowed_now": rerun_packet.get("real_cad_allowed_now"),
+            "expected_packet_status": "ready_for_locked_006_rerun" if readiness_ok else "blocked_by_solidworks_readiness",
         },
     )
     _add_check(
@@ -278,6 +328,10 @@ def build_product_evidence_gate(
         stability_ok=_check_pass(checks, "solidworks_stability_gate_pass") and _check_pass(checks, "ui_thread_direct_risk_zero"),
         readiness_ok=_check_pass(checks, "solidworks_readiness_for_006"),
         reference_ok=_check_pass(checks, "reference_intent_006_proof_pass"),
+        rerun_packet_ok=(
+            _check_pass(checks, "lb26001_006_rerun_packet_ready")
+            and _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
+        ),
         regeneration_ok=_check_pass(checks, "regeneration_006_fresh_evidence_pass"),
         acceptance_ok=_check_pass(checks, "application_ui_006_acceptance_pass"),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
@@ -305,6 +359,7 @@ def build_product_evidence_gate(
             "stability_gate": str(stability_gate_path),
             "readiness": str(readiness_path),
             "reference_proof": str(reference_proof_path),
+            "rerun_packet": str(rerun_packet_path),
             "regeneration_gate": str(regeneration_gate_path),
             "acceptance_proof": str(acceptance_proof_path),
             "requested_status": str(requested_status_path),
@@ -388,6 +443,11 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_006_reference_intent"
     if not _check_pass(checks, "solidworks_readiness_for_006"):
         return "blocked_by_solidworks_readiness"
+    if (
+        not _check_pass(checks, "lb26001_006_rerun_packet_ready")
+        or not _check_pass(checks, "lb26001_006_rerun_packet_readiness_state_current")
+    ):
+        return "blocked_by_006_rerun_packet"
     if not _check_pass(checks, "regeneration_006_fresh_evidence_pass"):
         return "blocked_by_006_regeneration_evidence"
     if not _check_pass(checks, "application_ui_006_acceptance_pass"):
@@ -408,6 +468,7 @@ def _allowed_actions(
     stability_ok: bool,
     readiness_ok: bool,
     reference_ok: bool,
+    rerun_packet_ok: bool,
     regeneration_ok: bool,
     acceptance_ok: bool,
     requested_ok: bool,
@@ -415,11 +476,11 @@ def _allowed_actions(
     exe_ui_stability_ok: bool,
     visual_audit_schema_ok: bool,
 ) -> dict[str, bool]:
-    locked_006 = bool(stability_ok and readiness_ok and reference_ok)
+    locked_006 = bool(stability_ok and readiness_ok and reference_ok and rerun_packet_ok)
     ui_review = bool(regeneration_ok)
     expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
-    lb26001_36 = bool(stability_ok and readiness_ok and ref6_complete)
+    lb26001_36 = bool(stability_ok and readiness_ok and rerun_packet_ok and ref6_complete)
     full_129 = bool(lb26001_36 and final_artifacts_ok and exe_ui_stability_ok and visual_audit_schema_ok)
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
@@ -444,6 +505,37 @@ def _final_artifact_evidence(final_artifacts: dict[str, Path]) -> dict[str, dict
             "size_bytes": path.stat().st_size if exists else 0,
         }
     return evidence
+
+
+def _rerun_packet_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path),
+        "status": payload.get("status"),
+        "base": payload.get("base"),
+        "packet_build_ready": payload.get("packet_build_ready"),
+        "real_cad_allowed_now": payload.get("real_cad_allowed_now"),
+        "readiness_ready": payload.get("readiness_ready"),
+        "readiness_status": payload.get("readiness_status"),
+        "report_is_acceptance_evidence": payload.get("report_is_acceptance_evidence"),
+        "api_only_acceptance_allowed": payload.get("api_only_acceptance_allowed"),
+        "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate"),
+        "offline_prerequisite_missing_keys": payload.get("offline_prerequisite_missing_keys") or [],
+        "source_signature_summary": _source_signature_summary(payload.get("source_signatures")),
+    }
+
+
+def _source_signature_summary(value: Any) -> dict[str, dict[str, Any]]:
+    if not isinstance(value, dict):
+        return {}
+    summary: dict[str, dict[str, Any]] = {}
+    for key, item in value.items():
+        if not isinstance(item, dict):
+            continue
+        summary[str(key)] = {
+            "pass": item.get("pass"),
+            "missing_signatures": item.get("missing_signatures") or [],
+        }
+    return summary
 
 
 def _pass_flag(payload: dict[str, Any]) -> bool:
@@ -482,6 +574,8 @@ def _next_required_action(status: str) -> str:
         return "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
     if status == "blocked_by_006_regeneration_evidence":
         return "Produce a fresh 006 run through the locked CAD worker and pass the regeneration evidence gate."
+    if status == "blocked_by_006_rerun_packet":
+        return "Refresh the 006 rerun packet and source-signature evidence before starting any locked 006 CAD rerun."
     if status == "blocked_by_006_application_ui_review":
         return "Open Drawing Review in the application, capture side-by-side screenshots, and pass the manual visual checklist."
     if status == "blocked_by_requested_ref6_ui_review":
@@ -503,6 +597,7 @@ def main() -> int:
     parser.add_argument("--stability-gate", default=str(DEFAULT_STABILITY_GATE))
     parser.add_argument("--readiness", default=str(DEFAULT_READINESS))
     parser.add_argument("--reference-proof", default=str(DEFAULT_REFERENCE_PROOF))
+    parser.add_argument("--rerun-packet", default=str(DEFAULT_RERUN_PACKET))
     parser.add_argument("--regeneration-gate", default=str(DEFAULT_REGENERATION_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
@@ -516,6 +611,7 @@ def main() -> int:
         stability_gate_path=_repo_path(args.stability_gate),
         readiness_path=_repo_path(args.readiness),
         reference_proof_path=_repo_path(args.reference_proof),
+        rerun_packet_path=_repo_path(args.rerun_packet),
         regeneration_gate_path=_repo_path(args.regeneration_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),
         requested_status_path=_repo_path(args.requested_status),
