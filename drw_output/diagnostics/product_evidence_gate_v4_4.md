@@ -38,6 +38,7 @@
 - `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS before expansion is complete.
 - `fail` `final_release_artifacts_present`: Final release artifacts must exist before release/full_129 completion can be claimed.
 - `fail` `exe_ui_and_stability_proof_pass`: Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS.
+- `fail` `cad_smoke_dimension_reference_proof_pass`: Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof.
 - `fail` `visual_audit_schema_proof_pass`: Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema proof plus the v4.4 schema-gap diagnostic; normalized proof alone does not replace raw historical issue compliance.
 
 ## Blocking Issues
@@ -49,6 +50,7 @@
 - `requested_ref6_ui_status_pass`
 - `final_release_artifacts_present`
 - `exe_ui_and_stability_proof_pass`
+- `cad_smoke_dimension_reference_proof_pass`
 - `visual_audit_schema_proof_pass`
 
 ## Next Required Action

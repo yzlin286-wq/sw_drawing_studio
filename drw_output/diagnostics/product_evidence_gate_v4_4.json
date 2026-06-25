@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 02:23:44",
+  "generated_at": "2026-06-26 02:36:40",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -67,7 +67,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T02:23:35",
+        "generated_at": "2026-06-26T02:23:49",
         "status": "pass",
         "entrypoint_count": 529,
         "unguarded_or_unknown_count": 0,
@@ -85,7 +85,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T02:20:58",
+        "generated_at": "2026-06-26T02:23:49",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -100,7 +100,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T02:20:59",
+        "generated_at": "2026-06-26T02:23:50",
         "level": "OK",
         "counts": {
           "solidworks_processes": 0,
@@ -407,7 +407,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 857413
+          "size_bytes": 863005
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -504,6 +504,50 @@
       }
     },
     {
+      "key": "cad_smoke_dimension_reference_proof_pass",
+      "status": "fail",
+      "message": "Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof.",
+      "details": {
+        "cad_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
+          "exists": false,
+          "status": null,
+          "pass": null,
+          "mode": null,
+          "run_id": null,
+          "run_dir": null,
+          "job_runtime_facade_proof": false,
+          "qprocess_worker_proof": false,
+          "fresh_artifact_proof": false,
+          "required_artifact_proof": false
+        },
+        "dimension_validation_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dimension_validation_smoke.json",
+          "exists": false,
+          "status": null,
+          "pass": null,
+          "true_display_dim_count": 0,
+          "note_as_displaydim_count": null,
+          "note_substitution_count": null,
+          "notes_counted_as_displaydim_count": null,
+          "note_annotations_counted_as_displaydim": null
+        },
+        "reference_compare_smoke": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\reference_compare_smoke.json",
+          "exists": false,
+          "status": null,
+          "pass": null,
+          "reference_compare_pass": null,
+          "visual_reference_compare_pass": null,
+          "drawing_reference_compare_pass": null,
+          "accepted_no_reference_reason": null,
+          "no_reference_reason": null,
+          "blocking_issue_keys": [],
+          "failed_checks": []
+        }
+      }
+    },
+    {
       "key": "visual_audit_schema_proof_pass",
       "status": "fail",
       "message": "Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema proof plus the v4.4 schema-gap diagnostic; normalized proof alone does not replace raw historical issue compliance.",
@@ -559,6 +603,7 @@
     "requested_ref6_ui_status_pass",
     "final_release_artifacts_present",
     "exe_ui_and_stability_proof_pass",
+    "cad_smoke_dimension_reference_proof_pass",
     "visual_audit_schema_proof_pass"
   ],
   "source_artifacts": {
@@ -577,7 +622,22 @@
     "requested_status": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
     "issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
     "normalized_issue_schema_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
-    "visual_audit_schema_gap": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_schema_gap_v4_4.json"
+    "visual_audit_schema_gap": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_schema_gap_v4_4.json",
+    "final_artifacts": {
+      "dist_exe": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+      "release_log": "C:\\Users\\Vision\\Desktop\\SW 相关\\release_log_v3_0.md",
+      "validation_log": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
+      "ui_acceptance_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
+      "exe_ui_robot_result": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
+      "cad_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
+      "dimension_validation_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\dimension_validation_smoke.json",
+      "reference_compare_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\reference_compare_smoke.json",
+      "reference_comparison_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_comparison_report_v3_0.xlsx",
+      "visual_audit_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+      "visual_audit_index": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+      "stability_20min_mock": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
+      "stability_2h_ui": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json"
+    }
   },
   "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
 }

@@ -310,6 +310,9 @@ def build_product_evidence_gate(
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
     exe_ui_robot_result = _read_json(final_artifacts.get("exe_ui_robot_result", Path()))
+    cad_smoke = _read_json(final_artifacts.get("cad_smoke", Path()))
+    dimension_validation_smoke = _read_json(final_artifacts.get("dimension_validation_smoke", Path()))
+    reference_compare_smoke = _read_json(final_artifacts.get("reference_compare_smoke", Path()))
     stability_20min_mock = _read_json(final_artifacts.get("stability_20min_mock", Path()))
     stability_2h_ui = _read_json(final_artifacts.get("stability_2h_ui", Path()))
     _add_check(
@@ -339,6 +342,28 @@ def build_product_evidence_gate(
             "exe_ui_robot_result": _ui_stability_summary(final_artifacts.get("exe_ui_robot_result", Path()), exe_ui_robot_result),
             "stability_20min_mock": _ui_stability_summary(final_artifacts.get("stability_20min_mock", Path()), stability_20min_mock),
             "stability_2h_ui": _ui_stability_summary(final_artifacts.get("stability_2h_ui", Path()), stability_2h_ui),
+        },
+    )
+    _add_check(
+        checks,
+        "cad_smoke_dimension_reference_proof_pass",
+        _cad_smoke_semantic_pass(cad_smoke)
+        and _dimension_validation_smoke_semantic_pass(dimension_validation_smoke)
+        and _reference_compare_smoke_semantic_pass(reference_compare_smoke),
+        (
+            "Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through "
+            "JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof."
+        ),
+        {
+            "cad_smoke": _cad_smoke_summary(final_artifacts.get("cad_smoke", Path()), cad_smoke),
+            "dimension_validation_smoke": _dimension_validation_smoke_summary(
+                final_artifacts.get("dimension_validation_smoke", Path()),
+                dimension_validation_smoke,
+            ),
+            "reference_compare_smoke": _reference_compare_smoke_summary(
+                final_artifacts.get("reference_compare_smoke", Path()),
+                reference_compare_smoke,
+            ),
         },
     )
     visual_audit_report = final_artifact_evidence.get("visual_audit_report") or {}
@@ -422,6 +447,7 @@ def build_product_evidence_gate(
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
         exe_ui_stability_ok=_check_pass(checks, "exe_ui_and_stability_proof_pass"),
+        cad_smoke_reference_ok=_check_pass(checks, "cad_smoke_dimension_reference_proof_pass"),
         visual_audit_schema_ok=_check_pass(checks, "visual_audit_schema_proof_pass"),
     )
     payload = {
@@ -457,6 +483,7 @@ def build_product_evidence_gate(
             "issue_schema_validation": str(issue_schema_validation_path),
             "normalized_issue_schema_validation": str(normalized_issue_schema_validation_path),
             "visual_audit_schema_gap": str(visual_audit_schema_gap_path),
+            "final_artifacts": {key: str(path) for key, path in final_artifacts.items()},
         },
         "next_required_action": _next_required_action(status),
     }
@@ -559,6 +586,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
     if (
         not _check_pass(checks, "final_release_artifacts_present")
         or not _check_pass(checks, "exe_ui_and_stability_proof_pass")
+        or not _check_pass(checks, "cad_smoke_dimension_reference_proof_pass")
         or not _check_pass(checks, "visual_audit_schema_proof_pass")
     ):
         return "warning_not_release_ready"
@@ -577,6 +605,7 @@ def _allowed_actions(
     requested_ok: bool,
     final_artifacts_ok: bool,
     exe_ui_stability_ok: bool,
+    cad_smoke_reference_ok: bool,
     visual_audit_schema_ok: bool,
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok and reference_plan_ok and rerun_packet_ok)
@@ -584,7 +613,13 @@ def _allowed_actions(
     expand_ref6 = bool(stability_ok and readiness_ok and regeneration_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and reference_plan_ok and rerun_packet_ok and ref6_complete)
-    full_129 = bool(lb26001_36 and final_artifacts_ok and exe_ui_stability_ok and visual_audit_schema_ok)
+    full_129 = bool(
+        lb26001_36
+        and final_artifacts_ok
+        and exe_ui_stability_ok
+        and cad_smoke_reference_ok
+        and visual_audit_schema_ok
+    )
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
         "006_application_ui_review_allowed_now": ui_review,
@@ -983,6 +1018,221 @@ def _ui_stability_summary(path: Path | None, payload: dict[str, Any]) -> dict[st
         "duration_observed_s": payload.get("duration_observed_s", payload.get("duration_s")),
         "duration_requested_s": payload.get("duration_requested_s"),
     }
+
+
+def _cad_smoke_semantic_pass(payload: dict[str, Any]) -> bool:
+    return bool(
+        _pass_flag(payload)
+        and _job_runtime_facade_proof(payload)
+        and _qprocess_worker_proof(payload)
+        and bool(payload.get("run_id"))
+        and bool(payload.get("run_dir"))
+        and _fresh_artifact_proof(payload)
+        and _required_artifact_proof(
+            payload,
+            [
+                "slddrw",
+                "pdf",
+                "dxf",
+                "png",
+                "manifest",
+                "qc",
+                "vision",
+                "final_quality",
+                "sw_session",
+                "job_event_log",
+            ],
+        )
+    )
+
+
+def _dimension_validation_smoke_semantic_pass(payload: dict[str, Any]) -> bool:
+    display_dim_count = _first_int(payload, ["true_display_dim_count", "display_dim_count", "displaydim_count"])
+    note_count_keys = ["note_as_displaydim_count", "note_substitution_count", "notes_counted_as_displaydim_count"]
+    note_count_proven = any(key in payload for key in note_count_keys)
+    note_counts_zero = all(_first_int(payload, [key]) == 0 for key in note_count_keys if key in payload)
+    bool_note_flags_clear = payload.get("note_annotations_counted_as_displaydim") is not True
+    return bool(
+        _pass_flag(payload)
+        and display_dim_count > 0
+        and note_count_proven
+        and note_counts_zero
+        and bool_note_flags_clear
+    )
+
+
+def _reference_compare_smoke_semantic_pass(payload: dict[str, Any]) -> bool:
+    blocking = payload.get("blocking_issue_keys") or payload.get("failed_checks") or []
+    explicit_compare_pass = (
+        payload.get("reference_compare_pass") is True
+        or payload.get("visual_reference_compare_pass") is True
+        or payload.get("drawing_reference_compare_pass") is True
+    )
+    no_reference_accepted = bool(
+        payload.get("accepted_no_reference_reason") is True
+        and str(payload.get("no_reference_reason") or "").strip()
+    )
+    return bool(_pass_flag(payload) and not blocking and (explicit_compare_pass or no_reference_accepted))
+
+
+def _cad_smoke_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists()),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "mode": payload.get("mode"),
+        "run_id": payload.get("run_id"),
+        "run_dir": payload.get("run_dir"),
+        "job_runtime_facade_proof": _job_runtime_facade_proof(payload),
+        "qprocess_worker_proof": _qprocess_worker_proof(payload),
+        "fresh_artifact_proof": _fresh_artifact_proof(payload),
+        "required_artifact_proof": _required_artifact_proof(
+            payload,
+            [
+                "slddrw",
+                "pdf",
+                "dxf",
+                "png",
+                "manifest",
+                "qc",
+                "vision",
+                "final_quality",
+                "sw_session",
+                "job_event_log",
+            ],
+        ),
+    }
+
+
+def _dimension_validation_smoke_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists()),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "true_display_dim_count": _first_int(payload, ["true_display_dim_count", "display_dim_count", "displaydim_count"]),
+        "note_as_displaydim_count": payload.get("note_as_displaydim_count"),
+        "note_substitution_count": payload.get("note_substitution_count"),
+        "notes_counted_as_displaydim_count": payload.get("notes_counted_as_displaydim_count"),
+        "note_annotations_counted_as_displaydim": payload.get("note_annotations_counted_as_displaydim"),
+    }
+
+
+def _reference_compare_smoke_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists()),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "reference_compare_pass": payload.get("reference_compare_pass"),
+        "visual_reference_compare_pass": payload.get("visual_reference_compare_pass"),
+        "drawing_reference_compare_pass": payload.get("drawing_reference_compare_pass"),
+        "accepted_no_reference_reason": payload.get("accepted_no_reference_reason"),
+        "no_reference_reason": payload.get("no_reference_reason"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
+        "failed_checks": payload.get("failed_checks") or [],
+    }
+
+
+def _job_runtime_facade_proof(payload: dict[str, Any]) -> bool:
+    if _any_truthy(payload, ["used_job_runtime_facade", "job_runtime_facade", "facade_routed"]):
+        return True
+    text = _selected_payload_text(payload, ["route", "runner", "entrypoint", "runtime", "facade", "worker", "launch_path"])
+    compact = text.replace("_", "").replace("-", "")
+    return "jobruntimefacade" in compact
+
+
+def _qprocess_worker_proof(payload: dict[str, Any]) -> bool:
+    if _any_truthy(payload, ["used_qprocess", "qprocess", "qprocess_worker", "worker_qprocess"]):
+        return True
+    text = _selected_payload_text(payload, ["route", "runner", "entrypoint", "runtime", "worker", "launch_path", "mode"])
+    return "qprocess" in text
+
+
+def _fresh_artifact_proof(payload: dict[str, Any]) -> bool:
+    if _any_truthy(payload, ["artifact_mtime_ok", "fresh_artifacts", "fresh_artifacts_pass"]):
+        return True
+    artifact_freshness = payload.get("artifact_freshness")
+    if isinstance(artifact_freshness, dict) and _any_truthy(artifact_freshness, ["pass", "artifact_mtime_ok", "fresh"]):
+        return True
+    checks = payload.get("freshness_checks") or payload.get("artifact_freshness_checks")
+    if isinstance(checks, list) and checks:
+        return all(isinstance(item, dict) and _record_passes(item) for item in checks)
+    return False
+
+
+def _required_artifact_proof(payload: dict[str, Any], required_keys: list[str]) -> bool:
+    artifacts = (
+        payload.get("required_artifacts")
+        or payload.get("artifact_presence")
+        or payload.get("artifacts")
+        or payload.get("outputs")
+    )
+    if isinstance(artifacts, dict):
+        normalized = {str(key).lower(): value for key, value in artifacts.items()}
+        for required in required_keys:
+            candidates = [value for key, value in normalized.items() if required in key]
+            if not candidates or not any(_artifact_value_passes(value) for value in candidates):
+                return False
+        return True
+    if isinstance(artifacts, list):
+        for required in required_keys:
+            matches = [
+                item
+                for item in artifacts
+                if isinstance(item, dict)
+                and required in _selected_payload_text(item, ["key", "name", "type", "artifact", "path"])
+            ]
+            if not matches or not any(_record_passes(item) for item in matches):
+                return False
+        return True
+    return False
+
+
+def _artifact_value_passes(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, dict):
+        return _record_passes(value)
+    return bool(value)
+
+
+def _record_passes(payload: dict[str, Any]) -> bool:
+    if payload.get("pass") is True or payload.get("exists") is True or payload.get("fresh") is True:
+        return True
+    status = str(payload.get("status") or "").lower()
+    return status in {"pass", "passed", "ok", "fresh", "exists"}
+
+
+def _any_truthy(payload: dict[str, Any], keys: list[str]) -> bool:
+    for key in keys:
+        value = payload.get(key)
+        if value is True:
+            return True
+        if isinstance(value, str) and value.strip().lower() in {"true", "yes", "pass", "passed", "ok"}:
+            return True
+    return False
+
+
+def _selected_payload_text(payload: dict[str, Any], keys: list[str]) -> str:
+    values: list[str] = []
+    for key in keys:
+        value = payload.get(key)
+        if isinstance(value, (str, int, float, bool)):
+            values.append(str(value))
+        elif isinstance(value, (list, dict)):
+            values.append(json.dumps(value, ensure_ascii=False, sort_keys=True))
+    return " ".join(values).lower()
+
+
+def _first_int(payload: dict[str, Any], keys: list[str]) -> int:
+    for key in keys:
+        try:
+            return int(payload.get(key))
+        except (TypeError, ValueError):
+            continue
+    return 0
 
 
 def _next_required_action(status: str) -> str:

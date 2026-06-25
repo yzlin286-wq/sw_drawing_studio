@@ -11948,3 +11948,45 @@ Remaining issues:
 
 - UI threadpool regression is now guarded, but the active product status remains not ready.
 - 006 still needs a fresh locked real CAD rerun and Drawing Review UI screenshot/manual checklist PASS before any sample expansion.
+
+## v4.4 Final Smoke Semantic Product Gate - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, OpenDoc6, SaveAs, CloseDoc, automatic restart, or SolidWorks session mutation was run.
+- This change tightens final-release evidence only; it does not accept any generated drawing.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Reads `cad_smoke_v3_0.json`, `dimension_validation_smoke.json`, and `reference_compare_smoke.json` as semantic evidence, not just file-presence artifacts.
+  - Adds `cad_smoke_dimension_reference_proof_pass`.
+  - Requires CAD smoke to prove `JobRuntimeFacade`/qprocess routing, a non-empty `run_id`/`run_dir`, fresh artifact proof, and required `SLDDRW`/`PDF`/`DXF`/`PNG`/manifest/QC/vision/final-quality/session/event-log outputs.
+  - Requires dimension smoke to prove true DisplayDim evidence and zero Note-as-DisplayDim substitution.
+  - Requires reference compare smoke to pass or provide an explicitly accepted no-reference reason.
+  - Keeps `full_129_allowed=false` and `release_allowed=false` unless this semantic check passes.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - The complete fixture now writes real PASS-shaped JSON for the three smoke artifacts.
+  - Added regressions for API-only CAD smoke and Note-counted DisplayDim evidence.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate exits expected nonzero and remains `blocked_by_solidworks_readiness`.
+- `cad_smoke_dimension_reference_proof_pass` is now a blocking issue because `cad_smoke_v3_0.json`, `dimension_validation_smoke.json`, and `reference_compare_smoke.json` are not present as final semantic PASS evidence.
+- Product Gate allowed actions remain all false, including `006_application_ui_review_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+
+Remaining issues:
+
+- 006 still needs a fresh locked real CAD rerun and Drawing Review UI screenshot/manual checklist PASS before any 007/008/009/015/022 expansion.
+- Final release still requires EXE UI robot, stability evidence, final Visual Audit workbook, final release log, and the semantic CAD/dimension/reference smoke JSON artifacts.

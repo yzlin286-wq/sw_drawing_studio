@@ -22,6 +22,45 @@ def _write_file(path: Path) -> Path:
 def _write_final_artifact(path: Path, key: str) -> Path:
     if key == "exe_ui_robot_result":
         return _write_json(path, {"mode": "windows_exe_ui_robot", "pass": True})
+    if key == "cad_smoke":
+        return _write_json(
+            path,
+            {
+                "mode": "windows_exe_cad_smoke",
+                "pass": True,
+                "used_job_runtime_facade": True,
+                "used_qprocess": True,
+                "run_id": "smoke_run",
+                "run_dir": "drw_output/runs/smoke_run",
+                "artifact_mtime_ok": True,
+                "required_artifacts": {
+                    "slddrw": True,
+                    "pdf": True,
+                    "dxf": True,
+                    "png": True,
+                    "manifest": True,
+                    "qc": True,
+                    "vision": True,
+                    "final_quality": True,
+                    "sw_session": True,
+                    "job_event_log": True,
+                },
+            },
+        )
+    if key == "dimension_validation_smoke":
+        return _write_json(
+            path,
+            {
+                "status": "pass",
+                "pass": True,
+                "true_display_dim_count": 12,
+                "note_as_displaydim_count": 0,
+                "note_substitution_count": 0,
+                "note_annotations_counted_as_displaydim": False,
+            },
+        )
+    if key == "reference_compare_smoke":
+        return _write_json(path, {"status": "pass", "pass": True, "reference_compare_pass": True})
     if key == "stability_20min_mock":
         return _write_json(path, {"mode": "source_qt_mock_stability", "pass": True, "duration_observed_s": 1201.0})
     if key == "stability_2h_ui":
@@ -723,6 +762,71 @@ def test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence() -> None
         assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_release_when_cad_smoke_is_api_only() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(
+            paths["final_artifacts"]["cad_smoke"],  # type: ignore[index]
+            {
+                "mode": "api_only_file_presence_probe",
+                "pass": True,
+                "run_id": "smoke_run",
+                "run_dir": "drw_output/runs/smoke_run",
+                "required_artifacts": {
+                    "slddrw": True,
+                    "pdf": True,
+                    "dxf": True,
+                    "png": True,
+                    "manifest": True,
+                    "qc": True,
+                    "vision": True,
+                    "final_quality": True,
+                    "sw_session": True,
+                    "job_event_log": True,
+                },
+            },
+        )
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "cad_smoke_dimension_reference_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "cad_smoke_dimension_reference_proof_pass")
+        assert check["details"]["cad_smoke"]["job_runtime_facade_proof"] is False
+        assert check["details"]["cad_smoke"]["qprocess_worker_proof"] is False
+        assert check["details"]["cad_smoke"]["fresh_artifact_proof"] is False
+
+
+def test_product_evidence_gate_blocks_release_when_dimension_smoke_counts_notes_as_displaydim() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(
+            paths["final_artifacts"]["dimension_validation_smoke"],  # type: ignore[index]
+            {
+                "status": "pass",
+                "pass": True,
+                "true_display_dim_count": 12,
+                "note_as_displaydim_count": 2,
+                "note_substitution_count": 0,
+                "note_annotations_counted_as_displaydim": True,
+            },
+        )
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "cad_smoke_dimension_reference_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "cad_smoke_dimension_reference_proof_pass")
+        assert check["details"]["dimension_validation_smoke"]["note_as_displaydim_count"] == 2
+        assert check["details"]["dimension_validation_smoke"]["note_annotations_counted_as_displaydim"] is True
+
+
 def test_product_evidence_gate_tool_is_file_only() -> None:
     source = Path("tools/validation/product_evidence_gate_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -760,5 +864,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
+    test_product_evidence_gate_blocks_release_when_cad_smoke_is_api_only()
+    test_product_evidence_gate_blocks_release_when_dimension_smoke_counts_notes_as_displaydim()
     test_product_evidence_gate_tool_is_file_only()
     print("PASS test_v4_4_product_evidence_gate")
