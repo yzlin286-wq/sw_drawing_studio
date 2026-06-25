@@ -28,6 +28,7 @@ DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_
 DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.md"
 
 DEFAULT_FINAL_ARTIFACTS = {
+    "dist_exe": REPO_ROOT / "dist" / "sw_drawing_studio.exe",
     "release_log": REPO_ROOT / "release_log_v3_0.md",
     "visual_audit_report": REPO_ROOT / "drw_output" / "visual_audit_report_v3_0.xlsx",
     "exe_ui_robot_result": REPO_ROOT / "exe_ui_robot_result_v3_0.json",
@@ -176,12 +177,37 @@ def build_product_evidence_gate(
     )
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
+    exe_ui_robot_result = _read_json(final_artifacts.get("exe_ui_robot_result", Path()))
+    stability_20min_mock = _read_json(final_artifacts.get("stability_20min_mock", Path()))
+    stability_2h_ui = _read_json(final_artifacts.get("stability_2h_ui", Path()))
     _add_check(
         checks,
         "final_release_artifacts_present",
         all(item.get("exists") and int(item.get("size_bytes") or 0) > 0 for item in final_artifact_evidence.values()),
         "Final release artifacts must exist before release/full_129 completion can be claimed.",
         final_artifact_evidence,
+    )
+    _add_check(
+        checks,
+        "exe_ui_and_stability_proof_pass",
+        bool((final_artifact_evidence.get("dist_exe") or {}).get("exists"))
+        and _pass_flag(exe_ui_robot_result)
+        and _mode_has_any(exe_ui_robot_result, ["exe", "windows"])
+        and _pass_flag(stability_20min_mock)
+        and _duration_at_least(stability_20min_mock, 1200.0)
+        and _pass_flag(stability_2h_ui)
+        and _duration_at_least(stability_2h_ui, 7200.0)
+        and _mode_has_any(stability_2h_ui, ["exe", "windows"]),
+        (
+            "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, "
+            "20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS."
+        ),
+        {
+            "dist_exe": final_artifact_evidence.get("dist_exe") or {},
+            "exe_ui_robot_result": _ui_stability_summary(final_artifacts.get("exe_ui_robot_result", Path()), exe_ui_robot_result),
+            "stability_20min_mock": _ui_stability_summary(final_artifacts.get("stability_20min_mock", Path()), stability_20min_mock),
+            "stability_2h_ui": _ui_stability_summary(final_artifacts.get("stability_2h_ui", Path()), stability_2h_ui),
+        },
     )
     visual_audit_report = final_artifact_evidence.get("visual_audit_report") or {}
     _add_check(
@@ -228,6 +254,7 @@ def build_product_evidence_gate(
         acceptance_ok=_check_pass(checks, "application_ui_006_acceptance_pass"),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
+        exe_ui_stability_ok=_check_pass(checks, "exe_ui_and_stability_proof_pass"),
         visual_audit_schema_ok=_check_pass(checks, "visual_audit_schema_proof_pass"),
     )
     payload = {
@@ -338,7 +365,11 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_006_application_ui_review"
     if not _check_pass(checks, "requested_ref6_ui_status_pass"):
         return "blocked_by_requested_ref6_ui_review"
-    if not _check_pass(checks, "final_release_artifacts_present") or not _check_pass(checks, "visual_audit_schema_proof_pass"):
+    if (
+        not _check_pass(checks, "final_release_artifacts_present")
+        or not _check_pass(checks, "exe_ui_and_stability_proof_pass")
+        or not _check_pass(checks, "visual_audit_schema_proof_pass")
+    ):
         return "warning_not_release_ready"
     return "pass"
 
@@ -352,6 +383,7 @@ def _allowed_actions(
     acceptance_ok: bool,
     requested_ok: bool,
     final_artifacts_ok: bool,
+    exe_ui_stability_ok: bool,
     visual_audit_schema_ok: bool,
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok)
@@ -359,7 +391,7 @@ def _allowed_actions(
     expand_ref6 = bool(stability_ok and readiness_ok and acceptance_ok)
     ref6_complete = bool(requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and ref6_complete)
-    full_129 = bool(lb26001_36 and final_artifacts_ok and visual_audit_schema_ok)
+    full_129 = bool(lb26001_36 and final_artifacts_ok and exe_ui_stability_ok and visual_audit_schema_ok)
     return {
         "locked_006_cad_rerun_allowed_now": locked_006,
         "006_application_ui_review_allowed_now": ui_review,
@@ -383,6 +415,37 @@ def _final_artifact_evidence(final_artifacts: dict[str, Path]) -> dict[str, dict
             "size_bytes": path.stat().st_size if exists else 0,
         }
     return evidence
+
+
+def _pass_flag(payload: dict[str, Any]) -> bool:
+    return payload.get("pass") is True or str(payload.get("status") or "").lower() == "pass"
+
+
+def _duration_at_least(payload: dict[str, Any], minimum_s: float) -> bool:
+    duration = payload.get("duration_observed_s", payload.get("duration_s"))
+    try:
+        return float(duration) >= minimum_s
+    except (TypeError, ValueError):
+        return False
+
+
+def _mode_has_any(payload: dict[str, Any], tokens: list[str]) -> bool:
+    mode = str(payload.get("mode") or payload.get("source") or "").lower()
+    exe = str(payload.get("exe") or "").lower()
+    return any(token.lower() in mode or token.lower() in exe for token in tokens)
+
+
+def _ui_stability_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists()),
+        "mode": payload.get("mode"),
+        "exe": payload.get("exe"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "duration_observed_s": payload.get("duration_observed_s", payload.get("duration_s")),
+        "duration_requested_s": payload.get("duration_requested_s"),
+    }
 
 
 def _next_required_action(status: str) -> str:

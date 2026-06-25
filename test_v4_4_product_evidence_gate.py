@@ -19,6 +19,16 @@ def _write_file(path: Path) -> Path:
     return path
 
 
+def _write_final_artifact(path: Path, key: str) -> Path:
+    if key == "exe_ui_robot_result":
+        return _write_json(path, {"mode": "windows_exe_ui_robot", "pass": True})
+    if key == "stability_20min_mock":
+        return _write_json(path, {"mode": "source_qt_mock_stability", "pass": True, "duration_observed_s": 1201.0})
+    if key == "stability_2h_ui":
+        return _write_json(path, {"mode": "windows_exe_navigation_stability", "pass": True, "duration_observed_s": 7201.0})
+    return _write_file(path)
+
+
 def _fixture(
     root: Path,
     *,
@@ -128,6 +138,7 @@ def _fixture(
         ),
     }
     final = {
+        "dist_exe": root / "dist" / "sw_drawing_studio.exe",
         "release_log": root / "release_log_v3_0.md",
         "visual_audit_report": root / "visual_audit_report_v3_0.xlsx",
         "exe_ui_robot_result": root / "exe_ui_robot_result_v3_0.json",
@@ -135,8 +146,8 @@ def _fixture(
         "stability_2h_ui": root / "stability_2h_ui_v3_0.json",
     }
     if final_artifacts:
-        for path in final.values():
-            _write_file(path)
+        for key, path in final.items():
+            _write_final_artifact(path, key)
     paths["final_artifacts"] = final  # type: ignore[assignment]
     return paths
 
@@ -226,6 +237,20 @@ def test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails() -> N
         assert check["details"]["normalized_proof_is_supporting_only"] is True
 
 
+def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(paths["final_artifacts"]["stability_2h_ui"], {"mode": "windows_exe_navigation_stability", "pass": True, "duration_observed_s": 7100.0})  # type: ignore[index]
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
+
+
 def test_product_evidence_gate_tool_is_file_only() -> None:
     source = Path("tools/validation/product_evidence_gate_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -248,5 +273,6 @@ if __name__ == "__main__":
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
+    test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_tool_is_file_only()
     print("PASS test_v4_4_product_evidence_gate")

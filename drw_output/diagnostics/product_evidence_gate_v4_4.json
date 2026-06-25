@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 00:23:13",
+  "generated_at": "2026-06-26 00:31:45",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
   "release_ready": false,
@@ -147,6 +147,11 @@
       "status": "fail",
       "message": "Final release artifacts must exist before release/full_129 completion can be claimed.",
       "details": {
+        "dist_exe": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+          "exists": true,
+          "size_bytes": 540571711
+        },
         "release_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\release_log_v3_0.md",
           "exists": false,
@@ -171,6 +176,48 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
           "exists": false,
           "size_bytes": 0
+        }
+      }
+    },
+    {
+      "key": "exe_ui_and_stability_proof_pass",
+      "status": "fail",
+      "message": "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS.",
+      "details": {
+        "dist_exe": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+          "exists": true,
+          "size_bytes": 540571711
+        },
+        "exe_ui_robot_result": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
+          "exists": false,
+          "mode": null,
+          "exe": null,
+          "status": null,
+          "pass": null,
+          "duration_observed_s": null,
+          "duration_requested_s": null
+        },
+        "stability_20min_mock": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
+          "exists": false,
+          "mode": null,
+          "exe": null,
+          "status": null,
+          "pass": null,
+          "duration_observed_s": null,
+          "duration_requested_s": null
+        },
+        "stability_2h_ui": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
+          "exists": false,
+          "mode": null,
+          "exe": null,
+          "status": null,
+          "pass": null,
+          "duration_observed_s": null,
+          "duration_requested_s": null
         }
       }
     },
@@ -212,6 +259,7 @@
     "application_ui_006_acceptance_pass",
     "requested_ref6_ui_status_pass",
     "final_release_artifacts_present",
+    "exe_ui_and_stability_proof_pass",
     "visual_audit_schema_proof_pass"
   ],
   "source_artifacts": {
