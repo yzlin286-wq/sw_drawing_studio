@@ -36,6 +36,7 @@ Evidence added in this slice:
 - `tools/validation/run_solidworks_stability_gate_v4_4.py` and `test_v4_4_solidworks_stability_gate.py` make the v4.4 diagnostic bundle reproducible.
 - `drw_output/diagnostics/diagnostics_mock_20260625_204114_2a3c5876.zip`: diagnostics worker smoke generated this ZIP from an existing mock run.
 - `drw_output/ui_acceptance/quick_v4_4_diagnostics_worker/ui_acceptance_report.json` and `ui_acceptance_report_v3_0.md`: source-level UI robot quick suite passed with screenshots, including the Logs Diagnostics page.
+- 2026-06-25 23:22 stability refresh after the 006 reference-callout UI gate update: `drw_output/diagnostics/solidworks_stability_gate_v4_4.json` is `status=pass`, `pass=true`, `release_ready=false`; `unguarded_solidworks_entrypoints.json` remains `status=pass` with `entrypoint_count=522`, `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `service_direct_risk_count=0`, and `system_health_ui_thread_direct_probe_count=0`; `solidworks_lock_test_result.json` passes first-owner acquire, second-owner block, heartbeat/release, alive-owner no-steal, stale-owner release, and conflict-log write; `conflict_report.json` is `level=OK` with no SolidWorks process, CAD worker, batch worker, waiting job, smoke leftover, or DialogGuard detected. System Health UI remains worker-backed: `test_v2_3_system_health_page.py` and `test_v2_3_home_page_health_worker.py` pass.
 
 006 Reference Intent Dimension Plan evidence:
 
@@ -84,6 +85,11 @@ python test_v4_2_reference_intent_dimension_planner.py
 python test_v4_vision_qc_v6.py
 python test_v4_2_lb26001_006_rerun_packet.py
 python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\run_solidworks_stability_gate_v4_4.py
+python test_v4_1_solidworks_entrypoint_scan.py
+python test_v4_4_solidworks_stability_gate.py
+python test_v2_3_system_health_page.py
+python test_v2_3_home_page_health_worker.py
 python tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
 python tools\validation\lb26001_006_ui_defect_buckets_v4_4.py
 python test_v4_1_solidworks_entrypoint_scan.py

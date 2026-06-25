@@ -1,8 +1,8 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-25T21:29:00",
+  "generated_at": "2026-06-25T23:22:07",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
-  "scanned_files": 323,
+  "scanned_files": 325,
   "entrypoint_count": 522,
   "guarded_count": 138,
   "unguarded_or_unknown_count": 0,
@@ -1969,7 +1969,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 3770,
+      "line": 3903,
       "patterns": [
         "SaveAs"
       ],
@@ -1983,7 +1983,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 3987,
+      "line": 4120,
       "patterns": [
         "time.sleep"
       ],
@@ -1997,7 +1997,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4005,
+      "line": 4138,
       "patterns": [
         "CloseDoc"
       ],
@@ -2011,7 +2011,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4009,
+      "line": 4142,
       "patterns": [
         "time.sleep"
       ],
@@ -2025,7 +2025,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4017,
+      "line": 4150,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2039,7 +2039,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4027,
+      "line": 4160,
       "patterns": [
         "time.sleep"
       ],
@@ -2053,7 +2053,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4044,
+      "line": 4177,
       "patterns": [
         "CloseDoc"
       ],
@@ -2067,7 +2067,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4048,
+      "line": 4181,
       "patterns": [
         "time.sleep"
       ],
@@ -2081,7 +2081,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4052,
+      "line": 4185,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2095,7 +2095,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4059,
+      "line": 4192,
       "patterns": [
         "time.sleep"
       ],
@@ -2109,7 +2109,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4116,
+      "line": 4249,
       "patterns": [
         "CloseDoc"
       ],
@@ -2123,7 +2123,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4120,
+      "line": 4253,
       "patterns": [
         "time.sleep"
       ],
@@ -2137,7 +2137,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4124,
+      "line": 4257,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2151,7 +2151,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4133,
+      "line": 4266,
       "patterns": [
         "time.sleep"
       ],
@@ -2165,7 +2165,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4349,
+      "line": 4482,
       "patterns": [
         "GetActiveObject"
       ],
@@ -2179,7 +2179,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4354,
+      "line": 4487,
       "patterns": [
         "Dispatch"
       ],
@@ -2193,7 +2193,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4358,
+      "line": 4491,
       "patterns": [
         "time.sleep"
       ],
@@ -2207,7 +2207,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4378,
+      "line": 4511,
       "patterns": [
         "CloseDoc"
       ],
@@ -2221,7 +2221,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4401,
+      "line": 4534,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2235,7 +2235,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4684,
+      "line": 4817,
       "patterns": [
         "time.sleep"
       ],
@@ -2249,7 +2249,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4792,
+      "line": 4925,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2263,7 +2263,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 5944,
+      "line": 6077,
       "patterns": [
         "AddDimension2"
       ],
@@ -2277,7 +2277,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6669,
+      "line": 6802,
       "patterns": [
         "time.sleep"
       ],
@@ -2291,7 +2291,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6797,
+      "line": 6930,
       "patterns": [
         "time.sleep"
       ],
@@ -2305,7 +2305,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7297,
+      "line": 7430,
       "patterns": [
         "AddDimension2"
       ],
@@ -2319,7 +2319,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7302,
+      "line": 7435,
       "patterns": [
         "AddDimension2"
       ],
@@ -2333,7 +2333,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7404,
+      "line": 7537,
       "patterns": [
         "AddDimension2"
       ],
@@ -2347,7 +2347,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7413,
+      "line": 7546,
       "patterns": [
         "AddDimension2"
       ],
@@ -2361,7 +2361,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7476,
+      "line": 7609,
       "patterns": [
         "AddDimension2"
       ],
@@ -2375,7 +2375,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7558,
+      "line": 7691,
       "patterns": [
         "RunMacro2"
       ],
@@ -2389,7 +2389,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7917,
+      "line": 8050,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -2403,7 +2403,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7922,
+      "line": 8055,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -2417,7 +2417,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8441,
+      "line": 8574,
       "patterns": [
         "SaveAs"
       ],
@@ -2431,7 +2431,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8530,
+      "line": 8663,
       "patterns": [
         "SaveAs"
       ],
@@ -2445,7 +2445,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8664,
+      "line": 8797,
       "patterns": [
         "SaveAs"
       ],
@@ -2459,7 +2459,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8711,
+      "line": 8844,
       "patterns": [
         "SaveAs"
       ],
@@ -2473,7 +2473,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8727,
+      "line": 8860,
       "patterns": [
         "SaveAs"
       ],
@@ -2487,7 +2487,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8733,
+      "line": 8866,
       "patterns": [
         "SaveAs"
       ],
@@ -2501,7 +2501,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8882,
+      "line": 9015,
       "patterns": [
         "SaveAs"
       ],
@@ -2515,7 +2515,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8894,
+      "line": 9027,
       "patterns": [
         "SaveAs"
       ],
@@ -2529,7 +2529,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8896,
+      "line": 9029,
       "patterns": [
         "SaveAs"
       ],
@@ -2543,7 +2543,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8921,
+      "line": 9054,
       "patterns": [
         "SaveAs"
       ],
@@ -2557,7 +2557,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8933,
+      "line": 9066,
       "patterns": [
         "SaveAs"
       ],
@@ -2571,7 +2571,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8935,
+      "line": 9068,
       "patterns": [
         "SaveAs"
       ],
@@ -2585,7 +2585,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8949,
+      "line": 9082,
       "patterns": [
         "SaveAs"
       ],
@@ -2599,7 +2599,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8961,
+      "line": 9094,
       "patterns": [
         "SaveAs"
       ],
@@ -2613,7 +2613,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8963,
+      "line": 9096,
       "patterns": [
         "SaveAs"
       ],
@@ -2627,7 +2627,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9005,
+      "line": 9138,
       "patterns": [
         "SaveAs"
       ],
@@ -2641,7 +2641,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9007,
+      "line": 9140,
       "patterns": [
         "SaveAs"
       ],
@@ -2655,7 +2655,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9114,
+      "line": 9247,
       "patterns": [
         "SaveAs"
       ],
@@ -2669,7 +2669,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9130,
+      "line": 9263,
       "patterns": [
         "SaveAs"
       ],
@@ -2683,7 +2683,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9132,
+      "line": 9265,
       "patterns": [
         "SaveAs"
       ],
@@ -2697,7 +2697,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9197,
+      "line": 9330,
       "patterns": [
         "SaveAs"
       ],
@@ -2711,7 +2711,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9199,
+      "line": 9332,
       "patterns": [
         "SaveAs"
       ],
@@ -2725,7 +2725,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9287,
+      "line": 9420,
       "patterns": [
         "CloseDoc"
       ],
@@ -2739,7 +2739,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9312,
+      "line": 9445,
       "patterns": [
         "CloseDoc"
       ],
@@ -5271,7 +5271,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 3770,
+      "line": 3903,
       "patterns": [
         "SaveAs"
       ],
@@ -5285,7 +5285,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 3987,
+      "line": 4120,
       "patterns": [
         "time.sleep"
       ],
@@ -5299,7 +5299,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4005,
+      "line": 4138,
       "patterns": [
         "CloseDoc"
       ],
@@ -5313,7 +5313,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4009,
+      "line": 4142,
       "patterns": [
         "time.sleep"
       ],
@@ -5327,7 +5327,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4017,
+      "line": 4150,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5341,7 +5341,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4027,
+      "line": 4160,
       "patterns": [
         "time.sleep"
       ],
@@ -5355,7 +5355,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4044,
+      "line": 4177,
       "patterns": [
         "CloseDoc"
       ],
@@ -5369,7 +5369,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4048,
+      "line": 4181,
       "patterns": [
         "time.sleep"
       ],
@@ -5383,7 +5383,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4052,
+      "line": 4185,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5397,7 +5397,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4059,
+      "line": 4192,
       "patterns": [
         "time.sleep"
       ],
@@ -5411,7 +5411,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4116,
+      "line": 4249,
       "patterns": [
         "CloseDoc"
       ],
@@ -5425,7 +5425,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4120,
+      "line": 4253,
       "patterns": [
         "time.sleep"
       ],
@@ -5439,7 +5439,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4124,
+      "line": 4257,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5453,7 +5453,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4133,
+      "line": 4266,
       "patterns": [
         "time.sleep"
       ],
@@ -5467,7 +5467,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4349,
+      "line": 4482,
       "patterns": [
         "GetActiveObject"
       ],
@@ -5481,7 +5481,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4354,
+      "line": 4487,
       "patterns": [
         "Dispatch"
       ],
@@ -5495,7 +5495,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4358,
+      "line": 4491,
       "patterns": [
         "time.sleep"
       ],
@@ -5509,7 +5509,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4378,
+      "line": 4511,
       "patterns": [
         "CloseDoc"
       ],
@@ -5523,7 +5523,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4401,
+      "line": 4534,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5537,7 +5537,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4684,
+      "line": 4817,
       "patterns": [
         "time.sleep"
       ],
@@ -5551,7 +5551,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4792,
+      "line": 4925,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5565,7 +5565,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 5944,
+      "line": 6077,
       "patterns": [
         "AddDimension2"
       ],
@@ -5579,7 +5579,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6669,
+      "line": 6802,
       "patterns": [
         "time.sleep"
       ],
@@ -5593,7 +5593,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6797,
+      "line": 6930,
       "patterns": [
         "time.sleep"
       ],
@@ -5607,7 +5607,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7297,
+      "line": 7430,
       "patterns": [
         "AddDimension2"
       ],
@@ -5621,7 +5621,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7302,
+      "line": 7435,
       "patterns": [
         "AddDimension2"
       ],
@@ -5635,7 +5635,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7404,
+      "line": 7537,
       "patterns": [
         "AddDimension2"
       ],
@@ -5649,7 +5649,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7413,
+      "line": 7546,
       "patterns": [
         "AddDimension2"
       ],
@@ -5663,7 +5663,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7476,
+      "line": 7609,
       "patterns": [
         "AddDimension2"
       ],
@@ -5677,7 +5677,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7558,
+      "line": 7691,
       "patterns": [
         "RunMacro2"
       ],
@@ -5691,7 +5691,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7917,
+      "line": 8050,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -5705,7 +5705,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7922,
+      "line": 8055,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -5719,7 +5719,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8441,
+      "line": 8574,
       "patterns": [
         "SaveAs"
       ],
@@ -5733,7 +5733,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8530,
+      "line": 8663,
       "patterns": [
         "SaveAs"
       ],
@@ -5747,7 +5747,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8664,
+      "line": 8797,
       "patterns": [
         "SaveAs"
       ],
@@ -5761,7 +5761,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8711,
+      "line": 8844,
       "patterns": [
         "SaveAs"
       ],
@@ -5775,7 +5775,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8727,
+      "line": 8860,
       "patterns": [
         "SaveAs"
       ],
@@ -5789,7 +5789,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8733,
+      "line": 8866,
       "patterns": [
         "SaveAs"
       ],
@@ -5803,7 +5803,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8882,
+      "line": 9015,
       "patterns": [
         "SaveAs"
       ],
@@ -5817,7 +5817,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8894,
+      "line": 9027,
       "patterns": [
         "SaveAs"
       ],
@@ -5831,7 +5831,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8896,
+      "line": 9029,
       "patterns": [
         "SaveAs"
       ],
@@ -5845,7 +5845,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8921,
+      "line": 9054,
       "patterns": [
         "SaveAs"
       ],
@@ -5859,7 +5859,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8933,
+      "line": 9066,
       "patterns": [
         "SaveAs"
       ],
@@ -5873,7 +5873,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8935,
+      "line": 9068,
       "patterns": [
         "SaveAs"
       ],
@@ -5887,7 +5887,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8949,
+      "line": 9082,
       "patterns": [
         "SaveAs"
       ],
@@ -5901,7 +5901,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8961,
+      "line": 9094,
       "patterns": [
         "SaveAs"
       ],
@@ -5915,7 +5915,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8963,
+      "line": 9096,
       "patterns": [
         "SaveAs"
       ],
@@ -5929,7 +5929,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9005,
+      "line": 9138,
       "patterns": [
         "SaveAs"
       ],
@@ -5943,7 +5943,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9007,
+      "line": 9140,
       "patterns": [
         "SaveAs"
       ],
@@ -5957,7 +5957,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9114,
+      "line": 9247,
       "patterns": [
         "SaveAs"
       ],
@@ -5971,7 +5971,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9130,
+      "line": 9263,
       "patterns": [
         "SaveAs"
       ],
@@ -5985,7 +5985,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9132,
+      "line": 9265,
       "patterns": [
         "SaveAs"
       ],
@@ -5999,7 +5999,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9197,
+      "line": 9330,
       "patterns": [
         "SaveAs"
       ],
@@ -6013,7 +6013,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9199,
+      "line": 9332,
       "patterns": [
         "SaveAs"
       ],
@@ -6027,7 +6027,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9287,
+      "line": 9420,
       "patterns": [
         "CloseDoc"
       ],
@@ -6041,7 +6041,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9312,
+      "line": 9445,
       "patterns": [
         "CloseDoc"
       ],
