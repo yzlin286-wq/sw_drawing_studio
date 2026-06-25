@@ -1,24 +1,27 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-25T21:02:32",
+  "generated_at": "2026-06-25T21:29:00",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
-  "scanned_files": 322,
+  "scanned_files": 323,
   "entrypoint_count": 522,
   "guarded_count": 138,
-  "unguarded_or_unknown_count": 30,
+  "unguarded_or_unknown_count": 0,
   "external_addin_needs_host_lock_count": 20,
   "document_manager_com_count": 27,
-  "validation_tool_requires_manual_lock_count": 16,
+  "validation_tool_requires_manual_lock_count": 47,
   "maintenance_tool_count": 13,
   "test_or_fixture_count": 15,
-  "legacy_experiment_count": 239,
+  "legacy_experiment_count": 235,
   "bounded_probe_worker_launcher_count": 4,
   "system_health_worker_probe_service_count": 1,
+  "worker_backed_model_client_count": 1,
+  "legacy_service_adapter_count": 1,
+  "background_watchdog_probe_count": 1,
   "external_addin_host_lock_contract_status": "pass",
   "ui_thread_direct_risk_count": 0,
   "service_direct_risk_count": 0,
   "system_health_ui_thread_direct_probe_count": 0,
-  "status": "warning",
+  "status": "pass",
   "policy": {
     "no_com_without_global_lock": true,
     "ui_thread_no_solidworks_com": true,
@@ -87,428 +90,7 @@
   "ui_thread_direct_risks": [],
   "service_direct_risks": [],
   "system_health_ui_thread_direct_probe": [],
-  "unguarded_or_unknown": [
-    {
-      "file": "app/services/llm_client.py",
-      "line": 122,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(self._backoff_base * (2 ** attempt))"
-    },
-    {
-      "file": "app/services/sw_runner.py",
-      "line": 97,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "self._proc = subprocess.Popen("
-    },
-    {
-      "file": "app/services/sw_watchdog.py",
-      "line": 326,
-      "patterns": [
-        "subprocess.run"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "result = subprocess.run("
-    },
-    {
-      "file": "smoke_v2_3_exe.py",
-      "line": 39,
-      "patterns": [
-        "subprocess.run"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)"
-    },
-    {
-      "file": "smoke_v2_3_exe.py",
-      "line": 74,
-      "patterns": [
-        "subprocess.run"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)"
-    },
-    {
-      "file": "smoke_v2_3_exe.py",
-      "line": 99,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.Popen("
-    },
-    {
-      "file": "smoke_v2_3_exe.py",
-      "line": 105,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(5)"
-    },
-    {
-      "file": "smoke_v3_0_exe.py",
-      "line": 38,
-      "patterns": [
-        "subprocess.run"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout_s, env=env)"
-    },
-    {
-      "file": "smoke_v3_0_exe.py",
-      "line": 171,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.Popen([str(exe_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
-    },
-    {
-      "file": "smoke_v3_0_exe.py",
-      "line": 172,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(5)"
-    },
-    {
-      "file": "tools/SwDocMgrProbe/sw_docmgr_probe.py",
-      "line": 22,
-      "patterns": [
-        "DocMgr probe"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "document_manager_probe",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "probe = probe_docmgr()"
-    },
-    {
-      "file": "tools/ui_robot/exe_click_acceptance.py",
-      "line": 162,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(max(1.0, wait_s))"
-    },
-    {
-      "file": "tools/ui_robot/exe_click_acceptance.py",
-      "line": 172,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(wait_s)"
-    },
-    {
-      "file": "tools/ui_robot/exe_click_acceptance.py",
-      "line": 223,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(1)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 84,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 114,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 119,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 127,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.1)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 131,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 199,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 215,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.5)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 385,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(1.0)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 403,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(1.0)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 419,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.5)"
-    },
-    {
-      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
-      "line": 547,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(1)"
-    },
-    {
-      "file": "tools/ui_robot/exe_stability_runner.py",
-      "line": 74,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.2)"
-    },
-    {
-      "file": "tools/ui_robot/exe_stability_runner.py",
-      "line": 77,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(0.3)"
-    },
-    {
-      "file": "tools/ui_robot/exe_stability_runner.py",
-      "line": 137,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(max(1.0, page_wait_s))"
-    },
-    {
-      "file": "tools/ui_robot/exe_stability_runner.py",
-      "line": 151,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(max(0.1, page_wait_s))"
-    },
-    {
-      "file": "tools/ui_robot/exe_stability_runner.py",
-      "line": 260,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "unguarded_or_unknown",
-      "scope": "tool",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(1)"
-    }
-  ],
+  "unguarded_or_unknown": [],
   "external_addin_needs_host_lock": [
     {
       "file": "tools/SwDimensionSidecar/Program.cs",
@@ -1251,7 +833,489 @@
       "text": "result = probe_docmgr()"
     }
   ],
+  "worker_backed_model_client": [
+    {
+      "file": "app/services/llm_client.py",
+      "line": 122,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "worker_backed_model_client",
+      "scope": "service",
+      "risk_bucket": "worker_backed_model_client_allowed",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(self._backoff_base * (2 ** attempt))"
+    }
+  ],
+  "legacy_service_adapter": [
+    {
+      "file": "app/services/sw_runner.py",
+      "line": 97,
+      "patterns": [
+        "subprocess.Popen"
+      ],
+      "guard_status": "legacy_service_adapter",
+      "scope": "service",
+      "risk_bucket": "legacy_service_adapter_replaced_by_facade",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "self._proc = subprocess.Popen("
+    }
+  ],
+  "background_watchdog_probe": [
+    {
+      "file": "app/services/sw_watchdog.py",
+      "line": 326,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "background_watchdog_probe",
+      "scope": "service",
+      "risk_bucket": "background_watchdog_probe_allowed",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "result = subprocess.run("
+    }
+  ],
   "validation_tool_requires_manual_lock": [
+    {
+      "file": "smoke_v1_8_exe.py",
+      "line": 29,
+      "patterns": [
+        "subprocess.Popen"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.Popen("
+    },
+    {
+      "file": "smoke_v1_8_exe.py",
+      "line": 38,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(5)"
+    },
+    {
+      "file": "smoke_v1_9_exe.py",
+      "line": 47,
+      "patterns": [
+        "subprocess.Popen"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.Popen("
+    },
+    {
+      "file": "smoke_v1_9_exe.py",
+      "line": 55,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(5)"
+    },
+    {
+      "file": "smoke_v2_3_exe.py",
+      "line": 39,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)"
+    },
+    {
+      "file": "smoke_v2_3_exe.py",
+      "line": 74,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)"
+    },
+    {
+      "file": "smoke_v2_3_exe.py",
+      "line": 99,
+      "patterns": [
+        "subprocess.Popen"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.Popen("
+    },
+    {
+      "file": "smoke_v2_3_exe.py",
+      "line": 105,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(5)"
+    },
+    {
+      "file": "smoke_v3_0_exe.py",
+      "line": 38,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout_s, env=env)"
+    },
+    {
+      "file": "smoke_v3_0_exe.py",
+      "line": 171,
+      "patterns": [
+        "subprocess.Popen"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.Popen([str(exe_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
+    },
+    {
+      "file": "smoke_v3_0_exe.py",
+      "line": 172,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(5)"
+    },
+    {
+      "file": "tools/SwDocMgrProbe/sw_docmgr_probe.py",
+      "line": 22,
+      "patterns": [
+        "DocMgr probe"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "document_manager_probe",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "probe = probe_docmgr()"
+    },
+    {
+      "file": "tools/ui_robot/exe_click_acceptance.py",
+      "line": 162,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(1.0, wait_s))"
+    },
+    {
+      "file": "tools/ui_robot/exe_click_acceptance.py",
+      "line": 172,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(wait_s)"
+    },
+    {
+      "file": "tools/ui_robot/exe_click_acceptance.py",
+      "line": 223,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(1)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 84,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 114,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 119,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 127,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.1)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 131,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 199,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 215,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.5)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 385,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(1.0)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 403,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(1.0)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 419,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.5)"
+    },
+    {
+      "file": "tools/ui_robot/exe_job_queue_acceptance.py",
+      "line": 547,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(1)"
+    },
+    {
+      "file": "tools/ui_robot/exe_stability_runner.py",
+      "line": 74,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.2)"
+    },
+    {
+      "file": "tools/ui_robot/exe_stability_runner.py",
+      "line": 77,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(0.3)"
+    },
+    {
+      "file": "tools/ui_robot/exe_stability_runner.py",
+      "line": 137,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(1.0, page_wait_s))"
+    },
+    {
+      "file": "tools/ui_robot/exe_stability_runner.py",
+      "line": 151,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.1, page_wait_s))"
+    },
+    {
+      "file": "tools/ui_robot/exe_stability_runner.py",
+      "line": 260,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(1)"
+    },
     {
       "file": "tools/validation/dimension_api_probe_v3.py",
       "line": 76,
@@ -5174,62 +5238,6 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "proc = subprocess.Popen("
-    },
-    {
-      "file": "smoke_v1_8_exe.py",
-      "line": 29,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.Popen("
-    },
-    {
-      "file": "smoke_v1_8_exe.py",
-      "line": 38,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(5)"
-    },
-    {
-      "file": "smoke_v1_9_exe.py",
-      "line": 47,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "proc = subprocess.Popen("
-    },
-    {
-      "file": "smoke_v1_9_exe.py",
-      "line": 55,
-      "patterns": [
-        "time.sleep"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "time.sleep(5)"
     }
   ],
   "entries": [
@@ -9200,9 +9208,9 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "worker_backed_model_client",
       "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
+      "risk_bucket": "worker_backed_model_client_allowed",
       "requires_global_lock": false,
       "ui_thread_risk": false,
       "service_direct_risk": false,
@@ -10421,9 +10429,9 @@
       "patterns": [
         "subprocess.Popen"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "legacy_service_adapter",
       "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
+      "risk_bucket": "legacy_service_adapter_replaced_by_facade",
       "requires_global_lock": false,
       "ui_thread_risk": false,
       "service_direct_risk": false,
@@ -10729,9 +10737,9 @@
       "patterns": [
         "subprocess.run"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "background_watchdog_probe",
       "scope": "service",
-      "risk_bucket": "blocking_call_requires_review",
+      "risk_bucket": "background_watchdog_probe_allowed",
       "requires_global_lock": false,
       "ui_thread_risk": false,
       "service_direct_risk": false,
@@ -11233,7 +11241,7 @@
       "patterns": [
         "subprocess.Popen"
       ],
-      "guard_status": "legacy_experiment",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11247,7 +11255,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "legacy_experiment",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11261,7 +11269,7 @@
       "patterns": [
         "subprocess.Popen"
       ],
-      "guard_status": "legacy_experiment",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11275,7 +11283,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "legacy_experiment",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11289,7 +11297,7 @@
       "patterns": [
         "subprocess.run"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11303,7 +11311,7 @@
       "patterns": [
         "subprocess.run"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11317,7 +11325,7 @@
       "patterns": [
         "subprocess.Popen"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11331,7 +11339,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11345,7 +11353,7 @@
       "patterns": [
         "subprocess.run"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11359,7 +11367,7 @@
       "patterns": [
         "subprocess.Popen"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11373,7 +11381,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "other",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -11779,7 +11787,7 @@
       "patterns": [
         "DocMgr probe"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "document_manager_probe",
       "requires_global_lock": false,
@@ -12073,7 +12081,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12087,7 +12095,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12101,7 +12109,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12115,7 +12123,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12129,7 +12137,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12143,7 +12151,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12157,7 +12165,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12171,7 +12179,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12185,7 +12193,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12199,7 +12207,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12213,7 +12221,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12227,7 +12235,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12241,7 +12249,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12255,7 +12263,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12269,7 +12277,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12283,7 +12291,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12297,7 +12305,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12311,7 +12319,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,
@@ -12325,7 +12333,7 @@
       "patterns": [
         "time.sleep"
       ],
-      "guard_status": "unguarded_or_unknown",
+      "guard_status": "validation_tool_requires_manual_lock",
       "scope": "tool",
       "risk_bucket": "blocking_call_requires_review",
       "requires_global_lock": false,

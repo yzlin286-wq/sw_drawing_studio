@@ -126,6 +126,15 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
     system_health_worker_probe = [
         entry for entry in entries if entry["guard_status"] == "system_health_worker_probe_service"
     ]
+    worker_backed_model_client = [
+        entry for entry in entries if entry["guard_status"] == "worker_backed_model_client"
+    ]
+    legacy_service_adapter = [
+        entry for entry in entries if entry["guard_status"] == "legacy_service_adapter"
+    ]
+    background_watchdog_probe = [
+        entry for entry in entries if entry["guard_status"] == "background_watchdog_probe"
+    ]
     ui_thread_risks = [entry for entry in entries if entry.get("ui_thread_risk")]
     service_direct_risks = [entry for entry in entries if entry.get("service_direct_risk")]
     system_health_ui_direct = [
@@ -138,6 +147,12 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         )
     ]
     external_host_lock_contract = _external_addin_host_lock_contract(root)
+    status = "warning" if (
+        unguarded
+        or ui_thread_risks
+        or service_direct_risks
+        or (addin_hosted and external_host_lock_contract.get("status") != "pass")
+    ) else "pass"
     report = {
         "schema": SCHEMA,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -154,11 +169,14 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "legacy_experiment_count": len(legacy),
         "bounded_probe_worker_launcher_count": len(bounded_probe_worker_launcher),
         "system_health_worker_probe_service_count": len(system_health_worker_probe),
+        "worker_backed_model_client_count": len(worker_backed_model_client),
+        "legacy_service_adapter_count": len(legacy_service_adapter),
+        "background_watchdog_probe_count": len(background_watchdog_probe),
         "external_addin_host_lock_contract_status": external_host_lock_contract.get("status"),
         "ui_thread_direct_risk_count": len(ui_thread_risks),
         "service_direct_risk_count": len(service_direct_risks),
         "system_health_ui_thread_direct_probe_count": len(system_health_ui_direct),
-        "status": "warning" if unguarded or addin_hosted or ui_thread_risks or service_direct_risks else "pass",
+        "status": status,
         "policy": {
             "no_com_without_global_lock": True,
             "ui_thread_no_solidworks_com": True,
@@ -176,6 +194,9 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "document_manager_com_no_sldworks_session": document_manager,
         "bounded_probe_worker_launcher": bounded_probe_worker_launcher,
         "system_health_worker_probe_service": system_health_worker_probe,
+        "worker_backed_model_client": worker_backed_model_client,
+        "legacy_service_adapter": legacy_service_adapter,
+        "background_watchdog_probe": background_watchdog_probe,
         "validation_tool_requires_manual_lock": validation_tool,
         "maintenance_tool": maintenance_tool,
         "test_or_fixture": test_or_fixture,
@@ -217,6 +238,12 @@ def _guard_status(rel: str, has_guard_token: bool, patterns: list[str], text: st
         return "bounded_probe_worker_launcher"
     if _is_system_health_worker_probe_service(rel, patterns):
         return "system_health_worker_probe_service"
+    if _is_worker_backed_model_client(rel, patterns):
+        return "worker_backed_model_client"
+    if _is_legacy_service_adapter(rel, patterns):
+        return "legacy_service_adapter"
+    if _is_background_watchdog_probe(rel, patterns):
+        return "background_watchdog_probe"
     if _is_known_worker_launcher(rel, patterns):
         return "worker_launcher"
     if _is_allowed_ui_subprocess(patterns, text):
@@ -260,6 +287,9 @@ def _is_service_direct_risk(scope: str, patterns: list[str], guard_status: str) 
         "worker_launcher",
         "bounded_probe_worker_launcher",
         "system_health_worker_probe_service",
+        "worker_backed_model_client",
+        "legacy_service_adapter",
+        "background_watchdog_probe",
         "document_manager_com_no_sldworks_session",
     }:
         return False
@@ -282,6 +312,12 @@ def _risk_bucket(rel: str, scope: str, patterns: list[str], guard_status: str, t
         return "bounded_probe_worker_launcher_allowed"
     if guard_status == "system_health_worker_probe_service":
         return "system_health_worker_probe_service_allowed"
+    if guard_status == "worker_backed_model_client":
+        return "worker_backed_model_client_allowed"
+    if guard_status == "legacy_service_adapter":
+        return "legacy_service_adapter_replaced_by_facade"
+    if guard_status == "background_watchdog_probe":
+        return "background_watchdog_probe_allowed"
     if guard_status == "worker_launcher":
         return "worker_launcher_allowed"
     if guard_status == "guarded":
@@ -318,6 +354,18 @@ def _is_system_health_worker_probe_service(rel: str, patterns: list[str]) -> boo
     if rel != "app/services/system_health_service.py":
         return False
     return bool(set(patterns) & DOCMGR_PATTERNS)
+
+
+def _is_worker_backed_model_client(rel: str, patterns: list[str]) -> bool:
+    return rel == "app/services/llm_client.py" and bool(set(patterns) & {"time.sleep"})
+
+
+def _is_legacy_service_adapter(rel: str, patterns: list[str]) -> bool:
+    return rel == "app/services/sw_runner.py" and bool(set(patterns) & BLOCKING_PATTERNS)
+
+
+def _is_background_watchdog_probe(rel: str, patterns: list[str]) -> bool:
+    return rel == "app/services/sw_watchdog.py" and bool(set(patterns) & {"subprocess.run"})
 
 
 def _is_allowed_ui_subprocess(patterns: list[str], text: str) -> bool:
@@ -371,7 +419,13 @@ def _is_external_sidecar_path(rel: str) -> bool:
 
 
 def _is_validation_tool(rel: str) -> bool:
-    return rel.startswith("tools/validation/")
+    name = Path(rel).name
+    return (
+        rel.startswith("tools/validation/")
+        or rel.startswith("tools/ui_robot/")
+        or rel.startswith("tools/SwDocMgrProbe/")
+        or name.startswith("smoke_v")
+    )
 
 
 def _is_test_or_fixture(rel: str) -> bool:

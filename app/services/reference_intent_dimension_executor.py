@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-SCHEMA = "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_2"
+SCHEMA = "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4"
 
 
 def build_execution_contract(
@@ -36,6 +36,11 @@ def build_execution_contract(
             "allowed_witness_entity": dict(item.get("allowed_witness_entity") or {}),
             "prune_protection_policy": dict(item.get("prune_protection_policy") or {}),
             "source_reference": item.get("source_reference", ""),
+            "is_manufacturing_dimension": bool(item.get("is_manufacturing_dimension")),
+            "reference_value": item.get("reference_value"),
+            "reference_value_unit": item.get("reference_value_unit", ""),
+            "reference_value_status": item.get("reference_value_status", ""),
+            "source_reference_evidence": dict(item.get("source_reference_evidence") or {}),
             "fallback_policy": item.get("fallback_policy", "need_review_when_real_displaydim_unavailable"),
             "forbid_note_substitution": True,
             "generic_autodimension_acceptance_allowed": item.get("generic_autodimension_acceptance_allowed", False),
@@ -48,7 +53,7 @@ def build_execution_contract(
 
     return {
         "schema": SCHEMA,
-        "version": "v4.2",
+        "version": "v4.4",
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "base": plan.get("base", ""),
         "drawing_path": str(drawing_path or ""),
@@ -59,6 +64,8 @@ def build_execution_contract(
         "allowed_entrypoint": "cad_job_worker",
         "direct_com_called": False,
         "acceptance_trace_requirements": plan.get("acceptance_trace_requirements") or {},
+        "reference_extraction": plan.get("reference_extraction") or {},
+        "reference_callouts": plan.get("reference_callouts") or [],
         "operations": operations,
         "operation_count": len(operations),
         "status": "contract_ready_requires_cad_worker_lock",

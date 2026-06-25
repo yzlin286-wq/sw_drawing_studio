@@ -10,7 +10,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_REFERENCE_PROFILES = REPO_ROOT / "drw_output" / "reference_style_profile" / "reference_profiles_v4.json"
 DEFAULT_OUT_006 = REPO_ROOT / "drw_output" / "reference_intent_dimension_plan_006.json"
-SCHEMA = "sw_drawing_studio.reference_intent_dimension_plan.v4_2"
+SCHEMA = "sw_drawing_studio.reference_intent_dimension_plan.v4_4"
 TRACE_REQUIRED_FIELDS = [
     "target_key",
     "view_slot",
@@ -58,7 +58,7 @@ def build_reference_intent_dimension_plan(
 
     plan = {
         "schema": SCHEMA,
-        "version": "v4.2",
+        "version": "v4.4",
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "base": base,
         "source_reference": source_reference,
@@ -68,8 +68,10 @@ def build_reference_intent_dimension_plan(
         "api_is_supporting_only": True,
         "ui_screenshot_acceptance_required": True,
         "reference_view_slots": view_slots,
+        "reference_extraction": _reference_extraction_summary(base, source_reference, reference_display_dim_count),
         "dimension_groups": dimension_groups,
         "dimensions": dimensions,
+        "reference_callouts": _reference_callouts(base, source_reference),
         "acceptance_trace_requirements": {
             "required_fields": list(TRACE_REQUIRED_FIELDS),
             "required_stages": list(TRACE_REQUIRED_STAGES),
@@ -222,6 +224,12 @@ def _dimension_record(
     priority: int,
 ) -> dict[str, Any]:
     expected_add_method = _expected_add_method(expected_type)
+    reference_evidence = _reference_evidence_for_dimension(
+        key=key,
+        source_reference=source_reference,
+        target_view=target_view,
+        expected_type=expected_type,
+    )
     drafting_logic = _drafting_logic_for_target(
         key=key,
         group=group,
@@ -241,6 +249,11 @@ def _dimension_record(
         "source_reference": source_reference,
         "target_view": target_view,
         "expected_type": expected_type,
+        "is_manufacturing_dimension": True,
+        "reference_value": reference_evidence["reference_value"],
+        "reference_value_unit": reference_evidence["reference_value_unit"],
+        "reference_value_status": reference_evidence["reference_value_status"],
+        "source_reference_evidence": reference_evidence,
         "expected_add_method": expected_add_method,
         "preferred_side": preferred_side,
         "placement_lane": drafting_logic["placement_lane"],
@@ -393,6 +406,211 @@ def _manufacturing_story_role(group: str, target_view: str) -> str:
     return f"support_{target_view}_view_reading"
 
 
+def _reference_extraction_summary(base: str, source_reference: str, display_dim_count: int) -> dict[str, Any]:
+    if base != "LB26001-A-04-006":
+        return {
+            "source_reference": source_reference,
+            "status": "generic_reference_plan_no_visual_value_extraction",
+            "display_dim_count": display_dim_count,
+        }
+    return {
+        "source_reference": source_reference,
+        "reference_png": str(REPO_ROOT / "drw_output" / "case_library" / f"{base}.png"),
+        "status": "visual_reference_png_values_recorded",
+        "display_dim_count": display_dim_count,
+        "visual_reading_notes": [
+            "Overall long-axis station values visible on top view: 0, 10, 80, 150, 220, 230.",
+            "Transverse station values visible on top/right views: 0, 6, 12.",
+            "Front/right height station values visible: 0, 13.",
+            "Hole callout visible near top view: 4-⌀3.3 完全贯穿; M4-6H 完全贯穿.",
+            "Surface finish note visible near upper-right title area: 3.2 其余.",
+            "No radius or chamfer callout is visually present in the reference PNG.",
+        ],
+        "value_units": "mm unless noted otherwise",
+        "displaydim_values_require_locked_cad_extraction": True,
+        "api_and_png_reading_are_supporting_only": True,
+        "ui_screenshot_acceptance_required": True,
+    }
+
+
+def _reference_evidence_for_dimension(
+    *,
+    key: str,
+    source_reference: str,
+    target_view: str,
+    expected_type: str,
+) -> dict[str, Any]:
+    reference_png = str(REPO_ROOT / "drw_output" / "case_library" / "LB26001-A-04-006.png")
+    values: dict[str, dict[str, Any]] = {
+        "overall_length": {
+            "reference_value": 230,
+            "reference_value_unit": "mm",
+            "visual_reading": "Long-axis overall dimension reads 230.",
+            "source_text": "230",
+        },
+        "overall_width": {
+            "reference_value": 12,
+            "reference_value_unit": "mm",
+            "visual_reading": "Top/right transverse overall station reads 0 to 12.",
+            "source_text": "0, 12",
+        },
+        "overall_height": {
+            "reference_value": 13,
+            "reference_value_unit": "mm",
+            "visual_reading": "Front/right vertical station reads 0 to 13.",
+            "source_text": "0, 13",
+        },
+        "left_end_offset": {
+            "reference_value": 10,
+            "reference_value_unit": "mm",
+            "visual_reading": "First hole center station is 10 from left datum.",
+            "source_text": "0, 10",
+        },
+        "right_end_offset": {
+            "reference_value": 10,
+            "reference_value_unit": "mm",
+            "visual_reading": "Last hole center station 220 to overall 230 leaves 10 right end offset.",
+            "source_text": "220, 230",
+        },
+        "hole_diameter": {
+            "reference_value": {"hole_count": 4, "diameter_mm": 3.3, "thread": "M4-6H", "through": True},
+            "reference_value_unit": "callout",
+            "visual_reading": "Hole/thread callout reads 4-⌀3.3 完全贯穿 and M4-6H 完全贯穿.",
+            "source_text": "4-⌀3.3 完全贯穿; M4-6H 完全贯穿",
+        },
+        "hole_x_location": {
+            "reference_value": [10, 80, 150, 220],
+            "reference_value_unit": "mm",
+            "visual_reading": "Hole center x stations are visible as 10, 80, 150, 220 from the left datum.",
+            "source_text": "10, 80, 150, 220",
+        },
+        "hole_y_location": {
+            "reference_value": 6,
+            "reference_value_unit": "mm",
+            "visual_reading": "Hole centerline is centered between transverse stations 0 and 12, with station 6 shown.",
+            "source_text": "0, 6, 12",
+        },
+        "hole_pitch": {
+            "reference_value": [70, 70, 70],
+            "reference_value_unit": "mm",
+            "visual_reading": "Successive x stations 10, 80, 150, 220 imply 70 mm pitch.",
+            "source_text": "10, 80, 150, 220",
+        },
+        "projection_view_width": {
+            "reference_value": 12,
+            "reference_value_unit": "mm",
+            "visual_reading": "Right projected view horizontal station reads 0 to 12.",
+            "source_text": "0, 12",
+        },
+        "projection_view_height": {
+            "reference_value": 13,
+            "reference_value_unit": "mm",
+            "visual_reading": "Right projected view vertical station reads 0 to 13.",
+            "source_text": "0, 13",
+        },
+        "small_feature_location": {
+            "reference_value": 6,
+            "reference_value_unit": "mm",
+            "visual_reading": "Small projected feature aligns to center station 6 within the 12 mm width.",
+            "source_text": "0, 6, 12",
+        },
+    }
+    evidence = values.get(key)
+    if not evidence:
+        evidence = {
+            "reference_value": None,
+            "reference_value_unit": "",
+            "visual_reading": "No visual value reading recorded for this generic dimension.",
+            "source_text": "",
+        }
+    return {
+        "source_reference": source_reference,
+        "reference_png": reference_png,
+        "target_view": target_view,
+        "expected_type": expected_type,
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": evidence["reference_value"],
+        "reference_value_unit": evidence["reference_value_unit"],
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": evidence["visual_reading"],
+        "source_text": evidence["source_text"],
+        "requires_locked_displaydim_value_confirmation": True,
+        "confidence": "visual_readable_supporting_evidence",
+    }
+
+
+def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]]:
+    if base != "LB26001-A-04-006":
+        return []
+    reference_png = str(REPO_ROOT / "drw_output" / "case_library" / f"{base}.png")
+    common = {
+        "source_reference": source_reference,
+        "reference_png": reference_png,
+        "fallback_policy": "need_review_when_real_callout_unavailable",
+        "api_is_supporting_only": True,
+        "ui_screenshot_acceptance_required": True,
+    }
+    return [
+        {
+            **common,
+            "key": "thread_callout_m4_6h",
+            "target_view": "top",
+            "expected_type": "thread_callout",
+            "is_manufacturing_dimension": True,
+            "reference_value": "M4-6H 完全贯穿",
+            "source_reference_evidence": {
+                "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
+                "source_text": "M4-6H 完全贯穿",
+                "extraction_method": "manual_visual_reading_from_reference_png",
+            },
+            "forbid_note_substitution_for_displaydim": True,
+            "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim",
+        },
+        {
+            **common,
+            "key": "surface_finish_rest_3_2",
+            "target_view": "sheet_notes",
+            "expected_type": "surface_finish_callout",
+            "is_manufacturing_dimension": True,
+            "reference_value": "3.2 其余",
+            "source_reference_evidence": {
+                "visual_reading": "Upper-right sheet note reads 3.2 其余.",
+                "source_text": "3.2 其余",
+                "extraction_method": "manual_visual_reading_from_reference_png",
+            },
+            "create_as": "manufacturing note/symbol; does not count as DisplayDim",
+        },
+        {
+            **common,
+            "key": "radius_callout",
+            "target_view": "front/top/right",
+            "expected_type": "radius_callout",
+            "is_manufacturing_dimension": False,
+            "reference_value": None,
+            "source_reference_evidence": {
+                "visual_reading": "No radius callout is visually present in the reference PNG.",
+                "source_text": "",
+                "extraction_method": "manual_visual_absence_check",
+            },
+            "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+        },
+        {
+            **common,
+            "key": "chamfer_callout",
+            "target_view": "front/top/right",
+            "expected_type": "chamfer_callout",
+            "is_manufacturing_dimension": False,
+            "reference_value": None,
+            "source_reference_evidence": {
+                "visual_reading": "No chamfer callout is visually present in the reference PNG.",
+                "source_text": "",
+                "extraction_method": "manual_visual_absence_check",
+            },
+            "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+        },
+    ]
+
+
 def _expected_add_method(expected_type: str) -> str:
     value = str(expected_type or "").strip().lower()
     if "diameter" in value:
@@ -445,8 +663,10 @@ def _validate_plan(plan: dict[str, Any]) -> None:
             "source_reference",
             "target_view",
             "expected_type",
+            "is_manufacturing_dimension",
             "expected_add_method",
             "fallback_policy",
+            "source_reference_evidence",
             "functional_role",
             "reading_group",
             "placement_lane",

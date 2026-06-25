@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from typing import Any
 
@@ -28,7 +29,7 @@ from app.config.defaults import (
     get_llm_config,
     save_yaml,
 )
-from app.services import LLMClient
+from app.services.job_runtime_facade import get_job_runtime_facade
 
 
 PROVIDERS = ["openai", "deepseek", "dashscope", "ollama"]
@@ -42,6 +43,9 @@ class SettingsDialog(QDialog):
 
         self._llm_cfg: dict[str, Any] = deepcopy(get_llm_config() or {})
         self._app_cfg: dict[str, Any] = deepcopy(get_app_config() or {})
+        self._active_test_job_id = ""
+        self._test_provider_cfg: dict[str, Any] = {}
+        self.facade = get_job_runtime_facade()
 
         if "providers" not in self._llm_cfg or not isinstance(self._llm_cfg.get("providers"), dict):
             self._llm_cfg["providers"] = {}
@@ -60,6 +64,8 @@ class SettingsDialog(QDialog):
         )
         self.button_box.accepted.connect(self._on_save)
         self.button_box.rejected.connect(self.reject)
+        self.facade.job_finished.connect(self._on_llm_test_finished)
+        self.facade.job_failed.connect(self._on_llm_test_failed)
 
         layout = QVBoxLayout(self)
         layout.addWidget(self.tabs, 1)
@@ -292,19 +298,47 @@ class SettingsDialog(QDialog):
         self.lbl_test.setText("测试中…")
         self.btn_test.setEnabled(False)
         try:
-            client = LLMClient(provider_cfg)
-            ok, msg, latency_ms = client.test_connection()
-            if ok:
-                self.lbl_test.setStyleSheet("color: #2E7D32;")
-                self.lbl_test.setText(f"OK · {latency_ms} ms · {msg}")
-            else:
-                self.lbl_test.setStyleSheet("color: #C62828;")
-                self.lbl_test.setText(f"失败 · {latency_ms} ms · {msg}")
+            timeout_s = max(15, int(provider_cfg.get("timeout") or 60) + 10)
+            job_id = self.facade.start_llm_action(
+                action="test_connection",
+                context=json.dumps(provider_cfg, ensure_ascii=False),
+                timeout_s=timeout_s,
+            )
+            self._active_test_job_id = job_id
+            self._test_provider_cfg = provider_cfg
+            self.lbl_test.setStyleSheet("color: #E67E22;")
+            self.lbl_test.setText(f"测试中… job_id={job_id}")
         except Exception as exc:
             self.lbl_test.setStyleSheet("color: #C62828;")
             self.lbl_test.setText(f"异常: {type(exc).__name__}: {exc}")
-        finally:
             self.btn_test.setEnabled(True)
+
+    def _on_llm_test_finished(self, job_id: str, data: dict) -> None:
+        if job_id != self._active_test_job_id:
+            return
+        self._active_test_job_id = ""
+        self.btn_test.setEnabled(True)
+        result = (data or {}).get("result", data or {})
+        if not isinstance(result, dict):
+            result = {}
+        ok = bool(result.get("success"))
+        latency_ms = int(result.get("latency_ms") or 0)
+        msg = str(result.get("message") or "")
+        if ok:
+            self.lbl_test.setStyleSheet("color: #2E7D32;")
+            self.lbl_test.setText(f"OK · {latency_ms} ms · {msg}")
+        else:
+            self.lbl_test.setStyleSheet("color: #C62828;")
+            self.lbl_test.setText(f"失败 · {latency_ms} ms · {msg}")
+
+    def _on_llm_test_failed(self, job_id: str, data: dict) -> None:
+        if job_id != self._active_test_job_id:
+            return
+        self._active_test_job_id = ""
+        self.btn_test.setEnabled(True)
+        reason = str((data or {}).get("reason") or (data or {}).get("error") or data)
+        self.lbl_test.setStyleSheet("color: #C62828;")
+        self.lbl_test.setText(f"失败: {reason}")
 
     def _on_save(self) -> None:
         self._save_ui_to_provider()

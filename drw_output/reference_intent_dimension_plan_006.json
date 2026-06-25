@@ -1,7 +1,7 @@
 {
-  "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_2",
-  "version": "v4.2",
-  "generated_at": "2026-06-25 03:24:07",
+  "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
+  "version": "v4.4",
+  "generated_at": "2026-06-25 21:21:10",
   "base": "LB26001-A-04-006",
   "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "reference_display_dim_count": 12,
@@ -62,6 +62,24 @@
       ],
       "expected_create_method": "projection_api"
     }
+  },
+  "reference_extraction": {
+    "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+    "status": "visual_reference_png_values_recorded",
+    "display_dim_count": 12,
+    "visual_reading_notes": [
+      "Overall long-axis station values visible on top view: 0, 10, 80, 150, 220, 230.",
+      "Transverse station values visible on top/right views: 0, 6, 12.",
+      "Front/right height station values visible: 0, 13.",
+      "Hole callout visible near top view: 4-⌀3.3 完全贯穿; M4-6H 完全贯穿.",
+      "Surface finish note visible near upper-right title area: 3.2 其余.",
+      "No radius or chamfer callout is visually present in the reference PNG."
+    ],
+    "value_units": "mm unless noted otherwise",
+    "displaydim_values_require_locked_cad_extraction": true,
+    "api_and_png_reading_are_supporting_only": true,
+    "ui_screenshot_acceptance_required": true
   },
   "dimension_groups": [
     {
@@ -137,6 +155,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "front",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": 230,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "front",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 230,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Long-axis overall dimension reads 230.",
+        "source_text": "230",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "above",
       "placement_lane": {
@@ -216,6 +252,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_vertical",
+      "is_manufacturing_dimension": true,
+      "reference_value": 12,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 12,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Top/right transverse overall station reads 0 to 12.",
+        "source_text": "0, 12",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddVerticalDimension2",
       "preferred_side": "right",
       "placement_lane": {
@@ -295,6 +349,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "right",
       "expected_type": "linear_vertical",
+      "is_manufacturing_dimension": true,
+      "reference_value": 13,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 13,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Front/right vertical station reads 0 to 13.",
+        "source_text": "0, 13",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddVerticalDimension2",
       "preferred_side": "right",
       "placement_lane": {
@@ -374,6 +446,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": 10,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 10,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "First hole center station is 10 from left datum.",
+        "source_text": "0, 10",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "below",
       "placement_lane": {
@@ -453,6 +543,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": 10,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 10,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Last hole center station 220 to overall 230 leaves 10 right end offset.",
+        "source_text": "220, 230",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "below",
       "placement_lane": {
@@ -532,6 +640,34 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "diameter",
+      "is_manufacturing_dimension": true,
+      "reference_value": {
+        "hole_count": 4,
+        "diameter_mm": 3.3,
+        "thread": "M4-6H",
+        "through": true
+      },
+      "reference_value_unit": "callout",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "diameter",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": {
+          "hole_count": 4,
+          "diameter_mm": 3.3,
+          "thread": "M4-6H",
+          "through": true
+        },
+        "reference_value_unit": "callout",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Hole/thread callout reads 4-⌀3.3 完全贯穿 and M4-6H 完全贯穿.",
+        "source_text": "4-⌀3.3 完全贯穿; M4-6H 完全贯穿",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddDiameterDimension2",
       "preferred_side": "callout_right",
       "placement_lane": {
@@ -611,6 +747,34 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": [
+        10,
+        80,
+        150,
+        220
+      ],
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": [
+          10,
+          80,
+          150,
+          220
+        ],
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Hole center x stations are visible as 10, 80, 150, 220 from the left datum.",
+        "source_text": "10, 80, 150, 220",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "above",
       "placement_lane": {
@@ -690,6 +854,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_vertical",
+      "is_manufacturing_dimension": true,
+      "reference_value": 6,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 6,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Hole centerline is centered between transverse stations 0 and 12, with station 6 shown.",
+        "source_text": "0, 6, 12",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddVerticalDimension2",
       "preferred_side": "callout_right",
       "placement_lane": {
@@ -769,6 +951,32 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "top",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": [
+        70,
+        70,
+        70
+      ],
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": [
+          70,
+          70,
+          70
+        ],
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Successive x stations 10, 80, 150, 220 imply 70 mm pitch.",
+        "source_text": "10, 80, 150, 220",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "above",
       "placement_lane": {
@@ -848,6 +1056,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "right",
       "expected_type": "linear_horizontal",
+      "is_manufacturing_dimension": true,
+      "reference_value": 12,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "right",
+        "expected_type": "linear_horizontal",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 12,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Right projected view horizontal station reads 0 to 12.",
+        "source_text": "0, 12",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddHorizontalDimension2",
       "preferred_side": "above",
       "placement_lane": {
@@ -927,6 +1153,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "right",
       "expected_type": "linear_vertical",
+      "is_manufacturing_dimension": true,
+      "reference_value": 13,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 13,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Right projected view vertical station reads 0 to 13.",
+        "source_text": "0, 13",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddVerticalDimension2",
       "preferred_side": "right",
       "placement_lane": {
@@ -1006,6 +1250,24 @@
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
       "target_view": "right",
       "expected_type": "linear_vertical",
+      "is_manufacturing_dimension": true,
+      "reference_value": 6,
+      "reference_value_unit": "mm",
+      "reference_value_status": "visual_reading_recorded",
+      "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "extraction_method": "manual_visual_reading_from_reference_png_plus_reference_metrics",
+        "reference_value": 6,
+        "reference_value_unit": "mm",
+        "reference_value_status": "visual_reading_recorded",
+        "visual_reading": "Small projected feature aligns to center station 6 within the 12 mm width.",
+        "source_text": "0, 6, 12",
+        "requires_locked_displaydim_value_confirmation": true,
+        "confidence": "visual_readable_supporting_evidence"
+      },
       "expected_add_method": "AddVerticalDimension2",
       "preferred_side": "left",
       "placement_lane": {
@@ -1073,6 +1335,79 @@
         "display_dimensions",
         "dimension_readability"
       ]
+    }
+  ],
+  "reference_callouts": [
+    {
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "fallback_policy": "need_review_when_real_callout_unavailable",
+      "api_is_supporting_only": true,
+      "ui_screenshot_acceptance_required": true,
+      "key": "thread_callout_m4_6h",
+      "target_view": "top",
+      "expected_type": "thread_callout",
+      "is_manufacturing_dimension": true,
+      "reference_value": "M4-6H 完全贯穿",
+      "source_reference_evidence": {
+        "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
+        "source_text": "M4-6H 完全贯穿",
+        "extraction_method": "manual_visual_reading_from_reference_png"
+      },
+      "forbid_note_substitution_for_displaydim": true,
+      "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim"
+    },
+    {
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "fallback_policy": "need_review_when_real_callout_unavailable",
+      "api_is_supporting_only": true,
+      "ui_screenshot_acceptance_required": true,
+      "key": "surface_finish_rest_3_2",
+      "target_view": "sheet_notes",
+      "expected_type": "surface_finish_callout",
+      "is_manufacturing_dimension": true,
+      "reference_value": "3.2 其余",
+      "source_reference_evidence": {
+        "visual_reading": "Upper-right sheet note reads 3.2 其余.",
+        "source_text": "3.2 其余",
+        "extraction_method": "manual_visual_reading_from_reference_png"
+      },
+      "create_as": "manufacturing note/symbol; does not count as DisplayDim"
+    },
+    {
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+      "api_is_supporting_only": true,
+      "ui_screenshot_acceptance_required": true,
+      "key": "radius_callout",
+      "target_view": "front/top/right",
+      "expected_type": "radius_callout",
+      "is_manufacturing_dimension": false,
+      "reference_value": null,
+      "source_reference_evidence": {
+        "visual_reading": "No radius callout is visually present in the reference PNG.",
+        "source_text": "",
+        "extraction_method": "manual_visual_absence_check"
+      }
+    },
+    {
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+      "api_is_supporting_only": true,
+      "ui_screenshot_acceptance_required": true,
+      "key": "chamfer_callout",
+      "target_view": "front/top/right",
+      "expected_type": "chamfer_callout",
+      "is_manufacturing_dimension": false,
+      "reference_value": null,
+      "source_reference_evidence": {
+        "visual_reading": "No chamfer callout is visually present in the reference PNG.",
+        "source_text": "",
+        "extraction_method": "manual_visual_absence_check"
+      }
     }
   ],
   "acceptance_trace_requirements": {

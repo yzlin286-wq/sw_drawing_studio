@@ -18,7 +18,8 @@ def main() -> None:
     assert out.exists()
     data = json.loads(out.read_text(encoding="utf-8"))
     assert data["entrypoint_count"] >= 1
-    assert data["status"] in {"pass", "warning"}
+    assert data["status"] == "pass"
+    assert data["unguarded_or_unknown_count"] == 0
     assert any(
         entry["file"].endswith("cad_job_worker.py") and entry["guard_status"] == "worker_process"
         for entry in data["entries"]

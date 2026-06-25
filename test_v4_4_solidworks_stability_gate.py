@@ -28,6 +28,8 @@ def main() -> None:
 
     entrypoint = json.loads(ENTRYPOINT_REPORT.read_text(encoding="utf-8"))
     assert entrypoint["schema"] == "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4"
+    assert entrypoint["status"] == "pass"
+    assert entrypoint["unguarded_or_unknown_count"] == 0
     assert entrypoint["system_health_ui_thread_direct_probe_count"] == 0
     assert entrypoint["ui_thread_direct_risk_count"] == 0
     assert entrypoint["service_direct_risk_count"] == 0

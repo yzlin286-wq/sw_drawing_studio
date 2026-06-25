@@ -163,6 +163,27 @@ def test_llm_action_worker_args() -> None:
     assert args[args.index("--run-dir") + 1] == "drw_output/runs/llm_args"
 
 
+def test_llm_test_connection_worker_args() -> None:
+    queue = JobQueue()
+    runner = JobRunner(event_bus=JobEventBus(), job_queue=queue)
+    record = JobRecord(
+        job_id="llm_test",
+        part_name="llm_test_connection",
+        part_path="",
+        job_type="llm_action",
+        timeout_s=45,
+        run_dir="drw_output/runs/llm_test_args",
+    )
+    record.result.update({
+        "action": "test_connection",
+        "context": '{"base_url":"https://example.invalid","model":"fixture"}',
+    })
+    args = runner._build_worker_args(record)
+    assert args[args.index("--action") + 1] == "test_connection"
+    assert args[args.index("--context") + 1] == '{"base_url":"https://example.invalid","model":"fixture"}'
+    assert args[args.index("--run-dir") + 1] == "drw_output/runs/llm_test_args"
+
+
 def test_runner_skip_running_job_kills_process_and_logs_event() -> None:
     class DummyProcess:
         def __init__(self) -> None:
@@ -418,6 +439,34 @@ def test_facade_llm_action_record(monkeypatch=None) -> None:
     assert status["result"]["part_path"] == "fixture.SLDPRT"
     assert status["run_dir"]
 
+
+def test_facade_llm_test_connection_record(monkeypatch=None) -> None:
+    facade = JobRuntimeFacade()
+    facade.initialize()
+    started: list[JobRecord] = []
+
+    def fake_start(record: JobRecord) -> bool:
+        started.append(record)
+        return True
+
+    if monkeypatch is not None:
+        monkeypatch.setattr(facade._job_runner, "start_job", fake_start)
+    else:
+        facade._job_runner.start_job = fake_start  # type: ignore[method-assign]
+
+    job_id = facade.start_llm_action(
+        action="test_connection",
+        context='{"base_url":"https://example.invalid","model":"fixture"}',
+        timeout_s=44,
+    )
+    status = facade.get_job_status(job_id)
+    assert started and started[0].job_type == "llm_action"
+    assert started[0].timeout_s == 44
+    assert status is not None
+    assert status["result"]["action"] == "test_connection"
+    assert status["result"]["context"]
+
+
 def test_mock_worker_exists() -> None:
     assert (Path(__file__).resolve().parent / "app" / "workers" / "mock_long_job_worker.py").exists()
     assert (Path(__file__).resolve().parent / "app" / "workers" / "drawing_review_worker.py").exists()
@@ -436,6 +485,14 @@ def test_diagnostics_ui_uses_worker_contract() -> None:
     assert "request_build_diagnostics = Signal(str)" in logs_page
 
 
+def test_settings_dialog_uses_llm_worker_contract() -> None:
+    settings_dialog = Path("app/ui/settings_dialog.py").read_text(encoding="utf-8")
+    assert "from app.services import LLMClient" not in settings_dialog
+    assert "LLMClient(" not in settings_dialog
+    assert "start_llm_action(" in settings_dialog
+    assert 'action="test_connection"' in settings_dialog
+
+
 if __name__ == "__main__":
     test_job_record_defaults()
     test_batch_worker_args()
@@ -444,6 +501,7 @@ if __name__ == "__main__":
     test_qc_action_worker_args()
     test_diagnostics_action_worker_args()
     test_llm_action_worker_args()
+    test_llm_test_connection_worker_args()
     test_runner_skip_running_job_kills_process_and_logs_event()
     test_runner_missing_terminal_event_fails_job_and_logs_event()
     test_mock_worker_exists()
@@ -452,6 +510,8 @@ if __name__ == "__main__":
     test_facade_qc_action_record()
     test_facade_diagnostics_action_record()
     test_facade_llm_action_record()
+    test_facade_llm_test_connection_record()
     test_diagnostics_ui_uses_worker_contract()
+    test_settings_dialog_uses_llm_worker_contract()
     run_mock_facade_job()
     print("v2.3 job runtime verification PASS")

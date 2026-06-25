@@ -27,9 +27,20 @@ Generated: 2026-06-21
 - [x] Move Diagnostics ZIP generation behind `app/workers/diagnostics_action_worker.py` so Logs/Diagnostics UI and LogPanel no longer call `build_diagnostics_zip()` synchronously on the UI thread.
 - [x] Classify bounded COM probe worker launchers and System Health DocMgr worker-service probes separately from service-direct COM risk.
 - [x] Add external Add-in/sidecar host-lock contract evidence to `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`; current contract status is `pass`.
-- [~] Gate result remains WARNING: entrypoint scan is `status=warning`, `unguarded_or_unknown_count=30`, `service_direct_risk_count=0`, `external_addin_needs_host_lock_count=20`, and `external_addin_host_lock_contract_status=pass`. UI thread direct risk is currently `0`, and System Health UI direct Add-in/DocMgr/subprocess-run risk is `0`.
-- [ ] Continue cleanup/classification of the remaining `unguarded_or_unknown_count=30` before calling the SolidWorks Stability Gate PASS.
+- [x] Move Settings dialog model connection test behind `llm_action_worker.py` / `JobRuntimeFacade.start_llm_action(action="test_connection")` so UI does not run network retries or `time.sleep`.
+- [x] Classify remaining smoke/tool/UI robot/watchdog/legacy runner/model-client blocking calls with explicit non-UI or worker-backed risk buckets.
+- [x] SolidWorks Stability Gate result is now PASS: entrypoint scan is `status=pass`, `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `service_direct_risk_count=0`, `system_health_ui_thread_direct_probe_count=0`, and `external_addin_host_lock_contract_status=pass`.
 - [ ] 006 still requires a fresh locked CAD run and application Drawing Review UI screenshot PASS before any expansion to 007/008/009/015/022.
+
+## v4.4 006 Reference Intent Dimension Plan - 2026-06-25
+
+- [x] Regenerate `drw_output/reference_intent_dimension_plan_006.json` with schema `sw_drawing_studio.reference_intent_dimension_plan.v4_4`.
+- [x] Add 12 required DisplayDim targets with `source_reference`, `target_view`, `expected_type`, `is_manufacturing_dimension`, `fallback_policy`, `source_reference_evidence`, and visual reference values.
+- [x] Record visual reference values from `drw_output/case_library/LB26001-A-04-006.png`: overall length `230`, width `12`, height `13`, end offsets `10/10`, hole x stations `[10, 80, 150, 220]`, hole y station `6`, pitch `[70, 70, 70]`, `4-⌀3.3` through holes, `M4-6H` through thread, and `3.2 其余`.
+- [x] Explicitly record radius/chamfer as visually absent in the reference PNG; do not create them unless geometry or reference evidence proves them.
+- [x] Regenerate `drw_output/reference_intent_dimension_contract_006.json` with schema `sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4`, 12 operations, current-job SolidWorks lock requirement, and no UI-thread execution.
+- [x] Add `test_v4_4_reference_intent_plan_006.py`.
+- [ ] Use the plan only in a fresh locked 006 CAD worker run; plan readiness is not drawing acceptance.
 
 ## v4.1 Immediate SolidWorks Conflict Control
 
@@ -90,6 +101,7 @@ Generated: 2026-06-21
 - [x] Add `app/workers/diagnostics_action_worker.py` and move Diagnostics ZIP generation behind JobRuntimeFacade/QProcess.
 - [x] Move legacy CAD rerun helpers behind JobRuntimeFacade/start_cad_job instead of SwRunner/QThreadPool.
 - [x] Add `app/workers/llm_action_worker.py` and move active AI pre-analysis / technical text generation behind JobRuntimeFacade/QProcess.
+- [x] Move Settings dialog model connection test behind `llm_action_worker.py`.
 - [x] Extend `app/workers/mock_long_job_worker.py` to cover pass, pass_with_warning, timeout, failed, recovered, and stuck_then_recovered.
 - [x] Generate complete `job_event_log.jsonl` sample.
 - [x] Remove active `main_window.py` QThreadPool long-task paths: CAD rerun and LLM pre-analysis / technical text generation now submit JobRuntimeFacade jobs. Legacy `app/ui/_workers.py` remains unused.

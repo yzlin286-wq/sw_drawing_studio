@@ -165,10 +165,32 @@ def _run_tech_text(args: argparse.Namespace) -> dict:
     }
 
 
+def _run_test_connection(args: argparse.Namespace) -> dict:
+    try:
+        provider_cfg = json.loads(args.context or "{}")
+        if not isinstance(provider_cfg, dict):
+            provider_cfg = {}
+    except Exception as exc:
+        raise ValueError(f"provider config JSON is invalid: {exc}") from exc
+
+    from app.services.llm_client import LLMClient
+
+    client = LLMClient(provider_cfg)
+    ok, message, latency_ms = client.test_connection()
+    return {
+        "success": bool(ok),
+        "action": "test_connection",
+        "message": str(message),
+        "latency_ms": int(latency_ms),
+        "model": str(provider_cfg.get("model") or ""),
+        "base_url": str(provider_cfg.get("base_url") or ""),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="LLM action worker")
     parser.add_argument("--job-id", required=True)
-    parser.add_argument("--action", required=True, choices=["pre_analyze", "tech_text"])
+    parser.add_argument("--action", required=True, choices=["pre_analyze", "tech_text", "test_connection"])
     parser.add_argument("--part-path", default="")
     parser.add_argument("--context", default="")
     parser.add_argument("--run-dir", default="")
@@ -196,8 +218,10 @@ def main() -> int:
 
         if args.action == "pre_analyze":
             result = _run_pre_analyze(args)
-        else:
+        elif args.action == "tech_text":
             result = _run_tech_text(args)
+        else:
+            result = _run_test_connection(args)
 
         result.setdefault("timestamp", time.strftime("%Y-%m-%d %H:%M:%S"))
         _emit("progress", job_id, data={"progress": 0.9, "stage": "complete"}, message="LLM action completed")

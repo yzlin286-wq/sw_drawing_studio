@@ -24,11 +24,12 @@ No real CAD was run in this slice. `full_129`, `LB26001_36`, and the requested s
 
 Evidence added in this slice:
 
-- `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`: refreshed with schema `sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4`; current status is `warning`, `entrypoint_count=522`, `unguarded_or_unknown_count=30`, `ui_thread_direct_risk_count=0`, `service_direct_risk_count=0`, `system_health_ui_thread_direct_probe_count=0`, `external_addin_needs_host_lock_count=20`, and `external_addin_host_lock_contract_status=pass`.
+- `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`: refreshed with schema `sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4`; current status is `pass`, `entrypoint_count=522`, `unguarded_or_unknown_count=0`, `ui_thread_direct_risk_count=0`, `service_direct_risk_count=0`, `system_health_ui_thread_direct_probe_count=0`, `worker_backed_model_client_count=1`, `legacy_service_adapter_count=1`, `background_watchdog_probe_count=1`, `validation_tool_requires_manual_lock_count=47`, `external_addin_needs_host_lock_count=20`, and `external_addin_host_lock_contract_status=pass`.
 - `drw_output/diagnostics/solidworks_lock_test_result.json`: schema `sw_drawing_studio.solidworks_lock_test_result.v4_4`, status `pass`; checks cover first-owner acquire, second-owner blocked by lock, heartbeat/release, alive-owner no-steal, stale-owner release, and conflict-log write.
 - `drw_output/diagnostics/conflict_report.json`: current `level=OK`, with no enumerated SolidWorks process, CAD worker, batch worker, waiting job, smoke leftover, or DialogGuard.
-- `drw_output/diagnostics/solidworks_stability_gate_v4_4.json`: summary remains `status=warning`, `pass=false`, `release_ready=false`, warning reason `unguarded_or_review_required_solidworks_entrypoints`.
+- `drw_output/diagnostics/solidworks_stability_gate_v4_4.json`: summary is now `status=pass`, `pass=true`, `release_ready=false`, with no warning reasons. This proves the SolidWorks Stability Gate only; it does not make the product release-ready.
 - `app/workers/diagnostics_action_worker.py`: new QProcess worker for Diagnostics ZIP generation; `app/ui/log_panel.py` and `app/ui/logs_diagnostics_page.py` now emit UI requests instead of calling `build_diagnostics_zip()` synchronously.
+- `app/workers/llm_action_worker.py` and `app/ui/settings_dialog.py`: Settings dialog model connection testing now runs through `JobRuntimeFacade.start_llm_action(action="test_connection")`, avoiding UI-thread network retry sleeps.
 - External Add-in/sidecar host-lock contract is now machine-readable in the entrypoint report; checks pass for CAD worker, batch worker, Drawing Review Add-in worker, `sw_addin_client._get_sw_app`, `dimension_sidecar_service.run_dimension_sidecar`, and the v6 generator sidecar path.
 - `app/workers/batch_job_worker.py`: now mirrors CAD-worker stability behavior with SolidWorks resource audit, document registry propagation to child CAD processes, cleanup before lock release, and `solidworks_resource_*` / `solidworks_cleanup_finished` event evidence.
 - `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`: now emits document registry events for job-owned part/drawing open and final close events.
@@ -36,12 +37,20 @@ Evidence added in this slice:
 - `drw_output/diagnostics/diagnostics_mock_20260625_204114_2a3c5876.zip`: diagnostics worker smoke generated this ZIP from an existing mock run.
 - `drw_output/ui_acceptance/quick_v4_4_diagnostics_worker/ui_acceptance_report.json` and `ui_acceptance_report_v3_0.md`: source-level UI robot quick suite passed with screenshots, including the Logs Diagnostics page.
 
+006 Reference Intent Dimension Plan evidence:
+
+- `drw_output/reference_intent_dimension_plan_006.json`: regenerated with schema `sw_drawing_studio.reference_intent_dimension_plan.v4_4`; it contains 12 required DisplayDim targets and every target has `source_reference`, `target_view`, `expected_type`, `is_manufacturing_dimension`, `fallback_policy`, `source_reference_evidence`, and a visual reference value.
+- Visual reference values recorded from `drw_output/case_library/LB26001-A-04-006.png`: overall length `230`, width `12`, height `13`, end offsets `10/10`, hole x stations `[10, 80, 150, 220]`, hole y station `6`, pitch `[70, 70, 70]`, `4-⌀3.3` through holes, `M4-6H` through thread, and `3.2 其余`.
+- `drw_output/reference_intent_dimension_contract_006.json`: regenerated with schema `sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4`, 12 operations, `requires_solidworks_lock=true`, and `ui_thread_may_execute=false`.
+- `test_v4_4_reference_intent_plan_006.py`: verifies the plan/contract schema, required fields, manufacturing dimension flags, visual reference values, no Note substitution, and CAD-worker lock contract.
+
 Validation commands:
 
 ```powershell
-python -m py_compile app\workers\diagnostics_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\log_panel.py app\ui\logs_diagnostics_page.py app\ui\main_window.py tools\validation\run_solidworks_stability_gate_v4_4.py app\services\solidworks_entrypoint_scanner.py app\workers\batch_job_worker.py app\workers\cad_job_worker.py app\services\solidworks_resource_audit.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_solidworks_stability_gate.py
+python -m py_compile app\workers\diagnostics_action_worker.py app\workers\llm_action_worker.py app\services\job_runner.py app\services\job_runtime_facade.py app\main.py app\ui\log_panel.py app\ui\logs_diagnostics_page.py app\ui\main_window.py app\ui\settings_dialog.py app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py tools\validation\run_solidworks_stability_gate_v4_4.py app\services\solidworks_entrypoint_scanner.py app\workers\batch_job_worker.py app\workers\cad_job_worker.py app\services\solidworks_resource_audit.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_solidworks_stability_gate.py test_v4_4_reference_intent_plan_006.py
 python tools\validation\run_solidworks_stability_gate_v4_4.py
 python test_v4_4_solidworks_stability_gate.py
+python test_v4_4_reference_intent_plan_006.py
 python test_v4_1_solidworks_entrypoint_scan.py
 python test_v4_1_solidworks_global_lock.py
 python test_v4_1_solidworks_conflict_monitor.py
@@ -58,7 +67,7 @@ python app\workers\diagnostics_action_worker.py --job-id diag_smoke --action bui
 python tools\ui_robot\ui_acceptance_suite.py --out-dir drw_output\ui_acceptance\quick_v4_4_diagnostics_worker --mock-duration-s 0.4
 ```
 
-Result: PASS for offline stability diagnostics, diagnostics worker smoke, source-level UI robot quick suite, and regression tests; overall v4.4 remains WARNING because `unguarded_or_unknown_count=30` and 006 application Drawing Review UI screenshot acceptance are not complete.
+Result: PASS for SolidWorks Stability Gate, 006 reference-intent plan/contract verification, diagnostics worker smoke, source-level UI robot quick suite, and regression tests; overall v4.4 remains WARNING because 006 still requires a fresh locked CAD worker run and application Drawing Review UI screenshot acceptance.
 
 Evidence added in this slice:
 

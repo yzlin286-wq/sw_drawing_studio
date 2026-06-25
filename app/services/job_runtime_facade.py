@@ -484,12 +484,13 @@ class JobRuntimeFacade(QObject):
     ) -> str:
         """Start an LLM-backed UI action in a QProcess worker.
 
-        AI pre-analysis and technical-text generation may block on network/model
-        calls, so UI pages submit them through this facade.
+        AI pre-analysis, technical-text generation, and model connection tests
+        may block on network/model calls, so UI pages submit them through this
+        facade.
         """
         self._ensure_initialized()
 
-        allowed = {"pre_analyze", "tech_text"}
+        allowed = {"pre_analyze", "tech_text", "test_connection"}
         if action not in allowed:
             raise ValueError(f"Unknown LLM action: {action}")
 
