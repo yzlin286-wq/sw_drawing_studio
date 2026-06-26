@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.staged_batch_sequence_gate.v4_4",
-  "generated_at": "2026-06-26 23:47:05",
+  "generated_at": "2026-06-27 00:05:36",
   "status": "pending",
   "pass": false,
   "required_sequence": [
@@ -192,6 +192,39 @@
       ]
     }
   ],
+  "stage_generated_at_sequence_order_pass": false,
+  "stage_generated_at_sequence_order": {
+    "pass": false,
+    "present_stage_count": 3,
+    "stage_generated_at": [
+      {
+        "stage": "024_040",
+        "generated_at": "2026-06-22 03:53:50",
+        "parse_ok": true
+      },
+      {
+        "stage": "core_12",
+        "generated_at": "2026-06-22 03:42:09",
+        "parse_ok": true
+      },
+      {
+        "stage": "LB26001_36",
+        "generated_at": "2026-06-22 06:58:43",
+        "parse_ok": true
+      }
+    ],
+    "missing_generated_at_stages": [],
+    "unparsable_generated_at_stages": [],
+    "order_violations": [
+      {
+        "previous_stage": "024_040",
+        "previous_generated_at": "2026-06-22 03:53:50",
+        "stage": "core_12",
+        "generated_at": "2026-06-22 03:42:09"
+      }
+    ],
+    "require_non_decreasing_required_sequence_timestamps": true
+  },
   "solidworks_global_lock_required": true,
   "job_runtime_facade_required": true,
   "qprocess_worker_required": true,
@@ -201,6 +234,7 @@
   "full_129_allowed_after_visual_audit": false,
   "blocking_issue_keys": [
     "required_sequence_missing_or_out_of_order",
+    "stage_generated_at_sequence_order",
     "024_040_solidworks_lock_owned",
     "024_040_application_ui_screenshot_evidence",
     "024_040_api_only_acceptance_disallowed",

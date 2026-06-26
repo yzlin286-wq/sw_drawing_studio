@@ -37,8 +37,13 @@ def build_staged_batch_sequence_gate(
     stage_pass_map = {str(item.get("stage")): bool(item.get("pass")) for item in stages}
     sequence_present = [str(item.get("stage")) for item in stages if item.get("summary_exists")]
     ordered_pass = _ordered_sequence_present(sequence_present)
-    all_stages_pass = ordered_pass and all(stage_pass_map.get(stage) is True for stage in REQUIRED_SEQUENCE)
-    blocking_issue_keys = _blocking_issue_keys(stages, ordered_pass)
+    generated_at_order_ok, generated_at_order = _stage_generated_at_sequence_order(stages)
+    all_stages_pass = (
+        ordered_pass
+        and generated_at_order_ok
+        and all(stage_pass_map.get(stage) is True for stage in REQUIRED_SEQUENCE)
+    )
+    blocking_issue_keys = _blocking_issue_keys(stages, ordered_pass, generated_at_order_ok)
     payload = {
         "schema": SCHEMA,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -48,6 +53,8 @@ def build_staged_batch_sequence_gate(
         "sequence": [str(item.get("stage")) for item in stages if item.get("summary_exists")],
         "observed_sequence": sequence_present,
         "stages": stages,
+        "stage_generated_at_sequence_order_pass": generated_at_order_ok,
+        "stage_generated_at_sequence_order": generated_at_order,
         "solidworks_global_lock_required": True,
         "job_runtime_facade_required": True,
         "qprocess_worker_required": True,
@@ -56,7 +63,7 @@ def build_staged_batch_sequence_gate(
         "visual_audit_allowed_after_medium_30": all_stages_pass,
         "full_129_allowed_after_visual_audit": all_stages_pass,
         "blocking_issue_keys": blocking_issue_keys,
-        "next_required_action": _next_required_action(stages, ordered_pass),
+        "next_required_action": _next_required_action(stages, ordered_pass, generated_at_order_ok),
     }
     if out_json is not None:
         out_json.parent.mkdir(parents=True, exist_ok=True)
@@ -75,6 +82,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
         f"- PASS: `{str(payload.get('pass')).lower()}`",
         f"- Required sequence: `{' -> '.join(payload.get('required_sequence') or [])}`",
         f"- Observed sequence: `{' -> '.join(payload.get('observed_sequence') or [])}`",
+        f"- Stage generated_at order: `{str(payload.get('stage_generated_at_sequence_order_pass')).lower()}`",
         f"- Visual Audit allowed after medium_30: `{str(payload.get('visual_audit_allowed_after_medium_30')).lower()}`",
         f"- full_129 allowed after Visual Audit: `{str(payload.get('full_129_allowed_after_visual_audit')).lower()}`",
         "",
@@ -229,10 +237,16 @@ def _latest_summary_path(stage_root: Path, stage: str) -> Path | None:
     return max(matches, key=lambda path: path.stat().st_mtime)
 
 
-def _blocking_issue_keys(stages: list[dict[str, Any]], ordered_pass: bool) -> list[str]:
+def _blocking_issue_keys(
+    stages: list[dict[str, Any]],
+    ordered_pass: bool,
+    generated_at_order_ok: bool,
+) -> list[str]:
     keys: list[str] = []
     if not ordered_pass:
         keys.append("required_sequence_missing_or_out_of_order")
+    if not generated_at_order_ok:
+        keys.append("stage_generated_at_sequence_order")
     for stage in stages:
         if stage.get("pass") is True:
             continue
@@ -245,7 +259,7 @@ def _blocking_issue_keys(stages: list[dict[str, Any]], ordered_pass: bool) -> li
     return _unique(keys)
 
 
-def _next_required_action(stages: list[dict[str, Any]], ordered_pass: bool) -> str:
+def _next_required_action(stages: list[dict[str, Any]], ordered_pass: bool, generated_at_order_ok: bool) -> str:
     for stage in stages:
         if stage.get("pass") is not True:
             name = stage.get("stage")
@@ -255,6 +269,8 @@ def _next_required_action(stages: list[dict[str, Any]], ordered_pass: bool) -> s
             return f"Refresh {name} staged evidence with current v4.4 UI screenshot and worker-contract proof: {mismatch}."
     if not ordered_pass:
         return "Regenerate staged evidence in the required 024/040 -> core_12 -> LB26001_36 -> medium_30 order."
+    if not generated_at_order_ok:
+        return "Regenerate staged evidence so each stage summary generated_at is not older than the prior required stage."
     return "Staged sequence proof is complete."
 
 
@@ -262,6 +278,66 @@ def _ordered_sequence_present(sequence: list[str]) -> bool:
     if sequence != REQUIRED_SEQUENCE:
         return False
     return True
+
+
+def _stage_generated_at_sequence_order(stages: list[dict[str, Any]]) -> tuple[bool, dict[str, Any]]:
+    previous_stage = ""
+    previous_generated_at = ""
+    previous_timestamp: float | None = None
+    present_stage_count = 0
+    missing_generated_at_stages: list[str] = []
+    unparsable_generated_at_stages: list[dict[str, str]] = []
+    order_violations: list[dict[str, str]] = []
+    stage_generated_at: list[dict[str, Any]] = []
+
+    for stage in stages:
+        if stage.get("summary_exists") is not True:
+            continue
+        present_stage_count += 1
+        stage_name = str(stage.get("stage") or "")
+        generated_at = str(stage.get("generated_at") or "").strip()
+        parsed = _parse_generated_at(generated_at)
+        stage_generated_at.append(
+            {
+                "stage": stage_name,
+                "generated_at": generated_at,
+                "parse_ok": parsed is not None,
+            }
+        )
+        if not generated_at:
+            missing_generated_at_stages.append(stage_name)
+            continue
+        if parsed is None:
+            unparsable_generated_at_stages.append({"stage": stage_name, "generated_at": generated_at})
+            continue
+        if previous_timestamp is not None and parsed < previous_timestamp:
+            order_violations.append(
+                {
+                    "previous_stage": previous_stage,
+                    "previous_generated_at": previous_generated_at,
+                    "stage": stage_name,
+                    "generated_at": generated_at,
+                }
+            )
+        previous_stage = stage_name
+        previous_generated_at = generated_at
+        previous_timestamp = parsed
+
+    pass_ = bool(
+        present_stage_count > 0
+        and not missing_generated_at_stages
+        and not unparsable_generated_at_stages
+        and not order_violations
+    )
+    return pass_, {
+        "pass": pass_,
+        "present_stage_count": present_stage_count,
+        "stage_generated_at": stage_generated_at,
+        "missing_generated_at_stages": missing_generated_at_stages,
+        "unparsable_generated_at_stages": unparsable_generated_at_stages,
+        "order_violations": order_violations,
+        "require_non_decreasing_required_sequence_timestamps": True,
+    }
 
 
 def _stage_truthy(summary: dict[str, Any], cases: list[dict[str, Any]], keys: list[str]) -> bool:
@@ -335,6 +411,18 @@ def _float_value(value: Any, default: float = 0.0) -> float:
         return float(value)
     except (TypeError, ValueError):
         return default
+
+
+def _parse_generated_at(value: Any) -> float | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            return time.mktime(time.strptime(text[:19], fmt))
+        except ValueError:
+            continue
+    return None
 
 
 def _first_nonempty_case_value(cases: list[dict[str, Any]], key: str) -> str:

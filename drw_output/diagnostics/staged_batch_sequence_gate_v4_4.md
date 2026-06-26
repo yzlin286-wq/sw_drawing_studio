@@ -4,6 +4,7 @@
 - PASS: `false`
 - Required sequence: `024_040 -> core_12 -> LB26001_36 -> medium_30`
 - Observed sequence: `024_040 -> core_12 -> LB26001_36`
+- Stage generated_at order: `false`
 - Visual Audit allowed after medium_30: `false`
 - full_129 allowed after Visual Audit: `false`
 
@@ -21,6 +22,7 @@
 ## Blocking Issues
 
 - `required_sequence_missing_or_out_of_order`
+- `stage_generated_at_sequence_order`
 - `024_040_solidworks_lock_owned`
 - `024_040_application_ui_screenshot_evidence`
 - `024_040_api_only_acceptance_disallowed`

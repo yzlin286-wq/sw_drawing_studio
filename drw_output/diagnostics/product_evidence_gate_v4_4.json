@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 23:59:31",
+  "generated_at": "2026-06-27 00:05:42",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1402,7 +1402,7 @@
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\staged_batch_sequence_gate_v4_4.json",
         "exists": true,
         "schema": "sw_drawing_studio.staged_batch_sequence_gate.v4_4",
-        "generated_at": "2026-06-26 23:47:05",
+        "generated_at": "2026-06-27 00:05:36",
         "status": "pending",
         "pass": false,
         "required_sequence": [
@@ -1515,6 +1515,7 @@
         },
         "blocking_issue_keys": [
           "required_sequence_missing_or_out_of_order",
+          "stage_generated_at_sequence_order",
           "024_040_solidworks_lock_owned",
           "024_040_application_ui_screenshot_evidence",
           "024_040_api_only_acceptance_disallowed",
@@ -1579,9 +1580,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1138821,
-          "mtime_epoch": 1782489221.9124365,
-          "mtime_local": "2026-06-26 23:53:41"
+          "size_bytes": 1142477,
+          "mtime_epoch": 1782489618.5500915,
+          "mtime_local": "2026-06-27 00:00:18"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

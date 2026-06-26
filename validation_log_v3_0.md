@@ -15909,3 +15909,48 @@ Remaining issues:
 - A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
 - This change improves allowed-action correctness only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Staged Batch Chronological Sequence Gate - 2026-06-27
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM staged-sequence evidence hardening step. It prevents historical staged validation summaries from unlocking Visual Audit full scope, `full_129`, or release unless their `generated_at` values prove the required `024/040 -> core_12 -> LB26001_36 -> medium_30` order.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/staged_batch_sequence_gate_v4_4.py`.
+  - Adds `stage_generated_at_sequence_order_pass` and `stage_generated_at_sequence_order`.
+  - Blocks with `stage_generated_at_sequence_order` when a later required stage summary has an older `generated_at` than the prior required stage.
+  - Keeps the tool file-only; it does not launch CAD, workers, OCR, or Visual Audit batches.
+- Updated `test_v4_4_staged_batch_sequence_gate.py`.
+  - Added a regression where `024_040.generated_at` is newer than `core_12.generated_at`.
+  - The test proves Visual Audit/full_129 remain disallowed even when each stage's worker/UI artifact contract is otherwise complete.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\staged_batch_sequence_gate_v4_4.py test_v4_4_staged_batch_sequence_gate.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_staged_batch_sequence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\staged_batch_sequence_gate_v4_4.py --out-json drw_output\diagnostics\staged_batch_sequence_gate_v4_4.json --out-md drw_output\diagnostics\staged_batch_sequence_gate_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py
+```
+
+Results:
+
+- `test_v4_4_staged_batch_sequence_gate.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed `staged_batch_sequence_gate_v4_4.json` remains `pending`, `pass=false`.
+- New staged blocker: `stage_generated_at_sequence_order` because current historical evidence has `024_040.generated_at=2026-06-22 03:53:50` and `core_12.generated_at=2026-06-22 03:42:09`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, and all allowed actions remain false.
+
+Remaining issues:
+
+- The required staged sequence is still not proven: `medium_30` is missing, old 024/core/LB summaries lack the current lock/UI-screenshot/API-only contract, `LB26001_36` misses the deliverable target, and the current chronological order is inverted.
+- This change improves staged evidence quality only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, staged batch sequence proof, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

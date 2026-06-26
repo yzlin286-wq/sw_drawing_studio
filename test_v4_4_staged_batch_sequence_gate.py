@@ -36,7 +36,14 @@ def _cad_report(path: Path) -> Path:
     )
 
 
-def _summary(root: Path, stage: str, *, strict_contract: bool = True, pass_stage: bool = True) -> Path:
+def _summary(
+    root: Path,
+    stage: str,
+    *,
+    strict_contract: bool = True,
+    pass_stage: bool = True,
+    generated_at: str = "2026-06-26 10:00:00",
+) -> Path:
     case_dir = root / stage / "case01"
     cad_report = _cad_report(case_dir / "cad_smoke.json")
     total = 1
@@ -44,7 +51,7 @@ def _summary(root: Path, stage: str, *, strict_contract: bool = True, pass_stage
     payload = {
         "schema": "sw_drawing_studio.staged_cad_validation.v1",
         "stage": stage,
-        "generated_at": "2026-06-26 10:00:00",
+        "generated_at": generated_at,
         "total": total,
         "processed": total,
         "deliverable_count": deliverable,
@@ -95,6 +102,7 @@ def test_staged_batch_sequence_gate_can_pass_complete_contract() -> None:
         assert result["status"] == "pass"
         assert result["visual_audit_allowed_after_medium_30"] is True
         assert result["full_129_allowed_after_visual_audit"] is True
+        assert result["stage_generated_at_sequence_order_pass"] is True
         assert not result["blocking_issue_keys"]
 
 
@@ -130,6 +138,38 @@ def test_staged_batch_sequence_gate_rejects_missing_medium30() -> None:
         assert "medium_30_summary_missing" in result["blocking_issue_keys"]
 
 
+def test_staged_batch_sequence_gate_rejects_timestamp_order_inversion() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        generated_at_by_stage = {
+            "024_040": "2026-06-26 10:10:00",
+            "core_12": "2026-06-26 10:05:00",
+            "LB26001_36": "2026-06-26 10:20:00",
+            "medium_30": "2026-06-26 10:30:00",
+        }
+        summaries = {
+            stage: _summary(root, stage, generated_at=generated_at_by_stage[stage])
+            for stage in REQUIRED_SEQUENCE
+        }
+
+        result = _build(root, summaries)
+
+        assert result["pass"] is False
+        assert result["status"] == "pending"
+        assert result["stage_generated_at_sequence_order_pass"] is False
+        assert "stage_generated_at_sequence_order" in result["blocking_issue_keys"]
+        assert result["visual_audit_allowed_after_medium_30"] is False
+        assert result["full_129_allowed_after_visual_audit"] is False
+        assert result["stage_generated_at_sequence_order"]["order_violations"] == [
+            {
+                "previous_stage": "024_040",
+                "previous_generated_at": "2026-06-26 10:10:00",
+                "stage": "core_12",
+                "generated_at": "2026-06-26 10:05:00",
+            }
+        ]
+
+
 def test_staged_batch_sequence_gate_tool_is_file_only() -> None:
     source = Path("tools/validation/staged_batch_sequence_gate_v4_4.py").read_text(encoding="utf-8")
     forbidden = [
@@ -148,5 +188,6 @@ if __name__ == "__main__":
     test_staged_batch_sequence_gate_can_pass_complete_contract()
     test_staged_batch_sequence_gate_rejects_legacy_summary_without_ui_contract()
     test_staged_batch_sequence_gate_rejects_missing_medium30()
+    test_staged_batch_sequence_gate_rejects_timestamp_order_inversion()
     test_staged_batch_sequence_gate_tool_is_file_only()
     print("PASS test_v4_4_staged_batch_sequence_gate")
