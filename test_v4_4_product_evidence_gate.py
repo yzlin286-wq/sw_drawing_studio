@@ -153,6 +153,19 @@ def _requested_ref6_matrix(
                 "manual_visual_checklist_required": True,
                 "manual_visual_checklist_pass": requested_pass,
                 "manual_visual_checklist_failed_items": [] if requested_pass else ["display_dimensions"],
+                "application_ui_source_mode": "drawing_review_workbench_direct_host" if requested_pass else "",
+                "solidworks_probe_allowed_during_screenshot_review": False if requested_pass else None,
+                "ui_screenshot_review_no_solidworks_probe_pass": requested_pass,
+                "side_by_side_reference_generated_layout_pass": requested_pass,
+                "side_by_side_reference_generated_layout": {
+                    "required": True,
+                    "pass": requested_pass,
+                    "left_panel": "reference_drawing",
+                    "right_panel": "generated_drawing",
+                    "reference_loaded": requested_pass,
+                    "generated_loaded": requested_pass,
+                    "api_only_acceptance_allowed": False,
+                },
                 "ui_defect_bucket_closure_required": closure_required,
                 "ui_defect_bucket_closure_pass": closure_pass,
                 "ui_defect_bucket_missing_keys": [] if closure_pass else ["dimension_visual_overdense"],
@@ -1382,6 +1395,31 @@ def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_
         assert invalid["valid_ui_screenshot"] is False
 
 
+def test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=True, requested_pass=True)
+        payload = json.loads(paths["requested"].read_text(encoding="utf-8"))
+        row = payload["per_drawing_ui_review_matrix"][0]
+        row.pop("application_ui_source_mode", None)
+        row.pop("solidworks_probe_allowed_during_screenshot_review", None)
+        row.pop("ui_screenshot_review_no_solidworks_probe_pass", None)
+        row.pop("side_by_side_reference_generated_layout_pass", None)
+        row.pop("side_by_side_reference_generated_layout", None)
+        _write_json(paths["requested"], payload)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert "requested_ref6_ui_status_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_ui_status_pass")
+        failed = check["details"]["incomplete_required_checks_by_base"][BASE]
+        assert "ui_screenshot_review_no_solidworks_probe_pass" in failed
+        assert "side_by_side_reference_generated_layout_pass" in failed
+
+
 def test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp), acceptance_pass=True, requested_pass=True)
@@ -1630,6 +1668,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
+    test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()

@@ -22,6 +22,7 @@ if str(REPO_ROOT) not in sys.path:
 from app.services.application_ui_screenshot_validator import validate_application_ui_screenshots
 
 PRIMARY_BASE = "LB26001-A-04-006"
+REQUIRED_UI_REVIEW_SOURCE_MODE = "drawing_review_workbench_direct_host"
 REQUESTED_BASES = [
     PRIMARY_BASE,
     "LB26001-A-04-007",
@@ -356,6 +357,39 @@ def _ui_defect_bucket_closure_status(entry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _ui_visual_review_source_contract_status(entry: dict[str, Any]) -> dict[str, Any]:
+    checks = entry.get("checks") if isinstance(entry.get("checks"), dict) else {}
+    side_by_side = (
+        entry.get("side_by_side_reference_generated_layout")
+        if isinstance(entry.get("side_by_side_reference_generated_layout"), dict)
+        else {}
+    )
+    source_mode = str(entry.get("application_ui_source_mode") or "")
+    probe_allowed = entry.get("solidworks_probe_allowed_during_screenshot_review")
+    no_probe_pass = bool(
+        source_mode == REQUIRED_UI_REVIEW_SOURCE_MODE
+        and probe_allowed is False
+        and checks.get("ui_screenshot_review_no_solidworks_probe_pass") is True
+    )
+    side_by_side_pass = bool(
+        checks.get("side_by_side_reference_generated_layout_pass") is True
+        and side_by_side.get("pass") is True
+        and side_by_side.get("left_panel") == "reference_drawing"
+        and side_by_side.get("right_panel") == "generated_drawing"
+        and side_by_side.get("reference_loaded") is True
+        and side_by_side.get("generated_loaded") is True
+        and side_by_side.get("api_only_acceptance_allowed") is False
+    )
+    return {
+        "application_ui_source_mode": source_mode,
+        "application_ui_source_mode_required": REQUIRED_UI_REVIEW_SOURCE_MODE,
+        "solidworks_probe_allowed_during_screenshot_review": probe_allowed,
+        "ui_screenshot_review_no_solidworks_probe_pass": no_probe_pass,
+        "side_by_side_reference_generated_layout_pass": side_by_side_pass,
+        "side_by_side_reference_generated_layout": side_by_side,
+    }
+
+
 def _issue_map(acceptance_gate: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
     result: dict[str, list[dict[str, Any]]] = {}
     for item in acceptance_gate.get("issues") or []:
@@ -612,6 +646,18 @@ def _per_drawing_ui_review_matrix(base_results: list[dict[str, Any]]) -> list[di
                     item.get("ui_defect_bucket_closure_contract_count") or 0
                 ),
                 "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": False,
+                "application_ui_source_mode": str(item.get("application_ui_source_mode") or ""),
+                "application_ui_source_mode_required": REQUIRED_UI_REVIEW_SOURCE_MODE,
+                "solidworks_probe_allowed_during_screenshot_review": item.get(
+                    "solidworks_probe_allowed_during_screenshot_review"
+                ),
+                "ui_screenshot_review_no_solidworks_probe_pass": bool(
+                    item.get("ui_screenshot_review_no_solidworks_probe_pass")
+                ),
+                "side_by_side_reference_generated_layout_pass": bool(
+                    item.get("side_by_side_reference_generated_layout_pass")
+                ),
+                "side_by_side_reference_generated_layout": item.get("side_by_side_reference_generated_layout") or {},
                 "latest_manual_visual_checklist": latest_checklist,
                 "latest_manual_visual_checklist_notes": item.get("latest_manual_visual_checklist_notes") or {},
                 "latest_manual_findings": list(item.get("latest_manual_findings") or []),
@@ -684,12 +730,23 @@ def _base_status(
         issues=issues,
     )
     bucket_closure = _ui_defect_bucket_closure_status(ui_visual_review_entry)
+    ui_source_contract = _ui_visual_review_source_contract_status(ui_visual_review_entry)
     if (
         bucket_closure["ui_defect_bucket_closure_required"]
         and not bucket_closure["ui_defect_bucket_closure_pass"]
         and "ui_defect_bucket_closure" not in missing_ui_requirements
     ):
         missing_ui_requirements.append("ui_defect_bucket_closure")
+    if (
+        not ui_source_contract["ui_screenshot_review_no_solidworks_probe_pass"]
+        and "ui_screenshot_review_no_solidworks_probe" not in missing_ui_requirements
+    ):
+        missing_ui_requirements.append("ui_screenshot_review_no_solidworks_probe")
+    if (
+        not ui_source_contract["side_by_side_reference_generated_layout_pass"]
+        and "side_by_side_reference_generated_layout" not in missing_ui_requirements
+    ):
+        missing_ui_requirements.append("side_by_side_reference_generated_layout")
     if not required_artifacts["required_artifacts_present"] and "required_per_drawing_artifacts" not in missing_ui_requirements:
         missing_ui_requirements.append("required_per_drawing_artifacts")
     proof_present = bool(primary_acceptance_proof)
@@ -759,6 +816,7 @@ def _base_status(
         "manual_visual_checklist_failed_items": list(gate_entry.get("manual_visual_checklist_failed_items") or []),
         "manual_visual_checklist_not_passed_items": list(gate_entry.get("manual_visual_checklist_not_passed_items") or []),
         **bucket_closure,
+        **ui_source_contract,
         "generated_png_source_required": bool(gate_entry.get("generated_png_source_required")),
         "generated_png_source_pass": bool(gate_entry.get("generated_png_source_pass")),
         "generated_png_source_evidence": gate_entry.get("generated_png_source_evidence") or {},

@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 15:48:25",
+  "generated_at": "2026-06-26 15:57:01",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -627,6 +627,8 @@
             "manual_case_pass",
             "manual_visual_checklist",
             "fresh_generated_png_source",
+            "ui_screenshot_review_no_solidworks_probe",
+            "side_by_side_reference_generated_layout",
             "required_per_drawing_artifacts"
           ],
           "LB26001-A-04-008": [
@@ -635,6 +637,8 @@
             "manual_case_pass",
             "manual_visual_checklist",
             "fresh_generated_png_source",
+            "ui_screenshot_review_no_solidworks_probe",
+            "side_by_side_reference_generated_layout",
             "required_per_drawing_artifacts"
           ],
           "LB26001-A-04-009": [
@@ -643,6 +647,8 @@
             "manual_case_pass",
             "manual_visual_checklist",
             "fresh_generated_png_source",
+            "ui_screenshot_review_no_solidworks_probe",
+            "side_by_side_reference_generated_layout",
             "required_per_drawing_artifacts"
           ],
           "LB26001-A-04-015": [
@@ -651,6 +657,8 @@
             "manual_case_pass",
             "manual_visual_checklist",
             "fresh_generated_png_source",
+            "ui_screenshot_review_no_solidworks_probe",
+            "side_by_side_reference_generated_layout",
             "required_per_drawing_artifacts"
           ],
           "LB26001-A-04-022": [
@@ -659,6 +667,8 @@
             "manual_case_pass",
             "manual_visual_checklist",
             "fresh_generated_png_source",
+            "ui_screenshot_review_no_solidworks_probe",
+            "side_by_side_reference_generated_layout",
             "required_per_drawing_artifacts"
           ]
         },
@@ -674,6 +684,8 @@
           "LB26001-A-04-007": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_screenshot_review_no_solidworks_probe_pass",
+            "side_by_side_reference_generated_layout_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass",
             "required_artifacts_present"
@@ -681,6 +693,8 @@
           "LB26001-A-04-008": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_screenshot_review_no_solidworks_probe_pass",
+            "side_by_side_reference_generated_layout_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass",
             "required_artifacts_present"
@@ -688,6 +702,8 @@
           "LB26001-A-04-009": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_screenshot_review_no_solidworks_probe_pass",
+            "side_by_side_reference_generated_layout_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass",
             "required_artifacts_present"
@@ -695,6 +711,8 @@
           "LB26001-A-04-015": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_screenshot_review_no_solidworks_probe_pass",
+            "side_by_side_reference_generated_layout_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass",
             "required_artifacts_present"
@@ -702,6 +720,8 @@
           "LB26001-A-04-022": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_screenshot_review_no_solidworks_probe_pass",
+            "side_by_side_reference_generated_layout_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass",
             "required_artifacts_present"
@@ -719,6 +739,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "drawing_review_workbench_direct_host",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": false,
+            "ui_screenshot_review_no_solidworks_probe_pass": true,
+            "side_by_side_reference_generated_layout_pass": true,
             "ui_defect_bucket_closure_required": true,
             "ui_defect_bucket_closure_pass": false,
             "ui_defect_bucket_missing_keys": [
@@ -757,6 +782,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": null,
+            "ui_screenshot_review_no_solidworks_probe_pass": false,
+            "side_by_side_reference_generated_layout_pass": false,
             "ui_defect_bucket_closure_required": false,
             "ui_defect_bucket_closure_pass": true,
             "ui_defect_bucket_missing_keys": [],
@@ -784,6 +814,8 @@
               "manual_case_pass",
               "manual_visual_checklist",
               "fresh_generated_png_source",
+              "ui_screenshot_review_no_solidworks_probe",
+              "side_by_side_reference_generated_layout",
               "required_per_drawing_artifacts"
             ]
           },
@@ -798,6 +830,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": null,
+            "ui_screenshot_review_no_solidworks_probe_pass": false,
+            "side_by_side_reference_generated_layout_pass": false,
             "ui_defect_bucket_closure_required": false,
             "ui_defect_bucket_closure_pass": true,
             "ui_defect_bucket_missing_keys": [],
@@ -825,6 +862,8 @@
               "manual_case_pass",
               "manual_visual_checklist",
               "fresh_generated_png_source",
+              "ui_screenshot_review_no_solidworks_probe",
+              "side_by_side_reference_generated_layout",
               "required_per_drawing_artifacts"
             ]
           },
@@ -839,6 +878,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": null,
+            "ui_screenshot_review_no_solidworks_probe_pass": false,
+            "side_by_side_reference_generated_layout_pass": false,
             "ui_defect_bucket_closure_required": false,
             "ui_defect_bucket_closure_pass": true,
             "ui_defect_bucket_missing_keys": [],
@@ -866,6 +910,8 @@
               "manual_case_pass",
               "manual_visual_checklist",
               "fresh_generated_png_source",
+              "ui_screenshot_review_no_solidworks_probe",
+              "side_by_side_reference_generated_layout",
               "required_per_drawing_artifacts"
             ]
           },
@@ -880,6 +926,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": null,
+            "ui_screenshot_review_no_solidworks_probe_pass": false,
+            "side_by_side_reference_generated_layout_pass": false,
             "ui_defect_bucket_closure_required": false,
             "ui_defect_bucket_closure_pass": true,
             "ui_defect_bucket_missing_keys": [],
@@ -907,6 +958,8 @@
               "manual_case_pass",
               "manual_visual_checklist",
               "fresh_generated_png_source",
+              "ui_screenshot_review_no_solidworks_probe",
+              "side_by_side_reference_generated_layout",
               "required_per_drawing_artifacts"
             ]
           },
@@ -921,6 +974,11 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "application_ui_source_mode": "",
+            "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": null,
+            "ui_screenshot_review_no_solidworks_probe_pass": false,
+            "side_by_side_reference_generated_layout_pass": false,
             "ui_defect_bucket_closure_required": false,
             "ui_defect_bucket_closure_pass": true,
             "ui_defect_bucket_missing_keys": [],
@@ -948,6 +1006,8 @@
               "manual_case_pass",
               "manual_visual_checklist",
               "fresh_generated_png_source",
+              "ui_screenshot_review_no_solidworks_probe",
+              "side_by_side_reference_generated_layout",
               "required_per_drawing_artifacts"
             ]
           }
@@ -973,7 +1033,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 959279
+          "size_bytes": 961446
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

@@ -1353,6 +1353,14 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
             "manual_visual_judgement_present": item.get("manual_visual_judgement_present") is True,
             "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass") is True,
             "manual_visual_checklist_pass": item.get("manual_visual_checklist_pass") is True,
+            "ui_screenshot_review_no_solidworks_probe_pass": (
+                item.get("application_ui_source_mode") == REQUIRED_UI_REVIEW_SOURCE_MODE
+                and item.get("solidworks_probe_allowed_during_screenshot_review") is False
+                and item.get("ui_screenshot_review_no_solidworks_probe_pass") is True
+            ),
+            "side_by_side_reference_generated_layout_pass": item.get(
+                "side_by_side_reference_generated_layout_pass"
+            ) is True,
             "ui_defect_bucket_closure_pass": (
                 (base != BASE and not bool(item.get("ui_defect_bucket_closure_required")))
                 or item.get("ui_defect_bucket_closure_pass") is True
@@ -1381,6 +1389,17 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
             "valid_application_ui_screenshot_file": valid_screenshot,
             "manual_visual_judgement_present": item.get("manual_visual_judgement_present"),
             "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass"),
+            "application_ui_source_mode": item.get("application_ui_source_mode"),
+            "application_ui_source_mode_required": REQUIRED_UI_REVIEW_SOURCE_MODE,
+            "solidworks_probe_allowed_during_screenshot_review": item.get(
+                "solidworks_probe_allowed_during_screenshot_review"
+            ),
+            "ui_screenshot_review_no_solidworks_probe_pass": item.get(
+                "ui_screenshot_review_no_solidworks_probe_pass"
+            ),
+            "side_by_side_reference_generated_layout_pass": item.get(
+                "side_by_side_reference_generated_layout_pass"
+            ),
             "ui_defect_bucket_closure_required": item.get("ui_defect_bucket_closure_required"),
             "ui_defect_bucket_closure_pass": item.get("ui_defect_bucket_closure_pass"),
             "ui_defect_bucket_missing_keys": list(item.get("ui_defect_bucket_missing_keys") or []),
