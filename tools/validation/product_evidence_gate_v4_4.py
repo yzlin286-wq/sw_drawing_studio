@@ -2002,11 +2002,49 @@ def _visual_audit_schema_gap_counter_contract(payload: dict[str, Any]) -> tuple[
         if payload.get("pass") is False and failed <= 0:
             invalid_keys.append("failed_check_count_for_fail")
 
+    checks = payload.get("checks")
+    checks_count = 0
+    checks_count_matches = False
+    check_pass_counts_match = False
+    check_pass_boolean_failures: list[int] = []
+    if not isinstance(checks, list) or not checks:
+        invalid_keys.append("checks")
+    else:
+        checks_count = len(checks)
+        passed_in_checks = 0
+        failed_in_checks = 0
+        for index, check in enumerate(checks):
+            if not isinstance(check, dict) or not isinstance(check.get("pass"), bool):
+                check_pass_boolean_failures.append(index)
+                continue
+            if check.get("pass") is True:
+                passed_in_checks += 1
+            else:
+                failed_in_checks += 1
+        checks_count_matches = total == checks_count
+        check_pass_counts_match = passed == passed_in_checks and failed == failed_in_checks
+        if check_pass_boolean_failures:
+            invalid_keys.append("checks_pass_boolean")
+        if not checks_count_matches:
+            invalid_keys.append("checks_count")
+        if not check_pass_counts_match:
+            invalid_keys.append("checks_pass_counts")
+
     invalid_keys = sorted(set(invalid_keys))
     return (
-        not missing_keys and not invalid_keys and total_matches,
+        not missing_keys
+        and not invalid_keys
+        and total_matches
+        and checks_count_matches
+        and check_pass_counts_match,
         {
-            "pass": not missing_keys and not invalid_keys and total_matches,
+            "pass": (
+                not missing_keys
+                and not invalid_keys
+                and total_matches
+                and checks_count_matches
+                and check_pass_counts_match
+            ),
             "required_keys": required_keys,
             "missing_keys": missing_keys,
             "invalid_keys": invalid_keys,
@@ -2014,6 +2052,11 @@ def _visual_audit_schema_gap_counter_contract(payload: dict[str, Any]) -> tuple[
             "passed_check_count": values.get("passed_check_count"),
             "failed_check_count": values.get("failed_check_count"),
             "total_matches": total_matches,
+            "checks_present": isinstance(checks, list) and bool(checks),
+            "checks_count": checks_count,
+            "checks_count_matches": checks_count_matches,
+            "check_pass_counts_match": check_pass_counts_match,
+            "check_pass_boolean_failures": check_pass_boolean_failures,
             "stale_report_without_counters_blocked": bool(missing_keys),
         },
     )
