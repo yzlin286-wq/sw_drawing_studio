@@ -160,6 +160,10 @@ def main() -> None:
         assert "generator.physical_displaydim_dedupe" in contract["dimension_visual_overdense"]["implementation_guard_keys"]
         assert "application_drawing_review_ui_screenshot" in contract["dimension_lane_wrong"]["post_rerun_required_evidence"]
         assert "manual_visual_judgement" in contract["titlebar_incomplete"]["post_rerun_required_evidence"]
+        assert "dimension_validation" in contract["dimension_visual_overdense"]["post_rerun_required_evidence"]
+        assert "final_quality" in contract["dimension_lane_wrong"]["post_rerun_required_evidence"]
+        assert "sw_session" in contract["note_missing_or_wrong"]["post_rerun_required_evidence"]
+        assert "job_event_log" in contract["projection_view_style_mismatch"]["post_rerun_required_evidence"]
         assert contract["callout_missing"]["required_callout_keys"] == [
             "thread_callout_m4_6h",
             "hole_callout_4x3_3",

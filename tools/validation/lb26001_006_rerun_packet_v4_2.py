@@ -45,8 +45,12 @@ CALLOUT_ABSENCE_CHECK_KEYS = {"radius_callout", "chamfer_callout"}
 REQUIRED_CLOSURE_EVIDENCE_KEYS = {
     "fresh_run_manifest",
     "generated_slddrw_pdf_dxf_png",
+    "dimension_validation",
     "reference_compare_v4",
     "vision_qc_v6",
+    "final_quality",
+    "sw_session",
+    "job_event_log",
     "application_drawing_review_ui_screenshot",
     "manual_visual_judgement",
 }
@@ -499,6 +503,7 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     closure_by_bucket = {str(item.get("bucket") or ""): item for item in closure_items}
     missing_closure_contract = sorted(expected_all - set(closure_by_bucket))
     incomplete_closure_contracts: dict[str, list[str]] = {}
+    missing_closure_evidence_keys: dict[str, list[str]] = {}
     for bucket in sorted(expected_all):
         item = closure_by_bucket.get(bucket) or {}
         missing_fields: list[str] = []
@@ -509,8 +514,10 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         if not item.get("implementation_guard_keys"):
             missing_fields.append("implementation_guard_keys")
         post_evidence = set(item.get("post_rerun_required_evidence") or [])
-        if not REQUIRED_CLOSURE_EVIDENCE_KEYS <= post_evidence:
+        missing_evidence = sorted(REQUIRED_CLOSURE_EVIDENCE_KEYS - post_evidence)
+        if missing_evidence:
             missing_fields.append("post_rerun_required_evidence")
+            missing_closure_evidence_keys[bucket] = missing_evidence
         if not str(item.get("ui_review_pass_condition") or "").strip():
             missing_fields.append("ui_review_pass_condition")
         if bucket == "callout_missing":
@@ -594,9 +601,11 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
             callout_closure_contract.get("required_callout_keys") or []
         ),
         "callout_next_check_ok": callout_next_check_ok,
+        "required_bucket_closure_evidence_keys": sorted(REQUIRED_CLOSURE_EVIDENCE_KEYS),
         "bucket_closure_contract_buckets": sorted(set(closure_by_bucket)),
         "missing_bucket_closure_contract_keys": missing_closure_contract,
         "incomplete_bucket_closure_contracts": incomplete_closure_contracts,
+        "missing_bucket_closure_evidence_keys": missing_closure_evidence_keys,
         "callout_closure_contract_ok": callout_closure_contract_ok,
         "screenshot_visual_observation_buckets": sorted(observation_buckets),
         "missing_active_screenshot_visual_observation_buckets": missing_active_observation_buckets,

@@ -15349,3 +15349,61 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change proves each 006 defect bucket asks for the right post-rerun evidence, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 UI Defect Bucket Closure Requires Real-Run Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline 006 defect-closure hardening step. It prevents a bucket closure contract from being considered ready if it lacks real locked-CAD run evidence such as dimension validation, final quality, SolidWorks session, or worker event logs.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+  - `COMMON_POST_RERUN_EVIDENCE` now includes `dimension_validation`, `final_quality`, `sw_session`, and `job_event_log` in addition to fresh manifest/export, `reference_compare_v4`, `vision_qc_v6`, application Drawing Review UI screenshot, and manual visual judgement.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `REQUIRED_CLOSURE_EVIDENCE_KEYS` now uses the same full evidence set.
+  - `006_ui_defect_buckets_ready` now reports `required_bucket_closure_evidence_keys` and per-bucket `missing_bucket_closure_evidence_keys`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Product Gate uses the same full evidence set and surfaces per-bucket missing evidence in `lb26001_006_ui_defect_buckets_ready`.
+- Updated tests.
+  - `test_v4_4_lb26001_006_ui_defect_buckets.py` proves generated bucket contracts include `dimension_validation`, `final_quality`, `sw_session`, and `job_event_log`.
+  - `test_v4_2_lb26001_006_rerun_packet.py` proves missing `sw_session` blocks packet readiness.
+  - `test_v4_4_product_evidence_gate.py` proves missing `sw_session` blocks the Product Gate rerun-packet stage.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_ui_defect_buckets_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_lb26001_006_ui_defect_buckets.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_ui_defect_buckets.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `lb26001_006_ui_defect_buckets_v4_4.json` remains `status=blocked_by_solidworks_readiness`, `pass=false`; closure evidence keys now include `dimension_validation`, `final_quality`, `sw_session`, and `job_event_log`.
+- Refreshed rerun packet remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `required_bucket_closure_evidence_keys` includes `dimension_validation`, `final_quality`, `sw_session`, and `job_event_log`
+  - `missing_bucket_closure_evidence_keys={}`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false. The Product Gate command writes JSON/MD evidence but exits nonzero because the gate is intentionally failing.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change proves the next 006 defect closure must include real run/session/log evidence, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

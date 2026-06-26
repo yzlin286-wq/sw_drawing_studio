@@ -448,8 +448,12 @@ def _fixture(
             "post_rerun_required_evidence": [
                 "fresh_run_manifest",
                 "generated_slddrw_pdf_dxf_png",
+                "dimension_validation",
                 "reference_compare_v4",
                 "vision_qc_v6",
+                "final_quality",
+                "sw_session",
+                "job_event_log",
                 "application_drawing_review_ui_screenshot",
                 "manual_visual_judgement",
             ],
@@ -1805,6 +1809,28 @@ def test_product_evidence_gate_blocks_locked_006_when_bucket_closure_lacks_refer
         assert check["details"]["incomplete_bucket_closure_contracts"]["dimension_visual_overdense"] == [
             "post_rerun_required_evidence"
         ]
+        assert check["details"]["missing_bucket_closure_evidence_keys"]["dimension_visual_overdense"] == [
+            "reference_compare_v4"
+        ]
+
+
+def test_product_evidence_gate_blocks_locked_006_when_bucket_closure_lacks_sw_session_evidence() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(Path(tmp), ui_defect_bucket_missing_post_rerun_evidence="sw_session")
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "lb26001_006_ui_defect_buckets_ready" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "lb26001_006_ui_defect_buckets_ready")
+        assert check["details"]["incomplete_bucket_closure_contracts"]["dimension_visual_overdense"] == [
+            "post_rerun_required_evidence"
+        ]
+        assert check["details"]["missing_bucket_closure_evidence_keys"]["dimension_visual_overdense"] == [
+            "sw_session"
+        ]
 
 
 def test_product_evidence_gate_blocks_locked_006_when_callout_closure_contract_is_incomplete() -> None:
@@ -2661,6 +2687,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_callout_next_screenshot_check_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_bucket_closure_contract_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_bucket_closure_lacks_reference_compare_evidence()
+    test_product_evidence_gate_blocks_locked_006_when_bucket_closure_lacks_sw_session_evidence()
     test_product_evidence_gate_blocks_locked_006_when_callout_closure_contract_is_incomplete()
     test_product_evidence_gate_blocks_locked_006_when_active_screenshot_observation_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_bucket_sources_are_stale()

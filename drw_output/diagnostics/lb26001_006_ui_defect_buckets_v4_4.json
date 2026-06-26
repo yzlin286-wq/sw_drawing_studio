@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-26 16:06:12",
+  "generated_at": "2026-06-26 21:47:12",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -300,8 +300,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement"
       ],
@@ -329,8 +333,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement"
       ],
@@ -358,8 +366,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement"
       ],
@@ -387,8 +399,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement"
       ],
@@ -416,8 +432,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement"
       ],
@@ -445,8 +465,12 @@
       "post_rerun_required_evidence": [
         "fresh_run_manifest",
         "generated_slddrw_pdf_dxf_png",
+        "dimension_validation",
         "reference_compare_v4",
         "vision_qc_v6",
+        "final_quality",
+        "sw_session",
+        "job_event_log",
         "application_drawing_review_ui_screenshot",
         "manual_visual_judgement",
         "reference_callout_checklist"

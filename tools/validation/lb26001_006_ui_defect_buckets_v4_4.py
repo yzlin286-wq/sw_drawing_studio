@@ -56,8 +56,12 @@ COMMON_REPAIR_INPUTS = [
 COMMON_POST_RERUN_EVIDENCE = [
     "fresh_run_manifest",
     "generated_slddrw_pdf_dxf_png",
+    "dimension_validation",
     "reference_compare_v4",
     "vision_qc_v6",
+    "final_quality",
+    "sw_session",
+    "job_event_log",
     "application_drawing_review_ui_screenshot",
     "manual_visual_judgement",
 ]

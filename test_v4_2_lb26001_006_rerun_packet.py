@@ -357,8 +357,12 @@ def _build_packet_fixture(
                 "post_rerun_required_evidence": [
                     "fresh_run_manifest",
                     "generated_slddrw_pdf_dxf_png",
+                    "dimension_validation",
                     "reference_compare_v4",
                     "vision_qc_v6",
+                    "final_quality",
+                    "sw_session",
+                    "job_event_log",
                     "application_drawing_review_ui_screenshot",
                     "manual_visual_judgement",
                 ],
@@ -1002,6 +1006,27 @@ def test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_reference_compare_e
     assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"]["dimension_visual_overdense"] == [
         "post_rerun_required_evidence"
     ]
+    assert packet["ui_defect_buckets"]["missing_bucket_closure_evidence_keys"]["dimension_visual_overdense"] == [
+        "reference_compare_v4"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_sw_session_evidence() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_post_rerun_evidence="sw_session",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"]["dimension_visual_overdense"] == [
+        "post_rerun_required_evidence"
+    ]
+    assert packet["ui_defect_buckets"]["missing_bucket_closure_evidence_keys"]["dimension_visual_overdense"] == [
+        "sw_session"
+    ]
 
 
 def test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete() -> None:
@@ -1472,6 +1497,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_reference_compare_evidence()
+    test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_sw_session_evidence()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()
     test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_missing()
     test_006_rerun_packet_blocks_when_ui_defect_source_artifact_is_missing()
