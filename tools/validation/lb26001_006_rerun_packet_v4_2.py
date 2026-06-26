@@ -461,6 +461,16 @@ def _reference_intent_artifact_status(path: Path, expected_keys: list[str] | Non
 
 def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     payload = _read_json(path)
+    source_artifacts = payload.get("source_artifacts") if isinstance(payload.get("source_artifacts"), dict) else {}
+    required_source_artifact_keys = ["manual_review", "ui_report", "staged_summary"]
+    source_artifact_exists = {
+        key: _nonempty_file(source_artifacts.get(key))
+        for key in required_source_artifact_keys
+    }
+    missing_source_artifact_keys = [
+        key for key in required_source_artifact_keys if not source_artifact_exists.get(key)
+    ]
+    generated_at_parse_ok = _parse_generated_at(payload.get("generated_at")) is not None
     active_buckets = [
         str(item)
         for item in (payload.get("active_buckets") or [])
@@ -538,11 +548,14 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     missing_checklist = sorted(expected_all - checklist_buckets)
     pass_ = (
         path.exists()
+        and payload.get("schema") == "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4"
         and payload.get("base") == PRIMARY_BASE
+        and generated_at_parse_ok
         and payload.get("pass") is False
         and payload.get("application_ui_screenshot_is_final_gate") is True
         and payload.get("api_only_acceptance_allowed") is False
         and payload.get("expansion_allowed_now") is False
+        and not missing_source_artifact_keys
         and not missing_active
         and not missing_next_check
         and not missing_checklist
@@ -556,8 +569,14 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     return {
         "path": str(path),
         "exists": path.exists(),
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "generated_at_parse_ok": generated_at_parse_ok,
         "status": payload.get("status"),
         "pass": pass_,
+        "source_artifacts": {key: source_artifacts.get(key, "") for key in required_source_artifact_keys},
+        "source_artifact_exists": source_artifact_exists,
+        "missing_source_artifact_keys": missing_source_artifact_keys,
         "active_bucket_count": len(active_buckets),
         "active_buckets": active_buckets,
         "missing_required_active_buckets": missing_active,
@@ -580,6 +599,28 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "callout_screenshot_visual_observation_ok": callout_observation_ok,
         "solidworks_readiness": payload.get("solidworks_readiness") or {},
     }
+
+
+def _nonempty_file(value: Any) -> bool:
+    if not isinstance(value, str) or not value.strip():
+        return False
+    try:
+        path = Path(value)
+        return path.exists() and path.is_file() and path.stat().st_size > 0
+    except OSError:
+        return False
+
+
+def _parse_generated_at(value: Any) -> float | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            return time.mktime(time.strptime(text[:19], fmt))
+        except ValueError:
+            continue
+    return None
 
 
 def _prerequisite(key: str, passed: bool, evidence: dict[str, Any], fix_suggestion: str) -> dict[str, Any]:

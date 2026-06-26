@@ -15238,3 +15238,62 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change tightens Task 1 evidence freshness. It does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Rerun Packet Requires UI Defect Bucket Source Artifacts - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline 006 rerun-packet hardening step. It prevents a UI defect bucket report with missing source artifacts from authorizing the next locked 006 CAD rerun.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `006_ui_defect_buckets_ready` now requires the bucket report schema `sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4`.
+  - The UI defect bucket report must include a parseable `generated_at`.
+  - The report must include existing non-empty `source_artifacts.manual_review`, `source_artifacts.ui_report`, and `source_artifacts.staged_summary`.
+  - Packet evidence now records `source_artifacts`, `source_artifact_exists`, and `missing_source_artifact_keys`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Fixture UI defect bucket reports now include schema, generated time, and real source artifact files.
+  - Added a regression test proving a missing `manual_review` source artifact blocks `packet_build_ready`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+python -B test_v4_4_product_evidence_gate.py
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `git diff --check`: PASS, with only existing CRLF normalization warnings.
+- Refreshed rerun packet remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `generated_at=2026-06-26 21:27:40`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `readiness_blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed UI defect bucket evidence inside the packet reports:
+  - `generated_at=2026-06-26 16:06:12`
+  - `generated_at_parse_ok=true`
+  - `missing_source_artifact_keys=[]`
+  - `source_artifact_exists.manual_review=true`
+  - `source_artifact_exists.ui_report=true`
+  - `source_artifact_exists.staged_summary=true`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change proves the rerun packet has source-backed UI defect bucket input, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 21:19:37",
+  "generated_at": "2026-06-26 21:27:40",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -293,7 +293,7 @@
         "packet_readiness_ready": false,
         "real_cad_allowed_now": false,
         "expected_packet_status": "blocked_by_solidworks_readiness",
-        "packet_generated_at": "2026-06-26 21:06:22",
+        "packet_generated_at": "2026-06-26 21:27:40",
         "readiness_generated_at": "2026-06-26 21:03:10",
         "generated_at_parse_ok": true,
         "packet_generated_at_not_older_than_readiness": true
@@ -1237,9 +1237,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1084638,
-          "mtime_epoch": 1782479663.5412078,
-          "mtime_local": "2026-06-26 21:14:23"
+          "size_bytes": 1087930,
+          "mtime_epoch": 1782480030.638665,
+          "mtime_local": "2026-06-26 21:20:30"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

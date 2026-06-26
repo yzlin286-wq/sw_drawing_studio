@@ -180,6 +180,7 @@ def _build_packet_fixture(
     omit_ui_defect_closure_contract_bucket: str = "",
     omit_ui_defect_callout_closure_keys: bool = False,
     omit_ui_defect_screenshot_observation_bucket: str = "",
+    omit_ui_defect_source_artifact: str = "",
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -287,6 +288,16 @@ def _build_packet_fixture(
             ],
         )
         ui_defect_buckets = root / "lb26001_006_ui_defect_buckets_v4_4.json"
+        ui_defect_manual_review = _artifact(root / "manual_visual_judgement.json", ["base", "review"])
+        ui_defect_ui_report = _artifact(root / "drawing_visual_review_report.json", ["base", "report"])
+        ui_defect_staged_summary = _artifact(root / "staged_summary.json", ["base", "summary"])
+        ui_defect_source_artifacts = {
+            "manual_review": str(ui_defect_manual_review),
+            "ui_report": str(ui_defect_ui_report),
+            "staged_summary": str(ui_defect_staged_summary),
+        }
+        if omit_ui_defect_source_artifact:
+            ui_defect_source_artifacts.pop(omit_ui_defect_source_artifact, None)
         required_active_buckets = [
             "dimension_visual_overdense",
             "dimension_lane_wrong",
@@ -359,6 +370,8 @@ def _build_packet_fixture(
         ui_defect_buckets.write_text(
             json.dumps(
                 {
+                    "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
+                    "generated_at": "2026-06-26 10:00:00",
                     "base": "LB26001-A-04-006",
                     "status": "blocked_by_solidworks_readiness",
                     "pass": False,
@@ -379,6 +392,7 @@ def _build_packet_fixture(
                     "screenshot_visual_observations": screenshot_visual_observations,
                     "bucket_closure_contract": bucket_closure_contract,
                     "missing_bucket_closure_contract_keys": [],
+                    "source_artifacts": ui_defect_source_artifacts,
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -473,6 +487,14 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert packet["reference_intent_artifacts"]["plan"]["pass"] is True
     assert packet["reference_intent_artifacts"]["contract"]["pass"] is True
     assert packet["ui_defect_buckets"]["pass"] is True
+    assert packet["ui_defect_buckets"]["schema"] == "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4"
+    assert packet["ui_defect_buckets"]["generated_at_parse_ok"] is True
+    assert packet["ui_defect_buckets"]["missing_source_artifact_keys"] == []
+    assert packet["ui_defect_buckets"]["source_artifact_exists"] == {
+        "manual_review": True,
+        "ui_report": True,
+        "staged_summary": True,
+    }
     assert "dimension_visual_overdense" in packet["ui_defect_buckets"]["active_buckets"]
     assert "callout_missing" in packet["ui_defect_buckets"]["required_next_screenshot_check_buckets"]
     assert packet["ui_defect_buckets"]["callout_next_check_ok"] is True
@@ -989,6 +1011,20 @@ def test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_mi
     ]
 
 
+def test_006_rerun_packet_blocks_when_ui_defect_source_artifact_is_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_source_artifact="manual_review",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_source_artifact_keys"] == ["manual_review"]
+    assert packet["ui_defect_buckets"]["source_artifact_exists"]["manual_review"] is False
+
+
 def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1412,6 +1448,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()
     test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_missing()
+    test_006_rerun_packet_blocks_when_ui_defect_source_artifact_is_missing()
     test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()

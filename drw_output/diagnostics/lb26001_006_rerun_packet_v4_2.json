@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 21:06:22",
+  "generated_at": "2026-06-26 21:27:40",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -261,8 +261,22 @@
   "ui_defect_buckets": {
     "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
     "exists": true,
+    "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
+    "generated_at": "2026-06-26 16:06:12",
+    "generated_at_parse_ok": true,
     "status": "blocked_by_solidworks_readiness",
     "pass": true,
+    "source_artifacts": {
+      "manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+      "ui_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+      "staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json"
+    },
+    "source_artifact_exists": {
+      "manual_review": true,
+      "ui_report": true,
+      "staged_summary": true
+    },
+    "missing_source_artifact_keys": [],
     "active_bucket_count": 5,
     "active_buckets": [
       "dimension_visual_overdense",
@@ -499,8 +513,22 @@
       "evidence": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "exists": true,
+        "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
+        "generated_at": "2026-06-26 16:06:12",
+        "generated_at_parse_ok": true,
         "status": "blocked_by_solidworks_readiness",
         "pass": true,
+        "source_artifacts": {
+          "manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+          "ui_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+          "staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json"
+        },
+        "source_artifact_exists": {
+          "manual_review": true,
+          "ui_report": true,
+          "staged_summary": true
+        },
+        "missing_source_artifact_keys": [],
         "active_bucket_count": 5,
         "active_buckets": [
           "dimension_visual_overdense",
