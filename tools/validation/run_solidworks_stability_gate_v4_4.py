@@ -210,6 +210,7 @@ def run_gate() -> dict[str, Any]:
             "validation_tool_requires_manual_lock_count": entrypoint.get("validation_tool_requires_manual_lock_count"),
             "external_addin_needs_host_lock_count": entrypoint.get("external_addin_needs_host_lock_count"),
             "external_addin_host_lock_contract_status": entrypoint.get("external_addin_host_lock_contract_status"),
+            "system_health_probe_lock_contract_status": entrypoint.get("system_health_probe_lock_contract_status"),
         },
         "lock_test_summary": {
             "status": lock_test.get("status"),

@@ -40,6 +40,19 @@ def main() -> None:
     assert data["ui_threadpool_worker_count"] == 0
     assert data["service_direct_risk_count"] == 0
     assert data["external_addin_host_lock_contract_status"] == "pass"
+    assert data["system_health_probe_lock_contract_status"] == "pass"
+    system_health_contract = {
+        item.get("key"): item
+        for item in data["system_health_probe_lock_contract"]["checks"]
+        if isinstance(item, dict)
+    }
+    for key in [
+        "system_health_ui_uses_qprocess_worker",
+        "solidworks_com_probe_worker_has_global_lock",
+        "system_health_addin_ping_has_probe_lock",
+        "system_health_opendoc6_has_probe_lock",
+    ]:
+        assert system_health_contract[key]["status"] == "pass"
     contract_checks = {
         item.get("key"): item
         for item in data["external_addin_host_lock_contract"]["checks"]

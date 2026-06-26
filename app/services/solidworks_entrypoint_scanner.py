@@ -208,6 +208,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         and any(pattern in set(entry["patterns"]) for pattern in UI_HEAVY_WORK_PATTERNS)
     ]
     external_host_lock_contract = _external_addin_host_lock_contract(root)
+    system_health_probe_lock_contract = _system_health_probe_lock_contract(root)
     status = "warning" if (
         unguarded
         or ui_thread_risks
@@ -216,6 +217,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         or ui_thread_heavy_work_calls
         or service_direct_risks
         or (addin_hosted and external_host_lock_contract.get("status") != "pass")
+        or system_health_probe_lock_contract.get("status") != "pass"
     ) else "pass"
     missing_lock = [
         entry for entry in entries
@@ -241,6 +243,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "legacy_experiment_count": len(legacy),
         "bounded_probe_worker_launcher_count": len(bounded_probe_worker_launcher),
         "system_health_worker_probe_service_count": len(system_health_worker_probe),
+        "system_health_probe_lock_contract_status": system_health_probe_lock_contract.get("status"),
         "worker_backed_model_client_count": len(worker_backed_model_client),
         "legacy_service_adapter_count": len(legacy_service_adapter),
         "background_watchdog_probe_count": len(background_watchdog_probe),
@@ -266,6 +269,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             "api_metrics_are_supporting_only": True,
         },
         "external_addin_host_lock_contract": external_host_lock_contract,
+        "system_health_probe_lock_contract": system_health_probe_lock_contract,
         "ui_thread_direct_risks": ui_thread_risks,
         "ui_thread_subprocess_calls": ui_thread_subprocess_calls,
         "ui_thread_heavy_work_calls": ui_thread_heavy_work_calls,
@@ -602,6 +606,93 @@ def _external_addin_host_lock_contract(root: Path) -> dict[str, Any]:
         "interpretation": (
             "External Add-in and sidecar source files cannot acquire the Python global lock themselves; "
             "their Python host entrypoints must prove QProcess worker routing and current-job lock ownership."
+        ),
+    }
+
+
+def _system_health_probe_lock_contract(root: Path) -> dict[str, Any]:
+    checks: list[dict[str, Any]] = []
+
+    def text(rel: str) -> str:
+        try:
+            return (root / rel).read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            return ""
+
+    def add(key: str, rel: str, required: list[str], note: str) -> None:
+        content = text(rel)
+        missing = [item for item in required if item not in content]
+        checks.append({
+            "key": key,
+            "file": rel,
+            "status": "pass" if not missing else "fail",
+            "missing": missing,
+            "note": note,
+        })
+
+    add(
+        "system_health_ui_uses_qprocess_worker",
+        "app/ui/system_health_page.py",
+        ["get_job_runtime_facade", "self.facade.start_system_health_check", "job_finished", "job_failed"],
+        "System Health UI refresh must submit a QProcess worker job rather than calling probes in the UI thread.",
+    )
+    add(
+        "system_health_worker_calls_collect_service",
+        "app/workers/health_check_worker.py",
+        ["collect_system_health", "emit(\"heartbeat\"", "job_started", "job_finished"],
+        "The worker owns the health collection lifecycle and emits JSONL progress events.",
+    )
+    add(
+        "solidworks_com_probe_worker_has_global_lock",
+        "app/workers/solidworks_com_probe_worker.py",
+        ["acquire_lock(", "solidworks_com_probe:", "release_lock(", "blocked_by_solidworks_lock"],
+        "Bounded SolidWorks COM connection probes must acquire the global lock before GetActiveObject/Dispatch.",
+    )
+    add(
+        "solidworks_com_probe_service_is_bounded_subprocess",
+        "app/services/solidworks_com_probe_service.py",
+        ["worker_command(\"solidworks_com_probe\"", "subprocess.Popen(", "communicate(timeout=", "_kill_process_tree"],
+        "System Health base COM checks use a killable worker process with caller-owned timeout.",
+    )
+    add(
+        "system_health_addin_ping_has_probe_lock",
+        "app/services/system_health_service.py",
+        [
+            '_acquire_probe_lock("system_health.addin_ping"',
+            "_release_probe_lock(",
+            "Add-in Ping 已被 SolidWorks 全局锁阻止",
+        ],
+        "Add-in Ping must be a bounded worker-service probe protected by a short SolidWorks global lock.",
+    )
+    add(
+        "system_health_opendoc6_has_probe_lock",
+        "app/services/system_health_service.py",
+        [
+            '_acquire_probe_lock("system_health.opendoc6_probe"',
+            "doc = sw.OpenDoc6(",
+            "_release_probe_lock(",
+            "OpenDoc6 探测已被 SolidWorks 全局锁阻止",
+        ],
+        "Optional real OpenDoc6 health probe must acquire and release the short probe lock.",
+    )
+    add(
+        "system_health_mock_worker_smoke_is_short_bounded",
+        "app/services/system_health_service.py",
+        ["--duration-s", '"0.1"', "subprocess.run(", "timeout=5", "child_process_env()"],
+        "The worker-smoke subprocess is intentionally short, bounded, and launched from the health worker service path.",
+    )
+
+    failed = [check for check in checks if check["status"] != "pass"]
+    return {
+        "schema": "sw_drawing_studio.system_health_probe_lock_contract.v4_4",
+        "status": "pass" if not failed else "warning",
+        "pass": not failed,
+        "check_count": len(checks),
+        "failed_count": len(failed),
+        "checks": checks,
+        "interpretation": (
+            "System Health may surface bounded diagnostic probes, but UI refresh must run through QProcess workers "
+            "and SolidWorks COM/Add-in/OpenDoc6 probes must be short, lock-owned, and non-mutating unless explicitly requested."
         ),
     }
 

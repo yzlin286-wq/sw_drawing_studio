@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T20:03:47",
+  "generated_at": "2026-06-26T20:32:41",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -27,7 +27,8 @@
     "background_watchdog_probe_count": 1,
     "validation_tool_requires_manual_lock_count": 50,
     "external_addin_needs_host_lock_count": 20,
-    "external_addin_host_lock_contract_status": "pass"
+    "external_addin_host_lock_contract_status": "pass",
+    "system_health_probe_lock_contract_status": "pass"
   },
   "lock_test_summary": {
     "status": "pass",

@@ -169,7 +169,8 @@ def build_product_evidence_gate(
         and int(entrypoint_summary.get("ui_thread_heavy_work_count") or 0) == 0
         and int(entrypoint_summary.get("ui_threadpool_worker_count") or 0) == 0
         and int(entrypoint_summary.get("service_direct_risk_count") or 0) == 0
-        and int(entrypoint_summary.get("system_health_ui_thread_direct_probe_count") or 0) == 0,
+        and int(entrypoint_summary.get("system_health_ui_thread_direct_probe_count") or 0) == 0
+        and entrypoint_summary.get("system_health_probe_lock_contract_status") == "pass",
         "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
         entrypoint_summary,
     )
@@ -184,7 +185,8 @@ def build_product_evidence_gate(
         and int(entrypoint_report.get("ui_threadpool_worker_count") or 0) == 0
         and int(entrypoint_report.get("service_direct_risk_count") or 0) == 0
         and int(entrypoint_report.get("system_health_ui_thread_direct_probe_count") or 0) == 0
-        and entrypoint_report.get("external_addin_host_lock_contract_status") == "pass",
+        and entrypoint_report.get("external_addin_host_lock_contract_status") == "pass"
+        and entrypoint_report.get("system_health_probe_lock_contract_status") == "pass",
         "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.",
         _entrypoint_report_summary(entrypoint_report_path, entrypoint_report),
     )
@@ -829,6 +831,7 @@ def _entrypoint_report_summary(path: Path, payload: dict[str, Any]) -> dict[str,
         "service_direct_risk_count": payload.get("service_direct_risk_count"),
         "system_health_ui_thread_direct_probe_count": payload.get("system_health_ui_thread_direct_probe_count"),
         "external_addin_host_lock_contract_status": payload.get("external_addin_host_lock_contract_status"),
+        "system_health_probe_lock_contract_status": payload.get("system_health_probe_lock_contract_status"),
     }
 
 

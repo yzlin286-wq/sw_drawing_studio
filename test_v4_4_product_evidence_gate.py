@@ -743,6 +743,7 @@ def _fixture(
                     "ui_threadpool_worker_count": ui_threadpool_worker_count,
                     "service_direct_risk_count": 0,
                     "system_health_ui_thread_direct_probe_count": 0,
+                    "system_health_probe_lock_contract_status": "pass",
                 },
             },
         ),
@@ -760,6 +761,7 @@ def _fixture(
                 "service_direct_risk_count": 0,
                 "system_health_ui_thread_direct_probe_count": 0,
                 "external_addin_host_lock_contract_status": "pass" if entrypoint_report_pass else "fail",
+                "system_health_probe_lock_contract_status": "pass" if entrypoint_report_pass else "fail",
             },
         ),
         "lock_test": _write_json(
@@ -1363,6 +1365,31 @@ def test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk() -
         assert "solidworks_entrypoint_scan_report_pass" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "solidworks_entrypoint_scan_report_pass")
         assert check["details"]["ui_thread_direct_risk_count"] == 1
+
+
+def test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        stability = json.loads(paths["stability"].read_text(encoding="utf-8"))
+        stability["entrypoint_summary"]["system_health_probe_lock_contract_status"] = "warning"
+        _write_json(paths["stability"], stability)
+        entrypoint = json.loads(paths["entrypoint"].read_text(encoding="utf-8"))
+        entrypoint["system_health_probe_lock_contract_status"] = "warning"
+        _write_json(paths["entrypoint"], entrypoint)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "ui_thread_direct_risk_zero" in set(result["blocking_issue_keys"])
+        assert "solidworks_entrypoint_scan_report_pass" in set(result["blocking_issue_keys"])
+        summary_check = next(item for item in result["checks"] if item["key"] == "ui_thread_direct_risk_zero")
+        assert summary_check["details"]["system_health_probe_lock_contract_status"] == "warning"
+        entrypoint_check = next(
+            item for item in result["checks"] if item["key"] == "solidworks_entrypoint_scan_report_pass"
+        )
+        assert entrypoint_check["details"]["system_health_probe_lock_contract_status"] == "warning"
 
 
 def test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns() -> None:
@@ -2502,6 +2529,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_old_readiness_without_title_sampling()
     test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed()
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
+    test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing()
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_ui_shell_subprocess_returns()
     test_product_evidence_gate_blocks_when_ui_heavy_work_returns()

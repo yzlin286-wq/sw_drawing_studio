@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 20:18:35",
+  "generated_at": "2026-06-26 20:32:56",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -65,7 +65,8 @@
         "background_watchdog_probe_count": 1,
         "validation_tool_requires_manual_lock_count": 50,
         "external_addin_needs_host_lock_count": 20,
-        "external_addin_host_lock_contract_status": "pass"
+        "external_addin_host_lock_contract_status": "pass",
+        "system_health_probe_lock_contract_status": "pass"
       }
     },
     {
@@ -76,7 +77,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T20:03:46",
+        "generated_at": "2026-06-26T20:32:41",
         "status": "pass",
         "entrypoint_count": 528,
         "unguarded_or_unknown_count": 0,
@@ -86,7 +87,8 @@
         "ui_threadpool_worker_count": 0,
         "service_direct_risk_count": 0,
         "system_health_ui_thread_direct_probe_count": 0,
-        "external_addin_host_lock_contract_status": "pass"
+        "external_addin_host_lock_contract_status": "pass",
+        "system_health_probe_lock_contract_status": "pass"
       }
     },
     {
@@ -97,7 +99,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T20:03:46",
+        "generated_at": "2026-06-26T20:32:41",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -113,7 +115,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T20:03:47",
+        "generated_at": "2026-06-26T20:32:41",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -1198,9 +1200,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1057544,
-          "mtime_epoch": 1782475856.602045,
-          "mtime_local": "2026-06-26 20:10:56"
+          "size_bytes": 1065608,
+          "mtime_epoch": 1782477107.7475889,
+          "mtime_local": "2026-06-26 20:31:47"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

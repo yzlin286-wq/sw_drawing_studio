@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T20:03:46",
+  "generated_at": "2026-06-26T20:32:41",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scan_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 342,
@@ -18,6 +18,7 @@
   "legacy_experiment_count": 235,
   "bounded_probe_worker_launcher_count": 4,
   "system_health_worker_probe_service_count": 1,
+  "system_health_probe_lock_contract_status": "pass",
   "worker_backed_model_client_count": 1,
   "legacy_service_adapter_count": 1,
   "background_watchdog_probe_count": 1,
@@ -105,6 +106,65 @@
       "tools/SwReferenceMetricsSidecar/"
     ],
     "interpretation": "External Add-in and sidecar source files cannot acquire the Python global lock themselves; their Python host entrypoints must prove QProcess worker routing and current-job lock ownership."
+  },
+  "system_health_probe_lock_contract": {
+    "schema": "sw_drawing_studio.system_health_probe_lock_contract.v4_4",
+    "status": "pass",
+    "pass": true,
+    "check_count": 7,
+    "failed_count": 0,
+    "checks": [
+      {
+        "key": "system_health_ui_uses_qprocess_worker",
+        "file": "app/ui/system_health_page.py",
+        "status": "pass",
+        "missing": [],
+        "note": "System Health UI refresh must submit a QProcess worker job rather than calling probes in the UI thread."
+      },
+      {
+        "key": "system_health_worker_calls_collect_service",
+        "file": "app/workers/health_check_worker.py",
+        "status": "pass",
+        "missing": [],
+        "note": "The worker owns the health collection lifecycle and emits JSONL progress events."
+      },
+      {
+        "key": "solidworks_com_probe_worker_has_global_lock",
+        "file": "app/workers/solidworks_com_probe_worker.py",
+        "status": "pass",
+        "missing": [],
+        "note": "Bounded SolidWorks COM connection probes must acquire the global lock before GetActiveObject/Dispatch."
+      },
+      {
+        "key": "solidworks_com_probe_service_is_bounded_subprocess",
+        "file": "app/services/solidworks_com_probe_service.py",
+        "status": "pass",
+        "missing": [],
+        "note": "System Health base COM checks use a killable worker process with caller-owned timeout."
+      },
+      {
+        "key": "system_health_addin_ping_has_probe_lock",
+        "file": "app/services/system_health_service.py",
+        "status": "pass",
+        "missing": [],
+        "note": "Add-in Ping must be a bounded worker-service probe protected by a short SolidWorks global lock."
+      },
+      {
+        "key": "system_health_opendoc6_has_probe_lock",
+        "file": "app/services/system_health_service.py",
+        "status": "pass",
+        "missing": [],
+        "note": "Optional real OpenDoc6 health probe must acquire and release the short probe lock."
+      },
+      {
+        "key": "system_health_mock_worker_smoke_is_short_bounded",
+        "file": "app/services/system_health_service.py",
+        "status": "pass",
+        "missing": [],
+        "note": "The worker-smoke subprocess is intentionally short, bounded, and launched from the health worker service path."
+      }
+    ],
+    "interpretation": "System Health may surface bounded diagnostic probes, but UI refresh must run through QProcess workers and SolidWorks COM/Add-in/OpenDoc6 probes must be short, lock-owned, and non-mutating unless explicitly requested."
   },
   "ui_thread_direct_risks": [],
   "ui_thread_subprocess_calls": [],

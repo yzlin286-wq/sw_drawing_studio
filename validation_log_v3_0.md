@@ -14838,3 +14838,67 @@ Remaining issues:
 - SolidWorks readiness is still blocked by a visible unsaved SolidWorks document, so no real CAD rerun is allowed.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
 - API/JSON/DisplayDim/callout-contract evidence remains supporting-only; 006 still requires a future locked CAD rerun and application Drawing Review UI screenshot judgement before any dependent sample can run.
+
+## v4.4 SolidWorks Stability Gate Requires System Health Probe Lock Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline stability/Product Gate hardening step.
+- No real CAD, COM document operation, `OpenDoc6` mutation path, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Adds `system_health_probe_lock_contract`.
+  - Adds top-level `system_health_probe_lock_contract_status`.
+  - Checks the System Health UI path uses `JobRuntimeFacade.start_system_health_check(...)` instead of direct COM work.
+  - Checks `health_check_worker.py` emits worker lifecycle JSONL events around `collect_system_health(...)`.
+  - Checks `solidworks_com_probe_worker.py` acquires/releases the global SolidWorks lock and reports `blocked_by_solidworks_lock`.
+  - Checks `solidworks_com_probe_service.py` invokes the probe through a bounded subprocess with timeout/kill handling.
+  - Checks Add-in Ping and OpenDoc6 System Health probes acquire short probe locks before touching SolidWorks.
+  - Checks mock worker smoke remains short and bounded.
+- Updated `tools/validation/run_solidworks_stability_gate_v4_4.py`.
+  - Carries `system_health_probe_lock_contract_status` into the stability gate `entrypoint_summary`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Requires `system_health_probe_lock_contract_status=pass` for `ui_thread_direct_risk_zero`.
+  - Requires the raw entrypoint scan report to include `system_health_probe_lock_contract_status=pass`.
+- Updated tests.
+  - `test_v4_1_solidworks_entrypoint_scan.py` asserts the System Health probe-lock contract is present and passes.
+  - `test_v4_4_product_evidence_gate.py` proves Product Gate blocks when the System Health probe-lock contract is missing or warning.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\solidworks_entrypoint_scanner.py tools\validation\run_solidworks_stability_gate_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v4_1_solidworks_entrypoint_scan.py test_v4_4_product_evidence_gate.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed entrypoint scan reports:
+  - `status=pass`
+  - `system_health_probe_lock_contract_status=pass`
+  - `system_health_probe_lock_contract.pass=true`
+- Refreshed Stability Gate remains `warning` because conflict monitoring still reports a visible SolidWorks process outside a worker-owned global lock, but the System Health probe-lock contract now passes.
+- Refreshed rerun packet remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `readiness_blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+- API/JSON/DisplayDim/System Health contract evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.
