@@ -275,6 +275,7 @@ def _fixture(
     acceptance_proof_stale_generated_at: bool = False,
     entrypoint_report_pass: bool = True,
     entrypoint_report_newer_than_stability: bool = False,
+    stability_report_older_than_readiness: bool = False,
     ui_thread_subprocess_call_count: int = 0,
     ui_thread_heavy_work_count: int = 0,
     ui_threadpool_worker_count: int = 0,
@@ -376,9 +377,18 @@ def _fixture(
     )
     readiness_generated_at = "2026-06-26 10:00:00"
     packet_generated_at = "2026-06-26 09:59:59" if rerun_packet_stale_generated_at else "2026-06-26 10:01:00"
-    stability_generated_at = "2026-06-26T10:01:00"
+    stability_generated_at = (
+        "2026-06-26T09:59:00" if stability_report_older_than_readiness else "2026-06-26T10:01:00"
+    )
+    conflict_generated_at = (
+        "2026-06-26T09:59:00" if stability_report_older_than_readiness else "2026-06-26T10:01:00"
+    )
     entrypoint_generated_at = (
-        "2026-06-26T10:02:00" if entrypoint_report_newer_than_stability else "2026-06-26T10:00:00"
+        "2026-06-26T10:02:00"
+        if entrypoint_report_newer_than_stability
+        else "2026-06-26T09:58:00"
+        if stability_report_older_than_readiness
+        else "2026-06-26T10:00:00"
     )
     ui_visual_review_generated_at = "2026-06-26 10:02:00"
     acceptance_generated_at = (
@@ -854,6 +864,7 @@ def _fixture(
             root / "conflict_report.json",
             {
                 "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
+                "generated_at": conflict_generated_at,
                 "level": "WARNING" if idle_solidworks_without_lock else "OK" if conflict_report_ok else "WARNING",
                 "status": "warning" if idle_solidworks_without_lock else "pass" if conflict_report_ok else "warning",
                 "pass": bool(conflict_report_ok and not idle_solidworks_without_lock),
@@ -1523,6 +1534,26 @@ def test_product_evidence_gate_blocks_when_stability_gate_is_older_than_entrypoi
         assert check["details"]["stability_generated_at"] == "2026-06-26T10:01:00"
         assert check["details"]["entrypoint_generated_at"] == "2026-06-26T10:02:00"
         assert check["details"]["stability_generated_at_not_older_than_entrypoint"] is False
+
+
+def test_product_evidence_gate_blocks_when_stability_and_conflict_are_older_than_readiness() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), stability_report_older_than_readiness=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "solidworks_stability_readiness_snapshot_current" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "solidworks_stability_readiness_snapshot_current"
+        )
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["stability_generated_at"] == "2026-06-26T09:59:00"
+        assert check["details"]["conflict_generated_at"] == "2026-06-26T09:59:00"
+        assert check["details"]["readiness_generated_at"] == "2026-06-26 10:00:00"
+        assert check["details"]["stability_generated_at_not_older_than_readiness"] is False
+        assert check["details"]["conflict_generated_at_not_older_than_readiness"] is False
 
 
 def test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing() -> None:
@@ -2840,6 +2871,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed()
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
     test_product_evidence_gate_blocks_when_stability_gate_is_older_than_entrypoint_report()
+    test_product_evidence_gate_blocks_when_stability_and_conflict_are_older_than_readiness()
     test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing()
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_ui_shell_subprocess_returns()

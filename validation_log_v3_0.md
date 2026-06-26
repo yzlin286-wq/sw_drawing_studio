@@ -15717,3 +15717,53 @@ Remaining issues:
 - A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
 - This change improves Product Gate recovery guidance, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Product Gate Stability/Readiness Snapshot Currency - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM Product Evidence Gate hardening step. It prevents old SolidWorks stability/conflict evidence from being reused after the 006 readiness state changes.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Added `solidworks_stability_readiness_snapshot_current`.
+  - The check requires both `solidworks_stability_gate_v4_4.json.generated_at` and `conflict_report.json.generated_at` to be parseable and not older than `lb26001_006_regression_readiness_v4_2.json.generated_at`.
+  - The check is part of the SolidWorks stability phase and is required before any 006 CAD rerun or downstream action can be allowed.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture conflict reports now include `generated_at`.
+  - Added a regression test proving Product Gate blocks when stability/conflict snapshots are older than readiness.
+
+Commands:
+
+```powershell
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py --out-json drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.json --out-md drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- AST parse for `tools/validation/product_evidence_gate_v4_4.py` and `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed readiness remains `status=blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed stability/conflict evidence is current relative to readiness:
+  - readiness `generated_at=2026-06-26 22:56:44`
+  - stability `generated_at=2026-06-26T22:56:59`
+  - conflict `generated_at=2026-06-26T22:56:59`
+  - Product Gate `solidworks_stability_readiness_snapshot_current=pass`
+- Refreshed `conflict_report.json` remains `level=FAIL`, `status=fail`, `pass=false`, with `solidworks_unsaved_document_visible` and `solidworks_running_without_lock`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=25`, `passed_check_count=11`, `failed_check_count=14`, and all allowed actions remain false.
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves evidence-chain freshness only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

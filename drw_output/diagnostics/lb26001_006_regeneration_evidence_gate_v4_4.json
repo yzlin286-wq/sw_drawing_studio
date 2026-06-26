@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 22:41:28",
+  "generated_at": "2026-06-26 22:57:33",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_missing_fresh_006_run",
   "pass": false,

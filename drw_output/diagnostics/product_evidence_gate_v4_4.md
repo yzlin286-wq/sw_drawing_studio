@@ -25,6 +25,7 @@
 - `pass` `ui_thread_direct_risk_zero`: UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.
 - `pass` `solidworks_entrypoint_scan_report_pass`: Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.
 - `pass` `solidworks_stability_entrypoint_snapshot_current`: SolidWorks stability gate must be generated no earlier than the raw entrypoint scan it summarizes.
+- `pass` `solidworks_stability_readiness_snapshot_current`: SolidWorks stability and conflict evidence must be generated no earlier than the 006 readiness report they gate.
 - `pass` `solidworks_lock_test_report_pass`: SolidWorks global-lock test report must pass every lock ownership/conflict check.
 - `fail` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
 - `fail` `solidworks_readiness_for_006`: Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.

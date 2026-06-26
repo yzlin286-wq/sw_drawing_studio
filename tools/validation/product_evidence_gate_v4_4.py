@@ -157,10 +157,19 @@ def build_product_evidence_gate(
     conflict_ok_for_locked_006 = strict_conflict_ok or idle_solidworks_prelock_ok
     stability_generated_at = _parse_generated_at(stability_gate.get("generated_at"))
     entrypoint_generated_at = _parse_generated_at(entrypoint_report.get("generated_at"))
+    conflict_generated_at = _parse_generated_at(conflict_report.get("generated_at"))
+    readiness_generated_at = _parse_generated_at(readiness.get("generated_at"))
     stability_entrypoint_snapshot_current = bool(
         stability_generated_at is not None
         and entrypoint_generated_at is not None
         and stability_generated_at >= entrypoint_generated_at
+    )
+    stability_readiness_snapshot_current = bool(
+        stability_generated_at is not None
+        and conflict_generated_at is not None
+        and readiness_generated_at is not None
+        and stability_generated_at >= readiness_generated_at
+        and conflict_generated_at >= readiness_generated_at
     )
 
     checks: list[dict[str, Any]] = []
@@ -221,6 +230,35 @@ def build_product_evidence_gate(
             "entrypoint_generated_at": entrypoint_report.get("generated_at"),
             "generated_at_parse_ok": stability_generated_at is not None and entrypoint_generated_at is not None,
             "stability_generated_at_not_older_than_entrypoint": stability_entrypoint_snapshot_current,
+        },
+    )
+    _add_check(
+        checks,
+        "solidworks_stability_readiness_snapshot_current",
+        stability_readiness_snapshot_current,
+        "SolidWorks stability and conflict evidence must be generated no earlier than the 006 readiness report they gate.",
+        {
+            "stability_gate_path": str(stability_gate_path),
+            "conflict_report_path": str(conflict_report_path),
+            "readiness_path": str(readiness_path),
+            "stability_generated_at": stability_gate.get("generated_at"),
+            "conflict_generated_at": conflict_report.get("generated_at"),
+            "readiness_generated_at": readiness.get("generated_at"),
+            "generated_at_parse_ok": (
+                stability_generated_at is not None
+                and conflict_generated_at is not None
+                and readiness_generated_at is not None
+            ),
+            "stability_generated_at_not_older_than_readiness": bool(
+                stability_generated_at is not None
+                and readiness_generated_at is not None
+                and stability_generated_at >= readiness_generated_at
+            ),
+            "conflict_generated_at_not_older_than_readiness": bool(
+                conflict_generated_at is not None
+                and readiness_generated_at is not None
+                and conflict_generated_at >= readiness_generated_at
+            ),
         },
     )
     _add_check(
@@ -646,6 +684,7 @@ def build_product_evidence_gate(
             and _check_pass(checks, "ui_thread_direct_risk_zero")
             and _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
             and _check_pass(checks, "solidworks_stability_entrypoint_snapshot_current")
+            and _check_pass(checks, "solidworks_stability_readiness_snapshot_current")
             and _check_pass(checks, "solidworks_lock_test_report_pass")
             and _check_pass(checks, "solidworks_conflict_report_ok")
         ),
@@ -791,6 +830,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         or not _check_pass(checks, "ui_thread_direct_risk_zero")
         or not _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
         or not _check_pass(checks, "solidworks_stability_entrypoint_snapshot_current")
+        or not _check_pass(checks, "solidworks_stability_readiness_snapshot_current")
         or not _check_pass(checks, "solidworks_lock_test_report_pass")
         or not _check_pass(checks, "solidworks_conflict_report_ok")
     ):

@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 22:50:01",
+  "generated_at": "2026-06-26 23:01:31",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -77,7 +77,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T22:38:53",
+        "generated_at": "2026-06-26T22:56:59",
         "status": "pass",
         "entrypoint_count": 539,
         "unguarded_or_unknown_count": 0,
@@ -99,10 +99,27 @@
       "details": {
         "stability_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
         "entrypoint_report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
-        "stability_generated_at": "2026-06-26T22:38:54",
-        "entrypoint_generated_at": "2026-06-26T22:38:53",
+        "stability_generated_at": "2026-06-26T22:56:59",
+        "entrypoint_generated_at": "2026-06-26T22:56:59",
         "generated_at_parse_ok": true,
         "stability_generated_at_not_older_than_entrypoint": true
+      }
+    },
+    {
+      "key": "solidworks_stability_readiness_snapshot_current",
+      "pass": true,
+      "status": "pass",
+      "message": "SolidWorks stability and conflict evidence must be generated no earlier than the 006 readiness report they gate.",
+      "details": {
+        "stability_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
+        "conflict_report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
+        "readiness_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+        "stability_generated_at": "2026-06-26T22:56:59",
+        "conflict_generated_at": "2026-06-26T22:56:59",
+        "readiness_generated_at": "2026-06-26 22:56:44",
+        "generated_at_parse_ok": true,
+        "stability_generated_at_not_older_than_readiness": true,
+        "conflict_generated_at_not_older_than_readiness": true
       }
     },
     {
@@ -113,7 +130,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T22:38:54",
+        "generated_at": "2026-06-26T22:56:59",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -129,7 +146,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T22:38:54",
+        "generated_at": "2026-06-26T22:56:59",
         "level": "FAIL",
         "status": "fail",
         "pass": false,
@@ -173,7 +190,7 @@
       "message": "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
-        "generated_at": "2026-06-26 22:41:31",
+        "generated_at": "2026-06-26 22:56:44",
         "status": "blocked",
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
@@ -343,8 +360,8 @@
         "packet_readiness_ready": false,
         "real_cad_allowed_now": false,
         "expected_packet_status": "blocked_by_solidworks_readiness",
-        "packet_generated_at": "2026-06-26 22:41:42",
-        "readiness_generated_at": "2026-06-26 22:41:31",
+        "packet_generated_at": "2026-06-26 22:58:06",
+        "readiness_generated_at": "2026-06-26 22:56:44",
         "generated_at_parse_ok": true,
         "packet_generated_at_not_older_than_readiness": true
       }
@@ -357,7 +374,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 22:41:28",
+        "generated_at": "2026-06-26 22:57:16",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -1370,9 +1387,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1123653,
-          "mtime_epoch": 1782485391.31487,
-          "mtime_local": "2026-06-26 22:49:51"
+          "size_bytes": 1127897,
+          "mtime_epoch": 1782486054.6700666,
+          "mtime_local": "2026-06-26 23:00:54"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1886,8 +1903,8 @@
       }
     }
   ],
-  "check_count": 24,
-  "passed_check_count": 10,
+  "check_count": 25,
+  "passed_check_count": 11,
   "failed_check_count": 14,
   "blocking_issue_keys": [
     "solidworks_stability_gate_pass",
