@@ -8465,6 +8465,17 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                     continue
         return (0.0, 0.0)
 
+    def _arrange_dim_arrow_position(dim_obj, fallback):
+        for name in ("ArrowHeadPosition", "GetArrowHeadPosition", "GetArrowPosition"):
+            value = call(dim_obj, name)
+            if value and not isinstance(value, str):
+                try:
+                    if len(value) >= 2:
+                        return (float(value[0]), float(value[1]))
+                except Exception:
+                    continue
+        return fallback
+
     def _arrange_set_dim_position(dim_obj, pos):
         values = [float(pos[0]), float(pos[1])]
         try:
@@ -8653,6 +8664,66 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 return "standard"
             return "standard"
 
+        def _reference_lane_geometry_issues(items_for_check, *, use_new_position=False):
+            # reference_lane_geometry_guard:
+            # Supporting diagnostic for the application UI screenshot failure.
+            # Overlap can be zero while diagonal/cross-region leader geometry
+            # still makes 006 read like AutoDimension output.
+            if part_class != "long_thin":
+                return []
+            issues = []
+            for item_for_check in items_for_check or []:
+                slot = str(item_for_check.get("slot") or "").strip().lower()
+                if slot not in {"front", "top", "right"}:
+                    continue
+                outline = item_for_check.get("outline")
+                if not outline:
+                    continue
+                if use_new_position:
+                    pos = tuple(item_for_check.get("new_position") or item_for_check.get("position") or (0.0, 0.0))
+                else:
+                    pos = tuple(item_for_check.get("position") or (0.0, 0.0))
+                arrow = tuple(item_for_check.get("arrow_position") or item_for_check.get("position") or pos)
+                side = _dimension_side(pos, outline)
+                x0, y0, x1, y1 = outline
+                gap = 0.0
+                if side == "top":
+                    gap = max(0.0, pos[1] - y1)
+                elif side == "bottom":
+                    gap = max(0.0, y0 - pos[1])
+                elif side == "left":
+                    gap = max(0.0, x0 - pos[0])
+                elif side == "right":
+                    gap = max(0.0, pos[0] - x1)
+                issue_key = ""
+                if slot == "top" and side in {"left", "right"}:
+                    issue_key = "top_view_cross_region_side"
+                elif side in {"top", "bottom"} and gap > 0.046:
+                    issue_key = "reference_lane_far_from_view"
+                elif side in {"left", "right"} and gap > 0.030:
+                    issue_key = "reference_lane_far_from_view"
+                dx = abs(float(pos[0]) - float(arrow[0]))
+                dy = abs(float(pos[1]) - float(arrow[1]))
+                leader_distance = (dx * dx + dy * dy) ** 0.5
+                diagonal_leader = dx > 0.030 and dy > 0.018 and leader_distance > 0.038
+                if diagonal_leader:
+                    issue_key = "reference_lane_diagonal_or_cross_region_leader"
+                if not issue_key:
+                    continue
+                issues.append({
+                    "index": item_for_check.get("index"),
+                    "view": item_for_check.get("view"),
+                    "slot": slot,
+                    "side": side,
+                    "issue": issue_key,
+                    "text_position": list(pos),
+                    "arrow_position": list(arrow),
+                    "gap": round(float(gap), 6),
+                    "leader_distance": round(float(leader_distance), 6),
+                    "diagonal_leader": bool(diagonal_leader),
+                })
+            return issues
+
         raw_items = _display_dim_annotations_in_doc(drw)
         items = []
         for index, item in enumerate(raw_items):
@@ -8662,6 +8733,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
             if target is None or not outline:
                 continue
             position = _arrange_dim_position(target)
+            arrow_position = _arrange_dim_arrow_position(target, position)
             slot = _slot_for_outline(outline)
             items.append({
                 "index": index,
@@ -8670,6 +8742,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 "source": item.get("source"),
                 "outline": outline,
                 "position": position,
+                "arrow_position": arrow_position,
                 "slot": slot,
                 "side": _dimension_side(position, outline),
             })
@@ -8695,6 +8768,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
         items.sort(key=lambda entry: (slot_order.get(str(entry.get("slot") or "").lower(), 99), int(entry.get("slot_order") or 0)))
 
         points_before = [item["position"] for item in items]
+        reference_lane_issues_before = _reference_lane_geometry_issues(items, use_new_position=False)
         avoid_before = sum(
             1 for point in points_before
             if any(_arrange_point_in_box(point, box) for box in avoid_boxes)
@@ -8739,7 +8813,9 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 ok = _arrange_set_dim_position(item["target"], chosen)
                 if ok:
                     adjusted += 1
-            used_points.append(chosen if ok else original)
+            final_position = chosen if ok else original
+            item["new_position"] = final_position
+            used_points.append(final_position)
             dimensions_report.append({
                 "index": item["index"],
                 "view": item.get("view"),
@@ -8748,11 +8824,17 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 "side": item.get("side"),
                 "lane_role": item.get("lane_role") or "standard",
                 "original_position": list(original),
-                "new_position": list(chosen if ok else original),
+                "new_position": list(final_position),
                 "adjusted": bool(ok),
             })
 
         points_after = [tuple(item["new_position"]) for item in dimensions_report]
+        reference_lane_issues_after = _reference_lane_geometry_issues(items, use_new_position=True)
+        issues_by_index = {issue.get("index"): issue.get("issue") for issue in reference_lane_issues_after}
+        for item in dimensions_report:
+            issue = issues_by_index.get(item.get("index"))
+            if issue:
+                item["reference_lane_issue"] = issue
         avoid_after = sum(
             1 for point in points_after
             if any(_arrange_point_in_box(point, box) for box in avoid_boxes)
@@ -8775,6 +8857,9 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
             "avoid_collision_after": avoid_after,
             "line_crossing_before": 0,
             "line_crossing_after": 0,
+            "reference_lane_geometry_issue_count_before": len(reference_lane_issues_before),
+            "reference_lane_geometry_issue_count_after": len(reference_lane_issues_after),
+            "reference_lane_geometry_issues": reference_lane_issues_after,
             "reason": "fallback_used" if items else "no_displaydim_annotations",
         }
         try:
@@ -8824,6 +8909,15 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 "avoid_collision_after": int(arranged.avoid_collision_after or 0),
                 "line_crossing_before": int(arranged.line_crossing_before or 0),
                 "line_crossing_after": int(arranged.line_crossing_after or 0),
+                "reference_lane_geometry_issue_count_before": int(
+                    getattr(arranged, "reference_lane_geometry_issue_count_before", 0) or 0
+                ),
+                "reference_lane_geometry_issue_count_after": int(
+                    getattr(arranged, "reference_lane_geometry_issue_count_after", 0) or 0
+                ),
+                "reference_lane_geometry_issues": list(
+                    getattr(arranged, "reference_lane_geometry_issues", []) or []
+                ),
                 "callout_lane_applied": bool(getattr(arranged, "callout_lane_applied", False)),
                 "callout_lane_count": int(getattr(arranged, "callout_lane_count", 0) or 0),
                 "reason": str(arranged.reason or ""),

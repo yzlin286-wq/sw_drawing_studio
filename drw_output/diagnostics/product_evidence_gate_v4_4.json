@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 09:35:37",
-  "status": "blocked_by_solidworks_readiness",
+  "generated_at": "2026-06-26 09:53:18",
+  "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
   "base": "LB26001-A-04-006",
@@ -31,13 +31,17 @@
   "checks": [
     {
       "key": "solidworks_stability_gate_pass",
-      "status": "pass",
-      "message": "SolidWorks stability gate must pass with no warnings.",
+      "status": "fail",
+      "message": "SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
-        "status": "pass",
-        "pass": true,
-        "warning_reasons": []
+        "status": "warning",
+        "pass": false,
+        "warning_reasons": [
+          "solidworks_conflict_monitor_warning_or_fail"
+        ],
+        "strict_stability_ok": false,
+        "idle_solidworks_prelock_allowed_for_locked_006": false
       }
     },
     {
@@ -67,7 +71,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T09:33:03",
+        "generated_at": "2026-06-26T09:52:50",
         "status": "pass",
         "entrypoint_count": 529,
         "unguarded_or_unknown_count": 0,
@@ -85,7 +89,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T09:33:03",
+        "generated_at": "2026-06-26T09:52:50",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -95,15 +99,15 @@
     },
     {
       "key": "solidworks_conflict_report_ok",
-      "status": "pass",
-      "message": "Current conflict report must be OK with no SolidWorks process, CAD/batch worker, waiting job, smoke leftover, or DialogGuard conflict.",
+      "status": "fail",
+      "message": "Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T09:33:04",
-        "level": "OK",
+        "generated_at": "2026-06-26T09:52:51",
+        "level": "WARNING",
         "counts": {
-          "solidworks_processes": 0,
+          "solidworks_processes": 1,
           "cad_job_workers": 0,
           "batch_job_workers": 0,
           "waiting_jobs": 0,
@@ -111,7 +115,9 @@
           "dialog_guards": 0
         },
         "lock_reason": "no_active_solidworks_lock",
-        "fix_suggestion": ""
+        "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+        "strict_conflict_ok": false,
+        "idle_solidworks_prelock_allowed_for_locked_006": false
       }
     },
     {
@@ -123,7 +129,7 @@
         "status": "blocked",
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
-          "solidworks_not_running"
+          "solidworks_unsaved_document_visible"
         ]
       }
     },
@@ -233,7 +239,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 09:09:21",
+        "generated_at": "2026-06-26 09:53:17",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -693,6 +699,8 @@
     }
   ],
   "blocking_issue_keys": [
+    "solidworks_stability_gate_pass",
+    "solidworks_conflict_report_ok",
     "solidworks_readiness_for_006",
     "regeneration_006_fresh_evidence_pass",
     "application_ui_006_acceptance_pass",
@@ -737,5 +745,5 @@
       "stability_2h_ui": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json"
     }
   },
-  "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
+  "next_required_action": "Fix the failing product evidence checks before advancing the validation stage."
 }

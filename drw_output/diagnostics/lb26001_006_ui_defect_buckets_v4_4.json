@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-26 09:09:21",
+  "generated_at": "2026-06-26 09:53:17",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -13,7 +13,7 @@
     "status": "blocked",
     "ready_to_start_locked_006_cad": false,
     "blocking_issue_keys": [
-      "solidworks_not_running"
+      "solidworks_unsaved_document_visible"
     ],
     "automatic_restart_allowed": false,
     "manual_recovery_required": true

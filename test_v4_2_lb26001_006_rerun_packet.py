@@ -9,6 +9,7 @@ from tools.validation.lb26001_006_rerun_packet_v4_2 import (
     APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES,
     CAD_WORKER_SIGNATURES,
     CORRECTION_PLAN_SIGNATURES,
+    DIMENSION_ARRANGE_SIGNATURES,
     DIMENSION_VISUAL_VALIDATOR_SIGNATURES,
     DRAWING_VISUAL_REVIEW_SUITE_SIGNATURES,
     GENERATOR_SIGNATURES,
@@ -157,6 +158,7 @@ def _build_packet_fixture(
     omit_lifecycle_audit_signature: str = "",
     omit_vision_qc_v6_signature: str = "",
     omit_application_ui_screenshot_validator_signature: str = "",
+    omit_dimension_arrange_signature: str = "",
     omit_dimension_visual_signature: str = "",
     omit_acceptance_gate_signature: str = "",
     omit_acceptance_proof_signature: str = "",
@@ -192,6 +194,11 @@ def _build_packet_fixture(
             root / "application_ui_screenshot_validator.py",
             APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES,
             omit=omit_application_ui_screenshot_validator_signature,
+        )
+        dimension_arrange_source = _source_file(
+            root / "dimension_arrange_service.py",
+            DIMENSION_ARRANGE_SIGNATURES,
+            omit=omit_dimension_arrange_signature,
         )
         dimension_visual_source = _source_file(
             root / "dimension_visual_validator.py",
@@ -367,6 +374,7 @@ def _build_packet_fixture(
             reference_compare_source_path=reference_compare_source,
             vision_qc_v6_source_path=vision_qc_v6_source,
             application_ui_screenshot_validator_source_path=application_ui_screenshot_validator_source,
+            dimension_arrange_source_path=dimension_arrange_source,
             dimension_visual_validator_source_path=dimension_visual_source,
             lifecycle_audit_source_path=lifecycle_audit_source,
             staged_validation_source_path=staged_validation_source,
@@ -782,6 +790,21 @@ def test_006_rerun_packet_blocks_when_generator_delete_equivalence_dedupe_missin
     assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
     assert packet["source_signatures"]["generator"]["missing_signatures"] == [
         "reference_intent_delete_equivalence_dedupe"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_reference_lane_geometry_guard_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_dimension_arrange_signature="reference_lane_geometry_issue_count",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "dimension_arrange_reference_lane_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["dimension_arrange_service"]["missing_signatures"] == [
+        "reference_lane_geometry_issue_count"
     ]
 
 
@@ -1213,6 +1236,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_reference_callout_review_plan_missing()
     test_006_rerun_packet_blocks_when_generator_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_generator_delete_equivalence_dedupe_missing()
+    test_006_rerun_packet_blocks_when_reference_lane_geometry_guard_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()

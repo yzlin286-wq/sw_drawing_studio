@@ -88,6 +88,7 @@ def _fixture(
     ui_threadpool_worker_count: int = 0,
     lock_test_report_pass: bool = True,
     conflict_report_ok: bool = True,
+    idle_solidworks_without_lock: bool = False,
     reference_plan_complete: bool = True,
     reference_plan_note_substitution: bool = False,
     reference_contract_locked: bool = True,
@@ -230,9 +231,9 @@ def _fixture(
         "stability": _write_json(
             root / "stability.json",
             {
-                "status": "pass",
-                "pass": True,
-                "warning_reasons": [],
+                "status": "warning" if idle_solidworks_without_lock else "pass",
+                "pass": not idle_solidworks_without_lock,
+                "warning_reasons": ["solidworks_conflict_monitor_warning_or_fail"] if idle_solidworks_without_lock else [],
                 "entrypoint_summary": {
                     "unguarded_or_unknown_count": 0,
                     "ui_thread_direct_risk_count": 0,
@@ -273,17 +274,34 @@ def _fixture(
             root / "conflict_report.json",
             {
                 "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-                "level": "OK" if conflict_report_ok else "WARNING",
-                "lock_reason": "no_active_solidworks_lock" if conflict_report_ok else "solidworks_process_detected",
-                "fix_suggestion": "" if conflict_report_ok else "Close or serialize SolidWorks before CAD work.",
+                "level": "WARNING" if idle_solidworks_without_lock else "OK" if conflict_report_ok else "WARNING",
+                "lock": None,
+                "lock_owner": {},
+                "lock_reason": "no_active_solidworks_lock"
+                if (conflict_report_ok or idle_solidworks_without_lock)
+                else "solidworks_process_detected",
+                "fix_suggestion": ""
+                if conflict_report_ok
+                else "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁"
+                if idle_solidworks_without_lock
+                else "Close or serialize SolidWorks before CAD work.",
                 "counts": {
-                    "solidworks_processes": 0 if conflict_report_ok else 1,
+                    "solidworks_processes": 1 if idle_solidworks_without_lock else 0 if conflict_report_ok else 1,
                     "cad_job_workers": 0,
                     "batch_job_workers": 0,
                     "waiting_jobs": 0,
                     "smoke_leftovers": 0,
                     "dialog_guards": 0,
                 },
+                "findings": [
+                    {
+                        "severity": "WARNING",
+                        "key": "solidworks_running_without_lock",
+                        "message": "SW running but no active SolidWorks global lock.",
+                    }
+                ]
+                if idle_solidworks_without_lock
+                else [],
             },
         ),
         "readiness": _write_json(
@@ -702,6 +720,31 @@ def test_product_evidence_gate_blocks_when_conflict_report_warns() -> None:
         assert "solidworks_conflict_report_ok" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
         assert check["details"]["counts"]["solidworks_processes"] == 1
+
+
+def test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_only() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                idle_solidworks_without_lock=True,
+                regeneration_pass=False,
+                acceptance_pass=False,
+                requested_pass=False,
+                final_artifacts=False,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_regeneration_evidence"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is True
+        assert result["allowed_actions"]["006_application_ui_review_allowed_now"] is False
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        stability_check = next(item for item in result["checks"] if item["key"] == "solidworks_stability_gate_pass")
+        conflict_check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
+        assert stability_check["details"]["idle_solidworks_prelock_allowed_for_locked_006"] is True
+        assert conflict_check["details"]["idle_solidworks_prelock_allowed_for_locked_006"] is True
 
 
 def test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target() -> None:
@@ -1130,6 +1173,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_lock_test_report_fails()
     test_product_evidence_gate_blocks_when_conflict_report_warns()
+    test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_only()
     test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target()
     test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence()
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()

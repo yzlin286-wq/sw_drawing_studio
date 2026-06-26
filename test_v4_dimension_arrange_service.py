@@ -10,9 +10,9 @@ class FakeDimension:
 
 
 class FakeDisplayDimension:
-    def __init__(self, position):
+    def __init__(self, position, arrow_position=None):
         self.TextPosition = list(position)
-        self.ArrowHeadPosition = list(position)
+        self.ArrowHeadPosition = list(arrow_position or position)
 
     def GetDimension2(self, _index):
         return FakeDimension()
@@ -289,10 +289,50 @@ def test_arrange_dimensions_keeps_dense_top_dimensions_in_local_lanes() -> None:
     assert result.overlap_after == 0
 
 
+def test_arrange_dimensions_reports_reference_lane_geometry_issues() -> None:
+    dims = [
+        FakeDisplayDimension((0.205, 0.158), arrow_position=(0.112, 0.123)),
+    ]
+    top_outline = (0.0483, 0.1177, 0.1717, 0.1321)
+    view = FakeView("Top", top_outline, dims)
+    doc = FakeDoc(FakeSheet([view]))
+    layout_plan = {
+        "part_class": "long_thin",
+        "sheet_size": {"width": 0.297, "height": 0.210},
+        "titlebar_box_norm": [0.68, 0.0, 1.0, 0.18],
+        "views": [
+            {
+                "slot": "top",
+                "box_norm": [0.1627, 0.5605, 0.5781, 0.6291],
+                "center_norm": [0.3704, 0.5948],
+            }
+        ],
+    }
+
+    with TemporaryDirectory() as tmp:
+        run_dir = Path(tmp)
+        result = arrange_dimensions(
+            object(),
+            doc,
+            run_dir=run_dir,
+            run_id="reference-lane-geometry-issue",
+            layout_plan=layout_plan,
+        )
+        report = json.loads(run_dir.joinpath("qc", "dimension_arrange.json").read_text(encoding="utf-8"))
+
+    assert result.success is True
+    assert result.line_crossing_before == 0
+    assert result.reference_lane_geometry_issue_count_before >= 1
+    assert report["reference_lane_geometry_issue_count_before"] >= 1
+    assert "reference_lane_geometry_issue_count_after" in report
+    assert "reference_lane_geometry_issues" in report
+
+
 if __name__ == "__main__":
     test_arrange_dimensions_moves_dense_text_out_of_titlebar_and_notes_boxes()
     test_arrange_dimensions_collects_displaydim_annotations_when_api_list_is_empty()
     test_arrange_dimensions_uses_long_thin_reference_lanes()
     test_arrange_dimensions_pushes_long_thin_top_view_to_protected_lane()
     test_arrange_dimensions_keeps_dense_top_dimensions_in_local_lanes()
+    test_arrange_dimensions_reports_reference_lane_geometry_issues()
     print("PASS test_v4_dimension_arrange_service")

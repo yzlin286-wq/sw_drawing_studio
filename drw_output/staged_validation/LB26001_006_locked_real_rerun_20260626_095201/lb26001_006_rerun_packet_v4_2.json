@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 09:53:17",
+  "generated_at": "2026-06-26 09:52:04",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -280,7 +280,7 @@
   "ui_defect_buckets": {
     "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
     "exists": true,
-    "status": "blocked_by_solidworks_readiness",
+    "status": "needs_006_fix",
     "pass": true,
     "active_bucket_count": 5,
     "active_buckets": [
@@ -324,13 +324,11 @@
     "missing_active_screenshot_visual_observation_buckets": [],
     "callout_screenshot_visual_observation_ok": true,
     "solidworks_readiness": {
-      "status": "blocked",
-      "ready_to_start_locked_006_cad": false,
-      "blocking_issue_keys": [
-        "solidworks_unsaved_document_visible"
-      ],
+      "status": "ready",
+      "ready_to_start_locked_006_cad": true,
+      "blocking_issue_keys": [],
       "automatic_restart_allowed": false,
-      "manual_recovery_required": true
+      "manual_recovery_required": false
     }
   },
   "offline_prerequisites": [
@@ -499,7 +497,7 @@
       "evidence": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "exists": true,
-        "status": "blocked_by_solidworks_readiness",
+        "status": "needs_006_fix",
         "pass": true,
         "active_bucket_count": 5,
         "active_buckets": [
@@ -543,13 +541,11 @@
         "missing_active_screenshot_visual_observation_buckets": [],
         "callout_screenshot_visual_observation_ok": true,
         "solidworks_readiness": {
-          "status": "blocked",
-          "ready_to_start_locked_006_cad": false,
-          "blocking_issue_keys": [
-            "solidworks_unsaved_document_visible"
-          ],
+          "status": "ready",
+          "ready_to_start_locked_006_cad": true,
+          "blocking_issue_keys": [],
           "automatic_restart_allowed": false,
-          "manual_recovery_required": true
+          "manual_recovery_required": false
         }
       },
       "fix_suggestion": "Regenerate lb26001_006_ui_defect_buckets_v4_4.json from the latest application Drawing Review UI screenshot failure."

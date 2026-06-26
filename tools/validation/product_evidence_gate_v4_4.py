@@ -118,20 +118,33 @@ def build_product_evidence_gate(
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
     visual_audit_schema_gap = _read_json(visual_audit_schema_gap_path)
     readiness_ok = readiness.get("ready_to_start_locked_006_cad") is True and readiness.get("status") == "ready"
+    idle_solidworks_prelock_ok = _idle_solidworks_prelock_ok(conflict_report, readiness, rerun_packet)
+    strict_stability_ok = (
+        stability_gate.get("pass") is True
+        and stability_gate.get("status") == "pass"
+        and not list(stability_gate.get("warning_reasons") or [])
+    )
+    stability_ok_for_locked_006 = strict_stability_ok or (
+        idle_solidworks_prelock_ok
+        and stability_gate.get("status") == "warning"
+        and set(stability_gate.get("warning_reasons") or []) <= {"solidworks_conflict_monitor_warning_or_fail"}
+    )
+    strict_conflict_ok = conflict_report.get("level") == "OK" and _counts_all_zero(conflict_report.get("counts"))
+    conflict_ok_for_locked_006 = strict_conflict_ok or idle_solidworks_prelock_ok
 
     checks: list[dict[str, Any]] = []
     _add_check(
         checks,
         "solidworks_stability_gate_pass",
-        stability_gate.get("pass") is True
-        and stability_gate.get("status") == "pass"
-        and not list(stability_gate.get("warning_reasons") or []),
-        "SolidWorks stability gate must pass with no warnings.",
+        stability_ok_for_locked_006,
+        "SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.",
         {
             "path": str(stability_gate_path),
             "status": stability_gate.get("status"),
             "pass": stability_gate.get("pass"),
             "warning_reasons": stability_gate.get("warning_reasons") or [],
+            "strict_stability_ok": strict_stability_ok,
+            "idle_solidworks_prelock_allowed_for_locked_006": idle_solidworks_prelock_ok,
         },
     )
     entrypoint_summary = stability_gate.get("entrypoint_summary") or {}
@@ -171,9 +184,13 @@ def build_product_evidence_gate(
     _add_check(
         checks,
         "solidworks_conflict_report_ok",
-        conflict_report.get("level") == "OK" and _counts_all_zero(conflict_report.get("counts")),
-        "Current conflict report must be OK with no SolidWorks process, CAD/batch worker, waiting job, smoke leftover, or DialogGuard conflict.",
-        _conflict_report_summary(conflict_report_path, conflict_report),
+        conflict_ok_for_locked_006,
+        "Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.",
+        {
+            **_conflict_report_summary(conflict_report_path, conflict_report),
+            "strict_conflict_ok": strict_conflict_ok,
+            "idle_solidworks_prelock_allowed_for_locked_006": idle_solidworks_prelock_ok,
+        },
     )
     _add_check(
         checks,
@@ -726,6 +743,40 @@ def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, A
         "lock_reason": payload.get("lock_reason"),
         "fix_suggestion": payload.get("fix_suggestion"),
     }
+
+
+def _idle_solidworks_prelock_ok(
+    conflict_report: dict[str, Any],
+    readiness: dict[str, Any],
+    rerun_packet: dict[str, Any],
+) -> bool:
+    if not (
+        readiness.get("status") == "ready"
+        and readiness.get("ready_to_start_locked_006_cad") is True
+        and rerun_packet.get("status") == "ready_for_locked_006_rerun"
+        and rerun_packet.get("packet_build_ready") is True
+        and rerun_packet.get("real_cad_allowed_now") is True
+        and not list(rerun_packet.get("offline_prerequisite_missing_keys") or [])
+    ):
+        return False
+    counts = conflict_report.get("counts") or {}
+    if int(counts.get("solidworks_processes") or 0) != 1:
+        return False
+    for key in ("cad_job_workers", "batch_job_workers", "waiting_jobs", "smoke_leftovers", "dialog_guards"):
+        if int(counts.get(key) or 0) != 0:
+            return False
+    if conflict_report.get("level") != "WARNING":
+        return False
+    if conflict_report.get("lock") not in (None, {}):
+        return False
+    owner = conflict_report.get("lock_owner") or {}
+    if isinstance(owner, dict) and owner:
+        return False
+    if str(conflict_report.get("lock_reason") or "") != "no_active_solidworks_lock":
+        return False
+    findings = [item for item in conflict_report.get("findings") or [] if isinstance(item, dict)]
+    keys = {str(item.get("key") or "") for item in findings}
+    return "solidworks_running_without_lock" in keys
 
 
 def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:

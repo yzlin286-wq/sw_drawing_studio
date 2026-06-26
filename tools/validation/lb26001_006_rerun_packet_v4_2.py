@@ -159,6 +159,8 @@ GENERATOR_SIGNATURES = {
     "ui_defect_screenshot_visual_observations": "ui_defect_screenshot_visual_observations",
     "reference_intent_delete_equivalence_dedupe": "reference_intent_delete_equivalence_dedupe",
     "reference_intent_delete_equivalence_key": "reference_intent_delete_equivalence_key",
+    "generator_reference_lane_geometry_guard": "reference_lane_geometry_guard",
+    "generator_reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
 }
 
 CAD_WORKER_SIGNATURES = {
@@ -197,6 +199,9 @@ VISION_QC_V6_SIGNATURES = {
 DIMENSION_ARRANGE_SIGNATURES = {
     "top_view_local_reference_lanes": "Reference-style long-thin drawings keep top-view dimensions",
     "top_view_no_far_right_callout": "creates cross-view leader lines like the 006 visual review fail",
+    "reference_lane_geometry_guard": "reference_lane_geometry_guard",
+    "reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
+    "reference_lane_diagonal_leader_guard": "reference_lane_diagonal_or_cross_region_leader",
 }
 
 APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES = {

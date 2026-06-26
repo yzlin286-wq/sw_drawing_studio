@@ -12572,3 +12572,72 @@ Remaining issues:
 - SolidWorks is not running, so the next locked 006 CAD rerun is not allowed yet.
 - 006 still requires exactly one locked CAD worker rerun, then application Drawing Review UI screenshot capture and manual visual checklist PASS.
 - API metrics, DisplayDim counts, reference JSON, and rerun packet signatures remain supporting evidence only.
+
+## v4.4 006 Reference-Lane Geometry Guard and Protected Rerun Attempt - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This update is driven by the application Drawing Review screenshot evidence for `LB26001-A-04-006`; API geometry metrics are supporting evidence only.
+- The attempted 006 rerun did not enter real CAD generation, did not create fresh `SLDDRW/PDF/DXF/PNG` deliverables, and did not produce a new application UI screenshot review.
+- `LB26001-A-04-006` is still not accepted. `007/008/009/015/022`, `LB26001_36`, `medium_30`, `full_129`, Visual Audit full scope, and release remain blocked.
+
+Implementation:
+
+- Updated `app/services/dimension_arrange_service.py`.
+  - Adds `reference_lane_geometry_guard`, before/after reference-lane geometry issue counts, and per-dimension `reference_lane_issue` reporting.
+  - Detects cross-region side placement, far-from-view reference lanes, and diagonal/cross-region leaders even when the older line-crossing metric is zero.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Carries `arrow_position` into generator arrange evidence.
+  - Emits the same reference-lane geometry issue fields in generator fallback and service-backed arrange results.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards the generator and arrange-service reference-lane geometry signatures before the 006 rerun packet can be treated as offline-ready.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Allows only the narrow idle-SolidWorks pre-lock condition when readiness and the 006 rerun packet are otherwise ready for exactly one worker-owned locked 006 CAD rerun.
+  - Once an unsaved document is visible, the allowance is revoked and Product Gate blocks again.
+- Updated tests:
+  - `test_v4_dimension_arrange_service.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py app\services\dimension_arrange_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_dimension_arrange_service.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\staged_validation\LB26001_006_locked_real_rerun_20260626_095201
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_dimension_arrange_service.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- The staged `LB26001_006` rerun command exited expected nonzero before CAD:
+  - Evidence: `drw_output/staged_validation/LB26001_006_locked_real_rerun_20260626_095201/summary.json`
+  - `status=fail`
+  - `processed=0`
+  - `deliverable_count=0`
+  - `execution_completed=false`
+  - `lb26001_006_readiness_status=blocked`
+  - `lb26001_006_real_cad_allowed_now=false`
+  - `failure_bucket=["lb26001_006_readiness_not_ready","lb26001_006_rerun_packet_blocked_by_readiness","solidworks_unsaved_document_visible"]`
+  - `observed_main_window_title=SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_open_a109019f.SLDPRT *]`
+- Refreshed readiness is `status=blocked`, `ready_to_start_locked_006_cad=false`, with `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed 006 rerun packet is `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate is `blocked_by_solidworks_stability_gate`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks currently shows an unsaved document: `installed_validation_open_a109019f.SLDPRT *`.
+- Manual recovery is required in SolidWorks: save or close that unsaved document before another 006 CAD worker attempt.
+- Automation must not kill or restart SolidWorks while unsaved work may exist.
+- After manual recovery, rerun readiness first; only if readiness becomes ready may exactly one locked 006-only CAD rerun be attempted, followed by application Drawing Review UI screenshot capture and manual visual checklist review.

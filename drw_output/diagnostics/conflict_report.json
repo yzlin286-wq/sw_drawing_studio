@@ -1,21 +1,30 @@
 {
   "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-  "generated_at": "2026-06-26T09:33:04",
-  "level": "OK",
+  "generated_at": "2026-06-26T09:52:51",
+  "level": "WARNING",
   "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
   "lock": null,
   "lock_owner": {},
   "lock_reason": "no_active_solidworks_lock",
-  "fix_suggestion": "",
+  "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
   "counts": {
-    "solidworks_processes": 0,
+    "solidworks_processes": 1,
     "cad_job_workers": 0,
     "batch_job_workers": 0,
     "waiting_jobs": 0,
     "smoke_leftovers": 0,
     "dialog_guards": 0
   },
-  "solidworks_processes": [],
+  "solidworks_processes": [
+    {
+      "pid": 14144,
+      "name": "SLDWORKS.exe",
+      "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
+      "responding": null,
+      "main_window_title": "",
+      "workspace_hint": ""
+    }
+  ],
   "cad_workers": [],
   "batch_workers": [],
   "waiting_jobs": [],
@@ -23,11 +32,22 @@
   "dialog_guards": [],
   "findings": [
     {
-      "severity": "OK",
-      "key": "no_conflict_detected",
-      "message": "未检测到 SolidWorks 互斥冲突",
-      "fix_suggestion": "",
-      "details": {}
+      "severity": "WARNING",
+      "key": "solidworks_running_without_lock",
+      "message": "SW running 但无 SolidWorks 全局锁",
+      "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+      "details": {
+        "processes": [
+          {
+            "pid": 14144,
+            "name": "SLDWORKS.exe",
+            "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
+            "responding": null,
+            "main_window_title": "",
+            "workspace_hint": ""
+          }
+        ]
+      }
     }
   ],
   "conflict_log_tail": [

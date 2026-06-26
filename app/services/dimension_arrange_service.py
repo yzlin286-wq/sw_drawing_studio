@@ -97,6 +97,7 @@ class DimensionInfo:
     overlap_detected: bool = False
     slot: str = ""
     lane_role: str = "standard"
+    reference_lane_issue: str = ""
 
 
 @dataclass
@@ -113,6 +114,9 @@ class ArrangeResult:
     avoid_collision_after: int = 0
     line_crossing_before: int = 0
     line_crossing_after: int = 0
+    reference_lane_geometry_issue_count_before: int = 0
+    reference_lane_geometry_issue_count_after: int = 0
+    reference_lane_geometry_issues: list[dict] = field(default_factory=list)
     callout_lane_applied: bool = False
     callout_lane_count: int = 0
     dimensions: list[dict] = field(default_factory=list)
@@ -200,6 +204,11 @@ class DimensionArrangeService:
             result.titlebar_collision_before = self._detect_titlebar_collisions(all_dims)
             result.avoid_collision_before = self._detect_avoid_box_collisions(all_dims)
             result.line_crossing_before = self._detect_line_crossings(all_dims)
+            reference_lane_issues_before = self._reference_lane_geometry_issues(
+                all_dims,
+                use_new_position=False,
+            )
+            result.reference_lane_geometry_issue_count_before = len(reference_lane_issues_before)
 
             # 3. 按 view 分组排列
             for view_name, dims in dims_by_view.items():
@@ -210,6 +219,13 @@ class DimensionArrangeService:
             result.titlebar_collision_after = self._detect_titlebar_collisions(all_dims)
             result.avoid_collision_after = self._detect_avoid_box_collisions(all_dims)
             result.line_crossing_after = self._detect_line_crossings(all_dims)
+            reference_lane_issues_after = self._reference_lane_geometry_issues(
+                all_dims,
+                use_new_position=True,
+                mark_dimensions=True,
+            )
+            result.reference_lane_geometry_issue_count_after = len(reference_lane_issues_after)
+            result.reference_lane_geometry_issues = reference_lane_issues_after
 
             result.adjusted_dimensions = sum(1 for d in all_dims if d.adjusted)
             result.callout_lane_count = sum(1 for d in all_dims if d.lane_role == "right_callout")
@@ -806,6 +822,74 @@ class DimensionArrangeService:
                 count += 1
         return count
 
+    def _reference_lane_geometry_issues(
+        self,
+        dims: list[DimensionInfo],
+        *,
+        use_new_position: bool,
+        mark_dimensions: bool = False,
+    ) -> list[dict]:
+        # reference_lane_geometry_guard:
+        # The 006 application UI review can fail even when overlap/line-crossing
+        # counters are zero, because long leaders and diagonal extension geometry
+        # still make the drawing read like AutoDimension output.
+        if self.part_class != "long_thin":
+            return []
+        issues: list[dict] = []
+        for dim in dims:
+            outline = self._get_view_outline(dim.view_name)
+            if not outline:
+                continue
+            slot = str(dim.slot or self._slot_for_outline(outline, dim.view_name)).strip().lower()
+            if slot not in {"front", "top", "right"}:
+                continue
+            pos = dim.new_position if use_new_position and dim.adjusted else dim.text_position
+            side = self._dimension_side(pos, outline)
+            xmin, ymin, xmax, ymax = outline
+            gap = 0.0
+            if side == "top":
+                gap = max(0.0, pos[1] - ymax)
+            elif side == "bottom":
+                gap = max(0.0, ymin - pos[1])
+            elif side == "left":
+                gap = max(0.0, xmin - pos[0])
+            elif side == "right":
+                gap = max(0.0, pos[0] - xmax)
+
+            issue_key = ""
+            if slot == "top" and side in {"left", "right"}:
+                issue_key = "top_view_cross_region_side"
+            elif side in {"top", "bottom"} and gap > 0.046:
+                issue_key = "reference_lane_far_from_view"
+            elif side in {"left", "right"} and gap > 0.030:
+                issue_key = "reference_lane_far_from_view"
+
+            arrow = dim.arrow_position or dim.text_position
+            dx = abs(float(pos[0]) - float(arrow[0]))
+            dy = abs(float(pos[1]) - float(arrow[1]))
+            leader_distance = (dx * dx + dy * dy) ** 0.5
+            diagonal_leader = dx > 0.030 and dy > 0.018 and leader_distance > 0.038
+            if diagonal_leader:
+                issue_key = "reference_lane_diagonal_or_cross_region_leader"
+
+            if not issue_key:
+                continue
+            if mark_dimensions:
+                dim.reference_lane_issue = issue_key
+            issues.append({
+                "index": dim.index,
+                "view": dim.view_name,
+                "slot": slot,
+                "side": side,
+                "issue": issue_key,
+                "text_position": list(pos),
+                "arrow_position": list(arrow),
+                "gap": round(float(gap), 6),
+                "leader_distance": round(float(leader_distance), 6),
+                "diagonal_leader": bool(diagonal_leader),
+            })
+        return issues
+
     def _detect_line_crossings(self, dims: list[DimensionInfo]) -> int:
         """检测尺寸压线（尺寸文本穿过视图轮廓线）
 
@@ -866,6 +950,9 @@ class DimensionArrangeService:
             "avoid_collision_after": result.avoid_collision_after,
             "line_crossing_before": result.line_crossing_before,
             "line_crossing_after": result.line_crossing_after,
+            "reference_lane_geometry_issue_count_before": result.reference_lane_geometry_issue_count_before,
+            "reference_lane_geometry_issue_count_after": result.reference_lane_geometry_issue_count_after,
+            "reference_lane_geometry_issues": result.reference_lane_geometry_issues,
             "callout_lane_applied": result.callout_lane_applied,
             "callout_lane_count": result.callout_lane_count,
             "reason": result.reason,
