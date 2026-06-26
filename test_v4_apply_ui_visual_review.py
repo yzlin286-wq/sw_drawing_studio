@@ -161,6 +161,8 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
             {
                 "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
                 "mode": "source_qt_application_ui_screenshot",
+                "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                "solidworks_probe_allowed_during_screenshot_review": False,
                 "entries": [
                     {
                         "base": base,
@@ -231,6 +233,7 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
     assert result["effective_manual_review"].endswith("manual_visual_judgement_with_source.json")
     assert result["entries"][0]["vision_qc_v6_visual_acceptance_pass"] is False
     assert result["entries"][0]["ui_screenshot_review_pass"] is True
+    assert result["entries"][0]["ui_screenshot_review_no_solidworks_probe_pass"] is True
     assert result["entries"][0]["side_by_side_reference_generated_layout_pass"] is True
     assert result["entries"][0]["generated_png_source_required"] is True
     assert result["entries"][0]["generated_png_source_pass"] is True
@@ -253,10 +256,16 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
     assert canonical["schema"] == "sw_drawing_studio.ui_visual_review.v4_4"
     assert canonical["review_method"] == "application_drawing_review_ui_screenshot"
     assert canonical["application_ui_screenshot_is_final_gate"] is True
+    assert canonical["application_ui_source_mode"] == "drawing_review_workbench_direct_host"
+    assert canonical["solidworks_probe_allowed_during_screenshot_review"] is False
+    assert canonical["ui_screenshot_review_no_solidworks_probe_all_pass"] is True
     assert canonical["api_only_acceptance_allowed"] is False
     assert canonical["pass"] is False
     assert canonical["entries"][0]["base"] == base
     assert canonical["entries"][0]["application_ui_screenshot"] == str(screenshot)
+    assert canonical["entries"][0]["application_ui_source_mode"] == "drawing_review_workbench_direct_host"
+    assert canonical["entries"][0]["solidworks_probe_allowed_during_screenshot_review"] is False
+    assert canonical["entries"][0]["checks"]["ui_screenshot_review_no_solidworks_probe_pass"] is True
     assert canonical["entries"][0]["checks"]["side_by_side_reference_generated_layout_pass"] is True
     assert canonical["entries"][0]["side_by_side_reference_generated_layout"]["left_panel"] == "reference_drawing"
     assert canonical["entries"][0]["side_by_side_reference_generated_layout"]["right_panel"] == "generated_drawing"
@@ -356,6 +365,8 @@ def test_apply_ui_visual_review_blocks_pass_without_matching_ui_report_entry() -
             {
                 "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
                 "mode": "source_qt_application_ui_screenshot",
+                "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                "solidworks_probe_allowed_during_screenshot_review": False,
                 "entries": [],
             },
         )
@@ -486,6 +497,8 @@ def test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_
             {
                 "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
                 "mode": "source_qt_application_ui_screenshot",
+                "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                "solidworks_probe_allowed_during_screenshot_review": False,
                 "entries": [
                     {
                         "base": base,
@@ -533,8 +546,10 @@ def test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_
     assert result["pass"] is False
     assert result["status"] == "need_review"
     assert result["ui_report_entries_all_pass"] is True
+    assert result["ui_screenshot_review_no_solidworks_probe_all_pass"] is True
     assert result["manual_review_entries_all_pass"] is False
     assert result["entries"][0]["ui_report_entry_pass"] is True
+    assert result["entries"][0]["ui_screenshot_review_no_solidworks_probe_pass"] is True
     assert result["entries"][0]["side_by_side_reference_generated_layout_pass"] is True
     assert result["entries"][0]["manual_review_entry_present"] is True
     assert result["entries"][0]["manual_review_screenshot_matches_ui_report_entry"] is False
@@ -633,10 +648,49 @@ def test_apply_ui_visual_review_requires_side_by_side_reference_generated_layout
     assert ok["side_by_side_reference_generated_layout_pass"] is True
 
 
+def test_apply_ui_visual_review_requires_no_solidworks_probe_source_mode() -> None:
+    legacy = review_module._ui_report_no_solidworks_probe_gate(
+        {},
+        {
+            "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+            "mode": "source_qt_application_ui_screenshot",
+        },
+    )
+    direct_host = review_module._ui_report_no_solidworks_probe_gate(
+        {},
+        {
+            "schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
+            "mode": "source_qt_application_ui_screenshot",
+            "application_ui_source_mode": "drawing_review_workbench_direct_host",
+            "solidworks_probe_allowed_during_screenshot_review": False,
+        },
+    )
+    canonical = review_module._canonical_entry(
+        {
+            "base": "LB26001-A-04-006",
+            "ui_report_entry_pass": True,
+            "manual_review_entry_screenshot_pass": True,
+            "side_by_side_reference_generated_layout_pass": True,
+            "ui_defect_bucket_closure_required": False,
+            "vision_qc_v6_visual_acceptance_pass": True,
+            "reference_compare_v4_pass": True,
+            "generated_png_source_required": False,
+            **legacy,
+        }
+    )
+
+    assert legacy["ui_screenshot_review_no_solidworks_probe_pass"] is False
+    assert legacy["application_ui_source_mode"] == ""
+    assert direct_host["ui_screenshot_review_no_solidworks_probe_pass"] is True
+    assert canonical["pass"] is False
+    assert "ui_screenshot_review_may_trigger_solidworks_probe" in canonical["blocking_issue_keys"]
+
+
 if __name__ == "__main__":
     test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts()
     test_apply_ui_visual_review_blocks_pass_without_matching_ui_report_entry()
     test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_ui_report()
     test_apply_ui_visual_review_requires_006_bucket_closure_checklist()
     test_apply_ui_visual_review_requires_side_by_side_reference_generated_layout()
+    test_apply_ui_visual_review_requires_no_solidworks_probe_source_mode()
     print("PASS test_v4_apply_ui_visual_review")

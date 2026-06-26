@@ -18,6 +18,7 @@ DEPENDENT_BASES = [
     "LB26001-A-04-015",
     "LB26001-A-04-022",
 ]
+REQUIRED_UI_REVIEW_SOURCE_MODE = "drawing_review_workbench_direct_host"
 
 DEFAULT_STABILITY_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "solidworks_stability_gate_v4_4.json"
 DEFAULT_ENTRYPOINT_REPORT = REPO_ROOT / "drw_output" / "diagnostics" / "unguarded_solidworks_entrypoints.json"
@@ -1437,12 +1438,18 @@ def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
         payload.get("pass") is True
         and payload.get("status") == "pass"
         and payload.get("application_ui_screenshot_is_final_gate") is True
+        and payload.get("application_ui_source_mode") == REQUIRED_UI_REVIEW_SOURCE_MODE
+        and payload.get("solidworks_probe_allowed_during_screenshot_review") is False
+        and payload.get("ui_screenshot_review_no_solidworks_probe_all_pass") is True
         and payload.get("api_only_acceptance_allowed") is False
         and payload.get("review_method") == "application_drawing_review_ui_screenshot"
         and base_entry.get("pass") is True
         and base_entry.get("visual_acceptance_pass") is True
+        and base_entry.get("application_ui_source_mode") == REQUIRED_UI_REVIEW_SOURCE_MODE
+        and base_entry.get("solidworks_probe_allowed_during_screenshot_review") is False
         and screenshot_evidence["valid_ui_screenshot"]
         and checks.get("ui_report_entry_pass") is True
+        and checks.get("ui_screenshot_review_no_solidworks_probe_pass") is True
         and checks.get("manual_review_entry_screenshot_pass") is True
         and checks.get("side_by_side_reference_generated_layout_pass") is True
         and checks.get("ui_defect_bucket_closure_pass") is True
@@ -1463,6 +1470,14 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
         "visual_acceptance_pass": payload.get("visual_acceptance_pass"),
         "review_method": payload.get("review_method"),
         "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate"),
+        "application_ui_source_mode": payload.get("application_ui_source_mode"),
+        "application_ui_source_mode_required": REQUIRED_UI_REVIEW_SOURCE_MODE,
+        "solidworks_probe_allowed_during_screenshot_review": payload.get(
+            "solidworks_probe_allowed_during_screenshot_review"
+        ),
+        "ui_screenshot_review_no_solidworks_probe_all_pass": payload.get(
+            "ui_screenshot_review_no_solidworks_probe_all_pass"
+        ),
         "api_only_acceptance_allowed": payload.get("api_only_acceptance_allowed"),
         "pass_count": payload.get("pass_count"),
         "fail_count": payload.get("fail_count"),
@@ -1474,6 +1489,10 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
             "pass": base_entry.get("pass"),
             "visual_acceptance_pass": base_entry.get("visual_acceptance_pass"),
             "application_ui_screenshot": screenshot,
+            "application_ui_source_mode": base_entry.get("application_ui_source_mode"),
+            "solidworks_probe_allowed_during_screenshot_review": base_entry.get(
+                "solidworks_probe_allowed_during_screenshot_review"
+            ),
             "application_ui_screenshot_exists": screenshot_evidence["exists"],
             "application_ui_screenshot_size_bytes": screenshot_evidence["size_bytes"],
             "application_ui_screenshot_decode_pass": screenshot_evidence["decode_pass"],

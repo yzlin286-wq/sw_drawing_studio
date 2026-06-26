@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 15:28:58",
+  "generated_at": "2026-06-26 15:40:44",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -476,6 +476,10 @@
         "visual_acceptance_pass": false,
         "review_method": "application_drawing_review_ui_screenshot",
         "application_ui_screenshot_is_final_gate": true,
+        "application_ui_source_mode": "drawing_review_workbench_direct_host",
+        "application_ui_source_mode_required": "drawing_review_workbench_direct_host",
+        "solidworks_probe_allowed_during_screenshot_review": false,
+        "ui_screenshot_review_no_solidworks_probe_all_pass": true,
         "api_only_acceptance_allowed": false,
         "pass_count": 0,
         "fail_count": 1,
@@ -491,6 +495,8 @@
           "pass": false,
           "visual_acceptance_pass": false,
           "application_ui_screenshot": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "application_ui_source_mode": "drawing_review_workbench_direct_host",
+          "solidworks_probe_allowed_during_screenshot_review": false,
           "application_ui_screenshot_exists": true,
           "application_ui_screenshot_size_bytes": 10938925,
           "application_ui_screenshot_decode_pass": true,
@@ -523,6 +529,7 @@
           ],
           "checks": {
             "ui_report_entry_pass": true,
+            "ui_screenshot_review_no_solidworks_probe_pass": true,
             "manual_review_entry_screenshot_pass": true,
             "side_by_side_reference_generated_layout_pass": true,
             "ui_defect_bucket_closure_pass": false,
@@ -966,7 +973,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 958136
+          "size_bytes": 958244
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

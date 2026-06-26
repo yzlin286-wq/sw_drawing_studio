@@ -666,6 +666,9 @@ def _fixture(
                 "visual_acceptance_pass": ui_review_pass,
                 "review_method": "application_drawing_review_ui_screenshot",
                 "application_ui_screenshot_is_final_gate": True,
+                "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                "solidworks_probe_allowed_during_screenshot_review": False,
+                "ui_screenshot_review_no_solidworks_probe_all_pass": ui_review_pass,
                 "api_only_acceptance_allowed": False,
                 "pass_count": 1 if ui_review_pass else 0,
                 "fail_count": 0 if ui_review_pass else 1,
@@ -677,6 +680,8 @@ def _fixture(
                         "pass": ui_review_pass,
                         "visual_acceptance_pass": ui_review_pass,
                         "application_ui_screenshot": str(ui_screenshot),
+                        "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                        "solidworks_probe_allowed_during_screenshot_review": False,
                         "side_by_side_reference_generated_layout": {
                             "required": True,
                             "pass": ui_review_pass,
@@ -691,6 +696,7 @@ def _fixture(
                         },
                         "checks": {
                             "ui_report_entry_pass": True,
+                            "ui_screenshot_review_no_solidworks_probe_pass": ui_review_pass,
                             "manual_review_entry_screenshot_pass": True,
                             "side_by_side_reference_generated_layout_pass": ui_review_pass,
                             "ui_defect_bucket_closure_pass": ui_review_pass,
@@ -1266,6 +1272,28 @@ def test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_miss
         assert check["details"]["base_entry"]["checks"].get("side_by_side_reference_generated_layout_pass") is None
 
 
+def test_product_evidence_gate_blocks_when_canonical_ui_no_probe_proof_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True)
+        payload = json.loads(paths["ui_visual_review"].read_text(encoding="utf-8"))
+        payload.pop("application_ui_source_mode", None)
+        payload.pop("solidworks_probe_allowed_during_screenshot_review", None)
+        payload.pop("ui_screenshot_review_no_solidworks_probe_all_pass", None)
+        payload["entries"][0].pop("application_ui_source_mode", None)
+        payload["entries"][0].pop("solidworks_probe_allowed_during_screenshot_review", None)
+        payload["entries"][0]["checks"].pop("ui_screenshot_review_no_solidworks_probe_pass", None)
+        paths["ui_visual_review"].write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["application_ui_source_mode"] is None
+        assert check["details"]["base_entry"]["checks"].get("ui_screenshot_review_no_solidworks_probe_pass") is None
+
+
 def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(
@@ -1596,6 +1624,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing()
+    test_product_evidence_gate_blocks_when_canonical_ui_no_probe_proof_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()

@@ -28,6 +28,7 @@ from tools.validation.staged_cad_validation_v3 import (
 
 
 DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
+REQUIRED_APPLICATION_UI_SOURCE_MODE = "drawing_review_workbench_direct_host"
 
 
 def _read_json(path: Path | None) -> dict[str, Any]:
@@ -201,6 +202,27 @@ def _entry_ui_screenshot_gate(
         "ui_report_entry_screenshot_exists": screenshot_exists,
         "ui_report_entry_screenshot_capture_pass": capture_pass,
         "ui_report_entry_pass": bool(entry and source_ok and capture_pass),
+    }
+
+
+def _ui_report_no_solidworks_probe_gate(entry: dict[str, Any], ui_report: dict[str, Any]) -> dict[str, Any]:
+    source_mode = str(
+        entry.get("application_ui_source_mode")
+        or ui_report.get("application_ui_source_mode")
+        or ""
+    )
+    if "solidworks_probe_allowed_during_screenshot_review" in entry:
+        probe_allowed = entry.get("solidworks_probe_allowed_during_screenshot_review")
+    else:
+        probe_allowed = ui_report.get("solidworks_probe_allowed_during_screenshot_review")
+    source_mode_pass = source_mode == REQUIRED_APPLICATION_UI_SOURCE_MODE
+    no_probe_pass = probe_allowed is False
+    return {
+        "application_ui_source_mode": source_mode,
+        "solidworks_probe_allowed_during_screenshot_review": probe_allowed,
+        "application_ui_source_mode_required": REQUIRED_APPLICATION_UI_SOURCE_MODE,
+        "application_ui_source_mode_pass": source_mode_pass,
+        "ui_screenshot_review_no_solidworks_probe_pass": bool(source_mode_pass and no_probe_pass),
     }
 
 
@@ -431,6 +453,9 @@ def _ui_defect_bucket_closure_gate(
 def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
     checks = {
         "ui_report_entry_pass": bool(entry.get("ui_report_entry_pass")),
+        "ui_screenshot_review_no_solidworks_probe_pass": bool(
+            entry.get("ui_screenshot_review_no_solidworks_probe_pass")
+        ),
         "manual_review_entry_screenshot_pass": bool(entry.get("manual_review_entry_screenshot_pass")),
         "side_by_side_reference_generated_layout_pass": bool(
             entry.get("side_by_side_reference_generated_layout_pass")
@@ -450,6 +475,8 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
     blocking_keys: list[str] = []
     if not checks["ui_report_entry_pass"]:
         blocking_keys.append("ui_report_entry_not_pass")
+    if not checks["ui_screenshot_review_no_solidworks_probe_pass"]:
+        blocking_keys.append("ui_screenshot_review_may_trigger_solidworks_probe")
     if not checks["manual_review_entry_screenshot_pass"]:
         blocking_keys.append("manual_review_screenshot_not_bound")
     if not checks["side_by_side_reference_generated_layout_pass"]:
@@ -471,6 +498,10 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
         "case_dir": entry.get("case_dir"),
         "generated_png": entry.get("generated_png"),
         "application_ui_screenshot": entry.get("ui_report_entry_screenshot"),
+        "application_ui_source_mode": entry.get("application_ui_source_mode"),
+        "solidworks_probe_allowed_during_screenshot_review": entry.get(
+            "solidworks_probe_allowed_during_screenshot_review"
+        ),
         "side_by_side_reference_generated_layout": entry.get("side_by_side_reference_generated_layout") or {},
         "vision_qc_v6_with_ui_review": entry.get("vision_qc_v6_with_ui_review"),
         "reference_compare_v4_with_ui_review": entry.get("reference_compare_v4_with_ui_review"),
@@ -497,6 +528,15 @@ def _canonical_ui_visual_review_payload(
 ) -> dict[str, Any]:
     entries = [_canonical_entry(entry) for entry in gate_payload.get("entries") or []]
     failed = [entry for entry in entries if not entry.get("pass")]
+    source_modes = sorted({
+        str(entry.get("application_ui_source_mode") or "")
+        for entry in entries
+        if str(entry.get("application_ui_source_mode") or "")
+    })
+    no_probe_pass = all(
+        bool((entry.get("checks") or {}).get("ui_screenshot_review_no_solidworks_probe_pass"))
+        for entry in entries
+    )
     blocking_keys: list[str] = []
     for entry in failed:
         for key in entry.get("blocking_issue_keys") or []:
@@ -512,6 +552,10 @@ def _canonical_ui_visual_review_payload(
         "api_is_not_final_judgement": True,
         "api_only_acceptance_allowed": False,
         "application_ui_screenshot_is_final_gate": True,
+        "application_ui_source_mode": source_modes[0] if len(source_modes) == 1 else "",
+        "application_ui_source_mode_required": REQUIRED_APPLICATION_UI_SOURCE_MODE,
+        "solidworks_probe_allowed_during_screenshot_review": False if no_probe_pass else None,
+        "ui_screenshot_review_no_solidworks_probe_all_pass": no_probe_pass,
         "summary": gate_payload.get("summary"),
         "ui_report": gate_payload.get("ui_report"),
         "manual_review": gate_payload.get("manual_review"),
@@ -573,6 +617,7 @@ def apply_ui_visual_review(
             ui_report=ui_report,
             ui_report_path=ui_report_path,
         )
+        no_probe_gate = _ui_report_no_solidworks_probe_gate(entry, ui_report)
         side_by_side_gate = _side_by_side_layout_gate(entry)
         manual_entry_gate = _manual_entry_screenshot_gate(
             base=base,
@@ -629,6 +674,7 @@ def apply_ui_visual_review(
             "run_dir": str(run_dir),
             "generated_png": str(generated_png),
             **ui_entry_gate,
+            **no_probe_gate,
             **side_by_side_gate,
             **manual_entry_gate,
             **bucket_closure_gate,
@@ -648,6 +694,7 @@ def apply_ui_visual_review(
     all_v6_pass = all(bool(item.get("vision_qc_v6_visual_acceptance_pass")) for item in entries)
     all_v4_pass = all(bool(item.get("reference_compare_v4_pass")) for item in entries)
     all_ui_entries_pass = all(bool(item.get("ui_report_entry_pass")) for item in entries)
+    all_no_probe_pass = all(bool(item.get("ui_screenshot_review_no_solidworks_probe_pass")) for item in entries)
     all_manual_entries_pass = all(bool(item.get("manual_review_entry_screenshot_pass")) for item in entries)
     all_side_by_side_pass = all(
         bool(item.get("side_by_side_reference_generated_layout_pass")) for item in entries
@@ -660,6 +707,7 @@ def apply_ui_visual_review(
     pass_gate = bool(
         entries
         and all_ui_entries_pass
+        and all_no_probe_pass
         and all_manual_entries_pass
         and all_side_by_side_pass
         and all_bucket_closure_pass
@@ -677,6 +725,7 @@ def apply_ui_visual_review(
         "out_dir": str(out_dir),
         "total": len(entries),
         "ui_report_entries_all_pass": all_ui_entries_pass,
+        "ui_screenshot_review_no_solidworks_probe_all_pass": all_no_probe_pass,
         "manual_review_entries_all_pass": all_manual_entries_pass,
         "side_by_side_reference_generated_layout_all_pass": all_side_by_side_pass,
         "ui_defect_bucket_closure_all_pass": all_bucket_closure_pass,
