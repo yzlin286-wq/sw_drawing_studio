@@ -1,11 +1,11 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T17:51:29",
+  "generated_at": "2026-06-26T20:03:46",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scan_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 342,
-  "entrypoint_count": 527,
-  "total_findings": 527,
+  "entrypoint_count": 528,
+  "total_findings": 528,
   "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
   "unguarded_count": 0,
@@ -14,7 +14,7 @@
   "document_manager_com_count": 27,
   "validation_tool_requires_manual_lock_count": 50,
   "maintenance_tool_count": 13,
-  "test_or_fixture_count": 18,
+  "test_or_fixture_count": 19,
   "legacy_experiment_count": 235,
   "bounded_probe_worker_launcher_count": 4,
   "system_health_worker_probe_service_count": 1,
@@ -2029,6 +2029,20 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "completed = subprocess.run("
+    },
+    {
+      "file": "test_v4_4_visual_audit_schema_gap.py",
+      "line": 278,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "result = subprocess.run("
     },
     {
       "file": "test_v4_reference_compare.py",
@@ -11859,6 +11873,20 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "completed = subprocess.run("
+    },
+    {
+      "file": "test_v4_4_visual_audit_schema_gap.py",
+      "line": 278,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "result = subprocess.run("
     },
     {
       "file": "test_v4_reference_compare.py",

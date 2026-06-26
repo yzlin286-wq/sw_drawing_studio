@@ -14720,3 +14720,64 @@ Remaining issues:
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
 - All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
 - API/JSON/DisplayDim evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.
+
+## v4.4 Product Gate Requires 006 Callout Execution Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_executor.py`.
+  - Adds `callout_operations` and `callout_operation_count` to the 006 execution contract.
+  - Queues `thread_callout_m4_6h`, `hole_callout_4x3_3`, and `surface_finish_rest_3_2` as `create_or_verify_reference_callout`.
+  - Queues `radius_callout` and `chamfer_callout` as `verify_absent_reference_callout`, with `do_not_create_unless_geometry_or_reference_proves_feature`.
+  - Every callout operation remains `requires_solidworks_lock=true`, `allowed_entrypoint=cad_job_worker`, `api_is_supporting_only=true`, and `ui_screenshot_acceptance_required=true`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `callout_operation_contract` under `reference_intent_006_contract_locked_worker_only`.
+  - Blocks missing, extra, duplicate, non-worker, non-UI-gated, or plan-mismatched callout operations.
+  - Verifies absence checks use `manual_visual_absence_check` evidence and do not fabricate radius/chamfer callouts.
+- Updated tests.
+  - `test_v4_2_reference_intent_dimension_worker.py` proves the CAD worker prepares 5 callout operations without COM.
+  - `test_v4_4_product_evidence_gate.py` now builds fixture contracts through the real executor and proves a tampered callout operation blocks Product Gate.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\reference_intent_dimension_executor.py tools\validation\product_evidence_gate_v4_4.py test_v4_2_reference_intent_dimension_worker.py test_v4_4_product_evidence_gate.py
+python -B test_v4_2_reference_intent_dimension_worker.py
+python -B test_v4_4_product_evidence_gate.py
+python -B -m app.services.reference_intent_dimension_executor --plan drw_output\reference_intent_dimension_plan_006.json --drawing "3D转2D测试图纸\LB26001-A-04-006.SLDDRW" --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `reference_intent_dimension_contract_006.json` now has:
+  - `operation_count=12`
+  - `callout_operation_count=5`
+  - manufacturing callout operations for M4-6H thread, 4-3.3 hole, and 3.2 rest surface finish
+  - absence-check operations for radius and chamfer callouts
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; `reference_intent_006_contract_locked_worker_only` passes and reports:
+  - `callout_operation_contract.pass=true`
+  - `plan_callout_count=5`
+  - `operation_count=5`
+  - `missing_plan_callouts=[]`
+  - `extra_operation_keys=[]`
+  - `missing_required_fields={}`
+  - `mismatch_count=0`
+- Refreshed Stability Gate remains `warning`; entrypoint scan and lock test are pass, while `conflict_report` remains warning because a SolidWorks process is visible without a worker-owned global lock.
+
+Remaining issues:
+
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+- All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+- API/JSON/DisplayDim/callout-contract evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.

@@ -53,6 +53,31 @@ def build_execution_contract(
             "status": "queued_requires_worker_lock",
         })
 
+    callout_operations = []
+    for index, item in enumerate(plan.get("reference_callouts") or [], start=1):
+        is_absence_check = bool(item.get("is_manufacturing_dimension") is False)
+        callout_operations.append({
+            "index": index,
+            "operation": "verify_absent_reference_callout" if is_absence_check else "create_or_verify_reference_callout",
+            "callout_key": item.get("key", ""),
+            "target_view": item.get("target_view", ""),
+            "expected_type": item.get("expected_type", ""),
+            "source_reference": item.get("source_reference", ""),
+            "reference_png": item.get("reference_png", ""),
+            "is_manufacturing_dimension": bool(item.get("is_manufacturing_dimension")),
+            "reference_value": item.get("reference_value"),
+            "reference_value_status": item.get("reference_value_status", ""),
+            "source_reference_evidence": dict(item.get("source_reference_evidence") or {}),
+            "create_as": item.get("create_as", "absence check; do not create unless reference proves feature"),
+            "fallback_policy": item.get("fallback_policy", "need_review_when_real_callout_unavailable"),
+            "forbid_note_substitution_for_displaydim": item.get("forbid_note_substitution_for_displaydim", True),
+            "api_is_supporting_only": item.get("api_is_supporting_only", True),
+            "ui_screenshot_acceptance_required": item.get("ui_screenshot_acceptance_required", True),
+            "requires_solidworks_lock": True,
+            "allowed_entrypoint": "cad_job_worker",
+            "status": "queued_requires_worker_lock",
+        })
+
     return {
         "schema": SCHEMA,
         "version": "v4.4",
@@ -75,6 +100,8 @@ def build_execution_contract(
         "reference_dimension_lane_policy": plan.get("reference_dimension_lane_policy") or {},
         "operations": operations,
         "operation_count": len(operations),
+        "callout_operations": callout_operations,
+        "callout_operation_count": len(callout_operations),
         "status": "contract_ready_requires_cad_worker_lock",
         "failure_status_without_lock": "blocked_by_solidworks_lock",
     }

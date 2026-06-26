@@ -76,6 +76,13 @@ def test_cad_worker_prepares_006_reference_intent_plan_and_contract_without_com(
         assert first_operation["functional_role"]
         assert first_operation["placement_lane"]["readability_required"] is True
         assert first_operation["prune_protection_policy"]["protected"] is True
+        assert contract["callout_operation_count"] == 5
+        callout_ops = {item["callout_key"]: item for item in contract["callout_operations"]}
+        assert callout_ops["thread_callout_m4_6h"]["operation"] == "create_or_verify_reference_callout"
+        assert callout_ops["radius_callout"]["operation"] == "verify_absent_reference_callout"
+        assert callout_ops["radius_callout"]["fallback_policy"] == (
+            "do_not_create_unless_geometry_or_reference_proves_feature"
+        )
         assert ui_evidence["status"] == "ready"
         assert ui_evidence["failed_visual_check_count"] == 2
         assert ui_evidence["comparison_image"] == "006_reference_vs_generated.png"

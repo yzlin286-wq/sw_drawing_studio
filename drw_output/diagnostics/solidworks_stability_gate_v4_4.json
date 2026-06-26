@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T17:51:30",
+  "generated_at": "2026-06-26T20:03:47",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -14,7 +14,7 @@
   },
   "entrypoint_summary": {
     "status": "pass",
-    "entrypoint_count": 527,
+    "entrypoint_count": 528,
     "unguarded_or_unknown_count": 0,
     "ui_thread_direct_risk_count": 0,
     "ui_thread_subprocess_call_count": 0,

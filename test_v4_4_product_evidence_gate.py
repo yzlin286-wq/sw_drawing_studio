@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 import time
 import zlib
 
+from app.services.reference_intent_dimension_executor import build_execution_contract
 from tools.validation.product_evidence_gate_v4_4 import (
     BASE,
     DEPENDENT_BASES,
@@ -43,6 +44,15 @@ def _write_png(path: Path, width: int = 1200, height: int = 800) -> Path:
     )
     path.write_bytes(png)
     return path
+
+
+def _build_reference_intent_contract_payload(plan_path: Path, *, locked: bool = True) -> dict:
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    payload = build_execution_contract(plan)
+    payload["requires_solidworks_lock"] = locked
+    payload["ui_thread_may_execute"] = not locked
+    payload["allowed_entrypoint"] = "cad_job_worker"
+    return payload
 
 
 def _write_final_artifact(path: Path, key: str) -> Path:
@@ -945,17 +955,10 @@ def _fixture(
         ),
         "reference_intent_contract": _write_json(
             root / "reference_intent_dimension_contract_006.json",
-            {
-                "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
-                "base": BASE,
-                "status": "contract_ready_requires_cad_worker_lock",
-                "requires_solidworks_lock": reference_contract_locked,
-                "ui_thread_may_execute": not reference_contract_locked,
-                "direct_com_called": False,
-                "allowed_entrypoint": "cad_job_worker",
-                "operation_count": len(operations),
-                "operations": operations,
-            },
+            _build_reference_intent_contract_payload(
+                root / "reference_intent_dimension_plan_006.json",
+                locked=reference_contract_locked,
+            ),
         ),
         "rerun_packet": _write_json(
             root / "rerun_packet.json",
@@ -1577,6 +1580,28 @@ def test_product_evidence_gate_blocks_when_reference_contract_operation_mismatch
         contract_details = check["details"]["operation_plan_alignment_contract"]
         assert contract_details["pass"] is False
         assert "expected_add_method" in set(contract_details["mismatch_by_key"]["overall_length"])
+
+
+def test_product_evidence_gate_blocks_when_reference_contract_callout_operation_mismatches_plan() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        contract_path = paths["reference_intent_contract"]
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        contract["callout_operations"][0]["operation"] = "verify_absent_reference_callout"
+        _write_json(contract_path, contract)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_contract_locked_worker_only" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "reference_intent_006_contract_locked_worker_only"
+        )
+        contract_details = check["details"]["callout_operation_contract"]
+        assert contract_details["pass"] is False
+        assert "operation" in set(contract_details["mismatch_by_key"]["thread_callout_m4_6h"])
 
 
 def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing() -> None:
@@ -2490,6 +2515,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
     test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
     test_product_evidence_gate_blocks_when_reference_contract_operation_mismatches_plan()
+    test_product_evidence_gate_blocks_when_reference_contract_callout_operation_mismatches_plan()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_incomplete()

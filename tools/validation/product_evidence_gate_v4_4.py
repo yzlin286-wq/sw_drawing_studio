@@ -1224,8 +1224,10 @@ def _reference_intent_contract_check(
     plan_details: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
     operations = [item for item in payload.get("operations") or [] if isinstance(item, dict)]
+    callout_operations = [item for item in payload.get("callout_operations") or [] if isinstance(item, dict)]
     op_keys = {str(item.get("dimension_key") or "") for item in operations}
     operation_plan_alignment_contract = _operation_plan_alignment_contract(operations, plan_payload)
+    callout_operation_contract = _callout_operation_contract(callout_operations, plan_payload)
     missing_from_contract = sorted(
         set(plan_details.get("missing_dimension_keys") or [])
         or (
@@ -1268,10 +1270,13 @@ def _reference_intent_contract_check(
         "allowed_entrypoint": payload.get("allowed_entrypoint"),
         "operation_count": payload.get("operation_count"),
         "operations_len": len(operations),
+        "callout_operation_count": payload.get("callout_operation_count"),
+        "callout_operations_len": len(callout_operations),
         "missing_dimension_operations": missing_from_contract,
         "operations_missing_evidence": operations_missing_evidence,
         "non_manufacturing_operations": non_manufacturing_ops,
         "operation_plan_alignment_contract": operation_plan_alignment_contract,
+        "callout_operation_contract": callout_operation_contract,
     }
     passed = bool(
         payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4"
@@ -1286,8 +1291,125 @@ def _reference_intent_contract_check(
         and not operations_missing_evidence
         and not non_manufacturing_ops
         and operation_plan_alignment_contract.get("pass") is True
+        and int(payload.get("callout_operation_count") or 0) == 5
+        and len(callout_operations) == 5
+        and callout_operation_contract.get("pass") is True
     )
     return passed, details
+
+
+def _callout_operation_contract(
+    callout_operations: list[dict[str, Any]],
+    plan_payload: dict[str, Any],
+) -> dict[str, Any]:
+    plan_callouts = [item for item in plan_payload.get("reference_callouts") or [] if isinstance(item, dict)]
+    plan_by_key = {str(item.get("key") or ""): item for item in plan_callouts if str(item.get("key") or "")}
+    operation_keys = [str(item.get("callout_key") or "") for item in callout_operations]
+    operation_keys_set = set(filter(None, operation_keys))
+    duplicate_operation_keys = sorted(
+        key for key in set(operation_keys) if key and operation_keys.count(key) > 1
+    )
+    missing_plan_callouts = sorted(set(plan_by_key) - operation_keys_set)
+    extra_operation_keys = sorted(operation_keys_set - set(plan_by_key))
+    missing_required_fields: dict[str, list[str]] = {}
+    mismatch_by_key: dict[str, list[str]] = {}
+    required_operation_fields = [
+        "operation",
+        "callout_key",
+        "target_view",
+        "expected_type",
+        "source_reference",
+        "reference_png",
+        "source_reference_evidence",
+        "create_as",
+        "fallback_policy",
+        "api_is_supporting_only",
+        "ui_screenshot_acceptance_required",
+        "requires_solidworks_lock",
+        "allowed_entrypoint",
+    ]
+    plan_alignment_fields = [
+        "target_view",
+        "expected_type",
+        "source_reference",
+        "reference_png",
+        "source_reference_evidence",
+        "create_as",
+        "fallback_policy",
+        "is_manufacturing_dimension",
+        "reference_value",
+        "reference_value_status",
+        "forbid_note_substitution_for_displaydim",
+        "api_is_supporting_only",
+        "ui_screenshot_acceptance_required",
+    ]
+    for index, operation in enumerate(callout_operations):
+        key = str(operation.get("callout_key") or f"index_{index}")
+        missing = [field for field in required_operation_fields if field not in operation]
+        if missing:
+            missing_required_fields[key] = missing
+        mismatches: list[str] = []
+        plan_item = plan_by_key.get(str(operation.get("callout_key") or ""))
+        if not plan_item:
+            mismatches.append("callout_key_not_in_plan")
+            expected_operation = ""
+        else:
+            expected_operation = (
+                "verify_absent_reference_callout"
+                if plan_item.get("is_manufacturing_dimension") is False
+                else "create_or_verify_reference_callout"
+            )
+            if operation.get("callout_key") != plan_item.get("key"):
+                mismatches.append("callout_key")
+            for field in plan_alignment_fields:
+                if field in plan_item and operation.get(field) != plan_item.get(field):
+                    mismatches.append(field)
+        if operation.get("operation") != expected_operation:
+            mismatches.append("operation")
+        if operation.get("requires_solidworks_lock") is not True:
+            mismatches.append("requires_solidworks_lock")
+        if operation.get("allowed_entrypoint") != "cad_job_worker":
+            mismatches.append("allowed_entrypoint")
+        if operation.get("api_is_supporting_only") is not True:
+            mismatches.append("api_is_supporting_only")
+        if operation.get("ui_screenshot_acceptance_required") is not True:
+            mismatches.append("ui_screenshot_acceptance_required")
+        if plan_item and plan_item.get("is_manufacturing_dimension") is True:
+            if not str(operation.get("reference_value") or "").strip():
+                mismatches.append("reference_value")
+            create_as = str(operation.get("create_as") or "")
+            if "substitute DisplayDim" not in create_as and "does not count as DisplayDim" not in create_as:
+                mismatches.append("create_as_displaydim_substitution_policy")
+        if plan_item and plan_item.get("is_manufacturing_dimension") is False:
+            evidence = operation.get("source_reference_evidence") if isinstance(operation.get("source_reference_evidence"), dict) else {}
+            if operation.get("reference_value") is not None:
+                mismatches.append("absence_reference_value")
+            if evidence.get("extraction_method") != "manual_visual_absence_check":
+                mismatches.append("absence_extraction_method")
+            if str(operation.get("fallback_policy") or "") != "do_not_create_unless_geometry_or_reference_proves_feature":
+                mismatches.append("absence_fallback_policy")
+        if mismatches:
+            mismatch_by_key[key] = sorted(set(mismatches))
+    return {
+        "pass": bool(
+            plan_by_key
+            and not duplicate_operation_keys
+            and not missing_plan_callouts
+            and not extra_operation_keys
+            and not missing_required_fields
+            and not mismatch_by_key
+        ),
+        "plan_callout_count": len(plan_by_key),
+        "operation_count": len(callout_operations),
+        "required_callout_keys": sorted(REQUIRED_CALLOUT_KEYS),
+        "absence_check_keys": sorted(CALLOUT_ABSENCE_CHECK_KEYS),
+        "duplicate_operation_keys": duplicate_operation_keys,
+        "missing_plan_callouts": missing_plan_callouts,
+        "extra_operation_keys": extra_operation_keys,
+        "missing_required_fields": missing_required_fields,
+        "mismatch_count": len(mismatch_by_key),
+        "mismatch_by_key": mismatch_by_key,
+    }
 
 
 def _operation_plan_alignment_contract(

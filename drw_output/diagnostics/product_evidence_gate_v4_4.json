@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:56:25",
+  "generated_at": "2026-06-26 20:08:55",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -52,7 +52,7 @@
       "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
-        "entrypoint_count": 527,
+        "entrypoint_count": 528,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -76,9 +76,9 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T17:51:29",
+        "generated_at": "2026-06-26T20:03:46",
         "status": "pass",
-        "entrypoint_count": 527,
+        "entrypoint_count": 528,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -97,7 +97,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T17:51:29",
+        "generated_at": "2026-06-26T20:03:46",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -113,7 +113,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T17:51:30",
+        "generated_at": "2026-06-26T20:03:47",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -515,7 +515,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
         "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
-        "generated_at": "2026-06-26 19:56:12",
+        "generated_at": "2026-06-26 20:08:46",
         "base": "LB26001-A-04-006",
         "status": "contract_ready_requires_cad_worker_lock",
         "requires_solidworks_lock": true,
@@ -524,6 +524,8 @@
         "allowed_entrypoint": "cad_job_worker",
         "operation_count": 12,
         "operations_len": 12,
+        "callout_operation_count": 5,
+        "callout_operations_len": 5,
         "missing_dimension_operations": [],
         "operations_missing_evidence": [],
         "non_manufacturing_operations": [],
@@ -533,6 +535,26 @@
           "operation_count": 12,
           "duplicate_operation_keys": [],
           "missing_plan_operations": [],
+          "extra_operation_keys": [],
+          "missing_required_fields": {},
+          "mismatch_count": 0,
+          "mismatch_by_key": {}
+        },
+        "callout_operation_contract": {
+          "pass": true,
+          "plan_callout_count": 5,
+          "operation_count": 5,
+          "required_callout_keys": [
+            "hole_callout_4x3_3",
+            "surface_finish_rest_3_2",
+            "thread_callout_m4_6h"
+          ],
+          "absence_check_keys": [
+            "chamfer_callout",
+            "radius_callout"
+          ],
+          "duplicate_operation_keys": [],
+          "missing_plan_callouts": [],
           "extra_operation_keys": [],
           "missing_required_fields": {},
           "mismatch_count": 0,
@@ -1168,9 +1190,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1048778,
-          "mtime_epoch": 1782474505.6568224,
-          "mtime_local": "2026-06-26 19:48:25"
+          "size_bytes": 1052942,
+          "mtime_epoch": 1782475237.6430285,
+          "mtime_local": "2026-06-26 20:00:37"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
