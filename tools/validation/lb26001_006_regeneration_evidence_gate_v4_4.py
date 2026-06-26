@@ -46,6 +46,11 @@ FRESH_ARTIFACT_KEYS = [
     "final_quality",
 ]
 
+REQUIRED_STAGED_ARTIFACT_KEYS = [
+    "dimension_validation",
+    "reference_compare_v4",
+]
+
 
 def build_regeneration_evidence_gate(
     *,
@@ -77,6 +82,7 @@ def build_regeneration_evidence_gate(
     sw_session: dict[str, Any] = {}
     final_quality: dict[str, Any] = {}
     artifacts: dict[str, dict[str, Any]] = {}
+    staged_artifacts: dict[str, dict[str, Any]] = {}
     events: list[dict[str, Any]] = []
     started_epoch: float | None = None
     run_id = ""
@@ -205,14 +211,42 @@ def build_regeneration_evidence_gate(
             "job_event_log.jsonl must include job_started/progress/heartbeat/job_finished.",
             {"event_types": event_types, "missing": missing_events, "event_count": len(events)},
         )
-        if selected_case:
+        _add_check(
+            checks,
+            "staged_summary_provided",
+            summary_path is not None,
+            "A staged validation summary must bind the fresh 006 run to dimension/reference evidence.",
+            {"summary_path": str(summary_path or "")},
+        )
+        _add_check(
+            checks,
+            "summary_case_is_006",
+            _case_base(selected_case) == BASE,
+            "The staged summary case must be LB26001-A-04-006.",
+            {"case_base": _case_base(selected_case), "summary_case_found": bool(selected_case)},
+        )
+        staged_artifacts = _collect_staged_artifacts(selected_case, started_epoch)
+        for key in REQUIRED_STAGED_ARTIFACT_KEYS:
+            info = staged_artifacts.get(key, {})
             _add_check(
                 checks,
-                "summary_case_is_006",
-                _case_base(selected_case) == BASE,
-                "The staged summary case must be LB26001-A-04-006.",
-                {"case_base": _case_base(selected_case)},
+                f"staged_artifact_{key}",
+                bool(info.get("exists") and int(info.get("size_bytes") or 0) > 0),
+                f"Missing or empty required staged 006 validation artifact: {key}.",
+                info,
             )
+        stale_staged = [
+            {"key": key, **(staged_artifacts.get(key) or {})}
+            for key in REQUIRED_STAGED_ARTIFACT_KEYS
+            if not bool((staged_artifacts.get(key) or {}).get("fresh"))
+        ]
+        _add_check(
+            checks,
+            "fresh_staged_validation_artifacts",
+            started_epoch is not None and not stale_staged,
+            "Staged dimension/reference validation artifacts must have mtime at or after job start.",
+            {"started_epoch": started_epoch, "stale_or_missing": stale_staged},
+        )
 
     failed = [item for item in checks if item["status"] != "pass"]
     if resolved_run_dir is None:
@@ -234,6 +268,17 @@ def build_regeneration_evidence_gate(
         "ui_screenshot_acceptance_required": True,
         "application_drawing_review_ui_required": True,
         "solidworks_runtime_called": False,
+        "staged_summary_required": True,
+        "staged_validation_artifacts_required": True,
+        "staged_validation_artifact_contract_pass": bool(
+            resolved_run_dir is not None
+            and all(
+                item["status"] == "pass"
+                for item in checks
+                if item["key"].startswith("staged_")
+                or item["key"] in {"summary_case_is_006", "fresh_staged_validation_artifacts"}
+            )
+        ),
         "run_id": run_id,
         "run_dir": str(resolved_run_dir or ""),
         "summary_path": str(summary_path or ""),
@@ -244,6 +289,8 @@ def build_regeneration_evidence_gate(
             "blocking_issue_keys": readiness.get("blocking_issue_keys") or [],
         },
         "artifact_summary": artifacts,
+        "staged_artifact_summary": staged_artifacts,
+        "required_staged_artifact_keys": list(REQUIRED_STAGED_ARTIFACT_KEYS),
         "event_summary": {
             "event_types": sorted({_event_type(event) for event in events if _event_type(event)}),
             "event_count": len(events),
@@ -458,6 +505,28 @@ def _collect_artifacts(run_dir: Path, base: str, started_epoch: float | None) ->
         "final_quality": run_dir / "qc" / "final_quality.json",
     }
     return {key: _path_info(path, started_epoch) for key, path in paths.items()}
+
+
+def _collect_staged_artifacts(case: dict[str, Any], started_epoch: float | None) -> dict[str, dict[str, Any]]:
+    case_dir = _repo_path(str(case.get("case_dir") or "")) if case.get("case_dir") else None
+    paths = {
+        "dimension_validation": _case_path(
+            case,
+            "dimension_report",
+            case_dir / "dimension_validation.json" if case_dir is not None else None,
+        ),
+        "reference_compare_v4": _case_path(
+            case,
+            "reference_compare_v4_report",
+            case_dir / "reference_compare_v4.json" if case_dir is not None else None,
+        ),
+    }
+    return {key: _path_info(path, started_epoch) for key, path in paths.items()}
+
+
+def _case_path(case: dict[str, Any], key: str, fallback: Path | None) -> Path | None:
+    value = str(case.get(key) or "")
+    return _repo_path(value) if value else fallback
 
 
 def _load_event_log(run_dir: Path) -> list[dict[str, Any]]:

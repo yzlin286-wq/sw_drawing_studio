@@ -285,6 +285,7 @@ def _fixture(
     reference_plan_note_substitution: bool = False,
     reference_contract_locked: bool = True,
     regeneration_ui_contract: bool = True,
+    regeneration_staged_contract: bool = True,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -1085,6 +1086,14 @@ def _fixture(
                 "ui_screenshot_acceptance_required": regeneration_ui_contract,
                 "application_drawing_review_ui_required": regeneration_ui_contract,
                 "solidworks_runtime_called": False if regeneration_ui_contract else True,
+                "staged_summary_required": True,
+                "staged_validation_artifacts_required": True,
+                "staged_validation_artifact_contract_pass": regeneration_staged_contract,
+                "required_staged_artifact_keys": ["dimension_validation", "reference_compare_v4"],
+                "staged_artifact_summary": {
+                    "dimension_validation": {"exists": regeneration_staged_contract, "size_bytes": 10},
+                    "reference_compare_v4": {"exists": regeneration_staged_contract, "size_bytes": 10},
+                },
                 "blocking_issue_keys": [] if regeneration_pass else ["explicit_006_run_evidence_source"],
             },
         ),
@@ -1932,6 +1941,22 @@ def test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract
         assert check["details"]["solidworks_runtime_called"] is True
 
 
+def test_product_evidence_gate_blocks_when_regeneration_gate_lacks_staged_validation_contract() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), regeneration_staged_contract=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_regeneration_evidence"
+        assert result["allowed_actions"]["006_application_ui_review_allowed_now"] is False
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "regeneration_006_fresh_evidence_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "regeneration_006_fresh_evidence_pass")
+        assert check["details"]["staged_summary_required"] is True
+        assert check["details"]["staged_validation_artifacts_required"] is True
+        assert check["details"]["staged_validation_artifact_contract_pass"] is False
+        assert check["details"]["required_staged_artifact_keys"] == ["dimension_validation", "reference_compare_v4"]
+
+
 def test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=False))
@@ -2693,6 +2718,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_bucket_sources_are_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
+    test_product_evidence_gate_blocks_when_regeneration_gate_lacks_staged_validation_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing()

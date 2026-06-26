@@ -72,13 +72,40 @@ def _make_fresh_run(root: Path, *, started_at: float | None = None) -> Path:
     return run_dir
 
 
+def _write_staged_summary(summary_path: Path, run_dir: Path) -> Path:
+    manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
+    started = manifest["artifact_freshness"]["min_mtime"]
+    case_dir = summary_path.parent / "01_LB26001-A-04-006"
+    dimension_report = _write_json(case_dir / "dimension_validation.json", {"status": "pass", "pass": True})
+    reference_report = _write_json(case_dir / "reference_compare_v4.json", {"status": "pass", "pass": True})
+    _write_json(
+        summary_path,
+        {
+            "schema": "sw_drawing_studio.staged_cad_validation.v3",
+            "cases": [
+                {
+                    "part_name": BASE,
+                    "run_dir": str(run_dir),
+                    "case_dir": str(case_dir),
+                    "dimension_report": str(dimension_report),
+                    "reference_compare_v4_report": str(reference_report),
+                }
+            ],
+        },
+    )
+    for path in [dimension_report, reference_report, summary_path]:
+        _set_mtime(path, started + 20)
+    return summary_path
+
+
 def test_006_regeneration_evidence_gate_passes_fresh_synthetic_run() -> None:
     runs_root = REPO_ROOT / "drw_output" / "runs"
     runs_root.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(prefix="test_006_regen_gate_", dir=runs_root) as tmp:
         run_dir = _make_fresh_run(Path(tmp))
+        summary_path = _write_staged_summary(run_dir / "staged_summary.json", run_dir)
 
-        result = build_regeneration_evidence_gate(run_dir=run_dir)
+        result = build_regeneration_evidence_gate(run_dir=run_dir, summary_path=summary_path)
 
         assert result["pass"] is True
         assert result["status"] == "regeneration_evidence_pass_requires_application_ui_screenshot_review"
@@ -86,7 +113,49 @@ def test_006_regeneration_evidence_gate_passes_fresh_synthetic_run() -> None:
         assert result["report_is_drawing_acceptance_evidence"] is False
         assert result["api_only_acceptance_allowed"] is False
         assert result["ui_screenshot_acceptance_required"] is True
+        assert result["staged_summary_required"] is True
+        assert result["staged_validation_artifacts_required"] is True
+        assert result["staged_validation_artifact_contract_pass"] is True
+        assert set(result["required_staged_artifact_keys"]) == {"dimension_validation", "reference_compare_v4"}
         assert not result["blocking_issue_keys"]
+
+
+def test_006_regeneration_evidence_gate_blocks_run_dir_without_staged_summary() -> None:
+    runs_root = REPO_ROOT / "drw_output" / "runs"
+    runs_root.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix="test_006_regen_gate_", dir=runs_root) as tmp:
+        run_dir = _make_fresh_run(Path(tmp))
+
+        result = build_regeneration_evidence_gate(run_dir=run_dir)
+
+        keys = set(result["blocking_issue_keys"])
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_regeneration_evidence"
+        assert result["staged_validation_artifact_contract_pass"] is False
+        assert "staged_summary_provided" in keys
+        assert "summary_case_is_006" in keys
+        assert "staged_artifact_dimension_validation" in keys
+        assert "staged_artifact_reference_compare_v4" in keys
+
+
+def test_006_regeneration_evidence_gate_blocks_missing_reference_compare_v4() -> None:
+    runs_root = REPO_ROOT / "drw_output" / "runs"
+    runs_root.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix="test_006_regen_gate_", dir=runs_root) as tmp:
+        run_dir = _make_fresh_run(Path(tmp))
+        summary_path = _write_staged_summary(run_dir / "staged_summary.json", run_dir)
+        payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        reference_path = Path(payload["cases"][0]["reference_compare_v4_report"])
+        reference_path.unlink()
+
+        result = build_regeneration_evidence_gate(run_dir=run_dir, summary_path=summary_path)
+
+        keys = set(result["blocking_issue_keys"])
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_regeneration_evidence"
+        assert result["staged_validation_artifact_contract_pass"] is False
+        assert "staged_artifact_reference_compare_v4" in keys
+        assert "fresh_staged_validation_artifacts" in keys
 
 
 def test_006_regeneration_evidence_gate_blocks_stale_drawing_artifact() -> None:
@@ -160,6 +229,8 @@ def test_006_regeneration_evidence_gate_tool_is_file_only() -> None:
 
 if __name__ == "__main__":
     test_006_regeneration_evidence_gate_passes_fresh_synthetic_run()
+    test_006_regeneration_evidence_gate_blocks_run_dir_without_staged_summary()
+    test_006_regeneration_evidence_gate_blocks_missing_reference_compare_v4()
     test_006_regeneration_evidence_gate_blocks_stale_drawing_artifact()
     test_006_regeneration_evidence_gate_blocks_missing_job_started_at()
     test_006_regeneration_evidence_gate_blocks_missing_sw_session()

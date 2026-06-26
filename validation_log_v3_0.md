@@ -15407,3 +15407,60 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change proves the next 006 defect closure must include real run/session/log evidence, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 006 Regeneration Gate Requires Staged Dimension/Reference Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline 006 regeneration/Product Evidence Gate hardening step. It prevents a fresh run directory by itself from authorizing application UI review or dependent-sample expansion before staged `dimension_validation` and `reference_compare_v4` evidence is bound to that run.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_regeneration_evidence_gate_v4_4.py`.
+  - Adds `REQUIRED_STAGED_ARTIFACT_KEYS=["dimension_validation","reference_compare_v4"]`.
+  - Requires a staged summary for any explicit fresh run.
+  - Requires the selected staged 006 case to bind nonempty `dimension_validation.json` and `reference_compare_v4.json`.
+  - Requires those staged validation artifacts to have mtime at or after the job start evidence.
+  - Writes `staged_summary_required`, `staged_validation_artifacts_required`, `staged_validation_artifact_contract_pass`, `required_staged_artifact_keys`, and `staged_artifact_summary`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `regeneration_006_fresh_evidence_pass` now also requires `staged_summary_required=true`, `staged_validation_artifacts_required=true`, and `staged_validation_artifact_contract_pass=true`.
+  - Product Gate details now expose the staged artifact summary and required keys.
+- Updated tests.
+  - `test_v4_4_lb26001_006_regeneration_evidence_gate.py` now proves run-dir-only evidence is blocked and missing `reference_compare_v4` is blocked.
+  - `test_v4_4_product_evidence_gate.py` now proves a regeneration report with `staged_validation_artifact_contract_pass=false` blocks application UI review and expansion.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_lb26001_006_regeneration_evidence_gate.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_regeneration_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py --out-json drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.json --out-md drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_regeneration_evidence_gate.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `lb26001_006_regeneration_evidence_gate_v4_4.json` remains:
+  - `status=blocked_by_missing_fresh_006_run`
+  - `pass=false`
+  - `staged_summary_required=true`
+  - `staged_validation_artifacts_required=true`
+  - `staged_validation_artifact_contract_pass=false`
+  - `required_staged_artifact_keys=["dimension_validation","reference_compare_v4"]`
+  - `blocking_issue_keys=["explicit_006_run_evidence_source"]`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; its `regeneration_006_fresh_evidence_pass` details now expose `staged_validation_artifact_contract_pass=false`.
+- All follow-on actions remain false: `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `lb26001_36_allowed`, `medium_30_allowed`, `visual_audit_full_scope_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change proves future fresh regeneration evidence must bind staged dimension/reference artifacts, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

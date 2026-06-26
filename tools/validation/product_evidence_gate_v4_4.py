@@ -1977,6 +1977,9 @@ def _regeneration_gate_pass(payload: dict[str, Any]) -> bool:
         and payload.get("ui_screenshot_acceptance_required") is True
         and payload.get("application_drawing_review_ui_required") is True
         and payload.get("solidworks_runtime_called") is False
+        and payload.get("staged_summary_required") is True
+        and payload.get("staged_validation_artifacts_required") is True
+        and payload.get("staged_validation_artifact_contract_pass") is True
         and not (payload.get("blocking_issue_keys") or [])
     )
 
@@ -1995,6 +1998,11 @@ def _regeneration_gate_summary(path: Path, payload: dict[str, Any]) -> dict[str,
         "ui_screenshot_acceptance_required": payload.get("ui_screenshot_acceptance_required"),
         "application_drawing_review_ui_required": payload.get("application_drawing_review_ui_required"),
         "solidworks_runtime_called": payload.get("solidworks_runtime_called"),
+        "staged_summary_required": payload.get("staged_summary_required"),
+        "staged_validation_artifacts_required": payload.get("staged_validation_artifacts_required"),
+        "staged_validation_artifact_contract_pass": payload.get("staged_validation_artifact_contract_pass"),
+        "required_staged_artifact_keys": payload.get("required_staged_artifact_keys") or [],
+        "staged_artifact_summary": payload.get("staged_artifact_summary") or {},
         "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
     }
 

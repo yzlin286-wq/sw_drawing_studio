@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regeneration_evidence_gate.v4_4",
-  "generated_at": "2026-06-25 23:53:30",
+  "generated_at": "2026-06-26 21:57:53",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_missing_fresh_006_run",
   "pass": false,
@@ -10,6 +10,9 @@
   "ui_screenshot_acceptance_required": true,
   "application_drawing_review_ui_required": true,
   "solidworks_runtime_called": false,
+  "staged_summary_required": true,
+  "staged_validation_artifacts_required": true,
+  "staged_validation_artifact_contract_pass": false,
   "run_id": "",
   "run_dir": "",
   "summary_path": "",
@@ -18,10 +21,15 @@
     "status": "blocked",
     "ready_to_start_locked_006_cad": false,
     "blocking_issue_keys": [
-      "solidworks_not_running"
+      "solidworks_unsaved_document_visible"
     ]
   },
   "artifact_summary": {},
+  "staged_artifact_summary": {},
+  "required_staged_artifact_keys": [
+    "dimension_validation",
+    "reference_compare_v4"
+  ],
   "event_summary": {
     "event_types": [],
     "event_count": 0
