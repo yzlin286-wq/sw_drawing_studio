@@ -12744,6 +12744,66 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Product Gate Requires Current EXE UI Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, EXE rebuild, `full_129`, `LB26001_36`, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `exe_ui_evidence_contract` inside `exe_ui_and_stability_proof_pass`.
+  - Requires EXE UI robot evidence to target the active `dist\sw_drawing_studio.exe`.
+  - Requires 2-hour Windows EXE stability evidence to target the active `dist\sw_drawing_studio.exe`.
+  - Requires EXE UI robot, 20-minute mock stability, 2-hour UI stability, and text-quality spotcheck evidence files to be no older than the active EXE.
+  - Requires text-quality spotcheck to point at an existing screenshot file.
+  - Blocks release if the text-quality spotcheck still requires EXE rebuild or rerunning 2-hour EXE stability.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture now writes EXE target fields for UI robot and 2-hour UI stability evidence.
+  - Fixture now writes a spotchecked screenshot file for text-quality proof.
+  - Adds regression coverage for UI robot evidence targeting the wrong EXE.
+  - Adds regression coverage for UI robot evidence older than the active EXE.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Product Gate refresh returned the expected nonzero result:
+  - `status=blocked_by_solidworks_stability_gate`
+  - `pass=false`
+  - `release_ready=false`
+  - `exe_ui_and_stability_proof_pass=false`
+- New EXE/UI evidence contract result in `drw_output/diagnostics/product_evidence_gate_v4_4.json`:
+  - `exe_ui_evidence_contract.pass=false`
+  - `mismatch_keys=["text_quality_rebuild_not_required","text_quality_2h_rerun_not_required"]`
+  - `rebuild_required=true`
+  - `rerun_2h_exe_stability_required=true`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `visual_audit_full_scope_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- The current EXE predates the text/stdout UTF-8 fix and still requires rebuild plus a fresh 2-hour EXE stability run before EXE/UI evidence can pass.
+- SolidWorks readiness/stability and 006 application UI screenshot review remain blocking gates.
+- Final Visual Audit report and raw issue-schema compliance remain incomplete.
+
 ## v4.4 Product Gate Requires Visual Audit Index Contract - 2026-06-26
 
 Current judgment:

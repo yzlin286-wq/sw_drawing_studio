@@ -376,6 +376,14 @@ def build_product_evidence_gate(
     stability_20min_mock = _read_json(final_artifacts.get("stability_20min_mock", Path()))
     stability_2h_ui = _read_json(final_artifacts.get("stability_2h_ui", Path()))
     visual_audit_index = _read_json(final_artifacts.get("visual_audit_index", Path()))
+    exe_ui_evidence_ok, exe_ui_evidence_details = _exe_ui_evidence_contract(
+        final_artifacts,
+        final_artifact_evidence,
+        exe_ui_robot_result,
+        stability_20min_mock,
+        stability_2h_ui,
+        exe_ui_text_quality_spotcheck,
+    )
     _add_check(
         checks,
         "final_release_artifacts_present",
@@ -396,7 +404,8 @@ def build_product_evidence_gate(
         and _mode_has_any(stability_2h_ui, ["exe", "windows"])
         and _pass_flag(exe_ui_text_quality_spotcheck)
         and exe_ui_text_quality_spotcheck.get("ui_text_quality_pass") is True
-        and exe_ui_text_quality_spotcheck.get("stability_json_pass") is True,
+        and exe_ui_text_quality_spotcheck.get("stability_json_pass") is True
+        and exe_ui_evidence_ok,
         (
             "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, "
             "20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text "
@@ -411,6 +420,7 @@ def build_product_evidence_gate(
                 final_artifacts.get("exe_ui_text_quality_spotcheck", Path()),
                 exe_ui_text_quality_spotcheck,
             ),
+            "exe_ui_evidence_contract": exe_ui_evidence_details,
         },
     )
     _add_check(
@@ -1874,6 +1884,51 @@ def _nonempty_file(value: Any) -> bool:
         return False
 
 
+def _nonempty_file_from_root(value: Any, root: Path) -> bool:
+    try:
+        path = _resolve_from_root(value, root)
+        if path is None:
+            return False
+        return path.exists() and path.is_file() and path.stat().st_size > 0
+    except Exception:
+        return False
+
+
+def _resolve_from_root(value: Any, root: Path) -> Path | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    path = Path(text)
+    return path if path.is_absolute() else (root / path).resolve()
+
+
+def _artifact_root_from_dist(dist_path: Path) -> Path:
+    try:
+        resolved = dist_path.resolve()
+        if resolved.parent.name.lower() == "dist":
+            return resolved.parent.parent
+    except Exception:
+        pass
+    return REPO_ROOT
+
+
+def _payload_exe_targets_dist(payload: dict[str, Any], dist_path: Path, artifact_root: Path) -> bool:
+    try:
+        exe_path = _resolve_from_root(payload.get("exe"), artifact_root)
+        return exe_path is not None and exe_path.resolve() == dist_path.resolve()
+    except Exception:
+        return False
+
+
+def _float_or_none(value: Any) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def _pass_flag(payload: dict[str, Any]) -> bool:
     return payload.get("pass") is True or str(payload.get("status") or "").lower() == "pass"
 
@@ -1890,6 +1945,103 @@ def _mode_has_any(payload: dict[str, Any], tokens: list[str]) -> bool:
     mode = str(payload.get("mode") or payload.get("source") or "").lower()
     exe = str(payload.get("exe") or "").lower()
     return any(token.lower() in mode or token.lower() in exe for token in tokens)
+
+
+def _exe_ui_evidence_contract(
+    final_artifacts: dict[str, Path],
+    final_evidence: dict[str, dict[str, Any]],
+    exe_ui_robot_result: dict[str, Any],
+    stability_20min_mock: dict[str, Any],
+    stability_2h_ui: dict[str, Any],
+    exe_ui_text_quality_spotcheck: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    dist_path = final_artifacts.get("dist_exe", Path())
+    dist_evidence = final_evidence.get("dist_exe") or {}
+    artifact_root = _artifact_root_from_dist(dist_path)
+    dist_mtime = _float_or_none(dist_evidence.get("mtime_epoch"))
+    evidence_mtimes = {
+        key: _float_or_none((final_evidence.get(key) or {}).get("mtime_epoch"))
+        for key in [
+            "exe_ui_robot_result",
+            "stability_20min_mock",
+            "stability_2h_ui",
+            "exe_ui_text_quality_spotcheck",
+        ]
+    }
+    spotchecked_screenshot = exe_ui_text_quality_spotcheck.get("spotchecked_screenshot")
+    checks = {
+        "dist_exe_exists": dist_evidence.get("exists") is True,
+        "dist_exe_has_content": int(dist_evidence.get("size_bytes") or 0) > 0,
+        "dist_exe_mtime_present": dist_mtime is not None,
+        "exe_ui_robot_result_exists": (final_evidence.get("exe_ui_robot_result") or {}).get("exists") is True,
+        "stability_20min_mock_exists": (final_evidence.get("stability_20min_mock") or {}).get("exists") is True,
+        "stability_2h_ui_exists": (final_evidence.get("stability_2h_ui") or {}).get("exists") is True,
+        "exe_ui_text_quality_spotcheck_exists": (
+            final_evidence.get("exe_ui_text_quality_spotcheck") or {}
+        ).get("exists")
+        is True,
+        "exe_ui_robot_result_not_older_than_dist_exe": _epoch_not_older(
+            evidence_mtimes["exe_ui_robot_result"],
+            dist_mtime,
+        ),
+        "stability_20min_mock_not_older_than_dist_exe": _epoch_not_older(
+            evidence_mtimes["stability_20min_mock"],
+            dist_mtime,
+        ),
+        "stability_2h_ui_not_older_than_dist_exe": _epoch_not_older(
+            evidence_mtimes["stability_2h_ui"],
+            dist_mtime,
+        ),
+        "exe_ui_text_quality_spotcheck_not_older_than_dist_exe": _epoch_not_older(
+            evidence_mtimes["exe_ui_text_quality_spotcheck"],
+            dist_mtime,
+        ),
+        "exe_ui_robot_targets_dist_exe": _payload_exe_targets_dist(
+            exe_ui_robot_result,
+            dist_path,
+            artifact_root,
+        ),
+        "stability_2h_ui_targets_dist_exe": _payload_exe_targets_dist(
+            stability_2h_ui,
+            dist_path,
+            artifact_root,
+        ),
+        "text_quality_rebuild_not_required": (
+            (exe_ui_text_quality_spotcheck.get("source_fix") or {}).get("rebuild_required") is False
+        ),
+        "text_quality_2h_rerun_not_required": (
+            (exe_ui_text_quality_spotcheck.get("source_fix") or {}).get("rerun_2h_exe_stability_required") is False
+        ),
+        "text_quality_spotchecked_screenshot_exists": _nonempty_file_from_root(
+            spotchecked_screenshot,
+            artifact_root,
+        ),
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    details = {
+        "pass": not mismatch_keys,
+        "dist_exe_path": str(dist_path),
+        "artifact_root": str(artifact_root),
+        "dist_exe_mtime_epoch": dist_mtime,
+        "dist_exe_mtime_local": _format_epoch(dist_mtime),
+        "evidence_mtimes": {
+            key: {
+                "mtime_epoch": value,
+                "mtime_local": _format_epoch(value),
+            }
+            for key, value in evidence_mtimes.items()
+        },
+        "exe_ui_robot_exe": exe_ui_robot_result.get("exe"),
+        "stability_2h_ui_exe": stability_2h_ui.get("exe"),
+        "spotchecked_screenshot": spotchecked_screenshot,
+        "rebuild_required": ((exe_ui_text_quality_spotcheck.get("source_fix") or {}).get("rebuild_required")),
+        "rerun_2h_exe_stability_required": (
+            (exe_ui_text_quality_spotcheck.get("source_fix") or {}).get("rerun_2h_exe_stability_required")
+        ),
+        **checks,
+        "mismatch_keys": mismatch_keys,
+    }
+    return bool(details["pass"]), details
 
 
 def _ui_stability_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:

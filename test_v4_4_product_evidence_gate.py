@@ -47,17 +47,28 @@ def _write_png(path: Path, width: int = 1200, height: int = 800) -> Path:
 
 def _write_final_artifact(path: Path, key: str) -> Path:
     if key == "exe_ui_robot_result":
-        return _write_json(path, {"mode": "windows_exe_ui_robot", "pass": True})
+        return _write_json(
+            path,
+            {
+                "generated_at": "2026-06-26 10:10:00",
+                "mode": "windows_exe_ui_robot",
+                "exe": "dist\\sw_drawing_studio.exe",
+                "pass": True,
+            },
+        )
     if key == "exe_ui_text_quality_spotcheck":
+        screenshot = "drw_output/ui_acceptance/exe_stability_2h_v3/screenshots/final.png"
+        _write_png(path.parents[2] / screenshot)
         return _write_json(
             path,
             {
                 "schema": "sw_drawing_studio.exe_stability_2h_visual_spotcheck.v4_4",
+                "generated_at": "2026-06-26 10:40:00",
                 "status": "pass",
                 "pass": True,
                 "stability_json_pass": True,
                 "ui_text_quality_pass": True,
-                "spotchecked_screenshot": "drw_output/ui_acceptance/exe_stability_2h_v3/screenshots/final.png",
+                "spotchecked_screenshot": screenshot,
                 "blocking_issue_keys": [],
                 "source_fix": {
                     "rebuild_required": False,
@@ -114,9 +125,26 @@ def _write_final_artifact(path: Path, key: str) -> Path:
             },
         )
     if key == "stability_20min_mock":
-        return _write_json(path, {"mode": "source_qt_mock_stability", "pass": True, "duration_observed_s": 1201.0})
+        return _write_json(
+            path,
+            {
+                "generated_at": "2026-06-26 10:20:00",
+                "mode": "source_qt_mock_stability",
+                "pass": True,
+                "duration_observed_s": 1201.0,
+            },
+        )
     if key == "stability_2h_ui":
-        return _write_json(path, {"mode": "windows_exe_navigation_stability", "pass": True, "duration_observed_s": 7201.0})
+        return _write_json(
+            path,
+            {
+                "generated_at": "2026-06-26 10:30:00",
+                "mode": "windows_exe_navigation_stability",
+                "exe": "dist\\sw_drawing_studio.exe",
+                "pass": True,
+                "duration_observed_s": 7201.0,
+            },
+        )
     return _write_file(path)
 
 
@@ -2124,6 +2152,52 @@ def test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence() -> None
         assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_when_exe_ui_robot_targets_wrong_exe() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(
+            paths["final_artifacts"]["exe_ui_robot_result"],  # type: ignore[index]
+            {
+                "mode": "windows_exe_ui_robot",
+                "exe": "dist\\old_sw_drawing_studio.exe",
+                "pass": True,
+            },
+        )
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "exe_ui_and_stability_proof_pass")
+        contract = check["details"]["exe_ui_evidence_contract"]
+        assert contract["pass"] is False
+        assert contract["exe_ui_robot_targets_dist_exe"] is False
+        assert "exe_ui_robot_targets_dist_exe" in contract["mismatch_keys"]
+
+
+def test_product_evidence_gate_blocks_when_exe_ui_robot_evidence_predates_dist_exe() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        dist_exe = paths["final_artifacts"]["dist_exe"]  # type: ignore[index]
+        robot_result = paths["final_artifacts"]["exe_ui_robot_result"]  # type: ignore[index]
+        stale = dist_exe.stat().st_mtime - 3600
+        os.utime(robot_result, (stale, stale))
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "exe_ui_and_stability_proof_pass")
+        contract = check["details"]["exe_ui_evidence_contract"]
+        assert contract["pass"] is False
+        assert contract["exe_ui_robot_result_not_older_than_dist_exe"] is False
+        assert "exe_ui_robot_result_not_older_than_dist_exe" in contract["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_cad_smoke_is_api_only() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -2264,6 +2338,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
+    test_product_evidence_gate_blocks_when_exe_ui_robot_targets_wrong_exe()
+    test_product_evidence_gate_blocks_when_exe_ui_robot_evidence_predates_dist_exe()
     test_product_evidence_gate_blocks_release_when_cad_smoke_is_api_only()
     test_product_evidence_gate_blocks_release_when_dimension_smoke_counts_notes_as_displaydim()
     test_product_evidence_gate_tool_is_file_only()

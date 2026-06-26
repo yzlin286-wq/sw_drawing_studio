@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:19:49",
+  "generated_at": "2026-06-26 19:26:20",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1145,9 +1145,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1035734,
-          "mtime_epoch": 1782472521.3320155,
-          "mtime_local": "2026-06-26 19:15:21"
+          "size_bytes": 1038574,
+          "mtime_epoch": 1782472847.2448103,
+          "mtime_local": "2026-06-26 19:20:47"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1285,6 +1285,56 @@
           ],
           "rebuild_required": true,
           "rerun_2h_exe_stability_required": true
+        },
+        "exe_ui_evidence_contract": {
+          "pass": false,
+          "dist_exe_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
+          "artifact_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "dist_exe_mtime_epoch": 1782059484.2599454,
+          "dist_exe_mtime_local": "2026-06-22 00:31:24",
+          "evidence_mtimes": {
+            "exe_ui_robot_result": {
+              "mtime_epoch": 1782446286.282751,
+              "mtime_local": "2026-06-26 11:58:06"
+            },
+            "stability_20min_mock": {
+              "mtime_epoch": 1782447617.773537,
+              "mtime_local": "2026-06-26 12:20:17"
+            },
+            "stability_2h_ui": {
+              "mtime_epoch": 1782455381.9068997,
+              "mtime_local": "2026-06-26 14:29:41"
+            },
+            "exe_ui_text_quality_spotcheck": {
+              "mtime_epoch": 1782456028.7782583,
+              "mtime_local": "2026-06-26 14:40:28"
+            }
+          },
+          "exe_ui_robot_exe": "dist\\sw_drawing_studio.exe",
+          "stability_2h_ui_exe": "dist\\sw_drawing_studio.exe",
+          "spotchecked_screenshot": "drw_output/ui_acceptance/exe_stability_2h_v3_20260626_122917/screenshots/013_final.png",
+          "rebuild_required": true,
+          "rerun_2h_exe_stability_required": true,
+          "dist_exe_exists": true,
+          "dist_exe_has_content": true,
+          "dist_exe_mtime_present": true,
+          "exe_ui_robot_result_exists": true,
+          "stability_20min_mock_exists": true,
+          "stability_2h_ui_exists": true,
+          "exe_ui_text_quality_spotcheck_exists": true,
+          "exe_ui_robot_result_not_older_than_dist_exe": true,
+          "stability_20min_mock_not_older_than_dist_exe": true,
+          "stability_2h_ui_not_older_than_dist_exe": true,
+          "exe_ui_text_quality_spotcheck_not_older_than_dist_exe": true,
+          "exe_ui_robot_targets_dist_exe": true,
+          "stability_2h_ui_targets_dist_exe": true,
+          "text_quality_rebuild_not_required": false,
+          "text_quality_2h_rerun_not_required": false,
+          "text_quality_spotchecked_screenshot_exists": true,
+          "mismatch_keys": [
+            "text_quality_rebuild_not_required",
+            "text_quality_2h_rerun_not_required"
+          ]
         }
       }
     },
