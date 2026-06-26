@@ -37,7 +37,7 @@
 - `fail` `regeneration_006_fresh_evidence_pass`: 006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.
 - `fail` `application_ui_006_acceptance_pass`: 006 must pass the application Drawing Review UI screenshot and manual visual checklist.
 - `fail` `canonical_006_ui_visual_review_pass`: 006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.
-- `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS before expansion is complete.
+- `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.
 - `fail` `final_release_artifacts_present`: Final release artifacts must exist before release/full_129 completion can be claimed.
 - `fail` `exe_ui_and_stability_proof_pass`: Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS.
 - `fail` `cad_smoke_dimension_reference_proof_pass`: Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof.

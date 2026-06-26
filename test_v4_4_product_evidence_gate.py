@@ -6,7 +6,12 @@ import struct
 from tempfile import TemporaryDirectory
 import zlib
 
-from tools.validation.product_evidence_gate_v4_4 import BASE, DEPENDENT_BASES, build_product_evidence_gate
+from tools.validation.product_evidence_gate_v4_4 import (
+    BASE,
+    DEPENDENT_BASES,
+    REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS,
+    build_product_evidence_gate,
+)
 
 
 def _write_json(path: Path, payload: dict) -> Path:
@@ -87,6 +92,62 @@ def _write_final_artifact(path: Path, key: str) -> Path:
     return _write_file(path)
 
 
+def _requested_ref6_matrix(
+    root: Path,
+    *,
+    requested_pass: bool,
+    missing_artifact_key: str = "",
+    invalid_screenshot_base: str = "",
+) -> list[dict]:
+    rows: list[dict] = []
+    for base in [BASE, *DEPENDENT_BASES]:
+        screenshot = root / "ui_acceptance" / "ref6" / f"{base}_ui_visual_review.png"
+        if requested_pass:
+            if invalid_screenshot_base == base:
+                _write_file(screenshot)
+            else:
+                _write_png(screenshot)
+        artifacts: dict[str, str] = {}
+        missing: list[str] = []
+        for key in REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS:
+            artifact = root / "ref6_evidence" / base / f"{key}.json"
+            if requested_pass and not (base == BASE and key == missing_artifact_key):
+                _write_json(artifact, {"base": base, "artifact": key, "pass": True})
+            artifacts[key] = str(artifact)
+            if not artifact.exists():
+                missing.append(key)
+        rows.append(
+            {
+                "base": base,
+                "status": "pass" if requested_pass else "blocked_by_006",
+                "acceptance_status": "pass" if requested_pass else "blocked_by_006",
+                "pass": requested_pass,
+                "application_ui_screenshot_required": True,
+                "application_ui_screenshot_present": requested_pass,
+                "application_ui_screenshot_file_count": 1 if requested_pass else 0,
+                "application_ui_screenshot_content_check_pass": requested_pass,
+                "ui_screenshot_files": [str(screenshot)] if requested_pass else [],
+                "application_ui_screenshot_paths_existing_application_ui": [str(screenshot)] if requested_pass else [],
+                "manual_visual_judgement_required": True,
+                "manual_visual_judgement_present": requested_pass,
+                "manual_visual_judgement_pass": requested_pass,
+                "manual_visual_checklist_required": True,
+                "manual_visual_checklist_pass": requested_pass,
+                "manual_visual_checklist_failed_items": [] if requested_pass else ["display_dimensions"],
+                "missing_ui_acceptance_requirements": [] if requested_pass and not missing else ["required_per_drawing_artifacts"],
+                "api_only_acceptance_allowed": False,
+                "final_judgement_source": "application_drawing_review_ui_screenshot_manual_visual_judgement",
+                "vision_qc_v6_visual_acceptance_pass": requested_pass,
+                "reference_compare_v4_pass": requested_pass,
+                "required_artifact_keys": list(REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS),
+                "required_artifacts": artifacts,
+                "required_artifacts_present": not missing,
+                "missing_required_artifacts": missing,
+            }
+        )
+    return rows
+
+
 def _fixture(
     root: Path,
     *,
@@ -94,6 +155,8 @@ def _fixture(
     regeneration_pass: bool = True,
     acceptance_pass: bool = True,
     requested_pass: bool = True,
+    requested_missing_artifact_key: str = "",
+    requested_invalid_screenshot_base: str = "",
     final_artifacts: bool = True,
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
@@ -606,15 +669,19 @@ def _fixture(
         "requested": _write_json(
             root / "requested.json",
             {
+                "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
                 "pass": requested_pass,
                 "status": "pass" if requested_pass else "blocked_by_006",
                 "pass_count": 6 if requested_pass else 0,
                 "not_pass_count": 0 if requested_pass else 6,
+                "per_drawing_ui_acceptance_pass_count": 6 if requested_pass else 0,
                 "primary_acceptance_proof_status": "pass" if requested_pass else "blocked_by_006",
-                "per_drawing_ui_review_matrix": [
-                    {"base": base, "pass": requested_pass}
-                    for base in [BASE, *DEPENDENT_BASES]
-                ],
+                "per_drawing_ui_review_matrix": _requested_ref6_matrix(
+                    root,
+                    requested_pass=requested_pass,
+                    missing_artifact_key=requested_missing_artifact_key,
+                    invalid_screenshot_base=requested_invalid_screenshot_base,
+                ),
             },
         ),
         "issue_schema": _write_json(
@@ -1159,6 +1226,47 @@ def test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes() -> 
         assert result["allowed_actions"]["full_129_allowed"] is False
 
 
+def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                requested_pass=True,
+                requested_missing_artifact_key="vision_qc",
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert "requested_ref6_ui_status_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_ui_status_pass")
+        assert check["details"]["missing_required_artifacts_by_base"][BASE] == ["vision_qc"]
+
+
+def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                requested_pass=True,
+                requested_invalid_screenshot_base=DEPENDENT_BASES[0],
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert "requested_ref6_ui_status_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_ui_status_pass")
+        invalid = check["details"]["invalid_application_ui_screenshots_by_base"][DEPENDENT_BASES[0]][0]
+        assert invalid["decode_pass"] is False
+        assert invalid["valid_ui_screenshot"] is False
+
+
 def test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), final_artifacts=False))
@@ -1343,6 +1451,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
+    test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
+    test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()

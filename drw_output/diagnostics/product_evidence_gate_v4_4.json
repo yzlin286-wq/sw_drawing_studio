@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 10:41:38",
+  "generated_at": "2026-06-26 10:52:49",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -499,14 +499,380 @@
     {
       "key": "requested_ref6_ui_status_pass",
       "status": "fail",
-      "message": "All six requested reference samples must have application UI screenshot PASS before expansion is complete.",
+      "message": "All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
+        "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
         "status": "blocked_by_006",
         "pass": false,
         "pass_count": 0,
         "not_pass_count": 6,
-        "primary_acceptance_proof_status": "blocked_by_006"
+        "per_drawing_ui_acceptance_pass_count": 0,
+        "primary_acceptance_proof_status": "blocked_by_006",
+        "required_bases": [
+          "LB26001-A-04-006",
+          "LB26001-A-04-007",
+          "LB26001-A-04-008",
+          "LB26001-A-04-009",
+          "LB26001-A-04-015",
+          "LB26001-A-04-022"
+        ],
+        "required_per_drawing_artifact_keys": [
+          "drawing_blueprint",
+          "dimension_validation",
+          "reference_compare",
+          "vision_qc",
+          "ui_visual_review"
+        ],
+        "missing_bases": [],
+        "not_pass_bases": [
+          "LB26001-A-04-006",
+          "LB26001-A-04-007",
+          "LB26001-A-04-008",
+          "LB26001-A-04-009",
+          "LB26001-A-04-015",
+          "LB26001-A-04-022"
+        ],
+        "missing_required_artifacts_by_base": {
+          "LB26001-A-04-007": [
+            "drawing_blueprint",
+            "dimension_validation",
+            "reference_compare",
+            "vision_qc",
+            "ui_visual_review"
+          ],
+          "LB26001-A-04-008": [
+            "drawing_blueprint",
+            "dimension_validation",
+            "reference_compare",
+            "vision_qc",
+            "ui_visual_review"
+          ],
+          "LB26001-A-04-009": [
+            "drawing_blueprint",
+            "dimension_validation",
+            "reference_compare",
+            "vision_qc",
+            "ui_visual_review"
+          ],
+          "LB26001-A-04-015": [
+            "drawing_blueprint",
+            "dimension_validation",
+            "reference_compare",
+            "vision_qc",
+            "ui_visual_review"
+          ],
+          "LB26001-A-04-022": [
+            "drawing_blueprint",
+            "dimension_validation",
+            "reference_compare",
+            "vision_qc",
+            "ui_visual_review"
+          ]
+        },
+        "invalid_application_ui_screenshots_by_base": {},
+        "missing_ui_acceptance_requirements_by_base": {
+          "LB26001-A-04-006": [
+            "manual_case_pass"
+          ],
+          "LB26001-A-04-007": [
+            "acceptance_gate_entry",
+            "application_ui_source_report",
+            "manual_case_pass",
+            "manual_visual_checklist",
+            "fresh_generated_png_source",
+            "required_per_drawing_artifacts"
+          ],
+          "LB26001-A-04-008": [
+            "acceptance_gate_entry",
+            "application_ui_source_report",
+            "manual_case_pass",
+            "manual_visual_checklist",
+            "fresh_generated_png_source",
+            "required_per_drawing_artifacts"
+          ],
+          "LB26001-A-04-009": [
+            "acceptance_gate_entry",
+            "application_ui_source_report",
+            "manual_case_pass",
+            "manual_visual_checklist",
+            "fresh_generated_png_source",
+            "required_per_drawing_artifacts"
+          ],
+          "LB26001-A-04-015": [
+            "acceptance_gate_entry",
+            "application_ui_source_report",
+            "manual_case_pass",
+            "manual_visual_checklist",
+            "fresh_generated_png_source",
+            "required_per_drawing_artifacts"
+          ],
+          "LB26001-A-04-022": [
+            "acceptance_gate_entry",
+            "application_ui_source_report",
+            "manual_case_pass",
+            "manual_visual_checklist",
+            "fresh_generated_png_source",
+            "required_per_drawing_artifacts"
+          ]
+        },
+        "api_only_acceptance_allowed_bases": [],
+        "incomplete_required_checks_by_base": {
+          "LB26001-A-04-006": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass"
+          ],
+          "LB26001-A-04-007": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass",
+            "required_artifacts_present"
+          ],
+          "LB26001-A-04-008": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass",
+            "required_artifacts_present"
+          ],
+          "LB26001-A-04-009": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass",
+            "required_artifacts_present"
+          ],
+          "LB26001-A-04-015": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass",
+            "required_artifacts_present"
+          ],
+          "LB26001-A-04-022": [
+            "manual_visual_judgement_pass",
+            "manual_visual_checklist_pass",
+            "vision_qc_v6_visual_acceptance_pass",
+            "reference_compare_v4_pass",
+            "required_artifacts_present"
+          ]
+        },
+        "per_base_summary": {
+          "LB26001-A-04-006": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "manual_visual_checklist_failed",
+            "ui_visual_review_status": "manual_visual_checklist_failed",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": true,
+            "missing_required_artifacts": [],
+            "required_artifacts": {
+              "drawing_blueprint": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\qc\\drawing_blueprint.json",
+              "dimension_validation": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006\\dimension_validation.json",
+              "reference_compare": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006\\reference_compare_v4.json",
+              "vision_qc": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006\\vision_qc_v6.json",
+              "ui_visual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json"
+            },
+            "missing_ui_acceptance_requirements": [
+              "manual_case_pass"
+            ]
+          },
+          "LB26001-A-04-007": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "blocked_by_006",
+            "ui_visual_review_status": "visual_fail",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": false,
+            "missing_required_artifacts": [
+              "drawing_blueprint",
+              "dimension_validation",
+              "reference_compare",
+              "vision_qc",
+              "ui_visual_review"
+            ],
+            "required_artifacts": {
+              "drawing_blueprint": "",
+              "dimension_validation": "",
+              "reference_compare": "",
+              "vision_qc": "",
+              "ui_visual_review": ""
+            },
+            "missing_ui_acceptance_requirements": [
+              "acceptance_gate_entry",
+              "application_ui_source_report",
+              "manual_case_pass",
+              "manual_visual_checklist",
+              "fresh_generated_png_source",
+              "required_per_drawing_artifacts"
+            ]
+          },
+          "LB26001-A-04-008": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "blocked_by_006",
+            "ui_visual_review_status": "visual_fail",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": false,
+            "missing_required_artifacts": [
+              "drawing_blueprint",
+              "dimension_validation",
+              "reference_compare",
+              "vision_qc",
+              "ui_visual_review"
+            ],
+            "required_artifacts": {
+              "drawing_blueprint": "",
+              "dimension_validation": "",
+              "reference_compare": "",
+              "vision_qc": "",
+              "ui_visual_review": ""
+            },
+            "missing_ui_acceptance_requirements": [
+              "acceptance_gate_entry",
+              "application_ui_source_report",
+              "manual_case_pass",
+              "manual_visual_checklist",
+              "fresh_generated_png_source",
+              "required_per_drawing_artifacts"
+            ]
+          },
+          "LB26001-A-04-009": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "blocked_by_006",
+            "ui_visual_review_status": "visual_fail",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": false,
+            "missing_required_artifacts": [
+              "drawing_blueprint",
+              "dimension_validation",
+              "reference_compare",
+              "vision_qc",
+              "ui_visual_review"
+            ],
+            "required_artifacts": {
+              "drawing_blueprint": "",
+              "dimension_validation": "",
+              "reference_compare": "",
+              "vision_qc": "",
+              "ui_visual_review": ""
+            },
+            "missing_ui_acceptance_requirements": [
+              "acceptance_gate_entry",
+              "application_ui_source_report",
+              "manual_case_pass",
+              "manual_visual_checklist",
+              "fresh_generated_png_source",
+              "required_per_drawing_artifacts"
+            ]
+          },
+          "LB26001-A-04-015": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "blocked_by_006",
+            "ui_visual_review_status": "visual_fail",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": false,
+            "missing_required_artifacts": [
+              "drawing_blueprint",
+              "dimension_validation",
+              "reference_compare",
+              "vision_qc",
+              "ui_visual_review"
+            ],
+            "required_artifacts": {
+              "drawing_blueprint": "",
+              "dimension_validation": "",
+              "reference_compare": "",
+              "vision_qc": "",
+              "ui_visual_review": ""
+            },
+            "missing_ui_acceptance_requirements": [
+              "acceptance_gate_entry",
+              "application_ui_source_report",
+              "manual_case_pass",
+              "manual_visual_checklist",
+              "fresh_generated_png_source",
+              "required_per_drawing_artifacts"
+            ]
+          },
+          "LB26001-A-04-022": {
+            "present": true,
+            "pass": false,
+            "status": null,
+            "acceptance_status": "blocked_by_006",
+            "ui_visual_review_status": "visual_fail",
+            "application_ui_screenshot_present": true,
+            "application_ui_screenshot_content_check_pass": true,
+            "valid_application_ui_screenshot_file": true,
+            "manual_visual_judgement_present": true,
+            "manual_visual_judgement_pass": false,
+            "vision_qc_v6_visual_acceptance_pass": false,
+            "reference_compare_v4_pass": false,
+            "required_artifacts_present": false,
+            "missing_required_artifacts": [
+              "drawing_blueprint",
+              "dimension_validation",
+              "reference_compare",
+              "vision_qc",
+              "ui_visual_review"
+            ],
+            "required_artifacts": {
+              "drawing_blueprint": "",
+              "dimension_validation": "",
+              "reference_compare": "",
+              "vision_qc": "",
+              "ui_visual_review": ""
+            },
+            "missing_ui_acceptance_requirements": [
+              "acceptance_gate_entry",
+              "application_ui_source_report",
+              "manual_case_pass",
+              "manual_visual_checklist",
+              "fresh_generated_png_source",
+              "required_per_drawing_artifacts"
+            ]
+          }
+        }
       }
     },
     {
@@ -527,7 +893,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 925653
+          "size_bytes": 926500
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

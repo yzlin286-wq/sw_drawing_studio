@@ -30,6 +30,13 @@ REQUESTED_BASES = [
     "LB26001-A-04-015",
     "LB26001-A-04-022",
 ]
+REQUIRED_PER_DRAWING_ARTIFACT_KEYS = [
+    "drawing_blueprint",
+    "dimension_validation",
+    "reference_compare",
+    "vision_qc",
+    "ui_visual_review",
+]
 DEFAULT_ACCEPTANCE_GATE = (
     REPO_ROOT
     / "drw_output"
@@ -159,6 +166,139 @@ def _resolve_artifact_path(value: Any, *, base_dir: Path | None = None) -> Path 
         if local.exists():
             return local
     return (REPO_ROOT / path).resolve()
+
+
+def _existing_file(path: Path | None) -> str:
+    if path and path.exists() and path.is_file() and path.stat().st_size > 0:
+        return str(path)
+    return ""
+
+
+def _first_existing_path(candidates: list[Path | None]) -> str:
+    for path in candidates:
+        existing = _existing_file(path)
+        if existing:
+            return existing
+    return ""
+
+
+def _run_dir_from_generated_png(value: Any) -> Path | None:
+    path = _resolve_artifact_path(value)
+    if not path:
+        return None
+    parts = list(path.parts)
+    try:
+        idx = parts.index("runs")
+    except ValueError:
+        return None
+    if idx + 1 >= len(parts):
+        return None
+    return Path(*parts[: idx + 2])
+
+
+def _source_ui_report_path(gate_entry: dict[str, Any], latest_manual: dict[str, Any]) -> Path | None:
+    for value in [
+        gate_entry.get("source_ui_report"),
+        latest_manual.get("source_ui_report"),
+        latest_manual.get("drawing_visual_review_report"),
+    ]:
+        path = _resolve_artifact_path(value)
+        if path and path.exists() and path.is_file():
+            return path
+    return None
+
+
+def _source_ui_report_entry(
+    *,
+    base: str,
+    gate_entry: dict[str, Any],
+    latest_manual: dict[str, Any],
+) -> tuple[Path | None, dict[str, Any], dict[str, Any]]:
+    report_path = _source_ui_report_path(gate_entry, latest_manual)
+    if report_path is None:
+        return None, {}, {}
+    payload = _read_json(report_path)
+    for item in payload.get("entries") or payload.get("cases") or []:
+        if isinstance(item, dict) and str(item.get("base") or "") == base:
+            return report_path, payload, item
+    return report_path, payload, {}
+
+
+def _summary_case_for_base(summary_path: Any, base: str) -> dict[str, Any]:
+    path = _resolve_artifact_path(summary_path)
+    if not path or not path.exists() or not path.is_file():
+        return {}
+    summary = _read_json(path)
+    for item in summary.get("cases") or summary.get("case_results") or summary.get("results") or []:
+        if not isinstance(item, dict):
+            continue
+        part_name = str(item.get("part_name") or Path(str(item.get("part") or "")).stem or "")
+        if part_name == base or str(item.get("base") or "") == base:
+            return item
+    return {}
+
+
+def _required_per_drawing_artifacts(
+    *,
+    base: str,
+    gate_entry: dict[str, Any],
+    latest_manual: dict[str, Any],
+) -> dict[str, Any]:
+    source_report_path, source_report, source_entry = _source_ui_report_entry(
+        base=base,
+        gate_entry=gate_entry,
+        latest_manual=latest_manual,
+    )
+    summary_case = _summary_case_for_base(source_report.get("summary"), base)
+    run_dir = _resolve_artifact_path(source_entry.get("run_dir") or summary_case.get("run_dir")) or _run_dir_from_generated_png(
+        latest_manual.get("generated_png") or source_entry.get("generated_png")
+    )
+    case_dir = _resolve_artifact_path(summary_case.get("case_dir"))
+    gate_summary_path = _resolve_artifact_path(gate_entry.get("gate_summary"))
+    source_parent = source_report_path.parent if source_report_path is not None else None
+    manual_path = _resolve_artifact_path(latest_manual.get("manual_review"))
+    manual_parent = manual_path.parent if manual_path is not None else None
+
+    artifacts = {
+        "drawing_blueprint": _first_existing_path([
+            _resolve_artifact_path(summary_case.get("drawing_blueprint")),
+            run_dir / "qc" / "drawing_blueprint.json" if run_dir else None,
+        ]),
+        "dimension_validation": _first_existing_path([
+            _resolve_artifact_path(summary_case.get("dimension_report")),
+            case_dir / "dimension_validation.json" if case_dir else None,
+            run_dir / "qc" / "dimension_validation.json" if run_dir else None,
+        ]),
+        "reference_compare": _first_existing_path([
+            _resolve_artifact_path(summary_case.get("reference_compare_v4_report")),
+            _resolve_artifact_path(summary_case.get("reference_report")),
+            _resolve_artifact_path(gate_entry.get("reference_compare_v4_with_ui_review")),
+            case_dir / "reference_compare_v4.json" if case_dir else None,
+            case_dir / "reference_compare.json" if case_dir else None,
+        ]),
+        "vision_qc": _first_existing_path([
+            _resolve_artifact_path(summary_case.get("vision_qc_v6_report")),
+            _resolve_artifact_path(gate_entry.get("vision_qc_v6_with_ui_review")),
+            case_dir / "vision_qc_v6.json" if case_dir else None,
+            run_dir / "qc" / "vision_qc_v6.json" if run_dir else None,
+        ]),
+        "ui_visual_review": _first_existing_path([
+            source_parent / "closed_loop" / "ui_visual_review.json" if source_parent else None,
+            gate_summary_path.parent / "ui_visual_review.json" if gate_summary_path else None,
+            manual_parent / "closed_loop" / "ui_visual_review.json" if manual_parent else None,
+        ]),
+    }
+    missing = [key for key in REQUIRED_PER_DRAWING_ARTIFACT_KEYS if not artifacts.get(key)]
+    return {
+        "required_artifact_keys": list(REQUIRED_PER_DRAWING_ARTIFACT_KEYS),
+        "required_artifacts": artifacts,
+        "missing_required_artifacts": missing,
+        "required_artifacts_present": not missing,
+        "source_ui_report": str(source_report_path or ""),
+        "source_summary": str(_resolve_artifact_path(source_report.get("summary")) or ""),
+        "run_dir": str(run_dir or ""),
+        "case_dir": str(case_dir or ""),
+    }
 
 
 def _acceptance_entry_map(acceptance_gate: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -432,6 +572,12 @@ def _per_drawing_ui_review_matrix(base_results: list[dict[str, Any]]) -> list[di
                 "comparison_image": str(item.get("comparison_image") or ""),
                 "generated_png": str(item.get("generated_png") or ""),
                 "reference_png": str(item.get("reference_png") or ""),
+                "vision_qc_v6_visual_acceptance_pass": bool(item.get("vision_qc_v6_visual_acceptance_pass")),
+                "reference_compare_v4_pass": bool(item.get("reference_compare_v4_pass")),
+                "required_artifact_keys": list(item.get("required_artifact_keys") or REQUIRED_PER_DRAWING_ARTIFACT_KEYS),
+                "required_artifacts": dict(item.get("required_artifacts") or {}),
+                "required_artifacts_present": bool(item.get("required_artifacts_present")),
+                "missing_required_artifacts": list(item.get("missing_required_artifacts") or []),
                 "final_judgement_source": "application_drawing_review_ui_screenshot_manual_visual_judgement",
                 "api_is_not_final_judgement": True,
                 "api_only_acceptance_allowed": False,
@@ -451,6 +597,11 @@ def _base_status(
     manual_entries: list[dict[str, Any]],
 ) -> dict[str, Any]:
     latest_manual = _latest_manual(manual_entries)
+    required_artifacts = _required_per_drawing_artifacts(
+        base=base,
+        gate_entry=gate_entry,
+        latest_manual=latest_manual,
+    )
     manual_status = _manual_status(latest_manual)
     screenshot_files, invalid_gate_screenshot_files = _existing_screenshot_files(list(gate_entry.get("ui_screenshot_files") or []))
     for path in _manual_screenshot_files(latest_manual):
@@ -475,17 +626,22 @@ def _base_status(
         screenshot_content_pass=screenshot_content_pass,
         issues=issues,
     )
+    if not required_artifacts["required_artifacts_present"] and "required_per_drawing_artifacts" not in missing_ui_requirements:
+        missing_ui_requirements.append("required_per_drawing_artifacts")
     proof_present = bool(primary_acceptance_proof)
     proof_pass = bool(primary_acceptance_proof.get("pass")) if proof_present else False
     proof_blocking_keys = list(primary_acceptance_proof.get("blocking_issue_keys") or [])
     primary_proof_blocks = not proof_present or not proof_pass
-    accepted = _strict_application_ui_gate_pass(
+    accepted = bool(
+        required_artifacts["required_artifacts_present"]
+        and _strict_application_ui_gate_pass(
         gate_pass=gate_pass,
         ui_visual_status=ui_visual_status,
         primary_proof_blocks=primary_proof_blocks,
         missing_ui_requirements=missing_ui_requirements,
         gate_entry=gate_entry,
         screenshot_content_pass=screenshot_content_pass,
+        )
     )
     expansion_blocked = (
         (acceptance_gate.get("status") == "blocked_by_006" or primary_proof_blocks)
@@ -549,6 +705,14 @@ def _base_status(
         "primary_acceptance_proof_blocking_issue_keys": proof_blocking_keys,
         "vision_qc_v6_visual_acceptance_pass": bool(gate_entry.get("vision_qc_v6_visual_acceptance_pass")),
         "reference_compare_v4_pass": bool(gate_entry.get("reference_compare_v4_pass")),
+        "required_artifact_keys": required_artifacts["required_artifact_keys"],
+        "required_artifacts": required_artifacts["required_artifacts"],
+        "required_artifacts_present": bool(required_artifacts["required_artifacts_present"]),
+        "missing_required_artifacts": required_artifacts["missing_required_artifacts"],
+        "required_artifact_source_ui_report": required_artifacts["source_ui_report"],
+        "required_artifact_source_summary": required_artifacts["source_summary"],
+        "required_artifact_run_dir": required_artifacts["run_dir"],
+        "required_artifact_case_dir": required_artifacts["case_dir"],
         "manual_review_count": len(manual_entries),
         "latest_manual_review": str(latest_manual.get("manual_review") or ""),
         "latest_manual_status": manual_status,

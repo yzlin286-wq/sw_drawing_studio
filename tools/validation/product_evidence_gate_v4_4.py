@@ -75,6 +75,13 @@ REQUIRED_CLOSURE_EVIDENCE_KEYS = {
     "application_drawing_review_ui_screenshot",
     "manual_visual_judgement",
 }
+REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS = [
+    "drawing_blueprint",
+    "dimension_validation",
+    "reference_compare",
+    "vision_qc",
+    "ui_visual_review",
+]
 MIN_UI_SCREENSHOT_WIDTH = 1000
 MIN_UI_SCREENSHOT_HEIGHT = 600
 
@@ -346,27 +353,16 @@ def build_product_evidence_gate(
         "006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.",
         _ui_visual_review_summary(ui_visual_review_path, ui_visual_review),
     )
-    matrix = requested_status.get("per_drawing_ui_review_matrix") or []
-    matrix_by_base = {
-        str(item.get("base") or ""): item
-        for item in matrix
-        if isinstance(item, dict) and str(item.get("base") or "")
-    }
+    requested_ref6_ok, requested_ref6_details = _requested_ref6_status_check(
+        requested_status_path,
+        requested_status,
+    )
     _add_check(
         checks,
         "requested_ref6_ui_status_pass",
-        requested_status.get("pass") is True
-        and requested_status.get("pass_count") == 6
-        and all((matrix_by_base.get(base) or {}).get("pass") is True for base in [BASE, *DEPENDENT_BASES]),
-        "All six requested reference samples must have application UI screenshot PASS before expansion is complete.",
-        {
-            "path": str(requested_status_path),
-            "status": requested_status.get("status"),
-            "pass": requested_status.get("pass"),
-            "pass_count": requested_status.get("pass_count"),
-            "not_pass_count": requested_status.get("not_pass_count"),
-            "primary_acceptance_proof_status": requested_status.get("primary_acceptance_proof_status"),
-        },
+        requested_ref6_ok,
+        "All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.",
+        requested_ref6_details,
     )
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
@@ -1290,6 +1286,122 @@ def _source_signature_summary(value: Any) -> dict[str, dict[str, Any]]:
             "missing_signatures": item.get("missing_signatures") or [],
         }
     return summary
+
+
+def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    required_bases = [BASE, *DEPENDENT_BASES]
+    matrix = payload.get("per_drawing_ui_review_matrix") or []
+    matrix_by_base = {
+        str(item.get("base") or ""): item
+        for item in matrix
+        if isinstance(item, dict) and str(item.get("base") or "")
+    }
+    missing_bases = [base for base in required_bases if base not in matrix_by_base]
+    not_pass_bases: list[str] = []
+    missing_artifacts: dict[str, list[str]] = {}
+    invalid_screenshots: dict[str, list[dict[str, Any]]] = {}
+    missing_ui_requirements: dict[str, list[str]] = {}
+    api_only_bases: list[str] = []
+    incomplete_checks: dict[str, list[str]] = {}
+    per_base_summary: dict[str, dict[str, Any]] = {}
+
+    for base in required_bases:
+        item = matrix_by_base.get(base) or {}
+        artifact_paths = item.get("required_artifacts") if isinstance(item.get("required_artifacts"), dict) else {}
+        item_missing_artifacts = [
+            key for key in REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS if not _nonempty_file(artifact_paths.get(key))
+        ]
+        if item_missing_artifacts:
+            missing_artifacts[base] = item_missing_artifacts
+
+        screenshot_values = list(item.get("ui_screenshot_files") or [])
+        if not screenshot_values:
+            screenshot_values = list(item.get("application_ui_screenshot_paths_existing_application_ui") or [])
+        screenshot_evidence = [_image_file_evidence(value) for value in screenshot_values]
+        valid_screenshot = any(bool(entry.get("valid_ui_screenshot")) for entry in screenshot_evidence)
+        if not valid_screenshot:
+            invalid_screenshots[base] = screenshot_evidence or [{"failure": "missing_application_ui_screenshot"}]
+
+        item_missing_requirements = list(item.get("missing_ui_acceptance_requirements") or [])
+        if item_missing_requirements:
+            missing_ui_requirements[base] = item_missing_requirements
+
+        if item.get("api_only_acceptance_allowed") is not False:
+            api_only_bases.append(base)
+
+        failed_checks: list[str] = []
+        required_booleans = {
+            "application_ui_screenshot_present": item.get("application_ui_screenshot_present") is True,
+            "application_ui_screenshot_content_check_pass": item.get("application_ui_screenshot_content_check_pass") is True,
+            "manual_visual_judgement_present": item.get("manual_visual_judgement_present") is True,
+            "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass") is True,
+            "manual_visual_checklist_pass": item.get("manual_visual_checklist_pass") is True,
+            "vision_qc_v6_visual_acceptance_pass": item.get("vision_qc_v6_visual_acceptance_pass") is True,
+            "reference_compare_v4_pass": item.get("reference_compare_v4_pass") is True,
+            "required_artifacts_present": item.get("required_artifacts_present") is True and not item_missing_artifacts,
+            "valid_application_ui_screenshot_file": valid_screenshot,
+        }
+        for key, ok in required_booleans.items():
+            if not ok:
+                failed_checks.append(key)
+        if failed_checks:
+            incomplete_checks[base] = failed_checks
+        if item.get("pass") is not True:
+            not_pass_bases.append(base)
+
+        per_base_summary[base] = {
+            "present": bool(item),
+            "pass": item.get("pass"),
+            "status": item.get("status"),
+            "acceptance_status": item.get("acceptance_status"),
+            "ui_visual_review_status": item.get("ui_visual_review_status"),
+            "application_ui_screenshot_present": item.get("application_ui_screenshot_present"),
+            "application_ui_screenshot_content_check_pass": item.get("application_ui_screenshot_content_check_pass"),
+            "valid_application_ui_screenshot_file": valid_screenshot,
+            "manual_visual_judgement_present": item.get("manual_visual_judgement_present"),
+            "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass"),
+            "vision_qc_v6_visual_acceptance_pass": item.get("vision_qc_v6_visual_acceptance_pass"),
+            "reference_compare_v4_pass": item.get("reference_compare_v4_pass"),
+            "required_artifacts_present": item.get("required_artifacts_present"),
+            "missing_required_artifacts": item_missing_artifacts,
+            "required_artifacts": artifact_paths,
+            "missing_ui_acceptance_requirements": item_missing_requirements,
+        }
+
+    pass_gate = bool(
+        payload.get("schema") == "sw_drawing_studio.lb26001_requested_drawings_status.v4_2"
+        and payload.get("pass") is True
+        and payload.get("pass_count") == len(required_bases)
+        and payload.get("per_drawing_ui_acceptance_pass_count") == len(required_bases)
+        and not missing_bases
+        and not not_pass_bases
+        and not missing_artifacts
+        and not invalid_screenshots
+        and not missing_ui_requirements
+        and not api_only_bases
+        and not incomplete_checks
+    )
+    details = {
+        "path": str(path),
+        "schema": payload.get("schema"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "pass_count": payload.get("pass_count"),
+        "not_pass_count": payload.get("not_pass_count"),
+        "per_drawing_ui_acceptance_pass_count": payload.get("per_drawing_ui_acceptance_pass_count"),
+        "primary_acceptance_proof_status": payload.get("primary_acceptance_proof_status"),
+        "required_bases": required_bases,
+        "required_per_drawing_artifact_keys": list(REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS),
+        "missing_bases": missing_bases,
+        "not_pass_bases": not_pass_bases,
+        "missing_required_artifacts_by_base": missing_artifacts,
+        "invalid_application_ui_screenshots_by_base": invalid_screenshots,
+        "missing_ui_acceptance_requirements_by_base": missing_ui_requirements,
+        "api_only_acceptance_allowed_bases": api_only_bases,
+        "incomplete_required_checks_by_base": incomplete_checks,
+        "per_base_summary": per_base_summary,
+    }
+    return pass_gate, details
 
 
 def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
