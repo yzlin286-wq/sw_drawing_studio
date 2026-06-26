@@ -48,6 +48,7 @@ def main() -> None:
     }
     for key in [
         "system_health_ui_uses_qprocess_worker",
+        "dashboard_health_card_uses_qprocess_worker",
         "solidworks_com_probe_worker_has_global_lock",
         "system_health_addin_ping_has_probe_lock",
         "system_health_opendoc6_has_probe_lock",
@@ -67,6 +68,7 @@ def main() -> None:
     for ui_path in ["app/ui/system_health_page.py", "app/ui/home_page.py"]:
         source = Path(ui_path).read_text(encoding="utf-8")
         assert "collect_system_health" not in source
+        assert "run_health_check" not in source
     public_services_api = Path("app/services/__init__.py").read_text(encoding="utf-8")
     for token in [
         "run_health_check",
@@ -159,6 +161,27 @@ def main() -> None:
         assert "ultralytics YOLO direct import/call" in patterns
         assert "Vision QC direct import/call" in patterns
         assert "batch validation direct import/call" in patterns
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        bad = root / "app" / "ui" / "bad_legacy_health.py"
+        bad.parent.mkdir(parents=True)
+        bad.write_text(
+            "from app.services.health_check import run_health_check\n"
+            "def refresh_now():\n"
+            "    return run_health_check()\n",
+            encoding="utf-8",
+        )
+        synthetic = scan_solidworks_entrypoints(root)
+        assert synthetic["status"] == "warning"
+        assert synthetic["pass"] is False
+        assert synthetic["ui_thread_direct_risk_count"] == 2
+        assert synthetic["system_health_ui_thread_direct_probe_count"] == 0
+        patterns = {
+            pattern
+            for entry in synthetic["ui_thread_direct_risks"]
+            for pattern in (entry.get("patterns") or [])
+        }
+        assert "Legacy Health direct check" in patterns
     print("OK test_v4_1_solidworks_entrypoint_scan")
 
 

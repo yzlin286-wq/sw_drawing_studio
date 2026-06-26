@@ -1,12 +1,12 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T21:02:56",
+  "generated_at": "2026-06-26T21:14:52",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scan_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 342,
-  "entrypoint_count": 531,
-  "total_findings": 531,
-  "guarded_count": 140,
+  "entrypoint_count": 538,
+  "total_findings": 538,
+  "guarded_count": 141,
   "unguarded_or_unknown_count": 0,
   "unguarded_count": 0,
   "missing_lock_count": 0,
@@ -14,8 +14,8 @@
   "document_manager_com_count": 27,
   "validation_tool_requires_manual_lock_count": 50,
   "maintenance_tool_count": 13,
-  "test_or_fixture_count": 19,
-  "legacy_experiment_count": 238,
+  "test_or_fixture_count": 21,
+  "legacy_experiment_count": 242,
   "bounded_probe_worker_launcher_count": 4,
   "system_health_worker_probe_service_count": 1,
   "system_health_probe_lock_contract_status": "pass",
@@ -111,7 +111,7 @@
     "schema": "sw_drawing_studio.system_health_probe_lock_contract.v4_4",
     "status": "pass",
     "pass": true,
-    "check_count": 7,
+    "check_count": 8,
     "failed_count": 0,
     "checks": [
       {
@@ -120,6 +120,13 @@
         "status": "pass",
         "missing": [],
         "note": "System Health UI refresh must submit a QProcess worker job rather than calling probes in the UI thread."
+      },
+      {
+        "key": "dashboard_health_card_uses_qprocess_worker",
+        "file": "app/ui/home_page.py",
+        "status": "pass",
+        "missing": [],
+        "note": "Dashboard/Home health self-check must use the same QProcess worker path as System Health."
       },
       {
         "key": "system_health_worker_calls_collect_service",
@@ -1949,6 +1956,34 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "docmgr_probe = probe_docmgr()"
+    },
+    {
+      "file": "test_v2_1_validation.py",
+      "line": 78,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "test_v2_1_validation.py",
+      "line": 79,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "hc = run_health_check()"
     },
     {
       "file": "test_v2_3_llm_action_worker.py",
@@ -4663,6 +4698,62 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "ping_result = ping()"
+    },
+    {
+      "file": "_tmp_health_check.py",
+      "line": 2,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "_tmp_health_check.py",
+      "line": 3,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "r = run_health_check()"
+    },
+    {
+      "file": "_tmp_run_health.py",
+      "line": 2,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "_tmp_run_health.py",
+      "line": 3,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "result = run_health_check()"
     },
     {
       "file": "_tmp_run_lb26001_36.py",
@@ -8009,6 +8100,62 @@
       "text": "ping_result = ping()"
     },
     {
+      "file": "_tmp_health_check.py",
+      "line": 2,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "_tmp_health_check.py",
+      "line": 3,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "r = run_health_check()"
+    },
+    {
+      "file": "_tmp_run_health.py",
+      "line": 2,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "_tmp_run_health.py",
+      "line": 3,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "result = run_health_check()"
+    },
+    {
       "file": "_tmp_run_lb26001_36.py",
       "line": 20,
       "patterns": [
@@ -9424,6 +9571,20 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "sw = win32com.client.GetActiveObject(\"SldWorks.Application\")"
+    },
+    {
+      "file": "app/services/health_check.py",
+      "line": 353,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "guarded",
+      "scope": "service",
+      "risk_bucket": "global_lock_guarded",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "print(json.dumps(run_health_check(), ensure_ascii=False, indent=2))"
     },
     {
       "file": "app/services/job_runner.py",
@@ -11877,6 +12038,34 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "docmgr_probe = probe_docmgr()"
+    },
+    {
+      "file": "test_v2_1_validation.py",
+      "line": 78,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "from app.services.health_check import run_health_check"
+    },
+    {
+      "file": "test_v2_1_validation.py",
+      "line": 79,
+      "patterns": [
+        "Legacy Health direct check"
+      ],
+      "guard_status": "test_or_fixture",
+      "scope": "other",
+      "risk_bucket": "requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "hc = run_health_check()"
     },
     {
       "file": "test_v2_3_llm_action_worker.py",

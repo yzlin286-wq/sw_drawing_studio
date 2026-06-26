@@ -15131,3 +15131,61 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change only proves the Product Gate rejects stale 006 packet evidence. It does not prove the generated 006 drawing passes the application UI screenshot review.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Dashboard Health Self-Check Worker Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline SolidWorks stability-gate hardening step. It prevents the Dashboard/Home health card from regressing to a direct UI-thread `run_health_check()` path.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Added `Legacy Health direct check` detection for UI imports/calls of `app.services.health_check.run_health_check`.
+  - Added that pattern to the System Health direct-risk bucket.
+  - Added `dashboard_health_card_uses_qprocess_worker` to `system_health_probe_lock_contract`, requiring `app/ui/home_page.py` to use `JobRuntimeFacade.start_system_health_check(...)` and job-finished/job-failed callbacks.
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Proves the current Home/Dashboard health card satisfies the worker-backed contract.
+  - Proves a synthetic UI file that imports and calls `run_health_check()` becomes a scanner warning with `Legacy Health direct check`.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\solidworks_entrypoint_scanner.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\scan_solidworks_entrypoints_v4_1.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+python -B test_v4_4_product_evidence_gate.py
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `git diff --check`: PASS, with only existing CRLF normalization warnings.
+- Refreshed entrypoint scan remains:
+  - `status=pass`
+  - `pass=true`
+  - `entrypoint_count=538`
+  - `ui_thread_direct_risk_count=0`
+  - `ui_thread_subprocess_call_count=0`
+  - `ui_thread_heavy_work_count=0`
+  - `ui_threadpool_worker_count=0`
+  - `service_direct_risk_count=0`
+  - `system_health_ui_thread_direct_probe_count=0`
+  - `system_health_probe_lock_contract_status=pass`
+  - `dashboard_health_card_uses_qprocess_worker=pass`
+- Refreshed SolidWorks stability gate remains `warning` / not passing because conflict monitoring still sees a SolidWorks process outside a CAD/batch worker-owned global lock.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change tightens Task 1 coverage, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

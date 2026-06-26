@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 21:06:34",
+  "generated_at": "2026-06-26 21:13:05",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -52,7 +52,7 @@
       "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
-        "entrypoint_count": 531,
+        "entrypoint_count": 538,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -77,9 +77,9 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T21:02:56",
+        "generated_at": "2026-06-26T21:13:04",
         "status": "pass",
-        "entrypoint_count": 531,
+        "entrypoint_count": 538,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -99,7 +99,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T21:02:56",
+        "generated_at": "2026-06-26T21:13:04",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -115,7 +115,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T21:02:57",
+        "generated_at": "2026-06-26T21:13:05",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -1223,9 +1223,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1076886,
-          "mtime_epoch": 1782478799.7375288,
-          "mtime_local": "2026-06-26 20:59:59"
+          "size_bytes": 1081094,
+          "mtime_epoch": 1782479345.5225277,
+          "mtime_local": "2026-06-26 21:09:05"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

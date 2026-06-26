@@ -29,6 +29,10 @@ PATTERNS: dict[str, re.Pattern[str]] = {
         r"(?:from\s+app\.services\.system_health_service\s+import\s+.*\bcollect_system_health\b|"
         r"(?<!def )\bcollect_system_health\s*\()"
     ),
+    "Legacy Health direct check": re.compile(
+        r"(?:from\s+app\.services\.health_check\s+import\s+.*\brun_health_check\b|"
+        r"(?<!def )\brun_health_check\s*\()"
+    ),
     "Qt ThreadPool worker": re.compile(r"\b(?:QThreadPool|QRunnable|LLMWorker|RunnerWorker)\b"),
     "subprocess.run": re.compile(r"\bsubprocess\.run\s*\("),
     "subprocess.Popen": re.compile(r"\bsubprocess\.Popen\s*\("),
@@ -98,7 +102,7 @@ UI_HEAVY_WORK_PATTERNS = {
     "batch validation direct import/call",
 }
 DOCMGR_PATTERNS = {"DocMgr probe"}
-SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect"}
+SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect", "Legacy Health direct check"}
 UI_THREADPOOL_PATTERNS = {"Qt ThreadPool worker"}
 
 SKIP_DIRS = {
@@ -635,6 +639,12 @@ def _system_health_probe_lock_contract(root: Path) -> dict[str, Any]:
         "app/ui/system_health_page.py",
         ["get_job_runtime_facade", "self.facade.start_system_health_check", "job_finished", "job_failed"],
         "System Health UI refresh must submit a QProcess worker job rather than calling probes in the UI thread.",
+    )
+    add(
+        "dashboard_health_card_uses_qprocess_worker",
+        "app/ui/home_page.py",
+        ["get_job_runtime_facade", "self.facade.start_system_health_check", "job_finished", "job_failed"],
+        "Dashboard/Home health self-check must use the same QProcess worker path as System Health.",
     )
     add(
         "system_health_worker_calls_collect_service",
