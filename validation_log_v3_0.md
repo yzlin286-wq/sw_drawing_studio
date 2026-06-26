@@ -12738,6 +12738,62 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Requested Ref6 Requires 006 UI Bucket Closure - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline gate/evidence hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_requested_drawings_status_v4_2.py`.
+  - Reads canonical `ui_visual_review.json` for the current default 006 evidence route.
+  - Propagates `ui_defect_bucket_closure_required`, `ui_defect_bucket_closure_pass`, required/passed/missing/failed bucket keys, closure contract count, and `api_or_displaydim_metric_alone_can_close=false` into each requested drawing status/matrix row.
+  - Adds `ui_defect_bucket_closure` to missing UI requirements when canonical 006 bucket closure is required but not passed.
+  - Avoids implicitly mixing the default canonical UI review into custom/test acceptance-gate paths unless the UI review path is explicitly supplied.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Requires 006 `ui_defect_bucket_closure_pass=true` inside `requested_ref6_ui_status_pass`.
+  - Includes 006 closure required/pass/missing/failed bucket details in the requested-ref6 per-base summary.
+- Updated tests:
+  - `test_v4_2_lb26001_requested_drawings_status.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_requested_drawings_status_v4_2.py tools\validation\product_evidence_gate_v4_4.py test_v4_2_lb26001_requested_drawings_status.py test_v4_4_product_evidence_gate.py
+python -B test_v4_2_lb26001_requested_drawings_status.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_requested_drawings_status.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed requested drawing status remains `blocked_by_006`, `pass=false`, `pass_count=0`, and `not_pass_count=6`.
+- Refreshed requested matrix for 006 now records:
+  - `ui_defect_bucket_closure_required=true`
+  - `ui_defect_bucket_closure_pass=false`
+  - `ui_defect_bucket_missing_keys=["callout_missing","dimension_lane_wrong","dimension_visual_overdense","note_missing_or_wrong","projection_view_style_mismatch","titlebar_incomplete"]`
+  - `missing_ui_acceptance_requirements=["manual_case_pass","ui_defect_bucket_closure"]`
+- Refreshed 006 rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`; readiness still blocks on `solidworks_unsaved_document_visible`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; `requested_ref6_ui_status_pass` now lists 006 `ui_defect_bucket_closure_pass` among incomplete required checks.
+- All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `requested_ref6_complete`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- 006 still requires fresh CAD output followed by application Drawing Review UI screenshot capture and manual visual checklist PASS.
+- API metrics, DisplayDim counts, and reference JSON cannot close the six known 006 UI defect buckets.
+
 ## v4.4 UI Subprocess Scanner Enforcement - 2026-06-26
 
 Current judgment:

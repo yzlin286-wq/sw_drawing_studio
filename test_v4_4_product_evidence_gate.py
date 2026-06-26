@@ -116,6 +116,8 @@ def _requested_ref6_matrix(
             artifacts[key] = str(artifact)
             if not artifact.exists():
                 missing.append(key)
+        closure_required = base == BASE
+        closure_pass = requested_pass if closure_required else True
         rows.append(
             {
                 "base": base,
@@ -134,6 +136,10 @@ def _requested_ref6_matrix(
                 "manual_visual_checklist_required": True,
                 "manual_visual_checklist_pass": requested_pass,
                 "manual_visual_checklist_failed_items": [] if requested_pass else ["display_dimensions"],
+                "ui_defect_bucket_closure_required": closure_required,
+                "ui_defect_bucket_closure_pass": closure_pass,
+                "ui_defect_bucket_missing_keys": [] if closure_pass else ["dimension_visual_overdense"],
+                "ui_defect_bucket_failed_keys": [],
                 "missing_ui_acceptance_requirements": [] if requested_pass and not missing else ["required_per_drawing_artifacts"],
                 "api_only_acceptance_allowed": False,
                 "final_judgement_source": "application_drawing_review_ui_screenshot_manual_visual_judgement",
@@ -1284,6 +1290,31 @@ def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_
         assert invalid["valid_ui_screenshot"] is False
 
 
+def test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=True, requested_pass=True)
+        payload = json.loads(paths["requested"].read_text(encoding="utf-8"))
+        for item in payload["per_drawing_ui_review_matrix"]:
+            if item.get("base") == BASE:
+                item["ui_defect_bucket_closure_required"] = True
+                item["ui_defect_bucket_closure_pass"] = False
+                item["ui_defect_bucket_missing_keys"] = ["dimension_visual_overdense"]
+                break
+        _write_json(paths["requested"], payload)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert "requested_ref6_ui_status_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_ui_status_pass")
+        assert "ui_defect_bucket_closure_pass" in check["details"]["incomplete_required_checks_by_base"][BASE]
+        assert check["details"]["per_base_summary"][BASE]["ui_defect_bucket_missing_keys"] == [
+            "dimension_visual_overdense"
+        ]
+
+
 def test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), final_artifacts=False))
@@ -1471,6 +1502,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
+    test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()

@@ -1336,6 +1336,10 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
             "manual_visual_judgement_present": item.get("manual_visual_judgement_present") is True,
             "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass") is True,
             "manual_visual_checklist_pass": item.get("manual_visual_checklist_pass") is True,
+            "ui_defect_bucket_closure_pass": (
+                (base != BASE and not bool(item.get("ui_defect_bucket_closure_required")))
+                or item.get("ui_defect_bucket_closure_pass") is True
+            ),
             "vision_qc_v6_visual_acceptance_pass": item.get("vision_qc_v6_visual_acceptance_pass") is True,
             "reference_compare_v4_pass": item.get("reference_compare_v4_pass") is True,
             "required_artifacts_present": item.get("required_artifacts_present") is True and not item_missing_artifacts,
@@ -1360,6 +1364,10 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
             "valid_application_ui_screenshot_file": valid_screenshot,
             "manual_visual_judgement_present": item.get("manual_visual_judgement_present"),
             "manual_visual_judgement_pass": item.get("manual_visual_judgement_pass"),
+            "ui_defect_bucket_closure_required": item.get("ui_defect_bucket_closure_required"),
+            "ui_defect_bucket_closure_pass": item.get("ui_defect_bucket_closure_pass"),
+            "ui_defect_bucket_missing_keys": list(item.get("ui_defect_bucket_missing_keys") or []),
+            "ui_defect_bucket_failed_keys": list(item.get("ui_defect_bucket_failed_keys") or []),
             "vision_qc_v6_visual_acceptance_pass": item.get("vision_qc_v6_visual_acceptance_pass"),
             "reference_compare_v4_pass": item.get("reference_compare_v4_pass"),
             "required_artifacts_present": item.get("required_artifacts_present"),

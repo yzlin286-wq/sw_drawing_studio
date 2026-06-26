@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 11:22:41",
+  "generated_at": "2026-06-26 11:34:58",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -576,7 +576,8 @@
         "invalid_application_ui_screenshots_by_base": {},
         "missing_ui_acceptance_requirements_by_base": {
           "LB26001-A-04-006": [
-            "manual_case_pass"
+            "manual_case_pass",
+            "ui_defect_bucket_closure"
           ],
           "LB26001-A-04-007": [
             "acceptance_gate_entry",
@@ -624,6 +625,7 @@
           "LB26001-A-04-006": [
             "manual_visual_judgement_pass",
             "manual_visual_checklist_pass",
+            "ui_defect_bucket_closure_pass",
             "vision_qc_v6_visual_acceptance_pass",
             "reference_compare_v4_pass"
           ],
@@ -675,6 +677,17 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": true,
+            "ui_defect_bucket_closure_pass": false,
+            "ui_defect_bucket_missing_keys": [
+              "callout_missing",
+              "dimension_lane_wrong",
+              "dimension_visual_overdense",
+              "note_missing_or_wrong",
+              "projection_view_style_mismatch",
+              "titlebar_incomplete"
+            ],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": true,
@@ -687,7 +700,8 @@
               "ui_visual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json"
             },
             "missing_ui_acceptance_requirements": [
-              "manual_case_pass"
+              "manual_case_pass",
+              "ui_defect_bucket_closure"
             ]
           },
           "LB26001-A-04-007": {
@@ -701,6 +715,10 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": false,
+            "ui_defect_bucket_closure_pass": true,
+            "ui_defect_bucket_missing_keys": [],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": false,
@@ -738,6 +756,10 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": false,
+            "ui_defect_bucket_closure_pass": true,
+            "ui_defect_bucket_missing_keys": [],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": false,
@@ -775,6 +797,10 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": false,
+            "ui_defect_bucket_closure_pass": true,
+            "ui_defect_bucket_missing_keys": [],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": false,
@@ -812,6 +838,10 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": false,
+            "ui_defect_bucket_closure_pass": true,
+            "ui_defect_bucket_missing_keys": [],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": false,
@@ -849,6 +879,10 @@
             "valid_application_ui_screenshot_file": true,
             "manual_visual_judgement_present": true,
             "manual_visual_judgement_pass": false,
+            "ui_defect_bucket_closure_required": false,
+            "ui_defect_bucket_closure_pass": true,
+            "ui_defect_bucket_missing_keys": [],
+            "ui_defect_bucket_failed_keys": [],
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
             "required_artifacts_present": false,

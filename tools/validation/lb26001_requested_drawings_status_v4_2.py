@@ -47,6 +47,14 @@ DEFAULT_ACCEPTANCE_GATE = (
 )
 DEFAULT_ACCEPTANCE_PROOF = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_acceptance_proof_v4_2.json"
 DEFAULT_READINESS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_regression_readiness_v4_2.json"
+DEFAULT_CANONICAL_UI_VISUAL_REVIEW = (
+    REPO_ROOT
+    / "drw_output"
+    / "ui_acceptance"
+    / "LB26001_006_locked_real_rerun_20260625_041353_visual_review"
+    / "closed_loop"
+    / "ui_visual_review.json"
+)
 DEFAULT_DIRECT_UI_SCREENSHOT_RECHECK = (
     REPO_ROOT
     / "drw_output"
@@ -312,6 +320,42 @@ def _acceptance_entry_map(acceptance_gate: dict[str, Any]) -> dict[str, dict[str
     return result
 
 
+def _ui_visual_review_entry_map(ui_visual_review: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    result: dict[str, dict[str, Any]] = {}
+    for item in ui_visual_review.get("entries") or []:
+        if not isinstance(item, dict):
+            continue
+        base = str(item.get("base") or "").strip()
+        if base:
+            result[base] = item
+    return result
+
+
+def _ui_defect_bucket_closure_status(entry: dict[str, Any]) -> dict[str, Any]:
+    # requested_ref6_ui_bucket_closure_gate:
+    # Carry canonical 006 UI defect-bucket closure into the requested-six
+    # matrix. API metrics, DisplayDim counts, and reference JSON cannot close
+    # known Drawing Review screenshot defects.
+    closure = entry.get("ui_defect_bucket_closure") if isinstance(entry.get("ui_defect_bucket_closure"), dict) else {}
+    checks = entry.get("checks") if isinstance(entry.get("checks"), dict) else {}
+    required = bool(closure.get("required"))
+    if "ui_defect_bucket_closure_pass" in checks:
+        closure_pass = checks.get("ui_defect_bucket_closure_pass") is True
+    else:
+        closure_pass = bool(closure.get("pass")) if required else True
+    return {
+        "ui_defect_bucket_closure_required": required,
+        "ui_defect_bucket_closure_pass": closure_pass,
+        "ui_defect_bucket_required_keys": list(closure.get("required_bucket_keys") or []),
+        "ui_defect_bucket_passed_keys": list(closure.get("passed_bucket_keys") or []),
+        "ui_defect_bucket_missing_keys": list(closure.get("missing_bucket_keys") or []),
+        "ui_defect_bucket_failed_keys": list(closure.get("failed_bucket_keys") or []),
+        "ui_defect_bucket_closure_contract_count": int(closure.get("bucket_closure_contract_count") or 0),
+        "ui_defect_bucket_closure_blocking_issue_keys": list(entry.get("blocking_issue_keys") or []),
+        "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": False,
+    }
+
+
 def _issue_map(acceptance_gate: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
     result: dict[str, list[dict[str, Any]]] = {}
     for item in acceptance_gate.get("issues") or []:
@@ -539,6 +583,8 @@ def _per_drawing_ui_review_matrix(base_results: list[dict[str, Any]]) -> list[di
             and not missing_items
             and not not_passed_items
         )
+        closure_required = bool(item.get("ui_defect_bucket_closure_required"))
+        closure_pass = bool(item.get("ui_defect_bucket_closure_pass")) if closure_required else True
         matrix.append(
             {
                 "base": str(item.get("base") or ""),
@@ -556,6 +602,16 @@ def _per_drawing_ui_review_matrix(base_results: list[dict[str, Any]]) -> list[di
                 "manual_visual_checklist_failed_items": failed_items,
                 "manual_visual_checklist_missing_items": missing_items,
                 "manual_visual_checklist_not_passed_items": not_passed_items,
+                "ui_defect_bucket_closure_required": closure_required,
+                "ui_defect_bucket_closure_pass": closure_pass,
+                "ui_defect_bucket_required_keys": list(item.get("ui_defect_bucket_required_keys") or []),
+                "ui_defect_bucket_passed_keys": list(item.get("ui_defect_bucket_passed_keys") or []),
+                "ui_defect_bucket_missing_keys": list(item.get("ui_defect_bucket_missing_keys") or []),
+                "ui_defect_bucket_failed_keys": list(item.get("ui_defect_bucket_failed_keys") or []),
+                "ui_defect_bucket_closure_contract_count": int(
+                    item.get("ui_defect_bucket_closure_contract_count") or 0
+                ),
+                "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": False,
                 "latest_manual_visual_checklist": latest_checklist,
                 "latest_manual_visual_checklist_notes": item.get("latest_manual_visual_checklist_notes") or {},
                 "latest_manual_findings": list(item.get("latest_manual_findings") or []),
@@ -593,6 +649,7 @@ def _base_status(
     acceptance_gate: dict[str, Any],
     primary_acceptance_proof: dict[str, Any],
     gate_entry: dict[str, Any],
+    ui_visual_review_entry: dict[str, Any],
     issues: list[dict[str, Any]],
     manual_entries: list[dict[str, Any]],
 ) -> dict[str, Any]:
@@ -626,6 +683,13 @@ def _base_status(
         screenshot_content_pass=screenshot_content_pass,
         issues=issues,
     )
+    bucket_closure = _ui_defect_bucket_closure_status(ui_visual_review_entry)
+    if (
+        bucket_closure["ui_defect_bucket_closure_required"]
+        and not bucket_closure["ui_defect_bucket_closure_pass"]
+        and "ui_defect_bucket_closure" not in missing_ui_requirements
+    ):
+        missing_ui_requirements.append("ui_defect_bucket_closure")
     if not required_artifacts["required_artifacts_present"] and "required_per_drawing_artifacts" not in missing_ui_requirements:
         missing_ui_requirements.append("required_per_drawing_artifacts")
     proof_present = bool(primary_acceptance_proof)
@@ -694,6 +758,7 @@ def _base_status(
         "manual_visual_checklist_missing_items": list(gate_entry.get("manual_visual_checklist_missing_items") or []),
         "manual_visual_checklist_failed_items": list(gate_entry.get("manual_visual_checklist_failed_items") or []),
         "manual_visual_checklist_not_passed_items": list(gate_entry.get("manual_visual_checklist_not_passed_items") or []),
+        **bucket_closure,
         "generated_png_source_required": bool(gate_entry.get("generated_png_source_required")),
         "generated_png_source_pass": bool(gate_entry.get("generated_png_source_pass")),
         "generated_png_source_evidence": gate_entry.get("generated_png_source_evidence") or {},
@@ -749,18 +814,27 @@ def build_requested_drawings_status(
     acceptance_gate_path: Path = DEFAULT_ACCEPTANCE_GATE,
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
     readiness_path: Path = DEFAULT_READINESS,
+    ui_visual_review_path: Path = DEFAULT_CANONICAL_UI_VISUAL_REVIEW,
     manual_review_paths: list[Path] | None = None,
     out_path: Path | None = None,
 ) -> dict[str, Any]:
+    default_acceptance_requested = _same_path(acceptance_gate_path, DEFAULT_ACCEPTANCE_GATE)
+    default_ui_review_requested = _same_path(ui_visual_review_path, DEFAULT_CANONICAL_UI_VISUAL_REVIEW)
     latest_gate = _latest_locked_real_rerun_acceptance_gate()
-    if latest_gate is not None and _same_path(acceptance_gate_path, DEFAULT_ACCEPTANCE_GATE):
+    if latest_gate is not None and default_acceptance_requested:
         acceptance_gate_path = latest_gate
 
     manual_paths = manual_review_paths if manual_review_paths is not None else _default_manual_review_paths()
     acceptance_gate = _read_json(acceptance_gate_path)
     acceptance_proof = _read_json(acceptance_proof_path)
     readiness = _read_json(readiness_path)
+    ui_visual_review = (
+        _read_json(ui_visual_review_path)
+        if default_acceptance_requested or not default_ui_review_requested
+        else {}
+    )
     gate_entries = _acceptance_entry_map(acceptance_gate)
+    ui_visual_entries = _ui_visual_review_entry_map(ui_visual_review)
     issues_by_base = _issue_map(acceptance_gate)
     manuals = _manual_review_entries(manual_paths)
 
@@ -771,6 +845,7 @@ def build_requested_drawings_status(
             acceptance_gate=acceptance_gate,
             primary_acceptance_proof=acceptance_proof,
             gate_entry=gate_entries.get(base) or {},
+            ui_visual_review_entry=ui_visual_entries.get(base) or {},
             issues=issues_by_base.get(base) or [],
             manual_entries=manuals.get(base) or [],
         )
@@ -819,6 +894,9 @@ def build_requested_drawings_status(
         "readiness_report": str(readiness_path),
         "readiness_status": readiness.get("status", "missing"),
         "readiness_blocking_issue_keys": list(readiness.get("blocking_issue_keys") or []),
+        "canonical_ui_visual_review": str(ui_visual_review_path),
+        "canonical_ui_visual_review_status": ui_visual_review.get("status", "missing"),
+        "canonical_ui_visual_review_pass": bool(ui_visual_review.get("pass")) if ui_visual_review else False,
         "manual_reviews": [str(path) for path in manual_paths],
         "status": status,
         "pass": status == "pass",
@@ -855,6 +933,7 @@ def main() -> int:
     parser.add_argument("--acceptance-gate", default=str(DEFAULT_ACCEPTANCE_GATE))
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
     parser.add_argument("--readiness", default=str(DEFAULT_READINESS))
+    parser.add_argument("--ui-visual-review", default=str(DEFAULT_CANONICAL_UI_VISUAL_REVIEW))
     parser.add_argument("--manual-review", action="append", default=[])
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     args = parser.parse_args()
@@ -865,6 +944,7 @@ def main() -> int:
         acceptance_gate_path=_repo_path(args.acceptance_gate),
         acceptance_proof_path=_repo_path(args.acceptance_proof),
         readiness_path=_repo_path(args.readiness),
+        ui_visual_review_path=_repo_path(args.ui_visual_review),
         manual_review_paths=manual_paths,
         out_path=out,
     )

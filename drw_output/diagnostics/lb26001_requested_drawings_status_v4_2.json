@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
-  "generated_at": "2026-06-26 10:52:25",
+  "generated_at": "2026-06-26 11:34:48",
   "requested_bases": [
     "LB26001-A-04-006",
     "LB26001-A-04-007",
@@ -33,6 +33,9 @@
   "readiness_blocking_issue_keys": [
     "solidworks_unsaved_document_visible"
   ],
+  "canonical_ui_visual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json",
+  "canonical_ui_visual_review_status": "need_review",
+  "canonical_ui_visual_review_pass": false,
   "manual_reviews": [
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement_template.json",
@@ -113,6 +116,28 @@
         "title_block",
         "view_layout"
       ],
+      "ui_defect_bucket_closure_required": true,
+      "ui_defect_bucket_closure_pass": false,
+      "ui_defect_bucket_required_keys": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [
+        "callout_missing",
+        "dimension_lane_wrong",
+        "dimension_visual_overdense",
+        "note_missing_or_wrong",
+        "projection_view_style_mismatch",
+        "titlebar_incomplete"
+      ],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 6,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -142,7 +167,8 @@
       "acceptance_status": "manual_visual_checklist_failed",
       "acceptance_blocked_by_006": false,
       "missing_ui_acceptance_requirements": [
-        "manual_case_pass"
+        "manual_case_pass",
+        "ui_defect_bucket_closure"
       ],
       "ui_screenshot_files": [
         "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
@@ -206,6 +232,14 @@
         "title_block",
         "manufacturing_notes"
       ],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -306,6 +340,14 @@
         "title_block",
         "manufacturing_notes"
       ],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -406,6 +448,14 @@
         "title_block",
         "manufacturing_notes"
       ],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -506,6 +556,14 @@
         "title_block",
         "manufacturing_notes"
       ],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -606,6 +664,14 @@
         "title_block",
         "manufacturing_notes"
       ],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
         "reference_match": false,
         "view_layout": false,
@@ -754,7 +820,8 @@
       "application_ui_screenshot_review_method_ok": true,
       "application_ui_screenshot_gate_pass": false,
       "missing_ui_acceptance_requirements": [
-        "manual_case_pass"
+        "manual_case_pass",
+        "ui_defect_bucket_closure"
       ],
       "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
       "source_ui_report_schema": "sw_drawing_studio.drawing_visual_review_ui.v1",
@@ -780,6 +847,33 @@
         "title_block",
         "view_layout"
       ],
+      "ui_defect_bucket_closure_required": true,
+      "ui_defect_bucket_closure_pass": false,
+      "ui_defect_bucket_required_keys": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [
+        "callout_missing",
+        "dimension_lane_wrong",
+        "dimension_visual_overdense",
+        "note_missing_or_wrong",
+        "projection_view_style_mismatch",
+        "titlebar_incomplete"
+      ],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 6,
+      "ui_defect_bucket_closure_blocking_issue_keys": [
+        "ui_defect_bucket_closure_not_proven",
+        "vision_qc_v6_with_ui_not_pass",
+        "reference_compare_v4_with_ui_not_pass"
+      ],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": true,
       "generated_png_source_pass": true,
       "generated_png_source_evidence": {
@@ -937,6 +1031,15 @@
       "manual_visual_checklist_missing_items": [],
       "manual_visual_checklist_failed_items": [],
       "manual_visual_checklist_not_passed_items": [],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_closure_blocking_issue_keys": [],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": false,
       "generated_png_source_pass": false,
       "generated_png_source_evidence": {},
@@ -1078,6 +1181,15 @@
       "manual_visual_checklist_missing_items": [],
       "manual_visual_checklist_failed_items": [],
       "manual_visual_checklist_not_passed_items": [],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_closure_blocking_issue_keys": [],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": false,
       "generated_png_source_pass": false,
       "generated_png_source_evidence": {},
@@ -1219,6 +1331,15 @@
       "manual_visual_checklist_missing_items": [],
       "manual_visual_checklist_failed_items": [],
       "manual_visual_checklist_not_passed_items": [],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_closure_blocking_issue_keys": [],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": false,
       "generated_png_source_pass": false,
       "generated_png_source_evidence": {},
@@ -1360,6 +1481,15 @@
       "manual_visual_checklist_missing_items": [],
       "manual_visual_checklist_failed_items": [],
       "manual_visual_checklist_not_passed_items": [],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_closure_blocking_issue_keys": [],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": false,
       "generated_png_source_pass": false,
       "generated_png_source_evidence": {},
@@ -1501,6 +1631,15 @@
       "manual_visual_checklist_missing_items": [],
       "manual_visual_checklist_failed_items": [],
       "manual_visual_checklist_not_passed_items": [],
+      "ui_defect_bucket_closure_required": false,
+      "ui_defect_bucket_closure_pass": true,
+      "ui_defect_bucket_required_keys": [],
+      "ui_defect_bucket_passed_keys": [],
+      "ui_defect_bucket_missing_keys": [],
+      "ui_defect_bucket_failed_keys": [],
+      "ui_defect_bucket_closure_contract_count": 0,
+      "ui_defect_bucket_closure_blocking_issue_keys": [],
+      "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "generated_png_source_required": false,
       "generated_png_source_pass": false,
       "generated_png_source_evidence": {},

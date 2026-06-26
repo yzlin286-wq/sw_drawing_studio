@@ -455,7 +455,10 @@ def test_requested_drawings_status_surfaces_manual_visual_checklist_missing() ->
     assert first["manual_visual_checklist_pass"] is False
     assert first["manual_visual_checklist_missing_items"] == ["display_dimensions"]
     assert first["application_ui_screenshot_gate_pass"] is False
-    assert first["missing_ui_acceptance_requirements"] == ["manual_visual_checklist"]
+    assert first["missing_ui_acceptance_requirements"] == [
+        "manual_visual_checklist",
+        "required_per_drawing_artifacts",
+    ]
 
 
 def test_requested_drawings_status_surfaces_manual_visual_checklist_failed() -> None:
@@ -537,7 +540,10 @@ def test_requested_drawings_status_surfaces_manual_visual_checklist_failed() -> 
     assert first["manual_visual_checklist_missing_items"] == []
     assert first["manual_visual_checklist_failed_items"] == ["title_block"]
     assert first["manual_visual_checklist_not_passed_items"] == ["title_block"]
-    assert first["missing_ui_acceptance_requirements"] == ["manual_case_pass"]
+    assert first["missing_ui_acceptance_requirements"] == [
+        "manual_case_pass",
+        "required_per_drawing_artifacts",
+    ]
 
 
 def test_requested_drawings_status_surfaces_manual_checklist_notes_and_correction() -> None:
@@ -1056,6 +1062,140 @@ def test_requested_drawings_status_uses_direct_ui_screenshot_recheck_as_manual_g
     ]
 
 
+def test_requested_drawings_status_carries_006_ui_bucket_closure_gate() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        screenshot = root / "screenshots" / "006.png"
+        screenshot.parent.mkdir()
+        _draw_application_ui_screenshot(screenshot)
+        acceptance_gate = root / "acceptance_gate.json"
+        acceptance_gate.write_text(
+            json.dumps(
+                {
+                    "status": "pass",
+                    "pass": True,
+                    "base_results": [
+                        {
+                            "base": "LB26001-A-04-006",
+                            "pass": True,
+                            "vision_qc_v6_visual_acceptance_pass": True,
+                            "reference_compare_v4_pass": True,
+                            "ui_screenshot_files": [str(screenshot)],
+                            "source_ui_report_application_ui_ok": True,
+                            "ui_screenshot_content_check_pass": True,
+                            "manual_case_status_pass": True,
+                            "manual_visual_checklist_required": True,
+                            "manual_visual_checklist_pass": True,
+                            "generated_png_source_required": True,
+                            "generated_png_source_pass": True,
+                        }
+                    ],
+                    "issues": [],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        readiness = root / "readiness.json"
+        readiness.write_text('{"status": "ready"}', encoding="utf-8")
+        manual = root / "manual_visual_judgement.json"
+        manual.write_text(
+            json.dumps(
+                {
+                    "overall_status": "PASS",
+                    "review_mode": "application_drawing_review_ui_screenshot",
+                    "entries": [
+                        {
+                            "base": "LB26001-A-04-006",
+                            "manual_status": "PASS",
+                            "visual_acceptance_pass": True,
+                            "ui_screenshot": str(screenshot),
+                            "visual_checklist": {
+                                "reference_match": True,
+                                "view_layout": True,
+                                "display_dimensions": True,
+                            },
+                        }
+                    ],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        ui_review = root / "ui_visual_review.json"
+        ui_review.write_text(
+            json.dumps(
+                {
+                    "schema": "sw_drawing_studio.ui_visual_review.v4_4",
+                    "status": "need_review",
+                    "pass": False,
+                    "review_method": "application_drawing_review_ui_screenshot",
+                    "application_ui_screenshot_is_final_gate": True,
+                    "api_only_acceptance_allowed": False,
+                    "entries": [
+                        {
+                            "base": "LB26001-A-04-006",
+                            "status": "need_review",
+                            "pass": False,
+                            "visual_acceptance_pass": False,
+                            "application_ui_screenshot": str(screenshot),
+                            "checks": {
+                                "ui_report_entry_pass": True,
+                                "manual_review_entry_screenshot_pass": True,
+                                "ui_defect_bucket_closure_pass": False,
+                                "vision_qc_v6_visual_acceptance_pass": True,
+                                "reference_compare_v4_pass": True,
+                            },
+                            "ui_defect_bucket_closure": {
+                                "required": True,
+                                "pass": False,
+                                "required_bucket_keys": [
+                                    "dimension_visual_overdense",
+                                    "callout_missing",
+                                ],
+                                "passed_bucket_keys": ["dimension_visual_overdense"],
+                                "missing_bucket_keys": ["callout_missing"],
+                                "failed_bucket_keys": [],
+                                "bucket_closure_contract_count": 2,
+                            },
+                            "blocking_issue_keys": ["ui_defect_bucket_closure_not_proven"],
+                        }
+                    ],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+        report = build_requested_drawings_status(
+            acceptance_gate_path=acceptance_gate,
+            acceptance_proof_path=_acceptance_proof(root, passed=True),
+            readiness_path=readiness,
+            ui_visual_review_path=ui_review,
+            manual_review_paths=[manual],
+            out_path=root / "status.json",
+        )
+
+    first = report["base_results"][0]
+    assert first["base"] == "LB26001-A-04-006"
+    assert first["pass"] is False
+    assert first["ui_defect_bucket_closure_required"] is True
+    assert first["ui_defect_bucket_closure_pass"] is False
+    assert first["ui_defect_bucket_missing_keys"] == ["callout_missing"]
+    assert "ui_defect_bucket_closure" in first["missing_ui_acceptance_requirements"]
+    matrix = report["per_drawing_ui_review_matrix"][0]
+    assert matrix["ui_defect_bucket_closure_required"] is True
+    assert matrix["ui_defect_bucket_closure_pass"] is False
+    assert matrix["ui_defect_bucket_required_keys"] == [
+        "dimension_visual_overdense",
+        "callout_missing",
+    ]
+    assert matrix["ui_defect_bucket_passed_keys"] == ["dimension_visual_overdense"]
+    assert matrix["ui_defect_bucket_missing_keys"] == ["callout_missing"]
+    assert matrix["ui_defect_bucket_closure_contract_count"] == 2
+    assert matrix["ui_defect_bucket_api_or_displaydim_metric_alone_can_close"] is False
+
+
 if __name__ == "__main__":
     test_requested_drawings_status_keeps_ui_fail_and_006_block()
     test_requested_drawings_status_rejects_api_pass_without_ui_screenshot()
@@ -1070,6 +1210,7 @@ if __name__ == "__main__":
     test_requested_drawings_status_uses_006_proof_to_block_false_gate_pass()
     test_requested_drawings_status_blocks_when_006_proof_is_missing()
     test_requested_drawings_status_uses_direct_ui_screenshot_recheck_as_manual_gate()
+    test_requested_drawings_status_carries_006_ui_bucket_closure_gate()
     print("PASS test_v4_2_lb26001_requested_drawings_status")
 
 
