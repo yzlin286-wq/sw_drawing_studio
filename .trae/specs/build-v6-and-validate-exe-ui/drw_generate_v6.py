@@ -3937,6 +3937,46 @@ def _prune_display_dims_to_cap(
             "legacy_reason": "reference_intent_target_coverage_guard_no_delete",
         }
 
+    def _generic_survivor_rejection_enabled():
+        if not strict_reference_intent:
+            return False
+        constraints = _reference_intent_visual_defect_constraints(dimension_plan)
+        return bool(constraints.get("reject_generic_autodim_survivors"))
+
+    def _generic_non_reference_survivors(items):
+        # ui_defect_block_generic_autodim_survivors_after_prune:
+        # DisplayDim count and target coverage are not enough after a Drawing
+        # Review screenshot FAIL. Any targetless survivor keeps the sheet in an
+        # AutoDimension-like state and must be surfaced as a hard blocker.
+        if not _generic_survivor_rejection_enabled():
+            return []
+        survivors = []
+        for item in items or []:
+            if _target_key(item):
+                continue
+            intent = item.get("_reference_intent") or {}
+            survivors.append({
+                "slot": str(item.get("_slot") or "unknown"),
+                "view": str(item.get("view") or ""),
+                "source": str(item.get("source") or ""),
+                "score": intent.get("score"),
+                "side": intent.get("side"),
+                "reason": intent.get("reason") or "targetless_displaydim_survivor",
+                "target_key": "",
+            })
+        return survivors
+
+    def _apply_generic_survivor_block(result_data, items):
+        survivors = _generic_non_reference_survivors(items)
+        result_data["generic_non_reference_intent_survivor_count"] = len(survivors)
+        result_data["generic_non_reference_intent_survivors"] = survivors[:50]
+        if survivors:
+            result_data["success"] = False
+            reason = "generic_non_reference_intent_displaydim_survived_after_prune"
+            if reason not in result_data["reasons"]:
+                result_data["reasons"].append(reason)
+        return survivors
+
     def _coverage_loss_if_deleted(item, remaining_items):
         if not strict_reference_intent:
             return [], {}, {}
@@ -4048,6 +4088,7 @@ def _prune_display_dims_to_cap(
         result["skip_reason"] = "reference_intent_effective_cap_guard_no_delete"
         result["legacy_skip_reason"] = "reference_intent_floor_guard_no_delete"
         result["success"] = True
+        _apply_generic_survivor_block(result, annotated_before)
         return result
     if cap_i <= 0 or len(annotated_before) <= effective_cap_i:
         result["after_slot_counts"] = result["before_slot_counts"]
@@ -4055,7 +4096,8 @@ def _prune_display_dims_to_cap(
         result["slot_quota_success"] = not _over_quota_slots(annotated_before, quotas) if quotas else True
         result["target_coverage_after"] = target_coverage_before
         result["success"] = result["after"] <= effective_cap_i and result["slot_quota_success"] if cap_i > 0 else result["slot_quota_success"]
-        if not result["success"] and result["slot_quotas"]:
+        _apply_generic_survivor_block(result, annotated_before)
+        if not result["success"] and not result["slot_quota_success"] and result["slot_quotas"]:
             result["reasons"].append("display_dim_slot_quota_exceeded_without_excess_total")
         return result
 
@@ -4186,6 +4228,7 @@ def _prune_display_dims_to_cap(
     if strict_reference_intent:
         missing_after = _missing_keys_from_coverage(target_coverage_after)
         result["missing_target_keys_after"] = missing_after
+        _apply_generic_survivor_block(result, annotated_after)
         if result["after"] < max(floor_i, target_count_i):
             result["success"] = False
             result["reasons"].append(

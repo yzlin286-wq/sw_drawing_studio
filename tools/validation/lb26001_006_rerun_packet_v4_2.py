@@ -134,6 +134,7 @@ GENERATOR_SIGNATURES = {
     "reference_intent_best_target_prune_protection": "reference_intent_best_target_displaydim_protected",
     "reference_intent_exact_target_cap": "reference_intent_exact_target_cap",
     "ui_defect_delete_generic_before_duplicate_target": "generic_non_reference_intent_displaydim",
+    "ui_defect_block_generic_after_prune": "generic_non_reference_intent_displaydim_survived_after_prune",
     "reference_intent_delete_target_rank": "target_rank",
     "reference_intent_delete_priority_evidence": '"delete_priority": list(_delete_priority(item, annotated_before))',
     "generator_top_view_local_reference_lanes": "generator_top_view_local_reference_lanes",
