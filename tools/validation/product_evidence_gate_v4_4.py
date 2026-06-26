@@ -253,6 +253,13 @@ def build_product_evidence_gate(
             )
         )
     )
+    rerun_packet_generated_at = _parse_generated_at(rerun_packet.get("generated_at"))
+    readiness_generated_at = _parse_generated_at(readiness.get("generated_at"))
+    rerun_packet_fresh_for_readiness = bool(
+        rerun_packet_generated_at is not None
+        and readiness_generated_at is not None
+        and rerun_packet_generated_at >= readiness_generated_at
+    )
     _add_check(
         checks,
         "lb26001_006_rerun_packet_ready",
@@ -263,8 +270,8 @@ def build_product_evidence_gate(
     _add_check(
         checks,
         "lb26001_006_rerun_packet_readiness_state_current",
-        rerun_packet_state_current,
-        "006 rerun packet readiness state must match the current readiness result before real CAD can start.",
+        rerun_packet_state_current and rerun_packet_fresh_for_readiness,
+        "006 rerun packet readiness state must match the current readiness result and be generated no earlier than that readiness result before real CAD can start.",
         {
             "path": str(rerun_packet_path),
             "readiness_path": str(readiness_path),
@@ -274,6 +281,10 @@ def build_product_evidence_gate(
             "packet_readiness_ready": rerun_packet.get("readiness_ready"),
             "real_cad_allowed_now": rerun_packet.get("real_cad_allowed_now"),
             "expected_packet_status": "ready_for_locked_006_rerun" if readiness_ok else "blocked_by_solidworks_readiness",
+            "packet_generated_at": rerun_packet.get("generated_at"),
+            "readiness_generated_at": readiness.get("generated_at"),
+            "generated_at_parse_ok": rerun_packet_generated_at is not None and readiness_generated_at is not None,
+            "packet_generated_at_not_older_than_readiness": rerun_packet_fresh_for_readiness,
         },
     )
     ui_defect_buckets_ok, ui_defect_buckets_details = _ui_defect_buckets_check(

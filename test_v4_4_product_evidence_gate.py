@@ -265,6 +265,7 @@ def _fixture(
     visual_audit_repair_plan_stale_generated_at: bool = False,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
+    rerun_packet_stale_generated_at: bool = False,
     ui_defect_buckets_ready: bool = True,
     ui_visual_review_pass: bool | None = None,
     ui_visual_review_screenshot_exists: bool = True,
@@ -368,6 +369,8 @@ def _fixture(
         if packet_real_cad_allowed
         else "blocked_by_solidworks_readiness"
     )
+    readiness_generated_at = "2026-06-26 10:00:00"
+    packet_generated_at = "2026-06-26 09:59:59" if rerun_packet_stale_generated_at else "2026-06-26 10:01:00"
     ui_review_pass = acceptance_pass if ui_visual_review_pass is None else ui_visual_review_pass
     ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
     if ui_visual_review_screenshot_exists:
@@ -690,6 +693,7 @@ def _fixture(
         ],
     }
     readiness_payload = {
+        "generated_at": readiness_generated_at,
         "status": "ready" if readiness_ready else "blocked",
         "ready_to_start_locked_006_cad": readiness_ready,
         "blocking_issue_keys": []
@@ -969,6 +973,7 @@ def _fixture(
             root / "rerun_packet.json",
             {
                 "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
+                "generated_at": packet_generated_at,
                 "base": BASE,
                 "status": packet_status,
                 "pass": False,
@@ -1671,6 +1676,24 @@ def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stal
         )
         assert check["details"]["readiness_ok"] is True
         assert check["details"]["expected_packet_status"] == "ready_for_locked_006_rerun"
+
+
+def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_is_older_than_readiness() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), readiness_ready=True, rerun_packet_stale_generated_at=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "lb26001_006_rerun_packet_readiness_state_current" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "lb26001_006_rerun_packet_readiness_state_current"
+        )
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["packet_generated_at"] == "2026-06-26 09:59:59"
+        assert check["details"]["readiness_generated_at"] == "2026-06-26 10:00:00"
+        assert check["details"]["packet_generated_at_not_older_than_readiness"] is False
 
 
 def test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_incomplete() -> None:
@@ -2581,6 +2604,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_reference_contract_callout_operation_mismatches_plan()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
+    test_product_evidence_gate_blocks_locked_006_when_rerun_packet_is_older_than_readiness()
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_incomplete()
     test_product_evidence_gate_blocks_locked_006_when_callout_next_screenshot_check_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_bucket_closure_contract_is_missing()

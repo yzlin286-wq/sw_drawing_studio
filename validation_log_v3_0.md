@@ -15071,3 +15071,63 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change prevents API/coverage-only over-dense drawings from appearing acceptable, but it does not prove the generated drawing passes the application UI screenshot review.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Product Gate Requires 006 Rerun Packet Freshness Against Readiness - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step. It prevents a stale 006 rerun packet from authorizing the next locked CAD rerun after SolidWorks readiness has been refreshed.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `lb26001_006_rerun_packet_readiness_state_current` now requires the rerun packet status/readiness fields to match the current readiness report and requires `packet_generated_at >= readiness_generated_at`.
+  - The check details now record `packet_generated_at`, `readiness_generated_at`, `generated_at_parse_ok`, and `packet_generated_at_not_older_than_readiness`.
+  - A packet older than the current readiness report now blocks `locked_006_cad_rerun_allowed_now`, `LB26001_36`, `medium_30`, Visual Audit full scope, `full_129`, and release actions even if its old status fields happen to match.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Added a stale-generated-at fixture path.
+  - Added a regression test proving a rerun packet generated before readiness blocks with `status=blocked_by_006_rerun_packet`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+git diff --check
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `git diff --check`: PASS, with only existing CRLF normalization warnings.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- SolidWorks stability gate remains `warning` / not passing because the conflict monitor still reports a SolidWorks session conflict state.
+- Refreshed readiness remains:
+  - `ready=false`
+  - `status=blocked`
+  - `blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed rerun packet remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `readiness_blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+- The new freshness details currently pass because the packet was regenerated after the current readiness report:
+  - `packet_generated_at=2026-06-26 21:06:22`
+  - `readiness_generated_at=2026-06-26 21:03:10`
+  - `generated_at_parse_ok=true`
+  - `packet_generated_at_not_older_than_readiness=true`
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change only proves the Product Gate rejects stale 006 packet evidence. It does not prove the generated 006 drawing passes the application UI screenshot review.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

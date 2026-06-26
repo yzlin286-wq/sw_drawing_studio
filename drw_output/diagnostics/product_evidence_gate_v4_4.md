@@ -29,7 +29,7 @@
 - `fail` `solidworks_readiness_for_006`: Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.
 - `fail` `solidworks_readiness_title_sampling_guard`: 006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.
 - `pass` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
-- `pass` `lb26001_006_rerun_packet_readiness_state_current`: 006 rerun packet readiness state must match the current readiness result before real CAD can start.
+- `pass` `lb26001_006_rerun_packet_readiness_state_current`: 006 rerun packet readiness state must match the current readiness result and be generated no earlier than that readiness result before real CAD can start.
 - `pass` `lb26001_006_ui_defect_buckets_ready`: 006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.
 - `pass` `reference_intent_006_proof_pass`: 006 reference-intent plan proof must pass while remaining supporting evidence only.
 - `pass` `reference_intent_006_plan_complete`: 006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.
