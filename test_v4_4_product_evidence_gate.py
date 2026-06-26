@@ -213,6 +213,8 @@ def _fixture(
     visual_audit_schema_gap_source_mismatch: bool = False,
     visual_audit_schema_gap_raw_count_mismatch: bool = False,
     visual_audit_schema_gap_stale_generated_at: bool = False,
+    visual_audit_index_source_mismatch: bool = False,
+    visual_audit_index_bad_counts: bool = False,
     visual_audit_backfill_overlay_release_ready: bool = False,
     visual_audit_backfill_overlay_count_mismatch: bool = False,
     visual_audit_backfill_overlay_source_mismatch: bool = False,
@@ -271,6 +273,7 @@ def _fixture(
     )
     raw_issue_schema_path = root / "issue_schema_validation.json"
     normalized_issue_schema_path = root / "issue_schema_validation_normalized.json"
+    visual_audit_index_path = root / "drw_output" / "visual_audit_index.json"
     backfill_overlay_path = root / "visual_audit_raw_issue_backfill_overlay_v4_4.json"
     repair_plan_path = root / "visual_audit_raw_issue_repair_plan_v4_4.json"
     gap_raw_count = 0 if raw_issue_schema_pass else 7
@@ -290,6 +293,11 @@ def _fixture(
         root / "stale_visual_audit_raw_issue_backfill_overlay_v4_4.json"
         if visual_audit_backfill_overlay_source_mismatch
         else backfill_overlay_path
+    )
+    gap_visual_audit_index_source_path = (
+        root / "stale_visual_audit_index.json"
+        if visual_audit_index_source_mismatch
+        else visual_audit_index_path
     )
     overlay_record_count = 0 if raw_issue_schema_pass else 7
     if visual_audit_backfill_overlay_count_mismatch:
@@ -1007,12 +1015,14 @@ def _fixture(
                 "raw_noncompliant_issue_count": gap_raw_count,
                 "normalized_noncompliant_issue_count": 0 if normalized_issue_schema_pass else 1,
                 "visual_audit_report_final_present": final_artifacts,
+                "visual_audit_index_present": True,
                 "visual_audit_full_scope_allowed_now": gap_pass,
                 "normalized_supporting_only": True,
                 "normalized_cannot_replace_raw": True,
                 "source_artifacts": {
                     "raw_issue_schema_validation": str(gap_raw_source_path),
                     "normalized_issue_schema_validation": str(normalized_issue_schema_path),
+                    "visual_audit_index": str(gap_visual_audit_index_source_path),
                     "raw_issue_backfill_overlay": str(gap_backfill_overlay_source_path),
                     "raw_issue_repair_plan": str(gap_repair_source_path),
                 },
@@ -1067,13 +1077,22 @@ def _fixture(
         "reference_compare_smoke": root / "reference_compare_smoke.json",
         "reference_comparison_report": root / "drw_output" / "reference_comparison_report_v3_0.xlsx",
         "visual_audit_report": root / "drw_output" / "visual_audit_report_v3_0.xlsx",
-        "visual_audit_index": root / "drw_output" / "visual_audit_index.json",
+        "visual_audit_index": visual_audit_index_path,
         "stability_20min_mock": root / "stability_20min_mock_v3_0.json",
         "stability_2h_ui": root / "stability_2h_ui_v3_0.json",
     }
     if final_artifacts:
         for key, path in final.items():
             _write_final_artifact(path, key)
+        if visual_audit_index_bad_counts:
+            _write_json(
+                final["visual_audit_index"],
+                {
+                    "generated_at": "2026-06-26 10:03:00",
+                    "total_files": 0,
+                    "total_bases": 0,
+                },
+            )
         if visual_audit_report_stale_mtime:
             stale = time.mktime(time.strptime("2026-06-26 09:00:00", "%Y-%m-%d %H:%M:%S"))
             os.utime(final["visual_audit_report"], (stale, stale))
@@ -1849,6 +1868,38 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_ol
         assert "gap_generated_at_not_older_than_normalized" in source_agreement["mismatch_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_visual_audit_index_source_is_stale() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_index_source_mismatch=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        contract = check["details"]["visual_audit_schema_gap"]["visual_audit_index_contract"]
+        assert contract["pass"] is False
+        assert contract["source_path_matches_index"] is False
+        assert "source_path_matches_index" in contract["mismatch_keys"]
+
+
+def test_product_evidence_gate_blocks_release_when_visual_audit_index_counts_are_empty() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_index_bad_counts=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        contract = check["details"]["visual_audit_schema_gap"]["visual_audit_index_contract"]
+        assert contract["pass"] is False
+        assert contract["index_total_files_positive"] is False
+        assert contract["index_total_bases_positive"] is False
+        assert "index_total_files_positive" in contract["mismatch_keys"]
+        assert "index_total_bases_positive" in contract["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_final_visual_audit_report_is_stale() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), visual_audit_report_stale_mtime=True))
@@ -2198,6 +2249,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_older_than_source_reports()
+    test_product_evidence_gate_blocks_release_when_visual_audit_index_source_is_stale()
+    test_product_evidence_gate_blocks_release_when_visual_audit_index_counts_are_empty()
     test_product_evidence_gate_blocks_release_when_final_visual_audit_report_is_stale()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_claims_release_ready()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_count_disagrees_with_raw_failures()

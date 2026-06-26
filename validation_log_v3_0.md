@@ -12744,6 +12744,65 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Product Gate Requires Visual Audit Index Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, `full_129`, `LB26001_36`, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `visual_audit_schema_gap.visual_audit_index_contract`.
+  - Requires `source_artifacts.visual_audit_index` in the schema-gap report to match the Product Gate's active `visual_audit_index.json`.
+  - Requires `visual_audit_index_present=true`.
+  - Requires `total_files > 0` and `total_bases > 0`.
+  - Requires index and schema-gap `generated_at` timestamps to parse, and the schema-gap report must not be older than the index it summarizes.
+  - Requires index file mtime to exist and not be older than its own `generated_at`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture now emits the active Visual Audit index path in schema-gap `source_artifacts`.
+  - Adds regression coverage for a stale index source path.
+  - Adds regression coverage for empty `total_files` / `total_bases` index counts.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Product Gate refresh returned the expected nonzero result:
+  - `status=blocked_by_solidworks_stability_gate`
+  - `pass=false`
+  - `release_ready=false`
+  - `visual_audit_schema_proof_pass=false`
+- New index contract result in `drw_output/diagnostics/product_evidence_gate_v4_4.json`:
+  - `visual_audit_index_contract.pass=true`
+  - `total_files=2112`
+  - `total_bases=136`
+  - `mismatch_keys=[]`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `visual_audit_full_scope_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- Final `drw_output/visual_audit_report_v3_0.xlsx` is still absent.
+- Raw issue schema still has 5931 noncompliant issues; normalized/backfill evidence remains supporting-only.
+- SolidWorks readiness/stability and 006 application UI screenshot review remain blocking gates.
+
 ## v4.4 Product Gate Requires Fresh Final Visual Audit Report - 2026-06-26
 
 Current judgment:

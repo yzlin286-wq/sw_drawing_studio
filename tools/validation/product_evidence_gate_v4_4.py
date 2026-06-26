@@ -436,6 +436,7 @@ def build_product_evidence_gate(
         },
     )
     visual_audit_report = final_artifact_evidence.get("visual_audit_report") or {}
+    visual_audit_index_evidence = final_artifact_evidence.get("visual_audit_index") or {}
     visual_audit_schema_gap_counter_ok, visual_audit_schema_gap_counter_details = (
         _visual_audit_schema_gap_counter_contract(visual_audit_schema_gap)
     )
@@ -447,6 +448,12 @@ def build_product_evidence_gate(
             issue_schema_validation_path,
             normalized_issue_schema_validation_path,
         )
+    )
+    visual_audit_index_ok, visual_audit_index_details = _visual_audit_index_contract(
+        visual_audit_schema_gap,
+        final_artifacts.get("visual_audit_index", Path()),
+        visual_audit_index_evidence,
+        visual_audit_index,
     )
     visual_audit_backfill_overlay_ok, visual_audit_backfill_overlay_details = (
         _visual_audit_backfill_overlay_contract(visual_audit_schema_gap, issue_schema_validation)
@@ -481,6 +488,7 @@ def build_product_evidence_gate(
             and visual_audit_schema_gap.get("pass") is True
             and visual_audit_schema_gap_counter_ok
             and visual_audit_schema_gap_source_ok
+            and visual_audit_index_ok
             and visual_audit_backfill_overlay_ok
             and visual_audit_repair_plan_ok
             and visual_audit_report_freshness_ok
@@ -519,6 +527,7 @@ def build_product_evidence_gate(
                 "failed_check_count": visual_audit_schema_gap.get("failed_check_count"),
                 "counter_contract": visual_audit_schema_gap_counter_details,
                 "source_agreement": visual_audit_schema_gap_source_details,
+                "visual_audit_index_contract": visual_audit_index_details,
                 "backfill_overlay_contract": visual_audit_backfill_overlay_details,
                 "repair_plan_contract": visual_audit_repair_plan_details,
                 "visual_audit_report_freshness_contract": visual_audit_report_freshness_details,
@@ -2190,6 +2199,53 @@ def _visual_audit_schema_gap_source_agreement(
     ]
     details["mismatch_keys"] = mismatch_keys
     details["pass"] = not mismatch_keys
+    return bool(details["pass"]), details
+
+
+def _visual_audit_index_contract(
+    gap: dict[str, Any],
+    index_path: Path,
+    index_evidence: dict[str, Any],
+    index: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    source_artifacts = gap.get("source_artifacts") if isinstance(gap.get("source_artifacts"), dict) else {}
+    total_files = _optional_int(index.get("total_files"))
+    total_bases = _optional_int(index.get("total_bases"))
+    index_generated_at = _parse_generated_at(index.get("generated_at"))
+    gap_generated_at = _parse_generated_at(gap.get("generated_at"))
+    index_mtime = _file_mtime_epoch(index_path)
+    checks = {
+        "index_exists": index_evidence.get("exists") is True,
+        "index_has_content": int(index_evidence.get("size_bytes") or 0) > 0,
+        "source_path_matches_index": _path_values_match(source_artifacts.get("visual_audit_index"), index_path),
+        "gap_index_present_matches": gap.get("visual_audit_index_present") is True,
+        "index_total_files_positive": total_files is not None and total_files > 0,
+        "index_total_bases_positive": total_bases is not None and total_bases > 0,
+        "index_generated_at_parse_ok": index_generated_at is not None,
+        "gap_generated_at_parse_ok": gap_generated_at is not None,
+        "gap_generated_at_not_older_than_index": bool(
+            gap_generated_at is not None
+            and index_generated_at is not None
+            and gap_generated_at >= index_generated_at
+        ),
+        "index_mtime_present": index_mtime is not None,
+        "index_mtime_not_older_than_index_generated_at": _epoch_not_older(index_mtime, index_generated_at),
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    details = {
+        "pass": not mismatch_keys,
+        "index_path": str(index_path),
+        "source_path": source_artifacts.get("visual_audit_index", ""),
+        "index_mtime_epoch": index_mtime,
+        "index_mtime_local": _format_epoch(index_mtime),
+        "index_generated_at": index.get("generated_at"),
+        "gap_generated_at": gap.get("generated_at"),
+        "total_files": index.get("total_files"),
+        "total_bases": index.get("total_bases"),
+        "gap_visual_audit_index_present": gap.get("visual_audit_index_present"),
+        **checks,
+        "mismatch_keys": mismatch_keys,
+    }
     return bool(details["pass"]), details
 
 

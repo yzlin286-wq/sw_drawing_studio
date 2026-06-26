@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:13:58",
+  "generated_at": "2026-06-26 19:19:49",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1145,9 +1145,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1032672,
-          "mtime_epoch": 1782471993.4379344,
-          "mtime_local": "2026-06-26 19:06:33"
+          "size_bytes": 1035734,
+          "mtime_epoch": 1782472521.3320155,
+          "mtime_local": "2026-06-26 19:15:21"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1417,6 +1417,30 @@
             "normalized_expected_noncompliant_issue_count": 0,
             "raw_gap_noncompliant_issue_count": 5931,
             "normalized_gap_noncompliant_issue_count": 0,
+            "mismatch_keys": []
+          },
+          "visual_audit_index_contract": {
+            "pass": true,
+            "index_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+            "source_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+            "index_mtime_epoch": 1782458411.2012885,
+            "index_mtime_local": "2026-06-26 15:20:11",
+            "index_generated_at": "2026-06-26 15:20:11",
+            "gap_generated_at": "2026-06-26 18:00:04",
+            "total_files": 2112,
+            "total_bases": 136,
+            "gap_visual_audit_index_present": true,
+            "index_exists": true,
+            "index_has_content": true,
+            "source_path_matches_index": true,
+            "gap_index_present_matches": true,
+            "index_total_files_positive": true,
+            "index_total_bases_positive": true,
+            "index_generated_at_parse_ok": true,
+            "gap_generated_at_parse_ok": true,
+            "gap_generated_at_not_older_than_index": true,
+            "index_mtime_present": true,
+            "index_mtime_not_older_than_index_generated_at": true,
             "mismatch_keys": []
           },
           "backfill_overlay_contract": {
