@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 18:33:52",
+  "generated_at": "2026-06-26 18:41:52",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1014484
+          "size_bytes": 1017645
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1385,6 +1385,29 @@
             "normalized_expected_noncompliant_issue_count": 0,
             "raw_gap_noncompliant_issue_count": 5931,
             "normalized_gap_noncompliant_issue_count": 0,
+            "mismatch_keys": []
+          },
+          "backfill_overlay_contract": {
+            "pass": true,
+            "active": true,
+            "present": true,
+            "ready": true,
+            "top_level_cannot_replace_raw": true,
+            "summary_pass": true,
+            "summary_release_ready_false": true,
+            "summary_cannot_replace_raw": true,
+            "historical_artifacts_not_modified": true,
+            "raw_expected_noncompliant_issue_count": 5931,
+            "raw_failure_count": 5931,
+            "overlay_record_count": 5931,
+            "jsonl_line_count": 5931,
+            "missing_replacement_count": 0,
+            "lossy_overlay_record_count": 5903,
+            "raw_failure_count_matches_raw": true,
+            "overlay_record_count_matches_raw": true,
+            "jsonl_line_count_matches_overlay": true,
+            "missing_replacement_count_zero": true,
+            "lossy_overlay_record_count_nonnegative": true,
             "mismatch_keys": []
           },
           "raw_noncompliant_issue_count": 5931,

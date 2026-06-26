@@ -202,6 +202,8 @@ def _fixture(
     visual_audit_schema_gap_source_mismatch: bool = False,
     visual_audit_schema_gap_raw_count_mismatch: bool = False,
     visual_audit_schema_gap_stale_generated_at: bool = False,
+    visual_audit_backfill_overlay_release_ready: bool = False,
+    visual_audit_backfill_overlay_count_mismatch: bool = False,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
     ui_defect_buckets_ready: bool = True,
@@ -258,6 +260,9 @@ def _fixture(
         if visual_audit_schema_gap_source_mismatch
         else raw_issue_schema_path
     )
+    overlay_record_count = 0 if raw_issue_schema_pass else 7
+    if visual_audit_backfill_overlay_count_mismatch:
+        overlay_record_count += 1
     issue_schema_generated_at = "2026-06-26 10:00:00"
     gap_generated_at = "2026-06-26 09:59:59" if visual_audit_schema_gap_stale_generated_at else "2026-06-26 10:05:00"
     packet_real_cad_allowed = (
@@ -970,11 +975,12 @@ def _fixture(
                 "raw_issue_backfill_overlay_summary": {
                     "status": "overlay_ready_requires_human_review",
                     "pass": True,
+                    "release_ready": visual_audit_backfill_overlay_release_ready,
                     "raw_failure_count": 0 if raw_issue_schema_pass else 7,
-                    "overlay_record_count": 0 if raw_issue_schema_pass else 7,
+                    "overlay_record_count": overlay_record_count,
                     "missing_replacement_count": 0,
                     "lossy_overlay_record_count": 0 if raw_issue_schema_pass else 5,
-                    "jsonl_line_count": 0 if raw_issue_schema_pass else 7,
+                    "jsonl_line_count": overlay_record_count,
                     "jsonl_sha256": "fixture-sha256",
                     "historical_artifacts_modified": False,
                     "normalized_cannot_replace_raw": True,
@@ -1774,6 +1780,39 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_ol
         assert "gap_generated_at_not_older_than_normalized" in source_agreement["mismatch_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_backfill_overlay_claims_release_ready() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_backfill_overlay_release_ready=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        contract = check["details"]["visual_audit_schema_gap"]["backfill_overlay_contract"]
+        assert contract["pass"] is False
+        assert contract["summary_release_ready_false"] is False
+        assert "summary_release_ready_false" in contract["mismatch_keys"]
+
+
+def test_product_evidence_gate_blocks_release_when_backfill_overlay_count_disagrees_with_raw_failures() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_backfill_overlay_count_mismatch=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        contract = check["details"]["visual_audit_schema_gap"]["backfill_overlay_contract"]
+        assert contract["pass"] is False
+        assert contract["raw_failure_count_matches_raw"] is True
+        assert contract["overlay_record_count_matches_raw"] is False
+        assert "overlay_record_count_matches_raw" in contract["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -1959,6 +1998,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_older_than_source_reports()
+    test_product_evidence_gate_blocks_release_when_backfill_overlay_claims_release_ready()
+    test_product_evidence_gate_blocks_release_when_backfill_overlay_count_disagrees_with_raw_failures()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
