@@ -924,6 +924,37 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert "ui_defect_repair_layout_targets_attached" in blueprint["dimension_plan"]["reasons"]
 
 
+def test_generator_uses_compact_reference_style_notes_for_006_ui_closure() -> None:
+    module = _load_generator()
+    blueprint = {
+        "base": "LB26001-A-04-006",
+        "layout_plan": {
+            "sheet_size": {"width": 0.297, "height": 0.21},
+            "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
+        },
+        "notes_plan": {
+            "required_notes": [
+                "技术要求：",
+                "总长和装配关键尺寸为重点检验尺寸。",
+                "未注粗糙度 Ra3.2。",
+            ],
+        },
+        "dimension_plan": {
+            "visual_defect_constraints": {
+                "reference_style_notes_required": True,
+                "api_or_displaydim_metric_alone_can_close": False,
+            }
+        },
+    }
+
+    insertions = module._v4_blueprint_note_insertions(blueprint)
+
+    assert len(insertions) == 1
+    assert insertions[0]["text"] == "3.2\n其余"
+    assert insertions[0]["source"] == "DrawingBlueprint.notes_plan"
+    assert "技术要求" not in insertions[0]["text"]
+
+
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:
     module = _load_generator()
 
@@ -2341,6 +2372,7 @@ if __name__ == "__main__":
     test_generator_skips_bulk_model_dimensions_for_006_reference_intent_contract()
     test_generator_preserves_reference_intent_view_names_and_add_methods()
     test_generator_attaches_reference_callout_review_plan_for_006_ui_closure()
+    test_generator_uses_compact_reference_style_notes_for_006_ui_closure()
     test_generator_reference_autodim_and_prune_policy_is_bounded()
     test_generator_source_blocks_reference_intent_autodim_after_ui_failure()
     test_generator_scores_long_thin_display_dims_by_reference_intent()

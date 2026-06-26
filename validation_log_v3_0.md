@@ -12842,6 +12842,44 @@ Results:
 - `test_v4_4_product_evidence_gate.py`: PASS.
 - 006 remains not accepted. The next permitted product action is still to clear the SolidWorks readiness/stability blocker, run exactly one locked 006 CAD worker rerun, then perform application Drawing Review UI screenshot judgement. Do not expand to `007/008/009/015/022` until 006 has UI screenshot PASS.
 
+## v4.4 006 Reference-Style Notes Evidence - 2026-06-26
+
+Current result: WARNING / not release-ready.
+
+This slice added offline source and source-guard evidence only. No CAD, COM, OpenDoc6, SaveAs, CloseDoc, OCR, YOLO, batch validation, Visual Audit batch, automatic restart, or release action was run.
+
+Changes:
+
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now treats `reference_style_notes_required` as a compact reference-note path for 006.
+- `_v4_blueprint_note_insertions()` no longer turns the `note_missing_or_wrong` UI bucket into a generic multi-line `技术要求` block. It now emits only the reference-style roughness note text:
+
+```text
+3.2
+其余
+```
+
+- `test_v3_generator_reference_style_plan.py` covers this behavior and asserts the inserted note text does not include `技术要求`.
+- `tools/validation/lb26001_006_rerun_packet_v4_2.py` now source-guards the compact roughness-note signature for the next locked 006 rerun packet.
+
+Commands:
+
+```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and the compact roughness note source signature is present.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`; `locked_006_cad_rerun_allowed_now=false`, `006_application_ui_review_allowed_now=false`, `expand_007_008_009_015_022_allowed=false`, `full_129_allowed=false`, and `release_allowed=false`.
+- 006 remains not accepted. The next permitted product action is still to clear the SolidWorks readiness/stability blocker, run exactly one locked 006 CAD worker rerun, then perform application Drawing Review UI screenshot judgement.
+
 ## v4.4 006 Required Hole Callout Contract Tightening - 2026-06-26
 
 Current judgment:

@@ -1552,18 +1552,20 @@ def _v4_blueprint_note_insertions(blueprint_data):
     if isinstance(constraints, dict) and constraints.get("reference_style_notes_required"):
         # ui_defect_bucket_reference_style_notes:
         # The latest Drawing Review UI screenshot showed generic notes in the
-        # wrong visual style. For 006, force the compact reference-style note
-        # block expected by the visual gate.
+        # wrong visual style. For 006, do not render a generic technical
+        # requirements paragraph; keep the compact roughness note seen in the
+        # same-name reference screenshot.
         raw_lines = [
-            "技术要求：",
-            "总长和装配关键尺寸为重点检验尺寸。",
-            "未注粗糙度 Ra3.2。",
-            "去毛刺，锐边倒钝。",
+            "3.2",
+            "其余",
         ]
     lines = _v4_unique_texts(raw_lines, limit=10)
     if not lines:
         return []
-    if not any("技术要求" in line or "technical requirement" in line.lower() for line in lines):
+    if (
+        not (isinstance(constraints, dict) and constraints.get("reference_style_notes_required"))
+        and not any("技术要求" in line or "technical requirement" in line.lower() for line in lines)
+    ):
         lines.insert(0, "技术要求：")
     box = layout.get("notes_box_norm") or notes.get("note_box_norm") or []
     pos = _v4_sheet_point_from_norm_box(box, FALLBACK_NOTE_POS["tech"])

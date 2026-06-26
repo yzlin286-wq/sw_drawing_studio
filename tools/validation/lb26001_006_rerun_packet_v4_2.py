@@ -153,6 +153,7 @@ GENERATOR_SIGNATURES = {
     "ui_defect_reject_autodim": "ui_defect_bucket_reject_generic_autodim_survivors",
     "ui_defect_compact_lanes": "ui_defect_bucket_compact_local_lanes",
     "ui_defect_compact_notes": "ui_defect_bucket_reference_style_notes",
+    "ui_defect_compact_reference_roughness_note": '"3.2"',
     "ui_defect_compact_titlebar": "ui_defect_bucket_compact_titlebar_fields",
     "ui_defect_strict_target_match": "ui_defect_strict_reference_intent_target_match",
     "reference_callout_review_plan": "reference_callout_review_plan_required",
