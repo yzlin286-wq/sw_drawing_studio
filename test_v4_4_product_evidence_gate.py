@@ -453,12 +453,17 @@ def _fixture(
     dim_keys = required_dim_keys if reference_plan_complete else required_dim_keys[:-1]
     fixture_source_reference = "reference/LB26001-A-04-006.SLDDRW"
     fixture_reference_png = "reference/LB26001-A-04-006.png"
-    dimensions = [
-        {
+    dimensions = []
+    for index, key in enumerate(dim_keys):
+        target_view = "front" if not key.startswith("projection") and key != "small_feature_location" else "right"
+        expected_add_method = "AddHorizontalDimension2"
+        dimensions.append(
+            {
             "key": key,
             "source_reference": fixture_source_reference,
-            "target_view": "front" if not key.startswith("projection") and key != "small_feature_location" else "right",
+            "target_view": target_view,
             "expected_type": "linear_horizontal",
+            "expected_add_method": expected_add_method,
             "is_manufacturing_dimension": True,
             "fallback_policy": "need_review_when_real_displaydim_unavailable",
             "reference_value": 1,
@@ -466,7 +471,8 @@ def _fixture(
             "reference_value_status": "visual_reading_recorded",
             "source_reference_evidence": {
                 "source_reference": fixture_source_reference,
-                "target_view": "front" if not key.startswith("projection") and key != "small_feature_location" else "right",
+                "reference_png": fixture_reference_png,
+                "target_view": target_view,
                 "expected_type": "linear_horizontal",
                 "reference_value": 1,
                 "reference_value_unit": "mm",
@@ -474,18 +480,78 @@ def _fixture(
                 "source_text": key,
                 "visual_reading": f"fixture visual reading for {key}",
             },
+            "placement_lane": {
+                "view_slot": target_view,
+                "side": "above",
+                "lane_family": "outside_top",
+                "lane_index": index,
+                "station": 0.5,
+                "outside_gap_m": 0.01,
+                "stack_gap_m": 0.004,
+                "avoid_view_overlap": True,
+                "avoid_title_notes_zone": True,
+                "readability_required": True,
+            },
+            "allowed_witness_entity": {
+                "preferred": ["visible_linear_edges"],
+                "reject": ["title_block_line", "note_text"],
+                "must_be_visible_in_target_view": True,
+            },
+            "prune_protection_policy": {
+                "protected": True,
+                "delete_only_if_target_covered_elsewhere": True,
+                "delete_only_if_final_floor_preserved": True,
+                "required_final_stage": "post_layout_final",
+                "blocker_when_lost": "reference_intent_target_lost_after_prune",
+            },
             "create_as": "Note" if reference_plan_note_substitution else "SolidWorks DisplayDim",
             "forbid_note_substitution": not reference_plan_note_substitution,
+            "avoid_generic_model_annotation": True,
             "generic_autodimension_acceptance_allowed": False,
+            "trace_required_fields": [
+                "target_key",
+                "view_slot",
+                "selected_entity",
+                "add_method",
+                "display_dim_count_before",
+                "display_dim_count_after",
+                "target_covered_after_attempt",
+                "persisted_after_reopen",
+            ],
+            "acceptance_trace": {
+                "must_record_target_key": True,
+                "must_record_view_slot": True,
+                "must_record_selected_entity": True,
+                "must_record_add_method": expected_add_method,
+                "must_record_before_after_count": True,
+                "must_prove_target_covered_after_attempt": True,
+                "must_persist_after_reopen": True,
+                "final_required_stage": "post_layout_final",
+            },
         }
-        for key in dim_keys
-    ]
+        )
     operations = [
         {
             "operation": "create_or_verify_display_dimension",
             "dimension_key": item["key"],
+            "target_view": item["target_view"],
+            "expected_type": item["expected_type"],
+            "expected_add_method": item["expected_add_method"],
+            "source_reference": item["source_reference"],
             "source_reference_evidence": item["source_reference_evidence"],
             "is_manufacturing_dimension": True,
+            "placement_lane": item["placement_lane"],
+            "allowed_witness_entity": item["allowed_witness_entity"],
+            "prune_protection_policy": item["prune_protection_policy"],
+            "create_as": item["create_as"],
+            "fallback_policy": item["fallback_policy"],
+            "forbid_note_substitution": item["forbid_note_substitution"],
+            "avoid_generic_model_annotation": item["avoid_generic_model_annotation"],
+            "generic_autodimension_acceptance_allowed": item["generic_autodimension_acceptance_allowed"],
+            "trace_required_fields": item["trace_required_fields"],
+            "acceptance_trace": item["acceptance_trace"],
+            "requires_solidworks_lock": True,
+            "allowed_entrypoint": "cad_job_worker",
         }
         for item in dimensions
     ]
@@ -1491,6 +1557,28 @@ def test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock
         assert check["details"]["ui_thread_may_execute"] is True
 
 
+def test_product_evidence_gate_blocks_when_reference_contract_operation_mismatches_plan() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        contract_path = paths["reference_intent_contract"]
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        contract["operations"][0]["expected_add_method"] = "AddVerticalDimension2"
+        _write_json(contract_path, contract)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_contract_locked_worker_only" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "reference_intent_006_contract_locked_worker_only"
+        )
+        contract_details = check["details"]["operation_plan_alignment_contract"]
+        assert contract_details["pass"] is False
+        assert "expected_add_method" in set(contract_details["mismatch_by_key"]["overall_length"])
+
+
 def test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), rerun_packet_build_ready=False))
@@ -2401,6 +2489,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_reference_callout_evidence_value_mismatches()
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
     test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
+    test_product_evidence_gate_blocks_when_reference_contract_operation_mismatches_plan()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_state_is_stale()
     test_product_evidence_gate_blocks_locked_006_when_ui_defect_buckets_are_incomplete()

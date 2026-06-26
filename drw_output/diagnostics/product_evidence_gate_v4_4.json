@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:45:42",
+  "generated_at": "2026-06-26 19:56:25",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -511,11 +511,11 @@
       "key": "reference_intent_006_contract_locked_worker_only",
       "pass": true,
       "status": "pass",
-      "message": "006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.",
+      "message": "006 reference-intent execution contract must require SolidWorks global lock, forbid UI-thread execution, and mirror the plan operation-by-operation.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
         "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
-        "generated_at": "2026-06-26 17:32:11",
+        "generated_at": "2026-06-26 19:56:12",
         "base": "LB26001-A-04-006",
         "status": "contract_ready_requires_cad_worker_lock",
         "requires_solidworks_lock": true,
@@ -526,7 +526,18 @@
         "operations_len": 12,
         "missing_dimension_operations": [],
         "operations_missing_evidence": [],
-        "non_manufacturing_operations": []
+        "non_manufacturing_operations": [],
+        "operation_plan_alignment_contract": {
+          "pass": true,
+          "plan_dimension_count": 12,
+          "operation_count": 12,
+          "duplicate_operation_keys": [],
+          "missing_plan_operations": [],
+          "extra_operation_keys": [],
+          "missing_required_fields": {},
+          "mismatch_count": 0,
+          "mismatch_by_key": {}
+        }
       }
     },
     {
@@ -1157,9 +1168,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1044607,
-          "mtime_epoch": 1782473712.2337606,
-          "mtime_local": "2026-06-26 19:35:12"
+          "size_bytes": 1048778,
+          "mtime_epoch": 1782474505.6568224,
+          "mtime_local": "2026-06-26 19:48:25"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

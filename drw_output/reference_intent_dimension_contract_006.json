@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 17:32:11",
+  "generated_at": "2026-06-26 19:56:12",
   "base": "LB26001-A-04-006",
   "drawing_path": "3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "run_dir": "",
@@ -62,6 +62,11 @@
       "is_manufacturing_dimension": true,
       "reference_value": "M4-6H 完全贯穿",
       "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "thread_callout",
+        "reference_value": "M4-6H 完全贯穿",
         "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
         "source_text": "M4-6H 完全贯穿",
         "extraction_method": "manual_visual_reading_from_reference_png"
@@ -81,6 +86,11 @@
       "is_manufacturing_dimension": true,
       "reference_value": "4-3.3 through",
       "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "top",
+        "expected_type": "hole_callout",
+        "reference_value": "4-3.3 through",
         "visual_reading": "Hole callout near top view reads 4-3.3 through.",
         "source_text": "4-3.3",
         "extraction_method": "manual_visual_reading_from_reference_png"
@@ -100,6 +110,11 @@
       "is_manufacturing_dimension": true,
       "reference_value": "3.2 其余",
       "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "sheet_notes",
+        "expected_type": "surface_finish_callout",
+        "reference_value": "3.2 其余",
         "visual_reading": "Upper-right sheet note reads 3.2 其余.",
         "source_text": "3.2 其余",
         "extraction_method": "manual_visual_reading_from_reference_png"
@@ -118,6 +133,11 @@
       "is_manufacturing_dimension": false,
       "reference_value": null,
       "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "front/top/right",
+        "expected_type": "radius_callout",
+        "reference_value": null,
         "visual_reading": "No radius callout is visually present in the reference PNG.",
         "source_text": "",
         "extraction_method": "manual_visual_absence_check"
@@ -135,6 +155,11 @@
       "is_manufacturing_dimension": false,
       "reference_value": null,
       "source_reference_evidence": {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "target_view": "front/top/right",
+        "expected_type": "chamfer_callout",
+        "reference_value": null,
         "visual_reading": "No chamfer callout is visually present in the reference PNG.",
         "source_text": "",
         "extraction_method": "manual_visual_absence_check"
@@ -1149,8 +1174,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1241,8 +1268,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1333,8 +1362,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1425,8 +1456,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1517,8 +1550,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1619,8 +1654,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1721,8 +1758,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1813,8 +1852,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -1913,8 +1954,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -2005,8 +2048,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -2097,8 +2142,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",
@@ -2189,8 +2236,10 @@
         "requires_locked_displaydim_value_confirmation": true,
         "confidence": "visual_readable_supporting_evidence"
       },
+      "create_as": "SolidWorks DisplayDim",
       "fallback_policy": "need_review_when_real_displaydim_unavailable",
       "forbid_note_substitution": true,
+      "avoid_generic_model_annotation": true,
       "generic_autodimension_acceptance_allowed": false,
       "trace_required_fields": [
         "target_key",

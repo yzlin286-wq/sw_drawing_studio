@@ -313,13 +313,14 @@ def build_product_evidence_gate(
     contract_ok, contract_details = _reference_intent_contract_check(
         reference_intent_contract_path,
         reference_intent_contract,
+        reference_intent_plan,
         plan_details,
     )
     _add_check(
         checks,
         "reference_intent_006_contract_locked_worker_only",
         contract_ok,
-        "006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.",
+        "006 reference-intent execution contract must require SolidWorks global lock, forbid UI-thread execution, and mirror the plan operation-by-operation.",
         contract_details,
     )
     _add_check(
@@ -1219,10 +1220,12 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
 def _reference_intent_contract_check(
     path: Path,
     payload: dict[str, Any],
+    plan_payload: dict[str, Any],
     plan_details: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
     operations = [item for item in payload.get("operations") or [] if isinstance(item, dict)]
     op_keys = {str(item.get("dimension_key") or "") for item in operations}
+    operation_plan_alignment_contract = _operation_plan_alignment_contract(operations, plan_payload)
     missing_from_contract = sorted(
         set(plan_details.get("missing_dimension_keys") or [])
         or (
@@ -1268,6 +1271,7 @@ def _reference_intent_contract_check(
         "missing_dimension_operations": missing_from_contract,
         "operations_missing_evidence": operations_missing_evidence,
         "non_manufacturing_operations": non_manufacturing_ops,
+        "operation_plan_alignment_contract": operation_plan_alignment_contract,
     }
     passed = bool(
         payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4"
@@ -1281,8 +1285,119 @@ def _reference_intent_contract_check(
         and not missing_from_contract
         and not operations_missing_evidence
         and not non_manufacturing_ops
+        and operation_plan_alignment_contract.get("pass") is True
     )
     return passed, details
+
+
+def _operation_plan_alignment_contract(
+    operations: list[dict[str, Any]],
+    plan_payload: dict[str, Any],
+) -> dict[str, Any]:
+    plan_dimensions = [item for item in plan_payload.get("dimensions") or [] if isinstance(item, dict)]
+    plan_by_key = {str(item.get("key") or ""): item for item in plan_dimensions if str(item.get("key") or "")}
+    operation_keys = [str(item.get("dimension_key") or "") for item in operations]
+    duplicate_operation_keys = sorted(
+        key for key in set(operation_keys) if key and operation_keys.count(key) > 1
+    )
+    operation_keys_set = set(filter(None, operation_keys))
+    missing_plan_operations = sorted(set(plan_by_key) - operation_keys_set)
+    extra_operation_keys = sorted(operation_keys_set - set(plan_by_key))
+    missing_required_fields: dict[str, list[str]] = {}
+    mismatch_by_key: dict[str, list[str]] = {}
+    required_operation_fields = [
+        "operation",
+        "dimension_key",
+        "target_view",
+        "expected_type",
+        "expected_add_method",
+        "source_reference",
+        "source_reference_evidence",
+        "create_as",
+        "fallback_policy",
+        "forbid_note_substitution",
+        "avoid_generic_model_annotation",
+        "generic_autodimension_acceptance_allowed",
+        "trace_required_fields",
+        "acceptance_trace",
+        "requires_solidworks_lock",
+        "allowed_entrypoint",
+        "placement_lane",
+    ]
+    plan_alignment_fields = [
+        "target_view",
+        "expected_type",
+        "expected_add_method",
+        "source_reference",
+        "source_reference_evidence",
+        "create_as",
+        "fallback_policy",
+        "forbid_note_substitution",
+        "avoid_generic_model_annotation",
+        "generic_autodimension_acceptance_allowed",
+        "trace_required_fields",
+        "acceptance_trace",
+        "placement_lane",
+        "allowed_witness_entity",
+        "prune_protection_policy",
+    ]
+    for index, operation in enumerate(operations):
+        key = str(operation.get("dimension_key") or f"index_{index}")
+        missing = [field for field in required_operation_fields if field not in operation]
+        if missing:
+            missing_required_fields[key] = missing
+        mismatches: list[str] = []
+        plan_item = plan_by_key.get(str(operation.get("dimension_key") or ""))
+        if not plan_item:
+            mismatches.append("dimension_key_not_in_plan")
+        else:
+            if operation.get("dimension_key") != plan_item.get("key"):
+                mismatches.append("dimension_key")
+            for field in plan_alignment_fields:
+                if field in plan_item and operation.get(field) != plan_item.get(field):
+                    mismatches.append(field)
+        if operation.get("operation") != "create_or_verify_display_dimension":
+            mismatches.append("operation")
+        if operation.get("create_as") != "SolidWorks DisplayDim":
+            mismatches.append("create_as")
+        if operation.get("forbid_note_substitution") is not True:
+            mismatches.append("forbid_note_substitution")
+        if operation.get("avoid_generic_model_annotation") is not True:
+            mismatches.append("avoid_generic_model_annotation")
+        if operation.get("generic_autodimension_acceptance_allowed") is not False:
+            mismatches.append("generic_autodimension_acceptance_allowed")
+        if operation.get("requires_solidworks_lock") is not True:
+            mismatches.append("requires_solidworks_lock")
+        if operation.get("allowed_entrypoint") != "cad_job_worker":
+            mismatches.append("allowed_entrypoint")
+        placement_lane = operation.get("placement_lane") or {}
+        if isinstance(placement_lane, dict) and operation.get("target_view") != placement_lane.get("view_slot"):
+            mismatches.append("placement_lane.view_slot")
+        acceptance_trace = operation.get("acceptance_trace") or {}
+        if isinstance(acceptance_trace, dict) and acceptance_trace.get("must_record_add_method") != operation.get(
+            "expected_add_method"
+        ):
+            mismatches.append("acceptance_trace.must_record_add_method")
+        if mismatches:
+            mismatch_by_key[key] = sorted(set(mismatches))
+    return {
+        "pass": bool(
+            plan_by_key
+            and not duplicate_operation_keys
+            and not missing_plan_operations
+            and not extra_operation_keys
+            and not missing_required_fields
+            and not mismatch_by_key
+        ),
+        "plan_dimension_count": len(plan_by_key),
+        "operation_count": len(operations),
+        "duplicate_operation_keys": duplicate_operation_keys,
+        "missing_plan_operations": missing_plan_operations,
+        "extra_operation_keys": extra_operation_keys,
+        "missing_required_fields": missing_required_fields,
+        "mismatch_count": len(mismatch_by_key),
+        "mismatch_by_key": mismatch_by_key,
+    }
 
 
 def _dimension_evidence_contract(dims: list[dict[str, Any]]) -> dict[str, Any]:

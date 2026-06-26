@@ -14666,3 +14666,57 @@ Remaining issues:
 - SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
+## v4.4 Product Gate Requires 006 Operation Plan Alignment - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_executor.py`.
+  - Each queued reference-intent operation now carries `create_as` and `avoid_generic_model_annotation` from the plan.
+  - The generated execution contract remains CAD-worker-only and does not call COM.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `operation_plan_alignment_contract` under `reference_intent_006_contract_locked_worker_only`.
+  - Blocks the contract if any operation disagrees with the plan on target view, expected type, expected SolidWorks AddDimension method, source reference evidence, DisplayDim/no-Note policy, generic-autodim policy, placement lane, witness/prune policy, trace requirements, global lock ownership, or `cad_job_worker` entrypoint.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture operations now include the same plan-alignment fields as the real 006 contract.
+  - Adds regression coverage proving a tampered operation `expected_add_method` blocks Product Gate.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\reference_intent_dimension_executor.py tools\validation\product_evidence_gate_v4_4.py test_v4_2_reference_intent_dimension_worker.py test_v4_4_product_evidence_gate.py
+python -B test_v4_2_reference_intent_dimension_worker.py
+python -B test_v4_4_product_evidence_gate.py
+python -B -m app.services.reference_intent_dimension_executor --plan drw_output\reference_intent_dimension_plan_006.json --drawing "3D转2D测试图纸\LB26001-A-04-006.SLDDRW" --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `reference_intent_dimension_contract_006.json` remains `status=contract_ready_requires_cad_worker_lock`, `operation_count=12`, `requires_solidworks_lock=true`, `ui_thread_may_execute=false`, and `direct_com_called=false`.
+- Refreshed `lb26001_006_reference_intent_proof_v4_4.json` remains `pass=true`, supporting evidence only.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; `reference_intent_006_contract_locked_worker_only` passes and reports:
+  - `operation_plan_alignment_contract.pass=true`
+  - `plan_dimension_count=12`
+  - `operation_count=12`
+  - `missing_plan_operations=[]`
+  - `extra_operation_keys=[]`
+  - `missing_required_fields={}`
+  - `mismatch_count=0`
+
+Remaining issues:
+
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+- All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+- API/JSON/DisplayDim evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.

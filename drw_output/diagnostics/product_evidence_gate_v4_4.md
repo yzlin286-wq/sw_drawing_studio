@@ -33,7 +33,7 @@
 - `pass` `lb26001_006_ui_defect_buckets_ready`: 006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.
 - `pass` `reference_intent_006_proof_pass`: 006 reference-intent plan proof must pass while remaining supporting evidence only.
 - `pass` `reference_intent_006_plan_complete`: 006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.
-- `pass` `reference_intent_006_contract_locked_worker_only`: 006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.
+- `pass` `reference_intent_006_contract_locked_worker_only`: 006 reference-intent execution contract must require SolidWorks global lock, forbid UI-thread execution, and mirror the plan operation-by-operation.
 - `fail` `regeneration_006_fresh_evidence_pass`: 006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.
 - `fail` `application_ui_006_acceptance_pass`: 006 must pass the application Drawing Review UI screenshot and manual visual checklist.
 - `fail` `canonical_006_ui_visual_review_pass`: 006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.
