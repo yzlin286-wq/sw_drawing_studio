@@ -2177,6 +2177,7 @@ def _visual_audit_backfill_overlay_contract(
     gap: dict[str, Any],
     raw: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
+    source_artifacts = gap.get("source_artifacts") if isinstance(gap.get("source_artifacts"), dict) else {}
     summary = (
         gap.get("raw_issue_backfill_overlay_summary")
         if isinstance(gap.get("raw_issue_backfill_overlay_summary"), dict)
@@ -2188,12 +2189,27 @@ def _visual_audit_backfill_overlay_contract(
     jsonl_line_count = _optional_int(summary.get("jsonl_line_count"))
     missing_replacement_count = _optional_int(summary.get("missing_replacement_count"))
     lossy_overlay_record_count = _optional_int(summary.get("lossy_overlay_record_count"))
+    raw_generated_at = _parse_generated_at(raw.get("generated_at"))
+    overlay_generated_at = _parse_generated_at(summary.get("generated_at"))
     active = gap.get("raw_issue_backfill_overlay_present") is True or gap.get("raw_issue_backfill_overlay_ready") is True
     details = {
         "pass": False,
         "active": active,
         "present": gap.get("raw_issue_backfill_overlay_present"),
         "ready": gap.get("raw_issue_backfill_overlay_ready"),
+        "source_path": source_artifacts.get("raw_issue_backfill_overlay", ""),
+        "summary_path": summary.get("path", ""),
+        "summary_exists": summary.get("exists") is True,
+        "source_path_matches_summary": _path_values_match(
+            source_artifacts.get("raw_issue_backfill_overlay"),
+            _resolve_path(summary.get("path")) or Path(),
+        ),
+        "overlay_generated_at": summary.get("generated_at"),
+        "raw_generated_at": raw.get("generated_at"),
+        "generated_at_parse_ok": overlay_generated_at is not None and raw_generated_at is not None,
+        "overlay_generated_at_not_older_than_raw": bool(
+            overlay_generated_at is not None and raw_generated_at is not None and overlay_generated_at >= raw_generated_at
+        ),
         "top_level_cannot_replace_raw": gap.get("raw_issue_backfill_overlay_cannot_replace_raw") is True,
         "summary_pass": summary.get("pass") is True,
         "summary_release_ready_false": summary.get("release_ready") is False,
@@ -2220,6 +2236,10 @@ def _visual_audit_backfill_overlay_contract(
     mismatch_keys = [
         key
         for key in [
+            "summary_exists",
+            "source_path_matches_summary",
+            "generated_at_parse_ok",
+            "overlay_generated_at_not_older_than_raw",
             "top_level_cannot_replace_raw",
             "summary_pass",
             "summary_release_ready_false",
