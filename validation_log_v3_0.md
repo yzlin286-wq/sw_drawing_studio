@@ -12738,6 +12738,58 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 EXE UI Robot and 20-Minute Mock Stability Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This step adds real UI/stability evidence only.
+- No real CAD, `OpenDoc6`, `SaveAs`, `CloseDoc`, 006 rerun, `007/008/009/015/022` expansion, `LB26001_36`, `full_129`, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted because the application Drawing Review UI screenshot gate has not passed.
+
+Commands:
+
+```powershell
+python -B tools\ui_robot\exe_click_acceptance.py --exe dist\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_click_v3_20260626_115640 --wait-s 1.0
+python -B tools\ui_robot\mock_stability_runner.py --out-dir drw_output\ui_acceptance\mock_stability_20min_v3_20260626_115948 --duration-s 1200 --sample-interval-s 20 --screenshot-interval-s 300 --completion-grace-s 75
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- EXE-level UI robot: PASS.
+  - Source: `drw_output/ui_acceptance/exe_click_v3_20260626_115640/exe_click_acceptance_report.json`.
+  - Canonical copy: `exe_ui_robot_result_v3_0.json`.
+  - Mode: `windows_exe_click_acceptance`.
+  - EXE: `dist\sw_drawing_studio.exe`.
+  - Pages/screenshots: 9/9, including `05_图纸复核.png`.
+  - Visual spot-check: the Drawing Review page screenshot is readable Chinese UI evidence, but it does not load or accept 006.
+- 20-minute mock stability: PASS.
+  - Source: `drw_output/ui_acceptance/mock_stability_20min_v3_20260626_115948/mock_stability_report.json`.
+  - Canonical copy: `stability_20min_mock_v3_0.json`.
+  - Mode: `source_qt_mock_stability`.
+  - `duration_requested_s=1200.0`.
+  - `duration_observed_s=1206.11`.
+  - `final_status=completed`.
+  - `sample_count=60`.
+  - `event_log_count=13202`.
+  - `required_events_present=true`.
+  - Screenshots: 7/7 pass, including elapsed 1201s and final screenshots.
+- Refreshed SolidWorks Stability Gate is `status=warning`, `pass=false`, because current `conflict_report.json` sees one `SLDWORKS.exe` process without a worker-owned global lock.
+- Refreshed 006 readiness is `status=blocked`, `ready_to_start_locked_006_cad=false`, with `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed 006 rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate is `status=blocked_by_solidworks_stability_gate`, `pass=false`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+- `exe_ui_and_stability_proof_pass` still fails because `stability_2h_ui_v3_0.json` is missing and the 2-hour Windows EXE UI stability gate has not run.
+
+Remaining issues:
+
+- Manual SolidWorks cleanup is required before any locked 006 CAD rerun because an unsaved document marker is visible.
+- The next allowed CAD action remains exactly one locked 006-only JobRuntimeFacade/QProcess rerun after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 Remove Legacy Health Check Public Export - 2026-06-26
 
 Current judgment:

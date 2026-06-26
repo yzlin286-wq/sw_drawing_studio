@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 11:50:50",
-  "status": "blocked_by_solidworks_readiness",
+  "generated_at": "2026-06-26 12:22:31",
+  "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
   "base": "LB26001-A-04-006",
@@ -31,15 +31,17 @@
   "checks": [
     {
       "key": "solidworks_stability_gate_pass",
-      "pass": true,
-      "status": "pass",
+      "pass": false,
+      "status": "fail",
       "message": "SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
-        "status": "pass",
-        "pass": true,
-        "warning_reasons": [],
-        "strict_stability_ok": true,
+        "status": "warning",
+        "pass": false,
+        "warning_reasons": [
+          "solidworks_conflict_monitor_warning_or_fail"
+        ],
+        "strict_stability_ok": false,
         "idle_solidworks_prelock_allowed_for_locked_006": false
       }
     },
@@ -74,7 +76,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T11:50:17",
+        "generated_at": "2026-06-26T12:22:20",
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
@@ -95,7 +97,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T11:50:17",
+        "generated_at": "2026-06-26T12:22:20",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -105,16 +107,16 @@
     },
     {
       "key": "solidworks_conflict_report_ok",
-      "pass": true,
-      "status": "pass",
+      "pass": false,
+      "status": "fail",
       "message": "Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T11:50:17",
-        "level": "OK",
+        "generated_at": "2026-06-26T12:22:21",
+        "level": "WARNING",
         "counts": {
-          "solidworks_processes": 0,
+          "solidworks_processes": 1,
           "cad_job_workers": 0,
           "batch_job_workers": 0,
           "waiting_jobs": 0,
@@ -122,8 +124,8 @@
           "dialog_guards": 0
         },
         "lock_reason": "no_active_solidworks_lock",
-        "fix_suggestion": "",
-        "strict_conflict_ok": true,
+        "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+        "strict_conflict_ok": false,
         "idle_solidworks_prelock_allowed_for_locked_006": false
       }
     },
@@ -137,7 +139,7 @@
         "status": "blocked",
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
-          "solidworks_not_running"
+          "solidworks_unsaved_document_visible"
         ]
       }
     },
@@ -151,18 +153,19 @@
         "status": "blocked",
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
-          "solidworks_not_running"
+          "solidworks_unsaved_document_visible"
         ],
-        "sample_count": 0,
-        "observation_count": 0,
-        "unsaved_title_observed": null,
-        "process_present": false,
-        "process_count": null,
-        "pid": null,
-        "main_window_title": "",
-        "observed_titles": [],
+        "sample_count": 5,
+        "observation_count": 5,
+        "unsaved_title_observed": true,
+        "process_present": true,
+        "process_count": 1,
+        "pid": 8564,
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
+        "observed_titles": [
+          "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+        ],
         "missing_or_invalid_sampling_fields": [
-          "solidworks_process.sample_count>=5",
           "solidworks_process.unsaved_title_observed_false"
         ]
       }
@@ -945,7 +948,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 941595
+          "size_bytes": 945269
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -954,8 +957,8 @@
         },
         "exe_ui_robot_result": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
-          "exists": false,
-          "size_bytes": 0
+          "exists": true,
+          "size_bytes": 5512
         },
         "cad_smoke": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
@@ -989,8 +992,8 @@
         },
         "stability_20min_mock": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
-          "exists": false,
-          "size_bytes": 0
+          "exists": true,
+          "size_bytes": 3844
         },
         "stability_2h_ui": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
@@ -1012,23 +1015,23 @@
         },
         "exe_ui_robot_result": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
-          "exists": false,
-          "mode": null,
-          "exe": null,
+          "exists": true,
+          "mode": "windows_exe_click_acceptance",
+          "exe": "dist\\sw_drawing_studio.exe",
           "status": null,
-          "pass": null,
+          "pass": true,
           "duration_observed_s": null,
           "duration_requested_s": null
         },
         "stability_20min_mock": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
-          "exists": false,
-          "mode": null,
+          "exists": true,
+          "mode": "source_qt_mock_stability",
           "exe": null,
           "status": null,
-          "pass": null,
-          "duration_observed_s": null,
-          "duration_requested_s": null
+          "pass": true,
+          "duration_observed_s": 1206.11,
+          "duration_requested_s": 1200.0
         },
         "stability_2h_ui": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
@@ -1157,9 +1160,11 @@
     }
   ],
   "check_count": 21,
-  "passed_check_count": 11,
-  "failed_check_count": 10,
+  "passed_check_count": 9,
+  "failed_check_count": 12,
   "blocking_issue_keys": [
+    "solidworks_stability_gate_pass",
+    "solidworks_conflict_report_ok",
     "solidworks_readiness_for_006",
     "solidworks_readiness_title_sampling_guard",
     "regeneration_006_fresh_evidence_pass",
@@ -1205,5 +1210,5 @@
       "stability_2h_ui": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json"
     }
   },
-  "next_required_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
+  "next_required_action": "Fix the failing product evidence checks before advancing the validation stage."
 }
