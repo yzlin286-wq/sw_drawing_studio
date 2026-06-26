@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import struct
 from tempfile import TemporaryDirectory
+import zlib
 
 from tools.validation.product_evidence_gate_v4_4 import BASE, DEPENDENT_BASES, build_product_evidence_gate
 
@@ -16,6 +18,23 @@ def _write_json(path: Path, payload: dict) -> Path:
 def _write_file(path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(b"ok")
+    return path
+
+
+def _write_png(path: Path, width: int = 1200, height: int = 800) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    def chunk(kind: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+
+    raw = b"".join(b"\x00" + (b"\xff\xff\xff" * width) for _ in range(height))
+    png = (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(raw))
+        + chunk(b"IEND", b"")
+    )
+    path.write_bytes(png)
     return path
 
 
@@ -84,6 +103,7 @@ def _fixture(
     ui_defect_buckets_ready: bool = True,
     ui_visual_review_pass: bool | None = None,
     ui_visual_review_screenshot_exists: bool = True,
+    ui_visual_review_screenshot_valid: bool = True,
     entrypoint_report_pass: bool = True,
     ui_thread_subprocess_call_count: int = 0,
     ui_thread_heavy_work_count: int = 0,
@@ -118,7 +138,10 @@ def _fixture(
     ui_review_pass = acceptance_pass if ui_visual_review_pass is None else ui_visual_review_pass
     ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
     if ui_visual_review_screenshot_exists:
-        _write_file(ui_screenshot)
+        if ui_visual_review_screenshot_valid:
+            _write_png(ui_screenshot)
+        else:
+            _write_file(ui_screenshot)
     required_active_defect_buckets = [
         "dimension_visual_overdense",
         "dimension_lane_wrong",
@@ -1103,6 +1126,27 @@ def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_mis
         assert check["details"]["base_entry"]["application_ui_screenshot_exists"] is False
 
 
+def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                ui_visual_review_pass=True,
+                ui_visual_review_screenshot_valid=False,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["base_entry"]["application_ui_screenshot_exists"] is True
+        assert check["details"]["base_entry"]["application_ui_screenshot_decode_pass"] is False
+        assert check["details"]["base_entry"]["application_ui_screenshot_valid"] is False
+
+
 def test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), acceptance_pass=True, requested_pass=False))
@@ -1297,6 +1341,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
+    test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import struct
 import time
 from pathlib import Path
 from typing import Any
@@ -74,6 +75,8 @@ REQUIRED_CLOSURE_EVIDENCE_KEYS = {
     "application_drawing_review_ui_screenshot",
     "manual_visual_judgement",
 }
+MIN_UI_SCREENSHOT_WIDTH = 1000
+MIN_UI_SCREENSHOT_HEIGHT = 600
 
 
 def build_product_evidence_gate(
@@ -1292,6 +1295,8 @@ def _source_signature_summary(value: Any) -> dict[str, dict[str, Any]]:
 def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
     entries = [item for item in payload.get("entries") or [] if isinstance(item, dict)]
     base_entry = next((item for item in entries if item.get("base") == BASE), {})
+    screenshot_evidence = _image_file_evidence(base_entry.get("application_ui_screenshot"))
+    checks = base_entry.get("checks") or {}
     return bool(
         payload.get("pass") is True
         and payload.get("status") == "pass"
@@ -1300,7 +1305,11 @@ def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
         and payload.get("review_method") == "application_drawing_review_ui_screenshot"
         and base_entry.get("pass") is True
         and base_entry.get("visual_acceptance_pass") is True
-        and _nonempty_file(base_entry.get("application_ui_screenshot"))
+        and screenshot_evidence["valid_ui_screenshot"]
+        and checks.get("ui_report_entry_pass") is True
+        and checks.get("manual_review_entry_screenshot_pass") is True
+        and checks.get("vision_qc_v6_visual_acceptance_pass") is True
+        and checks.get("reference_compare_v4_pass") is True
     )
 
 
@@ -1308,6 +1317,7 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
     entries = [item for item in payload.get("entries") or [] if isinstance(item, dict)]
     base_entry = next((item for item in entries if item.get("base") == BASE), {})
     screenshot = base_entry.get("application_ui_screenshot")
+    screenshot_evidence = _image_file_evidence(screenshot)
     return {
         "path": str(path),
         "status": payload.get("status"),
@@ -1326,20 +1336,100 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
             "pass": base_entry.get("pass"),
             "visual_acceptance_pass": base_entry.get("visual_acceptance_pass"),
             "application_ui_screenshot": screenshot,
-            "application_ui_screenshot_exists": _nonempty_file(screenshot),
+            "application_ui_screenshot_exists": screenshot_evidence["exists"],
+            "application_ui_screenshot_size_bytes": screenshot_evidence["size_bytes"],
+            "application_ui_screenshot_decode_pass": screenshot_evidence["decode_pass"],
+            "application_ui_screenshot_width": screenshot_evidence["width"],
+            "application_ui_screenshot_height": screenshot_evidence["height"],
+            "application_ui_screenshot_min_dimensions_pass": screenshot_evidence["min_dimensions_pass"],
+            "application_ui_screenshot_valid": screenshot_evidence["valid_ui_screenshot"],
+            "application_ui_screenshot_failure": screenshot_evidence["failure"],
             "blocking_issue_keys": base_entry.get("blocking_issue_keys") or [],
             "checks": base_entry.get("checks") or {},
         },
     }
 
 
-def _nonempty_file(value: Any) -> bool:
-    if not value:
-        return False
+def _image_file_evidence(value: Any) -> dict[str, Any]:
+    path = _resolve_path(value)
+    evidence = {
+        "path": str(path or value or ""),
+        "exists": False,
+        "size_bytes": 0,
+        "decode_pass": False,
+        "width": None,
+        "height": None,
+        "min_width": MIN_UI_SCREENSHOT_WIDTH,
+        "min_height": MIN_UI_SCREENSHOT_HEIGHT,
+        "min_dimensions_pass": False,
+        "valid_ui_screenshot": False,
+        "failure": "",
+    }
+    if path is None:
+        evidence["failure"] = "missing_path"
+        return evidence
     try:
-        path = Path(str(value))
-        if not path.is_absolute():
-            path = (REPO_ROOT / path).resolve()
+        evidence["exists"] = path.exists() and path.is_file()
+        if not evidence["exists"]:
+            evidence["failure"] = "file_missing"
+            return evidence
+        evidence["size_bytes"] = path.stat().st_size
+        if evidence["size_bytes"] <= 0:
+            evidence["failure"] = "empty_file"
+            return evidence
+        width, height = _read_image_dimensions(path)
+        evidence["decode_pass"] = bool(width and height)
+        evidence["width"] = width
+        evidence["height"] = height
+        evidence["min_dimensions_pass"] = bool(
+            width is not None
+            and height is not None
+            and width >= MIN_UI_SCREENSHOT_WIDTH
+            and height >= MIN_UI_SCREENSHOT_HEIGHT
+        )
+        evidence["valid_ui_screenshot"] = bool(evidence["decode_pass"] and evidence["min_dimensions_pass"])
+        if not evidence["decode_pass"]:
+            evidence["failure"] = "image_decode_failed"
+        elif not evidence["min_dimensions_pass"]:
+            evidence["failure"] = "image_too_small"
+    except Exception as exc:
+        evidence["failure"] = f"{type(exc).__name__}: {exc}"
+    return evidence
+
+
+def _read_image_dimensions(path: Path) -> tuple[int | None, int | None]:
+    try:
+        with path.open("rb") as handle:
+            header = handle.read(32)
+        if header.startswith(b"\x89PNG\r\n\x1a\n") and header[12:16] == b"IHDR":
+            width, height = struct.unpack(">II", header[16:24])
+            return int(width), int(height)
+    except Exception:
+        pass
+    try:
+        from PIL import Image
+
+        with Image.open(path) as image:
+            width, height = image.size
+        return int(width), int(height)
+    except Exception:
+        return None, None
+
+
+def _resolve_path(value: Any) -> Path | None:
+    if not value:
+        return None
+    path = Path(str(value))
+    if not path.is_absolute():
+        path = (REPO_ROOT / path).resolve()
+    return path
+
+
+def _nonempty_file(value: Any) -> bool:
+    try:
+        path = _resolve_path(value)
+        if path is None:
+            return False
         return path.exists() and path.is_file() and path.stat().st_size > 0
     except Exception:
         return False
