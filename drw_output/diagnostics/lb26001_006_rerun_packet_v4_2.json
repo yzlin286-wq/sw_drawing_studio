@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 17:51:12",
+  "generated_at": "2026-06-26 20:18:12",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -620,6 +620,97 @@
         "missing_signatures": []
       },
       "fix_suggestion": "Restore cad_job_worker so the next 006 run writes UI correction evidence sidecar and passes its path to the generator."
+    },
+    {
+      "key": "reference_intent_executor_callout_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\reference_intent_dimension_executor.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "callout_operations",
+            "signature": "callout_operations",
+            "present": true
+          },
+          {
+            "key": "manufacturing_callout_operation",
+            "signature": "create_or_verify_reference_callout",
+            "present": true
+          },
+          {
+            "key": "absence_callout_operation",
+            "signature": "verify_absent_reference_callout",
+            "present": true
+          },
+          {
+            "key": "callout_operation_count",
+            "signature": "callout_operation_count",
+            "present": true
+          },
+          {
+            "key": "callout_worker_lock",
+            "signature": "\"requires_solidworks_lock\": True",
+            "present": true
+          },
+          {
+            "key": "callout_worker_entrypoint",
+            "signature": "\"allowed_entrypoint\": \"cad_job_worker\"",
+            "present": true
+          },
+          {
+            "key": "callout_ui_screenshot_gate",
+            "signature": "\"ui_screenshot_acceptance_required\"",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore reference_intent_dimension_executor.py so the next 006 worker contract includes locked callout and absence-check operations."
+    },
+    {
+      "key": "product_gate_callout_contract_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\product_evidence_gate_v4_4.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "callout_operation_contract",
+            "signature": "\"callout_operation_contract\": callout_operation_contract",
+            "present": true
+          },
+          {
+            "key": "callout_operation_contract_function",
+            "signature": "def _callout_operation_contract",
+            "present": true
+          },
+          {
+            "key": "manufacturing_callout_operation",
+            "signature": "create_or_verify_reference_callout",
+            "present": true
+          },
+          {
+            "key": "absence_callout_operation",
+            "signature": "verify_absent_reference_callout",
+            "present": true
+          },
+          {
+            "key": "callout_worker_entrypoint",
+            "signature": "cad_job_worker",
+            "present": true
+          },
+          {
+            "key": "callout_ui_screenshot_gate",
+            "signature": "ui_screenshot_acceptance_required",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore Product Evidence Gate callout operation contract checks before allowing another 006 rerun."
     },
     {
       "key": "generator_repair_signatures_present",
@@ -2031,6 +2122,87 @@
         {
           "key": "ui_correction_evidence_manifest_key",
           "signature": "ui_correction_evidence",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "reference_intent_dimension_executor": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\app\\services\\reference_intent_dimension_executor.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "callout_operations",
+          "signature": "callout_operations",
+          "present": true
+        },
+        {
+          "key": "manufacturing_callout_operation",
+          "signature": "create_or_verify_reference_callout",
+          "present": true
+        },
+        {
+          "key": "absence_callout_operation",
+          "signature": "verify_absent_reference_callout",
+          "present": true
+        },
+        {
+          "key": "callout_operation_count",
+          "signature": "callout_operation_count",
+          "present": true
+        },
+        {
+          "key": "callout_worker_lock",
+          "signature": "\"requires_solidworks_lock\": True",
+          "present": true
+        },
+        {
+          "key": "callout_worker_entrypoint",
+          "signature": "\"allowed_entrypoint\": \"cad_job_worker\"",
+          "present": true
+        },
+        {
+          "key": "callout_ui_screenshot_gate",
+          "signature": "\"ui_screenshot_acceptance_required\"",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "product_evidence_gate_v4_4": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\validation\\product_evidence_gate_v4_4.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "callout_operation_contract",
+          "signature": "\"callout_operation_contract\": callout_operation_contract",
+          "present": true
+        },
+        {
+          "key": "callout_operation_contract_function",
+          "signature": "def _callout_operation_contract",
+          "present": true
+        },
+        {
+          "key": "manufacturing_callout_operation",
+          "signature": "create_or_verify_reference_callout",
+          "present": true
+        },
+        {
+          "key": "absence_callout_operation",
+          "signature": "verify_absent_reference_callout",
+          "present": true
+        },
+        {
+          "key": "callout_worker_entrypoint",
+          "signature": "cad_job_worker",
+          "present": true
+        },
+        {
+          "key": "callout_ui_screenshot_gate",
+          "signature": "ui_screenshot_acceptance_required",
           "present": true
         }
       ],

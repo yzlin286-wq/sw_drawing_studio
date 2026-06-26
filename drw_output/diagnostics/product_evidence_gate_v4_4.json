@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 20:08:55",
+  "generated_at": "2026-06-26 20:18:35",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -189,6 +189,14 @@
         "offline_prerequisite_missing_keys": [],
         "source_signature_summary": {
           "cad_job_worker": {
+            "pass": true,
+            "missing_signatures": []
+          },
+          "reference_intent_dimension_executor": {
+            "pass": true,
+            "missing_signatures": []
+          },
+          "product_evidence_gate_v4_4": {
             "pass": true,
             "missing_signatures": []
           },
@@ -1190,9 +1198,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1052942,
-          "mtime_epoch": 1782475237.6430285,
-          "mtime_local": "2026-06-26 20:00:37"
+          "size_bytes": 1057544,
+          "mtime_epoch": 1782475856.602045,
+          "mtime_local": "2026-06-26 20:10:56"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

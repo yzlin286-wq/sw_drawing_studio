@@ -15,8 +15,10 @@ from tools.validation.lb26001_006_rerun_packet_v4_2 import (
     GENERATOR_SIGNATURES,
     LIFECYCLE_AUDIT_SIGNATURES,
     MANUAL_VISUAL_JUDGEMENT_TEMPLATE_SIGNATURES,
+    PRODUCT_EVIDENCE_GATE_SIGNATURES,
     REAL_CAD_SMOKE_SIGNATURES,
     REFERENCE_COMPARE_SIGNATURES,
+    REFERENCE_INTENT_EXECUTOR_SIGNATURES,
     STAGED_VALIDATION_SIGNATURES,
     VISION_QC_V6_SIGNATURES,
     build_rerun_packet,
@@ -163,6 +165,8 @@ def _build_packet_fixture(
     omit_acceptance_gate_signature: str = "",
     omit_acceptance_proof_signature: str = "",
     omit_correction_plan_signature: str = "",
+    omit_reference_intent_executor_signature: str = "",
+    omit_product_gate_signature: str = "",
     omit_staged_validation_signature: str = "",
     omit_real_cad_smoke_signature: str = "",
     omit_drawing_visual_review_signature: str = "",
@@ -184,6 +188,16 @@ def _build_packet_fixture(
             root / "cad_job_worker.py",
             CAD_WORKER_SIGNATURES,
             omit=omit_cad_worker_signature,
+        )
+        reference_intent_executor_source = _source_file(
+            root / "reference_intent_dimension_executor.py",
+            REFERENCE_INTENT_EXECUTOR_SIGNATURES,
+            omit=omit_reference_intent_executor_signature,
+        )
+        product_evidence_gate_source = _source_file(
+            root / "product_evidence_gate_v4_4.py",
+            PRODUCT_EVIDENCE_GATE_SIGNATURES,
+            omit=omit_product_gate_signature,
         )
         reference_compare_source = _source_file(root / "reference_compare_v4.py", REFERENCE_COMPARE_SIGNATURES)
         vision_qc_v6_source = _source_file(
@@ -257,7 +271,20 @@ def _build_packet_fixture(
         )
         contract = _artifact(
             root / "reference_intent_dimension_contract_006.json",
-            ["target_key", "selected_entity", "persisted_after_reopen"],
+            [
+                "target_key",
+                "selected_entity",
+                "persisted_after_reopen",
+                "callout_operations",
+                "callout_operation_count",
+                "create_or_verify_reference_callout",
+                "verify_absent_reference_callout",
+                "thread_callout_m4_6h",
+                "hole_callout_4x3_3",
+                "surface_finish_rest_3_2",
+                "radius_callout",
+                "chamfer_callout",
+            ],
         )
         ui_defect_buckets = root / "lb26001_006_ui_defect_buckets_v4_4.json"
         required_active_buckets = [
@@ -378,6 +405,8 @@ def _build_packet_fixture(
             reference_intent_contract_path=contract,
             ui_defect_buckets_path=ui_defect_buckets,
             cad_worker_source_path=cad_worker_source,
+            reference_intent_executor_source_path=reference_intent_executor_source,
+            product_evidence_gate_source_path=product_evidence_gate_source,
             correction_plan_source_path=correction_plan_source,
             generator_source_path=generator_source,
             reference_compare_source_path=reference_compare_source,
@@ -426,6 +455,8 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert "LB26001-A-04-006_reference_vs_generated.png" in result["markdown"]
     assert packet["source_signatures"]["generator"]["pass"] is True
     assert packet["source_signatures"]["cad_job_worker"]["pass"] is True
+    assert packet["source_signatures"]["reference_intent_dimension_executor"]["pass"] is True
+    assert packet["source_signatures"]["product_evidence_gate_v4_4"]["pass"] is True
     assert packet["source_signatures"]["reference_compare_v4"]["pass"] is True
     assert packet["source_signatures"]["vision_qc_v6"]["pass"] is True
     assert packet["source_signatures"]["application_ui_screenshot_validator"]["pass"] is True
@@ -595,6 +626,36 @@ def test_006_rerun_packet_blocks_when_cad_worker_ui_evidence_signature_missing()
     assert "cad_worker_ui_correction_evidence_signatures_present" in packet["offline_prerequisite_missing_keys"]
     assert packet["source_signatures"]["cad_job_worker"]["missing_signatures"] == [
         "ui_correction_evidence_generator_env"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_reference_intent_executor_callout_signature_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_reference_intent_executor_signature="callout_operations",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "reference_intent_executor_callout_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["reference_intent_dimension_executor"]["missing_signatures"] == [
+        "callout_operations"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_product_gate_callout_contract_signature_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_product_gate_signature="callout_operation_contract",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "product_gate_callout_contract_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["product_evidence_gate_v4_4"]["missing_signatures"] == [
+        "callout_operation_contract"
     ]
 
 
@@ -1297,6 +1358,8 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_stale_correction_plan_screenshot_content_status()
     test_006_rerun_packet_blocks_when_correction_plan_source_signature_missing()
     test_006_rerun_packet_blocks_when_cad_worker_ui_evidence_signature_missing()
+    test_006_rerun_packet_blocks_when_reference_intent_executor_callout_signature_missing()
+    test_006_rerun_packet_blocks_when_product_gate_callout_contract_signature_missing()
     test_006_rerun_packet_blocks_when_source_repair_signature_is_missing()
     test_006_rerun_packet_blocks_when_generator_sidecar_signature_is_missing()
     test_006_rerun_packet_blocks_when_generator_slot_summary_signature_is_missing()

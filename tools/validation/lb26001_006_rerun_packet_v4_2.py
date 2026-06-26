@@ -54,7 +54,9 @@ DEFAULT_CORRECTION_PLAN_SOURCE = REPO_ROOT / "tools" / "validation" / "lb26001_c
 DEFAULT_REFERENCE_INTENT_PLAN = REPO_ROOT / "drw_output" / "reference_intent_dimension_plan_006.json"
 DEFAULT_REFERENCE_INTENT_CONTRACT = REPO_ROOT / "drw_output" / "reference_intent_dimension_contract_006.json"
 DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
+DEFAULT_REFERENCE_INTENT_EXECUTOR_SOURCE = REPO_ROOT / "app" / "services" / "reference_intent_dimension_executor.py"
 DEFAULT_CAD_WORKER_SOURCE = REPO_ROOT / "app" / "workers" / "cad_job_worker.py"
+DEFAULT_PRODUCT_EVIDENCE_GATE_SOURCE = REPO_ROOT / "tools" / "validation" / "product_evidence_gate_v4_4.py"
 DEFAULT_GENERATOR_SOURCE = REPO_ROOT / ".trae" / "specs" / "build-v6-and-validate-exe-ui" / "drw_generate_v6.py"
 DEFAULT_REFERENCE_COMPARE_SOURCE = REPO_ROOT / "app" / "services" / "reference_compare_v4.py"
 DEFAULT_VISION_QC_V6_SOURCE = REPO_ROOT / "app" / "services" / "vision_qc_v6.py"
@@ -185,6 +187,25 @@ CAD_WORKER_SIGNATURES = {
     "ui_defect_bucket_generator_env": "LB26001_006_UI_DEFECT_BUCKETS_PATH",
     "ui_correction_evidence_generator_env": "LB26001_006_UI_CORRECTION_EVIDENCE_PATH",
     "ui_correction_evidence_manifest_key": "ui_correction_evidence",
+}
+
+REFERENCE_INTENT_EXECUTOR_SIGNATURES = {
+    "callout_operations": "callout_operations",
+    "manufacturing_callout_operation": "create_or_verify_reference_callout",
+    "absence_callout_operation": "verify_absent_reference_callout",
+    "callout_operation_count": "callout_operation_count",
+    "callout_worker_lock": '"requires_solidworks_lock": True',
+    "callout_worker_entrypoint": '"allowed_entrypoint": "cad_job_worker"',
+    "callout_ui_screenshot_gate": '"ui_screenshot_acceptance_required"',
+}
+
+PRODUCT_EVIDENCE_GATE_SIGNATURES = {
+    "callout_operation_contract": '"callout_operation_contract": callout_operation_contract',
+    "callout_operation_contract_function": "def _callout_operation_contract",
+    "manufacturing_callout_operation": "create_or_verify_reference_callout",
+    "absence_callout_operation": "verify_absent_reference_callout",
+    "callout_worker_entrypoint": "cad_job_worker",
+    "callout_ui_screenshot_gate": "ui_screenshot_acceptance_required",
 }
 
 REFERENCE_COMPARE_SIGNATURES = {
@@ -652,6 +673,8 @@ def build_rerun_packet(
     reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
     ui_defect_buckets_path: Path = DEFAULT_UI_DEFECT_BUCKETS,
     correction_plan_source_path: Path = DEFAULT_CORRECTION_PLAN_SOURCE,
+    reference_intent_executor_source_path: Path = DEFAULT_REFERENCE_INTENT_EXECUTOR_SOURCE,
+    product_evidence_gate_source_path: Path = DEFAULT_PRODUCT_EVIDENCE_GATE_SOURCE,
     cad_worker_source_path: Path = DEFAULT_CAD_WORKER_SOURCE,
     generator_source_path: Path = DEFAULT_GENERATOR_SOURCE,
     reference_compare_source_path: Path = DEFAULT_REFERENCE_COMPARE_SOURCE,
@@ -685,6 +708,14 @@ def build_rerun_packet(
         == bool(current_006.get("application_ui_screenshot_content_check_pass"))
     )
     cad_worker_signatures = _signature_status(cad_worker_source_path, CAD_WORKER_SIGNATURES)
+    reference_intent_executor_signatures = _signature_status(
+        reference_intent_executor_source_path,
+        REFERENCE_INTENT_EXECUTOR_SIGNATURES,
+    )
+    product_evidence_gate_signatures = _signature_status(
+        product_evidence_gate_source_path,
+        PRODUCT_EVIDENCE_GATE_SIGNATURES,
+    )
     generator_signatures = _signature_status(generator_source_path, GENERATOR_SIGNATURES)
     reference_compare_signatures = _signature_status(reference_compare_source_path, REFERENCE_COMPARE_SIGNATURES)
     vision_qc_v6_signatures = _signature_status(vision_qc_v6_source_path, VISION_QC_V6_SIGNATURES)
@@ -721,7 +752,20 @@ def build_rerun_packet(
     )
     reference_intent_contract = _reference_intent_artifact_status(
         reference_intent_contract_path,
-        expected_keys=["target_key", "selected_entity", "persisted_after_reopen"],
+        expected_keys=[
+            "target_key",
+            "selected_entity",
+            "persisted_after_reopen",
+            "callout_operations",
+            "callout_operation_count",
+            "create_or_verify_reference_callout",
+            "verify_absent_reference_callout",
+            "thread_callout_m4_6h",
+            "hole_callout_4x3_3",
+            "surface_finish_rest_3_2",
+            "radius_callout",
+            "chamfer_callout",
+        ],
     )
     ui_defect_buckets = _ui_defect_bucket_status(ui_defect_buckets_path)
 
@@ -842,6 +886,18 @@ def build_rerun_packet(
             cad_worker_signatures["pass"],
             cad_worker_signatures,
             "Restore cad_job_worker so the next 006 run writes UI correction evidence sidecar and passes its path to the generator.",
+        ),
+        _prerequisite(
+            "reference_intent_executor_callout_signatures_present",
+            reference_intent_executor_signatures["pass"],
+            reference_intent_executor_signatures,
+            "Restore reference_intent_dimension_executor.py so the next 006 worker contract includes locked callout and absence-check operations.",
+        ),
+        _prerequisite(
+            "product_gate_callout_contract_signatures_present",
+            product_evidence_gate_signatures["pass"],
+            product_evidence_gate_signatures,
+            "Restore Product Evidence Gate callout operation contract checks before allowing another 006 rerun.",
         ),
         _prerequisite(
             "generator_repair_signatures_present",
@@ -1066,6 +1122,8 @@ def build_rerun_packet(
         "offline_prerequisites": prerequisites,
         "source_signatures": {
             "cad_job_worker": cad_worker_signatures,
+            "reference_intent_dimension_executor": reference_intent_executor_signatures,
+            "product_evidence_gate_v4_4": product_evidence_gate_signatures,
             "generator": generator_signatures,
             "reference_compare_v4": reference_compare_signatures,
             "vision_qc_v6": vision_qc_v6_signatures,
@@ -1140,6 +1198,8 @@ def write_rerun_packet(
     reference_intent_contract_path: Path = DEFAULT_REFERENCE_INTENT_CONTRACT,
     ui_defect_buckets_path: Path = DEFAULT_UI_DEFECT_BUCKETS,
     correction_plan_source_path: Path = DEFAULT_CORRECTION_PLAN_SOURCE,
+    reference_intent_executor_source_path: Path = DEFAULT_REFERENCE_INTENT_EXECUTOR_SOURCE,
+    product_evidence_gate_source_path: Path = DEFAULT_PRODUCT_EVIDENCE_GATE_SOURCE,
     cad_worker_source_path: Path = DEFAULT_CAD_WORKER_SOURCE,
     generator_source_path: Path = DEFAULT_GENERATOR_SOURCE,
     reference_compare_source_path: Path = DEFAULT_REFERENCE_COMPARE_SOURCE,
@@ -1166,6 +1226,8 @@ def write_rerun_packet(
         reference_intent_contract_path=reference_intent_contract_path,
         ui_defect_buckets_path=ui_defect_buckets_path,
         correction_plan_source_path=correction_plan_source_path,
+        reference_intent_executor_source_path=reference_intent_executor_source_path,
+        product_evidence_gate_source_path=product_evidence_gate_source_path,
         cad_worker_source_path=cad_worker_source_path,
         generator_source_path=generator_source_path,
         reference_compare_source_path=reference_compare_source_path,
@@ -1193,6 +1255,8 @@ def main() -> int:
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
     parser.add_argument("--correction-plan", default=str(DEFAULT_CORRECTION_PLAN))
     parser.add_argument("--correction-plan-source", default=str(DEFAULT_CORRECTION_PLAN_SOURCE))
+    parser.add_argument("--reference-intent-executor-source", default=str(DEFAULT_REFERENCE_INTENT_EXECUTOR_SOURCE))
+    parser.add_argument("--product-evidence-gate-source", default=str(DEFAULT_PRODUCT_EVIDENCE_GATE_SOURCE))
     parser.add_argument("--cad-worker-source", default=str(DEFAULT_CAD_WORKER_SOURCE))
     parser.add_argument("--reference-intent-plan", default=str(DEFAULT_REFERENCE_INTENT_PLAN))
     parser.add_argument("--reference-intent-contract", default=str(DEFAULT_REFERENCE_INTENT_CONTRACT))
@@ -1224,6 +1288,8 @@ def main() -> int:
         requested_status_path=_repo_path(args.requested_status),
         correction_plan_path=_repo_path(args.correction_plan),
         correction_plan_source_path=_repo_path(args.correction_plan_source),
+        reference_intent_executor_source_path=_repo_path(args.reference_intent_executor_source),
+        product_evidence_gate_source_path=_repo_path(args.product_evidence_gate_source),
         cad_worker_source_path=_repo_path(args.cad_worker_source),
         reference_intent_plan_path=_repo_path(args.reference_intent_plan),
         reference_intent_contract_path=_repo_path(args.reference_intent_contract),

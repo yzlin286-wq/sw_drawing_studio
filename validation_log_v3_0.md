@@ -14781,3 +14781,60 @@ Remaining issues:
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
 - All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
 - API/JSON/DisplayDim/callout-contract evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.
+
+## v4.4 Rerun Packet Requires 006 Callout Contract Guards - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline rerun-packet hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds `REFERENCE_INTENT_EXECUTOR_SIGNATURES`.
+  - Adds `PRODUCT_EVIDENCE_GATE_SIGNATURES`.
+  - Adds offline prerequisites:
+    - `reference_intent_executor_callout_signatures_present`
+    - `product_gate_callout_contract_signatures_present`
+  - Requires `reference_intent_dimension_contract_006.json` to contain `callout_operations`, `callout_operation_count`, `create_or_verify_reference_callout`, `verify_absent_reference_callout`, and the 5 callout/absence keys.
+  - Writes both new source signature groups into the rerun packet evidence.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Fixture now includes reference-intent executor and Product Gate source files.
+  - Proves missing executor callout signatures block `packet_build_ready`.
+  - Proves missing Product Gate callout contract signatures block `packet_build_ready`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py tools\validation\product_evidence_gate_v4_4.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `readiness_blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- New rerun-packet source signatures pass:
+  - `source_signatures.reference_intent_dimension_executor.pass=true`
+  - `source_signatures.product_evidence_gate_v4_4.pass=true`
+  - `reference_intent_artifacts.contract.pass=true`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by a visible unsaved SolidWorks document, so no real CAD rerun is allowed.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+- API/JSON/DisplayDim/callout-contract evidence remains supporting-only; 006 still requires a future locked CAD rerun and application Drawing Review UI screenshot judgement before any dependent sample can run.
