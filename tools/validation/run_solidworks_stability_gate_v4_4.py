@@ -199,6 +199,7 @@ def run_gate() -> dict[str, Any]:
             "entrypoint_count": entrypoint.get("entrypoint_count"),
             "unguarded_or_unknown_count": entrypoint.get("unguarded_or_unknown_count"),
             "ui_thread_direct_risk_count": entrypoint.get("ui_thread_direct_risk_count"),
+            "ui_thread_subprocess_call_count": entrypoint.get("ui_thread_subprocess_call_count"),
             "ui_threadpool_worker_count": entrypoint.get("ui_threadpool_worker_count"),
             "service_direct_risk_count": entrypoint.get("service_direct_risk_count"),
             "system_health_ui_thread_direct_probe_count": entrypoint.get("system_health_ui_thread_direct_probe_count"),

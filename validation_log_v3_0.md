@@ -12718,6 +12718,65 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 UI Subprocess Scanner Enforcement - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline SolidWorks Stability Gate / Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/solidworks_entrypoint_scanner.py`.
+  - Adds `os.startfile` detection.
+  - Treats `subprocess.run`, `subprocess.Popen`, `os.startfile`, and `os.system` in `app/ui/*` as UI-thread subprocess risks.
+  - Removes the old `ui_shell_open_allowlisted` path for explorer-style UI directory open actions.
+  - Emits `ui_thread_subprocess_call_count` and `ui_thread_subprocess_calls`.
+- Updated `tools/validation/run_solidworks_stability_gate_v4_4.py`.
+  - Carries `ui_thread_subprocess_call_count` into `entrypoint_summary`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Requires `ui_thread_subprocess_call_count==0` in both the Stability Gate summary and the raw entrypoint scan report.
+- Updated tests:
+  - `test_v4_1_solidworks_entrypoint_scan.py` proves a synthetic `app/ui` file with `subprocess.Popen(["explorer", ...])` and `os.startfile(...)` becomes a scanner warning with `ui_thread_subprocess_call_count=2`.
+  - `test_v4_4_product_evidence_gate.py` proves Product Gate blocks when UI subprocess calls return.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\solidworks_entrypoint_scanner.py tools\validation\run_solidworks_stability_gate_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v4_1_solidworks_entrypoint_scan.py test_v4_4_product_evidence_gate.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, with:
+  - `entrypoint_count=527`
+  - `unguarded_or_unknown_count=0`
+  - `ui_thread_direct_risk_count=0`
+  - `ui_thread_subprocess_call_count=0`
+  - `ui_threadpool_worker_count=0`
+  - `service_direct_risk_count=0`
+  - `system_health_ui_thread_direct_probe_count=0`
+- Refreshed Stability Gate remains `warning`, with source scan and lock tests passing, because the current idle SolidWorks process is not under a worker-owned global lock.
+- Refreshed 006 readiness remains blocked by `solidworks_unsaved_document_visible`; refreshed rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 Product Gate Requires 006 Readiness Title Sampling - 2026-06-26
 
 Current judgment:

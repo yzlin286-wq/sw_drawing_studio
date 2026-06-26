@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regression_readiness.v4_2",
-  "generated_at": "2026-06-26 10:15:36",
+  "generated_at": "2026-06-26 10:22:19",
   "base": "LB26001-A-04-006",
   "ready_to_start_locked_006_cad": false,
   "status": "blocked",
@@ -13,12 +13,12 @@
         "pid": 14144,
         "process_name": "SLDWORKS",
         "responding": true,
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]"
       }
     ],
     "pid": 14144,
     "responding": true,
-    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
+    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]",
     "returncode": 0,
     "sample_count": 5,
     "observation_count": 5,
@@ -42,7 +42,7 @@
       "source": "lb26001_006_regression_readiness_v4_2",
       "confidence": 1.0,
       "evidence": {
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]"
       },
       "fix_suggestion": "Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun."
     },
@@ -188,7 +188,7 @@
     "manual_recovery_required": true,
     "automatic_restart_allowed": false,
     "reason": "Automatic restart is forbidden while SolidWorks is unresponsive or an unsaved document marker is visible.",
-    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
+    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]",
     "steps": [
       "In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.",
       "Rerun this no-COM readiness audit after SolidWorks is responsive.",

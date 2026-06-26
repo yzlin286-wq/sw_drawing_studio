@@ -32,6 +32,7 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "Qt ThreadPool worker": re.compile(r"\b(?:QThreadPool|QRunnable|LLMWorker|RunnerWorker)\b"),
     "subprocess.run": re.compile(r"\bsubprocess\.run\s*\("),
     "subprocess.Popen": re.compile(r"\bsubprocess\.Popen\s*\("),
+    "os.startfile": re.compile(r"\bos\.startfile\s*\("),
     "os.system": re.compile(r"\bos\.system\s*\("),
     "time.sleep": re.compile(r"\btime\.sleep\s*\("),
 }
@@ -59,11 +60,11 @@ COM_PATTERNS = {
     "SolidWorks COM probe",
 }
 
-BLOCKING_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.system", "time.sleep"}
+BLOCKING_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.startfile", "os.system", "time.sleep"}
+UI_SUBPROCESS_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.startfile", "os.system"}
 DOCMGR_PATTERNS = {"DocMgr probe"}
 SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect"}
 UI_THREADPOOL_PATTERNS = {"Qt ThreadPool worker"}
-ALLOWED_UI_SUBPROCESS_HINTS = ("explorer", "startfile")
 
 SKIP_DIRS = {
     ".git",
@@ -159,11 +160,17 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         if entry.get("scope") == "ui"
         and any(pattern in set(entry["patterns"]) for pattern in UI_THREADPOOL_PATTERNS)
     ]
+    ui_thread_subprocess_calls = [
+        entry for entry in entries
+        if entry.get("scope") == "ui"
+        and any(pattern in set(entry["patterns"]) for pattern in UI_SUBPROCESS_PATTERNS)
+    ]
     external_host_lock_contract = _external_addin_host_lock_contract(root)
     status = "warning" if (
         unguarded
         or ui_thread_risks
         or ui_threadpool_workers
+        or ui_thread_subprocess_calls
         or service_direct_risks
         or (addin_hosted and external_host_lock_contract.get("status") != "pass")
     ) else "pass"
@@ -188,6 +195,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "background_watchdog_probe_count": len(background_watchdog_probe),
         "external_addin_host_lock_contract_status": external_host_lock_contract.get("status"),
         "ui_thread_direct_risk_count": len(ui_thread_risks),
+        "ui_thread_subprocess_call_count": len(ui_thread_subprocess_calls),
         "ui_threadpool_worker_count": len(ui_threadpool_workers),
         "service_direct_risk_count": len(service_direct_risks),
         "system_health_ui_thread_direct_probe_count": len(system_health_ui_direct),
@@ -196,6 +204,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             "no_com_without_global_lock": True,
             "ui_thread_no_solidworks_com": True,
             "ui_thread_no_long_subprocess": True,
+            "ui_thread_no_shell_open_subprocess": True,
             "ui_thread_no_qthreadpool_long_workers": True,
             "system_health_ui_thread_no_addin_ping_docmgr_or_subprocess_run": True,
             "visual_audit_no_solidworks": True,
@@ -203,6 +212,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         },
         "external_addin_host_lock_contract": external_host_lock_contract,
         "ui_thread_direct_risks": ui_thread_risks,
+        "ui_thread_subprocess_calls": ui_thread_subprocess_calls,
         "ui_threadpool_workers": ui_threadpool_workers,
         "service_direct_risks": service_direct_risks,
         "system_health_ui_thread_direct_probe": system_health_ui_direct,
@@ -263,8 +273,6 @@ def _guard_status(rel: str, has_guard_token: bool, patterns: list[str], text: st
         return "background_watchdog_probe"
     if _is_known_worker_launcher(rel, patterns):
         return "worker_launcher"
-    if _is_allowed_ui_subprocess(patterns, text):
-        return "ui_shell_open_allowlisted"
     return "guarded" if has_guard_token else "unguarded_or_unknown"
 
 
@@ -291,7 +299,7 @@ def _is_ui_thread_risk(scope: str, patterns: list[str], text: str) -> bool:
     names = set(patterns)
     if names & (COM_PATTERNS | DOCMGR_PATTERNS | SYSTEM_HEALTH_DIRECT_PATTERNS | UI_THREADPOOL_PATTERNS):
         return True
-    if names & BLOCKING_PATTERNS and not _is_allowed_ui_subprocess(patterns, text):
+    if names & BLOCKING_PATTERNS:
         return True
     return False
 
@@ -385,13 +393,6 @@ def _is_legacy_service_adapter(rel: str, patterns: list[str]) -> bool:
 
 def _is_background_watchdog_probe(rel: str, patterns: list[str]) -> bool:
     return rel == "app/services/sw_watchdog.py" and bool(set(patterns) & {"subprocess.run"})
-
-
-def _is_allowed_ui_subprocess(patterns: list[str], text: str) -> bool:
-    if not (set(patterns) & {"subprocess.Popen"}):
-        return False
-    lowered = text.lower()
-    return any(hint in lowered for hint in ALLOWED_UI_SUBPROCESS_HINTS)
 
 
 def _is_comment_line(stripped: str) -> bool:

@@ -153,6 +153,7 @@ def build_product_evidence_gate(
         "ui_thread_direct_risk_zero",
         int(entrypoint_summary.get("unguarded_or_unknown_count") or 0) == 0
         and int(entrypoint_summary.get("ui_thread_direct_risk_count") or 0) == 0
+        and int(entrypoint_summary.get("ui_thread_subprocess_call_count") or 0) == 0
         and int(entrypoint_summary.get("ui_threadpool_worker_count") or 0) == 0
         and int(entrypoint_summary.get("service_direct_risk_count") or 0) == 0
         and int(entrypoint_summary.get("system_health_ui_thread_direct_probe_count") or 0) == 0,
@@ -165,6 +166,7 @@ def build_product_evidence_gate(
         entrypoint_report.get("status") == "pass"
         and int(entrypoint_report.get("unguarded_or_unknown_count") or 0) == 0
         and int(entrypoint_report.get("ui_thread_direct_risk_count") or 0) == 0
+        and int(entrypoint_report.get("ui_thread_subprocess_call_count") or 0) == 0
         and int(entrypoint_report.get("ui_threadpool_worker_count") or 0) == 0
         and int(entrypoint_report.get("service_direct_risk_count") or 0) == 0
         and int(entrypoint_report.get("system_health_ui_thread_direct_probe_count") or 0) == 0
@@ -725,6 +727,7 @@ def _entrypoint_report_summary(path: Path, payload: dict[str, Any]) -> dict[str,
         "entrypoint_count": payload.get("entrypoint_count"),
         "unguarded_or_unknown_count": payload.get("unguarded_or_unknown_count"),
         "ui_thread_direct_risk_count": payload.get("ui_thread_direct_risk_count"),
+        "ui_thread_subprocess_call_count": payload.get("ui_thread_subprocess_call_count"),
         "ui_threadpool_worker_count": payload.get("ui_threadpool_worker_count"),
         "service_direct_risk_count": payload.get("service_direct_risk_count"),
         "system_health_ui_thread_direct_probe_count": payload.get("system_health_ui_thread_direct_probe_count"),
