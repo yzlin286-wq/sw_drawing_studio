@@ -913,6 +913,21 @@ def test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing() ->
     ]
 
 
+def test_006_rerun_packet_blocks_when_generic_dimension_delete_signature_is_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="ui_defect_delete_generic_before_duplicate_target",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "ui_defect_delete_generic_before_duplicate_target"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_generator_live_view_recovery_blocker_is_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,

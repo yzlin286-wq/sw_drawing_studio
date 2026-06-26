@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 10:34:36",
+  "generated_at": "2026-06-26 11:03:30",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -121,7 +121,7 @@
       "required": true,
       "current_pass": false,
       "evidence": {
-        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
         "failed_items": [
           "reference_match",
           "view_layout",
@@ -132,46 +132,46 @@
         ],
         "latest_manual_findings": [
           "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
-          "The run uses current-run generated PNG evidence from drw_output/runs/2aba76ff152d.",
-          "DisplayDim lifecycle now passes, but the visible drawing still fails the final UI screenshot review.",
-          "Final exact prune attempted to reduce the sheet, but restored the over-dense state because deleting to 12 lost required target coverage.",
+          "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
+          "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
+          "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
           "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
         ],
-        "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+        "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
         "correction_actions": [
           {
             "check": "reference_match",
-            "source_note": "Generated drawing still differs materially from the same-name reference: visible dimension density, diagonal/cross-region dimension lines, and title/notes placement remain non-reference-like.",
+            "source_note": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
           },
           {
             "check": "view_layout",
-            "source_note": "View family is present, but view scale, visual organization, and dimension geometry do not match the compact reference drawing.",
+            "source_note": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
           },
           {
             "check": "display_dimensions",
-            "source_note": "The final sheet still contains 24 visible DisplayDims, far above the 12 reference-intent target count.",
+            "source_note": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
           },
           {
             "check": "dimension_readability",
-            "source_note": "Dimension text, leaders, extension lines, and diagonal cross-region geometry dominate the drawing and reduce manufacturing readability.",
+            "source_note": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
           },
           {
             "check": "title_block",
-            "source_note": "The title/data area remains positioned and formatted differently from the reference.",
+            "source_note": "The visible title/data area is positioned and formatted differently from the compact reference style.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
           },
           {
             "check": "manufacturing_notes",
-            "source_note": "Manufacturing notes are present but still not formatted or placed like the reference note block.",
+            "source_note": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions.",
             "source_type": "manual_visual_checklist",
             "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
           }
@@ -183,7 +183,7 @@
   "current_006_ui_verdict": {
     "status": "manual_visual_checklist_failed",
     "pass": false,
-    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+    "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
     "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
     "source_ui_report_mode": "source_qt_application_ui_screenshot",
     "generated_png_source_pass": true,
@@ -205,18 +205,18 @@
       "manufacturing_notes": false
     },
     "latest_manual_visual_checklist_notes": {
-      "reference_match": "Generated drawing still differs materially from the same-name reference: visible dimension density, diagonal/cross-region dimension lines, and title/notes placement remain non-reference-like.",
-      "view_layout": "View family is present, but view scale, visual organization, and dimension geometry do not match the compact reference drawing.",
-      "display_dimensions": "The final sheet still contains 24 visible DisplayDims, far above the 12 reference-intent target count.",
-      "dimension_readability": "Dimension text, leaders, extension lines, and diagonal cross-region geometry dominate the drawing and reduce manufacturing readability.",
-      "title_block": "The title/data area remains positioned and formatted differently from the reference.",
-      "manufacturing_notes": "Manufacturing notes are present but still not formatted or placed like the reference note block."
+      "reference_match": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
+      "view_layout": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
+      "display_dimensions": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
+      "dimension_readability": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
+      "title_block": "The visible title/data area is positioned and formatted differently from the compact reference style.",
+      "manufacturing_notes": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions."
     },
     "latest_manual_findings": [
       "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
-      "The run uses current-run generated PNG evidence from drw_output/runs/2aba76ff152d.",
-      "DisplayDim lifecycle now passes, but the visible drawing still fails the final UI screenshot review.",
-      "Final exact prune attempted to reduce the sheet, but restored the over-dense state because deleting to 12 lost required target coverage.",
+      "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
+      "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
+      "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
       "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
     ],
     "correction_plan_direct_ui_findings_used_for_correction": false,
@@ -231,50 +231,52 @@
     "correction_actions": [
       {
         "check": "reference_match",
-        "source_note": "Generated drawing still differs materially from the same-name reference: visible dimension density, diagonal/cross-region dimension lines, and title/notes placement remain non-reference-like.",
+        "source_note": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Match the same-name SLDDRW reference composition before considering API metrics sufficient."
       },
       {
         "check": "view_layout",
-        "source_note": "View family is present, but view scale, visual organization, and dimension geometry do not match the compact reference drawing.",
+        "source_note": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Use the learned normalized layout slots and avoid default title-block-driven sheet placement."
       },
       {
         "check": "display_dimensions",
-        "source_note": "The final sheet still contains 24 visible DisplayDims, far above the 12 reference-intent target count.",
+        "source_note": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Create explicit reference-intent SolidWorks DisplayDim objects for visible manufacturing callouts."
       },
       {
         "check": "dimension_readability",
-        "source_note": "Dimension text, leaders, extension lines, and diagonal cross-region geometry dominate the drawing and reduce manufacturing readability.",
+        "source_note": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Arrange dimensions into readable lanes and reject overlap or sparse generic AutoDimension output."
       },
       {
         "check": "title_block",
-        "source_note": "The title/data area remains positioned and formatted differently from the reference.",
+        "source_note": "The visible title/data area is positioned and formatted differently from the compact reference style.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Remove or suppress the oversized default title block/frame when it conflicts with the reference layout."
       },
       {
         "check": "manufacturing_notes",
-        "source_note": "Manufacturing notes are present but still not formatted or placed like the reference note block.",
+        "source_note": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions.",
         "source_type": "manual_visual_checklist",
         "correction_action": "Preserve reference-style notes, roughness, warning text, and compact callout regions."
       }
     ],
-    "latest_manual_required_correction": "Improve reference-intent DisplayDim selection so the exact 12 kept dimensions cover every required target without retaining dense duplicate/cross-region dimensions, then run exactly one locked 006-only CAD cycle and repeat the Drawing Review UI screenshot/manual checklist gate.",
+    "latest_manual_required_correction": "Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI.",
     "ui_screenshot_files": [
-      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
     ],
     "application_ui_screenshot_paths_existing_application_ui": [
-      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
     ],
-    "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
-    "generated_png": "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+    "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+    "generated_png": "drw_output\\runs\\03eab4738911\\drawing\\LB26001-A-04-006_v5.PNG",
     "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png"
   },
   "ui_defect_buckets": {
@@ -379,7 +381,7 @@
       "pass": true,
       "evidence": {
         "status": "manual_visual_checklist_failed",
-        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+        "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
         "source_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
         "failed_items": [
           "reference_match",
@@ -396,7 +398,7 @@
       "key": "correction_plan_ready",
       "pass": true,
       "evidence": {
-        "status": "blocked_by_006",
+        "status": "blocked_by_solidworks_readiness",
         "correction_plan_ready": true,
         "missing_reference_rules": []
       },
@@ -408,8 +410,8 @@
       "evidence": {
         "requested_status": "manual_visual_checklist_failed",
         "correction_status": "manual_visual_checklist_failed",
-        "requested_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
-        "correction_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+        "requested_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
+        "correction_latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
         "requested_generated_png_source_pass": true,
         "correction_generated_png_source_pass": true,
         "requested_ui_screenshot_content_check_pass": true,
@@ -422,7 +424,7 @@
       "pass": true,
       "evidence": {
         "correction_stage": "pilot_006_first",
-        "blocked_by_readiness": false,
+        "blocked_by_readiness": true,
         "reference_intent_trace_policy": {
           "required": true,
           "source_plan": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
@@ -897,7 +899,7 @@
           },
           {
             "key": "prune_deleted_item_reason",
-            "signature": "\"reason\": \"over_quota_or_low_reference_intent_score\"",
+            "signature": "over_quota_or_low_reference_intent_score",
             "present": true
           },
           {
@@ -908,6 +910,21 @@
           {
             "key": "reference_intent_exact_target_cap",
             "signature": "reference_intent_exact_target_cap",
+            "present": true
+          },
+          {
+            "key": "ui_defect_delete_generic_before_duplicate_target",
+            "signature": "generic_non_reference_intent_displaydim",
+            "present": true
+          },
+          {
+            "key": "reference_intent_delete_target_rank",
+            "signature": "target_rank",
+            "present": true
+          },
+          {
+            "key": "reference_intent_delete_priority_evidence",
+            "signature": "\"delete_priority\": list(_delete_priority(item, annotated_before))",
             "present": true
           },
           {
@@ -2214,7 +2231,7 @@
         },
         {
           "key": "prune_deleted_item_reason",
-          "signature": "\"reason\": \"over_quota_or_low_reference_intent_score\"",
+          "signature": "over_quota_or_low_reference_intent_score",
           "present": true
         },
         {
@@ -2225,6 +2242,21 @@
         {
           "key": "reference_intent_exact_target_cap",
           "signature": "reference_intent_exact_target_cap",
+          "present": true
+        },
+        {
+          "key": "ui_defect_delete_generic_before_duplicate_target",
+          "signature": "generic_non_reference_intent_displaydim",
+          "present": true
+        },
+        {
+          "key": "reference_intent_delete_target_rank",
+          "signature": "target_rank",
+          "present": true
+        },
+        {
+          "key": "reference_intent_delete_priority_evidence",
+          "signature": "\"delete_priority\": list(_delete_priority(item, annotated_before))",
           "present": true
         },
         {

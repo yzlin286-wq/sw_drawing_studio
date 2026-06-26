@@ -1535,6 +1535,144 @@ def test_generator_prune_preserves_unique_reference_intent_target_coverage() -> 
     assert result["success"] is True
 
 
+def test_generator_prune_deletes_generic_dimensions_before_duplicate_targets() -> None:
+    module = _load_generator()
+
+    class FakeDoc:
+        def ClearSelection2(self, *_args):
+            return True
+
+        def ForceRebuild3(self, *_args):
+            return True
+
+    ann_best = object()
+    ann_duplicate = object()
+    ann_hole = object()
+    ann_generic = object()
+    live_items = [
+        {
+            "annotation": ann_best,
+            "slot": "front",
+            "_slot": "front",
+            "view": "front_best",
+            "source": "unit",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.50, 1.012],
+            "fixture_kind": "overall_best",
+        },
+        {
+            "annotation": ann_duplicate,
+            "slot": "front",
+            "_slot": "front",
+            "view": "front_duplicate",
+            "source": "unit",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.55, 1.012],
+            "fixture_kind": "overall_duplicate",
+        },
+        {
+            "annotation": ann_hole,
+            "slot": "top",
+            "_slot": "top",
+            "view": "top_hole",
+            "source": "unit",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.70, 1.012],
+            "fixture_kind": "hole_pitch",
+        },
+        {
+            "annotation": ann_generic,
+            "slot": "front",
+            "_slot": "front",
+            "view": "front_generic",
+            "source": "unit",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.20, 0.20],
+            "fixture_kind": "generic",
+        },
+    ]
+    dimension_plan = {
+        "dimension_intent_groups": [{"key": "end_offsets"}, {"key": "hole_locations"}],
+        "dimension_targets": [
+            {"key": "overall_length", "target_view": "front", "preferred_side": "above", "priority": 1},
+            {"key": "hole_pitch", "target_view": "top", "preferred_side": "above", "priority": 9},
+        ],
+    }
+    selected = {"annotation": None}
+    original_collect = module._display_dim_annotations_in_doc
+    original_select = module._select_annotation_for_delete
+    original_delete = module._delete_selected_annotation
+    original_score = module._score_display_dim_for_reference_intent
+
+    def fake_collect(_doc):
+        return list(live_items)
+
+    def fake_select(_doc, annotation, display_dim=None):
+        selected["annotation"] = annotation
+        return True, "unit.Select"
+
+    def fake_delete(_doc):
+        annotation = selected.get("annotation")
+        for index, item in enumerate(list(live_items)):
+            if item.get("annotation") is annotation:
+                del live_items[index]
+                return True, "unit.Delete"
+        return False, "unit.DeleteMissing"
+
+    def fake_score(item, **_kwargs):
+        kind = str(item.get("fixture_kind") or "")
+        if kind == "overall_best":
+            return {
+                "score": 10.0,
+                "slot": "front",
+                "side": "top",
+                "target_match": {"target_key": "overall_length", "match_score": 5.0},
+            }
+        if kind == "overall_duplicate":
+            return {
+                "score": 1.0,
+                "slot": "front",
+                "side": "top",
+                "target_match": {"target_key": "overall_length", "match_score": 4.0},
+            }
+        if kind == "hole_pitch":
+            return {
+                "score": 10.0,
+                "slot": "top",
+                "side": "top",
+                "target_match": {"target_key": "hole_pitch", "match_score": 5.0},
+            }
+        return {"score": 50.0, "slot": "front", "side": "inside", "reason": "generic_autodim_noise"}
+
+    try:
+        module._display_dim_annotations_in_doc = fake_collect
+        module._select_annotation_for_delete = fake_select
+        module._delete_selected_annotation = fake_delete
+        module._score_display_dim_for_reference_intent = fake_score
+        result = module._prune_display_dims_to_cap(
+            FakeDoc(),
+            3,
+            dimension_plan=dimension_plan,
+            reference_dim_floor=3,
+            strict_reference_intent=True,
+        )
+    finally:
+        module._display_dim_annotations_in_doc = original_collect
+        module._select_annotation_for_delete = original_select
+        module._delete_selected_annotation = original_delete
+        module._score_display_dim_for_reference_intent = original_score
+
+    remaining_annotations = {item["annotation"] for item in live_items}
+    assert result["deleted"] == 1
+    assert result["deleted_items"][0]["reason"] == "generic_non_reference_intent_displaydim"
+    assert result["deleted_items"][0]["target_key"] == ""
+    assert ann_generic not in remaining_annotations
+    assert ann_duplicate in remaining_annotations
+    assert ann_best in remaining_annotations
+    assert ann_hole in remaining_annotations
+    assert result["success"] is True
+
+
 def test_generator_prune_refuses_to_break_unique_target_coverage_for_cap() -> None:
     module = _load_generator()
 
@@ -1996,6 +2134,7 @@ if __name__ == "__main__":
     test_generator_reports_reference_intent_target_coverage_stage_delta()
     test_generator_explicit_dims_continue_when_floor_met_but_targets_missing()
     test_generator_prune_preserves_unique_reference_intent_target_coverage()
+    test_generator_prune_deletes_generic_dimensions_before_duplicate_targets()
     test_generator_prune_refuses_to_break_unique_target_coverage_for_cap()
     test_persisted_reference_prune_does_not_save_failed_prune()
     test_persisted_reference_prune_uses_exact_target_cap_for_strict_006()

@@ -1,9 +1,9 @@
 # LB26001 v4.2 UI-first correction plan
 
-- Generated at: `2026-06-25 04:25:01`
-- Status: `blocked_by_006`
+- Generated at: `2026-06-26 11:03:23`
+- Status: `blocked_by_solidworks_readiness`
 - Primary base: `LB26001-A-04-006`
-- Readiness blockers: `none`
+- Readiness blockers: `solidworks_unsaved_document_visible`
 - This is not acceptance evidence; application UI screenshot review remains the final gate.
 
 ## Preconditions
@@ -18,12 +18,12 @@
 
 | # | Base | Stage | Views | DisplayDim floor | UI status | Failed visual checks | Allowed now |
 | ---: | --- | --- | --- | ---: | --- | --- | --- |
-| 1 | LB26001-A-04-006 | pilot_006_first | 4 views; 4x2, 7x2 | 12 | manual_visual_checklist_failed | reference_match, view_layout, display_dimensions, dimension_readability, title_block, manufacturing_notes | yes |
-| 2 | LB26001-A-04-007 | gated_after_006_pass | 4 views; 4x2, 7x2 | 8 | blocked_by_006 | none | no |
-| 3 | LB26001-A-04-008 | gated_after_006_pass | 2 views; 4x1, 7x1 | 2 | blocked_by_006 | none | no |
-| 4 | LB26001-A-04-009 | gated_after_006_pass | 3 views; 4x2, 7x1 | 4 | blocked_by_006 | none | no |
-| 5 | LB26001-A-04-015 | gated_after_006_pass | 2 views; 4x1, 7x1 | 14 | blocked_by_006 | none | no |
-| 6 | LB26001-A-04-022 | gated_after_006_pass | 4 views; 4x2, 7x2 | 25 | blocked_by_006 | none | no |
+| 1 | LB26001-A-04-006 | pilot_006_first | 4 views; 4x2, 7x2 | 12 | manual_visual_checklist_failed | reference_match, view_layout, display_dimensions, dimension_readability, title_block, manufacturing_notes | no |
+| 2 | LB26001-A-04-007 | gated_after_006_pass | 4 views; 4x2, 7x2 | 8 | visual_fail | reference_match, view_layout, display_dimensions, title_block, manufacturing_notes | no |
+| 3 | LB26001-A-04-008 | gated_after_006_pass | 2 views; 4x1, 7x1 | 2 | visual_fail | reference_match, view_layout, display_dimensions, title_block | no |
+| 4 | LB26001-A-04-009 | gated_after_006_pass | 3 views; 4x2, 7x1 | 4 | visual_fail | reference_match, view_layout, display_dimensions, title_block | no |
+| 5 | LB26001-A-04-015 | gated_after_006_pass | 2 views; 4x1, 7x1 | 14 | visual_fail | reference_match, view_layout, display_dimensions, dimension_readability, title_block | no |
+| 6 | LB26001-A-04-022 | gated_after_006_pass | 4 views; 4x2, 7x2 | 25 | visual_fail | reference_match, view_layout, display_dimensions, dimension_readability, title_block | no |
 
 ## 006 next action
 

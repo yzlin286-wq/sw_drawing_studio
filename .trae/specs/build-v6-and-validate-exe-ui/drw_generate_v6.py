@@ -3704,7 +3704,7 @@ def _prune_display_dims_to_cap(
             "by_slot": by_slot,
         }
 
-    def _delete_priority(item):
+    def _delete_priority(item, remaining_items=None):
         intent = item.get("_reference_intent") or {}
         try:
             score = float(intent.get("score") or 0.0)
@@ -3716,7 +3716,20 @@ def _prune_display_dims_to_cap(
             ordinal = int(item.get("_ordinal") or 0)
         except Exception:
             ordinal = 0
-        return (score + slot_penalty, -ordinal)
+        target_rank = 0
+        if strict_reference_intent:
+            key = _target_key(item)
+            if not key:
+                target_rank = 0
+            else:
+                counts = _target_match_counts(remaining_items or [])
+                target_rank = 1 if counts.get(key, 0) > 1 else 2
+        return (target_rank, score + slot_penalty, -ordinal)
+
+    def _delete_reason(item):
+        if strict_reference_intent and not _target_key(item):
+            return "generic_non_reference_intent_displaydim"
+        return "over_quota_or_low_reference_intent_score"
 
     def _target_match(item):
         match = ((item.get("_reference_intent") or {}).get("target_match") or {})
@@ -4050,19 +4063,26 @@ def _prune_display_dims_to_cap(
     remaining = list(annotated_before)
     while len(remaining) > effective_cap_i:
         candidate = None
+        if strict_reference_intent:
+            generic_candidates = _deletable_candidates(
+                [item for item in remaining if not _target_key(item)],
+                remaining,
+            )
+            if generic_candidates:
+                candidate = min(generic_candidates, key=lambda item: _delete_priority(item, remaining))
         over_slots = _over_quota_slots(remaining, quotas) if quotas else []
-        if over_slots:
+        if candidate is None and over_slots:
             candidates = [
                 item for item in remaining
                 if str(item.get("_slot") or "").strip().lower() in over_slots
             ]
             candidates = _deletable_candidates(candidates, remaining)
             if candidates:
-                candidate = min(candidates, key=_delete_priority)
+                candidate = min(candidates, key=lambda item: _delete_priority(item, remaining))
         if candidate is None and remaining:
             candidates = _deletable_candidates(remaining, remaining)
             if candidates:
-                candidate = min(candidates, key=_delete_priority)
+                candidate = min(candidates, key=lambda item: _delete_priority(item, remaining))
         if candidate is None:
             result["reasons"].append("reference_intent_target_protected_no_delete")
             result["reasons"].append("reference_intent_target_coverage_guard_no_delete")
@@ -4081,7 +4101,7 @@ def _prune_display_dims_to_cap(
             "expected_type": _target_match(item).get("expected_type", ""),
             "preferred_side": _target_match(item).get("preferred_side", ""),
             "target_match": _target_match(item),
-            "reason": "over_quota_or_low_reference_intent_score",
+            "reason": _delete_reason(item),
         }
         for item in delete_plan
     ]
@@ -4098,6 +4118,7 @@ def _prune_display_dims_to_cap(
             "expected_type": target_match.get("expected_type", ""),
             "preferred_side": target_match.get("preferred_side", ""),
             "target_match": target_match,
+            "delete_priority": list(_delete_priority(item, annotated_before)),
         }
         result["attempted"] += 1
         selected, select_method = _select_annotation_for_delete(
@@ -4118,7 +4139,7 @@ def _prune_display_dims_to_cap(
             deleted_item = dict(delete_evidence)
             deleted_item["select_method"] = select_method
             deleted_item["delete_method"] = delete_method
-            deleted_item["reason"] = "over_quota_or_low_reference_intent_score"
+            deleted_item["reason"] = _delete_reason(item)
             result["deleted_items"].append(deleted_item)
             _log(
                 "    [reference_style] prune DisplayDim "
