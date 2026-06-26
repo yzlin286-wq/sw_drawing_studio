@@ -471,6 +471,12 @@ def test_006_rerun_packet_allows_one_locked_rerun_when_offline_and_readiness_pas
     assert "drawing_review_application_ui_screenshot" in gate_names
     assert "manual_visual_judgement" in gate_names
     assert "with_ui_closure" in gate_names
+    cad_gate = next(item for item in packet["ordered_next_gates"] if item["gate"] == "locked_006_real_cad_rerun")
+    assert "staged_cad_validation_v3.py" in cad_gate["command"]
+    assert "--stage LB26001_006" in cad_gate["command"]
+    assert "real_cad_smoke_v3.py" in cad_gate["execution_path"]
+    assert "JobRuntimeFacade.start_cad_job" in cad_gate["acceptance"]
+    assert "JobRuntimeFacade.start_cad_job" in cad_gate["execution_path"]
     lifecycle_gate = next(item for item in packet["ordered_next_gates"] if item["gate"] == "displaydim_lifecycle_audit")
     assert "lb26001_006_displaydim_lifecycle_audit_v4_2.py" in lifecycle_gate["command"]
     assert "post-layout" in lifecycle_gate["acceptance"]

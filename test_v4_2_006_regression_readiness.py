@@ -71,6 +71,16 @@ def test_006_regression_readiness_blocks_unresponsive_unsaved_solidworks() -> No
     assert guidance["manual_recovery_required"] is True
     assert guidance["automatic_restart_allowed"] is False
     assert "unsaved document" in " ".join(guidance["steps"]).lower()
+    assert "JobRuntimeFacade.start_cad_job" in " ".join(guidance["steps"])
+    assert "real_cad_smoke_v3.py" in " ".join(guidance["steps"])
+    assert report["locked_006_cad_execution_path"] == [
+        "staged_cad_validation_v3.py --stage LB26001_006",
+        "real_cad_smoke_v3.py",
+        "JobRuntimeFacade.start_cad_job",
+        "JobRunner.start_job",
+        "QProcess cad_job_worker.py",
+        "SolidWorks global lock",
+    ]
     assert "Do not kill or restart SLDWORKS.exe" in guidance["do_not"][0]
 
 
@@ -280,6 +290,8 @@ def test_006_regression_readiness_markdown_explains_manual_recovery_without_cad_
     assert "Recovery Verification Command" in markdown
     assert "lb26001_006_regression_readiness_v4_2.py --out" in markdown
     assert "staged_cad_validation_v3.py --stage LB26001_006" in markdown
+    assert "real_cad_smoke_v3.py" in markdown
+    assert "JobRuntimeFacade.start_cad_job" in markdown
     assert "007/008/009/015/022" in markdown
 
 

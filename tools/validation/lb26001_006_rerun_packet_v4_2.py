@@ -561,7 +561,8 @@ def _ordered_next_gates() -> list[dict[str, str]]:
         {
             "gate": "locked_006_real_cad_rerun",
             "command": "python tools\\validation\\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\\staged_validation\\LB26001_006_<timestamp>",
-            "acceptance": "One 006-only QProcess/JobRuntimeFacade CAD run, protected by the SolidWorks global lock.",
+            "execution_path": "staged_cad_validation_v3.py -> real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> JobRunner/QProcess -> cad_job_worker.py -> SolidWorks global lock",
+            "acceptance": "One 006-only JobRuntimeFacade.start_cad_job / QProcess CAD worker run, protected by the SolidWorks global lock, with a staged summary for the application UI screenshot review.",
         },
         {
             "gate": "dimension_validation",

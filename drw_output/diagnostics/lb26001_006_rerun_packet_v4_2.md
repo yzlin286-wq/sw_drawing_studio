@@ -1,6 +1,6 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-26 14:58:41`
+- Generated at: `2026-06-26 15:08:52`
 - Status: `blocked_by_solidworks_readiness`
 - Real CAD allowed now: `False`
 - Readiness blockers: `solidworks_unsaved_document_visible`
@@ -26,7 +26,7 @@
 ## Next Gates
 
 1. `no_com_readiness_audit` - ready_to_start_locked_006_cad must be true before real CAD starts.
-2. `locked_006_real_cad_rerun` - One 006-only QProcess/JobRuntimeFacade CAD run, protected by the SolidWorks global lock.
+2. `locked_006_real_cad_rerun` - One 006-only JobRuntimeFacade.start_cad_job / QProcess CAD worker run, protected by the SolidWorks global lock, with a staged summary for the application UI screenshot review.
 3. `dimension_validation` - Final persisted/exported real DisplayDim count must be >= 12; Note/OCR/sidecar text is not accepted.
 4. `displaydim_lifecycle_audit` - pre-save, post-save/reopen, post-prune, post-layout, and final export must all preserve at least 12 real DisplayDim targets with no sidecar acceptance.
 5. `reference_compare_v3` - Same-name reference drawing comparison must pass or pass_with_warning with no strict 006 blockers.

@@ -325,7 +325,7 @@ def _safe_recovery_guidance(sw_state: dict[str, Any], blocking_keys: list[str]) 
         [
             "Rerun this no-COM readiness audit after SolidWorks is responsive.",
             "Only when readiness is ready, rerun the no-COM 006 rerun packet.",
-            "Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.",
+            "Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.py --stage LB26001_006; that wrapper invokes real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> QProcess cad_job_worker.",
         ]
     )
     return {
@@ -385,6 +385,14 @@ def build_readiness_report(
         "issues": issues,
         "blocking_issue_keys": blocking_keys,
         "safe_recovery_guidance": _safe_recovery_guidance(sw_state, blocking_keys),
+        "locked_006_cad_execution_path": [
+            "staged_cad_validation_v3.py --stage LB26001_006",
+            "real_cad_smoke_v3.py",
+            "JobRuntimeFacade.start_cad_job",
+            "JobRunner.start_job",
+            "QProcess cad_job_worker.py",
+            "SolidWorks global lock",
+        ],
         "next_commands_after_solidworks_safe": [
             "python tools\\validation\\staged_cad_validation_v3.py --stage LB26001_006 --timeout-s 900 --max-rounds 1 --out-dir drw_output\\staged_validation\\LB26001_006_<timestamp>",
             "python tools\\ui_robot\\drawing_visual_review_suite.py --summary drw_output\\staged_validation\\LB26001_006_<timestamp>\\summary.json --base LB26001-A-04-006 --out-dir drw_output\\ui_acceptance\\LB26001_006_<timestamp>_visual_review",
@@ -451,6 +459,9 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(["", "## Next Commands After Readiness Is Safe", ""])
     for command in report.get("next_commands_after_solidworks_safe") or []:
         lines.append(f"- `{command}`")
+    lines.extend(["", "## Locked 006 CAD Execution Path", ""])
+    for item in report.get("locked_006_cad_execution_path") or []:
+        lines.append(f"- `{item}`")
     lines.extend(["", "## Issues", ""])
     for item in report.get("issues") or []:
         lines.append(

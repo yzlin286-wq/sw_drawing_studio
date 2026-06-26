@@ -1,6 +1,6 @@
 # LB26001-A-04-006 Readiness Recovery Checklist v4.2
 
-- Generated at: `2026-06-26 14:58:28`
+- Generated at: `2026-06-26 15:08:55`
 - Status: `blocked`
 - ready_to_start_locked_006_cad: `False`
 - Manual recovery required: `True`
@@ -34,7 +34,7 @@
 1. In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.
 2. Rerun this no-COM readiness audit after SolidWorks is responsive.
 3. Only when readiness is ready, rerun the no-COM 006 rerun packet.
-4. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.
+4. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.py --stage LB26001_006; that wrapper invokes real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> QProcess cad_job_worker.
 
 ## Do Not
 
@@ -53,6 +53,15 @@
 - `write manual_visual_judgement.json from the Drawing Review UI screenshot verdict`
 - `python tools\validation\apply_ui_visual_review_v4.py --summary <summary.json> --ui-report <drawing_visual_review_report.json> --manual-review <manual_visual_judgement.json> --base LB26001-A-04-006`
 - `python tools\validation\lb26001_acceptance_gate_v4_2.py --gate-summary <ui_visual_review_gate_summary.json>`
+
+## Locked 006 CAD Execution Path
+
+- `staged_cad_validation_v3.py --stage LB26001_006`
+- `real_cad_smoke_v3.py`
+- `JobRuntimeFacade.start_cad_job`
+- `JobRunner.start_job`
+- `QProcess cad_job_worker.py`
+- `SolidWorks global lock`
 
 ## Issues
 
