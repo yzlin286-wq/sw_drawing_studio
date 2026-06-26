@@ -569,11 +569,16 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             "expected_type": "thread_callout",
             "is_manufacturing_dimension": True,
             "reference_value": "M4-6H 完全贯穿",
-            "source_reference_evidence": {
-                "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
-                "source_text": "M4-6H 完全贯穿",
-                "extraction_method": "manual_visual_reading_from_reference_png",
-            },
+            "source_reference_evidence": _callout_evidence(
+                source_reference=source_reference,
+                reference_png=reference_png,
+                target_view="top",
+                expected_type="thread_callout",
+                reference_value="M4-6H 完全贯穿",
+                visual_reading="Thread callout near top view reads M4-6H 完全贯穿.",
+                source_text="M4-6H 完全贯穿",
+                extraction_method="manual_visual_reading_from_reference_png",
+            ),
             "forbid_note_substitution_for_displaydim": True,
             "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim",
         },
@@ -584,11 +589,16 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             "expected_type": "hole_callout",
             "is_manufacturing_dimension": True,
             "reference_value": "4-3.3 through",
-            "source_reference_evidence": {
-                "visual_reading": "Hole callout near top view reads 4-3.3 through.",
-                "source_text": "4-3.3",
-                "extraction_method": "manual_visual_reading_from_reference_png",
-            },
+            "source_reference_evidence": _callout_evidence(
+                source_reference=source_reference,
+                reference_png=reference_png,
+                target_view="top",
+                expected_type="hole_callout",
+                reference_value="4-3.3 through",
+                visual_reading="Hole callout near top view reads 4-3.3 through.",
+                source_text="4-3.3",
+                extraction_method="manual_visual_reading_from_reference_png",
+            ),
             "forbid_note_substitution_for_displaydim": True,
             "create_as": "SolidWorks hole callout or attached manufacturing callout, not a substitute DisplayDim",
         },
@@ -599,11 +609,16 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             "expected_type": "surface_finish_callout",
             "is_manufacturing_dimension": True,
             "reference_value": "3.2 其余",
-            "source_reference_evidence": {
-                "visual_reading": "Upper-right sheet note reads 3.2 其余.",
-                "source_text": "3.2 其余",
-                "extraction_method": "manual_visual_reading_from_reference_png",
-            },
+            "source_reference_evidence": _callout_evidence(
+                source_reference=source_reference,
+                reference_png=reference_png,
+                target_view="sheet_notes",
+                expected_type="surface_finish_callout",
+                reference_value="3.2 其余",
+                visual_reading="Upper-right sheet note reads 3.2 其余.",
+                source_text="3.2 其余",
+                extraction_method="manual_visual_reading_from_reference_png",
+            ),
             "create_as": "manufacturing note/symbol; does not count as DisplayDim",
         },
         {
@@ -613,11 +628,16 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             "expected_type": "radius_callout",
             "is_manufacturing_dimension": False,
             "reference_value": None,
-            "source_reference_evidence": {
-                "visual_reading": "No radius callout is visually present in the reference PNG.",
-                "source_text": "",
-                "extraction_method": "manual_visual_absence_check",
-            },
+            "source_reference_evidence": _callout_evidence(
+                source_reference=source_reference,
+                reference_png=reference_png,
+                target_view="front/top/right",
+                expected_type="radius_callout",
+                reference_value=None,
+                visual_reading="No radius callout is visually present in the reference PNG.",
+                source_text="",
+                extraction_method="manual_visual_absence_check",
+            ),
             "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
         },
         {
@@ -627,14 +647,42 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             "expected_type": "chamfer_callout",
             "is_manufacturing_dimension": False,
             "reference_value": None,
-            "source_reference_evidence": {
-                "visual_reading": "No chamfer callout is visually present in the reference PNG.",
-                "source_text": "",
-                "extraction_method": "manual_visual_absence_check",
-            },
+            "source_reference_evidence": _callout_evidence(
+                source_reference=source_reference,
+                reference_png=reference_png,
+                target_view="front/top/right",
+                expected_type="chamfer_callout",
+                reference_value=None,
+                visual_reading="No chamfer callout is visually present in the reference PNG.",
+                source_text="",
+                extraction_method="manual_visual_absence_check",
+            ),
             "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
         },
     ]
+
+
+def _callout_evidence(
+    *,
+    source_reference: str,
+    reference_png: str,
+    target_view: str,
+    expected_type: str,
+    reference_value: Any,
+    visual_reading: str,
+    source_text: str,
+    extraction_method: str,
+) -> dict[str, Any]:
+    return {
+        "source_reference": source_reference,
+        "reference_png": reference_png,
+        "target_view": target_view,
+        "expected_type": expected_type,
+        "reference_value": reference_value,
+        "visual_reading": visual_reading,
+        "source_text": source_text,
+        "extraction_method": extraction_method,
+    }
 
 
 def _lb26001_006_reference_layout_policy(

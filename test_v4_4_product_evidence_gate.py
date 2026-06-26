@@ -452,6 +452,7 @@ def _fixture(
     ]
     dim_keys = required_dim_keys if reference_plan_complete else required_dim_keys[:-1]
     fixture_source_reference = "reference/LB26001-A-04-006.SLDDRW"
+    fixture_reference_png = "reference/LB26001-A-04-006.png"
     dimensions = [
         {
             "key": key,
@@ -769,11 +770,21 @@ def _fixture(
                         "key": "thread_callout_m4_6h",
                         "target_view": "top",
                         "expected_type": "thread_callout",
-                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "source_reference": fixture_source_reference,
+                        "reference_png": fixture_reference_png,
                         "is_manufacturing_dimension": True,
                         "fallback_policy": "need_review_when_real_callout_unavailable",
-                        "source_reference_evidence": {"source_text": "M4-6H"},
                         "reference_value": "M4-6H 完全贯穿",
+                        "source_reference_evidence": {
+                            "source_reference": fixture_source_reference,
+                            "reference_png": fixture_reference_png,
+                            "target_view": "top",
+                            "expected_type": "thread_callout",
+                            "reference_value": "M4-6H 完全贯穿",
+                            "source_text": "M4-6H 完全贯穿",
+                            "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
+                            "extraction_method": "manual_visual_reading_from_reference_png",
+                        },
                         "reference_value_status": "visual_reading_recorded",
                         "forbid_note_substitution_for_displaydim": True,
                         "create_as": "SolidWorks hole/thread callout, not a substitute DisplayDim",
@@ -782,11 +793,21 @@ def _fixture(
                         "key": "hole_callout_4x3_3",
                         "target_view": "top",
                         "expected_type": "hole_callout",
-                        "source_reference": "3D杞?D娴嬭瘯鍥剧焊/LB26001-A-04-006.SLDDRW",
+                        "source_reference": fixture_source_reference,
+                        "reference_png": fixture_reference_png,
                         "is_manufacturing_dimension": True,
                         "fallback_policy": "need_review_when_real_callout_unavailable",
-                        "source_reference_evidence": {"source_text": "4-3.3"},
                         "reference_value": "4-3.3 through",
+                        "source_reference_evidence": {
+                            "source_reference": fixture_source_reference,
+                            "reference_png": fixture_reference_png,
+                            "target_view": "top",
+                            "expected_type": "hole_callout",
+                            "reference_value": "4-3.3 through",
+                            "source_text": "4-3.3",
+                            "visual_reading": "Hole callout near top view reads 4-3.3 through.",
+                            "extraction_method": "manual_visual_reading_from_reference_png",
+                        },
                         "reference_value_status": "visual_reading_recorded",
                         "forbid_note_substitution_for_displaydim": True,
                         "create_as": "SolidWorks hole callout, not a substitute DisplayDim",
@@ -795,11 +816,21 @@ def _fixture(
                         "key": "surface_finish_rest_3_2",
                         "target_view": "sheet_notes",
                         "expected_type": "surface_finish_callout",
-                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "source_reference": fixture_source_reference,
+                        "reference_png": fixture_reference_png,
                         "is_manufacturing_dimension": True,
                         "fallback_policy": "need_review_when_real_callout_unavailable",
-                        "source_reference_evidence": {"source_text": "3.2 其余"},
                         "reference_value": "3.2 其余",
+                        "source_reference_evidence": {
+                            "source_reference": fixture_source_reference,
+                            "reference_png": fixture_reference_png,
+                            "target_view": "sheet_notes",
+                            "expected_type": "surface_finish_callout",
+                            "reference_value": "3.2 其余",
+                            "source_text": "3.2 其余",
+                            "visual_reading": "Upper-right sheet note reads 3.2 其余.",
+                            "extraction_method": "manual_visual_reading_from_reference_png",
+                        },
                         "reference_value_status": "visual_reading_recorded",
                         "create_as": "manufacturing note/symbol; does not count as DisplayDim",
                     },
@@ -807,21 +838,41 @@ def _fixture(
                         "key": "radius_callout",
                         "target_view": "front/top/right",
                         "expected_type": "radius_callout",
-                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "source_reference": fixture_source_reference,
+                        "reference_png": fixture_reference_png,
                         "is_manufacturing_dimension": False,
                         "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
-                        "source_reference_evidence": {"source_text": "", "extraction_method": "manual_visual_absence_check"},
                         "reference_value": None,
+                        "source_reference_evidence": {
+                            "source_reference": fixture_source_reference,
+                            "reference_png": fixture_reference_png,
+                            "target_view": "front/top/right",
+                            "expected_type": "radius_callout",
+                            "reference_value": None,
+                            "source_text": "",
+                            "visual_reading": "No radius callout is visually present in the reference PNG.",
+                            "extraction_method": "manual_visual_absence_check",
+                        },
                     },
                     {
                         "key": "chamfer_callout",
                         "target_view": "front/top/right",
                         "expected_type": "chamfer_callout",
-                        "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+                        "source_reference": fixture_source_reference,
+                        "reference_png": fixture_reference_png,
                         "is_manufacturing_dimension": False,
                         "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
-                        "source_reference_evidence": {"source_text": "", "extraction_method": "manual_visual_absence_check"},
                         "reference_value": None,
+                        "source_reference_evidence": {
+                            "source_reference": fixture_source_reference,
+                            "reference_png": fixture_reference_png,
+                            "target_view": "front/top/right",
+                            "expected_type": "chamfer_callout",
+                            "reference_value": None,
+                            "source_text": "",
+                            "visual_reading": "No chamfer callout is visually present in the reference PNG.",
+                            "extraction_method": "manual_visual_absence_check",
+                        },
                     },
                 ],
             },
@@ -1390,6 +1441,27 @@ def test_product_evidence_gate_blocks_when_reference_dimension_evidence_value_mi
         contract = check["details"]["dimension_evidence_contract"]
         assert contract["pass"] is False
         assert contract["mismatch_by_key"] == {"overall_length": ["reference_value"]}
+
+
+def test_product_evidence_gate_blocks_when_reference_callout_evidence_value_mismatches() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        plan_path = paths["reference_intent_plan"]
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        thread = next(item for item in plan["reference_callouts"] if item["key"] == "thread_callout_m4_6h")
+        thread["source_reference_evidence"]["reference_value"] = "M6-6H"
+        _write_json(plan_path, plan)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
+        contract = check["details"]["callout_evidence_contract"]
+        assert contract["pass"] is False
+        assert contract["mismatch_by_key"] == {"thread_callout_m4_6h": ["reference_value"]}
 
 
 def test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution() -> None:
@@ -2326,6 +2398,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target()
     test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence()
     test_product_evidence_gate_blocks_when_reference_dimension_evidence_value_mismatches()
+    test_product_evidence_gate_blocks_when_reference_callout_evidence_value_mismatches()
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
     test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()

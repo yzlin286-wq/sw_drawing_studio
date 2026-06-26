@@ -12865,6 +12865,76 @@ Remaining issues:
 - The next real CAD action remains exactly one locked 006 rerun after SolidWorks readiness becomes safe.
 - 006 still requires application Drawing Review UI screenshot judgement before any requested-reference expansion.
 
+## v4.4 Product Gate Requires 006 Callout Evidence Consistency - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, EXE rebuild, `full_129`, `LB26001_36`, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_planner.py`.
+  - 006 reference callouts now emit self-contained `source_reference_evidence`.
+  - Evidence for `thread_callout_m4_6h`, `hole_callout_4x3_3`, and `surface_finish_rest_3_2` includes `source_reference`, `reference_png`, `target_view`, `expected_type`, `reference_value`, `visual_reading`, `source_text`, and `extraction_method`.
+  - Radius/chamfer absence checks include the same source/view/type fields with `reference_value=null` and `extraction_method=manual_visual_absence_check`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `callout_evidence_contract` inside `reference_intent_006_plan_complete`.
+  - Requires top-level `reference_png` for callouts.
+  - Blocks callout evidence whose source, reference screenshot, view, expected type, or reference value disagrees with the callout entry.
+  - Requires manufacturing callouts to have non-empty `source_text`.
+  - Requires non-manufacturing absence checks to use `manual_visual_absence_check` and keep `reference_value=null`.
+- Updated tests:
+  - `test_v4_2_reference_intent_dimension_planner.py` checks planner-emitted callout evidence consistency.
+  - `test_v4_4_product_evidence_gate.py` blocks a callout evidence value mismatch.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\reference_intent_dimension_planner.py tools\validation\product_evidence_gate_v4_4.py test_v4_2_reference_intent_dimension_planner.py test_v4_4_product_evidence_gate.py
+python -B test_v4_2_reference_intent_dimension_planner.py
+python -B test_v4_4_product_evidence_gate.py
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B test_v4_4_lb26001_006_reference_intent_proof.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_4_lb26001_006_reference_intent_proof.py`: PASS.
+- Refreshed reference-intent proof:
+  - `status=plan_proof_pass_requires_locked_cad_run`
+  - `pass=true`
+  - `blocking_issue_keys=[]`
+- Product Gate refresh returned the expected nonzero result:
+  - `status=blocked_by_solidworks_stability_gate`
+  - `pass=false`
+  - `release_ready=false`
+- New callout evidence contract result in `drw_output/diagnostics/product_evidence_gate_v4_4.json`:
+  - `reference_intent_006_plan_complete=true`
+  - `callout_evidence_contract.pass=true`
+  - `checked_callout_count=5`
+  - `mismatch_count=0`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `visual_audit_full_scope_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- This proves only the 006 callout plan evidence is internally consistent; it does not prove generated drawing correctness.
+- A locked 006 CAD rerun and application Drawing Review UI screenshot judgement remain required.
+- Current SolidWorks stability/readiness, EXE/UI, CAD smoke, requested-six UI status, and Visual Audit schema gates still block release.
+
 ## v4.4 Product Gate Requires Visual Audit Index Contract - 2026-06-26
 
 Current judgment:

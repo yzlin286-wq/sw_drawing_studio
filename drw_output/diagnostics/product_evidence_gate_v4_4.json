@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:33:58",
+  "generated_at": "2026-06-26 19:45:42",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -388,7 +388,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
         "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
-        "generated_at": "2026-06-26 17:50:50",
+        "generated_at": "2026-06-26 19:45:32",
         "base": "LB26001-A-04-006",
         "status": "plan_ready_requires_cad_worker_lock",
         "dimension_count": 12,
@@ -430,6 +430,12 @@
           "mismatch_by_key": {}
         },
         "callout_missing_fields": {},
+        "callout_evidence_contract": {
+          "pass": true,
+          "checked_callout_count": 5,
+          "mismatch_count": 0,
+          "mismatch_by_key": {}
+        },
         "note_substitution_keys": [],
         "generic_autodim_allowed_keys": [],
         "callout_note_substitution_forbidden": true,
@@ -1151,9 +1157,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1041741,
-          "mtime_epoch": 1782473254.9589918,
-          "mtime_local": "2026-06-26 19:27:34"
+          "size_bytes": 1044607,
+          "mtime_epoch": 1782473712.2337606,
+          "mtime_local": "2026-06-26 19:35:12"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

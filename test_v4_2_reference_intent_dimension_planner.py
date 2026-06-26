@@ -24,6 +24,17 @@ def test_006_reference_intent_dimension_plan_has_required_contract_fields() -> N
     assert callouts["thread_callout_m4_6h"]["create_as"] != "SolidWorks DisplayDim"
     assert callouts["thread_callout_m4_6h"]["forbid_note_substitution_for_displaydim"] is True
     assert callouts["surface_finish_rest_3_2"]["create_as"] == "manufacturing note/symbol; does not count as DisplayDim"
+    for callout in callouts.values():
+        evidence = callout["source_reference_evidence"]
+        assert evidence["source_reference"] == callout["source_reference"]
+        assert evidence["reference_png"] == callout["reference_png"]
+        assert evidence["target_view"] == callout["target_view"]
+        assert evidence["expected_type"] == callout["expected_type"]
+        assert evidence["reference_value"] == callout["reference_value"]
+        assert evidence["visual_reading"]
+        assert evidence["extraction_method"]
+    assert callouts["thread_callout_m4_6h"]["source_reference_evidence"]["source_text"]
+    assert callouts["radius_callout"]["source_reference_evidence"]["extraction_method"] == "manual_visual_absence_check"
     layout_plan = plan["layout_plan"]
     assert layout_plan["sheet_template_policy"]["skip_builtin_gb_frame_titleblock"] is True
     assert layout_plan["sheet_template_policy"]["default_template_artifacts_allowed"] is False

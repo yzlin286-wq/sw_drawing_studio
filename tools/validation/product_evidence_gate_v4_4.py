@@ -999,6 +999,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
     }
     required_callout_fields = {
         "source_reference",
+        "reference_png",
         "target_view",
         "expected_type",
         "is_manufacturing_dimension",
@@ -1029,6 +1030,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         if item.get("generic_autodimension_acceptance_allowed") is not False
     ]
     dimension_evidence_contract = _dimension_evidence_contract(dims)
+    callout_evidence_contract = _callout_evidence_contract(callouts)
     required_layout_slots = {"front", "top", "right", "iso"}
     missing_layout_slots = sorted(required_layout_slots - view_slots)
     layout_outline_failures = {
@@ -1142,6 +1144,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "dimension_missing_fields": dim_missing_fields,
         "dimension_evidence_contract": dimension_evidence_contract,
         "callout_missing_fields": callout_missing_fields,
+        "callout_evidence_contract": callout_evidence_contract,
         "note_substitution_keys": sorted(filter(None, note_substitution_keys)),
         "generic_autodim_allowed_keys": sorted(filter(None, generic_autodim_allowed_keys)),
         "callout_note_substitution_forbidden": _callouts_forbid_displaydim_substitution(callouts),
@@ -1193,6 +1196,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and not dim_missing_fields
         and dimension_evidence_contract.get("pass") is True
         and not callout_missing_fields
+        and callout_evidence_contract.get("pass") is True
         and not note_substitution_keys
         and not generic_autodim_allowed_keys
         and details["callout_note_substitution_forbidden"] is True
@@ -1308,6 +1312,45 @@ def _dimension_evidence_contract(dims: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "pass": not mismatch_by_key,
         "checked_dimension_count": len(dims),
+        "mismatch_count": len(mismatch_by_key),
+        "mismatch_by_key": mismatch_by_key,
+    }
+
+
+def _callout_evidence_contract(callouts: list[dict[str, Any]]) -> dict[str, Any]:
+    mismatch_by_key: dict[str, list[str]] = {}
+    for index, item in enumerate(callouts):
+        key = str(item.get("key") or f"index_{index}")
+        evidence = item.get("source_reference_evidence") if isinstance(item.get("source_reference_evidence"), dict) else {}
+        mismatches: list[str] = []
+        if not evidence:
+            mismatches.append("source_reference_evidence")
+        if str(evidence.get("source_reference") or "") != str(item.get("source_reference") or ""):
+            mismatches.append("source_reference")
+        if str(evidence.get("reference_png") or "") != str(item.get("reference_png") or ""):
+            mismatches.append("reference_png")
+        if str(evidence.get("target_view") or "") != str(item.get("target_view") or ""):
+            mismatches.append("target_view")
+        if str(evidence.get("expected_type") or "") != str(item.get("expected_type") or ""):
+            mismatches.append("expected_type")
+        if not _values_match(evidence.get("reference_value"), item.get("reference_value")):
+            mismatches.append("reference_value")
+        if not str(evidence.get("visual_reading") or "").strip():
+            mismatches.append("visual_reading")
+        if not str(evidence.get("extraction_method") or "").strip():
+            mismatches.append("extraction_method")
+        if item.get("is_manufacturing_dimension") is True and not str(evidence.get("source_text") or "").strip():
+            mismatches.append("source_text")
+        if item.get("is_manufacturing_dimension") is False:
+            if evidence.get("extraction_method") != "manual_visual_absence_check":
+                mismatches.append("absence_extraction_method")
+            if item.get("reference_value") is not None:
+                mismatches.append("absence_reference_value")
+        if mismatches:
+            mismatch_by_key[key] = sorted(set(mismatches))
+    return {
+        "pass": not mismatch_by_key,
+        "checked_callout_count": len(callouts),
         "mismatch_count": len(mismatch_by_key),
         "mismatch_by_key": mismatch_by_key,
     }
