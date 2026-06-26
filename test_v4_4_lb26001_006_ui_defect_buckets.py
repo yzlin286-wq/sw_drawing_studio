@@ -135,6 +135,18 @@ def main() -> None:
         assert checklist["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]
         assert report["reference_callout_review_required_keys"] == ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
         assert report["reference_callout_absence_check_keys"] == ["radius_callout", "chamfer_callout"]
+        observation_policy = report["screenshot_visual_observation_policy"]
+        assert observation_policy["source"] == "application_drawing_review_ui_screenshot"
+        assert observation_policy["api_or_displaydim_metric_alone_can_close"] is False
+        assert observation_policy["missing_active_observation_buckets"] == []
+        observations = {item["bucket"]: item for item in report["screenshot_visual_observations"]}
+        assert set(observations) == set(report["required_bucket_keys"])
+        assert observations["dimension_visual_overdense"]["supports_active_bucket"] is True
+        assert observations["dimension_visual_overdense"]["visual_check"] == "display_dimensions"
+        assert observations["dimension_visual_overdense"]["api_or_displaydim_metric_alone_can_close"] is False
+        assert observations["callout_missing"]["next_screenshot_check_required"] is True
+        assert observations["callout_missing"]["supports_active_bucket"] is False
+        assert str(ui_report) in observations["dimension_lane_wrong"]["source_paths"]
         contract = {item["bucket"]: item for item in report["bucket_closure_contract"]}
         assert set(contract) == set(report["required_bucket_keys"])
         assert report["missing_bucket_closure_contract_keys"] == []
@@ -155,6 +167,7 @@ def main() -> None:
         assert "dimension_visual_overdense" in markdown
         assert "callout_missing" in markdown
         assert "Bucket Closure Contract" in markdown
+        assert "Screenshot Visual Observations" in markdown
 
     print("PASS test_v4_4_lb26001_006_ui_defect_buckets")
 

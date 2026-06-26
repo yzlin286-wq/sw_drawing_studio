@@ -12453,3 +12453,69 @@ Remaining issues:
 - SolidWorks is still not running; readiness remains `solidworks_not_running`.
 - 006 still requires exactly one locked CAD worker rerun and application Drawing Review UI screenshot PASS.
 - API metrics, DisplayDim counts, reference JSON, and generator contract presence remain supporting evidence only.
+
+## v4.4 006 Screenshot Observation Closure Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- No real CAD, COM, `OpenDoc6`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, release action, or SolidWorks session mutation was run.
+- This change converts the latest application Drawing Review screenshot FAIL into structured per-bucket observations for the next 006-only correction loop. It does not accept 006 and does not unlock `007/008/009/015/022`.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+  - Adds `screenshot_visual_observation_policy`.
+  - Adds `screenshot_visual_observations` for all six Task 5 buckets.
+  - Each observation records the application screenshot source, source paths, failed visual checklist key, manual note, visual fact, reference expectation, generated failure, repair signal, and `api_or_displaydim_metric_alone_can_close=false`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - The 006 rerun packet now blocks offline readiness if active UI defect buckets lack application screenshot observations.
+  - The packet also requires `callout_missing` to stay as a next-screenshot observation instead of being closed by API or DisplayDim counts.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Product Gate now consumes the screenshot observations inside `lb26001_006_ui_defect_buckets_ready`.
+  - Active-bucket observation gaps block `locked_006_cad_rerun_allowed_now`.
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Copies `screenshot_visual_observations` into `dimension_plan.ui_defect_screenshot_visual_observations`.
+  - Copies the same observations into `visual_defect_constraints.screenshot_visual_observations`.
+  - Adds `ui_defect_screenshot_visual_observations` to the generator reasons list.
+- Updated tests:
+  - `test_v4_4_lb26001_006_ui_defect_buckets.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+  - `test_v4_4_product_evidence_gate.py`
+  - `test_v3_generator_reference_style_plan.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_ui_defect_buckets_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\product_evidence_gate_v4_4.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py test_v4_4_lb26001_006_ui_defect_buckets.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_product_evidence_gate.py test_v3_generator_reference_style_plan.py
+python -B test_v4_4_lb26001_006_ui_defect_buckets.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_4_solidworks_stability_gate.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_4_solidworks_stability_gate.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- Refreshed Stability Gate is `status=pass`, `pass=true`, `release_ready=false`; entrypoint scan remains at zero unguarded/UI/service/System Health direct-risk counts.
+- Refreshed UI defect buckets remain `status=blocked_by_solidworks_readiness`, `pass=false`, with 6 `screenshot_visual_observations`, 5 active observation buckets, and `missing_active_observation_buckets=[]`.
+- Refreshed 006 rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`; screenshot observation gaps are empty.
+- Refreshed Product Gate remains `blocked_by_solidworks_readiness`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `expand_007_008_009_015_022_allowed`, `lb26001_36_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks is still not running; readiness remains `solidworks_not_running`.
+- 006 still requires exactly one locked CAD worker rerun and application Drawing Review UI screenshot PASS.
+- The new screenshot observations are repair inputs and guard evidence only. They are not drawing acceptance evidence.

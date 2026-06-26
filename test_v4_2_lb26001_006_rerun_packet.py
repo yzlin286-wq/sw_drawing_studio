@@ -172,6 +172,7 @@ def _build_packet_fixture(
     omit_ui_defect_callout_next_check: bool = False,
     omit_ui_defect_closure_contract_bucket: str = "",
     omit_ui_defect_callout_closure_keys: bool = False,
+    omit_ui_defect_screenshot_observation_bucket: str = "",
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -266,6 +267,26 @@ def _build_packet_fixture(
                 "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
                 "absence_check_keys": ["radius_callout", "chamfer_callout"],
             })
+        screenshot_visual_observations = []
+        for key in required_active_buckets + ["callout_missing"]:
+            if key == omit_ui_defect_screenshot_observation_bucket:
+                continue
+            screenshot_visual_observations.append({
+                "bucket": key,
+                "observation_key": f"{key}_application_ui_screenshot_observation",
+                "source": "application_drawing_review_ui_screenshot",
+                "source_paths": ["LB26001-A-04-006_ui.png"],
+                "visual_check": "reference_match" if key == "callout_missing" else "display_dimensions",
+                "visual_check_pass": None if key == "callout_missing" else False,
+                "manual_note": "fixture screenshot observation",
+                "visual_fact": "fixture visual fact",
+                "reference_expectation": "fixture reference expectation",
+                "generated_failure": "fixture generated failure",
+                "repair_signal": "fixture repair signal",
+                "supports_active_bucket": key != "callout_missing",
+                "next_screenshot_check_required": True,
+                "api_or_displaydim_metric_alone_can_close": False,
+            })
         bucket_closure_contract = []
         for key in required_active_buckets + ["callout_missing"]:
             if key == omit_ui_defect_closure_contract_bucket:
@@ -312,6 +333,7 @@ def _build_packet_fixture(
                     "next_screenshot_checklist": next_screenshot_checklist,
                     "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
                     "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
+                    "screenshot_visual_observations": screenshot_visual_observations,
                     "bucket_closure_contract": bucket_closure_contract,
                     "missing_bucket_closure_contract_keys": [],
                 },
@@ -410,6 +432,8 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert packet["ui_defect_buckets"]["missing_bucket_closure_contract_keys"] == []
     assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"] == {}
     assert packet["ui_defect_buckets"]["callout_closure_contract_ok"] is True
+    assert packet["ui_defect_buckets"]["missing_active_screenshot_visual_observation_buckets"] == []
+    assert packet["ui_defect_buckets"]["callout_screenshot_visual_observation_ok"] is True
     assert packet["expansion_policy"]["006_must_pass_first"] is True
     assert "LB26001-A-04-006" in result["markdown"]
     assert "Do not run real CAD" in result["markdown"]
@@ -791,6 +815,21 @@ def test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incompl
     ]
 
 
+def test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_screenshot_observation_bucket="dimension_visual_overdense",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_active_screenshot_visual_observation_buckets"] == [
+        "dimension_visual_overdense"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1161,6 +1200,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()
+    test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_missing()
     test_006_rerun_packet_blocks_when_cad_worker_ui_defect_env_missing()
     test_006_rerun_packet_blocks_when_reference_outline_scale_hint_is_missing()
     test_006_rerun_packet_blocks_when_exact_target_cap_signature_is_missing()

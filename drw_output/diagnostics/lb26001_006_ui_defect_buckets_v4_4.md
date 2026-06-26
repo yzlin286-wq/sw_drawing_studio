@@ -24,6 +24,15 @@
 - `projection_view_style_mismatch`: manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference.
 - `callout_missing`: manual_visual_judgement reference_callout_checklist must prove required callouts are present and radius/chamfer callouts are not fabricated.
 
+## Screenshot Visual Observations
+
+- `dimension_visual_overdense`: Extra length/offset/width/height dimensions remain visible and make the sheet read like AutoDimension output.
+- `dimension_lane_wrong`: Long leaders and diagonal extension lines dominate the central drawing area and reduce readability.
+- `note_missing_or_wrong`: Manufacturing notes are present, but their placement and styling do not match the reference screenshot.
+- `titlebar_incomplete`: The title/data text appears sparse and displaced, so the sheet still fails the UI title-area check.
+- `projection_view_style_mismatch`: The generated right projection carries a separate cluttered dimension cluster and the view balance is off.
+- `callout_missing`: Callout presence/absence cannot be accepted from API metrics or DisplayDim counts.
+
 ## Bucket Evidence
 
 ### dimension_visual_overdense

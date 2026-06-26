@@ -660,6 +660,40 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                     "application_ui_screenshot_is_final_gate": True,
                     "expansion_allowed_now": False,
                     "active_buckets": ["callout_missing", "dimension_visual_overdense"],
+                    "screenshot_visual_observations": [
+                        {
+                            "bucket": "dimension_visual_overdense",
+                            "observation_key": "dimension_visual_overdense_application_ui_screenshot_observation",
+                            "source": "application_drawing_review_ui_screenshot",
+                            "source_paths": ["006_ui_visual_review.png"],
+                            "visual_check": "display_dimensions",
+                            "visual_check_pass": False,
+                            "manual_note": "Generated sheet remains visually over-dense.",
+                            "visual_fact": "The generated sheet visibly keeps too many DisplayDims.",
+                            "reference_expectation": "The reference drawing uses a sparse 12-target dimension set.",
+                            "generated_failure": "Extra generic dimensions make the output AutoDimension-like.",
+                            "repair_signal": "Keep only reference-intent manufacturing targets.",
+                            "supports_active_bucket": True,
+                            "next_screenshot_check_required": True,
+                            "api_or_displaydim_metric_alone_can_close": False,
+                        },
+                        {
+                            "bucket": "callout_missing",
+                            "observation_key": "callout_missing_application_ui_screenshot_observation",
+                            "source": "application_drawing_review_ui_screenshot",
+                            "source_paths": ["006_ui_visual_review.png"],
+                            "visual_check": "reference_match",
+                            "visual_check_pass": None,
+                            "manual_note": "Callout bucket must be checked in the next screenshot.",
+                            "visual_fact": "The screenshot does not close callout review.",
+                            "reference_expectation": "Callouts must be checked visually.",
+                            "generated_failure": "API metrics cannot close callout presence.",
+                            "repair_signal": "Require a reference_callout_checklist.",
+                            "supports_active_bucket": False,
+                            "next_screenshot_check_required": True,
+                            "api_or_displaydim_metric_alone_can_close": False,
+                        },
+                    ],
                     "bucket_closure_contract": [
                         {
                             "bucket": "dimension_visual_overdense",
@@ -714,6 +748,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     callout_plan = blueprint["dimension_plan"]["reference_callout_review_plan"]
     constraints = blueprint["dimension_plan"]["visual_defect_constraints"]
     closure_contract = blueprint["dimension_plan"]["ui_defect_bucket_closure_contract"]
+    screenshot_observations = blueprint["dimension_plan"]["ui_defect_screenshot_visual_observations"]
     assert callout_plan["schema"] == "sw_drawing_studio.reference_callout_review_plan.v4_4"
     assert callout_plan["notes_do_not_count_as_display_dim"] is True
     assert callout_plan["application_ui_screenshot_required"] is True
@@ -741,6 +776,20 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
         "Callout checklist must prove required callouts."
     )
     assert constraints["api_or_displaydim_metric_alone_can_close"] is False
+    assert [item["bucket"] for item in screenshot_observations] == [
+        "dimension_visual_overdense",
+        "callout_missing",
+    ]
+    assert screenshot_observations[0]["source"] == "application_drawing_review_ui_screenshot"
+    assert screenshot_observations[0]["visual_check_pass"] is False
+    assert screenshot_observations[0]["api_or_displaydim_metric_alone_can_close"] is False
+    assert constraints["screenshot_visual_observation_buckets"] == [
+        "dimension_visual_overdense",
+        "callout_missing",
+    ]
+    assert constraints["screenshot_visual_observations"][0]["generated_failure"] == (
+        "Extra generic dimensions make the output AutoDimension-like."
+    )
     assert closure_contract[1]["reference_callout_checklist_required"] is True
     assert closure_contract[1]["required_callout_keys"] == [
         "thread_callout_m4_6h",
@@ -748,6 +797,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     ]
     assert "ui_defect_bucket_reference_callout_review_plan" in blueprint["dimension_plan"]["reasons"]
     assert "ui_defect_bucket_closure_contract" in blueprint["dimension_plan"]["reasons"]
+    assert "ui_defect_screenshot_visual_observations" in blueprint["dimension_plan"]["reasons"]
 
 
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:

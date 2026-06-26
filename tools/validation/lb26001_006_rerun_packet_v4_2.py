@@ -156,6 +156,7 @@ GENERATOR_SIGNATURES = {
     "reference_callout_required_keys": "reference_callout_review_required_keys",
     "ui_defect_bucket_closure_contract": "ui_defect_bucket_closure_contract",
     "ui_defect_bucket_closure_pass_conditions": "ui_review_bucket_pass_conditions",
+    "ui_defect_screenshot_visual_observations": "ui_defect_screenshot_visual_observations",
 }
 
 CAD_WORKER_SIGNATURES = {
@@ -461,6 +462,25 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         and CALLOUT_ABSENCE_CHECK_KEYS <= set(callout_closure_contract.get("absence_check_keys") or [])
         and "reference_callout_checklist" in set(callout_closure_contract.get("post_rerun_required_evidence") or [])
     )
+    observation_items = [
+        item for item in payload.get("screenshot_visual_observations") or [] if isinstance(item, dict)
+    ]
+    observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in observation_items
+        if str(item.get("bucket") or "").strip()
+    }
+    active_observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in observation_items
+        if item.get("supports_active_bucket") is True
+    }
+    missing_active_observation_buckets = sorted(expected_active - active_observation_buckets)
+    callout_observation = next((item for item in observation_items if item.get("bucket") == "callout_missing"), {})
+    callout_observation_ok = (
+        callout_observation.get("next_screenshot_check_required") is True
+        and callout_observation.get("api_or_displaydim_metric_alone_can_close") is False
+    )
     missing_active = sorted(expected_active - set(active_buckets))
     missing_next_check = sorted(expected_all - next_check_buckets)
     missing_checklist = sorted(expected_all - checklist_buckets)
@@ -478,6 +498,8 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         and not missing_closure_contract
         and not incomplete_closure_contracts
         and callout_closure_contract_ok
+        and not missing_active_observation_buckets
+        and callout_observation_ok
     )
     return {
         "path": str(path),
@@ -495,6 +517,9 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "missing_bucket_closure_contract_keys": missing_closure_contract,
         "incomplete_bucket_closure_contracts": incomplete_closure_contracts,
         "callout_closure_contract_ok": callout_closure_contract_ok,
+        "screenshot_visual_observation_buckets": sorted(observation_buckets),
+        "missing_active_screenshot_visual_observation_buckets": missing_active_observation_buckets,
+        "callout_screenshot_visual_observation_ok": callout_observation_ok,
         "solidworks_readiness": payload.get("solidworks_readiness") or {},
     }
 

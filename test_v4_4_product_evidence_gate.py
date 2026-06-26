@@ -139,6 +139,25 @@ def _fixture(
         }
         for key in defect_bucket_keys
     ]
+    screenshot_visual_observations = [
+        {
+            "bucket": key,
+            "observation_key": f"{key}_application_ui_screenshot_observation",
+            "source": "application_drawing_review_ui_screenshot",
+            "source_paths": [str(ui_screenshot)],
+            "visual_check": "reference_match" if key == "callout_missing" else "display_dimensions",
+            "visual_check_pass": None if key == "callout_missing" else False,
+            "manual_note": "fixture screenshot observation",
+            "visual_fact": "fixture visual fact",
+            "reference_expectation": "fixture reference expectation",
+            "generated_failure": "fixture generated failure",
+            "repair_signal": "fixture repair signal",
+            "supports_active_bucket": key in ui_defect_active,
+            "next_screenshot_check_required": True,
+            "api_or_displaydim_metric_alone_can_close": False,
+        }
+        for key in defect_bucket_keys
+    ]
     bucket_closure_contract = []
     for key in defect_bucket_keys:
         item = {
@@ -427,6 +446,7 @@ def _fixture(
                 }],
                 "bucket_closure_contract": bucket_closure_contract,
                 "missing_bucket_closure_contract_keys": [],
+                "screenshot_visual_observations": screenshot_visual_observations,
                 "buckets": ui_defect_buckets,
             },
         ),
@@ -857,6 +877,30 @@ def test_product_evidence_gate_blocks_locked_006_when_callout_closure_contract_i
         ]
 
 
+def test_product_evidence_gate_blocks_locked_006_when_active_screenshot_observation_is_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=False, requested_pass=False)
+        ui_defect_path = paths["ui_defect_buckets"]
+        payload = json.loads(ui_defect_path.read_text(encoding="utf-8"))
+        payload["screenshot_visual_observations"] = [
+            item
+            for item in payload["screenshot_visual_observations"]
+            if item.get("bucket") != "dimension_visual_overdense"
+        ]
+        _write_json(ui_defect_path, payload)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "lb26001_006_ui_defect_buckets_ready" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "lb26001_006_ui_defect_buckets_ready")
+        assert check["details"]["missing_active_screenshot_visual_observation_buckets"] == [
+            "dimension_visual_overdense"
+        ]
+
+
 def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), acceptance_pass=False, requested_pass=False))
@@ -1096,6 +1140,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_callout_next_screenshot_check_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_bucket_closure_contract_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_callout_closure_contract_is_incomplete()
+    test_product_evidence_gate_blocks_locked_006_when_active_screenshot_observation_is_missing()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()

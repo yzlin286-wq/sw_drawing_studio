@@ -48,6 +48,7 @@ CALLOUT_ABSENCE_CHECK_KEYS = ["radius_callout", "chamfer_callout"]
 
 COMMON_REPAIR_INPUTS = [
     "application_drawing_review_ui_screenshot_failure",
+    "screenshot_visual_observations",
     "reference_intent_dimension_plan_006",
     "reference_intent_dimension_contract_006",
     "lb26001_006_ui_defect_buckets_v4_4",
@@ -116,6 +117,102 @@ BUCKET_PASS_CONDITIONS = {
     ),
 }
 
+BUCKET_VISUAL_CHECKS = {
+    "dimension_visual_overdense": "display_dimensions",
+    "dimension_lane_wrong": "dimension_readability",
+    "note_missing_or_wrong": "manufacturing_notes",
+    "titlebar_incomplete": "title_block",
+    "projection_view_style_mismatch": "view_layout",
+    "callout_missing": "reference_match",
+}
+
+BUCKET_VISUAL_OBSERVATION_TEMPLATES = {
+    "dimension_visual_overdense": {
+        "visual_fact": (
+            "The generated sheet visibly keeps an over-dense dimension set around the main long-part view."
+        ),
+        "reference_expectation": (
+            "The reference drawing uses a sparse 12-target manufacturing dimension set."
+        ),
+        "generated_failure": (
+            "Extra length/offset/width/height dimensions remain visible and make the sheet read like AutoDimension output."
+        ),
+        "repair_signal": (
+            "After physical DisplayDim de-duplication, final export must keep only reference-intent manufacturing targets."
+        ),
+    },
+    "dimension_lane_wrong": {
+        "visual_fact": (
+            "The generated drawing shows diagonal and cross-region dimension/extension geometry through the main view."
+        ),
+        "reference_expectation": (
+            "The reference drawing keeps dimension text in compact local lanes near the relevant view."
+        ),
+        "generated_failure": (
+            "Long leaders and diagonal extension lines dominate the central drawing area and reduce readability."
+        ),
+        "repair_signal": (
+            "Reject far-lane/cross-region placements and preserve compact top/bottom local lanes."
+        ),
+    },
+    "note_missing_or_wrong": {
+        "visual_fact": (
+            "The generated note block is placed and formatted like generic technical requirements instead of the reference note region."
+        ),
+        "reference_expectation": (
+            "Reference notes and roughness text are compact and visually tied to the reference drawing layout."
+        ),
+        "generated_failure": (
+            "Manufacturing notes are present, but their placement and styling do not match the reference screenshot."
+        ),
+        "repair_signal": (
+            "Use the reference-style note region and keep roughness/manufacturing notes visually compact."
+        ),
+    },
+    "titlebar_incomplete": {
+        "visual_fact": (
+            "The generated title/data area is visibly different from the compact reference-like fields."
+        ),
+        "reference_expectation": (
+            "The reference drawing uses a small, unobtrusive title/data area rather than a default template block."
+        ),
+        "generated_failure": (
+            "The title/data text appears sparse and displaced, so the sheet still fails the UI title-area check."
+        ),
+        "repair_signal": (
+            "Suppress default template artifacts and fill only compact reference-like fields."
+        ),
+    },
+    "projection_view_style_mismatch": {
+        "visual_fact": (
+            "The generated front/top/right/isometric composition and scale still differ from the reference screenshot."
+        ),
+        "reference_expectation": (
+            "The reference drawing keeps the small right projection and isometric view balanced with the long views."
+        ),
+        "generated_failure": (
+            "The generated right projection carries a separate cluttered dimension cluster and the view balance is off."
+        ),
+        "repair_signal": (
+            "Match reference view-family scale, small right projection footprint, and compact isometric placement."
+        ),
+    },
+    "callout_missing": {
+        "visual_fact": (
+            "The latest screenshot does not independently close the required callout bucket."
+        ),
+        "reference_expectation": (
+            "The next UI screenshot must explicitly verify M4-6H, 4-3.3, Ra3.2, and radius/chamfer absence policy."
+        ),
+        "generated_failure": (
+            "Callout presence/absence cannot be accepted from API metrics or DisplayDim counts."
+        ),
+        "repair_signal": (
+            "Require a reference_callout_checklist in the next manual visual judgement."
+        ),
+    },
+}
+
 
 def _read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
@@ -170,6 +267,50 @@ def _view4_size_ratio(reference_style: dict[str, Any]) -> float:
     ref_area = float(ref_size[0]) * float(ref_size[1])
     gen_area = float(gen_size[0]) * float(gen_size[1])
     return round(gen_area / ref_area, 4) if ref_area else 0.0
+
+
+def _screenshot_source_paths(entry: dict[str, Any], ui_report_path: Path) -> list[str]:
+    paths = [
+        entry.get("ui_screenshot"),
+        entry.get("comparison_png"),
+        entry.get("reference_png"),
+        entry.get("generated_png"),
+        str(ui_report_path),
+    ]
+    return [str(item) for item in paths if str(item or "").strip()]
+
+
+def _screenshot_visual_observations(
+    *,
+    entry: dict[str, Any],
+    ui_report_path: Path,
+) -> list[dict[str, Any]]:
+    checklist = entry.get("visual_checklist") or {}
+    notes = entry.get("visual_checklist_notes") or {}
+    source_paths = _screenshot_source_paths(entry, ui_report_path)
+    observations: list[dict[str, Any]] = []
+    for bucket in BUCKET_ORDER:
+        visual_check = BUCKET_VISUAL_CHECKS.get(bucket, "")
+        checklist_value = checklist.get(visual_check)
+        template = BUCKET_VISUAL_OBSERVATION_TEMPLATES[bucket]
+        supports_active = checklist_value is False and bucket != "callout_missing"
+        observations.append({
+            "bucket": bucket,
+            "observation_key": f"{bucket}_application_ui_screenshot_observation",
+            "source": "application_drawing_review_ui_screenshot",
+            "source_paths": source_paths,
+            "visual_check": visual_check,
+            "visual_check_pass": checklist_value,
+            "manual_note": str(notes.get(visual_check) or ""),
+            "visual_fact": template["visual_fact"],
+            "reference_expectation": template["reference_expectation"],
+            "generated_failure": template["generated_failure"],
+            "repair_signal": template["repair_signal"],
+            "supports_active_bucket": supports_active,
+            "next_screenshot_check_required": True,
+            "api_or_displaydim_metric_alone_can_close": False,
+        })
+    return observations
 
 
 def _bucket(
@@ -355,6 +496,21 @@ def build_report(
     required_next_screenshot_check_buckets = list(BUCKET_ORDER)
     bucket_closure_contract = _bucket_closure_contract(required_bucket_keys)
     closure_contract_keys = {str(item.get("bucket") or "") for item in bucket_closure_contract}
+    screenshot_visual_observations = _screenshot_visual_observations(
+        entry=entry,
+        ui_report_path=ui_report_path,
+    )
+    observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in screenshot_visual_observations
+        if str(item.get("bucket") or "").strip()
+    }
+    active_observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in screenshot_visual_observations
+        if item.get("supports_active_bucket") is True
+    }
+    missing_active_observation_buckets = sorted(set(active_buckets) - active_observation_buckets)
     solidworks_blocking = list(readiness.get("blocking_issue_keys") or [])
     ready = bool(readiness.get("ready_to_start_locked_006_cad"))
     visual_pass = bool(manual_review.get("visual_acceptance_pass"))
@@ -402,6 +558,16 @@ def build_report(
         "next_screenshot_checklist": _next_screenshot_checklist(required_next_screenshot_check_buckets),
         "reference_callout_review_required_keys": REQUIRED_CALLOUT_KEYS,
         "reference_callout_absence_check_keys": CALLOUT_ABSENCE_CHECK_KEYS,
+        "screenshot_visual_observation_policy": {
+            "source": "application_drawing_review_ui_screenshot",
+            "observation_count": len(screenshot_visual_observations),
+            "observation_buckets": sorted(observation_buckets),
+            "active_observation_buckets": sorted(active_observation_buckets),
+            "missing_active_observation_buckets": missing_active_observation_buckets,
+            "api_or_displaydim_metric_alone_can_close": False,
+            "application_ui_screenshot_is_final_gate": True,
+        },
+        "screenshot_visual_observations": screenshot_visual_observations,
         "bucket_closure_contract": bucket_closure_contract,
         "missing_bucket_closure_contract_keys": sorted(set(required_bucket_keys) - closure_contract_keys),
         "source_artifacts": {
@@ -508,6 +674,13 @@ def render_markdown(report: dict[str, Any]) -> str:
     ])
     for item in report.get("bucket_closure_contract") or []:
         lines.append(f"- `{item.get('bucket')}`: {item.get('ui_review_pass_condition')}")
+    lines.extend([
+        "",
+        "## Screenshot Visual Observations",
+        "",
+    ])
+    for item in report.get("screenshot_visual_observations") or []:
+        lines.append(f"- `{item.get('bucket')}`: {item.get('generated_failure')}")
     lines.extend([
         "",
         "## Bucket Evidence",

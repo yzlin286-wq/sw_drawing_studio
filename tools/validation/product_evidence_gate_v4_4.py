@@ -1011,6 +1011,27 @@ def _ui_defect_buckets_check(
         and CALLOUT_ABSENCE_CHECK_KEYS <= set(callout_closure_contract.get("absence_check_keys") or [])
         and "reference_callout_checklist" in set(callout_closure_contract.get("post_rerun_required_evidence") or [])
     )
+    observation_items = [
+        item for item in payload.get("screenshot_visual_observations") or [] if isinstance(item, dict)
+    ]
+    observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in observation_items
+        if str(item.get("bucket") or "").strip()
+    }
+    active_observation_buckets = {
+        str(item.get("bucket") or "")
+        for item in observation_items
+        if item.get("supports_active_bucket") is True
+    }
+    missing_active_observation_buckets = sorted(
+        REQUIRED_ACTIVE_006_DEFECT_BUCKETS - active_observation_buckets
+    )
+    callout_observation = next((item for item in observation_items if item.get("bucket") == "callout_missing"), {})
+    callout_observation_ok = (
+        callout_observation.get("next_screenshot_check_required") is True
+        and callout_observation.get("api_or_displaydim_metric_alone_can_close") is False
+    )
     readiness_summary = payload.get("solidworks_readiness") if isinstance(payload.get("solidworks_readiness"), dict) else {}
     ui_final_gate = payload.get("ui_final_gate") if isinstance(payload.get("ui_final_gate"), dict) else {}
     readiness_status_current = readiness.get("status") or ""
@@ -1034,6 +1055,8 @@ def _ui_defect_buckets_check(
         and not missing_closure_contract_keys
         and not incomplete_closure_contracts
         and callout_closure_contract_ok
+        and not missing_active_observation_buckets
+        and callout_observation_ok
     )
     details = {
         "path": str(path),
@@ -1066,6 +1089,9 @@ def _ui_defect_buckets_check(
         "missing_bucket_closure_contract_keys": missing_closure_contract_keys,
         "incomplete_bucket_closure_contracts": incomplete_closure_contracts,
         "callout_closure_contract_ok": callout_closure_contract_ok,
+        "screenshot_visual_observation_buckets": sorted(observation_buckets),
+        "missing_active_screenshot_visual_observation_buckets": missing_active_observation_buckets,
+        "callout_screenshot_visual_observation_ok": callout_observation_ok,
         "defect_plan_ready": defect_plan_ready,
         "defect_closure_pass": defect_closure_pass,
     }
@@ -1086,6 +1112,10 @@ def _ui_defect_buckets_check(
         and not missing_closure_contract_keys
         and not incomplete_closure_contracts
         and callout_closure_contract_ok
+        and (
+            defect_closure_pass
+            or (not missing_active_observation_buckets and callout_observation_ok)
+        )
         and (defect_plan_ready or defect_closure_pass)
     )
     return passed, details

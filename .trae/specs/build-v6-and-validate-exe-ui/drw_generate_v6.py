@@ -1037,12 +1037,40 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                             item.get("reference_callout_checklist_required")
                         )
                     closure_contract.append(contract_item)
+                screenshot_observations = []
+                for item in (ui_defects.get("screenshot_visual_observations") or []):
+                    if not isinstance(item, dict):
+                        continue
+                    bucket = str(item.get("bucket") or "").strip()
+                    if not bucket:
+                        continue
+                    screenshot_observations.append({
+                        "bucket": bucket,
+                        "observation_key": str(item.get("observation_key") or ""),
+                        "source": str(item.get("source") or ""),
+                        "source_paths": list(item.get("source_paths") or []),
+                        "visual_check": str(item.get("visual_check") or ""),
+                        "visual_check_pass": item.get("visual_check_pass"),
+                        "manual_note": str(item.get("manual_note") or ""),
+                        "visual_fact": str(item.get("visual_fact") or ""),
+                        "reference_expectation": str(item.get("reference_expectation") or ""),
+                        "generated_failure": str(item.get("generated_failure") or ""),
+                        "repair_signal": str(item.get("repair_signal") or ""),
+                        "supports_active_bucket": bool(item.get("supports_active_bucket")),
+                        "next_screenshot_check_required": bool(item.get("next_screenshot_check_required")),
+                        "api_or_displaydim_metric_alone_can_close": bool(
+                            item.get("api_or_displaydim_metric_alone_can_close")
+                        ),
+                    })
                 ui_defect_trace = {
                     "path": ui_defect_buckets_path,
                     "status": str(ui_defects.get("status") or ""),
                     "active_buckets": active_buckets,
                     "bucket_closure_contract_buckets": [
                         str(item.get("bucket") or "") for item in closure_contract if item.get("bucket")
+                    ],
+                    "screenshot_visual_observation_buckets": [
+                        str(item.get("bucket") or "") for item in screenshot_observations if item.get("bucket")
                     ],
                     "application_ui_screenshot_is_final_gate": bool(
                         ui_defects.get("application_ui_screenshot_is_final_gate")
@@ -1057,6 +1085,10 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                 # to the generated 006 plan so the next UI review can close each
                 # defect bucket by visual judgement, not by API metrics alone.
                 dimension_plan["ui_defect_bucket_closure_contract"] = closure_contract
+                # ui_defect_screenshot_visual_observations:
+                # preserve the human/application screenshot observations that
+                # explain why each active bucket failed visually.
+                dimension_plan["ui_defect_screenshot_visual_observations"] = screenshot_observations
                 # reference_intent_ui_defect_bucket_constraints:
                 # turn the latest application-UI FAIL buckets into hard generator
                 # constraints for the next 006-only CAD run.
@@ -1085,6 +1117,10 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                         for item in closure_contract
                         if item.get("bucket")
                     }
+                    constraints["screenshot_visual_observation_buckets"] = [
+                        str(item.get("bucket") or "") for item in screenshot_observations if item.get("bucket")
+                    ]
+                    constraints["screenshot_visual_observations"] = screenshot_observations
                     constraints["api_or_displaydim_metric_alone_can_close"] = False
                 layout_plan = blueprint_data.setdefault("layout_plan", {})
                 if isinstance(layout_plan, dict):
@@ -1101,6 +1137,7 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "ui_defect_bucket_compact_local_lanes",
                     "ui_defect_bucket_reference_callout_review_plan",
                     "ui_defect_bucket_closure_contract",
+                    "ui_defect_screenshot_visual_observations",
                 ]:
                     if reason not in reasons:
                         reasons.append(reason)
