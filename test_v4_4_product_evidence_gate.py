@@ -829,6 +829,10 @@ def _fixture(
             {
                 "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
                 "level": "WARNING" if idle_solidworks_without_lock else "OK" if conflict_report_ok else "WARNING",
+                "status": "warning" if idle_solidworks_without_lock else "pass" if conflict_report_ok else "warning",
+                "pass": bool(conflict_report_ok and not idle_solidworks_without_lock),
+                "fail_count": 0,
+                "warning_count": 1 if (idle_solidworks_without_lock or not conflict_report_ok) else 0,
                 "lock": None,
                 "lock_owner": {},
                 "lock_reason": "no_active_solidworks_lock"
@@ -847,6 +851,18 @@ def _fixture(
                     "smoke_leftovers": 0,
                     "dialog_guards": 0,
                 },
+                "solidworks_processes": [
+                    {
+                        "pid": 101,
+                        "name": "SLDWORKS.exe",
+                        "responding": True,
+                        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [fixture.SLDASM *]"
+                        if not conflict_report_ok
+                        else "SOLIDWORKS Premium 2025 SP5.0",
+                    }
+                ]
+                if (idle_solidworks_without_lock or not conflict_report_ok)
+                else [],
                 "findings": [
                     {
                         "severity": "WARNING",
@@ -855,6 +871,14 @@ def _fixture(
                     }
                 ]
                 if idle_solidworks_without_lock
+                else [
+                    {
+                        "severity": "FAIL",
+                        "key": "solidworks_unsaved_document_visible",
+                        "message": "SolidWorks title has unsaved marker.",
+                    }
+                ]
+                if not conflict_report_ok
                 else [],
             },
         ),
@@ -1555,6 +1579,15 @@ def test_product_evidence_gate_blocks_when_conflict_report_warns() -> None:
         assert "solidworks_conflict_report_ok" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
         assert check["details"]["counts"]["solidworks_processes"] == 1
+        assert check["details"]["status"] == "warning"
+        assert check["details"]["pass"] is False
+        assert check["details"]["finding_keys"] == ["solidworks_unsaved_document_visible"]
+        assert check["details"]["finding_severities"] == [
+            {"key": "solidworks_unsaved_document_visible", "severity": "FAIL"}
+        ]
+        assert check["details"]["solidworks_process_titles"] == [
+            "SOLIDWORKS Premium 2025 SP5.0 - [fixture.SLDASM *]"
+        ]
 
 
 def test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_only() -> None:
@@ -1580,6 +1613,7 @@ def test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_onl
         conflict_check = next(item for item in result["checks"] if item["key"] == "solidworks_conflict_report_ok")
         assert stability_check["details"]["idle_solidworks_prelock_allowed_for_locked_006"] is True
         assert conflict_check["details"]["idle_solidworks_prelock_allowed_for_locked_006"] is True
+        assert conflict_check["details"]["finding_keys"] == ["solidworks_running_without_lock"]
 
 
 def test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target() -> None:

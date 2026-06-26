@@ -925,14 +925,31 @@ def _lock_test_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    findings = [item for item in payload.get("findings") or [] if isinstance(item, dict)]
+    sw_processes = [item for item in payload.get("solidworks_processes") or [] if isinstance(item, dict)]
     return {
         "path": str(path),
         "schema": payload.get("schema"),
         "generated_at": payload.get("generated_at"),
         "level": payload.get("level"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "fail_count": payload.get("fail_count"),
+        "warning_count": payload.get("warning_count"),
+        "finding_keys": [str(item.get("key") or "") for item in findings if str(item.get("key") or "")],
+        "finding_severities": [
+            {"key": str(item.get("key") or ""), "severity": str(item.get("severity") or "")}
+            for item in findings
+            if str(item.get("key") or "")
+        ],
         "counts": payload.get("counts") or {},
         "lock_reason": payload.get("lock_reason"),
         "fix_suggestion": payload.get("fix_suggestion"),
+        "solidworks_process_titles": [
+            str(item.get("main_window_title") or "")
+            for item in sw_processes
+            if str(item.get("main_window_title") or "")
+        ],
     }
 
 

@@ -169,6 +169,31 @@ def run_lock_test(out_path: Path = LOCK_TEST_REPORT) -> dict[str, Any]:
     return report
 
 
+def _conflict_summary(conflict: dict[str, Any]) -> dict[str, Any]:
+    findings = [item for item in conflict.get("findings") or [] if isinstance(item, dict)]
+    sw_processes = [item for item in conflict.get("solidworks_processes") or [] if isinstance(item, dict)]
+    return {
+        "level": conflict.get("level"),
+        "status": conflict.get("status"),
+        "pass": conflict.get("pass"),
+        "fail_count": conflict.get("fail_count"),
+        "warning_count": conflict.get("warning_count"),
+        "finding_keys": [str(item.get("key") or "") for item in findings if str(item.get("key") or "")],
+        "finding_severities": [
+            {"key": str(item.get("key") or ""), "severity": str(item.get("severity") or "")}
+            for item in findings
+            if str(item.get("key") or "")
+        ],
+        "counts": conflict.get("counts", {}),
+        "fix_suggestion": conflict.get("fix_suggestion", ""),
+        "solidworks_process_titles": [
+            str(item.get("main_window_title") or "")
+            for item in sw_processes
+            if str(item.get("main_window_title") or "")
+        ],
+    }
+
+
 def run_gate() -> dict[str, Any]:
     DIAGNOSTICS_DIR.mkdir(parents=True, exist_ok=True)
     entrypoint = write_entrypoint_report(root=ROOT, out_path=ENTRYPOINT_REPORT)
@@ -217,11 +242,7 @@ def run_gate() -> dict[str, Any]:
             "check_count": len(lock_test.get("checks") or []),
             "failure": lock_test.get("failure", ""),
         },
-        "conflict_summary": {
-            "level": conflict.get("level"),
-            "counts": conflict.get("counts", {}),
-            "fix_suggestion": conflict.get("fix_suggestion", ""),
-        },
+        "conflict_summary": _conflict_summary(conflict),
     }
     SUMMARY_REPORT.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     return summary

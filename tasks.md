@@ -115,6 +115,7 @@ Generated: 2026-06-21
 - [x] Implement `app/services/solidworks_global_lock.py` with acquire/release/heartbeat/stale/conflict helpers.
 - [x] Implement `app/services/solidworks_conflict_monitor.py` and diagnostics report output.
 - [x] Strengthen `solidworks_conflict_monitor.py` so conflict diagnostics enrich SLDWORKS process rows with `Get-Process SLDWORKS` title/response data and emit `solidworks_unsaved_document_visible` when the title bar contains an unsaved marker. Current `conflict_report.json` is `level=FAIL`, with findings `solidworks_unsaved_document_visible` and `solidworks_running_without_lock`; the fix suggestion is to manually save or close the unsaved SolidWorks document and automation restart remains forbidden.
+- [x] Propagate conflict finding keys into the Stability Gate and Product Evidence Gate. `solidworks_stability_gate_v4_4.json.conflict_summary` and Product Gate `solidworks_conflict_report_ok.details` now expose `status`, `pass`, `fail_count`, `warning_count`, `finding_keys`, `finding_severities`, and SLDWORKS title evidence, so top-level blocked status directly names `solidworks_unsaved_document_visible`.
 - [x] Wire System Health rows for `SolidWorks 互斥状态`, lock owner, heartbeat age, SW process state, waiting jobs, and no-COM-without-lock warning.
 - [x] Require `cad_job_worker.py` and `batch_job_worker.py` to acquire the SolidWorks global lock before real CAD work, heartbeat while running, and release after completion or failure.
 - [x] Add short probe locks for System Health COM probe and Add-in Ping paths.

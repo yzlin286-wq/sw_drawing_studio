@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T22:29:20",
+  "generated_at": "2026-06-26T22:38:54",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -37,6 +37,24 @@
   },
   "conflict_summary": {
     "level": "FAIL",
+    "status": "fail",
+    "pass": false,
+    "fail_count": 1,
+    "warning_count": 1,
+    "finding_keys": [
+      "solidworks_unsaved_document_visible",
+      "solidworks_running_without_lock"
+    ],
+    "finding_severities": [
+      {
+        "key": "solidworks_unsaved_document_visible",
+        "severity": "FAIL"
+      },
+      {
+        "key": "solidworks_running_without_lock",
+        "severity": "WARNING"
+      }
+    ],
     "counts": {
       "solidworks_processes": 1,
       "cad_job_workers": 0,
@@ -45,6 +63,9 @@
       "smoke_leftovers": 0,
       "dialog_guards": 0
     },
-    "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话"
+    "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
+    "solidworks_process_titles": [
+      "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+    ]
   }
 }

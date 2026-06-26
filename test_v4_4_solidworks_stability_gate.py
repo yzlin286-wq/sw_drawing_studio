@@ -20,6 +20,11 @@ def main() -> None:
     assert summary["schema"] == "sw_drawing_studio.solidworks_stability_gate.v4_4"
     assert summary["status"] in {"pass", "warning"}
     assert summary["release_ready"] is False
+    conflict_summary = summary["conflict_summary"]
+    assert isinstance(conflict_summary["finding_keys"], list)
+    assert isinstance(conflict_summary["finding_severities"], list)
+    assert "fail_count" in conflict_summary
+    assert "warning_count" in conflict_summary
 
     for path in [ENTRYPOINT_REPORT, LOCK_TEST_REPORT, CONFLICT_REPORT, SUMMARY_REPORT]:
         assert path.exists(), path

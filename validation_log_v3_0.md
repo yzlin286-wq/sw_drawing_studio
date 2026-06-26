@@ -15618,3 +15618,56 @@ Remaining issues:
 - A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
 - This change improves stability diagnostics, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Conflict Finding Propagation Into Product Gate - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM evidence propagation hardening step. It makes the specific SolidWorks conflict findings visible in the Stability Gate summary and Product Evidence Gate check details, instead of requiring manual inspection of `conflict_report.json`.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/run_solidworks_stability_gate_v4_4.py`.
+  - `conflict_summary` now includes `status`, `pass`, `fail_count`, `warning_count`, `finding_keys`, `finding_severities`, and `solidworks_process_titles`.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `solidworks_conflict_report_ok.details` now includes the same conflict finding fields plus SLDWORKS title evidence.
+- Updated tests:
+  - `test_v4_4_solidworks_stability_gate.py` requires conflict finding summary fields.
+  - `test_v4_4_product_evidence_gate.py` proves conflict finding keys and SLDWORKS title evidence are surfaced in Product Gate details.
+
+Commands:
+
+```powershell
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_4_solidworks_stability_gate.py
+python -B test_v4_1_solidworks_conflict_monitor.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.json --out-md drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --ui-defect-buckets drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_4_solidworks_stability_gate.py`: PASS.
+- `test_v4_1_solidworks_conflict_monitor.py`: PASS.
+- Refreshed `solidworks_stability_gate_v4_4.json.conflict_summary` now reports:
+  - `level=FAIL`
+  - `status=fail`
+  - `fail_count=1`
+  - `warning_count=1`
+  - `finding_keys=["solidworks_unsaved_document_visible","solidworks_running_without_lock"]`
+  - `solidworks_process_titles=["SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"]`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=24`, `failed_check_count=14`, and all follow-on actions remain false.
+- Product Gate `solidworks_conflict_report_ok.details.finding_keys` now exposes the same conflict keys directly.
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves top-level evidence clarity, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
