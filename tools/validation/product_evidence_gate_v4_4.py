@@ -280,6 +280,8 @@ def build_product_evidence_gate(
         ui_defect_buckets_path,
         ui_defect_buckets,
         readiness,
+        ui_visual_review_path,
+        ui_visual_review,
     )
     _add_check(
         checks,
@@ -1681,6 +1683,8 @@ def _ui_defect_buckets_check(
     path: Path,
     payload: dict[str, Any],
     readiness: dict[str, Any],
+    ui_visual_review_path: Path,
+    ui_visual_review: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
     buckets = [item for item in payload.get("buckets") or [] if isinstance(item, dict)]
     bucket_keys = {str(item.get("key") or "") for item in buckets}
@@ -1757,6 +1761,64 @@ def _ui_defect_buckets_check(
         callout_observation.get("next_screenshot_check_required") is True
         and callout_observation.get("api_or_displaydim_metric_alone_can_close") is False
     )
+    source_artifacts = payload.get("source_artifacts") if isinstance(payload.get("source_artifacts"), dict) else {}
+    canonical_entry = next(
+        (
+            item
+            for item in ui_visual_review.get("entries") or []
+            if isinstance(item, dict) and item.get("base") == BASE
+        ),
+        {},
+    )
+    canonical_manual_review = ui_visual_review.get("effective_manual_review") or ui_visual_review.get("manual_review")
+    canonical_ui_report = ui_visual_review.get("ui_report")
+    canonical_staged_summary = ui_visual_review.get("summary")
+    canonical_screenshot = canonical_entry.get("application_ui_screenshot")
+    source_agreement = {
+        "ui_visual_review_path": str(ui_visual_review_path),
+        "source_manual_review": source_artifacts.get("manual_review", ""),
+        "canonical_manual_review": canonical_manual_review or "",
+        "source_ui_report": source_artifacts.get("ui_report", ""),
+        "canonical_ui_report": canonical_ui_report or "",
+        "source_staged_summary": source_artifacts.get("staged_summary", ""),
+        "canonical_staged_summary": canonical_staged_summary or "",
+        "canonical_screenshot": canonical_screenshot or "",
+        "source_manual_review_exists": _nonempty_file(source_artifacts.get("manual_review")),
+        "source_ui_report_exists": _nonempty_file(source_artifacts.get("ui_report")),
+        "source_staged_summary_exists": _nonempty_file(source_artifacts.get("staged_summary")),
+        "canonical_screenshot_exists": _nonempty_file(canonical_screenshot),
+        "source_manual_review_matches_canonical": _path_value_matches_value(
+            source_artifacts.get("manual_review"), canonical_manual_review
+        ),
+        "source_ui_report_matches_canonical": _path_value_matches_value(
+            source_artifacts.get("ui_report"), canonical_ui_report
+        ),
+        "source_staged_summary_matches_canonical": _path_value_matches_value(
+            source_artifacts.get("staged_summary"), canonical_staged_summary
+        ),
+        "canonical_screenshot_in_observations": _any_path_value_matches(
+            [
+                source_path
+                for item in observation_items
+                for source_path in (item.get("source_paths") or [])
+            ],
+            canonical_screenshot,
+        ),
+    }
+    source_agreement["mismatch_keys"] = [
+        key
+        for key in [
+            "source_manual_review_exists",
+            "source_ui_report_exists",
+            "source_staged_summary_exists",
+            "source_manual_review_matches_canonical",
+            "source_ui_report_matches_canonical",
+            "source_staged_summary_matches_canonical",
+            "canonical_screenshot_in_observations",
+        ]
+        if source_agreement.get(key) is not True
+    ]
+    source_agreement_ok = not source_agreement["mismatch_keys"]
     readiness_summary = payload.get("solidworks_readiness") if isinstance(payload.get("solidworks_readiness"), dict) else {}
     ui_final_gate = payload.get("ui_final_gate") if isinstance(payload.get("ui_final_gate"), dict) else {}
     readiness_status_current = readiness.get("status") or ""
@@ -1782,6 +1844,7 @@ def _ui_defect_buckets_check(
         and callout_closure_contract_ok
         and not missing_active_observation_buckets
         and callout_observation_ok
+        and source_agreement_ok
     )
     details = {
         "path": str(path),
@@ -1823,6 +1886,7 @@ def _ui_defect_buckets_check(
         "screenshot_visual_observation_buckets": sorted(observation_buckets),
         "missing_active_screenshot_visual_observation_buckets": missing_active_observation_buckets,
         "callout_screenshot_visual_observation_ok": callout_observation_ok,
+        "source_agreement": source_agreement,
         "defect_plan_ready": defect_plan_ready,
         "defect_closure_pass": defect_closure_pass,
     }
@@ -1843,6 +1907,7 @@ def _ui_defect_buckets_check(
         and not missing_closure_contract_keys
         and not incomplete_closure_contracts
         and callout_closure_contract_ok
+        and source_agreement_ok
         and (
             defect_closure_pass
             or (not missing_active_observation_buckets and callout_observation_ok)
@@ -2978,6 +3043,18 @@ def _path_values_match(value: Any, expected: Path) -> bool:
         return path is not None and path.resolve() == expected.resolve()
     except Exception:
         return False
+
+
+def _path_value_matches_value(value: Any, expected_value: Any) -> bool:
+    expected = _resolve_path(expected_value)
+    return expected is not None and _path_values_match(value, expected)
+
+
+def _any_path_value_matches(values: list[Any], expected_value: Any) -> bool:
+    expected = _resolve_path(expected_value)
+    if expected is None:
+        return False
+    return any(_path_values_match(value, expected) for value in values)
 
 
 def _optional_int(value: Any) -> int | None:

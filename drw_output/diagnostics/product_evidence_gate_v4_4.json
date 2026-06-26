@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 20:32:56",
+  "generated_at": "2026-06-26 20:42:11",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -373,6 +373,25 @@
         ],
         "missing_active_screenshot_visual_observation_buckets": [],
         "callout_screenshot_visual_observation_ok": true,
+        "source_agreement": {
+          "ui_visual_review_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json",
+          "source_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+          "canonical_manual_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
+          "source_ui_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+          "canonical_ui_report": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json",
+          "source_staged_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json",
+          "canonical_staged_summary": "drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\summary.json",
+          "canonical_screenshot": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "source_manual_review_exists": true,
+          "source_ui_report_exists": true,
+          "source_staged_summary_exists": true,
+          "canonical_screenshot_exists": true,
+          "source_manual_review_matches_canonical": true,
+          "source_ui_report_matches_canonical": true,
+          "source_staged_summary_matches_canonical": true,
+          "canonical_screenshot_in_observations": true,
+          "mismatch_keys": []
+        },
         "defect_plan_ready": true,
         "defect_closure_pass": false
       }

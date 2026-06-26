@@ -14902,3 +14902,57 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
 - API/JSON/DisplayDim/System Health contract evidence remains supporting-only; the next real acceptance step is still a single locked 006 CAD rerun only after readiness becomes safe, followed by application UI screenshot review and manual visual judgement.
+
+## v4.4 Product Gate Requires 006 UI Defect Bucket Source Agreement - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Extends `_ui_defect_buckets_check(...)` with canonical `ui_visual_review.json` context.
+  - Adds `source_agreement` details under `lb26001_006_ui_defect_buckets_ready`.
+  - Requires `source_artifacts.manual_review` to match canonical `effective_manual_review` / `manual_review`.
+  - Requires `source_artifacts.ui_report` to match canonical `ui_report`.
+  - Requires `source_artifacts.staged_summary` to match canonical `summary`.
+  - Requires the canonical application UI screenshot path to appear in the defect-bucket `screenshot_visual_observations`.
+  - Keeps screenshot file existence/content validation owned by the canonical UI review gate, so a missing screenshot is reported by the UI review check rather than changing defect-bucket blocker ordering.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture now writes canonical manual review, Drawing Review UI report, and staged summary artifacts.
+  - Fixture wires those paths into both `ui_visual_review.json` and `lb26001_006_ui_defect_buckets_v4_4.json`.
+  - Adds a regression test proving a stale manual-review path blocks `lb26001_006_ui_defect_buckets_ready`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+- Current `lb26001_006_ui_defect_buckets_ready` remains `pass` only as a defect plan/readiness check, not as drawing acceptance.
+- Current `source_agreement` has:
+  - `source_manual_review_exists=true`
+  - `source_ui_report_exists=true`
+  - `source_staged_summary_exists=true`
+  - `source_manual_review_matches_canonical=true`
+  - `source_ui_report_matches_canonical=true`
+  - `source_staged_summary_matches_canonical=true`
+  - `canonical_screenshot_in_observations=true`
+  - `mismatch_keys=[]`
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- 006 still fails the canonical application UI screenshot review; UI defect buckets are a repair contract for the next rerun, not PASS evidence.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

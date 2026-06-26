@@ -375,6 +375,9 @@ def _fixture(
             _write_png(ui_screenshot)
         else:
             _write_file(ui_screenshot)
+    manual_review_path = _write_json(root / "manual_visual_judgement.json", {"base": BASE, "fixture": "manual"})
+    ui_report_path = _write_json(root / "drawing_visual_review_report.json", {"base": BASE, "fixture": "ui_report"})
+    staged_summary_path = _write_json(root / "staged_summary.json", {"base": BASE, "fixture": "summary"})
     required_active_defect_buckets = [
         "dimension_visual_overdense",
         "dimension_lane_wrong",
@@ -1033,6 +1036,11 @@ def _fixture(
                 "bucket_closure_contract": bucket_closure_contract,
                 "missing_bucket_closure_contract_keys": [],
                 "screenshot_visual_observations": screenshot_visual_observations,
+                "source_artifacts": {
+                    "manual_review": str(manual_review_path),
+                    "ui_report": str(ui_report_path),
+                    "staged_summary": str(staged_summary_path),
+                },
                 "buckets": ui_defect_buckets,
             },
         ),
@@ -1083,6 +1091,10 @@ def _fixture(
                 "solidworks_probe_allowed_during_screenshot_review": False,
                 "ui_screenshot_review_no_solidworks_probe_all_pass": ui_review_pass,
                 "api_only_acceptance_allowed": False,
+                "summary": str(staged_summary_path),
+                "ui_report": str(ui_report_path),
+                "manual_review": str(manual_review_path),
+                "effective_manual_review": str(manual_review_path),
                 "pass_count": 1 if ui_review_pass else 0,
                 "fail_count": 0 if ui_review_pass else 1,
                 "blocking_issue_keys": [] if ui_review_pass else ["vision_qc_v6_with_ui_not_pass"],
@@ -1768,6 +1780,29 @@ def test_product_evidence_gate_blocks_locked_006_when_active_screenshot_observat
         assert check["details"]["missing_active_screenshot_visual_observation_buckets"] == [
             "dimension_visual_overdense"
         ]
+
+
+def test_product_evidence_gate_blocks_locked_006_when_ui_defect_bucket_sources_are_stale() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        paths = _fixture(root)
+        stale_manual = _write_json(root / "stale_manual_visual_judgement.json", {"fixture": "stale"})
+        ui_defect_path = paths["ui_defect_buckets"]
+        payload = json.loads(ui_defect_path.read_text(encoding="utf-8"))
+        payload["source_artifacts"]["manual_review"] = str(stale_manual)
+        _write_json(ui_defect_path, payload)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_rerun_packet"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "lb26001_006_ui_defect_buckets_ready" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "lb26001_006_ui_defect_buckets_ready")
+        source_agreement = check["details"]["source_agreement"]
+        assert source_agreement["source_manual_review_exists"] is True
+        assert source_agreement["source_manual_review_matches_canonical"] is False
+        assert source_agreement["mismatch_keys"] == ["source_manual_review_matches_canonical"]
 
 
 def test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails() -> None:
@@ -2551,6 +2586,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_locked_006_when_bucket_closure_contract_is_missing()
     test_product_evidence_gate_blocks_locked_006_when_callout_closure_contract_is_incomplete()
     test_product_evidence_gate_blocks_locked_006_when_active_screenshot_observation_is_missing()
+    test_product_evidence_gate_blocks_locked_006_when_ui_defect_bucket_sources_are_stale()
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
