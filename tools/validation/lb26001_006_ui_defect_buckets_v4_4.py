@@ -498,6 +498,26 @@ def build_report(
     bucket_keys = {str(item.get("key") or "") for item in buckets}
     required_bucket_keys = list(BUCKET_ORDER)
     required_next_screenshot_check_buckets = list(BUCKET_ORDER)
+    next_screenshot_checklist = _next_screenshot_checklist(required_next_screenshot_check_buckets)
+    next_screenshot_checklist_buckets = {
+        str(item.get("bucket") or "")
+        for item in next_screenshot_checklist
+        if str(item.get("bucket") or "").strip()
+    }
+    missing_next_screenshot_check_buckets = sorted(
+        set(required_bucket_keys) - set(required_next_screenshot_check_buckets)
+    )
+    missing_next_screenshot_checklist_buckets = sorted(
+        set(required_bucket_keys) - next_screenshot_checklist_buckets
+    )
+    callout_next_check = next(
+        (item for item in next_screenshot_checklist if item.get("bucket") == "callout_missing"),
+        {},
+    )
+    callout_next_check_ok = (
+        set(REQUIRED_CALLOUT_KEYS) <= set(callout_next_check.get("required_callout_keys") or [])
+        and set(CALLOUT_ABSENCE_CHECK_KEYS) <= set(callout_next_check.get("absence_check_keys") or [])
+    )
     bucket_closure_contract = _bucket_closure_contract(required_bucket_keys)
     closure_contract_keys = {str(item.get("bucket") or "") for item in bucket_closure_contract}
     screenshot_visual_observations = _screenshot_visual_observations(
@@ -559,7 +579,10 @@ def build_report(
         "required_bucket_keys": required_bucket_keys,
         "missing_bucket_keys": sorted(set(required_bucket_keys) - bucket_keys),
         "required_next_screenshot_check_buckets": required_next_screenshot_check_buckets,
-        "next_screenshot_checklist": _next_screenshot_checklist(required_next_screenshot_check_buckets),
+        "missing_next_screenshot_check_buckets": missing_next_screenshot_check_buckets,
+        "missing_next_screenshot_checklist_buckets": missing_next_screenshot_checklist_buckets,
+        "next_screenshot_checklist": next_screenshot_checklist,
+        "callout_next_check_ok": callout_next_check_ok,
         "reference_callout_review_required_keys": REQUIRED_CALLOUT_KEYS,
         "reference_callout_absence_check_keys": CALLOUT_ABSENCE_CHECK_KEYS,
         "screenshot_visual_observation_policy": {

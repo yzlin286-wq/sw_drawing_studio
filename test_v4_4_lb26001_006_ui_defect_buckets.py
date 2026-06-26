@@ -126,6 +126,9 @@ def main() -> None:
         ]
         assert report["missing_bucket_keys"] == []
         assert set(report["required_next_screenshot_check_buckets"]) == set(report["required_bucket_keys"])
+        assert report["missing_next_screenshot_check_buckets"] == []
+        assert report["missing_next_screenshot_checklist_buckets"] == []
+        assert report["callout_next_check_ok"] is True
         checklist = {item["bucket"]: item for item in report["next_screenshot_checklist"]}
         assert set(checklist) == set(report["required_bucket_keys"])
         assert checklist["callout_missing"]["required_callout_keys"] == [
