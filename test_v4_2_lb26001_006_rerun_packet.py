@@ -867,6 +867,21 @@ def test_006_rerun_packet_blocks_when_generator_final_overcap_blocker_is_missing
     ]
 
 
+def test_006_rerun_packet_blocks_when_generator_reference_lane_candidate_filter_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="generator_reference_lane_candidate_filter",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "generator_reference_lane_candidate_filter"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_generator_prune_repair_handoff_is_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -984,6 +999,21 @@ def test_006_rerun_packet_blocks_when_reference_lane_geometry_guard_missing() ->
     assert "dimension_arrange_reference_lane_signatures_present" in packet["offline_prerequisite_missing_keys"]
     assert packet["source_signatures"]["dimension_arrange_service"]["missing_signatures"] == [
         "reference_lane_geometry_issue_count"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_reference_lane_candidate_filter_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_dimension_arrange_signature="reference_lane_candidate_filter",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "dimension_arrange_reference_lane_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["dimension_arrange_service"]["missing_signatures"] == [
+        "reference_lane_candidate_filter"
     ]
 
 
@@ -1554,6 +1584,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_final_exact_prune_failure_guard_is_missing()
     test_006_rerun_packet_blocks_when_generator_final_exact_prune_repair_is_missing()
     test_006_rerun_packet_blocks_when_generator_final_overcap_blocker_is_missing()
+    test_006_rerun_packet_blocks_when_generator_reference_lane_candidate_filter_missing()
     test_006_rerun_packet_blocks_when_generator_prune_repair_handoff_is_missing()
     test_006_rerun_packet_blocks_when_generator_displaydim_dedupe_is_missing()
     test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
@@ -1562,6 +1593,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_generator_delete_equivalence_dedupe_missing()
     test_006_rerun_packet_blocks_when_reference_lane_geometry_guard_missing()
+    test_006_rerun_packet_blocks_when_reference_lane_candidate_filter_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_reference_compare_evidence()

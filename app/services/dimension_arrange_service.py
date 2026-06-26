@@ -479,6 +479,7 @@ class DimensionArrangeService:
                 )
             else:
                 candidates = self._candidate_positions(dim, (xmin, ymin, xmax, ymax), index)
+            fallback_choice: Optional[tuple[int, tuple[float, float]]] = None
             for track, candidate in candidates:
                 if not self._point_in_sheet(candidate[0], candidate[1]):
                     continue
@@ -486,13 +487,24 @@ class DimensionArrangeService:
                     continue
                 if any(self._distance(candidate, prior) < TEXT_MIN_GAP_M for prior in used_positions):
                     continue
+                if fallback_choice is None:
+                    fallback_choice = (track, candidate)
+                if use_long_thin_lanes and self._reference_lane_issue_for_position(
+                    dim,
+                    (xmin, ymin, xmax, ymax),
+                    candidate,
+                ):
+                    continue
                 chosen_track = track
                 chosen = candidate
                 break
 
             if chosen is None:
-                chosen_track = 0
-                chosen = self._clamp_to_sheet((dim.text_position[0], ymax + TRACK_GAP_M))
+                if fallback_choice is not None:
+                    chosen_track, chosen = fallback_choice
+                else:
+                    chosen_track = 0
+                    chosen = self._clamp_to_sheet((dim.text_position[0], ymax + TRACK_GAP_M))
 
             dim.new_position = chosen
             dim.track = chosen_track
@@ -545,6 +557,10 @@ class DimensionArrangeService:
         small_gap = 0.009 if slot == "top" else 0.007
 
         side = self._dimension_side(dim.text_position, outline)
+        if slot == "top":
+            anchor_x, anchor_y = self._reference_anchor_position(dim)
+            x_on_view = min(max(anchor_x, xmin), xmax)
+            y_on_view = min(max(anchor_y, ymin), ymax)
         if slot == "top":
             if dim.lane_role == "right_callout":
                 preferred = ["right", "top", "bottom", "left"]
@@ -603,6 +619,76 @@ class DimensionArrangeService:
             # creates cross-view leader lines like the 006 visual review fail.
             return "standard"
         return "standard"
+
+    @staticmethod
+    def _reference_anchor_position(dim: DimensionInfo) -> tuple[float, float]:
+        arrow = dim.arrow_position or dim.text_position
+        try:
+            ax = float(arrow[0])
+            ay = float(arrow[1])
+        except Exception:
+            return dim.text_position
+        if abs(ax) < 1e-9 and abs(ay) < 1e-9:
+            return dim.text_position
+        return (ax, ay)
+
+    def _reference_lane_policy(self) -> dict[str, Any]:
+        if not isinstance(self.layout_plan, dict):
+            return {}
+        lane_policy = self.layout_plan.get("reference_dimension_lane_policy") or {}
+        return lane_policy if isinstance(lane_policy, dict) else {}
+
+    def _reference_lane_issue_for_position(
+        self,
+        dim: DimensionInfo,
+        outline: tuple[float, float, float, float],
+        pos: tuple[float, float],
+    ) -> str:
+        if self.part_class != "long_thin":
+            return ""
+        lane_policy = self._reference_lane_policy()
+        allow_compact_top_side = bool(lane_policy.get("allow_compact_top_view_side_lanes"))
+        try:
+            top_side_max_gap = float(lane_policy.get("top_view_side_lane_max_gap_m") or 0.0)
+        except Exception:
+            top_side_max_gap = 0.0
+        slot = str(dim.slot or self._slot_for_outline(outline, dim.view_name)).strip().lower()
+        if slot not in {"front", "top", "right"}:
+            return ""
+
+        side = self._dimension_side(pos, outline)
+        xmin, ymin, xmax, ymax = outline
+        gap = 0.0
+        if side == "top":
+            gap = max(0.0, pos[1] - ymax)
+        elif side == "bottom":
+            gap = max(0.0, ymin - pos[1])
+        elif side == "left":
+            gap = max(0.0, xmin - pos[0])
+        elif side == "right":
+            gap = max(0.0, pos[0] - xmax)
+
+        compact_top_side_lane = (
+            slot == "top"
+            and side in {"left", "right"}
+            and allow_compact_top_side
+            and top_side_max_gap > 0.0
+            and gap <= top_side_max_gap
+        )
+        if slot == "top" and side in {"left", "right"} and not compact_top_side_lane:
+            return "top_view_cross_region_side"
+        if side in {"top", "bottom"} and gap > 0.046:
+            return "reference_lane_far_from_view"
+        if side in {"left", "right"} and gap > 0.030:
+            return "reference_lane_far_from_view"
+
+        arrow = self._reference_anchor_position(dim)
+        dx = abs(float(pos[0]) - float(arrow[0]))
+        dy = abs(float(pos[1]) - float(arrow[1]))
+        leader_distance = (dx * dx + dy * dy) ** 0.5
+        if dx > 0.030 and dy > 0.018 and leader_distance > 0.038:
+            return "reference_lane_diagonal_or_cross_region_leader"
+        return ""
 
     def _dimension_side(
         self,

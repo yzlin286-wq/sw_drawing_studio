@@ -1,0 +1,62 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_closed_loop_final_decision.v1",
+  "generated_at": "2026-06-27 01:24:00",
+  "base": "LB26001-A-04-006",
+  "decision": "BLOCKED",
+  "reason": "SolidWorks readiness does not allow a real locked 006 CAD rerun.",
+  "blocking_reason": {
+    "key": "solidworks_unsaved_document_visible",
+    "severity": "critical",
+    "evidence": {
+      "process_present": true,
+      "process_count": 1,
+      "pid": 8564,
+      "responding": true,
+      "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+    },
+    "fix_suggestion": "Manually save or close the unsaved SolidWorks document, then rerun the no-COM readiness check before starting any CAD worker."
+  },
+  "completed_steps": [
+    "Step 1 evidence_inventory",
+    "Step 2 failure_bucket_analysis",
+    "Step 3 selected_fix_scope",
+    "Step 4 implemented_focused_fix",
+    "Step 5 offline_validation_passed",
+    "Step 6 no_com_readiness_blocked"
+  ],
+  "skipped_steps_due_to_block": [
+    "Step 7 locked_real_006_rerun",
+    "Step 8 post_rerun_drawing_validation",
+    "Step 9 Drawing Review UI screenshot recheck"
+  ],
+  "artifacts": {
+    "evidence_summary": "drw_output/diagnostics/006_current_evidence_summary.json",
+    "failure_bucket_analysis": "drw_output/diagnostics/006_failure_bucket_analysis.json",
+    "fix_scope": "drw_output/diagnostics/006_fix_scope.json",
+    "fix_implementation_record": "drw_output/diagnostics/006_fix_implementation_record.json",
+    "offline_validation_result": "drw_output/diagnostics/006_offline_validation_result.json",
+    "readiness": "drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json",
+    "readiness_md": "drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.md",
+    "rerun_packet": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json",
+    "rerun_packet_md": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md"
+  },
+  "constraints_confirmed": {
+    "real_cad_rerun_started": false,
+    "solidworks_com_called_by_this_task": false,
+    "global_lock_bypassed": false,
+    "advanced_007_008_009_015_022": false,
+    "advanced_lb26001_36": false,
+    "advanced_medium_30": false,
+    "advanced_full_129": false,
+    "modified_original_reference_cad": false,
+    "lowered_displaydim_threshold": false,
+    "notes_counted_as_displaydims": false,
+    "api_pass_claimed_as_final_pass": false
+  },
+  "resume_after_user_action": [
+    "Save or close the unsaved SolidWorks document shown in the readiness report.",
+    "Run: python -B tools\\validation\\lb26001_006_regression_readiness_v4_2.py --out drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.md",
+    "Only if readiness is ready, start the fresh locked 006 rerun through JobRuntimeFacade/QProcess worker.",
+    "Then run dimension_validation, reference_compare, vision_qc, final_quality, and Drawing Review UI screenshot复核 for the fresh run."
+  ]
+}

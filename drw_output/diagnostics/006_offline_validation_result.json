@@ -1,0 +1,83 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_offline_validation_result.v1",
+  "generated_at": "2026-06-27 01:19:00",
+  "base": "LB26001-A-04-006",
+  "status": "PASS",
+  "solidworks_com_called": false,
+  "cad_rerun_started": false,
+  "scope_guard": {
+    "only_base_validated": "LB26001-A-04-006",
+    "forbidden_requested_drawings_run": false,
+    "forbidden_batch_sets_run": false,
+    "displaydim_threshold_lowered": false,
+    "note_counted_as_displaydim": false,
+    "old_run_reused_as_new_result": false
+  },
+  "commands": [
+    {
+      "name": "py_compile",
+      "command": "python -B -m py_compile app\\services\\dimension_arrange_service.py .trae\\specs\\build-v6-and-validate-exe-ui\\drw_generate_v6.py tools\\validation\\lb26001_006_rerun_packet_v4_2.py tools\\validation\\apply_ui_visual_review_v4.py tools\\ui_robot\\drawing_visual_review_suite.py app\\services\\reference_compare_v4.py app\\services\\drawing_blueprint_builder.py app\\services\\drawing_blueprint_model.py test_v4_drawing_blueprint_core.py test_v4_generator_blueprint_execution.py test_v4_4_reference_intent_plan_006.py test_v4_2_reference_intent_dimension_planner.py test_v4_dimension_arrange_service.py test_v4_reference_compare.py test_v4_2_drawing_visual_review_suite.py test_v4_apply_ui_visual_review.py test_v4_4_drawing_visual_review_suite_contract.py test_v4_2_lb26001_006_rerun_packet.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 blueprint core",
+      "command": "python -B test_v4_drawing_blueprint_core.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 blueprint execution",
+      "command": "python -B test_v4_generator_blueprint_execution.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 reference intent plan",
+      "command": "python -B test_v4_4_reference_intent_plan_006.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 reference intent dimension planner",
+      "command": "python -B test_v4_2_reference_intent_dimension_planner.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 dimension arrange",
+      "command": "python -B test_v4_dimension_arrange_service.py",
+      "result": "PASS",
+      "evidence": "test_arrange_dimensions_reports_reference_lane_geometry_issues now requires reference_lane_geometry_issue_count_after == 0"
+    },
+    {
+      "name": "006 reference compare offline",
+      "command": "python -B test_v4_reference_compare.py",
+      "result": "PASS"
+    },
+    {
+      "name": "Drawing Review screenshot pipeline offline",
+      "command": "python -B test_v4_2_drawing_visual_review_suite.py",
+      "result": "PASS"
+    },
+    {
+      "name": "Drawing Review visual review application",
+      "command": "python -B test_v4_apply_ui_visual_review.py",
+      "result": "PASS"
+    },
+    {
+      "name": "Drawing Review suite contract",
+      "command": "python -B test_v4_4_drawing_visual_review_suite_contract.py",
+      "result": "PASS"
+    },
+    {
+      "name": "manual visual judgement template",
+      "command": "python -B test_v4_4_manual_visual_judgement_template.py",
+      "result": "PASS"
+    },
+    {
+      "name": "006 rerun packet source gates",
+      "command": "python -B test_v4_2_lb26001_006_rerun_packet.py",
+      "result": "PASS"
+    }
+  ],
+  "notes": [
+    "This is offline validation only and is not a final drawing acceptance pass.",
+    "The next required step is no-COM SolidWorks readiness. If readiness is blocked, CAD rerun and UI screenshot复核 must stop."
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_failure_bucket_analysis.v1",
+  "generated_at": "2026-06-27 00:46:19",
+  "base": "LB26001-A-04-006",
+  "source_evidence_summary": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\006_current_evidence_summary.json",
+  "status": "failures_attributed",
+  "pass": false,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "manual_failed_checklist_items": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "selected_current_run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911",
+  "buckets": [
+    {
+      "bucket": "dimension_visual_overdense",
+      "status": "active_primary",
+      "severity": "critical",
+      "evidence": [
+        "manual_visual_judgement.display_dimensions=false",
+        "manual_visual_judgement.dimension_readability=false",
+        "reference_style reason display_dim_count_higher_than_reference",
+        "reference display_dim_count=12; generated visible DisplayDim count=25 from manual/review/QC evidence",
+        "Drawing Review screenshot shows dense central dimension web compared with sparse reference dimensions"
+      ],
+      "failed_checklist_links": [
+        "display_dimensions",
+        "dimension_readability",
+        "reference_match"
+      ],
+      "root_cause_hypothesis": "Final exact prune/repair keeps multiple DisplayDim wrappers or generic survivor dimensions after restoring required semantic coverage; API coverage reaches targets but visible sheet still contains extra dimensions.",
+      "acceptance_signal_after_fix": "Visible DisplayDim count must be capped to the 12 reference-intent target set while preserving DisplayDim>=12 and post_layout_final coverage."
+    },
+    {
+      "bucket": "dimension_lane_wrong",
+      "status": "active_primary",
+      "severity": "critical",
+      "evidence": [
+        "manual_visual_judgement.dimension_readability=false",
+        "manual note: Dimension lines and leaders cross large blank and view regions; hole/station callouts are not grouped into clean manufacturing lanes.",
+        "Drawing Review screenshot shows long diagonal cross-region leader/dimension lines through the generated view area."
+      ],
+      "failed_checklist_links": [
+        "dimension_readability",
+        "view_layout",
+        "reference_match"
+      ],
+      "root_cause_hypothesis": "Dimension placement accepts far-lane/cross-region candidates for top-view station/hole dimensions instead of rejecting leaders that leave the source view envelope and cross sheet regions.",
+      "acceptance_signal_after_fix": "No long diagonal cross-region dimension leaders; top-view dimensions stay in compact local lanes like the reference."
+    },
+    {
+      "bucket": "missing_reference_intent_dimension",
+      "status": "not_primary_currently_covered_by_supporting_metrics",
+      "severity": "watch",
+      "evidence": [
+        "latest evidence says target coverage is complete and DisplayDim lifecycle passes; not the dominant failure now"
+      ],
+      "failed_checklist_links": []
+    },
+    {
+      "bucket": "title_block_incomplete",
+      "status": "active_secondary_not_selected",
+      "severity": "major",
+      "evidence": [
+        "manual_visual_judgement.title_block=false",
+        "blueprint/warnings include titlebar missing material/scale/date and screenshot shows different compact title/data area"
+      ],
+      "failed_checklist_links": [
+        "title_block"
+      ],
+      "reason_not_selected": "Important, but dimension density/lane failure dominates all six visual checklist items and will otherwise hide title/notes improvements."
+    },
+    {
+      "bucket": "manufacturing_notes_missing",
+      "status": "active_secondary_not_selected",
+      "severity": "major",
+      "evidence": [
+        "manual_visual_judgement.manufacturing_notes=false",
+        "screenshot shows notes block placement/format differs and competes with dense dimensions"
+      ],
+      "failed_checklist_links": [
+        "manufacturing_notes"
+      ],
+      "reason_not_selected": "Not selected this pass to keep fix scope to 1-2 highest-impact buckets."
+    },
+    {
+      "bucket": "projection_view_style_mismatch",
+      "status": "active_secondary_not_selected",
+      "severity": "major",
+      "evidence": [
+        "manual_visual_judgement.view_layout=false",
+        "right projected view exists but generated composition differs from reference"
+      ],
+      "failed_checklist_links": [
+        "view_layout"
+      ],
+      "reason_not_selected": "Partly downstream from dimension lane/density; will be re-evaluated after dimension clutter is reduced."
+    },
+    {
+      "bucket": "callout_missing",
+      "status": "watch_next_screenshot_required",
+      "severity": "major",
+      "evidence": [
+        "reference callouts still must be checked in next UI screenshot, but current screenshot failure is dominated by extra dimensions/lane geometry"
+      ],
+      "failed_checklist_links": [
+        "manufacturing_notes",
+        "display_dimensions"
+      ]
+    },
+    {
+      "bucket": "dimension_text_too_small",
+      "status": "possible_secondary",
+      "severity": "minor",
+      "evidence": [
+        "screenshot readability is poor, but main cause is density/crossing rather than proven text height alone"
+      ],
+      "failed_checklist_links": [
+        "dimension_readability"
+      ]
+    },
+    {
+      "bucket": "layout_reference_mismatch",
+      "status": "active_secondary",
+      "severity": "major",
+      "evidence": [
+        "manual_visual_judgement.reference_match=false and view_layout=false; screenshot shows generated composition does not match sparse reference"
+      ],
+      "failed_checklist_links": [
+        "reference_match",
+        "view_layout"
+      ],
+      "root_cause_hypothesis": "Layout mismatch is strongly coupled to over-dense dimension/lane placement in this pass."
+    }
+  ],
+  "primary_buckets_ranked": [
+    "dimension_visual_overdense",
+    "dimension_lane_wrong"
+  ],
+  "secondary_buckets_ranked": [
+    "layout_reference_mismatch",
+    "title_block_incomplete",
+    "manufacturing_notes_missing",
+    "projection_view_style_mismatch",
+    "callout_missing",
+    "dimension_text_too_small"
+  ]
+}

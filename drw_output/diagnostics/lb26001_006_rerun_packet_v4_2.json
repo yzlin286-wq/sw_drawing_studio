@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 23:59:24",
+  "generated_at": "2026-06-27 00:59:40",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1313,6 +1313,16 @@
             "key": "generator_reference_lane_geometry_issue_count",
             "signature": "reference_lane_geometry_issue_count_after",
             "present": true
+          },
+          {
+            "key": "generator_reference_lane_candidate_filter",
+            "signature": "_reference_lane_issue_for_candidate",
+            "present": true
+          },
+          {
+            "key": "generator_reference_lane_anchor_position",
+            "signature": "anchor_x",
+            "present": true
           }
         ],
         "missing_signatures": []
@@ -1557,6 +1567,16 @@
           {
             "key": "reference_lane_diagonal_leader_guard",
             "signature": "reference_lane_diagonal_or_cross_region_leader",
+            "present": true
+          },
+          {
+            "key": "reference_lane_candidate_filter",
+            "signature": "_reference_lane_issue_for_position",
+            "present": true
+          },
+          {
+            "key": "reference_lane_anchor_position",
+            "signature": "_reference_anchor_position",
             "present": true
           },
           {
@@ -2826,6 +2846,16 @@
           "key": "generator_reference_lane_geometry_issue_count",
           "signature": "reference_lane_geometry_issue_count_after",
           "present": true
+        },
+        {
+          "key": "generator_reference_lane_candidate_filter",
+          "signature": "_reference_lane_issue_for_candidate",
+          "present": true
+        },
+        {
+          "key": "generator_reference_lane_anchor_position",
+          "signature": "anchor_x",
+          "present": true
         }
       ],
       "missing_signatures": []
@@ -3045,6 +3075,16 @@
         {
           "key": "reference_lane_diagonal_leader_guard",
           "signature": "reference_lane_diagonal_or_cross_region_leader",
+          "present": true
+        },
+        {
+          "key": "reference_lane_candidate_filter",
+          "signature": "_reference_lane_issue_for_position",
+          "present": true
+        },
+        {
+          "key": "reference_lane_anchor_position",
+          "signature": "_reference_anchor_position",
           "present": true
         },
         {

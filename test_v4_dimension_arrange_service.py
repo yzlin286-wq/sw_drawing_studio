@@ -323,7 +323,9 @@ def test_arrange_dimensions_reports_reference_lane_geometry_issues() -> None:
     assert result.success is True
     assert result.line_crossing_before == 0
     assert result.reference_lane_geometry_issue_count_before >= 1
+    assert result.reference_lane_geometry_issue_count_after == 0
     assert report["reference_lane_geometry_issue_count_before"] >= 1
+    assert report["reference_lane_geometry_issue_count_after"] == 0
     assert "reference_lane_geometry_issue_count_after" in report
     assert "reference_lane_geometry_issues" in report
 

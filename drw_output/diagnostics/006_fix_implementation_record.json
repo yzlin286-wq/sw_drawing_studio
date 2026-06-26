@@ -1,0 +1,96 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_fix_implementation_record.v1",
+  "generated_at": "2026-06-27 01:09:00",
+  "base": "LB26001-A-04-006",
+  "status": "implemented_offline_fix_ready_for_validation",
+  "selected_buckets": [
+    "dimension_visual_overdense",
+    "dimension_lane_wrong"
+  ],
+  "implementation_summary": "Focused fix for the dominant UI screenshot failure: avoid re-creating dense/cross-region DisplayDim lanes in the 006 long-thin top-view arrangement path and require this fix before no-COM rerun packet can allow a future real CAD rerun.",
+  "modified_files": [
+    {
+      "path": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "functions": [
+        "generate_for.<nested>_long_thin_candidates",
+        "generate_for.<nested>_reference_lane_issue_for_candidate",
+        "generate_for.<nested>_arrange_display_dim_annotations_stage"
+      ],
+      "key_lines": [
+        8979,
+        9113,
+        9208
+      ],
+      "reason": "The latest 006 run used generator_display_dim_annotation_chain fallback and still produced an over-dense sheet. The fallback now anchors top-view candidate lanes to the dimension arrow/geometry position and skips candidates that would trigger reference-lane geometry issues.",
+      "affects_other_samples": "Limited to long_thin generator fallback layout behavior; non-long-thin drawings bypass the new candidate issue filter.",
+      "rollback": "Remove _reference_lane_issue_for_candidate usage and restore the previous first-valid candidate selection in the fallback arrange stage."
+    },
+    {
+      "path": "app/services/dimension_arrange_service.py",
+      "functions": [
+        "DimensionArrangeService._arrange_view_dimensions",
+        "DimensionArrangeService._long_thin_candidate_positions",
+        "DimensionArrangeService._reference_anchor_position",
+        "DimensionArrangeService._reference_lane_issue_for_position"
+      ],
+      "key_lines": [
+        482,
+        561,
+        624,
+        641
+      ],
+      "reason": "The main dimension arrange service now prefers candidate positions that do not create top-view cross-region side lanes, far lanes, or diagonal/cross-region leaders for 006-style long-thin drawings.",
+      "affects_other_samples": "Potentially affects other long_thin drawings by preferring local arrow-anchored lanes; existing long_thin arrange tests still pass.",
+      "rollback": "Remove the candidate issue filter and arrow-anchored top-view lane placement helper."
+    },
+    {
+      "path": "tools/validation/lb26001_006_rerun_packet_v4_2.py",
+      "functions": [
+        "GENERATOR_SIGNATURES",
+        "DIMENSION_ARRANGE_SIGNATURES"
+      ],
+      "key_lines": [
+        192,
+        254
+      ],
+      "reason": "No-COM rerun packet must reject stale source that lacks the new candidate-level reference lane filter before any future real CAD rerun.",
+      "affects_other_samples": "No drawing generation behavior change; validation gate only.",
+      "rollback": "Remove the two candidate-filter signature keys if the lane-filter approach is reverted."
+    },
+    {
+      "path": "test_v4_dimension_arrange_service.py",
+      "functions": [
+        "test_arrange_dimensions_reports_reference_lane_geometry_issues"
+      ],
+      "key_lines": [
+        326
+      ],
+      "reason": "Offline regression proves a detected 006-style reference-lane geometry issue is eliminated after arrangement.",
+      "affects_other_samples": "Test only.",
+      "rollback": "Remove the added after-count assertions if the arrange fix is reverted."
+    },
+    {
+      "path": "test_v4_2_lb26001_006_rerun_packet.py",
+      "functions": [
+        "test_006_rerun_packet_blocks_when_generator_reference_lane_candidate_filter_missing",
+        "test_006_rerun_packet_blocks_when_reference_lane_candidate_filter_missing"
+      ],
+      "key_lines": [
+        870,
+        1005
+      ],
+      "reason": "Offline rerun packet validation now blocks when either generator fallback or dimension arrange source is missing the new 006 lane candidate filter.",
+      "affects_other_samples": "Test only.",
+      "rollback": "Remove these two tests if the packet signature gate is reverted."
+    }
+  ],
+  "constraints_confirmed": {
+    "modified_original_cad_files": false,
+    "lowered_displaydim_threshold": false,
+    "notes_counted_as_displaydims": false,
+    "solidworks_com_called": false,
+    "advanced_requested_drawings": false,
+    "advanced_batch_sets": false
+  },
+  "next_step": "Run Step 5 offline validation, then Step 6 no-COM SolidWorks readiness. Real CAD rerun remains forbidden unless readiness allows it."
+}

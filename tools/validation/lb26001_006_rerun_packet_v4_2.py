@@ -189,6 +189,8 @@ GENERATOR_SIGNATURES = {
     "reference_view_outline_size_match_required": "view_outline_size_match_required",
     "generator_reference_lane_geometry_guard": "reference_lane_geometry_guard",
     "generator_reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
+    "generator_reference_lane_candidate_filter": "_reference_lane_issue_for_candidate",
+    "generator_reference_lane_anchor_position": "anchor_x",
 }
 
 CAD_WORKER_SIGNATURES = {
@@ -249,6 +251,8 @@ DIMENSION_ARRANGE_SIGNATURES = {
     "reference_lane_geometry_guard": "reference_lane_geometry_guard",
     "reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
     "reference_lane_diagonal_leader_guard": "reference_lane_diagonal_or_cross_region_leader",
+    "reference_lane_candidate_filter": "_reference_lane_issue_for_position",
+    "reference_lane_anchor_position": "_reference_anchor_position",
     "reference_dimension_lane_policy": "reference_dimension_lane_policy",
     "compact_top_side_lane_gap_policy": "top_view_side_lane_max_gap_m",
 }

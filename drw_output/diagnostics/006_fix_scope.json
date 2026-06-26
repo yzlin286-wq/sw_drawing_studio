@@ -1,0 +1,53 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_fix_scope.v1",
+  "generated_at": "2026-06-27 00:46:19",
+  "base": "LB26001-A-04-006",
+  "status": "selected_primary_fix_scope",
+  "selected_buckets": [
+    "dimension_visual_overdense",
+    "dimension_lane_wrong"
+  ],
+  "not_selected_buckets": [
+    "title_block_incomplete",
+    "manufacturing_notes_missing",
+    "projection_view_style_mismatch",
+    "callout_missing",
+    "dimension_text_too_small",
+    "layout_reference_mismatch"
+  ],
+  "selection_reason": "These two buckets explain the largest visual gap: generated sheet has 25 visible DisplayDims versus 12 in the reference and long cross-region dimension lines. Fixing title/notes first would not resolve the dominant UI screenshot failure.",
+  "allowed_code_areas": [
+    "006 reference intent dimension planner",
+    "006 dimension executor",
+    "drawing layout / dimension arrange related code",
+    "reference compare related code",
+    "006 dedicated validation/report scripts"
+  ],
+  "implementation_plan": [
+    {
+      "area": "drawing generator final DisplayDim pruning",
+      "intent": "Reject/carry blockers when final visible DisplayDim count exceeds the reference-intent cap after prune/repair, instead of accepting an over-dense but semantically covered sheet.",
+      "expected_files": [
+        ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py"
+      ]
+    },
+    {
+      "area": "dimension arrange / lane validation",
+      "intent": "Add an offline-detectable reference-lane geometry guard for long diagonal/cross-region dimension leaders so future reruns fail before UI review if the same lane pattern reappears.",
+      "expected_files": [
+        "app/services/dimension_arrange_service.py",
+        "tools/validation/lb26001_006_rerun_packet_v4_2.py"
+      ]
+    }
+  ],
+  "acceptance_expectations": {
+    "must_preserve_displaydim_minimum": 12,
+    "notes_are_not_displaydims": true,
+    "api_pass_not_final": true,
+    "next_required_final_gate": "Drawing Review UI screenshot manual/visual judgement"
+  },
+  "risk_control": {
+    "affects_other_samples": "Potentially yes for dimension arrange/generator shared behavior; guard will be tied to reference-intent/UI defect policy and covered by 006-focused tests before rerun.",
+    "rollback": "Revert the changed generator/dimension arrange guard commits and regenerated diagnostics; no original CAD files are modified."
+  }
+}

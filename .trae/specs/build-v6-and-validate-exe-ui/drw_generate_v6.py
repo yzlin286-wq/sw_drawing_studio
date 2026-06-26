@@ -8974,6 +8974,15 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
             slot = str(item.get("slot") or "").lower()
             side = _dimension_side(item["position"], item["outline"])
             if slot == "top":
+                anchor = tuple(item.get("arrow_position") or item.get("position") or (x_on_view, y_on_view))
+                try:
+                    anchor_x = float(anchor[0])
+                    anchor_y = float(anchor[1])
+                except Exception:
+                    anchor_x, anchor_y = item["position"]
+                x_on_view = max(float(x0), min(float(x1), anchor_x))
+                y_on_view = max(float(y0), min(float(y1), anchor_y))
+            if slot == "top":
                 if str(item.get("lane_role") or "") == "right_callout":
                     preferred = ["top", "bottom"]
                 elif side == "bottom":
@@ -9101,6 +9110,16 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 })
             return issues
 
+        def _reference_lane_issue_for_candidate(item_for_check, candidate):
+            if part_class != "long_thin":
+                return ""
+            probe = dict(item_for_check or {})
+            probe["new_position"] = tuple(candidate)
+            issues_for_probe = _reference_lane_geometry_issues([probe], use_new_position=True)
+            if not issues_for_probe:
+                return ""
+            return str((issues_for_probe[0] or {}).get("issue") or "")
+
         raw_items = _display_dim_annotations_in_doc(drw)
         items = []
         for index, item in enumerate(raw_items):
@@ -9177,14 +9196,21 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                         _clamp((x0 - step, original[1])),
                     ])
                 candidates.append(_clamp(original))
-            chosen = candidates[-1]
+            chosen = None
+            fallback_candidate = None
             for candidate in candidates:
                 if any(_arrange_point_in_box(candidate, box) for box in avoid_boxes):
                     continue
                 if any(_arrange_distance(candidate, prior) < 0.008 for prior in used_points):
                     continue
+                if fallback_candidate is None:
+                    fallback_candidate = candidate
+                if part_class == "long_thin" and _reference_lane_issue_for_candidate(item, candidate):
+                    continue
                 chosen = candidate
                 break
+            if chosen is None:
+                chosen = fallback_candidate or candidates[-1]
             ok = False
             if _arrange_distance(original, chosen) > 0.001:
                 ok = _arrange_set_dim_position(item["target"], chosen)

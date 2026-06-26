@@ -1,0 +1,256 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_current_evidence_summary.v1",
+  "generated_at": "2026-06-27 00:40:06",
+  "base": "LB26001-A-04-006",
+  "selected_evidence_policy": "latest completed real CAD 006 run with Drawing Review UI screenshot; excludes 20260626 readiness-only attempt because it generated no fresh drawing artifacts",
+  "status": "evidence_collected",
+  "pass": false,
+  "release_ready": false,
+  "api_only_acceptance_allowed": false,
+  "ui_screenshot_review_is_final_gate": true,
+  "do_not_expand_ref6": true,
+  "selected_stage": {
+    "summary_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\summary.json",
+    "generated_at": "2026-06-25 04:34:04",
+    "status": "need_review",
+    "pass": false,
+    "execution_completed": true,
+    "processed": 1,
+    "total": 1,
+    "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911",
+    "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\01_LB26001-A-04-006",
+    "case_status": "need_review",
+    "deliverable": false,
+    "failure_bucket": [
+      "reference_compare_v4_not_pass",
+      "reference_style_not_pass",
+      "vision_qc_v6_not_pass"
+    ],
+    "reasons": [
+      "display_dim_count_higher_than_reference",
+      "ui_screenshot_visual_acceptance_not_passed"
+    ]
+  },
+  "previous_canonical_acceptance_proof": {
+    "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
+    "generated_at": "2026-06-26 00:54:29",
+    "status": "blocked_by_006",
+    "pass": false,
+    "bound_run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+    "note": "Current diagnostics still bind acceptance proof to the previous 041353 run; this task uses latest completed 042953 evidence as the current failure baseline."
+  },
+  "required_inputs": {
+    "latest_run_dir": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911",
+      "exists": true,
+      "size_bytes": 4096,
+      "mtime": "2026-06-25 04:33:54"
+    },
+    "manual_visual_judgement": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
+      "exists": true,
+      "size_bytes": 4377,
+      "mtime": "2026-06-25 13:25:24"
+    },
+    "ui_visual_review_json": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\ui_visual_review.json",
+      "exists": false,
+      "substitute_used": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\closed_loop\\ui_visual_review_gate_summary.json"
+    },
+    "drawing_visual_review_report": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\drawing_visual_review_report.json",
+      "exists": true,
+      "size_bytes": 4452,
+      "mtime": "2026-06-25 04:34:24"
+    },
+    "ui_visual_review_gate_summary": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\closed_loop\\ui_visual_review_gate_summary.json",
+      "exists": true,
+      "size_bytes": 4227,
+      "mtime": "2026-06-25 13:25:43"
+    },
+    "drawing_review_ui_screenshot": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+      "exists": true,
+      "size_bytes": 10938925,
+      "mtime": "2026-06-25 04:34:24",
+      "width": 2600,
+      "height": 1400,
+      "valid_png_header": true
+    },
+    "reference_vs_generated_comparison": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "exists": true,
+      "size_bytes": 6491651,
+      "mtime": "2026-06-25 04:34:23",
+      "width": 1800,
+      "height": 1200,
+      "valid_png_header": true
+    },
+    "dimension_validation": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\01_LB26001-A-04-006\\dimension_validation.json",
+      "exists": true,
+      "size_bytes": 3517,
+      "mtime": "2026-06-25 04:33:56"
+    },
+    "reference_compare": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\01_LB26001-A-04-006\\reference_compare.json",
+      "exists": true,
+      "size_bytes": 9086,
+      "mtime": "2026-06-25 04:34:01"
+    },
+    "reference_compare_v4": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\01_LB26001-A-04-006\\reference_compare_v4.json",
+      "exists": true,
+      "size_bytes": 54994,
+      "mtime": "2026-06-25 04:34:04"
+    },
+    "sw_session": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911\\sw_session.json",
+      "exists": true,
+      "size_bytes": 333,
+      "mtime": "2026-06-25 04:33:54"
+    },
+    "drawing_blueprint": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911\\qc\\drawing_blueprint.json",
+      "exists": true,
+      "size_bytes": 33427,
+      "mtime": "2026-06-25 04:29:58"
+    },
+    "reference_intent_dimension_plan_006": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
+      "exists": true,
+      "size_bytes": 88975,
+      "mtime": "2026-06-26 19:45:32"
+    },
+    "reference_intent_dimension_contract_006": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
+      "exists": true,
+      "size_bytes": 92244,
+      "mtime": "2026-06-26 20:08:46"
+    },
+    "generated_png": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911\\drawing\\LB26001-A-04-006_v5.PNG",
+      "exists": true,
+      "size_bytes": 273759,
+      "mtime": "2026-06-25 04:33:05",
+      "width": 3508,
+      "height": 2481,
+      "valid_png_header": true
+    },
+    "reference_png": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "exists": true,
+      "size_bytes": 39668,
+      "mtime": "2026-06-18 19:03:40",
+      "width": 1684,
+      "height": 1191,
+      "valid_png_header": true
+    },
+    "manifest": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911\\manifest.json",
+      "exists": true,
+      "size_bytes": 5506,
+      "mtime": "2026-06-25 04:33:56"
+    },
+    "final_quality": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\03eab4738911\\final_quality.json",
+      "exists": false
+    },
+    "vision_qc": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_042953\\01_LB26001-A-04-006\\vision_qc_v6.json",
+      "exists": true,
+      "size_bytes": 144621,
+      "mtime": "2026-06-25 04:34:04"
+    }
+  },
+  "manual_visual_judgement": {
+    "overall_status": "FAIL",
+    "visual_acceptance_pass": false,
+    "review_mode": "application_drawing_review_ui_screenshot",
+    "checklist": {
+      "reference_match": false,
+      "view_layout": false,
+      "display_dimensions": false,
+      "dimension_readability": false,
+      "title_block": false,
+      "manufacturing_notes": false
+    },
+    "failed_checklist_items": [
+      "reference_match",
+      "view_layout",
+      "display_dimensions",
+      "dimension_readability",
+      "title_block",
+      "manufacturing_notes"
+    ],
+    "notes": {
+      "reference_match": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
+      "view_layout": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
+      "display_dimensions": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
+      "dimension_readability": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
+      "title_block": "The visible title/data area is positioned and formatted differently from the compact reference style.",
+      "manufacturing_notes": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions."
+    },
+    "findings": [
+      "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
+      "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
+      "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
+      "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
+      "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
+    ],
+    "required_correction": "Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI."
+  },
+  "supporting_metrics": {
+    "dimension_status": "pass_with_warning",
+    "dimension_pass": true,
+    "dimension_validation_status": "pass_with_warning",
+    "dimension_validation_pass": true,
+    "displaydim_lifecycle_pass": true,
+    "reference_status": "pass",
+    "reference_pass": true,
+    "reference_compare_v4_status": "need_review",
+    "reference_compare_v4_pass": false,
+    "reference_style_status": "need_review",
+    "reference_style_pass": false,
+    "vision_qc_v6_status": "need_review",
+    "vision_qc_v6_visual_acceptance_pass": false,
+    "final_quality_status": "pass_with_warning"
+  },
+  "reference_style_summary": {
+    "status": "need_review",
+    "pass": false,
+    "reasons": [
+      "display_dim_count_higher_than_reference"
+    ],
+    "reference_display_dim_count": null,
+    "generated_display_dim_count": null,
+    "display_dim_count_delta": null
+  },
+  "reference_intent_plan_summary": {
+    "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
+    "base": "LB26001-A-04-006",
+    "dimension_count": 12,
+    "callout_count": 0,
+    "has_reference_layout_policy": true,
+    "has_ui_defect_repair_layout_targets": true
+  },
+  "contract_summary": {
+    "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
+    "operation_count": 12,
+    "callout_operation_count": 5,
+    "requires_solidworks_lock": true,
+    "allowed_entrypoint": "cad_job_worker"
+  },
+  "visual_observation_from_screenshot": {
+    "reference_drawing": "Sparse reference layout, local dimensions, compact bottom note/title area.",
+    "generated_drawing": "Dense central dimension web with long diagonal cross-region lines, extra visible dimensions, mismatched note/title placement, and non-reference view composition.",
+    "primary_visual_risks": [
+      "dimension_visual_overdense",
+      "dimension_lane_wrong",
+      "layout_reference_mismatch",
+      "title_block_incomplete",
+      "manufacturing_notes_missing"
+    ]
+  }
+}
