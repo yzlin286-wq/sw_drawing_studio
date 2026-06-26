@@ -1,10 +1,13 @@
 {
   "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
-  "generated_at": "2026-06-26 03:57:17",
+  "generated_at": "2026-06-26 18:00:04",
   "status": "raw_issue_schema_noncompliant",
   "pass": false,
   "release_ready": false,
   "visual_audit_schema_evidence_pass": false,
+  "check_count": 7,
+  "passed_check_count": 4,
+  "failed_check_count": 3,
   "api_only_acceptance_allowed": false,
   "application_ui_screenshot_is_final_gate_for_requested_drawings": true,
   "solidworks_runtime_called": false,
@@ -156,6 +159,7 @@
   "checks": [
     {
       "key": "raw_issue_schema_report_present",
+      "pass": true,
       "status": "pass",
       "message": "Raw historical visual issue schema validation report must exist.",
       "details": {
@@ -164,6 +168,7 @@
     },
     {
       "key": "raw_issue_schema_pass",
+      "pass": false,
       "status": "fail",
       "message": "Raw historical visual issues must satisfy the final required issue schema.",
       "details": {
@@ -242,6 +247,7 @@
     },
     {
       "key": "normalized_issue_schema_report_present",
+      "pass": true,
       "status": "pass",
       "message": "Normalized issue schema validation report must exist as supporting evidence.",
       "details": {
@@ -250,6 +256,7 @@
     },
     {
       "key": "normalized_issue_schema_pass",
+      "pass": true,
       "status": "pass",
       "message": "Normalized issue schema proof must pass, but it remains supporting-only evidence.",
       "details": {
@@ -272,6 +279,7 @@
     },
     {
       "key": "final_visual_audit_report_present",
+      "pass": false,
       "status": "fail",
       "message": "Final visual_audit_report_v3_0.xlsx must exist before release evidence can pass.",
       "details": {
@@ -282,29 +290,34 @@
     },
     {
       "key": "visual_audit_index_present",
+      "pass": true,
       "status": "pass",
       "message": "Visual Audit index must exist as full-scope inventory evidence.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
         "exists": true,
-        "size_bytes": 614236,
+        "size_bytes": 630386,
         "schema": null,
-        "generated_at": "2026-06-25 21:22:44",
+        "generated_at": "2026-06-26 15:20:11",
         "total_files": 2112,
         "total_bases": 136
       }
     },
     {
       "key": "visual_audit_full_scope_allowed",
+      "pass": false,
       "status": "fail",
       "message": "Full-scope Visual Audit must wait until the product gate allows it after the requested six drawings pass.",
       "details": {
         "product_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\product_evidence_gate_v4_4.json",
-        "product_gate_status": "blocked_by_solidworks_readiness",
+        "product_gate_status": "blocked_by_solidworks_stability_gate",
         "product_gate_pass": false,
         "visual_audit_full_scope_allowed": false,
         "product_gate_blocking_issue_keys": [
+          "solidworks_stability_gate_pass",
+          "solidworks_conflict_report_ok",
           "solidworks_readiness_for_006",
+          "solidworks_readiness_title_sampling_guard",
           "regeneration_006_fresh_evidence_pass",
           "application_ui_006_acceptance_pass",
           "canonical_006_ui_visual_review_pass",

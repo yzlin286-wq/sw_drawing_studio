@@ -12815,6 +12815,61 @@ Remaining issues:
 - The regenerated drawing must then be reviewed through the application Drawing Review UI screenshot workflow with manual visual judgement.
 - Only after 006 passes the UI screenshot gate may `007/008/009/015/022` be expanded.
 
+## v4.4 Visual Audit Schema Gap Exit-Code Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Visual Audit schema-proof hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, or release action was run.
+- This does not close `visual_audit_schema_proof_pass`; it makes the remaining failure machine-visible.
+
+Implementation:
+
+- Updated `tools/validation/visual_audit_schema_gap_v4_4.py`.
+  - Each check now includes a boolean `pass` field.
+  - The payload now includes `check_count`, `passed_check_count`, and `failed_check_count`.
+  - The CLI now returns `1` when the schema gap remains, matching the other gate-style validators.
+- Updated `test_v4_4_visual_audit_schema_gap.py`.
+  - Covers check counters for a complete fixture.
+  - Covers failed check keys for raw schema/final report/full-scope blockers.
+  - Proves the CLI returns nonzero when the gap remains.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\visual_audit_schema_gap_v4_4.py test_v4_4_visual_audit_schema_gap.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_visual_audit_schema_gap.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\visual_audit_schema_gap_v4_4.py --out-json drw_output\diagnostics\visual_audit_schema_gap_v4_4.json --out-md drw_output\diagnostics\visual_audit_schema_gap_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_visual_audit_schema_gap.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `visual_audit_schema_gap_v4_4.py`: expected nonzero exit because the gap remains.
+- Refreshed `drw_output/diagnostics/visual_audit_schema_gap_v4_4.json`:
+  - `status=raw_issue_schema_noncompliant`
+  - `pass=false`
+  - `check_count=7`
+  - `passed_check_count=4`
+  - `failed_check_count=3`
+  - `raw_noncompliant_issue_count=5931`
+  - `normalized_noncompliant_issue_count=0`
+  - `blocking_issue_keys=["raw_issue_schema_pass","final_visual_audit_report_present","visual_audit_full_scope_allowed"]`
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`.
+- `visual_audit_schema_proof_pass` remains failed and all follow-on actions remain false, including `visual_audit_full_scope_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- Raw historical visual issues still fail the final schema with 5931 noncompliant entries.
+- `visual_audit_report_v3_0.xlsx` is still missing.
+- Full-scope Visual Audit remains blocked until 006 and then the requested six drawings pass application UI screenshot review.
+- Normalized issue index and raw issue backfill overlay are supporting-only; they cannot replace raw historical issue compliance.
+
 ## v4.4 006 Reference View Outline-Size Evidence - 2026-06-26
 
 Current judgment:

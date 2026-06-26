@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -95,8 +97,12 @@ def test_visual_audit_schema_gap_can_pass_complete_fixture() -> None:
         assert result["status"] == "pass"
         assert result["release_ready"] is False
         assert result["visual_audit_schema_evidence_pass"] is True
+        assert result["check_count"] == 7
+        assert result["passed_check_count"] == 7
+        assert result["failed_check_count"] == 0
         assert result["normalized_supporting_only"] is True
         assert result["normalized_cannot_replace_raw"] is True
+        assert all(item["pass"] is True for item in result["checks"])
         assert not result["blocking_issue_keys"]
 
 
@@ -118,6 +124,16 @@ def test_visual_audit_schema_gap_blocks_raw_failure_even_when_normalized_passes(
         assert result["normalized_issue_schema_pass"] is True
         assert result["normalized_supporting_only"] is True
         assert result["normalized_cannot_replace_raw"] is True
+        assert result["failed_check_count"] == 3
+        assert {
+            item["key"]
+            for item in result["checks"]
+            if item["pass"] is False
+        } == {
+            "raw_issue_schema_pass",
+            "final_visual_audit_report_present",
+            "visual_audit_full_scope_allowed",
+        }
         assert "raw_issue_schema_pass" in set(result["blocking_issue_keys"])
         assert "final_visual_audit_report_present" in set(result["blocking_issue_keys"])
         assert "visual_audit_full_scope_allowed" in set(result["blocking_issue_keys"])
@@ -249,6 +265,53 @@ def test_visual_audit_schema_gap_tool_is_file_only() -> None:
         assert token not in source
 
 
+def test_visual_audit_schema_gap_cli_returns_nonzero_when_gap_remains() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        paths = _fixture(
+            root,
+            raw_pass=False,
+            normalized_pass=True,
+            final_report=False,
+            full_scope_allowed=False,
+        )
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                "tools/validation/visual_audit_schema_gap_v4_4.py",
+                "--raw-issue-schema",
+                str(paths["raw"]),
+                "--normalized-issue-schema",
+                str(paths["normalized"]),
+                "--product-gate",
+                str(paths["product_gate"]),
+                "--visual-audit-index",
+                str(paths["index"]),
+                "--visual-audit-report",
+                str(paths["report"]),
+                "--raw-issue-repair-plan",
+                str(root / "missing_repair_plan.json"),
+                "--raw-issue-backfill-overlay",
+                str(root / "missing_overlay.json"),
+                "--out-json",
+                str(root / "gap.json"),
+                "--out-md",
+                str(root / "gap.md"),
+            ],
+            cwd=Path.cwd(),
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+        assert result.returncode == 1
+        payload = json.loads((root / "gap.json").read_text(encoding="utf-8"))
+        assert payload["pass"] is False
+        assert payload["failed_check_count"] == 3
+        assert "raw_issue_schema_pass" in payload["blocking_issue_keys"]
+
+
 if __name__ == "__main__":
     test_visual_audit_schema_gap_can_pass_complete_fixture()
     test_visual_audit_schema_gap_blocks_raw_failure_even_when_normalized_passes()
@@ -257,4 +320,5 @@ if __name__ == "__main__":
     test_visual_audit_schema_gap_includes_repair_plan_as_supporting_only()
     test_visual_audit_schema_gap_includes_backfill_overlay_as_supporting_only()
     test_visual_audit_schema_gap_tool_is_file_only()
+    test_visual_audit_schema_gap_cli_returns_nonzero_when_gap_remains()
     print("PASS test_v4_4_visual_audit_schema_gap")

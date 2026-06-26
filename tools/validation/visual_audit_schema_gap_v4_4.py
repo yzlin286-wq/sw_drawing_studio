@@ -112,6 +112,8 @@ def build_visual_audit_schema_gap(
     )
 
     failed = [item for item in checks if item["status"] != "pass"]
+    passed_count = sum(1 for item in checks if item.get("pass") is True)
+    failed_count = sum(1 for item in checks if item.get("pass") is False)
     status = _status_from_checks(checks)
     payload = {
         "schema": SCHEMA,
@@ -120,6 +122,9 @@ def build_visual_audit_schema_gap(
         "pass": not failed,
         "release_ready": False,
         "visual_audit_schema_evidence_pass": not failed,
+        "check_count": len(checks),
+        "passed_check_count": passed_count,
+        "failed_check_count": failed_count,
         "api_only_acceptance_allowed": False,
         "application_ui_screenshot_is_final_gate_for_requested_drawings": True,
         "solidworks_runtime_called": False,
@@ -230,6 +235,7 @@ def _add_check(
 ) -> None:
     checks.append({
         "key": key,
+        "pass": bool(passed),
         "status": "pass" if passed else "fail",
         "message": message,
         "details": details or {},
@@ -398,7 +404,7 @@ def main() -> int:
         "out_json": str(_repo_path(args.out_json)),
         "out_md": str(_repo_path(args.out_md)),
     }, ensure_ascii=False))
-    return 0
+    return 0 if payload.get("pass") else 1
 
 
 if __name__ == "__main__":
