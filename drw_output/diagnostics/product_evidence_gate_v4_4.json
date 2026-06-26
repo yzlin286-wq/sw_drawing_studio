@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 11:41:34",
+  "generated_at": "2026-06-26 11:46:08",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -76,7 +76,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T10:34:27",
+        "generated_at": "2026-06-26T11:46:01",
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
@@ -97,7 +97,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T10:34:27",
+        "generated_at": "2026-06-26T11:46:01",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -113,7 +113,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T10:34:27",
+        "generated_at": "2026-06-26T11:46:02",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -948,7 +948,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 936343
+          "size_bytes": 939117
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

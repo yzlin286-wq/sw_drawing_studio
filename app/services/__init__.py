@@ -3,7 +3,6 @@ from app.services.sw_runner import SwRunner
 from app.services.vision_qc import slddrw_to_png, vision_score
 from app.services.bom_service import extract_bom, write_bom
 from app.services.pricing_service import suggest_route, calculate_quote, write_quote
-from app.services.health_check import run_health_check
 from app.services.run_manager import RunContext, new_run, list_recent_runs
 from app.services.diagnostics import build_diagnostics_zip, list_diagnostics
 from app.services.refdoc_relink_service import relink_refdoc
@@ -36,7 +35,6 @@ __all__ = [
     "suggest_route",
     "calculate_quote",
     "write_quote",
-    "run_health_check",
     "RunContext",
     "new_run",
     "list_recent_runs",

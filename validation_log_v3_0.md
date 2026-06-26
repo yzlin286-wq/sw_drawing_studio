@@ -12738,6 +12738,48 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Remove Legacy Health Check Public Export - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline System Health / Stability Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/__init__.py`.
+  - Removed the convenience import/export for legacy `run_health_check`.
+  - The legacy implementation remains available only through explicit `app.services.health_check` imports for historical tests/tools.
+  - Home and System Health UI paths continue to use `JobRuntimeFacade.start_system_health_check(...)` / QProcess worker flow.
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Adds a regression assertion that `app/services/__init__.py` does not expose `run_health_check`.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\__init__.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `app/services/__init__.py` no longer contains `run_health_check`.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, `entrypoint_count=527`, `ui_thread_direct_risk_count=0`, and `system_health_ui_thread_direct_probe_count=0`.
+- Refreshed Stability Gate remains `warning` because `conflict_report.json` still sees one SolidWorks process without a worker-owned lock.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, with `passed_check_count=9` and `failed_check_count=12`.
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work / non-worker-owned process state; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- 006 still requires fresh CAD output followed by application Drawing Review UI screenshot capture and manual visual checklist PASS.
+
 ## v4.4 Product Gate Machine-Readable Check Rows - 2026-06-26
 
 Current judgment:

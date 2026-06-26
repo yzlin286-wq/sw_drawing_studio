@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-  "generated_at": "2026-06-26T10:34:27",
+  "generated_at": "2026-06-26T11:46:02",
   "level": "WARNING",
   "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
   "lock": null,
@@ -17,7 +17,7 @@
   },
   "solidworks_processes": [
     {
-      "pid": 22876,
+      "pid": 17736,
       "name": "SLDWORKS.exe",
       "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
       "responding": null,
@@ -39,7 +39,7 @@
       "details": {
         "processes": [
           {
-            "pid": 22876,
+            "pid": 17736,
             "name": "SLDWORKS.exe",
             "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
             "responding": null,

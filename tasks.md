@@ -26,6 +26,7 @@ Generated: 2026-06-21
 - [x] Add `test_v4_4_solidworks_stability_gate.py`.
 - [x] Move Diagnostics ZIP generation behind `app/workers/diagnostics_action_worker.py` so Logs/Diagnostics UI and LogPanel no longer call `build_diagnostics_zip()` synchronously on the UI thread.
 - [x] Classify bounded COM probe worker launchers and System Health DocMgr worker-service probes separately from service-direct COM risk.
+- [x] Remove the legacy `run_health_check` convenience export from `app/services/__init__.py`, so the public service API no longer advertises the old synchronous System Health path. `test_v4_1_solidworks_entrypoint_scan.py` now asserts the public API does not expose `run_health_check`, while Home/System Health pages continue to use `JobRuntimeFacade.start_system_health_check(...)`.
 - [x] Add external Add-in/sidecar host-lock contract evidence to `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`; current contract status is `pass`.
 - [x] Move Settings dialog model connection test behind `llm_action_worker.py` / `JobRuntimeFacade.start_llm_action(action="test_connection")` so UI does not run network retries or `time.sleep`.
 - [x] Classify remaining smoke/tool/UI robot/watchdog/legacy runner/model-client blocking calls with explicit non-UI or worker-backed risk buckets.
