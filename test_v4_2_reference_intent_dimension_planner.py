@@ -30,6 +30,10 @@ def test_006_reference_intent_dimension_plan_has_required_contract_fields() -> N
     assert layout_plan["reference_titlebar_policy"]["suppress_default_titlebar_fields"] is True
     assert layout_plan["reference_titlebar_policy"]["render_reference_bottom_notice"] is True
     assert plan["reference_titlebar_policy"]["suppress_drawing_no_name_visible_note"] is True
+    assert layout_plan["reference_view_outline_policy"]["view_outline_size_match_required"] is True
+    assert layout_plan["reference_view_outline_policy"]["independent_view_scale_allowed"] is True
+    assert layout_plan["reference_view_outline_policy"]["downscale_oversized_views_only"] is True
+    assert plan["reference_view_outline_policy"]["target_outlines_required"] is True
 
     for dimension in plan["dimensions"]:
         assert dimension["source_reference"].endswith("LB26001-A-04-006.SLDDRW")

@@ -876,6 +876,12 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         or layout_policy.get("reference_titlebar_policy")
         or {}
     )
+    outline_policy = (
+        payload.get("reference_view_outline_policy")
+        or layout_plan.get("reference_view_outline_policy")
+        or layout_policy.get("reference_view_outline_policy")
+        or {}
+    )
     sheet_template_policy = layout_plan.get("sheet_template_policy") or {}
     view_items = [item for item in view_plan if isinstance(item, dict)]
     lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
@@ -990,6 +996,26 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
     ]:
         if sheet_template_policy.get(key) is not expected:
             titlebar_policy_failures.append(f"sheet_template_policy.{key}")
+    outline_policy_failures = []
+    if outline_policy.get("schema") != "sw_drawing_studio.reference_view_outline_policy.v4_4":
+        outline_policy_failures.append("schema")
+    for key in [
+        "view_outline_size_match_required",
+        "independent_view_scale_allowed",
+        "downscale_oversized_views_only",
+        "target_outlines_required",
+        "application_ui_screenshot_required",
+    ]:
+        if outline_policy.get(key) is not True:
+            outline_policy_failures.append(key)
+    if outline_policy.get("api_or_reference_json_alone_can_close") is not False:
+        outline_policy_failures.append("api_or_reference_json_alone_can_close")
+    try:
+        outline_tolerance = float(outline_policy.get("view_outline_size_tolerance"))
+    except Exception:
+        outline_tolerance = 0.0
+    if not (0.05 <= outline_tolerance <= 0.30):
+        outline_policy_failures.append("view_outline_size_tolerance")
     missing_lane_targets = sorted(required_dim_keys - lane_target_keys)
     lane_policy_failures = []
     if lane_policy.get("schema") != "sw_drawing_studio.reference_dimension_lane_policy.v4_4":
@@ -1057,6 +1083,12 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "bottom_notice_box_norm": titlebar_policy.get("bottom_notice_box_norm")
         or layout_plan.get("bottom_notice_box_norm"),
         "titlebar_policy_failures": titlebar_policy_failures,
+        "reference_view_outline_policy_schema": outline_policy.get("schema"),
+        "view_outline_size_match_required": outline_policy.get("view_outline_size_match_required"),
+        "view_outline_size_tolerance": outline_policy.get("view_outline_size_tolerance"),
+        "independent_view_scale_allowed": outline_policy.get("independent_view_scale_allowed"),
+        "downscale_oversized_views_only": outline_policy.get("downscale_oversized_views_only"),
+        "outline_policy_failures": outline_policy_failures,
         "reference_dimension_lane_policy_schema": lane_policy.get("schema"),
         "lane_target_count": len(lane_targets),
         "lane_target_keys": sorted(lane_target_keys),
@@ -1092,6 +1124,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and layout_plan.get("compact_titlebar_fields_required") is True
         and layout_plan.get("reference_style_notes_required") is True
         and not titlebar_policy_failures
+        and not outline_policy_failures
         and bool(lane_policy)
         and not missing_lane_targets
         and not lane_policy_failures

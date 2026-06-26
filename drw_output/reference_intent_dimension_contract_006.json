@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 17:16:21",
+  "generated_at": "2026-06-26 17:32:11",
   "base": "LB26001-A-04-006",
   "drawing_path": "3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "run_dir": "",
@@ -392,9 +392,91 @@
         0.96,
         0.13
       ],
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
       "projection_view_style_match_required": true,
       "compact_titlebar_fields_required": true,
-      "reference_style_notes_required": true
+      "reference_style_notes_required": true,
+      "sheet_template_policy": {
+        "policy": "strip_default_template_artifacts",
+        "skip_builtin_gb_frame_titleblock": true,
+        "default_template_artifacts_allowed": false,
+        "suppress_default_titlebar_fields": true,
+        "source": "application_ui_screenshot_reference",
+        "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
+        "application_ui_screenshot_required": true
+      },
+      "reference_titlebar_policy": {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+        "default_template_artifacts_allowed": false,
+        "suppress_default_titlebar_fields": true,
+        "suppress_drawing_no_name_visible_note": true,
+        "render_reference_bottom_notice": true,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "reference_view_outline_policy": {
+        "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true,
+        "downscale_oversized_views_only": true,
+        "target_outlines_required": true,
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "view_outline_size_match_required": true,
+      "view_outline_size_tolerance": 0.18,
+      "independent_view_scale_allowed": true
+    },
+    "reference_titlebar_policy": {
+      "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "suppress_drawing_no_name_visible_note": true,
+      "render_reference_bottom_notice": true,
+      "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "reference_view_outline_policy": {
+      "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+      "view_outline_size_match_required": true,
+      "view_outline_size_tolerance": 0.18,
+      "independent_view_scale_allowed": true,
+      "downscale_oversized_views_only": true,
+      "target_outlines_required": true,
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
     },
     "ui_defect_repair_layout_targets": {
       "source": "application_ui_screenshot_failed_buckets",
@@ -421,6 +503,46 @@
         0.96,
         0.13
       ],
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "suppress_default_titlebar_fields": true,
+      "view_outline_size_match_required": true,
+      "reference_view_outline_policy": {
+        "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true,
+        "downscale_oversized_views_only": true,
+        "target_outlines_required": true,
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "reference_titlebar_policy": {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+        "default_template_artifacts_allowed": false,
+        "suppress_default_titlebar_fields": true,
+        "suppress_drawing_no_name_visible_note": true,
+        "render_reference_bottom_notice": true,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
       "api_or_reference_json_alone_can_close": false,
       "application_ui_screenshot_required": true
     }
@@ -671,9 +793,59 @@
       0.96,
       0.13
     ],
+    "bottom_notice_box_norm": [
+      0.3,
+      0.16,
+      0.66,
+      0.24
+    ],
     "projection_view_style_match_required": true,
     "compact_titlebar_fields_required": true,
-    "reference_style_notes_required": true
+    "reference_style_notes_required": true,
+    "sheet_template_policy": {
+      "policy": "strip_default_template_artifacts",
+      "skip_builtin_gb_frame_titleblock": true,
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "source": "application_ui_screenshot_reference",
+      "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
+      "application_ui_screenshot_required": true
+    },
+    "reference_titlebar_policy": {
+      "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "suppress_drawing_no_name_visible_note": true,
+      "render_reference_bottom_notice": true,
+      "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "reference_view_outline_policy": {
+      "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+      "view_outline_size_match_required": true,
+      "view_outline_size_tolerance": 0.18,
+      "independent_view_scale_allowed": true,
+      "downscale_oversized_views_only": true,
+      "target_outlines_required": true,
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "view_outline_size_match_required": true,
+    "view_outline_size_tolerance": 0.18,
+    "independent_view_scale_allowed": true
   },
   "ui_defect_repair_layout_targets": {
     "source": "application_ui_screenshot_failed_buckets",
@@ -700,6 +872,46 @@
       0.96,
       0.13
     ],
+    "bottom_notice_box_norm": [
+      0.3,
+      0.16,
+      0.66,
+      0.24
+    ],
+    "suppress_default_titlebar_fields": true,
+    "view_outline_size_match_required": true,
+    "reference_view_outline_policy": {
+      "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+      "view_outline_size_match_required": true,
+      "view_outline_size_tolerance": 0.18,
+      "independent_view_scale_allowed": true,
+      "downscale_oversized_views_only": true,
+      "target_outlines_required": true,
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "reference_titlebar_policy": {
+      "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "suppress_drawing_no_name_visible_note": true,
+      "render_reference_bottom_notice": true,
+      "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
     "api_or_reference_json_alone_can_close": false,
     "application_ui_screenshot_required": true
   },

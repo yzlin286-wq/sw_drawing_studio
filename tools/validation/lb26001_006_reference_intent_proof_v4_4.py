@@ -432,6 +432,12 @@ def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str,
         or layout_policy.get("reference_titlebar_policy")
         or {}
     )
+    outline_policy = (
+        plan.get("reference_view_outline_policy")
+        or layout_plan.get("reference_view_outline_policy")
+        or layout_policy.get("reference_view_outline_policy")
+        or {}
+    )
     sheet_template_policy = layout_plan.get("sheet_template_policy") or {}
     view_items = [item for item in view_plan if isinstance(item, dict)]
     slots = {str(item.get("slot") or "") for item in view_items}
@@ -480,6 +486,26 @@ def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str,
     ]:
         if sheet_template_policy.get(key) is not expected:
             titlebar_policy_failures.append(f"sheet_template_policy.{key}")
+    outline_policy_failures = []
+    if outline_policy.get("schema") != "sw_drawing_studio.reference_view_outline_policy.v4_4":
+        outline_policy_failures.append("schema")
+    for key in [
+        "view_outline_size_match_required",
+        "independent_view_scale_allowed",
+        "downscale_oversized_views_only",
+        "target_outlines_required",
+        "application_ui_screenshot_required",
+    ]:
+        if outline_policy.get(key) is not True:
+            outline_policy_failures.append(key)
+    if outline_policy.get("api_or_reference_json_alone_can_close") is not False:
+        outline_policy_failures.append("api_or_reference_json_alone_can_close")
+    try:
+        outline_tolerance = float(outline_policy.get("view_outline_size_tolerance"))
+    except Exception:
+        outline_tolerance = 0.0
+    if not (0.05 <= outline_tolerance <= 0.30):
+        outline_policy_failures.append("view_outline_size_tolerance")
     _add_check(
         checks,
         "reference_layout_policy",
@@ -490,8 +516,9 @@ def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str,
         and layout_plan.get("projection_view_style_match_required") is True
         and layout_plan.get("compact_titlebar_fields_required") is True
         and layout_plan.get("reference_style_notes_required") is True
-        and not titlebar_policy_failures,
-        "006 reference-intent plan carries reference view outlines plus compact notes and default-titleblock suppression targets",
+        and not titlebar_policy_failures
+        and not outline_policy_failures,
+        "006 reference-intent plan carries reference view outlines, outline-size policy, compact notes, and default-titleblock suppression targets",
         {
             "missing_slots": missing_slots,
             "outline_failures": outline_failures,
@@ -509,6 +536,12 @@ def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str,
             "bottom_notice_box_norm": titlebar_policy.get("bottom_notice_box_norm")
             or layout_plan.get("bottom_notice_box_norm"),
             "titlebar_policy_failures": titlebar_policy_failures,
+            "reference_view_outline_policy_schema": outline_policy.get("schema"),
+            "view_outline_size_match_required": outline_policy.get("view_outline_size_match_required"),
+            "view_outline_size_tolerance": outline_policy.get("view_outline_size_tolerance"),
+            "independent_view_scale_allowed": outline_policy.get("independent_view_scale_allowed"),
+            "downscale_oversized_views_only": outline_policy.get("downscale_oversized_views_only"),
+            "outline_policy_failures": outline_policy_failures,
         },
     )
 
@@ -721,6 +754,12 @@ def _layout_summary(plan: dict[str, Any]) -> dict[str, Any]:
         or layout_policy.get("reference_titlebar_policy")
         or {}
     )
+    outline_policy = (
+        plan.get("reference_view_outline_policy")
+        or layout_plan.get("reference_view_outline_policy")
+        or layout_policy.get("reference_view_outline_policy")
+        or {}
+    )
     return {
         "schema": layout_policy.get("schema"),
         "view_slots": [str(item.get("slot") or "") for item in view_plan if isinstance(item, dict)],
@@ -733,6 +772,8 @@ def _layout_summary(plan: dict[str, Any]) -> dict[str, Any]:
         "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
         "suppress_default_titlebar_fields": titlebar_policy.get("suppress_default_titlebar_fields"),
         "render_reference_bottom_notice": titlebar_policy.get("render_reference_bottom_notice"),
+        "view_outline_size_match_required": outline_policy.get("view_outline_size_match_required"),
+        "view_outline_size_tolerance": outline_policy.get("view_outline_size_tolerance"),
     }
 
 

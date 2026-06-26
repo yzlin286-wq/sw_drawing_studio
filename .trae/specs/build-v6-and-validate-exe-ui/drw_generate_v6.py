@@ -974,6 +974,10 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "reference_style_notes_required",
                     "sheet_template_policy",
                     "reference_titlebar_policy",
+                    "reference_view_outline_policy",
+                    "view_outline_size_match_required",
+                    "view_outline_size_tolerance",
+                    "independent_view_scale_allowed",
                 ]:
                     if key in plan_layout:
                         layout_plan[key] = plan_layout[key]
@@ -988,6 +992,24 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     layout_plan["bottom_notice_box_norm"] = (
                         reference_titlebar_policy.get("bottom_notice_box_norm")
                         or layout_plan.get("bottom_notice_box_norm")
+                    )
+                reference_view_outline_policy = (
+                    intent_plan.get("reference_view_outline_policy")
+                    or reference_layout_policy.get("reference_view_outline_policy")
+                    or plan_layout.get("reference_view_outline_policy")
+                    or {}
+                )
+                if isinstance(reference_view_outline_policy, dict) and reference_view_outline_policy:
+                    layout_plan["reference_view_outline_policy"] = reference_view_outline_policy
+                    layout_plan["view_outline_size_match_required"] = bool(
+                        reference_view_outline_policy.get("view_outline_size_match_required")
+                    )
+                    layout_plan["view_outline_size_tolerance"] = reference_view_outline_policy.get(
+                        "view_outline_size_tolerance",
+                        layout_plan.get("view_outline_size_tolerance", 0.18),
+                    )
+                    layout_plan["independent_view_scale_allowed"] = bool(
+                        reference_view_outline_policy.get("independent_view_scale_allowed")
                     )
                 layout_plan["source"] = "reference_intent_dimension_plan_006.reference_layout_policy"
                 layout_plan["target_outlines_required"] = True
@@ -1398,6 +1420,47 @@ def _reference_outline_scale_hint(part_bbox_m, target_outlines, view_keys=None):
             return 999.0
 
     return min(CANDIDATE_SCALES, key=_score)
+
+
+def _reference_view_outline_size_correction(current_outline, target_outline, scale_num_den, *, tolerance=0.18):
+    """Return an independent downscale ratio when a view is visibly larger than its reference outline."""
+    # reference_view_outline_size_correction:
+    # Center matching alone did not close the 006 UI screenshot failure. The
+    # latest real run matched centers but left the isometric view much larger
+    # than the same-name reference, so oversized views need an explicit
+    # post-creation size correction.
+    try:
+        cx0, cy0, cx1, cy1 = [float(v) for v in current_outline[:4]]
+        tx0, ty0, tx1, ty1 = [float(v) for v in target_outline[:4]]
+        scale_num, scale_den = [float(v) for v in scale_num_den[:2]]
+    except Exception:
+        return {}
+    current_w = abs(cx1 - cx0)
+    current_h = abs(cy1 - cy0)
+    target_w = abs(tx1 - tx0)
+    target_h = abs(ty1 - ty0)
+    ratios = []
+    if current_w > 1e-9 and target_w > 1e-9:
+        ratios.append(target_w / current_w)
+    if current_h > 1e-9 and target_h > 1e-9:
+        ratios.append(target_h / current_h)
+    ratios = [value for value in ratios if value > 0]
+    if not ratios or scale_num <= 0 or scale_den <= 0:
+        return {}
+    factor = sorted(ratios)[len(ratios) // 2]
+    factor = max(0.20, min(1.0, factor))
+    if factor >= 1.0 - float(tolerance):
+        return {}
+    corrected_den = scale_den / factor
+    return {
+        "scale_num": scale_num,
+        "scale_den": corrected_den,
+        "scale_factor": factor,
+        "width_ratio": target_w / current_w if current_w > 1e-9 else 0.0,
+        "height_ratio": target_h / current_h if current_h > 1e-9 else 0.0,
+        "current_outline": [cx0, cy0, cx1, cy1],
+        "target_outline": [tx0, ty0, tx1, ty1],
+    }
 
 
 def _v4_clean_text(value):
@@ -7537,6 +7600,77 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                     pairs_.append((ks_[i_], ks_[j_]))
         return pairs_
 
+    def _apply_reference_outline_size_corrections(stage_):
+        layout_policy_ = (layout_plan or {}).get("reference_view_outline_policy") or {}
+        required_ = (
+            bool(reference_layout_outlines)
+            and (
+                (layout_plan or {}).get("view_outline_size_match_required") is True
+                or layout_policy_.get("view_outline_size_match_required") is True
+            )
+            and (
+                (layout_plan or {}).get("independent_view_scale_allowed") is True
+                or layout_policy_.get("independent_view_scale_allowed") is True
+            )
+        )
+        if not required_:
+            return []
+        try:
+            tolerance_ = float(
+                (layout_plan or {}).get(
+                    "view_outline_size_tolerance",
+                    layout_policy_.get("view_outline_size_tolerance", 0.18),
+                )
+            )
+        except Exception:
+            tolerance_ = 0.18
+        current_outlines_ = _measure_outlines()
+        corrections_ = []
+        for slot_, target_outline_ in reference_layout_outlines.items():
+            view_ = created_views.get(slot_)
+            current_outline_ = current_outlines_.get(slot_)
+            if view_ is None or not current_outline_:
+                continue
+            correction_ = _reference_view_outline_size_correction(
+                current_outline_,
+                target_outline_,
+                (scale_num, scale_den),
+                tolerance=tolerance_,
+            )
+            if not correction_:
+                continue
+            ok_scale_ = _set_view_scale(view_, correction_["scale_num"], correction_["scale_den"])
+            center_ = reference_layout_centers.get(slot_) if isinstance(reference_layout_centers, dict) else None
+            ok_pos_ = False
+            if center_ and len(center_) >= 2:
+                ok_pos_ = _set_view_position(view_, float(center_[0]), float(center_[1]))
+            correction_ = dict(correction_)
+            correction_.update({
+                "slot": slot_,
+                "stage": stage_,
+                "scale_applied": bool(ok_scale_),
+                "position_applied": bool(ok_pos_),
+                "target_center": list(center_ or []),
+            })
+            corrections_.append(correction_)
+            log(
+                f"  [reference_style] outline size correction {slot_}: "
+                f"factor={correction_['scale_factor']:.3f} "
+                f"scale={correction_['scale_num']:.3g}:{correction_['scale_den']:.3g} "
+                f"ok={ok_scale_}"
+            )
+        if corrections_:
+            try: drw.ForceRebuild3(False)
+            except Exception: pass
+            warnings_box.append({
+                "code": "reference_view_outline_size_correction",
+                "stage": stage_,
+                "source": reference_layout_outline_source or reference_layout_source,
+                "tolerance": tolerance_,
+                "corrections": corrections_,
+            })
+        return corrections_
+
     def _delete_view(vkey):
         v_ = created_views.get(vkey)
         if v_ is None: return False
@@ -7677,6 +7811,8 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 log(f"  ✓ view_in_frame 降档后无重叠")
         else:
             log(f"  ✓ view_in_frame 重定位后无新重叠")
+
+    _apply_reference_outline_size_corrections("post_view_in_frame")
 
     # 6) 自动尺寸（v1.4 Task 4: 优先 InsertModelAnnotations3，失败兜底 InsertDimension2）
     log("[6/9] 导入模型尺寸 InsertModelAnnotations3")

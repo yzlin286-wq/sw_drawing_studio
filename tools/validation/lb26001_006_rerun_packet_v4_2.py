@@ -169,6 +169,8 @@ GENERATOR_SIGNATURES = {
     "reference_dimension_lane_policy_attached": "reference_dimension_lane_policy_attached",
     "reference_dimension_lane_policy_top_side_gap": "top_view_side_lane_max_gap_m",
     "reference_dimension_lane_policy_issue_floor": "reference_lane_geometry_issue_count_after_required",
+    "reference_view_outline_size_correction": "reference_view_outline_size_correction",
+    "reference_view_outline_size_match_required": "view_outline_size_match_required",
     "generator_reference_lane_geometry_guard": "reference_lane_geometry_guard",
     "generator_reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
 }

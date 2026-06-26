@@ -663,6 +663,19 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                 "api_or_reference_json_alone_can_close": False,
                 "application_ui_screenshot_required": True,
             },
+            "reference_view_outline_policy": {
+                "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+                "view_outline_size_match_required": True,
+                "view_outline_size_tolerance": 0.18,
+                "independent_view_scale_allowed": True,
+                "downscale_oversized_views_only": True,
+                "target_outlines_required": True,
+                "api_or_reference_json_alone_can_close": False,
+                "application_ui_screenshot_required": True,
+            },
+            "view_outline_size_match_required": True,
+            "view_outline_size_tolerance": 0.18,
+            "independent_view_scale_allowed": True,
         }
         reference_lane_policy = {
             "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
@@ -703,6 +716,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                         "view_plan": reference_view_plan,
                         "layout_plan": reference_layout_plan,
                         "reference_titlebar_policy": reference_layout_plan["reference_titlebar_policy"],
+                        "reference_view_outline_policy": reference_layout_plan["reference_view_outline_policy"],
                         "ui_defect_repair_layout_targets": {
                             "target_buckets": [
                                 "projection_view_style_mismatch",
@@ -713,12 +727,14 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                             "titlebar_box_norm": reference_layout_plan["titlebar_box_norm"],
                             "bottom_notice_box_norm": reference_layout_plan["bottom_notice_box_norm"],
                             "suppress_default_titlebar_fields": True,
+                            "view_outline_size_match_required": True,
                             "application_ui_screenshot_required": True,
                         },
                     },
                     "view_plan": reference_view_plan,
                     "layout_plan": reference_layout_plan,
                     "reference_titlebar_policy": reference_layout_plan["reference_titlebar_policy"],
+                    "reference_view_outline_policy": reference_layout_plan["reference_view_outline_policy"],
                     "reference_dimension_lane_policy": reference_lane_policy,
                     "dimensions": [
                         {
@@ -878,6 +894,8 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert blueprint["layout_plan"]["target_outlines_required"] is True
     assert blueprint["layout_plan"]["sheet_template_policy"]["skip_builtin_gb_frame_titleblock"] is True
     assert blueprint["layout_plan"]["reference_titlebar_policy"]["suppress_default_titlebar_fields"] is True
+    assert blueprint["layout_plan"]["reference_view_outline_policy"]["view_outline_size_match_required"] is True
+    assert blueprint["layout_plan"]["independent_view_scale_allowed"] is True
     assert blueprint["layout_plan"]["reference_dimension_lane_policy"]["schema"] == (
         "sw_drawing_studio.reference_dimension_lane_policy.v4_4"
     )
@@ -1027,6 +1045,24 @@ def test_generator_suppresses_default_titlebar_for_006_reference_style() -> None
     assert insertions[0]["source"] == "DrawingBlueprint.reference_titlebar_policy"
     assert "图号" not in insertions[0]["text"]
     assert "品名" not in insertions[0]["text"]
+
+
+def test_generator_downscales_oversized_reference_outline_view() -> None:
+    module = _load_generator()
+    current_iso = [0.191363, 0.068830, 0.285322, 0.131930]
+    target_iso = [0.212756, 0.082507, 0.263936, 0.118257]
+
+    correction = module._reference_view_outline_size_correction(
+        current_iso,
+        target_iso,
+        (1, 2),
+        tolerance=0.18,
+    )
+
+    assert correction
+    assert 0.50 < correction["scale_factor"] < 0.60
+    assert correction["scale_num"] == 1.0
+    assert correction["scale_den"] > 3.0
 
 
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:
@@ -2448,6 +2484,7 @@ if __name__ == "__main__":
     test_generator_attaches_reference_callout_review_plan_for_006_ui_closure()
     test_generator_uses_compact_reference_style_notes_for_006_ui_closure()
     test_generator_suppresses_default_titlebar_for_006_reference_style()
+    test_generator_downscales_oversized_reference_outline_view()
     test_generator_reference_autodim_and_prune_policy_is_bounded()
     test_generator_source_blocks_reference_intent_autodim_after_ui_failure()
     test_generator_scores_long_thin_display_dims_by_reference_intent()

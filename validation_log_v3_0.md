@@ -12744,6 +12744,118 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 006 Reference View Outline-Size Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline source and artifact hardening step for the `projection_view_style_mismatch` application UI screenshot bucket.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Observed failure that drove this change:
+
+- The 2026-06-25 04:13:53 real 006 rerun matched reference view centers, but the application UI screenshot still failed visually.
+- Supporting `reference_style.json` showed the generated ISO view remained oversized:
+  - reference ISO `size_norm=[0.1723, 0.1702]`
+  - generated ISO `size_norm=[0.3164, 0.3005]`
+- This proves center alignment alone is not enough for the reference drawing intent.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_planner.py`.
+  - 006 now emits `reference_view_outline_policy`.
+  - Required values include:
+    - `view_outline_size_match_required=true`
+    - `view_outline_size_tolerance=0.18`
+    - `independent_view_scale_allowed=true`
+    - `downscale_oversized_views_only=true`
+    - `target_outlines_required=true`
+    - `application_ui_screenshot_required=true`
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Carries the outline-size policy from `reference_intent_dimension_plan_006.json` into the blueprint layout plan.
+  - Adds `_reference_view_outline_size_correction(...)`.
+  - Applies `reference_view_outline_size_correction` after real view creation and `view_in_frame`, independently downscaling oversized views while preserving reference centers.
+  - The correction is downscale-only to avoid creating new overlap by enlarging views.
+- Updated `tools/validation/lb26001_006_reference_intent_proof_v4_4.py`.
+  - Reference proof now requires the outline-size policy.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Product Gate now requires the current 006 plan to prove reference outline-size matching.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source signatures now guard `reference_view_outline_size_correction` and `view_outline_size_match_required`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_reference_intent_dimension_planner.py`
+  - `test_v4_4_product_evidence_gate.py`
+
+Refreshed artifacts:
+
+- `drw_output/reference_intent_dimension_plan_006.json`
+- `drw_output/reference_intent_dimension_contract_006.json`
+- `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.json`
+- `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.md`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md`
+- `drw_output/diagnostics/solidworks_stability_gate_v4_4.json`
+- `drw_output/diagnostics/unguarded_solidworks_entrypoints.json`
+- `drw_output/diagnostics/solidworks_lock_test_result.json`
+- `drw_output/diagnostics/conflict_report.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json`
+- `drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.md`
+- `drw_output/diagnostics/product_evidence_gate_v4_4.json`
+- `drw_output/diagnostics/product_evidence_gate_v4_4.md`
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\reference_intent_dimension_planner.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_reference_intent_proof_v4_4.py tools\validation\product_evidence_gate_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_reference_intent_dimension_planner.py test_v4_4_product_evidence_gate.py test_v4_4_lb26001_006_reference_intent_proof.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_reference_intent_dimension_planner.py
+python -B test_v4_4_reference_intent_plan_006.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_lb26001_006_reference_intent_proof.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_product_evidence_gate.py
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --drawing 3D转2D测试图纸\LB26001-A-04-006.SLDDRW --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- `test_v4_4_reference_intent_plan_006.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_lb26001_006_reference_intent_proof.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed 006 plan contains `view_outline_size_match_required=true`, `view_outline_size_tolerance=0.18`, and `independent_view_scale_allowed=true`.
+- Refreshed reference proof is `plan_proof_pass_requires_locked_cad_run`, `pass=true`.
+- Refreshed 006 readiness remains blocked:
+  - `status=blocked`
+  - `blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed 006 rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed SolidWorks Stability Gate remains `warning`, because a SolidWorks process is running without a worker-owned lock.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`.
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 006 Reference Titlebar Suppression Evidence - 2026-06-26
 
 Current judgment:

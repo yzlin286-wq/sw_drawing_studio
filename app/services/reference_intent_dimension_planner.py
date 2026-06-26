@@ -77,6 +77,7 @@ def build_reference_intent_dimension_plan(
         "layout_plan": reference_layout_policy.get("layout_plan", {}),
         "ui_defect_repair_layout_targets": reference_layout_policy.get("ui_defect_repair_layout_targets", {}),
         "reference_titlebar_policy": reference_layout_policy.get("reference_titlebar_policy", {}),
+        "reference_view_outline_policy": reference_layout_policy.get("reference_view_outline_policy", {}),
         "reference_dimension_lane_policy": reference_dimension_lane_policy,
         "reference_extraction": _reference_extraction_summary(base, source_reference, reference_display_dim_count),
         "dimension_groups": dimension_groups,
@@ -689,6 +690,19 @@ def _lb26001_006_reference_layout_policy(
         "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
         "application_ui_screenshot_required": True,
     }
+    reference_view_outline_policy = {
+        "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+        "view_outline_size_match_required": True,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": True,
+        "downscale_oversized_views_only": True,
+        "target_outlines_required": True,
+        "api_or_reference_json_alone_can_close": False,
+        "application_ui_screenshot_required": True,
+    }
     layout_plan = {
         "source": "reference_intent_dimension_plan_006.reference_layout_policy",
         "sheet_size": sheet_size,
@@ -701,6 +715,10 @@ def _lb26001_006_reference_layout_policy(
         "reference_style_notes_required": True,
         "sheet_template_policy": sheet_template_policy,
         "reference_titlebar_policy": reference_titlebar_policy,
+        "reference_view_outline_policy": reference_view_outline_policy,
+        "view_outline_size_match_required": True,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": True,
     }
     return {
         "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
@@ -710,6 +728,7 @@ def _lb26001_006_reference_layout_policy(
         "view_plan": view_plan,
         "layout_plan": layout_plan,
         "reference_titlebar_policy": reference_titlebar_policy,
+        "reference_view_outline_policy": reference_view_outline_policy,
         "ui_defect_repair_layout_targets": {
             "source": "application_ui_screenshot_failed_buckets",
             "target_buckets": [
@@ -722,6 +741,8 @@ def _lb26001_006_reference_layout_policy(
             "titlebar_box_norm": layout_plan["titlebar_box_norm"],
             "bottom_notice_box_norm": layout_plan["bottom_notice_box_norm"],
             "suppress_default_titlebar_fields": True,
+            "view_outline_size_match_required": True,
+            "reference_view_outline_policy": reference_view_outline_policy,
             "reference_titlebar_policy": reference_titlebar_policy,
             "api_or_reference_json_alone_can_close": False,
             "application_ui_screenshot_required": True,

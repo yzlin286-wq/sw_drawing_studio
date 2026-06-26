@@ -410,6 +410,19 @@ def _fixture(
             "api_or_reference_json_alone_can_close": False,
             "application_ui_screenshot_required": True,
         },
+        "reference_view_outline_policy": {
+            "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+            "view_outline_size_match_required": True,
+            "view_outline_size_tolerance": 0.18,
+            "independent_view_scale_allowed": True,
+            "downscale_oversized_views_only": True,
+            "target_outlines_required": True,
+            "api_or_reference_json_alone_can_close": False,
+            "application_ui_screenshot_required": True,
+        },
+        "view_outline_size_match_required": True,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": True,
     }
     reference_layout_policy = {
         "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
@@ -417,6 +430,7 @@ def _fixture(
         "view_plan": view_plan,
         "layout_plan": layout_plan,
         "reference_titlebar_policy": layout_plan["reference_titlebar_policy"],
+        "reference_view_outline_policy": layout_plan["reference_view_outline_policy"],
         "ui_defect_repair_layout_targets": {
             "target_buckets": [
                 "projection_view_style_mismatch",
@@ -427,6 +441,7 @@ def _fixture(
             "titlebar_box_norm": layout_plan["titlebar_box_norm"],
             "bottom_notice_box_norm": layout_plan["bottom_notice_box_norm"],
             "suppress_default_titlebar_fields": True,
+            "view_outline_size_match_required": True,
             "application_ui_screenshot_required": True,
         },
     }

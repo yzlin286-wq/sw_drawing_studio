@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_reference_intent_proof.v4_4",
-  "generated_at": "2026-06-26 17:16:36",
+  "generated_at": "2026-06-26 17:32:32",
   "base": "LB26001-A-04-006",
   "status": "plan_proof_pass_requires_locked_cad_run",
   "pass": true,
@@ -84,7 +84,9 @@
     "compact_titlebar_fields_required": true,
     "reference_style_notes_required": true,
     "suppress_default_titlebar_fields": true,
-    "render_reference_bottom_notice": true
+    "render_reference_bottom_notice": true,
+    "view_outline_size_match_required": true,
+    "view_outline_size_tolerance": 0.18
   },
   "lane_summary": {
     "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
@@ -367,7 +369,7 @@
     {
       "key": "reference_layout_policy",
       "status": "pass",
-      "message": "006 reference-intent plan carries reference view outlines plus compact notes and default-titleblock suppression targets",
+      "message": "006 reference-intent plan carries reference view outlines, outline-size policy, compact notes, and default-titleblock suppression targets",
       "details": {
         "missing_slots": [],
         "outline_failures": {},
@@ -394,7 +396,13 @@
           0.66,
           0.24
         ],
-        "titlebar_policy_failures": []
+        "titlebar_policy_failures": [],
+        "reference_view_outline_policy_schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true,
+        "downscale_oversized_views_only": true,
+        "outline_policy_failures": []
       }
     },
     {
