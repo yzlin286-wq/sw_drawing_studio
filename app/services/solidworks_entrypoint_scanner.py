@@ -217,14 +217,22 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         or service_direct_risks
         or (addin_hosted and external_host_lock_contract.get("status") != "pass")
     ) else "pass"
+    missing_lock = [
+        entry for entry in entries
+        if entry.get("requires_global_lock") and entry["guard_status"] == "unguarded_or_unknown"
+    ]
     report = {
         "schema": SCHEMA,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "root": str(root),
+        "scan_root": str(root),
         "scanned_files": scanned_files,
         "entrypoint_count": len(entries),
+        "total_findings": len(entries),
         "guarded_count": sum(1 for entry in entries if entry["guard_status"] == "guarded"),
         "unguarded_or_unknown_count": len(unguarded),
+        "unguarded_count": len(unguarded),
+        "missing_lock_count": len(missing_lock),
         "external_addin_needs_host_lock_count": len(addin_hosted),
         "document_manager_com_count": len(document_manager),
         "validation_tool_requires_manual_lock_count": len(validation_tool),
@@ -238,12 +246,14 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "background_watchdog_probe_count": len(background_watchdog_probe),
         "external_addin_host_lock_contract_status": external_host_lock_contract.get("status"),
         "ui_thread_direct_risk_count": len(ui_thread_risks),
+        "ui_thread_risk_count": len(ui_thread_risks),
         "ui_thread_subprocess_call_count": len(ui_thread_subprocess_calls),
         "ui_thread_heavy_work_count": len(ui_thread_heavy_work_calls),
         "ui_threadpool_worker_count": len(ui_threadpool_workers),
         "service_direct_risk_count": len(service_direct_risks),
         "system_health_ui_thread_direct_probe_count": len(system_health_ui_direct),
         "status": status,
+        "pass": status == "pass",
         "policy": {
             "no_com_without_global_lock": True,
             "ui_thread_no_solidworks_com": True,
@@ -263,6 +273,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "service_direct_risks": service_direct_risks,
         "system_health_ui_thread_direct_probe": system_health_ui_direct,
         "unguarded_or_unknown": unguarded,
+        "missing_lock": missing_lock,
         "external_addin_needs_host_lock": addin_hosted,
         "document_manager_com_no_sldworks_session": document_manager,
         "bounded_probe_worker_launcher": bounded_probe_worker_launcher,

@@ -1,11 +1,15 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T14:39:54",
+  "generated_at": "2026-06-26T14:58:29",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
+  "scan_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 340,
   "entrypoint_count": 527,
+  "total_findings": 527,
   "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
+  "unguarded_count": 0,
+  "missing_lock_count": 0,
   "external_addin_needs_host_lock_count": 20,
   "document_manager_com_count": 27,
   "validation_tool_requires_manual_lock_count": 50,
@@ -19,12 +23,14 @@
   "background_watchdog_probe_count": 1,
   "external_addin_host_lock_contract_status": "pass",
   "ui_thread_direct_risk_count": 0,
+  "ui_thread_risk_count": 0,
   "ui_thread_subprocess_call_count": 0,
   "ui_thread_heavy_work_count": 0,
   "ui_threadpool_worker_count": 0,
   "service_direct_risk_count": 0,
   "system_health_ui_thread_direct_probe_count": 0,
   "status": "pass",
+  "pass": true,
   "policy": {
     "no_com_without_global_lock": true,
     "ui_thread_no_solidworks_com": true,
@@ -107,6 +113,7 @@
   "service_direct_risks": [],
   "system_health_ui_thread_direct_probe": [],
   "unguarded_or_unknown": [],
+  "missing_lock": [],
   "external_addin_needs_host_lock": [
     {
       "file": "tools/SwDimensionSidecar/Program.cs",
@@ -10060,7 +10067,7 @@
     },
     {
       "file": "app/services/solidworks_conflict_monitor.py",
-      "line": 226,
+      "line": 232,
       "patterns": [
         "subprocess.run"
       ],
@@ -10074,7 +10081,7 @@
     },
     {
       "file": "app/services/solidworks_conflict_monitor.py",
-      "line": 264,
+      "line": 270,
       "patterns": [
         "subprocess.run"
       ],

@@ -29,9 +29,14 @@ def main() -> None:
     entrypoint = json.loads(ENTRYPOINT_REPORT.read_text(encoding="utf-8"))
     assert entrypoint["schema"] == "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4"
     assert entrypoint["status"] == "pass"
+    assert entrypoint["pass"] is True
+    assert entrypoint["total_findings"] == entrypoint["entrypoint_count"]
     assert entrypoint["unguarded_or_unknown_count"] == 0
+    assert entrypoint["unguarded_count"] == 0
+    assert entrypoint["missing_lock_count"] == 0
     assert entrypoint["system_health_ui_thread_direct_probe_count"] == 0
     assert entrypoint["ui_thread_direct_risk_count"] == 0
+    assert entrypoint["ui_thread_risk_count"] == 0
     assert entrypoint["service_direct_risk_count"] == 0
     assert entrypoint["bounded_probe_worker_launcher_count"] >= 1
     assert entrypoint["system_health_worker_probe_service_count"] >= 1
@@ -43,6 +48,11 @@ def main() -> None:
     lock_result = json.loads(LOCK_TEST_REPORT.read_text(encoding="utf-8"))
     assert lock_result["schema"] == "sw_drawing_studio.solidworks_lock_test_result.v4_4"
     assert lock_result["status"] == "pass"
+
+    conflict_result = json.loads(CONFLICT_REPORT.read_text(encoding="utf-8"))
+    assert conflict_result["schema"] == "sw_drawing_studio.solidworks_conflict_report.v1"
+    assert isinstance(conflict_result["pass"], bool)
+    assert conflict_result["status"] in {"pass", "warning", "fail"}
 
     batch_worker = (ROOT / "app" / "workers" / "batch_job_worker.py").read_text(encoding="utf-8")
     assert "SolidWorksResourceAudit" in batch_worker

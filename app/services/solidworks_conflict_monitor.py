@@ -158,10 +158,16 @@ def build_conflict_report(
         })
 
     conflict = explain_conflict(lock_data) if lock_data else {"reason": "no_active_solidworks_lock", "fix_suggestion": ""}
+    fail_count = sum(1 for item in findings if item.get("severity") == "FAIL")
+    warning_count = sum(1 for item in findings if item.get("severity") == "WARNING")
     report = {
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "level": level,
+        "status": "pass" if level == "OK" else level.lower(),
+        "pass": level == "OK",
+        "fail_count": fail_count,
+        "warning_count": warning_count,
         "lock_path": str(default_lock_path()),
         "lock": lock_data,
         "lock_owner": conflict.get("owner", {}),

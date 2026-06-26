@@ -42,6 +42,9 @@ def main() -> None:
             ]
             report = build_conflict_report(processes=processes, lock=lock_payload)
             assert report["level"] == "FAIL", report
+            assert report["status"] == "fail"
+            assert report["pass"] is False
+            assert report["fail_count"] >= 1
             keys = {item["key"] for item in report["findings"]}
             assert "solidworks_not_responding" in keys
             assert "multiple_active_cad_workers" in keys
@@ -51,11 +54,16 @@ def main() -> None:
                 lock=lock_payload,
             )
             assert ok_report["level"] == "OK", ok_report
+            assert ok_report["status"] == "pass", ok_report
+            assert ok_report["pass"] is True, ok_report
+            assert ok_report["fail_count"] == 0, ok_report
+            assert ok_report["warning_count"] == 0, ok_report
 
             out = Path("drw_output") / "diagnostics" / "conflict_report.json"
             written = write_conflict_report(out_path=out, processes=processes, lock=lock_payload)
             assert out.exists()
             assert written["level"] == "FAIL"
+            assert written["pass"] is False
         finally:
             if old_lock is None:
                 os.environ.pop(lock_service.LOCK_PATH_ENV, None)

@@ -22,8 +22,13 @@ def main() -> None:
     assert out.exists()
     data = json.loads(out.read_text(encoding="utf-8"))
     assert data["entrypoint_count"] >= 1
+    assert data["total_findings"] == data["entrypoint_count"]
+    assert data["scan_root"] == data["root"]
     assert data["status"] == "pass"
+    assert data["pass"] is True
     assert data["unguarded_or_unknown_count"] == 0
+    assert data["unguarded_count"] == 0
+    assert data["missing_lock_count"] == 0
     assert any(
         entry["file"].endswith("cad_job_worker.py") and entry["guard_status"] == "worker_process"
         for entry in data["entries"]
@@ -105,8 +110,10 @@ def main() -> None:
         )
         synthetic = scan_solidworks_entrypoints(root)
         assert synthetic["status"] == "warning"
+        assert synthetic["pass"] is False
         assert synthetic["ui_thread_subprocess_call_count"] == 2
         assert synthetic["ui_thread_direct_risk_count"] == 2
+        assert synthetic["ui_thread_risk_count"] == synthetic["ui_thread_direct_risk_count"]
         assert len(synthetic["ui_thread_subprocess_calls"]) == 2
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -127,6 +134,7 @@ def main() -> None:
         )
         synthetic = scan_solidworks_entrypoints(root)
         assert synthetic["status"] == "warning"
+        assert synthetic["pass"] is False
         assert synthetic["ui_thread_heavy_work_count"] >= 4
         assert synthetic["ui_thread_direct_risk_count"] >= synthetic["ui_thread_heavy_work_count"]
         patterns = {

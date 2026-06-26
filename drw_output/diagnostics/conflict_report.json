@@ -1,7 +1,11 @@
 {
   "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-  "generated_at": "2026-06-26T14:39:55",
+  "generated_at": "2026-06-26T14:58:30",
   "level": "WARNING",
+  "status": "warning",
+  "pass": false,
+  "fail_count": 0,
+  "warning_count": 1,
   "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
   "lock": null,
   "lock_owner": {},
