@@ -12744,6 +12744,74 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Product Gate Requires Visual Audit Schema-Gap Counters - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds a Visual Audit schema-gap counter contract.
+  - Requires `visual_audit_schema_gap_v4_4.json` to include `check_count`, `passed_check_count`, and `failed_check_count`.
+  - Requires the counters to be non-negative integers and `check_count == passed_check_count + failed_check_count`.
+  - Requires `failed_check_count=0` when the gap report claims `pass=true`.
+  - Exposes the result under `visual_audit_schema_gap.counter_contract` in Product Gate details.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture emits the v4.4 schema-gap counters.
+  - Adds a regression test proving an older `pass=true` schema-gap report without counters cannot satisfy `visual_audit_schema_proof_pass`.
+- Refreshed `drw_output/diagnostics/product_evidence_gate_v4_4.json`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Product Gate refresh exits nonzero as expected because release evidence is still incomplete.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`.
+- `visual_audit_schema_gap.counter_contract` is present and valid for the current gap report:
+  - `check_count=7`
+  - `passed_check_count=4`
+  - `failed_check_count=3`
+  - `total_matches=true`
+- Current Product Gate blocking keys remain:
+  - `solidworks_stability_gate_pass`
+  - `solidworks_conflict_report_ok`
+  - `solidworks_readiness_for_006`
+  - `solidworks_readiness_title_sampling_guard`
+  - `regeneration_006_fresh_evidence_pass`
+  - `application_ui_006_acceptance_pass`
+  - `canonical_006_ui_visual_review_pass`
+  - `requested_ref6_ui_status_pass`
+  - `final_release_artifacts_present`
+  - `exe_ui_and_stability_proof_pass`
+  - `cad_smoke_dimension_reference_proof_pass`
+  - `visual_audit_schema_proof_pass`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Final Visual Audit still lacks raw issue schema compliance, final report evidence, and full-scope audit permission.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 006 Failed-Prune Repair Handoff Evidence - 2026-06-26
 
 Current judgment:

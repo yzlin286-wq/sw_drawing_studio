@@ -435,6 +435,9 @@ def build_product_evidence_gate(
         },
     )
     visual_audit_report = final_artifact_evidence.get("visual_audit_report") or {}
+    visual_audit_schema_gap_counter_ok, visual_audit_schema_gap_counter_details = (
+        _visual_audit_schema_gap_counter_contract(visual_audit_schema_gap)
+    )
     _add_check(
         checks,
         "visual_audit_schema_proof_pass",
@@ -445,6 +448,7 @@ def build_product_evidence_gate(
             and normalized_issue_schema_validation.get("pass") is True
             and int(normalized_issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
             and visual_audit_schema_gap.get("pass") is True
+            and visual_audit_schema_gap_counter_ok
             and visual_audit_schema_gap.get("normalized_supporting_only") is True
             and visual_audit_schema_gap.get("normalized_cannot_replace_raw") is True
         ),
@@ -475,6 +479,10 @@ def build_product_evidence_gate(
                 "path": str(visual_audit_schema_gap_path),
                 "status": visual_audit_schema_gap.get("status"),
                 "pass": visual_audit_schema_gap.get("pass"),
+                "check_count": visual_audit_schema_gap.get("check_count"),
+                "passed_check_count": visual_audit_schema_gap.get("passed_check_count"),
+                "failed_check_count": visual_audit_schema_gap.get("failed_check_count"),
+                "counter_contract": visual_audit_schema_gap_counter_details,
                 "raw_noncompliant_issue_count": visual_audit_schema_gap.get("raw_noncompliant_issue_count"),
                 "normalized_noncompliant_issue_count": visual_audit_schema_gap.get("normalized_noncompliant_issue_count"),
                 "visual_audit_report_final_present": visual_audit_schema_gap.get("visual_audit_report_final_present"),
@@ -1966,6 +1974,49 @@ def _reference_compare_smoke_summary(path: Path | None, payload: dict[str, Any])
         "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
         "failed_checks": payload.get("failed_checks") or [],
     }
+
+
+def _visual_audit_schema_gap_counter_contract(payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    required_keys = ["check_count", "passed_check_count", "failed_check_count"]
+    missing_keys = [key for key in required_keys if key not in payload]
+    invalid_keys: list[str] = []
+    values: dict[str, int | None] = {}
+    for key in required_keys:
+        value = payload.get(key)
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            invalid_keys.append(key)
+            values[key] = None
+        else:
+            values[key] = value
+
+    total_matches = False
+    passed = values.get("passed_check_count")
+    failed = values.get("failed_check_count")
+    total = values.get("check_count")
+    if total is not None and passed is not None and failed is not None:
+        total_matches = total == passed + failed and total > 0
+        if not total_matches:
+            invalid_keys.append("check_count_total")
+        if payload.get("pass") is True and failed != 0:
+            invalid_keys.append("failed_check_count_for_pass")
+        if payload.get("pass") is False and failed <= 0:
+            invalid_keys.append("failed_check_count_for_fail")
+
+    invalid_keys = sorted(set(invalid_keys))
+    return (
+        not missing_keys and not invalid_keys and total_matches,
+        {
+            "pass": not missing_keys and not invalid_keys and total_matches,
+            "required_keys": required_keys,
+            "missing_keys": missing_keys,
+            "invalid_keys": invalid_keys,
+            "check_count": values.get("check_count"),
+            "passed_check_count": values.get("passed_check_count"),
+            "failed_check_count": values.get("failed_check_count"),
+            "total_matches": total_matches,
+            "stale_report_without_counters_blocked": bool(missing_keys),
+        },
+    )
 
 
 def _job_runtime_facade_proof(payload: dict[str, Any]) -> bool:

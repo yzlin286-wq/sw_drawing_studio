@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 18:00:12",
+  "generated_at": "2026-06-26 18:15:36",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 999526
+          "size_bytes": 1004865
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1336,6 +1336,24 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_schema_gap_v4_4.json",
           "status": "raw_issue_schema_noncompliant",
           "pass": false,
+          "check_count": 7,
+          "passed_check_count": 4,
+          "failed_check_count": 3,
+          "counter_contract": {
+            "pass": true,
+            "required_keys": [
+              "check_count",
+              "passed_check_count",
+              "failed_check_count"
+            ],
+            "missing_keys": [],
+            "invalid_keys": [],
+            "check_count": 7,
+            "passed_check_count": 4,
+            "failed_check_count": 3,
+            "total_matches": true,
+            "stale_report_without_counters_blocked": false
+          },
           "raw_noncompliant_issue_count": 5931,
           "normalized_noncompliant_issue_count": 0,
           "visual_audit_report_final_present": false,

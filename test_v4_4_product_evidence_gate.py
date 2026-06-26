@@ -197,6 +197,7 @@ def _fixture(
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
     visual_audit_schema_gap_pass: bool | None = None,
+    visual_audit_schema_gap_counters: bool = True,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
     ui_defect_buckets_ready: bool = True,
@@ -221,6 +222,24 @@ def _fixture(
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
         if visual_audit_schema_gap_pass is None
         else visual_audit_schema_gap_pass
+    )
+    gap_check_passes = [
+        True,
+        raw_issue_schema_pass,
+        True,
+        normalized_issue_schema_pass,
+        final_artifacts,
+        True,
+        gap_pass,
+    ]
+    gap_counter_payload = (
+        {
+            "check_count": len(gap_check_passes),
+            "passed_check_count": sum(1 for item in gap_check_passes if item),
+            "failed_check_count": sum(1 for item in gap_check_passes if not item),
+        }
+        if visual_audit_schema_gap_counters
+        else {}
     )
     packet_real_cad_allowed = (
         bool(rerun_packet_build_ready and readiness_ready)
@@ -909,6 +928,7 @@ def _fixture(
                 "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
                 "status": "pass" if gap_pass else "raw_issue_schema_noncompliant",
                 "pass": gap_pass,
+                **gap_counter_payload,
                 "raw_noncompliant_issue_count": 0 if raw_issue_schema_pass else 7,
                 "normalized_noncompliant_issue_count": 0 if normalized_issue_schema_pass else 1,
                 "visual_audit_report_final_present": final_artifacts,
@@ -1637,6 +1657,26 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_mi
         assert check["details"]["visual_audit_schema_gap"]["pass"] is None
 
 
+def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counters_are_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_schema_gap_counters=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        counter_contract = check["details"]["visual_audit_schema_gap"]["counter_contract"]
+        assert counter_contract["pass"] is False
+        assert counter_contract["stale_report_without_counters_blocked"] is True
+        assert counter_contract["missing_keys"] == [
+            "check_count",
+            "passed_check_count",
+            "failed_check_count",
+        ]
+
+
 def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -1817,6 +1857,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()
+    test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counters_are_missing()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
