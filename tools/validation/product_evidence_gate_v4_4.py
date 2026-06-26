@@ -450,6 +450,10 @@ def build_product_evidence_gate(
     visual_audit_backfill_overlay_ok, visual_audit_backfill_overlay_details = (
         _visual_audit_backfill_overlay_contract(visual_audit_schema_gap, issue_schema_validation)
     )
+    visual_audit_repair_plan_ok, visual_audit_repair_plan_details = _visual_audit_repair_plan_contract(
+        visual_audit_schema_gap,
+        issue_schema_validation,
+    )
     _add_check(
         checks,
         "visual_audit_schema_proof_pass",
@@ -463,6 +467,7 @@ def build_product_evidence_gate(
             and visual_audit_schema_gap_counter_ok
             and visual_audit_schema_gap_source_ok
             and visual_audit_backfill_overlay_ok
+            and visual_audit_repair_plan_ok
             and visual_audit_schema_gap.get("normalized_supporting_only") is True
             and visual_audit_schema_gap.get("normalized_cannot_replace_raw") is True
         ),
@@ -499,6 +504,7 @@ def build_product_evidence_gate(
                 "counter_contract": visual_audit_schema_gap_counter_details,
                 "source_agreement": visual_audit_schema_gap_source_details,
                 "backfill_overlay_contract": visual_audit_backfill_overlay_details,
+                "repair_plan_contract": visual_audit_repair_plan_details,
                 "raw_noncompliant_issue_count": visual_audit_schema_gap.get("raw_noncompliant_issue_count"),
                 "normalized_noncompliant_issue_count": visual_audit_schema_gap.get("normalized_noncompliant_issue_count"),
                 "visual_audit_report_final_present": visual_audit_schema_gap.get("visual_audit_report_final_present"),
@@ -512,6 +518,14 @@ def build_product_evidence_gate(
                 ),
                 "raw_issue_backfill_overlay_summary": visual_audit_schema_gap.get(
                     "raw_issue_backfill_overlay_summary"
+                ) or {},
+                "raw_issue_repair_plan_present": visual_audit_schema_gap.get("raw_issue_repair_plan_present"),
+                "raw_issue_repair_plan_ready": visual_audit_schema_gap.get("raw_issue_repair_plan_ready"),
+                "raw_issue_repair_plan_cannot_replace_raw": visual_audit_schema_gap.get(
+                    "raw_issue_repair_plan_cannot_replace_raw"
+                ),
+                "raw_issue_repair_plan_summary": visual_audit_schema_gap.get(
+                    "raw_issue_repair_plan_summary"
                 ) or {},
                 "blocking_issue_keys": visual_audit_schema_gap.get("blocking_issue_keys") or [],
             },
@@ -2216,6 +2230,69 @@ def _visual_audit_backfill_overlay_contract(
             "jsonl_line_count_matches_overlay",
             "missing_replacement_count_zero",
             "lossy_overlay_record_count_nonnegative",
+        ]
+        if details.get(key) is not True
+    ]
+    details["mismatch_keys"] = mismatch_keys
+    details["pass"] = not mismatch_keys
+    return bool(details["pass"]), details
+
+
+def _visual_audit_repair_plan_contract(
+    gap: dict[str, Any],
+    raw: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    summary = (
+        gap.get("raw_issue_repair_plan_summary")
+        if isinstance(gap.get("raw_issue_repair_plan_summary"), dict)
+        else {}
+    )
+    raw_count = _optional_int(raw.get("noncompliant_issue_count"))
+    repair_raw_count = _optional_int(summary.get("raw_noncompliant_issue_count"))
+    missing_replacement_count = _optional_int(summary.get("missing_replacement_count"))
+    lossy_normalized_issue_count = _optional_int(summary.get("lossy_normalized_issue_count"))
+    active = gap.get("raw_issue_repair_plan_present") is True or gap.get("raw_issue_repair_plan_ready") is True
+    details = {
+        "pass": False,
+        "active": active,
+        "present": gap.get("raw_issue_repair_plan_present"),
+        "ready": gap.get("raw_issue_repair_plan_ready"),
+        "top_level_cannot_replace_raw": gap.get("raw_issue_repair_plan_cannot_replace_raw") is True,
+        "summary_pass": summary.get("pass") is True,
+        "summary_release_ready_false": summary.get("release_ready") is False,
+        "summary_cannot_replace_raw": summary.get("normalized_cannot_replace_raw") is True,
+        "historical_artifacts_not_modified": summary.get("historical_artifacts_modified") is False,
+        "raw_expected_noncompliant_issue_count": raw_count,
+        "repair_raw_noncompliant_issue_count": repair_raw_count,
+        "missing_replacement_count": missing_replacement_count,
+        "lossy_normalized_issue_count": lossy_normalized_issue_count,
+        "repair_raw_count_matches_raw": repair_raw_count == raw_count,
+        "missing_replacement_count_zero": missing_replacement_count == 0,
+        "lossy_normalized_issue_count_nonnegative": (
+            lossy_normalized_issue_count is not None and lossy_normalized_issue_count >= 0
+        ),
+        "lossy_normalized_issue_count_not_greater_than_raw": (
+            lossy_normalized_issue_count is not None
+            and raw_count is not None
+            and lossy_normalized_issue_count <= raw_count
+        ),
+        "mismatch_keys": [],
+    }
+    if not active:
+        details["pass"] = True
+        return True, details
+    mismatch_keys = [
+        key
+        for key in [
+            "top_level_cannot_replace_raw",
+            "summary_pass",
+            "summary_release_ready_false",
+            "summary_cannot_replace_raw",
+            "historical_artifacts_not_modified",
+            "repair_raw_count_matches_raw",
+            "missing_replacement_count_zero",
+            "lossy_normalized_issue_count_nonnegative",
+            "lossy_normalized_issue_count_not_greater_than_raw",
         ]
         if details.get(key) is not True
     ]

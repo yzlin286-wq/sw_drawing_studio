@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 18:41:52",
+  "generated_at": "2026-06-26 18:48:27",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1017645
+          "size_bytes": 1020840
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1410,6 +1410,26 @@
             "lossy_overlay_record_count_nonnegative": true,
             "mismatch_keys": []
           },
+          "repair_plan_contract": {
+            "pass": true,
+            "active": true,
+            "present": true,
+            "ready": true,
+            "top_level_cannot_replace_raw": true,
+            "summary_pass": true,
+            "summary_release_ready_false": true,
+            "summary_cannot_replace_raw": true,
+            "historical_artifacts_not_modified": true,
+            "raw_expected_noncompliant_issue_count": 5931,
+            "repair_raw_noncompliant_issue_count": 5931,
+            "missing_replacement_count": 0,
+            "lossy_normalized_issue_count": 5903,
+            "repair_raw_count_matches_raw": true,
+            "missing_replacement_count_zero": true,
+            "lossy_normalized_issue_count_nonnegative": true,
+            "lossy_normalized_issue_count_not_greater_than_raw": true,
+            "mismatch_keys": []
+          },
           "raw_noncompliant_issue_count": 5931,
           "normalized_noncompliant_issue_count": 0,
           "visual_audit_report_final_present": false,
@@ -1435,6 +1455,23 @@
             "historical_artifacts_modified": false,
             "jsonl_line_count": 5931,
             "jsonl_sha256": "99a311feaac66d01d2b45d61972d3aaa1a467851b547af47fe237054141b78d8"
+          },
+          "raw_issue_repair_plan_present": true,
+          "raw_issue_repair_plan_ready": true,
+          "raw_issue_repair_plan_cannot_replace_raw": true,
+          "raw_issue_repair_plan_summary": {
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_raw_issue_repair_plan_v4_4.json",
+            "exists": true,
+            "schema": "sw_drawing_studio.visual_audit_raw_issue_repair_plan.v4_4",
+            "generated_at": "2026-06-26 02:53:38",
+            "status": "repair_overlay_ready_requires_raw_backfill",
+            "pass": true,
+            "release_ready": false,
+            "raw_noncompliant_issue_count": 5931,
+            "missing_replacement_count": 0,
+            "lossy_normalized_issue_count": 5903,
+            "normalized_cannot_replace_raw": true,
+            "historical_artifacts_modified": false
           },
           "blocking_issue_keys": [
             "raw_issue_schema_pass",
