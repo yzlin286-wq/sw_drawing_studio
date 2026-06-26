@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import Any
 
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
 REQUIRED_VISUAL_CHECKS = (
     "reference_match",
     "view_layout",
@@ -24,7 +26,10 @@ REQUIRED_VISUAL_CHECKS = (
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except FileNotFoundError:
+        return {}
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -53,17 +58,91 @@ def _selected_entries(ui_report: dict[str, Any], bases: list[str] | None) -> lis
     return [item for item in entries if str(item.get("base") or "") in requested]
 
 
+def _ui_defect_buckets_for_base(ui_defect_buckets: dict[str, Any], base: str) -> dict[str, Any]:
+    required_base = str(ui_defect_buckets.get("base") or "").strip()
+    if not ui_defect_buckets or (required_base and required_base != base):
+        return {}
+    required = [
+        str(item or "").strip()
+        for item in ui_defect_buckets.get("required_next_screenshot_check_buckets") or []
+        if str(item or "").strip()
+    ]
+    contracts_by_bucket = {
+        str(item.get("bucket") or ""): item
+        for item in ui_defect_buckets.get("bucket_closure_contract") or []
+        if isinstance(item, dict) and str(item.get("bucket") or "")
+    }
+    next_checks_by_bucket = {
+        str(item.get("bucket") or ""): item
+        for item in ui_defect_buckets.get("next_screenshot_checklist") or []
+        if isinstance(item, dict) and str(item.get("bucket") or "")
+    }
+    if not required:
+        return {}
+
+    closure_checklist: dict[str, dict[str, Any]] = {}
+    closure_notes: dict[str, str] = {}
+    contracts: list[dict[str, Any]] = []
+    for bucket in required:
+        contract = contracts_by_bucket.get(bucket, {})
+        next_check = next_checks_by_bucket.get(bucket, {})
+        closure_checklist[bucket] = {
+            "pass": None,
+            "visual_acceptance_pass": None,
+            "ui_review_pass_condition": str(
+                contract.get("ui_review_pass_condition")
+                or next_check.get("pass_condition")
+                or "Manual UI screenshot review must close this defect bucket."
+            ),
+            "expected_ui_evidence": str(next_check.get("expected_ui_evidence") or ""),
+            "api_or_displaydim_metric_alone_can_close": False,
+        }
+        closure_notes[bucket] = ""
+        contracts.append(
+            {
+                "bucket": bucket,
+                "ui_review_pass_condition": closure_checklist[bucket]["ui_review_pass_condition"],
+                "post_rerun_required_evidence": list(contract.get("post_rerun_required_evidence") or []),
+                "required_callout_keys": list(contract.get("required_callout_keys") or []),
+                "absence_check_keys": list(contract.get("absence_check_keys") or []),
+                "api_or_displaydim_metric_alone_can_close": False,
+            }
+        )
+
+    callout_contract = contracts_by_bucket.get("callout_missing", {})
+    return {
+        "ui_defect_bucket_closure_required": True,
+        "required_ui_defect_bucket_keys": required,
+        "ui_defect_bucket_closure_checklist": closure_checklist,
+        "ui_defect_bucket_closure_notes": closure_notes,
+        "ui_defect_bucket_closure_contract": contracts,
+        "reference_callout_checklist": {
+            "required": bool(callout_contract.get("reference_callout_checklist_required")),
+            "required_callout_keys": {
+                str(key): None for key in callout_contract.get("required_callout_keys") or []
+            },
+            "absence_check_keys": {
+                str(key): None for key in callout_contract.get("absence_check_keys") or []
+            },
+            "api_or_displaydim_metric_alone_can_close": False,
+        },
+    }
+
+
 def build_manual_visual_judgement_template(
     *,
     ui_report: dict[str, Any],
     ui_report_path: Path,
     bases: list[str] | None = None,
+    ui_defect_buckets: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    defects = ui_defect_buckets if ui_defect_buckets is not None else _read_json(DEFAULT_UI_DEFECT_BUCKETS)
     entries: list[dict[str, Any]] = []
     for item in _selected_entries(ui_report, bases):
         base = str(item.get("base") or "").strip()
         if not base:
             continue
+        defect_closure = _ui_defect_buckets_for_base(defects, base)
         entries.append(
             {
                 "base": base,
@@ -82,6 +161,7 @@ def build_manual_visual_judgement_template(
                 "api_is_not_final_judgement": True,
                 "visual_checklist": {key: None for key in REQUIRED_VISUAL_CHECKS},
                 "visual_checklist_notes": {key: "" for key in REQUIRED_VISUAL_CHECKS},
+                **defect_closure,
                 "findings": [],
                 "required_correction": "",
                 "reviewer": "",
@@ -99,12 +179,17 @@ def build_manual_visual_judgement_template(
         "source_ui_report": str(ui_report_path),
         "drawing_visual_review_report": str(ui_report_path),
         "required_visual_checklist_items": list(REQUIRED_VISUAL_CHECKS),
+        "ui_defect_bucket_closure_template_available": any(
+            bool(entry.get("ui_defect_bucket_closure_required")) for entry in entries
+        ),
+        "ui_defect_bucket_closure_source": str(DEFAULT_UI_DEFECT_BUCKETS if ui_defect_buckets is None else ""),
         "api_is_not_final_judgement": True,
         "api_only_acceptance_allowed": False,
         "ui_screenshot_review_is_final_gate": True,
         "instructions": [
             "Inspect the application Drawing Review UI screenshot for each entry.",
             "Set manual_status to PASS only when every visual_checklist item is true.",
+            "For LB26001-A-04-006, set every ui_defect_bucket_closure_checklist bucket pass only from the application UI screenshot.",
             "Do not use API, OCR, sidecar, or file creation alone as the drawing acceptance decision.",
         ],
         "entries": entries,
@@ -117,11 +202,13 @@ def write_manual_visual_judgement_template(
     ui_report_path: Path,
     out_path: Path,
     bases: list[str] | None = None,
+    ui_defect_buckets: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     payload = build_manual_visual_judgement_template(
         ui_report=ui_report,
         ui_report_path=ui_report_path,
         bases=bases,
+        ui_defect_buckets=ui_defect_buckets,
     )
     _write_json(out_path, payload)
     return payload
@@ -132,6 +219,7 @@ def main() -> int:
     parser.add_argument("--ui-report", required=True)
     parser.add_argument("--out", default="")
     parser.add_argument("--base", action="append", default=[])
+    parser.add_argument("--ui-defect-buckets", default=str(DEFAULT_UI_DEFECT_BUCKETS))
     args = parser.parse_args()
 
     ui_report_path = Path(args.ui_report)
@@ -141,6 +229,7 @@ def main() -> int:
         ui_report_path=ui_report_path,
         out_path=out_path,
         bases=args.base,
+        ui_defect_buckets=_read_json(Path(args.ui_defect_buckets)),
     )
     print(
         json.dumps(

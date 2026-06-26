@@ -1,6 +1,6 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-26 15:08:52`
+- Generated at: `2026-06-26 15:48:17`
 - Status: `blocked_by_solidworks_readiness`
 - Real CAD allowed now: `False`
 - Readiness blockers: `solidworks_unsaved_document_visible`
@@ -10,18 +10,10 @@
 ## Current UI Verdict
 
 - Status: `manual_visual_checklist_failed`
-- Latest manual review: `C:\Users\Vision\Desktop\SW 相关\drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_042953_visual_review\manual_visual_judgement.json`
+- Latest manual review: `C:\Users\Vision\Desktop\SW 相关\drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\manual_visual_judgement_template.json`
 - Failed visual checks: `reference_match, view_layout, display_dimensions, dimension_readability, title_block, manufacturing_notes`
-- Comparison image: `drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_042953_visual_review\comparison_images\01_LB26001-A-04-006_reference_vs_generated.png`
-- Required correction: Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI.
-
-## Latest UI Findings
-
-- Application Drawing Review UI screenshot was inspected side by side with the same-name reference.
-- The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.
-- DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.
-- Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.
-- API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL.
+- Comparison image: `drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\comparison_images\01_LB26001-A-04-006_reference_vs_generated.png`
+- Required correction: 
 
 ## Next Gates
 
