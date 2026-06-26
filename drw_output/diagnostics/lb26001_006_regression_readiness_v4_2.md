@@ -1,6 +1,6 @@
 # LB26001-A-04-006 Readiness Recovery Checklist v4.2
 
-- Generated at: `2026-06-26 10:22:19`
+- Generated at: `2026-06-26 10:34:39`
 - Status: `blocked`
 - ready_to_start_locked_006_cad: `False`
 - Manual recovery required: `True`
@@ -11,8 +11,8 @@
 
 - process_present: `True`
 - responding: `True`
-- pid: `14144`
-- main_window_title: `SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]`
+- pid: `22876`
+- main_window_title: `SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]`
 - global_lock_present: `False`
 - global_lock_stale: `False`
 

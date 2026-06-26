@@ -13,6 +13,7 @@ def main() -> None:
     assert service_report["schema"] == "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4"
     assert "ui_thread_direct_risk_count" in service_report
     assert "ui_thread_subprocess_call_count" in service_report
+    assert "ui_thread_heavy_work_count" in service_report
     assert "ui_threadpool_worker_count" in service_report
     assert "service_direct_risk_count" in service_report
     assert "system_health_ui_thread_direct_probe_count" in service_report
@@ -30,6 +31,7 @@ def main() -> None:
     assert data["system_health_ui_thread_direct_probe_count"] == 0
     assert data["ui_thread_direct_risk_count"] == 0
     assert data["ui_thread_subprocess_call_count"] == 0
+    assert data["ui_thread_heavy_work_count"] == 0
     assert data["ui_threadpool_worker_count"] == 0
     assert data["service_direct_risk_count"] == 0
     assert data["external_addin_host_lock_contract_status"] == "pass"
@@ -91,6 +93,36 @@ def main() -> None:
         assert synthetic["ui_thread_subprocess_call_count"] == 2
         assert synthetic["ui_thread_direct_risk_count"] == 2
         assert len(synthetic["ui_thread_subprocess_calls"]) == 2
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        bad = root / "app" / "ui" / "bad_heavy_work.py"
+        bad.parent.mkdir(parents=True)
+        bad.write_text(
+            "from paddleocr import PaddleOCR\n"
+            "from ultralytics import YOLO\n"
+            "from app.services.vision_qc_v6 import run_vision_qc_v6\n"
+            "from app.services.batch_validator import run_batch_validation\n"
+            "def run_now(path):\n"
+            "    ocr = PaddleOCR()\n"
+            "    model = YOLO(path)\n"
+            "    run_vision_qc_v6(run_dir=path, png_path=path)\n"
+            "    run_batch_validation([path])\n"
+            "    return ocr, model\n",
+            encoding="utf-8",
+        )
+        synthetic = scan_solidworks_entrypoints(root)
+        assert synthetic["status"] == "warning"
+        assert synthetic["ui_thread_heavy_work_count"] >= 4
+        assert synthetic["ui_thread_direct_risk_count"] >= synthetic["ui_thread_heavy_work_count"]
+        patterns = {
+            pattern
+            for entry in synthetic["ui_thread_heavy_work_calls"]
+            for pattern in (entry.get("patterns") or [])
+        }
+        assert "PaddleOCR direct import/call" in patterns
+        assert "ultralytics YOLO direct import/call" in patterns
+        assert "Vision QC direct import/call" in patterns
+        assert "batch validation direct import/call" in patterns
     print("OK test_v4_1_solidworks_entrypoint_scan")
 
 

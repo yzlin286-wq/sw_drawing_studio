@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 10:22:35",
+  "generated_at": "2026-06-26 10:34:45",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -47,13 +47,14 @@
     {
       "key": "ui_thread_direct_risk_zero",
       "status": "pass",
-      "message": "UI/service direct SolidWorks, probe, QThreadPool, and blocking-risk buckets must remain zero.",
+      "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
+        "ui_thread_heavy_work_count": 0,
         "ui_threadpool_worker_count": 0,
         "service_direct_risk_count": 0,
         "system_health_ui_thread_direct_probe_count": 0,
@@ -68,16 +69,17 @@
     {
       "key": "solidworks_entrypoint_scan_report_pass",
       "status": "pass",
-      "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, subprocess, or sleep risks.",
+      "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T10:22:02",
+        "generated_at": "2026-06-26T10:34:27",
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
+        "ui_thread_heavy_work_count": 0,
         "ui_threadpool_worker_count": 0,
         "service_direct_risk_count": 0,
         "system_health_ui_thread_direct_probe_count": 0,
@@ -91,7 +93,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T10:22:02",
+        "generated_at": "2026-06-26T10:34:27",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -106,7 +108,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T10:22:02",
+        "generated_at": "2026-06-26T10:34:27",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -151,10 +153,10 @@
         "unsaved_title_observed": true,
         "process_present": true,
         "process_count": 1,
-        "pid": 14144,
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]",
+        "pid": 22876,
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]",
         "observed_titles": [
-          "SOLIDWORKS Premium 2025 SP5.0 - [零件37 *]"
+          "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]"
         ],
         "missing_or_invalid_sampling_fields": [
           "solidworks_process.unsaved_title_observed_false"
@@ -518,7 +520,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 919834
+          "size_bytes": 923947
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

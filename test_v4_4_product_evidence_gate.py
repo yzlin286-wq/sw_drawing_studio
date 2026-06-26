@@ -86,6 +86,7 @@ def _fixture(
     ui_visual_review_screenshot_exists: bool = True,
     entrypoint_report_pass: bool = True,
     ui_thread_subprocess_call_count: int = 0,
+    ui_thread_heavy_work_count: int = 0,
     ui_threadpool_worker_count: int = 0,
     lock_test_report_pass: bool = True,
     conflict_report_ok: bool = True,
@@ -283,6 +284,7 @@ def _fixture(
                     "unguarded_or_unknown_count": 0,
                     "ui_thread_direct_risk_count": 0,
                     "ui_thread_subprocess_call_count": ui_thread_subprocess_call_count,
+                    "ui_thread_heavy_work_count": ui_thread_heavy_work_count,
                     "ui_threadpool_worker_count": ui_threadpool_worker_count,
                     "service_direct_risk_count": 0,
                     "system_health_ui_thread_direct_probe_count": 0,
@@ -298,6 +300,7 @@ def _fixture(
                 "unguarded_or_unknown_count": 0 if entrypoint_report_pass else 1,
                 "ui_thread_direct_risk_count": 0 if entrypoint_report_pass else 1,
                 "ui_thread_subprocess_call_count": ui_thread_subprocess_call_count,
+                "ui_thread_heavy_work_count": ui_thread_heavy_work_count,
                 "ui_threadpool_worker_count": ui_threadpool_worker_count,
                 "service_direct_risk_count": 0,
                 "system_health_ui_thread_direct_probe_count": 0,
@@ -784,6 +787,21 @@ def test_product_evidence_gate_blocks_when_ui_shell_subprocess_returns() -> None
         assert entrypoint_check["details"]["ui_thread_subprocess_call_count"] == 1
 
 
+def test_product_evidence_gate_blocks_when_ui_heavy_work_returns() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), ui_thread_heavy_work_count=1))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "ui_thread_direct_risk_zero" in set(result["blocking_issue_keys"])
+        assert "solidworks_entrypoint_scan_report_pass" in set(result["blocking_issue_keys"])
+        entrypoint_check = next(
+            item for item in result["checks"] if item["key"] == "solidworks_entrypoint_scan_report_pass"
+        )
+        assert entrypoint_check["details"]["ui_thread_heavy_work_count"] == 1
+
+
 def test_product_evidence_gate_blocks_when_lock_test_report_fails() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), lock_test_report_pass=False))
@@ -1260,6 +1278,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_ui_shell_subprocess_returns()
+    test_product_evidence_gate_blocks_when_ui_heavy_work_returns()
     test_product_evidence_gate_blocks_when_lock_test_report_fails()
     test_product_evidence_gate_blocks_when_conflict_report_warns()
     test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_only()

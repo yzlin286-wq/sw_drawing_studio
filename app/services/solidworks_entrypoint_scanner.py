@@ -35,6 +35,31 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "os.startfile": re.compile(r"\bos\.startfile\s*\("),
     "os.system": re.compile(r"\bos\.system\s*\("),
     "time.sleep": re.compile(r"\btime\.sleep\s*\("),
+    "PaddleOCR direct import/call": re.compile(
+        r"(?:from\s+paddleocr\s+import\b|import\s+paddleocr\b|\bPaddleOCR\s*\()", re.IGNORECASE
+    ),
+    "ultralytics YOLO direct import/call": re.compile(
+        r"(?:from\s+ultralytics\s+import\b|import\s+ultralytics\b|\bYOLO\s*\()", re.IGNORECASE
+    ),
+    "pytesseract direct import/call": re.compile(
+        r"(?:from\s+pytesseract\s+import\b|import\s+pytesseract\b|\bpytesseract\.)", re.IGNORECASE
+    ),
+    "easyocr direct import/call": re.compile(
+        r"(?:from\s+easyocr\s+import\b|import\s+easyocr\b|\beasyocr\.)", re.IGNORECASE
+    ),
+    "Vision QC direct import/call": re.compile(
+        r"(?:from\s+app\.services\.vision_qc(?:_v\d+)?\s+import\b|"
+        r"\brun_vision_qc(?:_v\d+)?\s*\(|\bvision_score\s*\()"
+    ),
+    "Visual audit direct batch call": re.compile(r"\brun_visual_audit\s*\("),
+    "staged CAD validation direct import/call": re.compile(
+        r"(?:from\s+tools\.validation\.staged_cad_validation_v3\s+import\b|"
+        r"\bstaged_cad_validation_v3\b|\brun_staged_validation\s*\()"
+    ),
+    "batch validation direct import/call": re.compile(
+        r"(?:from\s+app\.services\.batch_validator\s+import\b|"
+        r"\brun_batch_validation\s*\(|\bbatch_validation\s*\()"
+    ),
 }
 
 GUARD_TOKENS = (
@@ -62,6 +87,16 @@ COM_PATTERNS = {
 
 BLOCKING_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.startfile", "os.system", "time.sleep"}
 UI_SUBPROCESS_PATTERNS = {"subprocess.run", "subprocess.Popen", "os.startfile", "os.system"}
+UI_HEAVY_WORK_PATTERNS = {
+    "PaddleOCR direct import/call",
+    "ultralytics YOLO direct import/call",
+    "pytesseract direct import/call",
+    "easyocr direct import/call",
+    "Vision QC direct import/call",
+    "Visual audit direct batch call",
+    "staged CAD validation direct import/call",
+    "batch validation direct import/call",
+}
 DOCMGR_PATTERNS = {"DocMgr probe"}
 SYSTEM_HEALTH_DIRECT_PATTERNS = {"System Health direct collect"}
 UI_THREADPOOL_PATTERNS = {"Qt ThreadPool worker"}
@@ -103,10 +138,12 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             code_line = _strip_string_literals(stripped)
             if not code_line.strip():
                 continue
+            scope = _scope_for_path(rel)
             matched = [name for name, pattern in PATTERNS.items() if pattern.search(code_line)]
+            if scope != "ui":
+                matched = [name for name in matched if name not in UI_HEAVY_WORK_PATTERNS]
             if not matched:
                 continue
-            scope = _scope_for_path(rel)
             guard_status = _guard_status(rel, has_guard_token, matched, stripped)
             entries.append({
                 "file": rel,
@@ -165,12 +202,18 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         if entry.get("scope") == "ui"
         and any(pattern in set(entry["patterns"]) for pattern in UI_SUBPROCESS_PATTERNS)
     ]
+    ui_thread_heavy_work_calls = [
+        entry for entry in entries
+        if entry.get("scope") == "ui"
+        and any(pattern in set(entry["patterns"]) for pattern in UI_HEAVY_WORK_PATTERNS)
+    ]
     external_host_lock_contract = _external_addin_host_lock_contract(root)
     status = "warning" if (
         unguarded
         or ui_thread_risks
         or ui_threadpool_workers
         or ui_thread_subprocess_calls
+        or ui_thread_heavy_work_calls
         or service_direct_risks
         or (addin_hosted and external_host_lock_contract.get("status") != "pass")
     ) else "pass"
@@ -196,6 +239,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "external_addin_host_lock_contract_status": external_host_lock_contract.get("status"),
         "ui_thread_direct_risk_count": len(ui_thread_risks),
         "ui_thread_subprocess_call_count": len(ui_thread_subprocess_calls),
+        "ui_thread_heavy_work_count": len(ui_thread_heavy_work_calls),
         "ui_threadpool_worker_count": len(ui_threadpool_workers),
         "service_direct_risk_count": len(service_direct_risks),
         "system_health_ui_thread_direct_probe_count": len(system_health_ui_direct),
@@ -205,6 +249,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
             "ui_thread_no_solidworks_com": True,
             "ui_thread_no_long_subprocess": True,
             "ui_thread_no_shell_open_subprocess": True,
+            "ui_thread_no_heavy_ocr_yolo_or_batch_work": True,
             "ui_thread_no_qthreadpool_long_workers": True,
             "system_health_ui_thread_no_addin_ping_docmgr_or_subprocess_run": True,
             "visual_audit_no_solidworks": True,
@@ -213,6 +258,7 @@ def scan_solidworks_entrypoints(root: Path | str = REPO_ROOT) -> dict[str, Any]:
         "external_addin_host_lock_contract": external_host_lock_contract,
         "ui_thread_direct_risks": ui_thread_risks,
         "ui_thread_subprocess_calls": ui_thread_subprocess_calls,
+        "ui_thread_heavy_work_calls": ui_thread_heavy_work_calls,
         "ui_threadpool_workers": ui_threadpool_workers,
         "service_direct_risks": service_direct_risks,
         "system_health_ui_thread_direct_probe": system_health_ui_direct,
@@ -301,6 +347,8 @@ def _is_ui_thread_risk(scope: str, patterns: list[str], text: str) -> bool:
         return True
     if names & BLOCKING_PATTERNS:
         return True
+    if names & UI_HEAVY_WORK_PATTERNS:
+        return True
     return False
 
 
@@ -328,6 +376,8 @@ def _is_service_direct_risk(scope: str, patterns: list[str], guard_status: str) 
 def _risk_bucket(rel: str, scope: str, patterns: list[str], guard_status: str, text: str) -> str:
     names = set(patterns)
     if _is_ui_thread_risk(scope, patterns, text):
+        if names & UI_HEAVY_WORK_PATTERNS:
+            return "ui_thread_heavy_ocr_yolo_or_batch_work"
         if names & UI_THREADPOOL_PATTERNS:
             return "ui_thread_qthreadpool_worker"
         return "ui_thread_direct_blocking_or_com"
