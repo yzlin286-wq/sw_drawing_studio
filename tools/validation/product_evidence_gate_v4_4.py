@@ -2187,6 +2187,7 @@ def _visual_audit_backfill_overlay_contract(
     overlay_count = _optional_int(summary.get("overlay_record_count"))
     raw_failure_count = _optional_int(summary.get("raw_failure_count"))
     jsonl_line_count = _optional_int(summary.get("jsonl_line_count"))
+    jsonl_sha256 = str(summary.get("jsonl_sha256") or "")
     missing_replacement_count = _optional_int(summary.get("missing_replacement_count"))
     lossy_overlay_record_count = _optional_int(summary.get("lossy_overlay_record_count"))
     raw_generated_at = _parse_generated_at(raw.get("generated_at"))
@@ -2219,11 +2220,13 @@ def _visual_audit_backfill_overlay_contract(
         "raw_failure_count": raw_failure_count,
         "overlay_record_count": overlay_count,
         "jsonl_line_count": jsonl_line_count,
+        "jsonl_sha256": jsonl_sha256,
         "missing_replacement_count": missing_replacement_count,
         "lossy_overlay_record_count": lossy_overlay_record_count,
         "raw_failure_count_matches_raw": raw_failure_count == raw_count,
         "overlay_record_count_matches_raw": overlay_count == raw_count,
         "jsonl_line_count_matches_overlay": jsonl_line_count == overlay_count,
+        "jsonl_sha256_valid": _is_sha256_hex(jsonl_sha256),
         "missing_replacement_count_zero": missing_replacement_count == 0,
         "lossy_overlay_record_count_nonnegative": (
             lossy_overlay_record_count is not None and lossy_overlay_record_count >= 0
@@ -2248,6 +2251,7 @@ def _visual_audit_backfill_overlay_contract(
             "raw_failure_count_matches_raw",
             "overlay_record_count_matches_raw",
             "jsonl_line_count_matches_overlay",
+            "jsonl_sha256_valid",
             "missing_replacement_count_zero",
             "lossy_overlay_record_count_nonnegative",
         ]
@@ -2366,6 +2370,10 @@ def _parse_generated_at(value: Any) -> float | None:
         except ValueError:
             continue
     return None
+
+
+def _is_sha256_hex(value: str) -> bool:
+    return len(value) == 64 and all(ch in "0123456789abcdefABCDEF" for ch in value)
 
 
 def _job_runtime_facade_proof(payload: dict[str, Any]) -> bool:

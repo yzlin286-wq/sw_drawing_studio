@@ -206,6 +206,7 @@ def _fixture(
     visual_audit_backfill_overlay_count_mismatch: bool = False,
     visual_audit_backfill_overlay_source_mismatch: bool = False,
     visual_audit_backfill_overlay_stale_generated_at: bool = False,
+    visual_audit_backfill_overlay_bad_sha256: bool = False,
     visual_audit_repair_plan_release_ready: bool = False,
     visual_audit_repair_plan_count_mismatch: bool = False,
     visual_audit_repair_plan_source_mismatch: bool = False,
@@ -291,6 +292,11 @@ def _fixture(
     )
     backfill_overlay_generated_at = (
         "2026-06-26 09:59:59" if visual_audit_backfill_overlay_stale_generated_at else "2026-06-26 10:02:00"
+    )
+    backfill_overlay_sha256 = (
+        "fixture-sha256"
+        if visual_audit_backfill_overlay_bad_sha256
+        else "a" * 64
     )
     packet_real_cad_allowed = (
         bool(rerun_packet_build_ready and readiness_ready)
@@ -1013,7 +1019,7 @@ def _fixture(
                     "missing_replacement_count": 0,
                     "lossy_overlay_record_count": 0 if raw_issue_schema_pass else 5,
                     "jsonl_line_count": overlay_record_count,
-                    "jsonl_sha256": "fixture-sha256",
+                    "jsonl_sha256": backfill_overlay_sha256,
                     "historical_artifacts_modified": False,
                     "normalized_cannot_replace_raw": True,
                 },
@@ -1894,6 +1900,22 @@ def test_product_evidence_gate_blocks_release_when_backfill_overlay_is_older_tha
         assert "overlay_generated_at_not_older_than_raw" in contract["mismatch_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_backfill_overlay_sha256_is_invalid() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_backfill_overlay_bad_sha256=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        contract = check["details"]["visual_audit_schema_gap"]["backfill_overlay_contract"]
+        assert contract["pass"] is False
+        assert contract["jsonl_sha256_valid"] is False
+        assert "jsonl_sha256_valid" in contract["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_repair_plan_claims_release_ready() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), visual_audit_repair_plan_release_ready=True))
@@ -2148,6 +2170,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_backfill_overlay_count_disagrees_with_raw_failures()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_source_is_stale()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_is_older_than_raw_report()
+    test_product_evidence_gate_blocks_release_when_backfill_overlay_sha256_is_invalid()
     test_product_evidence_gate_blocks_release_when_repair_plan_claims_release_ready()
     test_product_evidence_gate_blocks_release_when_repair_plan_count_disagrees_with_raw_report()
     test_product_evidence_gate_blocks_release_when_repair_plan_source_is_stale()

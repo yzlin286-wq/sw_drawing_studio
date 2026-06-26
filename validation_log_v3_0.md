@@ -13226,6 +13226,59 @@ Remaining issues:
 - Final Visual Audit still lacks raw issue schema compliance, final report evidence, and full-scope audit permission.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Product Gate Requires Overlay JSONL Fingerprint - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Extends `visual_audit_schema_gap.backfill_overlay_contract`.
+  - Requires `jsonl_sha256` to be a 64-character hexadecimal SHA-256 string for active overlay evidence.
+  - Keeps the existing requirement that `jsonl_line_count` matches `overlay_record_count`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture now emits a valid 64-character SHA-256 string by default.
+  - Adds regression coverage proving Product Gate blocks malformed overlay JSONL checksums.
+- Refreshed `drw_output/diagnostics/product_evidence_gate_v4_4.json`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Product Gate refresh exits nonzero as expected because release evidence is still incomplete.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`.
+- Current `visual_audit_schema_gap.backfill_overlay_contract` JSONL integrity fields are valid:
+  - `jsonl_sha256=99a311feaac66d01d2b45d61972d3aaa1a467851b547af47fe237054141b78d8`
+  - `jsonl_sha256_valid=true`
+  - `jsonl_line_count_matches_overlay=true`
+  - `mismatch_keys=[]`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Final Visual Audit still lacks raw issue schema compliance, final report evidence, and full-scope audit permission.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 006 Failed-Prune Repair Handoff Evidence - 2026-06-26
 
 Current judgment:

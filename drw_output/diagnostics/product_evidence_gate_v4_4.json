@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:00:17",
+  "generated_at": "2026-06-26 19:05:30",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1027008
+          "size_bytes": 1029976
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1409,11 +1409,13 @@
             "raw_failure_count": 5931,
             "overlay_record_count": 5931,
             "jsonl_line_count": 5931,
+            "jsonl_sha256": "99a311feaac66d01d2b45d61972d3aaa1a467851b547af47fe237054141b78d8",
             "missing_replacement_count": 0,
             "lossy_overlay_record_count": 5903,
             "raw_failure_count_matches_raw": true,
             "overlay_record_count_matches_raw": true,
             "jsonl_line_count_matches_overlay": true,
+            "jsonl_sha256_valid": true,
             "missing_replacement_count_zero": true,
             "lossy_overlay_record_count_nonnegative": true,
             "mismatch_keys": []
