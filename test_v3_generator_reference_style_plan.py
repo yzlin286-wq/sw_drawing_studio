@@ -632,6 +632,13 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                             "is_manufacturing_dimension": True,
                         },
                         {
+                            "key": "hole_callout_4x3_3",
+                            "target_view": "top",
+                            "expected_type": "hole_callout",
+                            "reference_value": "4-3.3 through",
+                            "is_manufacturing_dimension": True,
+                        },
+                        {
                             "key": "surface_finish_rest_3_2",
                             "target_view": "sheet_notes",
                             "expected_type": "surface_finish_callout",
@@ -719,7 +726,11 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                             ],
                             "ui_review_pass_condition": "Callout checklist must prove required callouts.",
                             "api_or_displaydim_metric_alone_can_close": False,
-                            "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                            "required_callout_keys": [
+                                "thread_callout_m4_6h",
+                                "hole_callout_4x3_3",
+                                "surface_finish_rest_3_2",
+                            ],
                             "absence_check_keys": ["radius_callout"],
                             "reference_callout_checklist_required": True,
                         },
@@ -755,6 +766,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert set(callout_plan["required_keys"]) == {
         "hole_diameter",
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2",
     }
     assert callout_plan["absence_check_keys"] == ["radius_callout"]
@@ -793,6 +805,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert closure_contract[1]["reference_callout_checklist_required"] is True
     assert closure_contract[1]["required_callout_keys"] == [
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2",
     ]
     assert "ui_defect_bucket_reference_callout_review_plan" in blueprint["dimension_plan"]["reasons"]

@@ -12808,6 +12808,44 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Generator Coverage for 006 Hole Callout - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline generator-test coverage hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+
+Implementation:
+
+- Updated `test_v3_generator_reference_style_plan.py`.
+  - Adds `hole_callout_4x3_3` to the synthetic 006 reference callouts consumed by `drw_generate_v6.py`.
+  - Requires the generated `reference_callout_review_plan.required_keys` to include `hole_callout_4x3_3`.
+  - Requires the generated UI defect bucket closure contract to preserve `hole_callout_4x3_3`.
+
+Commands:
+
+```powershell
+python -B -m py_compile test_v3_generator_reference_style_plan.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- This does not accept 006; it only proves the next generator blueprint path keeps the newly required 006 hole callout review key.
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 EXE UI Robot and 20-Minute Mock Stability Evidence - 2026-06-26
 
 Current judgment:
