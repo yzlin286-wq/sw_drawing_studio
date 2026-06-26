@@ -60,7 +60,7 @@ def _repo_path(value: str | Path) -> Path:
     return path if path.is_absolute() else (REPO_ROOT / path).resolve()
 
 
-def collect_solidworks_process_state() -> dict[str, Any]:
+def collect_solidworks_process_state(sample_count: int = 5, sample_interval_s: float = 0.25) -> dict[str, Any]:
     if os.name != "nt":
         return {
             "source": "process_probe",
@@ -74,57 +74,123 @@ def collect_solidworks_process_state() -> dict[str, Any]:
         "Get-Process SLDWORKS -ErrorAction SilentlyContinue | "
         "Select-Object Id,ProcessName,Responding,MainWindowTitle | ConvertTo-Json -Compress"
     )
-    try:
-        completed = subprocess.run(
-            ["powershell", "-NoProfile", "-Command", command],
-            cwd=str(REPO_ROOT),
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=8,
-            check=False,
-        )
-    except Exception as exc:
+    observations: list[dict[str, Any]] = []
+    returncodes: list[int] = []
+    errors: list[str] = []
+    for sample_index in range(max(1, int(sample_count))):
+        try:
+            completed = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", command],
+                cwd=str(REPO_ROOT),
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=8,
+                check=False,
+            )
+            returncodes.append(completed.returncode)
+        except Exception as exc:
+            errors.append(f"process_probe_exception:{exc}")
+            continue
+        stdout = completed.stdout.strip()
+        if not stdout:
+            if sample_index + 1 < max(1, int(sample_count)):
+                time.sleep(max(0.0, float(sample_interval_s)))
+            continue
+        try:
+            raw = json.loads(stdout)
+        except Exception as exc:
+            errors.append(f"process_probe_json_error:{exc}")
+            if sample_index + 1 < max(1, int(sample_count)):
+                time.sleep(max(0.0, float(sample_interval_s)))
+            continue
+        raw_items = raw if isinstance(raw, list) else [raw]
+        for item in raw_items:
+            if isinstance(item, dict):
+                observed = dict(item)
+                observed["sample_index"] = sample_index
+                observations.append(observed)
+        if sample_index + 1 < max(1, int(sample_count)):
+            time.sleep(max(0.0, float(sample_interval_s)))
+    if not observations:
         return {
             "source": "process_probe",
             "process_present": False,
             "responding": None,
             "main_window_title": "",
-            "reason": f"process_probe_exception:{exc}",
+            "returncode": returncodes[-1] if returncodes else None,
+            "probe_errors": errors,
         }
-    stdout = completed.stdout.strip()
-    if not stdout:
-        return {
-            "source": "process_probe",
-            "process_present": False,
-            "responding": None,
-            "main_window_title": "",
-            "returncode": completed.returncode,
-        }
-    try:
-        raw = json.loads(stdout)
-    except Exception as exc:
-        return {
-            "source": "process_probe",
-            "process_present": False,
-            "responding": None,
-            "main_window_title": "",
-            "reason": f"process_probe_json_error:{exc}",
-            "stdout": stdout,
-            "returncode": completed.returncode,
-        }
-    items = raw if isinstance(raw, list) else [raw]
-    selected = items[0] if items else {}
+    process_items = _collapse_process_observations(observations)
+    selected = _select_representative_solidworks_process(process_items)
     return {
         "source": "process_probe",
-        "process_present": bool(items),
-        "process_count": len(items),
+        "process_present": bool(process_items),
+        "process_count": len(process_items),
+        "processes": [
+            {
+                "pid": item.get("Id"),
+                "process_name": item.get("ProcessName"),
+                "responding": item.get("Responding"),
+                "main_window_title": str(item.get("MainWindowTitle") or ""),
+            }
+            for item in process_items
+        ],
         "pid": selected.get("Id"),
         "responding": selected.get("Responding"),
         "main_window_title": str(selected.get("MainWindowTitle") or ""),
-        "returncode": completed.returncode,
+        "returncode": returncodes[-1] if returncodes else None,
+        "sample_count": max(1, int(sample_count)),
+        "observation_count": len(observations),
+        "unsaved_title_observed": any(
+            _title_has_unsaved_marker(str(item.get("MainWindowTitle") or ""))
+            for item in observations
+        ),
+        "probe_errors": errors,
     }
+
+
+def _collapse_process_observations(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    collapsed: dict[int | str, dict[str, Any]] = {}
+    for item in items:
+        key = item.get("Id")
+        if key is None:
+            key = f"sample:{item.get('sample_index')}:{len(collapsed)}"
+        existing = collapsed.get(key)
+        if existing is None:
+            collapsed[key] = dict(item)
+            collapsed[key]["observed_titles"] = [str(item.get("MainWindowTitle") or "")]
+            continue
+        title = str(item.get("MainWindowTitle") or "")
+        existing.setdefault("observed_titles", [])
+        if title not in existing["observed_titles"]:
+            existing["observed_titles"].append(title)
+        existing_unsaved = _title_has_unsaved_marker(str(existing.get("MainWindowTitle") or ""))
+        item_unsaved = _title_has_unsaved_marker(title)
+        if item_unsaved or (not existing_unsaved and item.get("Responding") is not True):
+            existing.update(item)
+            existing["observed_titles"] = list(dict.fromkeys(existing["observed_titles"]))
+    return list(collapsed.values())
+
+
+def _select_representative_solidworks_process(items: list[dict[str, Any]]) -> dict[str, Any]:
+    for item in items:
+        title = str(item.get("MainWindowTitle") or "").strip()
+        if _title_has_unsaved_marker(title):
+            return item
+    for item in items:
+        if item.get("Responding") is not True:
+            return item
+    for item in items:
+        if str(item.get("MainWindowTitle") or "").strip():
+            return item
+    return items[0] if items else {}
+
+
+def _title_has_unsaved_marker(title: str) -> bool:
+    title = str(title or "").strip()
+    return title.endswith("*]") or title.endswith("*")
 
 
 def _solidworks_issues(sw_state: dict[str, Any], lock_file: Path) -> list[dict[str, Any]]:
@@ -145,7 +211,7 @@ def _solidworks_issues(sw_state: dict[str, Any], lock_file: Path) -> list[dict[s
             {"solidworks_process": sw_state},
             "Save any unsaved SolidWorks work manually, close/restart SolidWorks safely, then rerun this readiness audit.",
         ))
-    if title.strip().endswith("*]") or title.strip().endswith("*"):
+    if _title_has_unsaved_marker(title):
         issues.append(_issue(
             "solidworks_unsaved_document_visible",
             "critical",

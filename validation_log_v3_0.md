@@ -12641,3 +12641,79 @@ Remaining issues:
 - Manual recovery is required in SolidWorks: save or close that unsaved document before another 006 CAD worker attempt.
 - Automation must not kill or restart SolidWorks while unsaved work may exist.
 - After manual recovery, rerun readiness first; only if readiness becomes ready may exactly one locked 006-only CAD rerun be attempted, followed by application Drawing Review UI screenshot capture and manual visual checklist review.
+
+## v4.4 UI Shell-Open Cleanup and 006 Readiness Title Sampling - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline SolidWorks Stability Gate / Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Added `app/ui/open_path_helper.py`.
+  - Uses Qt `QDesktopServices.openUrl(QUrl.fromLocalFile(...))` for local file/directory opening.
+  - Avoids UI-thread shell subprocess calls for simple "open directory" actions.
+- Updated UI pages:
+  - `app/ui/home_page.py`
+  - `app/ui/logs_diagnostics_page.py`
+  - `app/ui/job_queue_page.py`
+  - `app/ui/single_part_page.py`
+  - `app/ui/visual_audit_page.py`
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Asserts `app/ui/*` does not reintroduce `subprocess.Popen` or `os.startfile` in the cleaned pages.
+- Updated `tools/validation/lb26001_006_regression_readiness_v4_2.py`.
+  - `collect_solidworks_process_state()` now samples the `SLDWORKS.exe` window title multiple times.
+  - Same-PID observations are collapsed with `observed_titles`.
+  - If any sample observes an unsaved `*` title, readiness reports `solidworks_unsaved_document_visible` and blocks 006 CAD startup.
+  - This closes a race where one sample could read a transient `[查看中]` title while another visible title still showed unsaved work.
+- Updated `test_v4_2_006_regression_readiness.py`.
+  - Covers responsive unsaved SolidWorks titles.
+  - Covers multi-process selection preferring an unsaved window.
+  - Covers same-PID title sampling where a later sample observes the unsaved marker.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_regression_readiness_v4_2.py test_v4_2_006_regression_readiness.py app\ui\open_path_helper.py app\ui\home_page.py app\ui\logs_diagnostics_page.py app\ui\job_queue_page.py app\ui\single_part_page.py app\ui\visual_audit_page.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_2_006_regression_readiness.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v3_main_navigation.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_006_regression_readiness.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v3_main_navigation.py`: PASS.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, with:
+  - `entrypoint_count=527`
+  - `unguarded_or_unknown_count=0`
+  - `ui_thread_direct_risk_count=0`
+  - `ui_threadpool_worker_count=0`
+  - `service_direct_risk_count=0`
+  - `system_health_ui_thread_direct_probe_count=0`
+- Refreshed 006 readiness is blocked correctly:
+  - `status=blocked`
+  - `ready_to_start_locked_006_cad=false`
+  - `blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+  - `sample_count=5`
+  - `observation_count=5`
+  - `unsaved_title_observed=true`
+  - observed title includes `SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]`
+- Refreshed 006 rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed SolidWorks Stability Gate remains `warning`, with source scan and lock tests passing, because the current idle SolidWorks process is not under a worker-owned global lock.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all allowed actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.

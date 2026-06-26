@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T09:52:51",
+  "generated_at": "2026-06-26T10:09:01",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -14,7 +14,7 @@
   },
   "entrypoint_summary": {
     "status": "pass",
-    "entrypoint_count": 529,
+    "entrypoint_count": 527,
     "unguarded_or_unknown_count": 0,
     "ui_thread_direct_risk_count": 0,
     "ui_threadpool_worker_count": 0,
@@ -23,7 +23,7 @@
     "worker_backed_model_client_count": 1,
     "legacy_service_adapter_count": 1,
     "background_watchdog_probe_count": 1,
-    "validation_tool_requires_manual_lock_count": 47,
+    "validation_tool_requires_manual_lock_count": 50,
     "external_addin_needs_host_lock_count": 20,
     "external_addin_host_lock_contract_status": "pass"
   },

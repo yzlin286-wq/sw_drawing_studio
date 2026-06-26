@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import os
-import subprocess
 import sys
 from pathlib import Path
 
@@ -22,6 +20,7 @@ from PySide6.QtWidgets import (
 from app.services.job_runtime_facade import get_job_runtime_facade
 from app.services.run_manager import RUNS_DIR, list_recent_runs
 from app.services.system_health_service import health_rows_from_dicts
+from app.ui.open_path_helper import open_local_path
 
 
 _STATUS_BADGE = {
@@ -506,20 +505,8 @@ class HomePage(QWidget):
         d = RUNS_DIR / run_id
         if not d.exists():
             return
-        try:
-            os.startfile(str(d))  # Windows
-        except Exception:
-            try:
-                subprocess.Popen(["explorer", str(d)])
-            except Exception:
-                pass
+        open_local_path(d)
 
     def _on_open_runs_dir(self) -> None:
-        try:
-            RUNS_DIR.mkdir(parents=True, exist_ok=True)
-            os.startfile(str(RUNS_DIR))
-        except Exception:
-            try:
-                subprocess.Popen(["explorer", str(RUNS_DIR)])
-            except Exception:
-                pass
+        RUNS_DIR.mkdir(parents=True, exist_ok=True)
+        open_local_path(RUNS_DIR)

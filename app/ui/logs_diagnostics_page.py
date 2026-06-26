@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
-import subprocess
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -28,6 +26,7 @@ from PySide6.QtWidgets import (
 
 from app.services.diagnostics import DIAGNOSTICS_DIR
 from app.services.run_manager import RUNS_DIR
+from app.ui.open_path_helper import open_local_path
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -456,7 +455,4 @@ def describe_zip(zip_path: Path) -> str:
 
 
 def open_directory(path: Path) -> None:
-    try:
-        os.startfile(str(path))
-    except Exception:
-        subprocess.Popen(["explorer", str(path)])
+    open_local_path(path)

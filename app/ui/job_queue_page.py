@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
-import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +24,7 @@ from PySide6.QtWidgets import (
 )
 
 from app.services.job_runtime_facade import get_job_runtime_facade
+from app.ui.open_path_helper import open_local_path
 
 
 COLUMNS = [
@@ -324,10 +323,8 @@ class JobQueuePage(QWidget):
         if not path.exists():
             self._append_timeline(f"运行目录缺失: {path}")
             return
-        try:
-            os.startfile(str(path))
-        except Exception:
-            subprocess.Popen(["explorer", str(path)])
+        if not open_local_path(path):
+            self._append_timeline(f"鎵撳紑鐩綍澶辫触: {path}")
 
     def _selected_job_id(self) -> str:
         idx = self.table.currentIndex()

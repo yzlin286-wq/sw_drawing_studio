@@ -52,6 +52,21 @@ def main() -> None:
         and "Qt ThreadPool worker" in set(entry.get("patterns") or [])
         for entry in data["entries"]
     )
+    assert not any(
+        entry["file"].startswith("app/ui/")
+        and "subprocess.Popen" in set(entry.get("patterns") or [])
+        for entry in data["entries"]
+    )
+    for ui_path in [
+        "app/ui/home_page.py",
+        "app/ui/logs_diagnostics_page.py",
+        "app/ui/job_queue_page.py",
+        "app/ui/single_part_page.py",
+        "app/ui/visual_audit_page.py",
+    ]:
+        source = Path(ui_path).read_text(encoding="utf-8")
+        assert "subprocess.Popen" not in source
+        assert "os.startfile" not in source
     print("OK test_v4_1_solidworks_entrypoint_scan")
 
 

@@ -9,6 +9,8 @@ from tools.validation.lb26001_006_regression_readiness_v4_2 import (
     DEFAULT_UI_GATE,
     build_readiness_report,
     render_markdown,
+    _collapse_process_observations,
+    _select_representative_solidworks_process,
 )
 
 
@@ -70,6 +72,73 @@ def test_006_regression_readiness_blocks_unresponsive_unsaved_solidworks() -> No
     assert guidance["automatic_restart_allowed"] is False
     assert "unsaved document" in " ".join(guidance["steps"]).lower()
     assert "Do not kill or restart SLDWORKS.exe" in guidance["do_not"][0]
+
+
+def test_006_regression_readiness_blocks_responsive_unsaved_solidworks_title() -> None:
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        report = build_readiness_report(
+            sw_state={
+                "process_present": True,
+                "responding": True,
+                "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_open_b47a2dbd.SLDPRT *]",
+            },
+            ui_gate_path=_ui_gate(root / "ui_gate.json"),
+            expansion_gate_path=_expansion_gate(root / "expansion_gate.json"),
+            lock_file=root / "missing_lock.json",
+        )
+
+    keys = set(report["blocking_issue_keys"])
+    assert report["ready_to_start_locked_006_cad"] is False
+    assert report["status"] == "blocked"
+    assert "solidworks_unsaved_document_visible" in keys
+    assert report["safe_recovery_guidance"]["automatic_restart_allowed"] is False
+
+
+def test_006_regression_readiness_process_selection_prefers_unsaved_window() -> None:
+    selected = _select_representative_solidworks_process(
+        [
+            {
+                "Id": 100,
+                "ProcessName": "SLDWORKS",
+                "Responding": True,
+                "MainWindowTitle": "SOLIDWORKS Premium 2025 SP5.0",
+            },
+            {
+                "Id": 101,
+                "ProcessName": "SLDWORKS",
+                "Responding": True,
+                "MainWindowTitle": "SOLIDWORKS Premium 2025 SP5.0 - [装配体1 *]",
+            },
+        ]
+    )
+
+    assert selected["Id"] == 101
+
+
+def test_006_regression_readiness_collapses_samples_to_unsaved_title() -> None:
+    collapsed = _collapse_process_observations(
+        [
+            {
+                "Id": 14144,
+                "ProcessName": "SLDWORKS",
+                "Responding": True,
+                "MainWindowTitle": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_shaft.SLDPRT [查看中]]",
+                "sample_index": 0,
+            },
+            {
+                "Id": 14144,
+                "ProcessName": "SLDWORKS",
+                "Responding": True,
+                "MainWindowTitle": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_327cc6e8_rotor.SLDPRT *]",
+                "sample_index": 1,
+            },
+        ]
+    )
+
+    assert len(collapsed) == 1
+    assert collapsed[0]["MainWindowTitle"].endswith("*]")
+    assert len(collapsed[0]["observed_titles"]) == 2
 
 
 def test_006_regression_readiness_blocks_missing_ui_gate() -> None:
@@ -216,6 +285,9 @@ def test_006_regression_readiness_markdown_explains_manual_recovery_without_cad_
 
 if __name__ == "__main__":
     test_006_regression_readiness_blocks_unresponsive_unsaved_solidworks()
+    test_006_regression_readiness_blocks_responsive_unsaved_solidworks_title()
+    test_006_regression_readiness_process_selection_prefers_unsaved_window()
+    test_006_regression_readiness_collapses_samples_to_unsaved_title()
     test_006_regression_readiness_blocks_missing_ui_gate()
     test_006_regression_readiness_allows_next_rerun_when_solidworks_is_safe()
     test_006_regression_readiness_blocks_existing_solidworks_lock()

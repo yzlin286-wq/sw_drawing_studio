@@ -1,14 +1,14 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T09:52:50",
+  "generated_at": "2026-06-26T10:09:00",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
-  "scanned_files": 338,
-  "entrypoint_count": 529,
+  "scanned_files": 339,
+  "entrypoint_count": 527,
   "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
   "external_addin_needs_host_lock_count": 20,
   "document_manager_com_count": 27,
-  "validation_tool_requires_manual_lock_count": 47,
+  "validation_tool_requires_manual_lock_count": 50,
   "maintenance_tool_count": 13,
   "test_or_fixture_count": 18,
   "legacy_experiment_count": 235,
@@ -1398,7 +1398,7 @@
     },
     {
       "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
-      "line": 78,
+      "line": 82,
       "patterns": [
         "subprocess.run"
       ],
@@ -1409,6 +1409,48 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "completed = subprocess.run("
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 99,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 106,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 115,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
     },
     {
       "file": "tools/validation/reference_compare_smoke_v3.py",
@@ -10966,76 +11008,6 @@
       "text": "proc = subprocess.run("
     },
     {
-      "file": "app/ui/home_page.py",
-      "line": 513,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "ui_shell_open_allowlisted",
-      "scope": "ui",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "subprocess.Popen([\"explorer\", str(d)])"
-    },
-    {
-      "file": "app/ui/home_page.py",
-      "line": 523,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "ui_shell_open_allowlisted",
-      "scope": "ui",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "subprocess.Popen([\"explorer\", str(RUNS_DIR)])"
-    },
-    {
-      "file": "app/ui/job_queue_page.py",
-      "line": 330,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "ui_shell_open_allowlisted",
-      "scope": "ui",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "subprocess.Popen([\"explorer\", str(path)])"
-    },
-    {
-      "file": "app/ui/logs_diagnostics_page.py",
-      "line": 462,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "ui_shell_open_allowlisted",
-      "scope": "ui",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "subprocess.Popen([\"explorer\", str(path)])"
-    },
-    {
-      "file": "app/ui/single_part_page.py",
-      "line": 318,
-      "patterns": [
-        "subprocess.Popen"
-      ],
-      "guard_status": "ui_shell_open_allowlisted",
-      "scope": "ui",
-      "risk_bucket": "blocking_call_requires_review",
-      "requires_global_lock": false,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "subprocess.Popen([\"explorer\", str(self._current_run_dir)])"
-    },
-    {
       "file": "app/workers/batch_job_worker.py",
       "line": 210,
       "patterns": [
@@ -12563,7 +12535,7 @@
     },
     {
       "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
-      "line": 78,
+      "line": 82,
       "patterns": [
         "subprocess.run"
       ],
@@ -12574,6 +12546,48 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "completed = subprocess.run("
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 99,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 106,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
+    },
+    {
+      "file": "tools/validation/lb26001_006_regression_readiness_v4_2.py",
+      "line": 115,
+      "patterns": [
+        "time.sleep"
+      ],
+      "guard_status": "validation_tool_requires_manual_lock",
+      "scope": "tool",
+      "risk_bucket": "blocking_call_requires_review",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "time.sleep(max(0.0, float(sample_interval_s)))"
     },
     {
       "file": "tools/validation/reference_compare_smoke_v3.py",

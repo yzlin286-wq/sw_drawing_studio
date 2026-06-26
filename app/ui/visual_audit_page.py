@@ -246,11 +246,9 @@ class VisualAuditPage(QWidget):
             return
         path = Path(selected[0].path)
         directory = path.parent if path.is_file() else path
-        try:
-            import os
+        from app.ui.open_path_helper import open_local_path
 
-            os.startfile(str(directory))
-        except Exception:
+        if not open_local_path(directory):
             self.detail_view.appendPlainText(f"directory: {directory}")
 
     def _start_audit_jobs(self, targets: list[GeneratedFile]) -> None:

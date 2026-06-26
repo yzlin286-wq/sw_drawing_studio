@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regression_readiness.v4_2",
-  "generated_at": "2026-06-26 09:52:44",
+  "generated_at": "2026-06-26 10:08:47",
   "base": "LB26001-A-04-006",
   "ready_to_start_locked_006_cad": false,
   "status": "blocked",
@@ -8,10 +8,22 @@
     "source": "process_probe",
     "process_present": true,
     "process_count": 1,
+    "processes": [
+      {
+        "pid": 14144,
+        "process_name": "SLDWORKS",
+        "responding": true,
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+      }
+    ],
     "pid": 14144,
     "responding": true,
-    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_open_a109019f.SLDPRT *]",
-    "returncode": 0
+    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
+    "returncode": 0,
+    "sample_count": 5,
+    "observation_count": 5,
+    "unsaved_title_observed": true,
+    "probe_errors": []
   },
   "solidworks_lock_file": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
   "solidworks_lock_present": false,
@@ -30,7 +42,7 @@
       "source": "lb26001_006_regression_readiness_v4_2",
       "confidence": 1.0,
       "evidence": {
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_open_a109019f.SLDPRT *]"
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
       },
       "fix_suggestion": "Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun."
     },
@@ -176,7 +188,7 @@
     "manual_recovery_required": true,
     "automatic_restart_allowed": false,
     "reason": "Automatic restart is forbidden while SolidWorks is unresponsive or an unsaved document marker is visible.",
-    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_open_a109019f.SLDPRT *]",
+    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
     "steps": [
       "In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.",
       "Rerun this no-COM readiness audit after SolidWorks is responsive.",

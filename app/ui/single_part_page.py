@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 from pathlib import Path
 
 from PySide6.QtCore import Qt
@@ -31,6 +30,8 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
+from app.ui.open_path_helper import open_local_path
 
 
 class SinglePartPage(QWidget):
@@ -311,13 +312,7 @@ class SinglePartPage(QWidget):
     def _on_open_pkg(self) -> None:
         if not self._current_run_dir:
             return
-        try:
-            os.startfile(str(self._current_run_dir))
-        except Exception:
-            try:
-                subprocess.Popen(["explorer", str(self._current_run_dir)])
-            except Exception:
-                pass
+        open_local_path(self._current_run_dir)
 
     # ---------- 工具 ----------
     def _reset_status_strip(self) -> None:
