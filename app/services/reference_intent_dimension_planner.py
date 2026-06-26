@@ -568,6 +568,21 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
         },
         {
             **common,
+            "key": "hole_callout_4x3_3",
+            "target_view": "top",
+            "expected_type": "hole_callout",
+            "is_manufacturing_dimension": True,
+            "reference_value": "4-3.3 through",
+            "source_reference_evidence": {
+                "visual_reading": "Hole callout near top view reads 4-3.3 through.",
+                "source_text": "4-3.3",
+                "extraction_method": "manual_visual_reading_from_reference_png",
+            },
+            "forbid_note_substitution_for_displaydim": True,
+            "create_as": "SolidWorks hole callout or attached manufacturing callout, not a substitute DisplayDim",
+        },
+        {
+            **common,
             "key": "surface_finish_rest_3_2",
             "target_view": "sheet_notes",
             "expected_type": "surface_finish_callout",

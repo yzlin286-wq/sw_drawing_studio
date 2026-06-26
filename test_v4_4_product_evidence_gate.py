@@ -309,7 +309,7 @@ def _fixture(
         }
         if key == "callout_missing":
             item["post_rerun_required_evidence"].append("reference_callout_checklist")
-            item["required_callout_keys"] = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+            item["required_callout_keys"] = ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"]
             item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
         bucket_closure_contract.append(item)
     required_dim_keys = [
@@ -518,6 +518,19 @@ def _fixture(
                         "create_as": "SolidWorks hole/thread callout, not a substitute DisplayDim",
                     },
                     {
+                        "key": "hole_callout_4x3_3",
+                        "target_view": "top",
+                        "expected_type": "hole_callout",
+                        "source_reference": "3D杞?D娴嬭瘯鍥剧焊/LB26001-A-04-006.SLDDRW",
+                        "is_manufacturing_dimension": True,
+                        "fallback_policy": "need_review_when_real_callout_unavailable",
+                        "source_reference_evidence": {"source_text": "4-3.3"},
+                        "reference_value": "4-3.3 through",
+                        "reference_value_status": "visual_reading_recorded",
+                        "forbid_note_substitution_for_displaydim": True,
+                        "create_as": "SolidWorks hole callout, not a substitute DisplayDim",
+                    },
+                    {
                         "key": "surface_finish_rest_3_2",
                         "target_view": "sheet_notes",
                         "expected_type": "surface_finish_callout",
@@ -627,7 +640,11 @@ def _fixture(
                 ] + [{
                     "bucket": "callout_missing",
                     "required": True,
-                    "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                    "required_callout_keys": [
+                        "thread_callout_m4_6h",
+                        "hole_callout_4x3_3",
+                        "surface_finish_rest_3_2",
+                    ],
                     "absence_check_keys": ["radius_callout", "chamfer_callout"],
                 }],
                 "bucket_closure_contract": bucket_closure_contract,
@@ -1032,7 +1049,8 @@ def test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence() ->
         paths = _fixture(Path(tmp))
         plan_path = paths["reference_intent_plan"]
         plan = json.loads(plan_path.read_text(encoding="utf-8"))
-        plan["reference_callouts"][2]["source_reference_evidence"] = {}
+        radius_callout = next(item for item in plan["reference_callouts"] if item["key"] == "radius_callout")
+        radius_callout["source_reference_evidence"] = {}
         _write_json(plan_path, plan)
 
         result = _build(paths)

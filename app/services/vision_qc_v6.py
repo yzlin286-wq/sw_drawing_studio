@@ -540,6 +540,7 @@ def _reference_callout_aliases(key: str, expected_type: str, source_text: str) -
     if "3_3" in _normalize_callout_key(source_text) or "hole" in _normalize_callout_key(key):
         aliases.extend([
             "hole_callout",
+            "hole_callout_4x3_3",
             "hole_diameter",
             "hole_size_callout",
             "4_3_3",

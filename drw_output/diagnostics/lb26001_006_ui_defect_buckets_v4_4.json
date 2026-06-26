@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-26 09:53:17",
+  "generated_at": "2026-06-26 16:06:12",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -104,6 +104,7 @@
       "pass_condition": "manual_visual_judgement reference_callout_checklist proves required callouts present and radius/chamfer are not fabricated",
       "required_callout_keys": [
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2"
       ],
       "absence_check_keys": [
@@ -114,6 +115,7 @@
   ],
   "reference_callout_review_required_keys": [
     "thread_callout_m4_6h",
+    "hole_callout_4x3_3",
     "surface_finish_rest_3_2"
   ],
   "reference_callout_absence_check_keys": [
@@ -453,6 +455,7 @@
       "api_or_displaydim_metric_alone_can_close": false,
       "required_callout_keys": [
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2"
       ],
       "absence_check_keys": [

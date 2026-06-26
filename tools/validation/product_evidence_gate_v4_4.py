@@ -71,7 +71,7 @@ REQUIRED_ACTIVE_006_DEFECT_BUCKETS = {
     "projection_view_style_mismatch",
 }
 REQUIRED_006_DEFECT_BUCKETS = REQUIRED_ACTIVE_006_DEFECT_BUCKETS | {"callout_missing"}
-REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
+REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"}
 CALLOUT_ABSENCE_CHECK_KEYS = {"radius_callout", "chamfer_callout"}
 REQUIRED_CLOSURE_EVIDENCE_KEYS = {
     "application_drawing_review_ui_screenshot",
@@ -882,7 +882,13 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "projection_view_height",
         "small_feature_location",
     }
-    required_callouts = {"thread_callout_m4_6h", "surface_finish_rest_3_2", "radius_callout", "chamfer_callout"}
+    required_callouts = {
+        "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
+        "surface_finish_rest_3_2",
+        "radius_callout",
+        "chamfer_callout",
+    }
     required_fields = {
         "source_reference",
         "target_view",
@@ -936,6 +942,10 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "allow_note_substitution": payload.get("allow_note_substitution"),
         "ui_screenshot_acceptance_required": payload.get("ui_screenshot_acceptance_required"),
         "api_is_supporting_only": payload.get("api_is_supporting_only"),
+        "required_callout_keys": sorted(required_callouts),
+        "reference_callout_keys": sorted(callout_keys),
+        "required_visual_callout_keys": sorted(REQUIRED_CALLOUT_KEYS),
+        "callout_absence_check_keys": sorted(CALLOUT_ABSENCE_CHECK_KEYS),
         "missing_dimension_keys": sorted(required_dim_keys - dim_keys),
         "missing_callout_keys": sorted(required_callouts - callout_keys),
         "dimension_missing_fields": dim_missing_fields,
@@ -1036,7 +1046,7 @@ def _reference_intent_contract_check(
 def _callouts_forbid_displaydim_substitution(callouts: list[dict[str, Any]]) -> bool:
     for item in callouts:
         key = str(item.get("key") or "")
-        if key in {"thread_callout_m4_6h", "surface_finish_rest_3_2"}:
+        if key in {"thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"}:
             text = str(item.get("create_as") or "")
             if "DisplayDim" in text and "not" not in text:
                 return False
@@ -1219,6 +1229,12 @@ def _ui_defect_buckets_check(
         "required_next_screenshot_check_buckets": sorted(next_check_buckets),
         "missing_next_check_buckets": missing_next_check_buckets,
         "missing_next_checklist_buckets": missing_next_checklist_buckets,
+        "required_callout_keys": sorted(REQUIRED_CALLOUT_KEYS),
+        "callout_absence_check_keys": sorted(CALLOUT_ABSENCE_CHECK_KEYS),
+        "next_screenshot_required_callout_keys": list(callout_check.get("required_callout_keys") or []),
+        "closure_contract_required_callout_keys": list(
+            callout_closure_contract.get("required_callout_keys") or []
+        ),
         "callout_next_check_ok": callout_next_check_ok,
         "bucket_closure_contract_buckets": sorted(set(closure_by_bucket)),
         "missing_bucket_closure_contract_keys": missing_closure_contract_keys,

@@ -12744,6 +12744,70 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 006 Required Hole Callout Contract Tightening - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline 006 reference-intent / Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted; `007/008/009/015/022`, `LB26001_36`, `full_129`, and release remain blocked.
+
+Implementation:
+
+- Updated `app/services/reference_intent_dimension_planner.py`.
+  - Adds `hole_callout_4x3_3` as a required 006 reference callout.
+  - Keeps the callout as UI visual manufacturing evidence, not a substitute DisplayDim.
+- Updated `tools/validation/lb26001_006_reference_intent_proof_v4_4.py`.
+  - Requires `hole_callout_4x3_3` with `M4-6H`, `Ra3.2`, and radius/chamfer absence checks.
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Requires and exposes `hole_callout_4x3_3` in reference-intent plan and UI defect bucket checks.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py` and `tools/validation/lb26001_006_ui_defect_buckets_v4_4.py`.
+  - Require and expose `hole_callout_4x3_3` in the next screenshot checklist and bucket closure contract.
+- Updated `app/services/vision_qc_v6.py`.
+  - Accepts `hole_callout_4x3_3` as a manual UI callout checklist alias.
+
+Commands:
+
+```powershell
+python -m py_compile app\services\reference_intent_dimension_planner.py app\services\vision_qc_v6.py tools\validation\lb26001_006_reference_intent_proof_v4_4.py tools\validation\product_evidence_gate_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py tools\validation\lb26001_006_ui_defect_buckets_v4_4.py test_v4_4_product_evidence_gate.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_manual_visual_judgement_template.py
+python -B test_v4_4_manual_visual_judgement_template.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --plan drw_output\reference_intent_dimension_plan_006.json --contract drw_output\reference_intent_dimension_contract_006.json --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_manual_visual_judgement_template.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `drw_output/reference_intent_dimension_plan_006.json` now includes callout keys:
+  - `thread_callout_m4_6h`
+  - `hole_callout_4x3_3`
+  - `surface_finish_rest_3_2`
+  - `radius_callout`
+  - `chamfer_callout`
+- Refreshed `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json` exposes `required_callout_keys=["hole_callout_4x3_3","surface_finish_rest_3_2","thread_callout_m4_6h"]`, remains `packet_build_ready=true`, and remains `real_cad_allowed_now=false`.
+- Refreshed `drw_output/diagnostics/product_evidence_gate_v4_4.json` remains `blocked_by_solidworks_stability_gate`, with all follow-on actions false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 EXE UI Robot and 20-Minute Mock Stability Evidence - 2026-06-26
 
 Current judgment:

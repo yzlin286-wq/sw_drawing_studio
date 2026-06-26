@@ -43,7 +43,7 @@ BUCKET_ORDER = [
     "projection_view_style_mismatch",
     "callout_missing",
 ]
-REQUIRED_CALLOUT_KEYS = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+REQUIRED_CALLOUT_KEYS = ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"]
 CALLOUT_ABSENCE_CHECK_KEYS = ["radius_callout", "chamfer_callout"]
 
 COMMON_REPAIR_INPUTS = [

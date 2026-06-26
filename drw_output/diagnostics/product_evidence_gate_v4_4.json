@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 15:57:01",
+  "generated_at": "2026-06-26 16:08:20",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -279,7 +279,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 09:53:17",
+        "generated_at": "2026-06-26 16:06:12",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -322,6 +322,25 @@
         ],
         "missing_next_check_buckets": [],
         "missing_next_checklist_buckets": [],
+        "required_callout_keys": [
+          "hole_callout_4x3_3",
+          "surface_finish_rest_3_2",
+          "thread_callout_m4_6h"
+        ],
+        "callout_absence_check_keys": [
+          "chamfer_callout",
+          "radius_callout"
+        ],
+        "next_screenshot_required_callout_keys": [
+          "thread_callout_m4_6h",
+          "hole_callout_4x3_3",
+          "surface_finish_rest_3_2"
+        ],
+        "closure_contract_required_callout_keys": [
+          "thread_callout_m4_6h",
+          "hole_callout_4x3_3",
+          "surface_finish_rest_3_2"
+        ],
         "callout_next_check_ok": true,
         "bucket_closure_contract_buckets": [
           "callout_missing",
@@ -369,7 +388,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_plan_006.json",
         "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
-        "generated_at": "2026-06-26 03:19:51",
+        "generated_at": "2026-06-26 16:05:41",
         "base": "LB26001-A-04-006",
         "status": "plan_ready_requires_cad_worker_lock",
         "dimension_count": 12,
@@ -378,6 +397,29 @@
         "allow_note_substitution": false,
         "ui_screenshot_acceptance_required": true,
         "api_is_supporting_only": true,
+        "required_callout_keys": [
+          "chamfer_callout",
+          "hole_callout_4x3_3",
+          "radius_callout",
+          "surface_finish_rest_3_2",
+          "thread_callout_m4_6h"
+        ],
+        "reference_callout_keys": [
+          "chamfer_callout",
+          "hole_callout_4x3_3",
+          "radius_callout",
+          "surface_finish_rest_3_2",
+          "thread_callout_m4_6h"
+        ],
+        "required_visual_callout_keys": [
+          "hole_callout_4x3_3",
+          "surface_finish_rest_3_2",
+          "thread_callout_m4_6h"
+        ],
+        "callout_absence_check_keys": [
+          "chamfer_callout",
+          "radius_callout"
+        ],
         "missing_dimension_keys": [],
         "missing_callout_keys": [],
         "dimension_missing_fields": {},
@@ -395,7 +437,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_intent_dimension_contract_006.json",
         "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
-        "generated_at": "2026-06-26 03:19:51",
+        "generated_at": "2026-06-26 16:06:01",
         "base": "LB26001-A-04-006",
         "status": "contract_ready_requires_cad_worker_lock",
         "requires_solidworks_lock": true,

@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 03:19:51",
+  "generated_at": "2026-06-26 16:05:41",
   "base": "LB26001-A-04-006",
   "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "reference_display_dim_count": 12,
@@ -1356,6 +1356,25 @@
       },
       "forbid_note_substitution_for_displaydim": true,
       "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim"
+    },
+    {
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "fallback_policy": "need_review_when_real_callout_unavailable",
+      "api_is_supporting_only": true,
+      "ui_screenshot_acceptance_required": true,
+      "key": "hole_callout_4x3_3",
+      "target_view": "top",
+      "expected_type": "hole_callout",
+      "is_manufacturing_dimension": true,
+      "reference_value": "4-3.3 through",
+      "source_reference_evidence": {
+        "visual_reading": "Hole callout near top view reads 4-3.3 through.",
+        "source_text": "4-3.3",
+        "extraction_method": "manual_visual_reading_from_reference_png"
+      },
+      "forbid_note_substitution_for_displaydim": true,
+      "create_as": "SolidWorks hole callout or attached manufacturing callout, not a substitute DisplayDim"
     },
     {
       "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",

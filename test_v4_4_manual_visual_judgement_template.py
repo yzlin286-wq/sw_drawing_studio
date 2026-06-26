@@ -62,6 +62,7 @@ def test_manual_visual_judgement_template_includes_006_bucket_closure_checklist(
     defects = _defect_buckets(base)
     defects["bucket_closure_contract"][-1]["required_callout_keys"] = [
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2",
     ]
     defects["bucket_closure_contract"][-1]["absence_check_keys"] = [
@@ -92,6 +93,7 @@ def test_manual_visual_judgement_template_includes_006_bucket_closure_checklist(
     assert entry["reference_callout_checklist"]["required"] is True
     assert set(entry["reference_callout_checklist"]["required_callout_keys"]) == {
         "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
         "surface_finish_rest_3_2",
     }
     assert set(entry["reference_callout_checklist"]["absence_check_keys"]) == {

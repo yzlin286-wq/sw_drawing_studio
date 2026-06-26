@@ -40,7 +40,7 @@ REQUIRED_ACTIVE_UI_DEFECT_BUCKETS = {
     "projection_view_style_mismatch",
 }
 REQUIRED_UI_DEFECT_BUCKETS = REQUIRED_ACTIVE_UI_DEFECT_BUCKETS | {"callout_missing"}
-REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "surface_finish_rest_3_2"}
+REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"}
 CALLOUT_ABSENCE_CHECK_KEYS = {"radius_callout", "chamfer_callout"}
 REQUIRED_CLOSURE_EVIDENCE_KEYS = {
     "application_drawing_review_ui_screenshot",
@@ -439,6 +439,7 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     checklist_items = [item for item in payload.get("next_screenshot_checklist") or [] if isinstance(item, dict)]
     checklist_buckets = {str(item.get("bucket") or "") for item in checklist_items}
     callout_check = next((item for item in checklist_items if item.get("bucket") == "callout_missing"), {})
+    callout_closure_contract = {}
     callout_next_check_ok = (
         REQUIRED_CALLOUT_KEYS <= set(callout_check.get("required_callout_keys") or [])
         and CALLOUT_ABSENCE_CHECK_KEYS <= set(callout_check.get("absence_check_keys") or [])
@@ -526,6 +527,12 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "required_next_screenshot_check_buckets": sorted(next_check_buckets),
         "missing_next_screenshot_check_buckets": missing_next_check,
         "missing_next_screenshot_checklist_buckets": missing_checklist,
+        "required_callout_keys": sorted(REQUIRED_CALLOUT_KEYS),
+        "callout_absence_check_keys": sorted(CALLOUT_ABSENCE_CHECK_KEYS),
+        "next_screenshot_required_callout_keys": list(callout_check.get("required_callout_keys") or []),
+        "closure_contract_required_callout_keys": list(
+            callout_closure_contract.get("required_callout_keys") or []
+        ),
         "callout_next_check_ok": callout_next_check_ok,
         "bucket_closure_contract_buckets": sorted(set(closure_by_bucket)),
         "missing_bucket_closure_contract_keys": missing_closure_contract,

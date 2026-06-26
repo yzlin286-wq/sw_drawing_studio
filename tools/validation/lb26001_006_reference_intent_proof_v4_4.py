@@ -337,12 +337,18 @@ def _check_dimension_values(checks: list[dict[str, Any]], plan: dict[str, Any]) 
 
 def _check_reference_callouts(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
     callouts = _callouts_by_key(plan)
-    required = {"thread_callout_m4_6h", "surface_finish_rest_3_2", "radius_callout", "chamfer_callout"}
+    required = {
+        "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
+        "surface_finish_rest_3_2",
+        "radius_callout",
+        "chamfer_callout",
+    }
     _add_check(
         checks,
         "reference_callout_keys",
         required <= set(callouts),
-        "reference callouts cover M4-6H, surface finish, and radius/chamfer absence checks",
+        "reference callouts cover M4-6H, 4-3.3 hole, surface finish, and radius/chamfer absence checks",
         {"missing": sorted(required - set(callouts)), "keys": sorted(callouts)},
     )
     field_failures: dict[str, list[str]] = {}
@@ -361,6 +367,7 @@ def _check_reference_callouts(checks: list[dict[str, Any]], plan: dict[str, Any]
         {"failures": field_failures},
     )
     thread = callouts.get("thread_callout_m4_6h") or {}
+    hole = callouts.get("hole_callout_4x3_3") or {}
     surface = callouts.get("surface_finish_rest_3_2") or {}
     radius = callouts.get("radius_callout") or {}
     chamfer = callouts.get("chamfer_callout") or {}
@@ -374,6 +381,17 @@ def _check_reference_callouts(checks: list[dict[str, Any]], plan: dict[str, Any]
         and "DisplayDim" not in str(thread.get("create_as") or "").split(",")[0],
         "M4-6H callout is required visual manufacturing evidence and cannot replace DisplayDim",
         {"callout": thread},
+    )
+    _add_check(
+        checks,
+        "hole_callout_policy",
+        hole.get("is_manufacturing_dimension") is True
+        and hole.get("expected_type") == "hole_callout"
+        and "3.3" in str(hole.get("reference_value") or hole.get("source_text") or "")
+        and hole.get("forbid_note_substitution_for_displaydim") is True
+        and "DisplayDim" not in str(hole.get("create_as") or "").split(",")[0],
+        "4-3.3 hole callout is required UI visual evidence and cannot replace DisplayDim",
+        {"callout": hole},
     )
     _add_check(
         checks,
@@ -539,7 +557,11 @@ def _callout_summary(plan: dict[str, Any]) -> dict[str, Any]:
     return {
         "count": len(callouts),
         "keys": sorted(callouts),
-        "required_callouts_present": {"thread_callout_m4_6h", "surface_finish_rest_3_2"} <= set(callouts),
+        "required_callouts_present": {
+            "thread_callout_m4_6h",
+            "hole_callout_4x3_3",
+            "surface_finish_rest_3_2",
+        } <= set(callouts),
         "absence_checked_callouts": [
             key for key in ["radius_callout", "chamfer_callout"]
             if key in callouts and callouts[key].get("reference_value") is None

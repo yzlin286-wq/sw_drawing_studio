@@ -276,7 +276,7 @@ def _build_packet_fixture(
             next_screenshot_checklist.append({
                 "bucket": "callout_missing",
                 "required": True,
-                "required_callout_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                "required_callout_keys": ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"],
                 "absence_check_keys": ["radius_callout", "chamfer_callout"],
             })
         screenshot_visual_observations = []
@@ -326,7 +326,7 @@ def _build_packet_fixture(
             if key == "callout_missing":
                 item["post_rerun_required_evidence"].append("reference_callout_checklist")
                 if not omit_ui_defect_callout_closure_keys:
-                    item["required_callout_keys"] = ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+                    item["required_callout_keys"] = ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"]
                     item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
             bucket_closure_contract.append(item)
         ui_defect_buckets.write_text(
@@ -343,7 +343,11 @@ def _build_packet_fixture(
                     "missing_bucket_keys": [],
                     "required_next_screenshot_check_buckets": required_next_buckets,
                     "next_screenshot_checklist": next_screenshot_checklist,
-                    "reference_callout_review_required_keys": ["thread_callout_m4_6h", "surface_finish_rest_3_2"],
+                    "reference_callout_review_required_keys": [
+                        "thread_callout_m4_6h",
+                        "hole_callout_4x3_3",
+                        "surface_finish_rest_3_2",
+                    ],
                     "reference_callout_absence_check_keys": ["radius_callout", "chamfer_callout"],
                     "screenshot_visual_observations": screenshot_visual_observations,
                     "bucket_closure_contract": bucket_closure_contract,
