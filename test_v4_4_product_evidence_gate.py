@@ -739,6 +739,32 @@ def _fixture(
         else ["solidworks_unsaved_document_visible"]
         if readiness_unsaved_title_observed
         else ["solidworks_not_running"],
+        "safe_recovery_guidance": {
+            "manual_recovery_required": (not readiness_ready) or readiness_unsaved_title_observed,
+            "automatic_restart_allowed": False,
+            "reason": "manual SolidWorks recovery required"
+            if ((not readiness_ready) or readiness_unsaved_title_observed)
+            else "No manual SolidWorks recovery blocker is present in the readiness report.",
+            "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+            if readiness_unsaved_title_observed
+            else "",
+            "steps": [
+                "In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts."
+            ]
+            if readiness_unsaved_title_observed
+            else [
+                "Start SolidWorks manually and leave it responsive with no unsaved document marker in the title bar."
+            ]
+            if not readiness_ready
+            else [
+                "Rerun this no-COM readiness audit after SolidWorks is responsive."
+            ],
+            "do_not": [
+                "Do not kill or restart SLDWORKS.exe from automation while unsaved work may exist.",
+                "Do not start 007/008/009/015/022 acceptance before 006 passes.",
+                "Do not use API or file creation as a substitute for the Drawing Review UI screenshot judgement.",
+            ],
+        },
     }
     if readiness_sampling_schema:
         readiness_payload["solidworks_process"] = {
@@ -1426,6 +1452,11 @@ def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> 
         assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_ready" not in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_readiness_state_current" not in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_readiness_for_006")
+        assert check["details"]["manual_recovery_required"] is True
+        assert check["details"]["automatic_restart_allowed"] is False
+        assert check["details"]["safe_recovery_steps"][0].startswith("Start SolidWorks manually")
+        assert result["next_required_action"].startswith("Start SolidWorks manually")
 
 
 def test_product_evidence_gate_blocks_old_readiness_without_title_sampling() -> None:
@@ -1450,10 +1481,17 @@ def test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_obs
         assert result["pass"] is False
         assert result["status"] == "blocked_by_solidworks_readiness"
         assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
         assert "solidworks_readiness_title_sampling_guard" in set(result["blocking_issue_keys"])
+        readiness_check = next(item for item in result["checks"] if item["key"] == "solidworks_readiness_for_006")
+        assert readiness_check["details"]["manual_recovery_required"] is True
+        assert readiness_check["details"]["automatic_restart_allowed"] is False
+        assert readiness_check["details"]["solidworks_process"]["unsaved_title_observed"] is True
+        assert readiness_check["details"]["safe_recovery_steps"][0].startswith("In SolidWorks, manually save")
         check = next(item for item in result["checks"] if item["key"] == "solidworks_readiness_title_sampling_guard")
         assert check["details"]["unsaved_title_observed"] is True
         assert any(title.endswith("*]") for title in check["details"]["observed_titles"])
+        assert result["next_required_action"].startswith("Manually save or close")
 
 
 def test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk() -> None:

@@ -65,4 +65,4 @@
 
 ## Next Required Action
 
-Fix the failing product evidence checks before advancing the validation stage.
+Manually save or close the visible unsaved SolidWorks document, rerun the no-COM readiness and Product Evidence Gate diagnostics, then run exactly one locked LB26001-A-04-006 CAD worker only if readiness is green.

@@ -137,7 +137,11 @@ def build_product_evidence_gate(
     issue_schema_validation = _read_json(issue_schema_validation_path)
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
     visual_audit_schema_gap = _read_json(visual_audit_schema_gap_path)
-    readiness_ok = readiness.get("ready_to_start_locked_006_cad") is True and readiness.get("status") == "ready"
+    readiness_ok = (
+        readiness.get("ready_to_start_locked_006_cad") is True
+        and readiness.get("status") == "ready"
+        and not list(readiness.get("blocking_issue_keys") or [])
+    )
     idle_solidworks_prelock_ok = _idle_solidworks_prelock_ok(conflict_report, readiness, rerun_packet)
     strict_stability_ok = (
         stability_gate.get("pass") is True
@@ -244,12 +248,7 @@ def build_product_evidence_gate(
         "solidworks_readiness_for_006",
         readiness_ok,
         "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
-        {
-            "path": str(readiness_path),
-            "status": readiness.get("status"),
-            "ready_to_start_locked_006_cad": readiness.get("ready_to_start_locked_006_cad"),
-            "blocking_issue_keys": readiness.get("blocking_issue_keys") or [],
-        },
+        _readiness_report_summary(readiness_path, readiness),
     )
     readiness_sampling_ok, readiness_sampling_details = _readiness_title_sampling_check(readiness_path, readiness)
     _add_check(
@@ -716,7 +715,7 @@ def build_product_evidence_gate(
             "visual_audit_schema_gap": str(visual_audit_schema_gap_path),
             "final_artifacts": {key: str(path) for key, path in final_artifacts.items()},
         },
-        "next_required_action": _next_required_action(status),
+        "next_required_action": _next_required_action(status, checks),
     }
     if out_json is not None:
         out_json.parent.mkdir(parents=True, exist_ok=True)
@@ -950,6 +949,46 @@ def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, A
             for item in sw_processes
             if str(item.get("main_window_title") or "")
         ],
+    }
+
+
+def _readiness_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    process = payload.get("solidworks_process") if isinstance(payload.get("solidworks_process"), dict) else {}
+    guidance = payload.get("safe_recovery_guidance") if isinstance(payload.get("safe_recovery_guidance"), dict) else {}
+    process_rows = [item for item in process.get("processes") or [] if isinstance(item, dict)]
+    observed_titles: list[str] = []
+    for item in process_rows:
+        title = str(item.get("main_window_title") or "")
+        if title:
+            observed_titles.append(title)
+        for extra_title in item.get("observed_titles") or []:
+            extra_title = str(extra_title or "")
+            if extra_title:
+                observed_titles.append(extra_title)
+    observed_titles = list(dict.fromkeys(observed_titles))
+    return {
+        "path": str(path),
+        "generated_at": payload.get("generated_at"),
+        "status": payload.get("status"),
+        "ready_to_start_locked_006_cad": payload.get("ready_to_start_locked_006_cad"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
+        "manual_recovery_required": guidance.get("manual_recovery_required"),
+        "automatic_restart_allowed": guidance.get("automatic_restart_allowed"),
+        "safe_recovery_reason": guidance.get("reason"),
+        "safe_recovery_steps": guidance.get("steps") or [],
+        "safe_recovery_do_not": guidance.get("do_not") or [],
+        "observed_main_window_title": guidance.get("observed_main_window_title") or process.get("main_window_title"),
+        "solidworks_process": {
+            "process_present": process.get("process_present"),
+            "process_count": process.get("process_count"),
+            "pid": process.get("pid"),
+            "responding": process.get("responding"),
+            "main_window_title": process.get("main_window_title"),
+            "sample_count": process.get("sample_count"),
+            "observation_count": process.get("observation_count"),
+            "unsaved_title_observed": process.get("unsaved_title_observed"),
+            "observed_titles": observed_titles,
+        },
     }
 
 
@@ -3429,7 +3468,10 @@ def _first_int(payload: dict[str, Any], keys: list[str]) -> int:
     return 0
 
 
-def _next_required_action(status: str) -> str:
+def _next_required_action(status: str, checks: list[dict[str, Any]] | None = None) -> str:
+    manual_action = _manual_recovery_next_action(checks or [])
+    if manual_action:
+        return manual_action
     if status == "blocked_by_solidworks_readiness":
         return "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker."
     if status == "blocked_by_006_regeneration_evidence":
@@ -3445,6 +3487,24 @@ def _next_required_action(status: str) -> str:
     if status == "pass":
         return "All product evidence gates passed."
     return "Fix the failing product evidence checks before advancing the validation stage."
+
+
+def _manual_recovery_next_action(checks: list[dict[str, Any]]) -> str:
+    for item in checks:
+        details = item.get("details") if isinstance(item.get("details"), dict) else {}
+        keys = {str(key) for key in details.get("blocking_issue_keys") or []}
+        keys.update(str(key) for key in details.get("finding_keys") or [])
+        if "solidworks_unsaved_document_visible" in keys:
+            return (
+                "Manually save or close the visible unsaved SolidWorks document, rerun the no-COM readiness and "
+                "Product Evidence Gate diagnostics, then run exactly one locked LB26001-A-04-006 CAD worker only "
+                "if readiness is green."
+            )
+        if details.get("manual_recovery_required") is True:
+            steps = [str(step) for step in details.get("safe_recovery_steps") or [] if str(step).strip()]
+            if steps:
+                return steps[0]
+    return ""
 
 
 def _repo_path(value: str) -> Path:

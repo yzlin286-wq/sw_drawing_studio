@@ -15671,3 +15671,49 @@ Remaining issues:
 - A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
 - This change improves top-level evidence clarity, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Product Gate Readiness Manual Recovery Details - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM Product Evidence Gate hardening step. It makes the current manual recovery requirement visible in `solidworks_readiness_for_006.details` and in `next_required_action`.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `readiness_ok` now also requires `blocking_issue_keys` to be empty.
+  - `solidworks_readiness_for_006.details` now includes `manual_recovery_required`, `automatic_restart_allowed`, `safe_recovery_reason`, `safe_recovery_steps`, `safe_recovery_do_not`, and SolidWorks process/title/sample evidence.
+  - `next_required_action` now prefers a concrete manual recovery action when readiness or conflict checks include `solidworks_unsaved_document_visible`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture readiness reports now include `safe_recovery_guidance`.
+  - Tests prove a readiness report with unsaved-title blocker cannot be treated as ready even if `ready_to_start_locked_006_cad=true`.
+  - Tests prove `next_required_action` tells the user to manually save or close the visible unsaved SolidWorks document.
+
+Commands:
+
+```powershell
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=24`, `failed_check_count=14`, and all follow-on actions remain false.
+- Current `next_required_action`:
+  - `Manually save or close the visible unsaved SolidWorks document, rerun the no-COM readiness and Product Evidence Gate diagnostics, then run exactly one locked LB26001-A-04-006 CAD worker only if readiness is green.`
+- Current `solidworks_readiness_for_006.details`:
+  - `manual_recovery_required=true`
+  - `automatic_restart_allowed=false`
+  - `blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+  - `solidworks_process.unsaved_title_observed=true`
+  - `observed_main_window_title=SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]`
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves Product Gate recovery guidance, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
