@@ -89,6 +89,8 @@ def _fixture(
     lock_test_report_pass: bool = True,
     conflict_report_ok: bool = True,
     idle_solidworks_without_lock: bool = False,
+    readiness_sampling_schema: bool = True,
+    readiness_unsaved_title_observed: bool = False,
     reference_plan_complete: bool = True,
     reference_plan_note_substitution: bool = False,
     reference_contract_locked: bool = True,
@@ -227,6 +229,48 @@ def _fixture(
         }
         for item in dimensions
     ]
+    readiness_payload = {
+        "status": "ready" if readiness_ready else "blocked",
+        "ready_to_start_locked_006_cad": readiness_ready,
+        "blocking_issue_keys": []
+        if readiness_ready and not readiness_unsaved_title_observed
+        else ["solidworks_unsaved_document_visible"]
+        if readiness_unsaved_title_observed
+        else ["solidworks_not_running"],
+    }
+    if readiness_sampling_schema:
+        readiness_payload["solidworks_process"] = {
+            "source": "process_probe",
+            "process_present": readiness_ready or readiness_unsaved_title_observed,
+            "process_count": 1 if readiness_ready or readiness_unsaved_title_observed else 0,
+            "processes": [
+                {
+                    "pid": 14144,
+                    "process_name": "SLDWORKS",
+                    "responding": True,
+                    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+                    if readiness_unsaved_title_observed
+                    else "SOLIDWORKS Premium 2025 SP5.0",
+                    "observed_titles": [
+                        "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_shaft.SLDPRT [查看中]]",
+                        "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
+                    ]
+                    if readiness_unsaved_title_observed
+                    else ["SOLIDWORKS Premium 2025 SP5.0"],
+                }
+            ]
+            if readiness_ready or readiness_unsaved_title_observed
+            else [],
+            "pid": 14144 if readiness_ready or readiness_unsaved_title_observed else None,
+            "responding": True if readiness_ready or readiness_unsaved_title_observed else None,
+            "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+            if readiness_unsaved_title_observed
+            else "SOLIDWORKS Premium 2025 SP5.0",
+            "sample_count": 5,
+            "observation_count": 5 if readiness_ready or readiness_unsaved_title_observed else 0,
+            "unsaved_title_observed": readiness_unsaved_title_observed,
+            "probe_errors": [],
+        }
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -306,11 +350,7 @@ def _fixture(
         ),
         "readiness": _write_json(
             root / "readiness.json",
-            {
-                "status": "ready" if readiness_ready else "blocked",
-                "ready_to_start_locked_006_cad": readiness_ready,
-                "blocking_issue_keys": [] if readiness_ready else ["solidworks_not_running"],
-            },
+            readiness_payload,
         ),
         "reference": _write_json(
             root / "reference.json",
@@ -668,6 +708,34 @@ def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> 
         assert "solidworks_readiness_for_006" in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_ready" not in set(result["blocking_issue_keys"])
         assert "lb26001_006_rerun_packet_readiness_state_current" not in set(result["blocking_issue_keys"])
+
+
+def test_product_evidence_gate_blocks_old_readiness_without_title_sampling() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), readiness_ready=True, readiness_sampling_schema=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_readiness"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "solidworks_readiness_title_sampling_guard" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_readiness_title_sampling_guard")
+        assert "solidworks_process.sample_count>=5" in check["details"]["missing_or_invalid_sampling_fields"]
+        assert "solidworks_process.unsaved_title_observed_false" in check["details"]["missing_or_invalid_sampling_fields"]
+
+
+def test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(Path(tmp), readiness_ready=True, readiness_unsaved_title_observed=True)
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_readiness"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "solidworks_readiness_title_sampling_guard" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "solidworks_readiness_title_sampling_guard")
+        assert check["details"]["unsaved_title_observed"] is True
+        assert any(title.endswith("*]") for title in check["details"]["observed_titles"])
 
 
 def test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk() -> None:
@@ -1169,6 +1237,8 @@ def test_product_evidence_gate_tool_is_file_only() -> None:
 if __name__ == "__main__":
     test_product_evidence_gate_can_pass_complete_fixture()
     test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked()
+    test_product_evidence_gate_blocks_old_readiness_without_title_sampling()
+    test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed()
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_lock_test_report_fails()

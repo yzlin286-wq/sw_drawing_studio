@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 10:09:07",
+  "generated_at": "2026-06-26 10:15:57",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -71,7 +71,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T10:09:00",
+        "generated_at": "2026-06-26T10:15:51",
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
@@ -89,7 +89,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T10:09:00",
+        "generated_at": "2026-06-26T10:15:51",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -104,7 +104,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T10:09:01",
+        "generated_at": "2026-06-26T10:15:51",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -130,6 +130,32 @@
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
           "solidworks_unsaved_document_visible"
+        ]
+      }
+    },
+    {
+      "key": "solidworks_readiness_title_sampling_guard",
+      "status": "fail",
+      "message": "006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.",
+      "details": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
+        "status": "blocked",
+        "ready_to_start_locked_006_cad": false,
+        "blocking_issue_keys": [
+          "solidworks_unsaved_document_visible"
+        ],
+        "sample_count": 5,
+        "observation_count": 5,
+        "unsaved_title_observed": true,
+        "process_present": true,
+        "process_count": 1,
+        "pid": 14144,
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]",
+        "observed_titles": [
+          "SOLIDWORKS Premium 2025 SP5.0 - [装配体6 *]"
+        ],
+        "missing_or_invalid_sampling_fields": [
+          "solidworks_process.unsaved_title_observed_false"
         ]
       }
     },
@@ -490,7 +516,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 911180
+          "size_bytes": 915954
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -702,6 +728,7 @@
     "solidworks_stability_gate_pass",
     "solidworks_conflict_report_ok",
     "solidworks_readiness_for_006",
+    "solidworks_readiness_title_sampling_guard",
     "regeneration_006_fresh_evidence_pass",
     "application_ui_006_acceptance_pass",
     "canonical_006_ui_visual_review_pass",

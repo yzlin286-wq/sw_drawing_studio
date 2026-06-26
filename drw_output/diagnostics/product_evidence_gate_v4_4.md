@@ -27,6 +27,7 @@
 - `pass` `solidworks_lock_test_report_pass`: SolidWorks global-lock test report must pass every lock ownership/conflict check.
 - `fail` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
 - `fail` `solidworks_readiness_for_006`: Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.
+- `fail` `solidworks_readiness_title_sampling_guard`: 006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.
 - `pass` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
 - `pass` `lb26001_006_rerun_packet_readiness_state_current`: 006 rerun packet readiness state must match the current readiness result before real CAD can start.
 - `pass` `lb26001_006_ui_defect_buckets_ready`: 006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.
@@ -47,6 +48,7 @@
 - `solidworks_stability_gate_pass`
 - `solidworks_conflict_report_ok`
 - `solidworks_readiness_for_006`
+- `solidworks_readiness_title_sampling_guard`
 - `regeneration_006_fresh_evidence_pass`
 - `application_ui_006_acceptance_pass`
 - `canonical_006_ui_visual_review_pass`

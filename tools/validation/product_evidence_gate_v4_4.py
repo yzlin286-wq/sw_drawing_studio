@@ -204,6 +204,14 @@ def build_product_evidence_gate(
             "blocking_issue_keys": readiness.get("blocking_issue_keys") or [],
         },
     )
+    readiness_sampling_ok, readiness_sampling_details = _readiness_title_sampling_check(readiness_path, readiness)
+    _add_check(
+        checks,
+        "solidworks_readiness_title_sampling_guard",
+        readiness_sampling_ok,
+        "006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.",
+        readiness_sampling_details,
+    )
     rerun_packet_ready = (
         rerun_packet.get("packet_build_ready") is True
         and rerun_packet.get("base") == BASE
@@ -483,7 +491,10 @@ def build_product_evidence_gate(
             and _check_pass(checks, "solidworks_lock_test_report_pass")
             and _check_pass(checks, "solidworks_conflict_report_ok")
         ),
-        readiness_ok=_check_pass(checks, "solidworks_readiness_for_006"),
+        readiness_ok=(
+            _check_pass(checks, "solidworks_readiness_for_006")
+            and _check_pass(checks, "solidworks_readiness_title_sampling_guard")
+        ),
         reference_ok=_check_pass(checks, "reference_intent_006_proof_pass"),
         reference_plan_ok=(
             _check_pass(checks, "reference_intent_006_plan_complete")
@@ -626,7 +637,10 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         or not _check_pass(checks, "reference_intent_006_contract_locked_worker_only")
     ):
         return "blocked_by_006_reference_intent"
-    if not _check_pass(checks, "solidworks_readiness_for_006"):
+    if (
+        not _check_pass(checks, "solidworks_readiness_for_006")
+        or not _check_pass(checks, "solidworks_readiness_title_sampling_guard")
+    ):
         return "blocked_by_solidworks_readiness"
     if (
         not _check_pass(checks, "lb26001_006_rerun_packet_ready")
@@ -742,6 +756,54 @@ def _conflict_report_summary(path: Path, payload: dict[str, Any]) -> dict[str, A
         "counts": payload.get("counts") or {},
         "lock_reason": payload.get("lock_reason"),
         "fix_suggestion": payload.get("fix_suggestion"),
+    }
+
+
+def _readiness_title_sampling_check(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    process = payload.get("solidworks_process") if isinstance(payload.get("solidworks_process"), dict) else {}
+    sample_count = int(process.get("sample_count") or 0)
+    observation_count = int(process.get("observation_count") or 0)
+    unsaved_title_observed = process.get("unsaved_title_observed")
+    processes = [item for item in process.get("processes") or [] if isinstance(item, dict)]
+    observed_titles: list[str] = []
+    for item in processes:
+        title = str(item.get("main_window_title") or "")
+        if title:
+            observed_titles.append(title)
+        for extra_title in item.get("observed_titles") or []:
+            extra_title = str(extra_title or "")
+            if extra_title:
+                observed_titles.append(extra_title)
+    observed_titles = list(dict.fromkeys(observed_titles))
+    missing_fields = []
+    if sample_count < 5:
+        missing_fields.append("solidworks_process.sample_count>=5")
+    if observation_count < 1 and process.get("process_present") is not False:
+        missing_fields.append("solidworks_process.observation_count>=1")
+    if unsaved_title_observed is not False:
+        missing_fields.append("solidworks_process.unsaved_title_observed_false")
+    ok = (
+        payload.get("status") == "ready"
+        and payload.get("ready_to_start_locked_006_cad") is True
+        and sample_count >= 5
+        and observation_count >= 1
+        and unsaved_title_observed is False
+        and "solidworks_unsaved_document_visible" not in set(payload.get("blocking_issue_keys") or [])
+    )
+    return ok, {
+        "path": str(path),
+        "status": payload.get("status"),
+        "ready_to_start_locked_006_cad": payload.get("ready_to_start_locked_006_cad"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
+        "sample_count": sample_count,
+        "observation_count": observation_count,
+        "unsaved_title_observed": unsaved_title_observed,
+        "process_present": process.get("process_present"),
+        "process_count": process.get("process_count"),
+        "pid": process.get("pid"),
+        "main_window_title": process.get("main_window_title"),
+        "observed_titles": observed_titles,
+        "missing_or_invalid_sampling_fields": missing_fields,
     }
 
 
