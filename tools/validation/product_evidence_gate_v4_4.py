@@ -2242,6 +2242,7 @@ def _visual_audit_repair_plan_contract(
     gap: dict[str, Any],
     raw: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
+    source_artifacts = gap.get("source_artifacts") if isinstance(gap.get("source_artifacts"), dict) else {}
     summary = (
         gap.get("raw_issue_repair_plan_summary")
         if isinstance(gap.get("raw_issue_repair_plan_summary"), dict)
@@ -2251,12 +2252,27 @@ def _visual_audit_repair_plan_contract(
     repair_raw_count = _optional_int(summary.get("raw_noncompliant_issue_count"))
     missing_replacement_count = _optional_int(summary.get("missing_replacement_count"))
     lossy_normalized_issue_count = _optional_int(summary.get("lossy_normalized_issue_count"))
+    raw_generated_at = _parse_generated_at(raw.get("generated_at"))
+    repair_generated_at = _parse_generated_at(summary.get("generated_at"))
     active = gap.get("raw_issue_repair_plan_present") is True or gap.get("raw_issue_repair_plan_ready") is True
     details = {
         "pass": False,
         "active": active,
         "present": gap.get("raw_issue_repair_plan_present"),
         "ready": gap.get("raw_issue_repair_plan_ready"),
+        "source_path": source_artifacts.get("raw_issue_repair_plan", ""),
+        "summary_path": summary.get("path", ""),
+        "summary_exists": summary.get("exists") is True,
+        "source_path_matches_summary": _path_values_match(
+            source_artifacts.get("raw_issue_repair_plan"),
+            _resolve_path(summary.get("path")) or Path(),
+        ),
+        "repair_generated_at": summary.get("generated_at"),
+        "raw_generated_at": raw.get("generated_at"),
+        "generated_at_parse_ok": repair_generated_at is not None and raw_generated_at is not None,
+        "repair_generated_at_not_older_than_raw": bool(
+            repair_generated_at is not None and raw_generated_at is not None and repair_generated_at >= raw_generated_at
+        ),
         "top_level_cannot_replace_raw": gap.get("raw_issue_repair_plan_cannot_replace_raw") is True,
         "summary_pass": summary.get("pass") is True,
         "summary_release_ready_false": summary.get("release_ready") is False,
@@ -2284,6 +2300,10 @@ def _visual_audit_repair_plan_contract(
     mismatch_keys = [
         key
         for key in [
+            "summary_exists",
+            "source_path_matches_summary",
+            "generated_at_parse_ok",
+            "repair_generated_at_not_older_than_raw",
             "top_level_cannot_replace_raw",
             "summary_pass",
             "summary_release_ready_false",
