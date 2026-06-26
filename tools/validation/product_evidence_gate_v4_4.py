@@ -866,8 +866,13 @@ def _idle_solidworks_prelock_ok(
 def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
     dims = [item for item in payload.get("dimensions") or [] if isinstance(item, dict)]
     callouts = [item for item in payload.get("reference_callouts") or [] if isinstance(item, dict)]
+    layout_policy = payload.get("reference_layout_policy") or {}
+    view_plan = payload.get("view_plan") or layout_policy.get("view_plan") or []
+    layout_plan = payload.get("layout_plan") or layout_policy.get("layout_plan") or {}
+    view_items = [item for item in view_plan if isinstance(item, dict)]
     dim_keys = {str(item.get("key") or "") for item in dims}
     callout_keys = {str(item.get("key") or "") for item in callouts}
+    view_slots = {str(item.get("slot") or "") for item in view_items}
     required_dim_keys = {
         "overall_length",
         "overall_width",
@@ -930,6 +935,24 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         for item in dims
         if item.get("generic_autodimension_acceptance_allowed") is not False
     ]
+    required_layout_slots = {"front", "top", "right", "iso"}
+    missing_layout_slots = sorted(required_layout_slots - view_slots)
+    layout_outline_failures = {
+        str(item.get("slot") or f"index_{index}"): [
+            key for key in ["center_norm", "outline_norm", "reference_view_name"]
+            if (
+                (key == "center_norm" and not _valid_norm_pair(item.get(key)))
+                or (key == "outline_norm" and not _valid_norm_box(item.get(key)))
+                or (key == "reference_view_name" and not str(item.get(key) or ""))
+            )
+        ]
+        for index, item in enumerate(view_items)
+    }
+    layout_outline_failures = {key: value for key, value in layout_outline_failures.items() if value}
+    missing_layout_boxes = [
+        key for key in ["notes_box_norm", "titlebar_box_norm"]
+        if not _valid_norm_box(layout_plan.get(key))
+    ]
     details = {
         "path": str(path),
         "schema": payload.get("schema"),
@@ -953,6 +976,15 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "note_substitution_keys": sorted(filter(None, note_substitution_keys)),
         "generic_autodim_allowed_keys": sorted(filter(None, generic_autodim_allowed_keys)),
         "callout_note_substitution_forbidden": _callouts_forbid_displaydim_substitution(callouts),
+        "reference_layout_policy_schema": layout_policy.get("schema"),
+        "required_layout_slots": sorted(required_layout_slots),
+        "reference_layout_slots": sorted(view_slots),
+        "missing_layout_slots": missing_layout_slots,
+        "layout_outline_failures": layout_outline_failures,
+        "missing_layout_boxes": missing_layout_boxes,
+        "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
+        "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
+        "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
     }
     passed = bool(
         payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_plan.v4_4"
@@ -970,6 +1002,13 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and not note_substitution_keys
         and not generic_autodim_allowed_keys
         and details["callout_note_substitution_forbidden"] is True
+        and bool(layout_policy)
+        and not missing_layout_slots
+        and not layout_outline_failures
+        and not missing_layout_boxes
+        and layout_plan.get("projection_view_style_match_required") is True
+        and layout_plan.get("compact_titlebar_fields_required") is True
+        and layout_plan.get("reference_style_notes_required") is True
     )
     return passed, details
 
@@ -1063,6 +1102,25 @@ def _callout_field_missing(item: dict[str, Any], field: str) -> bool:
     if field == "is_manufacturing_dimension":
         return not isinstance(item.get(field), bool)
     return not bool(item.get(field))
+
+
+def _valid_norm_pair(value: Any) -> bool:
+    if not isinstance(value, list) or len(value) < 2:
+        return False
+    try:
+        return all(0.0 <= float(item) <= 1.0 for item in value[:2])
+    except Exception:
+        return False
+
+
+def _valid_norm_box(value: Any) -> bool:
+    if not isinstance(value, list) or len(value) < 4:
+        return False
+    try:
+        x0, y0, x1, y1 = [float(item) for item in value[:4]]
+    except Exception:
+        return False
+    return 0.0 <= x0 < x1 <= 1.0 and 0.0 <= y0 < y1 <= 1.0
 
 
 def _all_lock_checks_pass(value: Any) -> bool:

@@ -116,6 +116,7 @@ def build_reference_intent_proof(
     _check_dimension_contract(checks, plan)
     _check_dimension_values(checks, plan)
     _check_reference_callouts(checks, plan)
+    _check_reference_layout_policy(checks, plan)
     _check_policy(checks, plan)
     _check_execution_contract(checks, contract_path, contract, plan)
 
@@ -140,6 +141,7 @@ def build_reference_intent_proof(
         },
         "dimension_summary": _dimension_summary(plan),
         "callout_summary": _callout_summary(plan),
+        "layout_summary": _layout_summary(plan),
         "checks": checks,
         "blocking_issue_keys": [item["key"] for item in failed],
         "next_required_action": (
@@ -418,6 +420,52 @@ def _check_reference_callouts(checks: list[dict[str, Any]], plan: dict[str, Any]
     )
 
 
+def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
+    layout_policy = plan.get("reference_layout_policy") or {}
+    view_plan = plan.get("view_plan") or layout_policy.get("view_plan") or []
+    layout_plan = plan.get("layout_plan") or layout_policy.get("layout_plan") or {}
+    view_items = [item for item in view_plan if isinstance(item, dict)]
+    slots = {str(item.get("slot") or "") for item in view_items}
+    required_slots = {"front", "top", "right", "iso"}
+    missing_slots = sorted(required_slots - slots)
+    outline_failures: dict[str, list[str]] = {}
+    for item in view_items:
+        slot = str(item.get("slot") or "")
+        missing = []
+        if not _valid_norm_pair(item.get("center_norm")):
+            missing.append("center_norm")
+        if not _valid_norm_box(item.get("outline_norm")):
+            missing.append("outline_norm")
+        if not str(item.get("reference_view_name") or ""):
+            missing.append("reference_view_name")
+        if missing:
+            outline_failures[slot or "<missing_slot>"] = missing
+    missing_layout_boxes = [
+        key for key in ["notes_box_norm", "titlebar_box_norm"]
+        if not _valid_norm_box(layout_plan.get(key))
+    ]
+    _add_check(
+        checks,
+        "reference_layout_policy",
+        bool(layout_policy)
+        and not missing_slots
+        and not outline_failures
+        and not missing_layout_boxes
+        and layout_plan.get("projection_view_style_match_required") is True
+        and layout_plan.get("compact_titlebar_fields_required") is True
+        and layout_plan.get("reference_style_notes_required") is True,
+        "006 reference-intent plan carries reference view outlines plus compact notes/titlebar layout targets",
+        {
+            "missing_slots": missing_slots,
+            "outline_failures": outline_failures,
+            "missing_layout_boxes": missing_layout_boxes,
+            "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
+            "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
+            "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
+        },
+    )
+
+
 def _check_policy(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
     _add_check(
         checks,
@@ -567,6 +615,40 @@ def _callout_summary(plan: dict[str, Any]) -> dict[str, Any]:
             if key in callouts and callouts[key].get("reference_value") is None
         ],
     }
+
+
+def _layout_summary(plan: dict[str, Any]) -> dict[str, Any]:
+    layout_policy = plan.get("reference_layout_policy") or {}
+    view_plan = plan.get("view_plan") or layout_policy.get("view_plan") or []
+    layout_plan = plan.get("layout_plan") or layout_policy.get("layout_plan") or {}
+    return {
+        "schema": layout_policy.get("schema"),
+        "view_slots": [str(item.get("slot") or "") for item in view_plan if isinstance(item, dict)],
+        "notes_box_norm": layout_plan.get("notes_box_norm"),
+        "titlebar_box_norm": layout_plan.get("titlebar_box_norm"),
+        "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
+        "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
+        "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
+    }
+
+
+def _valid_norm_pair(value: Any) -> bool:
+    if not isinstance(value, list) or len(value) < 2:
+        return False
+    try:
+        return all(0.0 <= float(item) <= 1.0 for item in value[:2])
+    except Exception:
+        return False
+
+
+def _valid_norm_box(value: Any) -> bool:
+    if not isinstance(value, list) or len(value) < 4:
+        return False
+    try:
+        x0, y0, x1, y1 = [float(item) for item in value[:4]]
+    except Exception:
+        return False
+    return 0.0 <= x0 < x1 <= 1.0 and 0.0 <= y0 < y1 <= 1.0
 
 
 def _repo_path(value: str) -> Path:

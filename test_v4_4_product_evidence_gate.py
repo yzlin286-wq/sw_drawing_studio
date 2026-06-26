@@ -353,6 +353,61 @@ def _fixture(
         }
         for item in dimensions
     ]
+    view_plan = [
+        {
+            "slot": "front",
+            "required": True,
+            "reference_view_name": "工程图视图1",
+            "center_norm": [0.3704, 0.8074],
+            "outline_norm": [0.1626, 0.772, 0.5781, 0.8429],
+        },
+        {
+            "slot": "right",
+            "required": True,
+            "reference_view_name": "工程图视图2",
+            "center_norm": [0.7259, 0.8074],
+            "outline_norm": [0.7017, 0.772, 0.7502, 0.8429],
+        },
+        {
+            "slot": "top",
+            "required": True,
+            "reference_view_name": "工程图视图3",
+            "center_norm": [0.3704, 0.5948],
+            "outline_norm": [0.1626, 0.5605, 0.5781, 0.629],
+        },
+        {
+            "slot": "iso",
+            "required": True,
+            "reference_view_name": "工程图视图4",
+            "center_norm": [0.8025, 0.478],
+            "outline_norm": [0.7163, 0.3929, 0.8887, 0.5631],
+        },
+    ]
+    layout_plan = {
+        "sheet_size": {"width": 0.297, "height": 0.21},
+        "views": view_plan,
+        "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
+        "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+        "projection_view_style_match_required": True,
+        "compact_titlebar_fields_required": True,
+        "reference_style_notes_required": True,
+    }
+    reference_layout_policy = {
+        "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+        "base": BASE,
+        "view_plan": view_plan,
+        "layout_plan": layout_plan,
+        "ui_defect_repair_layout_targets": {
+            "target_buckets": [
+                "projection_view_style_mismatch",
+                "note_missing_or_wrong",
+                "titlebar_incomplete",
+            ],
+            "notes_box_norm": layout_plan["notes_box_norm"],
+            "titlebar_box_norm": layout_plan["titlebar_box_norm"],
+            "application_ui_screenshot_required": True,
+        },
+    }
     readiness_payload = {
         "status": "ready" if readiness_ready else "blocked",
         "ready_to_start_locked_006_cad": readiness_ready,
@@ -502,6 +557,10 @@ def _fixture(
                 "allow_note_substitution": False,
                 "ui_screenshot_acceptance_required": True,
                 "api_is_supporting_only": True,
+                "reference_layout_policy": reference_layout_policy,
+                "view_plan": view_plan,
+                "layout_plan": layout_plan,
+                "ui_defect_repair_layout_targets": reference_layout_policy["ui_defect_repair_layout_targets"],
                 "dimensions": dimensions,
                 "reference_callouts": [
                     {

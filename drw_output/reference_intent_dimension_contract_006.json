@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 16:06:01",
+  "generated_at": "2026-06-26 16:25:44",
   "base": "LB26001-A-04-006",
   "drawing_path": "",
   "run_dir": "",
@@ -141,6 +141,568 @@
       }
     }
   ],
+  "reference_layout_policy": {
+    "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+    "base": "LB26001-A-04-006",
+    "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+    "source_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json",
+    "view_plan": [
+      {
+        "slot": "front",
+        "required": true,
+        "reference_view_name": "工程图视图1",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.3704,
+          0.8074
+        ],
+        "size_norm": [
+          0.4155,
+          0.071
+        ],
+        "outline_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "box_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "top",
+        "required": true,
+        "reference_view_name": "工程图视图3",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.3704,
+          0.5948
+        ],
+        "size_norm": [
+          0.4155,
+          0.0686
+        ],
+        "outline_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "box_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "right",
+        "required": true,
+        "reference_view_name": "工程图视图2",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.7259,
+          0.8074
+        ],
+        "size_norm": [
+          0.0485,
+          0.071
+        ],
+        "outline_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "box_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "iso",
+        "required": true,
+        "reference_view_name": "工程图视图4",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.8025,
+          0.478
+        ],
+        "size_norm": [
+          0.1723,
+          0.1702
+        ],
+        "outline_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "box_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      }
+    ],
+    "layout_plan": {
+      "source": "reference_intent_dimension_plan_006.reference_layout_policy",
+      "sheet_size": {
+        "width": 0.297,
+        "height": 0.21
+      },
+      "views": [
+        {
+          "slot": "front",
+          "required": true,
+          "reference_view_name": "工程图视图1",
+          "sw_view_type": "7",
+          "expected_create_method": "named_or_standard",
+          "center_norm": [
+            0.3704,
+            0.8074
+          ],
+          "size_norm": [
+            0.4155,
+            0.071
+          ],
+          "outline_norm": [
+            0.162626,
+            0.771905,
+            0.578114,
+            0.842857
+          ],
+          "box_norm": [
+            0.162626,
+            0.771905,
+            0.578114,
+            0.842857
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "top",
+          "required": true,
+          "reference_view_name": "工程图视图3",
+          "sw_view_type": "4",
+          "expected_create_method": "projection_api",
+          "center_norm": [
+            0.3704,
+            0.5948
+          ],
+          "size_norm": [
+            0.4155,
+            0.0686
+          ],
+          "outline_norm": [
+            0.162626,
+            0.560476,
+            0.578114,
+            0.629048
+          ],
+          "box_norm": [
+            0.162626,
+            0.560476,
+            0.578114,
+            0.629048
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "right",
+          "required": true,
+          "reference_view_name": "工程图视图2",
+          "sw_view_type": "4",
+          "expected_create_method": "projection_api",
+          "center_norm": [
+            0.7259,
+            0.8074
+          ],
+          "size_norm": [
+            0.0485,
+            0.071
+          ],
+          "outline_norm": [
+            0.701684,
+            0.771905,
+            0.750168,
+            0.842857
+          ],
+          "box_norm": [
+            0.701684,
+            0.771905,
+            0.750168,
+            0.842857
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "iso",
+          "required": true,
+          "reference_view_name": "工程图视图4",
+          "sw_view_type": "7",
+          "expected_create_method": "named_or_standard",
+          "center_norm": [
+            0.8025,
+            0.478
+          ],
+          "size_norm": [
+            0.1723,
+            0.1702
+          ],
+          "outline_norm": [
+            0.71635,
+            0.39289,
+            0.888673,
+            0.563129
+          ],
+          "box_norm": [
+            0.71635,
+            0.39289,
+            0.888673,
+            0.563129
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        }
+      ],
+      "notes_box_norm": [
+        0.58,
+        0.64,
+        0.96,
+        0.82
+      ],
+      "titlebar_box_norm": [
+        0.6,
+        0.02,
+        0.96,
+        0.13
+      ],
+      "projection_view_style_match_required": true,
+      "compact_titlebar_fields_required": true,
+      "reference_style_notes_required": true
+    },
+    "ui_defect_repair_layout_targets": {
+      "source": "application_ui_screenshot_failed_buckets",
+      "target_buckets": [
+        "projection_view_style_mismatch",
+        "note_missing_or_wrong",
+        "titlebar_incomplete"
+      ],
+      "required_view_slots": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "notes_box_norm": [
+        0.58,
+        0.64,
+        0.96,
+        0.82
+      ],
+      "titlebar_box_norm": [
+        0.6,
+        0.02,
+        0.96,
+        0.13
+      ],
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    }
+  },
+  "view_plan": [
+    {
+      "slot": "front",
+      "required": true,
+      "reference_view_name": "工程图视图1",
+      "sw_view_type": "7",
+      "expected_create_method": "named_or_standard",
+      "center_norm": [
+        0.3704,
+        0.8074
+      ],
+      "size_norm": [
+        0.4155,
+        0.071
+      ],
+      "outline_norm": [
+        0.162626,
+        0.771905,
+        0.578114,
+        0.842857
+      ],
+      "box_norm": [
+        0.162626,
+        0.771905,
+        0.578114,
+        0.842857
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "top",
+      "required": true,
+      "reference_view_name": "工程图视图3",
+      "sw_view_type": "4",
+      "expected_create_method": "projection_api",
+      "center_norm": [
+        0.3704,
+        0.5948
+      ],
+      "size_norm": [
+        0.4155,
+        0.0686
+      ],
+      "outline_norm": [
+        0.162626,
+        0.560476,
+        0.578114,
+        0.629048
+      ],
+      "box_norm": [
+        0.162626,
+        0.560476,
+        0.578114,
+        0.629048
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "right",
+      "required": true,
+      "reference_view_name": "工程图视图2",
+      "sw_view_type": "4",
+      "expected_create_method": "projection_api",
+      "center_norm": [
+        0.7259,
+        0.8074
+      ],
+      "size_norm": [
+        0.0485,
+        0.071
+      ],
+      "outline_norm": [
+        0.701684,
+        0.771905,
+        0.750168,
+        0.842857
+      ],
+      "box_norm": [
+        0.701684,
+        0.771905,
+        0.750168,
+        0.842857
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "iso",
+      "required": true,
+      "reference_view_name": "工程图视图4",
+      "sw_view_type": "7",
+      "expected_create_method": "named_or_standard",
+      "center_norm": [
+        0.8025,
+        0.478
+      ],
+      "size_norm": [
+        0.1723,
+        0.1702
+      ],
+      "outline_norm": [
+        0.71635,
+        0.39289,
+        0.888673,
+        0.563129
+      ],
+      "box_norm": [
+        0.71635,
+        0.39289,
+        0.888673,
+        0.563129
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    }
+  ],
+  "layout_plan": {
+    "source": "reference_intent_dimension_plan_006.reference_layout_policy",
+    "sheet_size": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "views": [
+      {
+        "slot": "front",
+        "required": true,
+        "reference_view_name": "工程图视图1",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.3704,
+          0.8074
+        ],
+        "size_norm": [
+          0.4155,
+          0.071
+        ],
+        "outline_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "box_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "top",
+        "required": true,
+        "reference_view_name": "工程图视图3",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.3704,
+          0.5948
+        ],
+        "size_norm": [
+          0.4155,
+          0.0686
+        ],
+        "outline_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "box_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "right",
+        "required": true,
+        "reference_view_name": "工程图视图2",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.7259,
+          0.8074
+        ],
+        "size_norm": [
+          0.0485,
+          0.071
+        ],
+        "outline_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "box_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "iso",
+        "required": true,
+        "reference_view_name": "工程图视图4",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.8025,
+          0.478
+        ],
+        "size_norm": [
+          0.1723,
+          0.1702
+        ],
+        "outline_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "box_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      }
+    ],
+    "notes_box_norm": [
+      0.58,
+      0.64,
+      0.96,
+      0.82
+    ],
+    "titlebar_box_norm": [
+      0.6,
+      0.02,
+      0.96,
+      0.13
+    ],
+    "projection_view_style_match_required": true,
+    "compact_titlebar_fields_required": true,
+    "reference_style_notes_required": true
+  },
+  "ui_defect_repair_layout_targets": {
+    "source": "application_ui_screenshot_failed_buckets",
+    "target_buckets": [
+      "projection_view_style_mismatch",
+      "note_missing_or_wrong",
+      "titlebar_incomplete"
+    ],
+    "required_view_slots": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "notes_box_norm": [
+      0.58,
+      0.64,
+      0.96,
+      0.82
+    ],
+    "titlebar_box_norm": [
+      0.6,
+      0.02,
+      0.96,
+      0.13
+    ],
+    "api_or_reference_json_alone_can_close": false,
+    "application_ui_screenshot_required": true
+  },
   "operations": [
     {
       "index": 1,

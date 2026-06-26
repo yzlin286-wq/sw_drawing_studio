@@ -606,11 +606,68 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     with TemporaryDirectory() as tmp:
         plan_path = Path(tmp) / "reference_intent_dimension_plan_006.json"
         ui_defect_path = Path(tmp) / "lb26001_006_ui_defect_buckets_v4_4.json"
+        reference_view_plan = [
+            {
+                "slot": "front",
+                "required": True,
+                "reference_view_name": "工程图视图1",
+                "center_norm": [0.3704, 0.8074],
+                "outline_norm": [0.1626, 0.7720, 0.5781, 0.8429],
+            },
+            {
+                "slot": "top",
+                "required": True,
+                "reference_view_name": "工程图视图3",
+                "center_norm": [0.3704, 0.5948],
+                "outline_norm": [0.1626, 0.5605, 0.5781, 0.6290],
+            },
+            {
+                "slot": "right",
+                "required": True,
+                "reference_view_name": "工程图视图2",
+                "center_norm": [0.7259, 0.8074],
+                "outline_norm": [0.7017, 0.7720, 0.7502, 0.8429],
+            },
+            {
+                "slot": "iso",
+                "required": True,
+                "reference_view_name": "工程图视图4",
+                "center_norm": [0.8025, 0.4780],
+                "outline_norm": [0.7163, 0.3929, 0.8887, 0.5631],
+            },
+        ]
+        reference_layout_plan = {
+            "sheet_size": {"width": 0.297, "height": 0.21},
+            "views": reference_view_plan,
+            "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
+            "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+            "projection_view_style_match_required": True,
+            "compact_titlebar_fields_required": True,
+            "reference_style_notes_required": True,
+        }
         plan_path.write_text(
             json.dumps(
                 {
                     "base": "LB26001-A-04-006",
                     "required_display_dim_count": 12,
+                    "reference_layout_policy": {
+                        "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+                        "base": "LB26001-A-04-006",
+                        "view_plan": reference_view_plan,
+                        "layout_plan": reference_layout_plan,
+                        "ui_defect_repair_layout_targets": {
+                            "target_buckets": [
+                                "projection_view_style_mismatch",
+                                "note_missing_or_wrong",
+                                "titlebar_incomplete",
+                            ],
+                            "notes_box_norm": reference_layout_plan["notes_box_norm"],
+                            "titlebar_box_norm": reference_layout_plan["titlebar_box_norm"],
+                            "application_ui_screenshot_required": True,
+                        },
+                    },
+                    "view_plan": reference_view_plan,
+                    "layout_plan": reference_layout_plan,
                     "dimensions": [
                         {
                             "key": "hole_diameter",
@@ -760,6 +817,17 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     constraints = blueprint["dimension_plan"]["visual_defect_constraints"]
     closure_contract = blueprint["dimension_plan"]["ui_defect_bucket_closure_contract"]
     screenshot_observations = blueprint["dimension_plan"]["ui_defect_screenshot_visual_observations"]
+    assert blueprint["view_plan"][0]["slot"] == "front"
+    assert blueprint["view_plan"][0]["outline_norm"] == [0.1626, 0.7720, 0.5781, 0.8429]
+    assert blueprint["layout_plan"]["views"][1]["slot"] == "top"
+    assert blueprint["layout_plan"]["notes_box_norm"] == [0.58, 0.64, 0.96, 0.82]
+    assert blueprint["layout_plan"]["titlebar_box_norm"] == [0.60, 0.02, 0.96, 0.13]
+    assert blueprint["layout_plan"]["target_outlines_required"] is True
+    assert blueprint["dimension_plan"]["ui_defect_repair_layout_targets"]["target_buckets"] == [
+        "projection_view_style_mismatch",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+    ]
     assert callout_plan["schema"] == "sw_drawing_studio.reference_callout_review_plan.v4_4"
     assert callout_plan["notes_do_not_count_as_display_dim"] is True
     assert callout_plan["application_ui_screenshot_required"] is True
@@ -811,6 +879,8 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert "ui_defect_bucket_reference_callout_review_plan" in blueprint["dimension_plan"]["reasons"]
     assert "ui_defect_bucket_closure_contract" in blueprint["dimension_plan"]["reasons"]
     assert "ui_defect_screenshot_visual_observations" in blueprint["dimension_plan"]["reasons"]
+    assert "reference_intent_layout_policy_attached" in blueprint["dimension_plan"]["reasons"]
+    assert "ui_defect_repair_layout_targets_attached" in blueprint["dimension_plan"]["reasons"]
 
 
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:

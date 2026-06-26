@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_reference_intent_proof.v4_4",
-  "generated_at": "2026-06-26 16:06:12",
+  "generated_at": "2026-06-26 16:26:01",
   "base": "LB26001-A-04-006",
   "status": "plan_proof_pass_requires_locked_cad_run",
   "pass": true,
@@ -53,6 +53,30 @@
       "radius_callout",
       "chamfer_callout"
     ]
+  },
+  "layout_summary": {
+    "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+    "view_slots": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "notes_box_norm": [
+      0.58,
+      0.64,
+      0.96,
+      0.82
+    ],
+    "titlebar_box_norm": [
+      0.6,
+      0.02,
+      0.96,
+      0.13
+    ],
+    "projection_view_style_match_required": true,
+    "compact_titlebar_fields_required": true,
+    "reference_style_notes_required": true
   },
   "checks": [
     {
@@ -303,6 +327,19 @@
             "extraction_method": "manual_visual_absence_check"
           }
         }
+      }
+    },
+    {
+      "key": "reference_layout_policy",
+      "status": "pass",
+      "message": "006 reference-intent plan carries reference view outlines plus compact notes/titlebar layout targets",
+      "details": {
+        "missing_slots": [],
+        "outline_failures": {},
+        "missing_layout_boxes": [],
+        "projection_view_style_match_required": true,
+        "compact_titlebar_fields_required": true,
+        "reference_style_notes_required": true
       }
     },
     {

@@ -12744,6 +12744,54 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 006 Reference Layout Policy Evidence - 2026-06-26
+
+Current result: WARNING / not release-ready.
+
+This slice added offline source and gate evidence only. No CAD, COM, OpenDoc6, SaveAs, CloseDoc, OCR, YOLO, batch validation, Visual Audit batch, automatic restart, or release action was run.
+
+Changes:
+
+- `app/services/reference_intent_dimension_planner.py` now emits a 006-specific `reference_layout_policy` plus top-level `view_plan`, `layout_plan`, and `ui_defect_repair_layout_targets`.
+- The policy carries four reference view slots: `front`, `top`, `right`, and `iso`; normalized target outlines; `notes_box_norm=[0.58,0.64,0.96,0.82]`; and `titlebar_box_norm=[0.60,0.02,0.96,0.13]`.
+- The policy explicitly requires projection-view style matching, compact titlebar fields, and reference-style notes. It also states `api_or_reference_json_alone_can_close=false` and `application_ui_screenshot_required=true`.
+- `app/services/reference_intent_dimension_executor.py` now carries the layout policy into the worker execution contract.
+- `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now copies the policy into the CAD blueprint layout plan so the next locked 006 worker run can target the reference layout instead of only the dimension list.
+- `tools/validation/lb26001_006_reference_intent_proof_v4_4.py` and `tools/validation/product_evidence_gate_v4_4.py` now validate the layout policy schema, required slots, target outlines, notes/titlebar boxes, and the screenshot-required defect-repair contract.
+- `test_v3_generator_reference_style_plan.py` and `test_v4_4_product_evidence_gate.py` cover the new layout-policy path.
+
+Refreshed artifacts:
+
+- `drw_output/reference_intent_dimension_plan_006.json`: `status=plan_ready_requires_cad_worker_lock`, schema `sw_drawing_studio.reference_intent_dimension_plan.v4_4`, with the 006 reference layout policy.
+- `drw_output/reference_intent_dimension_contract_006.json`: `status=contract_ready_requires_cad_worker_lock`, `operation_count=12`, and the layout policy carried into the contract.
+- `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.json/.md`: `status=plan_proof_pass_requires_locked_cad_run`, `pass=true`; this is still not drawing acceptance evidence.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json/.md`: `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`.
+- `drw_output/diagnostics/product_evidence_gate_v4_4.json/.md`: `status=blocked_by_solidworks_stability_gate`, `pass=false`; all allowed actions remain false.
+
+Commands:
+
+```powershell
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --plan drw_output\reference_intent_dimension_plan_006.json --contract drw_output\reference_intent_dimension_contract_006.json --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+python -B -m py_compile app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_reference_intent_proof_v4_4.py tools\validation\product_evidence_gate_v4_4.py test_v3_generator_reference_style_plan.py test_v4_4_product_evidence_gate.py
+python -B test_v4_2_reference_intent_dimension_worker.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_4_product_evidence_gate.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- 006 remains not accepted. The next permitted product action is still to clear the SolidWorks readiness/stability blocker, run exactly one locked 006 CAD worker rerun, then perform application Drawing Review UI screenshot judgement. Do not expand to `007/008/009/015/022` until 006 has UI screenshot PASS.
+
 ## v4.4 006 Required Hole Callout Contract Tightening - 2026-06-26
 
 Current judgment:

@@ -945,13 +945,54 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
         reference_slots = intent_plan.get("reference_view_slots")
         if isinstance(reference_slots, dict) and reference_slots:
             dimension_plan["reference_view_slots"] = reference_slots
+        reference_layout_policy = intent_plan.get("reference_layout_policy") or {}
+        if isinstance(reference_layout_policy, dict) and reference_layout_policy:
+            dimension_plan["reference_layout_policy"] = reference_layout_policy
+        plan_view_plan = intent_plan.get("view_plan") or reference_layout_policy.get("view_plan") or []
+        if isinstance(plan_view_plan, list) and plan_view_plan:
+            # reference_intent_layout_policy_attached:
+            # Use same-name reference view outlines as the next 006 CAD
+            # generation target; this feeds the persisted layout solver and
+            # prevents the UI screenshot layout bucket from being reduced to
+            # center-only matching.
+            blueprint_data["view_plan"] = [dict(item) for item in plan_view_plan if isinstance(item, dict)]
+        plan_layout = intent_plan.get("layout_plan") or reference_layout_policy.get("layout_plan") or {}
+        if isinstance(plan_layout, dict) and plan_layout:
+            layout_plan = blueprint_data.setdefault("layout_plan", {})
+            if isinstance(layout_plan, dict):
+                for key in [
+                    "sheet_size",
+                    "views",
+                    "notes_box_norm",
+                    "titlebar_box_norm",
+                    "projection_view_style_match_required",
+                    "compact_titlebar_fields_required",
+                    "reference_style_notes_required",
+                ]:
+                    if key in plan_layout:
+                        layout_plan[key] = plan_layout[key]
+                layout_plan["source"] = "reference_intent_dimension_plan_006.reference_layout_policy"
+                layout_plan["target_outlines_required"] = True
+                layout_plan["api_or_reference_json_alone_can_close"] = False
+        repair_layout_targets = (
+            intent_plan.get("ui_defect_repair_layout_targets")
+            or reference_layout_policy.get("ui_defect_repair_layout_targets")
+            or {}
+        )
+        if isinstance(repair_layout_targets, dict) and repair_layout_targets:
+            dimension_plan["ui_defect_repair_layout_targets"] = repair_layout_targets
         dimension_plan["allow_note_substitution"] = False
         dimension_plan["fallback_policy"] = "need_review_when_real_displaydim_unavailable"
         reasons = list(dimension_plan.get("reasons") or [])
-        for reason in [
+        attach_reasons = [
             "reference_intent_dimension_plan_path_attached",
             "explicit_dimension_targets_replace_generic_autodimension_acceptance",
-        ]:
+        ]
+        if isinstance(reference_layout_policy, dict) and reference_layout_policy:
+            attach_reasons.append("reference_intent_layout_policy_attached")
+        if isinstance(repair_layout_targets, dict) and repair_layout_targets:
+            attach_reasons.append("ui_defect_repair_layout_targets_attached")
+        for reason in attach_reasons:
             if reason not in reasons:
                 reasons.append(reason)
         dimension_plan["reasons"] = reasons

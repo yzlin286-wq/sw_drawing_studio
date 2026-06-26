@@ -51,10 +51,12 @@ def build_reference_intent_dimension_plan(
         dimensions = _lb26001_006_dimensions(source_reference)
         required_count = max(12, reference_display_dim_count, len(dimensions))
         dimension_groups = _lb26001_006_groups()
+        reference_layout_policy = _lb26001_006_reference_layout_policy(profile, view_slots, source_reference)
     else:
         dimensions = _generic_dimensions(base, source_reference)
         required_count = max(reference_display_dim_count, len(dimensions))
         dimension_groups = _generic_groups(dimensions)
+        reference_layout_policy = {}
 
     plan = {
         "schema": SCHEMA,
@@ -68,6 +70,10 @@ def build_reference_intent_dimension_plan(
         "api_is_supporting_only": True,
         "ui_screenshot_acceptance_required": True,
         "reference_view_slots": view_slots,
+        "reference_layout_policy": reference_layout_policy,
+        "view_plan": reference_layout_policy.get("view_plan", []),
+        "layout_plan": reference_layout_policy.get("layout_plan", {}),
+        "ui_defect_repair_layout_targets": reference_layout_policy.get("ui_defect_repair_layout_targets", {}),
         "reference_extraction": _reference_extraction_summary(base, source_reference, reference_display_dim_count),
         "dimension_groups": dimension_groups,
         "dimensions": dimensions,
@@ -623,6 +629,131 @@ def _reference_callouts(base: str, source_reference: str) -> list[dict[str, Any]
             },
             "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
         },
+    ]
+
+
+def _lb26001_006_reference_layout_policy(
+    profile: dict[str, Any],
+    view_slots: dict[str, dict[str, Any]],
+    source_reference: str,
+) -> dict[str, Any]:
+    sheet_size = profile.get("sheet_size") or {"width": 0.297, "height": 0.21}
+    view_plan: list[dict[str, Any]] = []
+    for slot in ["front", "top", "right", "iso"]:
+        slot_data = view_slots.get(slot) or {}
+        position = _position_for_slot(profile.get("view_positions") or [], slot_data)
+        if not position:
+            continue
+        center_norm = _norm_pair(position.get("center_norm"))
+        size_norm = _norm_pair(position.get("size_norm"))
+        outline_norm = _outline_norm(position, sheet_size, center_norm, size_norm)
+        if not center_norm or not outline_norm:
+            continue
+        view_plan.append({
+            "slot": slot,
+            "required": True,
+            "reference_view_name": slot_data.get("reference_view_name") or position.get("name") or "",
+            "sw_view_type": slot_data.get("sw_view_type") or str(position.get("type") or ""),
+            "expected_create_method": slot_data.get("expected_create_method") or "reference_profile",
+            "center_norm": center_norm,
+            "size_norm": size_norm,
+            "outline_norm": outline_norm,
+            "box_norm": outline_norm,
+            "source": "reference_profiles_v4.view_positions",
+        })
+
+    layout_plan = {
+        "source": "reference_intent_dimension_plan_006.reference_layout_policy",
+        "sheet_size": sheet_size,
+        "views": view_plan,
+        "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
+        "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+        "projection_view_style_match_required": True,
+        "compact_titlebar_fields_required": True,
+        "reference_style_notes_required": True,
+    }
+    return {
+        "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source_reference": source_reference,
+        "source_profile": profile.get("source_profile", ""),
+        "view_plan": view_plan,
+        "layout_plan": layout_plan,
+        "ui_defect_repair_layout_targets": {
+            "source": "application_ui_screenshot_failed_buckets",
+            "target_buckets": [
+                "projection_view_style_mismatch",
+                "note_missing_or_wrong",
+                "titlebar_incomplete",
+            ],
+            "required_view_slots": [item["slot"] for item in view_plan],
+            "notes_box_norm": layout_plan["notes_box_norm"],
+            "titlebar_box_norm": layout_plan["titlebar_box_norm"],
+            "api_or_reference_json_alone_can_close": False,
+            "application_ui_screenshot_required": True,
+        },
+    }
+
+
+def _position_for_slot(positions: list[dict[str, Any]], slot_data: dict[str, Any]) -> dict[str, Any]:
+    ref_name = str(slot_data.get("reference_view_name") or "")
+    ref_type = str(slot_data.get("sw_view_type") or "")
+    for item in positions:
+        if not isinstance(item, dict):
+            continue
+        if str(item.get("name") or "") == ref_name and str(item.get("type") or "") == ref_type:
+            return item
+    return {}
+
+
+def _norm_pair(value: Any) -> list[float]:
+    if not isinstance(value, list) or len(value) < 2:
+        return []
+    try:
+        return [round(max(0.0, min(1.0, float(value[0]))), 6), round(max(0.0, min(1.0, float(value[1]))), 6)]
+    except Exception:
+        return []
+
+
+def _outline_norm(
+    position: dict[str, Any],
+    sheet_size: dict[str, Any],
+    center_norm: list[float],
+    size_norm: list[float],
+) -> list[float]:
+    outline_m = position.get("outline_m")
+    try:
+        width = float(sheet_size.get("width") or 0.297)
+        height = float(sheet_size.get("height") or 0.21)
+    except Exception:
+        width, height = 0.297, 0.21
+    if isinstance(outline_m, list) and len(outline_m) >= 4 and width > 0 and height > 0:
+        try:
+            x0 = float(outline_m[0]) / width
+            y0 = float(outline_m[1]) / height
+            x1 = float(outline_m[2]) / width
+            y1 = float(outline_m[3]) / height
+            return _norm_box([x0, y0, x1, y1])
+        except Exception:
+            pass
+    if center_norm and size_norm:
+        cx, cy = center_norm[:2]
+        sx, sy = size_norm[:2]
+        return _norm_box([cx - sx / 2.0, cy - sy / 2.0, cx + sx / 2.0, cy + sy / 2.0])
+    return []
+
+
+def _norm_box(value: list[float]) -> list[float]:
+    x0, y0, x1, y1 = [float(item) for item in value[:4]]
+    if x1 < x0:
+        x0, x1 = x1, x0
+    if y1 < y0:
+        y0, y1 = y1, y0
+    return [
+        round(max(0.0, min(1.0, x0)), 6),
+        round(max(0.0, min(1.0, y0)), 6),
+        round(max(0.0, min(1.0, x1)), 6),
+        round(max(0.0, min(1.0, y1)), 6),
     ]
 
 
