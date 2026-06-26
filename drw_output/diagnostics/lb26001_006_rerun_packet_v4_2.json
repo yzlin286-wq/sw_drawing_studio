@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 09:09:41",
+  "generated_at": "2026-06-26 09:33:16",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1028,6 +1028,16 @@
           {
             "key": "ui_defect_screenshot_visual_observations",
             "signature": "ui_defect_screenshot_visual_observations",
+            "present": true
+          },
+          {
+            "key": "reference_intent_delete_equivalence_dedupe",
+            "signature": "reference_intent_delete_equivalence_dedupe",
+            "present": true
+          },
+          {
+            "key": "reference_intent_delete_equivalence_key",
+            "signature": "reference_intent_delete_equivalence_key",
             "present": true
           }
         ],
@@ -2310,6 +2320,16 @@
         {
           "key": "ui_defect_screenshot_visual_observations",
           "signature": "ui_defect_screenshot_visual_observations",
+          "present": true
+        },
+        {
+          "key": "reference_intent_delete_equivalence_dedupe",
+          "signature": "reference_intent_delete_equivalence_dedupe",
+          "present": true
+        },
+        {
+          "key": "reference_intent_delete_equivalence_key",
+          "signature": "reference_intent_delete_equivalence_key",
           "present": true
         }
       ],

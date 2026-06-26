@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T09:10:32",
+  "generated_at": "2026-06-26T09:33:03",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 338,
   "entrypoint_count": 529,
@@ -2021,7 +2021,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4077,
+      "line": 4190,
       "patterns": [
         "SaveAs"
       ],
@@ -2035,7 +2035,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4294,
+      "line": 4407,
       "patterns": [
         "time.sleep"
       ],
@@ -2049,7 +2049,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4312,
+      "line": 4425,
       "patterns": [
         "CloseDoc"
       ],
@@ -2063,7 +2063,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4316,
+      "line": 4429,
       "patterns": [
         "time.sleep"
       ],
@@ -2077,7 +2077,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4324,
+      "line": 4437,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2091,7 +2091,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4334,
+      "line": 4447,
       "patterns": [
         "time.sleep"
       ],
@@ -2105,7 +2105,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4351,
+      "line": 4464,
       "patterns": [
         "CloseDoc"
       ],
@@ -2119,7 +2119,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4355,
+      "line": 4468,
       "patterns": [
         "time.sleep"
       ],
@@ -2133,7 +2133,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4359,
+      "line": 4472,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2147,7 +2147,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4366,
+      "line": 4479,
       "patterns": [
         "time.sleep"
       ],
@@ -2161,7 +2161,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4423,
+      "line": 4536,
       "patterns": [
         "CloseDoc"
       ],
@@ -2175,7 +2175,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4427,
+      "line": 4540,
       "patterns": [
         "time.sleep"
       ],
@@ -2189,7 +2189,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4431,
+      "line": 4544,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2203,7 +2203,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4440,
+      "line": 4553,
       "patterns": [
         "time.sleep"
       ],
@@ -2217,7 +2217,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4656,
+      "line": 4769,
       "patterns": [
         "GetActiveObject"
       ],
@@ -2231,7 +2231,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4661,
+      "line": 4774,
       "patterns": [
         "Dispatch"
       ],
@@ -2245,7 +2245,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4665,
+      "line": 4778,
       "patterns": [
         "time.sleep"
       ],
@@ -2259,7 +2259,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4685,
+      "line": 4798,
       "patterns": [
         "CloseDoc"
       ],
@@ -2273,7 +2273,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4708,
+      "line": 4821,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2287,7 +2287,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4991,
+      "line": 5104,
       "patterns": [
         "time.sleep"
       ],
@@ -2301,7 +2301,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 5099,
+      "line": 5212,
       "patterns": [
         "OpenDoc6"
       ],
@@ -2315,7 +2315,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6251,
+      "line": 6364,
       "patterns": [
         "AddDimension2"
       ],
@@ -2329,7 +2329,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6976,
+      "line": 7089,
       "patterns": [
         "time.sleep"
       ],
@@ -2343,7 +2343,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7104,
+      "line": 7217,
       "patterns": [
         "time.sleep"
       ],
@@ -2357,7 +2357,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7604,
+      "line": 7717,
       "patterns": [
         "AddDimension2"
       ],
@@ -2371,7 +2371,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7609,
+      "line": 7722,
       "patterns": [
         "AddDimension2"
       ],
@@ -2385,7 +2385,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7711,
+      "line": 7824,
       "patterns": [
         "AddDimension2"
       ],
@@ -2399,7 +2399,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7720,
+      "line": 7833,
       "patterns": [
         "AddDimension2"
       ],
@@ -2413,7 +2413,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7783,
+      "line": 7896,
       "patterns": [
         "AddDimension2"
       ],
@@ -2427,7 +2427,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7865,
+      "line": 7978,
       "patterns": [
         "RunMacro2"
       ],
@@ -2441,7 +2441,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8224,
+      "line": 8337,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -2455,7 +2455,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8229,
+      "line": 8342,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -2469,7 +2469,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8748,
+      "line": 8861,
       "patterns": [
         "SaveAs"
       ],
@@ -2483,7 +2483,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8837,
+      "line": 8950,
       "patterns": [
         "SaveAs"
       ],
@@ -2497,7 +2497,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8971,
+      "line": 9084,
       "patterns": [
         "SaveAs"
       ],
@@ -2511,7 +2511,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9018,
+      "line": 9131,
       "patterns": [
         "SaveAs"
       ],
@@ -2525,7 +2525,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9034,
+      "line": 9147,
       "patterns": [
         "SaveAs"
       ],
@@ -2539,7 +2539,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9040,
+      "line": 9153,
       "patterns": [
         "SaveAs"
       ],
@@ -2553,7 +2553,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9189,
+      "line": 9302,
       "patterns": [
         "SaveAs"
       ],
@@ -2564,132 +2564,6 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9201,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9203,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9228,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9240,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9242,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9256,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9268,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9270,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9312,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
@@ -2703,11 +2577,25 @@
       "requires_global_lock": true,
       "ui_thread_risk": false,
       "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9316,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
       "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9421,
+      "line": 9341,
       "patterns": [
         "SaveAs"
       ],
@@ -2721,7 +2609,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9437,
+      "line": 9353,
       "patterns": [
         "SaveAs"
       ],
@@ -2735,7 +2623,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9439,
+      "line": 9355,
       "patterns": [
         "SaveAs"
       ],
@@ -2749,7 +2637,21 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9504,
+      "line": 9369,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9381,
       "patterns": [
         "SaveAs"
       ],
@@ -2763,7 +2665,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9506,
+      "line": 9383,
       "patterns": [
         "SaveAs"
       ],
@@ -2777,7 +2679,105 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9594,
+      "line": 9425,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9427,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9534,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9550,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9552,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9617,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9619,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9707,
       "patterns": [
         "CloseDoc"
       ],
@@ -2791,7 +2791,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9619,
+      "line": 9732,
       "patterns": [
         "CloseDoc"
       ],
@@ -5323,7 +5323,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4077,
+      "line": 4190,
       "patterns": [
         "SaveAs"
       ],
@@ -5337,7 +5337,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4294,
+      "line": 4407,
       "patterns": [
         "time.sleep"
       ],
@@ -5351,7 +5351,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4312,
+      "line": 4425,
       "patterns": [
         "CloseDoc"
       ],
@@ -5365,7 +5365,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4316,
+      "line": 4429,
       "patterns": [
         "time.sleep"
       ],
@@ -5379,7 +5379,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4324,
+      "line": 4437,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5393,7 +5393,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4334,
+      "line": 4447,
       "patterns": [
         "time.sleep"
       ],
@@ -5407,7 +5407,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4351,
+      "line": 4464,
       "patterns": [
         "CloseDoc"
       ],
@@ -5421,7 +5421,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4355,
+      "line": 4468,
       "patterns": [
         "time.sleep"
       ],
@@ -5435,7 +5435,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4359,
+      "line": 4472,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5449,7 +5449,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4366,
+      "line": 4479,
       "patterns": [
         "time.sleep"
       ],
@@ -5463,7 +5463,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4423,
+      "line": 4536,
       "patterns": [
         "CloseDoc"
       ],
@@ -5477,7 +5477,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4427,
+      "line": 4540,
       "patterns": [
         "time.sleep"
       ],
@@ -5491,7 +5491,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4431,
+      "line": 4544,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5505,7 +5505,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4440,
+      "line": 4553,
       "patterns": [
         "time.sleep"
       ],
@@ -5519,7 +5519,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4656,
+      "line": 4769,
       "patterns": [
         "GetActiveObject"
       ],
@@ -5533,7 +5533,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4661,
+      "line": 4774,
       "patterns": [
         "Dispatch"
       ],
@@ -5547,7 +5547,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4665,
+      "line": 4778,
       "patterns": [
         "time.sleep"
       ],
@@ -5561,7 +5561,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4685,
+      "line": 4798,
       "patterns": [
         "CloseDoc"
       ],
@@ -5575,7 +5575,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4708,
+      "line": 4821,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5589,7 +5589,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 4991,
+      "line": 5104,
       "patterns": [
         "time.sleep"
       ],
@@ -5603,7 +5603,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 5099,
+      "line": 5212,
       "patterns": [
         "OpenDoc6"
       ],
@@ -5617,7 +5617,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6251,
+      "line": 6364,
       "patterns": [
         "AddDimension2"
       ],
@@ -5631,7 +5631,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 6976,
+      "line": 7089,
       "patterns": [
         "time.sleep"
       ],
@@ -5645,7 +5645,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7104,
+      "line": 7217,
       "patterns": [
         "time.sleep"
       ],
@@ -5659,7 +5659,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7604,
+      "line": 7717,
       "patterns": [
         "AddDimension2"
       ],
@@ -5673,7 +5673,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7609,
+      "line": 7722,
       "patterns": [
         "AddDimension2"
       ],
@@ -5687,7 +5687,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7711,
+      "line": 7824,
       "patterns": [
         "AddDimension2"
       ],
@@ -5701,7 +5701,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7720,
+      "line": 7833,
       "patterns": [
         "AddDimension2"
       ],
@@ -5715,7 +5715,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7783,
+      "line": 7896,
       "patterns": [
         "AddDimension2"
       ],
@@ -5729,7 +5729,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 7865,
+      "line": 7978,
       "patterns": [
         "RunMacro2"
       ],
@@ -5743,7 +5743,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8224,
+      "line": 8337,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -5757,7 +5757,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8229,
+      "line": 8342,
       "patterns": [
         "ReplaceViewModel"
       ],
@@ -5771,7 +5771,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8748,
+      "line": 8861,
       "patterns": [
         "SaveAs"
       ],
@@ -5785,7 +5785,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8837,
+      "line": 8950,
       "patterns": [
         "SaveAs"
       ],
@@ -5799,7 +5799,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 8971,
+      "line": 9084,
       "patterns": [
         "SaveAs"
       ],
@@ -5813,7 +5813,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9018,
+      "line": 9131,
       "patterns": [
         "SaveAs"
       ],
@@ -5827,7 +5827,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9034,
+      "line": 9147,
       "patterns": [
         "SaveAs"
       ],
@@ -5841,7 +5841,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9040,
+      "line": 9153,
       "patterns": [
         "SaveAs"
       ],
@@ -5855,7 +5855,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9189,
+      "line": 9302,
       "patterns": [
         "SaveAs"
       ],
@@ -5866,132 +5866,6 @@
       "ui_thread_risk": false,
       "service_direct_risk": false,
       "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9201,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9203,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9228,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9240,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9242,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9256,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9268,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9270,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
-    },
-    {
-      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9312,
-      "patterns": [
-        "SaveAs"
-      ],
-      "guard_status": "legacy_experiment",
-      "scope": "other",
-      "risk_bucket": "solidworks_com_requires_lock",
-      "requires_global_lock": true,
-      "ui_thread_risk": false,
-      "service_direct_risk": false,
-      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
@@ -6005,11 +5879,25 @@
       "requires_global_lock": true,
       "ui_thread_risk": false,
       "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9316,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
       "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9421,
+      "line": 9341,
       "patterns": [
         "SaveAs"
       ],
@@ -6023,7 +5911,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9437,
+      "line": 9353,
       "patterns": [
         "SaveAs"
       ],
@@ -6037,7 +5925,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9439,
+      "line": 9355,
       "patterns": [
         "SaveAs"
       ],
@@ -6051,7 +5939,21 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9504,
+      "line": 9369,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9381,
       "patterns": [
         "SaveAs"
       ],
@@ -6065,7 +5967,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9506,
+      "line": 9383,
       "patterns": [
         "SaveAs"
       ],
@@ -6079,7 +5981,105 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9594,
+      "line": 9425,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9427,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9534,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9550,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9552,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9617,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9619,
+      "patterns": [
+        "SaveAs"
+      ],
+      "guard_status": "legacy_experiment",
+      "scope": "other",
+      "risk_bucket": "solidworks_com_requires_lock",
+      "requires_global_lock": true,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)"
+    },
+    {
+      "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "line": 9707,
       "patterns": [
         "CloseDoc"
       ],
@@ -6093,7 +6093,7 @@
     },
     {
       "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
-      "line": 9619,
+      "line": 9732,
       "patterns": [
         "CloseDoc"
       ],

@@ -12519,3 +12519,56 @@ Remaining issues:
 - SolidWorks is still not running; readiness remains `solidworks_not_running`.
 - 006 still requires exactly one locked CAD worker rerun and application Drawing Review UI screenshot PASS.
 - The new screenshot observations are repair inputs and guard evidence only. They are not drawing acceptance evidence.
+
+## v4.4 006 Reference-Intent Delete-Equivalence Dedupe - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline source fix for the next locked 006-only CAD rerun. It does not accept `LB26001-A-04-006`, does not prove drawing correctness, and does not unlock `007/008/009/015/022`.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, PaddleOCR, batch validation, full Visual Audit, automatic restart, release action, or SolidWorks session mutation was run.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Adds `reference_intent_delete_equivalence_key` and `reference_intent_delete_equivalence_dedupe`.
+  - In strict 006 reference-intent mode, final exact-prune planning now collapses logical wrappers that point at the same reference target/station/position before deciding whether deletion is needed.
+  - Prune evidence now distinguishes enumerated wrapper counts from deduped logical counts through `enumerated_before`, `before`, `enumerated_after`, and `after`.
+  - This targets the latest 006 failure mode where deleting one wrapper can delete the only physical DisplayDim that still proves `hole_x_location`, `overall_length`, or `projection_view_height` in the application UI.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - The 006 rerun packet now requires the generator to expose the delete-equivalence dedupe signatures before offline prerequisites are considered complete.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_2_lb26001_006_displaydim_lifecycle_audit.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_2_lb26001_006_displaydim_lifecycle_audit.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed readiness remains `status=blocked`, `ready=false`, with `blocking_issue_keys=["solidworks_not_running"]`.
+- Refreshed SolidWorks Stability Gate remains `status=pass`, `pass=true`, `release_ready=false`, with `ui_thread_direct_risk_count=0`, `ui_threadpool_worker_count=0`, and `service_direct_risk_count=0`.
+- Refreshed 006 rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate remains `blocked_by_solidworks_readiness`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `expand_007_008_009_015_022_allowed`, `lb26001_36_allowed`, `medium_30_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- SolidWorks is not running, so the next locked 006 CAD rerun is not allowed yet.
+- 006 still requires exactly one locked CAD worker rerun, then application Drawing Review UI screenshot capture and manual visual checklist PASS.
+- API metrics, DisplayDim counts, reference JSON, and rerun packet signatures remain supporting evidence only.

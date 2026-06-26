@@ -157,6 +157,8 @@ GENERATOR_SIGNATURES = {
     "ui_defect_bucket_closure_contract": "ui_defect_bucket_closure_contract",
     "ui_defect_bucket_closure_pass_conditions": "ui_review_bucket_pass_conditions",
     "ui_defect_screenshot_visual_observations": "ui_defect_screenshot_visual_observations",
+    "reference_intent_delete_equivalence_dedupe": "reference_intent_delete_equivalence_dedupe",
+    "reference_intent_delete_equivalence_key": "reference_intent_delete_equivalence_key",
 }
 
 CAD_WORKER_SIGNATURES = {

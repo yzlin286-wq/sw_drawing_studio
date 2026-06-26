@@ -3753,6 +3753,40 @@ def _prune_display_dims_to_cap(
                 counts[key] = counts.get(key, 0) + 1
         return counts
 
+    def _target_delete_equivalence_key(item):
+        # reference_intent_delete_equivalence_key:
+        # In strict 006 UI-closure mode, one physical DisplayDim can still be
+        # surfaced through multiple SolidWorks enumerators after reopen. Deleting
+        # one wrapper can delete the underlying physical dimension, so prune
+        # planning must collapse wrappers that share the same target/station.
+        match = _target_match(item)
+        key = str(match.get("target_key") or "").strip()
+        if not key:
+            return ()
+        slot = str(item.get("_slot") or "").strip().lower()
+        view = str(item.get("view") or "").strip()
+        side = str(match.get("matched_side") or "").strip().lower()
+        expected_type = str(match.get("expected_type") or "").strip().lower()
+        try:
+            station = round(float(match.get("station") or 0.0), 3)
+        except Exception:
+            station = 0.0
+        position = _coerce_sheet_point(item.get("position"))
+        if position is not None:
+            position_key = (round(float(position[0]), 5), round(float(position[1]), 5))
+        else:
+            position_key = ("station", station)
+        return (
+            "reference_intent_target_displaydim",
+            key,
+            slot,
+            view,
+            side,
+            expected_type,
+            station,
+            position_key,
+        )
+
     def _target_item_rank(item):
         intent = item.get("_reference_intent") or {}
         match = _target_match(item)
@@ -3771,6 +3805,67 @@ def _prune_display_dims_to_cap(
         source = str(item.get("source") or "")
         source_bonus = 0 if source == "GetFirstDisplayDimension" else 1
         return (match_score, intent_score, source_bonus, -ordinal)
+
+    def _dedupe_reference_intent_delete_equivalent_items(items):
+        # reference_intent_delete_equivalence_dedupe:
+        # Keep one best logical candidate for each strict target fingerprint so
+        # final exact-prune does not delete a wrapper and accidentally remove the
+        # only physical dimension that proves a target in the application UI.
+        deduped = []
+        seen: dict[tuple, dict] = {}
+        merged_records = []
+        for item in items or []:
+            eq_key = _target_delete_equivalence_key(item)
+            if not eq_key:
+                deduped.append(item)
+                continue
+            existing = seen.get(eq_key)
+            if existing is None:
+                copied = dict(item)
+                copied.setdefault("reference_intent_equivalent_records", [])
+                seen[eq_key] = copied
+                deduped.append(copied)
+                continue
+            record = {
+                "slot": str(item.get("_slot") or ""),
+                "view": str(item.get("view") or ""),
+                "source": str(item.get("source") or ""),
+                "score": (item.get("_reference_intent") or {}).get("score"),
+                "target_key": _target_key(item),
+                "target_match": _target_match(item),
+            }
+            existing.setdefault("reference_intent_equivalent_records", []).append(record)
+            merged_records.append(record)
+            if existing.get("display_dim") is None and item.get("display_dim") is not None:
+                existing["display_dim"] = item.get("display_dim")
+            if existing.get("annotation") is None and item.get("annotation") is not None:
+                existing["annotation"] = item.get("annotation")
+            existing_source = str(existing.get("source") or "")
+            incoming_source = str(item.get("source") or "")
+            if incoming_source and incoming_source not in existing_source.split("+"):
+                existing["source"] = f"{existing_source}+{incoming_source}" if existing_source else incoming_source
+            if _target_item_rank(item) > _target_item_rank(existing):
+                replacement = dict(item)
+                replacement["reference_intent_equivalent_records"] = (
+                    list(existing.get("reference_intent_equivalent_records") or []) + [record]
+                )
+                replacement_source = str(replacement.get("source") or "")
+                for source in existing_source.split("+"):
+                    if source and source not in replacement_source.split("+"):
+                        replacement_source = f"{replacement_source}+{source}" if replacement_source else source
+                replacement["source"] = replacement_source
+                seen[eq_key] = replacement
+                for index, current in enumerate(deduped):
+                    if current is existing:
+                        deduped[index] = replacement
+                        break
+        return deduped, {
+            "enabled": True,
+            "before": len(list(items or [])),
+            "after": len(deduped),
+            "merged_count": max(0, len(list(items or [])) - len(deduped)),
+            "merged_records": merged_records[:50],
+        }
 
     def _best_item_id_by_target(items):
         best: dict[str, dict] = {}
@@ -3897,7 +3992,14 @@ def _prune_display_dims_to_cap(
         floor_i = 0
     before_items = _display_dim_annotations_in_doc(drw_doc)
     quotas = _normalized_quotas()
-    annotated_before = _annotated_items(before_items)
+    annotated_before_raw = _annotated_items(before_items)
+    if strict_reference_intent:
+        annotated_before, equivalence_dedupe = _dedupe_reference_intent_delete_equivalent_items(
+            annotated_before_raw
+        )
+    else:
+        annotated_before = annotated_before_raw
+        equivalence_dedupe = {"enabled": False, "before": len(annotated_before), "after": len(annotated_before), "merged_count": 0}
     target_count_i = len(_target_keys_from_plan())
     effective_cap_i = max(cap_i, floor_i, target_count_i) if strict_reference_intent else cap_i
     target_coverage_before = _coverage_snapshot(annotated_before)
@@ -3907,8 +4009,9 @@ def _prune_display_dims_to_cap(
         "effective_cap": effective_cap_i,
         "dimension_target_count": target_count_i,
         "strict_reference_intent": bool(strict_reference_intent),
-        "before": len(before_items),
-        "after": len(before_items),
+        "enumerated_before": len(before_items),
+        "before": len(annotated_before),
+        "after": len(annotated_before),
         "deleted": 0,
         "attempted": 0,
         "success": True,
@@ -3916,6 +4019,7 @@ def _prune_display_dims_to_cap(
         "slot_quotas": quotas,
         "before_slot_counts": _slot_counts(annotated_before),
         "reference_intent_score_before": _score_summary(annotated_before),
+        "reference_intent_delete_equivalence_dedupe": equivalence_dedupe,
         "best_target_item_ids_present": bool(_best_item_id_by_target(annotated_before)),
         "protected_target_items": [],
         "delete_plan": [],
@@ -3923,7 +4027,7 @@ def _prune_display_dims_to_cap(
         "failed_delete_items": [],
         "target_coverage_before": target_coverage_before,
     }
-    if strict_reference_intent and effective_cap_i > 0 and len(before_items) <= effective_cap_i:
+    if strict_reference_intent and effective_cap_i > 0 and len(annotated_before) <= effective_cap_i:
         result["after_slot_counts"] = result["before_slot_counts"]
         result["reference_intent_score_after"] = result["reference_intent_score_before"]
         result["slot_quota_success"] = not _over_quota_slots(annotated_before, quotas) if quotas else True
@@ -3932,7 +4036,7 @@ def _prune_display_dims_to_cap(
         result["legacy_skip_reason"] = "reference_intent_floor_guard_no_delete"
         result["success"] = True
         return result
-    if cap_i <= 0 or len(before_items) <= effective_cap_i:
+    if cap_i <= 0 or len(annotated_before) <= effective_cap_i:
         result["after_slot_counts"] = result["before_slot_counts"]
         result["reference_intent_score_after"] = result["reference_intent_score_before"]
         result["slot_quota_success"] = not _over_quota_slots(annotated_before, quotas) if quotas else True
@@ -4040,8 +4144,17 @@ def _prune_display_dims_to_cap(
     except Exception:
         pass
     after_items = _display_dim_annotations_in_doc(drw_doc)
-    annotated_after = _annotated_items(after_items)
-    result["after"] = len(after_items)
+    annotated_after_raw = _annotated_items(after_items)
+    if strict_reference_intent:
+        annotated_after, equivalence_dedupe_after = _dedupe_reference_intent_delete_equivalent_items(
+            annotated_after_raw
+        )
+    else:
+        annotated_after = annotated_after_raw
+        equivalence_dedupe_after = {"enabled": False, "before": len(annotated_after), "after": len(annotated_after), "merged_count": 0}
+    result["enumerated_after"] = len(after_items)
+    result["after"] = len(annotated_after)
+    result["reference_intent_delete_equivalence_dedupe_after"] = equivalence_dedupe_after
     result["after_slot_counts"] = _slot_counts(annotated_after)
     result["reference_intent_score_after"] = _score_summary(annotated_after)
     target_coverage_after = _coverage_snapshot(annotated_after)

@@ -1196,6 +1196,102 @@ def test_generator_deduplicates_physical_displaydims_from_multiple_enumerators()
     assert deduped[0]["duplicate_sources"][0]["source"] == "GetFirstDisplayDimension"
 
 
+def test_generator_prune_dedupes_reference_intent_equivalent_wrappers_before_delete() -> None:
+    module = _load_generator()
+
+    class FakeDoc:
+        def ClearSelection2(self, *_args):
+            return True
+
+        def ForceRebuild3(self, *_args):
+            return True
+
+    duplicate_a = object()
+    duplicate_b = object()
+    pitch_ann = object()
+    live_items = [
+        {
+            "annotation": duplicate_a,
+            "slot": "front",
+            "_slot": "front",
+            "view": "front",
+            "source": "GetDisplayDimensions",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.50, 1.012],
+        },
+        {
+            "annotation": duplicate_b,
+            "slot": "front",
+            "_slot": "front",
+            "view": "front",
+            "source": "GetFirstDisplayDimension",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.50, 1.012],
+        },
+        {
+            "annotation": pitch_ann,
+            "slot": "top",
+            "_slot": "top",
+            "view": "top",
+            "source": "GetDisplayDimensions",
+            "view_outline": [0.0, 0.0, 1.0, 1.0],
+            "position": [0.70, 1.012],
+        },
+    ]
+    dimension_plan = {
+        "dimension_intent_groups": [{"key": "overall"}, {"key": "hole_locations"}],
+        "visual_defect_constraints": {
+            "reject_generic_autodim_survivors": True,
+            "compact_local_lanes_required": True,
+        },
+        "dimension_targets": [
+            {
+                "key": "overall_length",
+                "target_view": "front",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "priority": 1,
+            },
+            {
+                "key": "hole_pitch",
+                "target_view": "top",
+                "expected_type": "linear_horizontal",
+                "preferred_side": "above",
+                "priority": 9,
+            },
+        ],
+    }
+    delete_calls = {"count": 0}
+    original_collect = module._display_dim_annotations_in_doc
+    original_delete = module._delete_selected_annotation
+    try:
+        module._display_dim_annotations_in_doc = lambda _doc: list(live_items)
+
+        def fake_delete(_doc):
+            delete_calls["count"] += 1
+            return True, "unit.Delete"
+
+        module._delete_selected_annotation = fake_delete
+        result = module._prune_display_dims_to_cap(
+            FakeDoc(),
+            2,
+            dimension_plan=dimension_plan,
+            reference_dim_floor=2,
+            strict_reference_intent=True,
+        )
+    finally:
+        module._display_dim_annotations_in_doc = original_collect
+        module._delete_selected_annotation = original_delete
+
+    assert result["enumerated_before"] == 3
+    assert result["before"] == 2
+    assert result["deleted"] == 0
+    assert delete_calls["count"] == 0
+    assert result["reference_intent_delete_equivalence_dedupe"]["merged_count"] == 1
+    assert result["skip_reason"] == "reference_intent_effective_cap_guard_no_delete"
+    assert result["success"] is True
+
+
 def test_generator_prioritizes_missing_reference_intent_targets_for_repair() -> None:
     module = _load_generator()
     targets = [
@@ -1890,6 +1986,7 @@ if __name__ == "__main__":
     test_generator_scores_long_thin_display_dims_by_reference_intent()
     test_generator_reports_reference_intent_target_coverage_from_display_dims()
     test_generator_strict_ui_defect_target_match_rejects_weak_autodim_survivors()
+    test_generator_prune_dedupes_reference_intent_equivalent_wrappers_before_delete()
     test_generator_prioritizes_missing_reference_intent_targets_for_repair()
     test_generator_checks_reference_intent_target_coverage_truthfully()
     test_generator_ranks_reference_intent_entities_by_target_type()
