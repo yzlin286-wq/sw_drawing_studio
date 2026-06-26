@@ -76,6 +76,7 @@ def build_reference_intent_dimension_plan(
         "view_plan": reference_layout_policy.get("view_plan", []),
         "layout_plan": reference_layout_policy.get("layout_plan", {}),
         "ui_defect_repair_layout_targets": reference_layout_policy.get("ui_defect_repair_layout_targets", {}),
+        "reference_titlebar_policy": reference_layout_policy.get("reference_titlebar_policy", {}),
         "reference_dimension_lane_policy": reference_dimension_lane_policy,
         "reference_extraction": _reference_extraction_summary(base, source_reference, reference_display_dim_count),
         "dimension_groups": dimension_groups,
@@ -665,15 +666,41 @@ def _lb26001_006_reference_layout_policy(
             "source": "reference_profiles_v4.view_positions",
         })
 
+    reference_titlebar_policy = {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+        "default_template_artifacts_allowed": False,
+        "suppress_default_titlebar_fields": True,
+        "suppress_drawing_no_name_visible_note": True,
+        "render_reference_bottom_notice": True,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
+        "api_or_reference_json_alone_can_close": False,
+        "application_ui_screenshot_required": True,
+    }
+    sheet_template_policy = {
+        "policy": "strip_default_template_artifacts",
+        "skip_builtin_gb_frame_titleblock": True,
+        "default_template_artifacts_allowed": False,
+        "suppress_default_titlebar_fields": True,
+        "source": "application_ui_screenshot_reference",
+        "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
+        "application_ui_screenshot_required": True,
+    }
     layout_plan = {
         "source": "reference_intent_dimension_plan_006.reference_layout_policy",
         "sheet_size": sheet_size,
         "views": view_plan,
         "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
         "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+        "bottom_notice_box_norm": reference_titlebar_policy["bottom_notice_box_norm"],
         "projection_view_style_match_required": True,
         "compact_titlebar_fields_required": True,
         "reference_style_notes_required": True,
+        "sheet_template_policy": sheet_template_policy,
+        "reference_titlebar_policy": reference_titlebar_policy,
     }
     return {
         "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
@@ -682,6 +709,7 @@ def _lb26001_006_reference_layout_policy(
         "source_profile": profile.get("source_profile", ""),
         "view_plan": view_plan,
         "layout_plan": layout_plan,
+        "reference_titlebar_policy": reference_titlebar_policy,
         "ui_defect_repair_layout_targets": {
             "source": "application_ui_screenshot_failed_buckets",
             "target_buckets": [
@@ -692,6 +720,9 @@ def _lb26001_006_reference_layout_policy(
             "required_view_slots": [item["slot"] for item in view_plan],
             "notes_box_norm": layout_plan["notes_box_norm"],
             "titlebar_box_norm": layout_plan["titlebar_box_norm"],
+            "bottom_notice_box_norm": layout_plan["bottom_notice_box_norm"],
+            "suppress_default_titlebar_fields": True,
+            "reference_titlebar_policy": reference_titlebar_policy,
             "api_or_reference_json_alone_can_close": False,
             "application_ui_screenshot_required": True,
         },

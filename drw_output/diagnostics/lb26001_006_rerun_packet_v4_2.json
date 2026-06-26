@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 17:02:08",
+  "generated_at": "2026-06-26 17:18:33",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1037,6 +1037,16 @@
           {
             "key": "ui_defect_compact_titlebar",
             "signature": "ui_defect_bucket_compact_titlebar_fields",
+            "present": true
+          },
+          {
+            "key": "ui_defect_suppress_default_titlebar_fields",
+            "signature": "ui_defect_bucket_suppress_default_titlebar_fields",
+            "present": true
+          },
+          {
+            "key": "ui_defect_reference_titlebar_policy",
+            "signature": "DrawingBlueprint.reference_titlebar_policy",
             "present": true
           },
           {
@@ -2419,6 +2429,16 @@
         {
           "key": "ui_defect_compact_titlebar",
           "signature": "ui_defect_bucket_compact_titlebar_fields",
+          "present": true
+        },
+        {
+          "key": "ui_defect_suppress_default_titlebar_fields",
+          "signature": "ui_defect_bucket_suppress_default_titlebar_fields",
+          "present": true
+        },
+        {
+          "key": "ui_defect_reference_titlebar_policy",
+          "signature": "DrawingBlueprint.reference_titlebar_policy",
           "present": true
         },
         {

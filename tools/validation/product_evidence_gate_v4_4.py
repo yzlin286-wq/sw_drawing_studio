@@ -870,6 +870,13 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
     lane_policy = payload.get("reference_dimension_lane_policy") or {}
     view_plan = payload.get("view_plan") or layout_policy.get("view_plan") or []
     layout_plan = payload.get("layout_plan") or layout_policy.get("layout_plan") or {}
+    titlebar_policy = (
+        payload.get("reference_titlebar_policy")
+        or layout_plan.get("reference_titlebar_policy")
+        or layout_policy.get("reference_titlebar_policy")
+        or {}
+    )
+    sheet_template_policy = layout_plan.get("sheet_template_policy") or {}
     view_items = [item for item in view_plan if isinstance(item, dict)]
     lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
     dim_keys = {str(item.get("key") or "") for item in dims}
@@ -956,6 +963,33 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         key for key in ["notes_box_norm", "titlebar_box_norm"]
         if not _valid_norm_box(layout_plan.get(key))
     ]
+    titlebar_policy_failures = []
+    if titlebar_policy.get("schema") != "sw_drawing_studio.reference_titlebar_policy.v4_4":
+        titlebar_policy_failures.append("schema")
+    for key in [
+        "suppress_default_titlebar_fields",
+        "suppress_drawing_no_name_visible_note",
+        "render_reference_bottom_notice",
+        "application_ui_screenshot_required",
+    ]:
+        if titlebar_policy.get(key) is not True:
+            titlebar_policy_failures.append(key)
+    if titlebar_policy.get("default_template_artifacts_allowed") is not False:
+        titlebar_policy_failures.append("default_template_artifacts_allowed")
+    if titlebar_policy.get("api_or_reference_json_alone_can_close") is not False:
+        titlebar_policy_failures.append("api_or_reference_json_alone_can_close")
+    if not str(titlebar_policy.get("bottom_notice_text") or "").strip():
+        titlebar_policy_failures.append("bottom_notice_text")
+    if not _valid_norm_box(titlebar_policy.get("bottom_notice_box_norm") or layout_plan.get("bottom_notice_box_norm")):
+        titlebar_policy_failures.append("bottom_notice_box_norm")
+    for key, expected in [
+        ("skip_builtin_gb_frame_titleblock", True),
+        ("default_template_artifacts_allowed", False),
+        ("suppress_default_titlebar_fields", True),
+        ("application_ui_screenshot_required", True),
+    ]:
+        if sheet_template_policy.get(key) is not expected:
+            titlebar_policy_failures.append(f"sheet_template_policy.{key}")
     missing_lane_targets = sorted(required_dim_keys - lane_target_keys)
     lane_policy_failures = []
     if lane_policy.get("schema") != "sw_drawing_studio.reference_dimension_lane_policy.v4_4":
@@ -1015,6 +1049,14 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
         "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
         "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
+        "sheet_template_policy": sheet_template_policy,
+        "reference_titlebar_policy_schema": titlebar_policy.get("schema"),
+        "suppress_default_titlebar_fields": titlebar_policy.get("suppress_default_titlebar_fields"),
+        "suppress_drawing_no_name_visible_note": titlebar_policy.get("suppress_drawing_no_name_visible_note"),
+        "render_reference_bottom_notice": titlebar_policy.get("render_reference_bottom_notice"),
+        "bottom_notice_box_norm": titlebar_policy.get("bottom_notice_box_norm")
+        or layout_plan.get("bottom_notice_box_norm"),
+        "titlebar_policy_failures": titlebar_policy_failures,
         "reference_dimension_lane_policy_schema": lane_policy.get("schema"),
         "lane_target_count": len(lane_targets),
         "lane_target_keys": sorted(lane_target_keys),
@@ -1049,6 +1091,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and layout_plan.get("projection_view_style_match_required") is True
         and layout_plan.get("compact_titlebar_fields_required") is True
         and layout_plan.get("reference_style_notes_required") is True
+        and not titlebar_policy_failures
         and bool(lane_policy)
         and not missing_lane_targets
         and not lane_policy_failures

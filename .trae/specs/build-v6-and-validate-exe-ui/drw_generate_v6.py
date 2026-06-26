@@ -968,12 +968,27 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                     "views",
                     "notes_box_norm",
                     "titlebar_box_norm",
+                    "bottom_notice_box_norm",
                     "projection_view_style_match_required",
                     "compact_titlebar_fields_required",
                     "reference_style_notes_required",
+                    "sheet_template_policy",
+                    "reference_titlebar_policy",
                 ]:
                     if key in plan_layout:
                         layout_plan[key] = plan_layout[key]
+                reference_titlebar_policy = (
+                    intent_plan.get("reference_titlebar_policy")
+                    or reference_layout_policy.get("reference_titlebar_policy")
+                    or plan_layout.get("reference_titlebar_policy")
+                    or {}
+                )
+                if isinstance(reference_titlebar_policy, dict) and reference_titlebar_policy:
+                    layout_plan["reference_titlebar_policy"] = reference_titlebar_policy
+                    layout_plan["bottom_notice_box_norm"] = (
+                        reference_titlebar_policy.get("bottom_notice_box_norm")
+                        or layout_plan.get("bottom_notice_box_norm")
+                    )
                 layout_plan["source"] = "reference_intent_dimension_plan_006.reference_layout_policy"
                 layout_plan["target_outlines_required"] = True
                 layout_plan["api_or_reference_json_alone_can_close"] = False
@@ -1586,6 +1601,33 @@ def _v4_blueprint_titlebar_insertions(blueprint_data, src_props=None):
     fields = dict(titlebar.get("fields") or {})
     constraints = (_v4_blueprint_dimension_plan(blueprint_data).get("visual_defect_constraints") or {})
     compact_titlebar = isinstance(constraints, dict) and constraints.get("compact_titlebar_fields_required")
+    reference_titlebar_policy = layout.get("reference_titlebar_policy") or {}
+    sheet_template_policy = layout.get("sheet_template_policy") or {}
+    suppress_default_titlebar_fields = (
+        isinstance(reference_titlebar_policy, dict)
+        and reference_titlebar_policy.get("suppress_default_titlebar_fields") is True
+    ) or (
+        isinstance(sheet_template_policy, dict)
+        and sheet_template_policy.get("suppress_default_titlebar_fields") is True
+    )
+    if suppress_default_titlebar_fields:
+        # ui_defect_bucket_suppress_default_titlebar_fields:
+        # The 006 reference screenshot has no visible default title field
+        # block. Do not add 图号/品名 notes into the lower-right sheet area;
+        # render only the small bottom notice when the reference policy asks
+        # for it.
+        policy = reference_titlebar_policy if isinstance(reference_titlebar_policy, dict) else {}
+        text = _v4_clean_text(policy.get("bottom_notice_text"))
+        if policy.get("render_reference_bottom_notice") is True and text:
+            box = policy.get("bottom_notice_box_norm") or layout.get("bottom_notice_box_norm") or []
+            pos = _v4_sheet_point_from_norm_box(box, (0.095, 0.034), x_pad=0.004, y_pad=0.006)
+            return [{
+                "kind": "reference_titlebar_policy",
+                "text": text,
+                "position_m": pos,
+                "source": "DrawingBlueprint.reference_titlebar_policy",
+            }]
+        return []
     values = {
         "图号": fields.get("drawing_no") or fields.get("图号") or src_props.get("图号") or blueprint_data.get("base") or "",
         "品名": fields.get("name") or fields.get("品名") or src_props.get("品名") or blueprint_data.get("base") or "",

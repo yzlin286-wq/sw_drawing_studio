@@ -1,9 +1,9 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_execution_contract.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 16:48:05",
+  "generated_at": "2026-06-26 17:16:21",
   "base": "LB26001-A-04-006",
-  "drawing_path": "",
+  "drawing_path": "3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "run_dir": "",
   "source_plan_status": "plan_ready_requires_cad_worker_lock",
   "requires_solidworks_lock": true,

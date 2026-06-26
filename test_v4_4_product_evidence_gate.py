@@ -388,15 +388,35 @@ def _fixture(
         "views": view_plan,
         "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
         "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+        "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
         "projection_view_style_match_required": True,
         "compact_titlebar_fields_required": True,
         "reference_style_notes_required": True,
+        "sheet_template_policy": {
+            "policy": "strip_default_template_artifacts",
+            "skip_builtin_gb_frame_titleblock": True,
+            "default_template_artifacts_allowed": False,
+            "suppress_default_titlebar_fields": True,
+            "application_ui_screenshot_required": True,
+        },
+        "reference_titlebar_policy": {
+            "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+            "suppress_default_titlebar_fields": True,
+            "suppress_drawing_no_name_visible_note": True,
+            "render_reference_bottom_notice": True,
+            "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+            "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
+            "default_template_artifacts_allowed": False,
+            "api_or_reference_json_alone_can_close": False,
+            "application_ui_screenshot_required": True,
+        },
     }
     reference_layout_policy = {
         "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
         "base": BASE,
         "view_plan": view_plan,
         "layout_plan": layout_plan,
+        "reference_titlebar_policy": layout_plan["reference_titlebar_policy"],
         "ui_defect_repair_layout_targets": {
             "target_buckets": [
                 "projection_view_style_mismatch",
@@ -405,6 +425,8 @@ def _fixture(
             ],
             "notes_box_norm": layout_plan["notes_box_norm"],
             "titlebar_box_norm": layout_plan["titlebar_box_norm"],
+            "bottom_notice_box_norm": layout_plan["bottom_notice_box_norm"],
+            "suppress_default_titlebar_fields": True,
             "application_ui_screenshot_required": True,
         },
     }

@@ -24,6 +24,12 @@ def test_006_reference_intent_dimension_plan_has_required_contract_fields() -> N
     assert callouts["thread_callout_m4_6h"]["create_as"] != "SolidWorks DisplayDim"
     assert callouts["thread_callout_m4_6h"]["forbid_note_substitution_for_displaydim"] is True
     assert callouts["surface_finish_rest_3_2"]["create_as"] == "manufacturing note/symbol; does not count as DisplayDim"
+    layout_plan = plan["layout_plan"]
+    assert layout_plan["sheet_template_policy"]["skip_builtin_gb_frame_titleblock"] is True
+    assert layout_plan["sheet_template_policy"]["default_template_artifacts_allowed"] is False
+    assert layout_plan["reference_titlebar_policy"]["suppress_default_titlebar_fields"] is True
+    assert layout_plan["reference_titlebar_policy"]["render_reference_bottom_notice"] is True
+    assert plan["reference_titlebar_policy"]["suppress_drawing_no_name_visible_note"] is True
 
     for dimension in plan["dimensions"]:
         assert dimension["source_reference"].endswith("LB26001-A-04-006.SLDDRW")
@@ -40,7 +46,9 @@ def test_006_reference_intent_dimension_plan_has_required_contract_fields() -> N
         assert dimension["prune_protection_policy"]["delete_only_if_target_covered_elsewhere"] is True
 
     targets = {item["key"]: item for item in plan["dimensions"]}
-    assert targets["hole_diameter"]["placement_lane"]["lane_family"] == "outside_right"
+    assert targets["hole_diameter"]["placement_lane"]["lane_family"] == "outside_top"
+    assert plan["reference_dimension_lane_policy"]["top_view_right_callout_lane_allowed_for_displaydim"] is False
+    assert plan["reference_dimension_lane_policy"]["right_side_hole_thread_text_uses_callout_checklist"] is True
     assert targets["hole_pitch"]["placement_lane"]["station"] == 0.70
     assert targets["projection_view_height"]["reading_group"] == "04_small_projected_view"
 

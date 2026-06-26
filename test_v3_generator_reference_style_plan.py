@@ -641,9 +641,28 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
             "views": reference_view_plan,
             "notes_box_norm": [0.58, 0.64, 0.96, 0.82],
             "titlebar_box_norm": [0.60, 0.02, 0.96, 0.13],
+            "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
             "projection_view_style_match_required": True,
             "compact_titlebar_fields_required": True,
             "reference_style_notes_required": True,
+            "sheet_template_policy": {
+                "policy": "strip_default_template_artifacts",
+                "skip_builtin_gb_frame_titleblock": True,
+                "default_template_artifacts_allowed": False,
+                "suppress_default_titlebar_fields": True,
+                "application_ui_screenshot_required": True,
+            },
+            "reference_titlebar_policy": {
+                "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+                "suppress_default_titlebar_fields": True,
+                "suppress_drawing_no_name_visible_note": True,
+                "render_reference_bottom_notice": True,
+                "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+                "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
+                "default_template_artifacts_allowed": False,
+                "api_or_reference_json_alone_can_close": False,
+                "application_ui_screenshot_required": True,
+            },
         }
         reference_lane_policy = {
             "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
@@ -683,6 +702,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                         "base": "LB26001-A-04-006",
                         "view_plan": reference_view_plan,
                         "layout_plan": reference_layout_plan,
+                        "reference_titlebar_policy": reference_layout_plan["reference_titlebar_policy"],
                         "ui_defect_repair_layout_targets": {
                             "target_buckets": [
                                 "projection_view_style_mismatch",
@@ -691,11 +711,14 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                             ],
                             "notes_box_norm": reference_layout_plan["notes_box_norm"],
                             "titlebar_box_norm": reference_layout_plan["titlebar_box_norm"],
+                            "bottom_notice_box_norm": reference_layout_plan["bottom_notice_box_norm"],
+                            "suppress_default_titlebar_fields": True,
                             "application_ui_screenshot_required": True,
                         },
                     },
                     "view_plan": reference_view_plan,
                     "layout_plan": reference_layout_plan,
+                    "reference_titlebar_policy": reference_layout_plan["reference_titlebar_policy"],
                     "reference_dimension_lane_policy": reference_lane_policy,
                     "dimensions": [
                         {
@@ -851,7 +874,10 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert blueprint["layout_plan"]["views"][1]["slot"] == "top"
     assert blueprint["layout_plan"]["notes_box_norm"] == [0.58, 0.64, 0.96, 0.82]
     assert blueprint["layout_plan"]["titlebar_box_norm"] == [0.60, 0.02, 0.96, 0.13]
+    assert blueprint["layout_plan"]["bottom_notice_box_norm"] == [0.30, 0.16, 0.66, 0.24]
     assert blueprint["layout_plan"]["target_outlines_required"] is True
+    assert blueprint["layout_plan"]["sheet_template_policy"]["skip_builtin_gb_frame_titleblock"] is True
+    assert blueprint["layout_plan"]["reference_titlebar_policy"]["suppress_default_titlebar_fields"] is True
     assert blueprint["layout_plan"]["reference_dimension_lane_policy"]["schema"] == (
         "sw_drawing_studio.reference_dimension_lane_policy.v4_4"
     )
@@ -953,6 +979,54 @@ def test_generator_uses_compact_reference_style_notes_for_006_ui_closure() -> No
     assert insertions[0]["text"] == "3.2\n其余"
     assert insertions[0]["source"] == "DrawingBlueprint.notes_plan"
     assert "技术要求" not in insertions[0]["text"]
+
+
+def test_generator_suppresses_default_titlebar_for_006_reference_style() -> None:
+    module = _load_generator()
+    title_policy = {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "suppress_default_titlebar_fields": True,
+        "suppress_drawing_no_name_visible_note": True,
+        "render_reference_bottom_notice": True,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
+    }
+    blueprint = {
+        "base": "LB26001-A-04-006",
+        "layout_plan": {
+            "sheet_size": {"width": 0.297, "height": 0.21},
+            "bottom_notice_box_norm": [0.30, 0.16, 0.66, 0.24],
+            "sheet_template_policy": {
+                "suppress_default_titlebar_fields": True,
+                "default_template_artifacts_allowed": False,
+            },
+            "reference_titlebar_policy": title_policy,
+        },
+        "titlebar_plan": {
+            "fields": {
+                "drawing_no": "LB26001-A-04-006",
+                "name": "LB26001-A-04-006",
+            }
+        },
+        "dimension_plan": {
+            "visual_defect_constraints": {
+                "compact_titlebar_fields_required": True,
+                "api_or_displaydim_metric_alone_can_close": False,
+            }
+        },
+    }
+
+    insertions = module._v4_blueprint_titlebar_insertions(
+        blueprint,
+        {"图号": "LB26001-A-04-006", "品名": "LB26001-A-04-006"},
+    )
+
+    assert len(insertions) == 1
+    assert insertions[0]["kind"] == "reference_titlebar_policy"
+    assert insertions[0]["text"] == "细节尺寸较多，未注尺寸请核对3D图档"
+    assert insertions[0]["source"] == "DrawingBlueprint.reference_titlebar_policy"
+    assert "图号" not in insertions[0]["text"]
+    assert "品名" not in insertions[0]["text"]
 
 
 def test_generator_reference_autodim_and_prune_policy_is_bounded() -> None:
@@ -2373,6 +2447,7 @@ if __name__ == "__main__":
     test_generator_preserves_reference_intent_view_names_and_add_methods()
     test_generator_attaches_reference_callout_review_plan_for_006_ui_closure()
     test_generator_uses_compact_reference_style_notes_for_006_ui_closure()
+    test_generator_suppresses_default_titlebar_for_006_reference_style()
     test_generator_reference_autodim_and_prune_policy_is_bounded()
     test_generator_source_blocks_reference_intent_autodim_after_ui_failure()
     test_generator_scores_long_thin_display_dims_by_reference_intent()
