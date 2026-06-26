@@ -201,6 +201,7 @@ def _fixture(
     visual_audit_schema_gap_check_mismatch: bool = False,
     visual_audit_schema_gap_source_mismatch: bool = False,
     visual_audit_schema_gap_raw_count_mismatch: bool = False,
+    visual_audit_schema_gap_stale_generated_at: bool = False,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
     ui_defect_buckets_ready: bool = True,
@@ -257,6 +258,8 @@ def _fixture(
         if visual_audit_schema_gap_source_mismatch
         else raw_issue_schema_path
     )
+    issue_schema_generated_at = "2026-06-26 10:00:00"
+    gap_generated_at = "2026-06-26 09:59:59" if visual_audit_schema_gap_stale_generated_at else "2026-06-26 10:05:00"
     packet_real_cad_allowed = (
         bool(rerun_packet_build_ready and readiness_ready)
         if rerun_packet_real_cad_allowed_now is None
@@ -921,6 +924,7 @@ def _fixture(
         "issue_schema": _write_json(
             raw_issue_schema_path,
             {
+                "generated_at": issue_schema_generated_at,
                 "status": "pass" if raw_issue_schema_pass else "fail",
                 "pass": raw_issue_schema_pass,
                 "issue_count": 10,
@@ -931,6 +935,7 @@ def _fixture(
         "normalized_issue_schema": _write_json(
             normalized_issue_schema_path,
             {
+                "generated_at": issue_schema_generated_at,
                 "status": "pass" if normalized_issue_schema_pass else "fail",
                 "pass": normalized_issue_schema_pass,
                 "issue_count": 10,
@@ -942,6 +947,7 @@ def _fixture(
             root / "visual_audit_schema_gap_v4_4.json",
             {
                 "schema": "sw_drawing_studio.visual_audit_schema_gap.v4_4",
+                "generated_at": gap_generated_at,
                 "status": "pass" if gap_pass else "raw_issue_schema_noncompliant",
                 "pass": gap_pass,
                 **gap_counter_payload,
@@ -1749,6 +1755,25 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_count
         assert "raw_noncompliant_issue_count_matches" in source_agreement["mismatch_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_older_than_source_reports() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_schema_gap_stale_generated_at=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        source_agreement = check["details"]["visual_audit_schema_gap"]["source_agreement"]
+        assert source_agreement["pass"] is False
+        assert source_agreement["generated_at_parse_ok"] is True
+        assert source_agreement["gap_generated_at_not_older_than_raw"] is False
+        assert source_agreement["gap_generated_at_not_older_than_normalized"] is False
+        assert "gap_generated_at_not_older_than_raw" in source_agreement["mismatch_keys"]
+        assert "gap_generated_at_not_older_than_normalized" in source_agreement["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -1933,6 +1958,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_checks_do_not_match_counters()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report()
+    test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_older_than_source_reports()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()

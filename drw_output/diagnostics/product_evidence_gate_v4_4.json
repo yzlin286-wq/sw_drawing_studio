@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 18:28:48",
+  "generated_at": "2026-06-26 18:33:52",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1011143
+          "size_bytes": 1014484
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1361,10 +1361,16 @@
           },
           "source_agreement": {
             "pass": true,
+            "gap_generated_at": "2026-06-26 18:00:04",
+            "raw_generated_at": "2026-06-26 02:53:25",
+            "normalized_generated_at": "2026-06-26 02:53:25",
             "raw_source_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
             "normalized_source_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
             "raw_expected_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
             "normalized_expected_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+            "generated_at_parse_ok": true,
+            "gap_generated_at_not_older_than_raw": true,
+            "gap_generated_at_not_older_than_normalized": true,
             "raw_source_path_matches": true,
             "normalized_source_path_matches": true,
             "raw_issue_schema_pass_matches": true,

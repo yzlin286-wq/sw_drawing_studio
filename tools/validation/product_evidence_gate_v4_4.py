@@ -2089,13 +2089,32 @@ def _visual_audit_schema_gap_source_agreement(
     normalized_expected_count = _optional_int(normalized.get("noncompliant_issue_count"))
     raw_gap_count = _optional_int(gap.get("raw_noncompliant_issue_count"))
     normalized_gap_count = _optional_int(gap.get("normalized_noncompliant_issue_count"))
+    raw_generated_at = _parse_generated_at(raw.get("generated_at"))
+    normalized_generated_at = _parse_generated_at(normalized.get("generated_at"))
+    gap_generated_at = _parse_generated_at(gap.get("generated_at"))
 
     details = {
         "pass": False,
+        "gap_generated_at": gap.get("generated_at"),
+        "raw_generated_at": raw.get("generated_at"),
+        "normalized_generated_at": normalized.get("generated_at"),
         "raw_source_path": source_artifacts.get("raw_issue_schema_validation", ""),
         "normalized_source_path": source_artifacts.get("normalized_issue_schema_validation", ""),
         "raw_expected_path": str(raw_path),
         "normalized_expected_path": str(normalized_path),
+        "generated_at_parse_ok": bool(
+            gap_generated_at is not None
+            and raw_generated_at is not None
+            and normalized_generated_at is not None
+        ),
+        "gap_generated_at_not_older_than_raw": bool(
+            gap_generated_at is not None and raw_generated_at is not None and gap_generated_at >= raw_generated_at
+        ),
+        "gap_generated_at_not_older_than_normalized": bool(
+            gap_generated_at is not None
+            and normalized_generated_at is not None
+            and gap_generated_at >= normalized_generated_at
+        ),
         "raw_source_path_matches": _path_values_match(source_artifacts.get("raw_issue_schema_validation"), raw_path),
         "normalized_source_path_matches": _path_values_match(
             source_artifacts.get("normalized_issue_schema_validation"),
@@ -2118,6 +2137,9 @@ def _visual_audit_schema_gap_source_agreement(
     mismatch_keys = [
         key
         for key in [
+            "generated_at_parse_ok",
+            "gap_generated_at_not_older_than_raw",
+            "gap_generated_at_not_older_than_normalized",
             "raw_source_path_matches",
             "normalized_source_path_matches",
             "raw_issue_schema_pass_matches",
@@ -2145,6 +2167,18 @@ def _optional_int(value: Any) -> int | None:
         return int(value)
     except (TypeError, ValueError):
         return None
+
+
+def _parse_generated_at(value: Any) -> float | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            return time.mktime(time.strptime(text[:19], fmt))
+        except ValueError:
+            continue
+    return None
 
 
 def _job_runtime_facade_proof(payload: dict[str, Any]) -> bool:
