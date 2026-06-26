@@ -557,6 +557,27 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
     missing_active = sorted(expected_active - set(active_buckets))
     missing_next_check = sorted(expected_all - next_check_buckets)
     missing_checklist = sorted(expected_all - checklist_buckets)
+    reported_missing_next_check_raw = payload.get("missing_next_screenshot_check_buckets")
+    reported_missing_checklist_raw = payload.get("missing_next_screenshot_checklist_buckets")
+    reported_callout_next_check_ok = payload.get("callout_next_check_ok")
+    reported_missing_next_check = (
+        sorted(str(item) for item in reported_missing_next_check_raw if str(item).strip())
+        if isinstance(reported_missing_next_check_raw, list)
+        else None
+    )
+    reported_missing_checklist = (
+        sorted(str(item) for item in reported_missing_checklist_raw if str(item).strip())
+        if isinstance(reported_missing_checklist_raw, list)
+        else None
+    )
+    machine_field_issues: list[str] = []
+    if reported_missing_next_check != missing_next_check:
+        machine_field_issues.append("missing_next_screenshot_check_buckets")
+    if reported_missing_checklist != missing_checklist:
+        machine_field_issues.append("missing_next_screenshot_checklist_buckets")
+    if reported_callout_next_check_ok is not callout_next_check_ok:
+        machine_field_issues.append("callout_next_check_ok")
+    next_screenshot_machine_fields_current = not machine_field_issues
     pass_ = (
         path.exists()
         and payload.get("schema") == "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4"
@@ -571,6 +592,7 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         and not missing_next_check
         and not missing_checklist
         and callout_next_check_ok
+        and next_screenshot_machine_fields_current
         and not missing_closure_contract
         and not incomplete_closure_contracts
         and callout_closure_contract_ok
@@ -594,6 +616,11 @@ def _ui_defect_bucket_status(path: Path) -> dict[str, Any]:
         "required_next_screenshot_check_buckets": sorted(next_check_buckets),
         "missing_next_screenshot_check_buckets": missing_next_check,
         "missing_next_screenshot_checklist_buckets": missing_checklist,
+        "reported_missing_next_screenshot_check_buckets": reported_missing_next_check,
+        "reported_missing_next_screenshot_checklist_buckets": reported_missing_checklist,
+        "reported_callout_next_check_ok": reported_callout_next_check_ok,
+        "next_screenshot_machine_fields_current": next_screenshot_machine_fields_current,
+        "next_screenshot_machine_field_issues": machine_field_issues,
         "required_callout_keys": sorted(REQUIRED_CALLOUT_KEYS),
         "callout_absence_check_keys": sorted(CALLOUT_ABSENCE_CHECK_KEYS),
         "next_screenshot_required_callout_keys": list(callout_check.get("required_callout_keys") or []),

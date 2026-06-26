@@ -182,6 +182,8 @@ def _build_packet_fixture(
     omit_ui_defect_screenshot_observation_bucket: str = "",
     omit_ui_defect_source_artifact: str = "",
     omit_ui_defect_post_rerun_evidence: str = "",
+    omit_ui_defect_machine_summary_fields: bool = False,
+    corrupt_ui_defect_machine_summary_fields: bool = False,
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -318,6 +320,25 @@ def _build_packet_fixture(
                 "required_callout_keys": ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"],
                 "absence_check_keys": ["radius_callout", "chamfer_callout"],
             })
+        expected_all_buckets = set(required_active_buckets + ["callout_missing"])
+        computed_missing_next_buckets = sorted(expected_all_buckets - set(required_next_buckets))
+        computed_missing_checklist_buckets = sorted(
+            expected_all_buckets - {item["bucket"] for item in next_screenshot_checklist}
+        )
+        computed_callout_next_check_ok = not omit_ui_defect_callout_next_check
+        machine_summary_fields = {}
+        if not omit_ui_defect_machine_summary_fields:
+            machine_summary_fields = {
+                "missing_next_screenshot_check_buckets": computed_missing_next_buckets,
+                "missing_next_screenshot_checklist_buckets": computed_missing_checklist_buckets,
+                "callout_next_check_ok": computed_callout_next_check_ok,
+            }
+        if corrupt_ui_defect_machine_summary_fields:
+            machine_summary_fields = {
+                "missing_next_screenshot_check_buckets": ["stale_bucket"],
+                "missing_next_screenshot_checklist_buckets": ["stale_bucket"],
+                "callout_next_check_ok": not computed_callout_next_check_ok,
+            }
         screenshot_visual_observations = []
         for key in required_active_buckets + ["callout_missing"]:
             if key == omit_ui_defect_screenshot_observation_bucket:
@@ -397,6 +418,7 @@ def _build_packet_fixture(
                     "missing_bucket_keys": [],
                     "required_next_screenshot_check_buckets": required_next_buckets,
                     "next_screenshot_checklist": next_screenshot_checklist,
+                    **machine_summary_fields,
                     "reference_callout_review_required_keys": [
                         "thread_callout_m4_6h",
                         "hole_callout_4x3_3",
@@ -978,6 +1000,52 @@ def test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing() -> 
     assert packet["ui_defect_buckets"]["missing_next_screenshot_check_buckets"] == ["callout_missing"]
     assert packet["ui_defect_buckets"]["missing_next_screenshot_checklist_buckets"] == ["callout_missing"]
     assert packet["ui_defect_buckets"]["callout_next_check_ok"] is False
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_machine_summary_fields_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_machine_summary_fields=True,
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_check_buckets"] == []
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_checklist_buckets"] == []
+    assert packet["ui_defect_buckets"]["reported_missing_next_screenshot_check_buckets"] is None
+    assert packet["ui_defect_buckets"]["reported_missing_next_screenshot_checklist_buckets"] is None
+    assert packet["ui_defect_buckets"]["reported_callout_next_check_ok"] is None
+    assert packet["ui_defect_buckets"]["next_screenshot_machine_fields_current"] is False
+    assert packet["ui_defect_buckets"]["next_screenshot_machine_field_issues"] == [
+        "missing_next_screenshot_check_buckets",
+        "missing_next_screenshot_checklist_buckets",
+        "callout_next_check_ok",
+    ]
+
+
+def test_006_rerun_packet_blocks_when_ui_defect_machine_summary_fields_stale() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        corrupt_ui_defect_machine_summary_fields=True,
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_check_buckets"] == []
+    assert packet["ui_defect_buckets"]["missing_next_screenshot_checklist_buckets"] == []
+    assert packet["ui_defect_buckets"]["reported_missing_next_screenshot_check_buckets"] == ["stale_bucket"]
+    assert packet["ui_defect_buckets"]["reported_missing_next_screenshot_checklist_buckets"] == ["stale_bucket"]
+    assert packet["ui_defect_buckets"]["reported_callout_next_check_ok"] is False
+    assert packet["ui_defect_buckets"]["next_screenshot_machine_fields_current"] is False
+    assert packet["ui_defect_buckets"]["next_screenshot_machine_field_issues"] == [
+        "missing_next_screenshot_check_buckets",
+        "missing_next_screenshot_checklist_buckets",
+        "callout_next_check_ok",
+    ]
 
 
 def test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing() -> None:

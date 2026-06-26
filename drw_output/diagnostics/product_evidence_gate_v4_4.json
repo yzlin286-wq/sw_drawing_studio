@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 23:52:26",
+  "generated_at": "2026-06-26 23:59:31",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -360,7 +360,7 @@
         "packet_readiness_ready": false,
         "real_cad_allowed_now": false,
         "expected_packet_status": "blocked_by_solidworks_readiness",
-        "packet_generated_at": "2026-06-26 23:51:54",
+        "packet_generated_at": "2026-06-26 23:59:24",
         "readiness_generated_at": "2026-06-26 23:07:51",
         "generated_at_parse_ok": true,
         "packet_generated_at_not_older_than_readiness": true
@@ -374,7 +374,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 23:51:54",
+        "generated_at": "2026-06-26 23:58:53",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -1374,10 +1374,10 @@
         "acceptance_proof_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_acceptance_proof_v4_2.json",
         "ui_visual_review_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\ui_visual_review.json",
         "ui_defect_buckets_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
-        "requested_status_generated_at": "2026-06-26 23:52:26",
+        "requested_status_generated_at": "2026-06-26 23:59:25",
         "acceptance_proof_generated_at": "2026-06-26 00:54:29",
         "ui_visual_review_generated_at": "2026-06-26 15:40:38",
-        "ui_defect_buckets_generated_at": "2026-06-26 23:51:54",
+        "ui_defect_buckets_generated_at": "2026-06-26 23:58:53",
         "requested_status_status": "blocked_by_006",
         "requested_status_pass": false,
         "acceptance_proof_status": "blocked_by_006",
@@ -1579,9 +1579,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1137737,
-          "mtime_epoch": 1782488768.3648748,
-          "mtime_local": "2026-06-26 23:46:08"
+          "size_bytes": 1138821,
+          "mtime_epoch": 1782489221.9124365,
+          "mtime_local": "2026-06-26 23:53:41"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

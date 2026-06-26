@@ -15825,6 +15825,53 @@ Remaining issues:
 - This change improves requested-ref6 evidence-chain freshness only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
 
+## v4.4 006 UI Defect Machine Summary Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM rerun-packet hardening step. It prevents a 006 UI defect-bucket report from supporting the next locked CAD rerun unless its machine-readable next-screenshot summary fields are present and agree with the packet's own computed bucket/checklist/callout contract.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - `006_ui_defect_buckets_ready` now requires reported `missing_next_screenshot_check_buckets`, `missing_next_screenshot_checklist_buckets`, and `callout_next_check_ok` to exactly match the computed next-screenshot bucket contract.
+  - The rerun packet now records reported values, `next_screenshot_machine_fields_current`, and `next_screenshot_machine_field_issues`.
+- Updated `test_v4_2_lb26001_006_rerun_packet.py`.
+  - Fixture reports now include the normalized machine summary fields.
+  - Added regression coverage for missing machine summary fields and stale/corrupt machine summary fields.
+
+Commands:
+
+```powershell
+python -m py_compile tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_2_lb26001_006_rerun_packet.py
+python test_v4_4_lb26001_006_ui_defect_buckets.py
+python test_v4_4_product_evidence_gate.py
+python tools\validation\lb26001_006_ui_defect_buckets_v4_4.py
+python tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python tools\validation\lb26001_requested_drawings_status_v4_2.py --out drw_output\diagnostics\lb26001_requested_drawings_status_v4_2.json
+python tools\validation\product_evidence_gate_v4_4.py
+```
+
+Results:
+
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `lb26001_006_ui_defect_buckets_v4_4.json` remains `blocked_by_solidworks_readiness`, `pass=false`.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`, and `offline_prerequisite_missing_keys=[]`.
+- Refreshed requested drawings status remains `blocked_by_006`, `pass=false`, `pass_count=0`, `not_pass_count=6`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, and all allowed actions remain false.
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves UI defect-bucket report freshness/contract enforcement only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, staged batch sequence proof, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
 ## v4.4 Ref6 Allowed-Action Requires 006 UI Acceptance - 2026-06-26
 
 Current judgment:
