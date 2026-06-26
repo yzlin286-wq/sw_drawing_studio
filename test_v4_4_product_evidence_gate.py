@@ -295,6 +295,7 @@ def _fixture(
     staged_sequence_completed_through: str = "medium_30",
     staged_sequence_wrong_order: bool = False,
     staged_sequence_api_only: bool = False,
+    staged_sequence_legacy_missing_chronology: bool = False,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -862,6 +863,38 @@ def _fixture(
         for stage in staged_order
         if stage in completed_stages
     ]
+    staged_chronology = {
+        "pass": not staged_sequence_wrong_order,
+        "present_stage_count": len(staged_records),
+        "stage_generated_at": [
+            {
+                "stage": stage,
+                "generated_at": f"2026-06-26 10:{index + 1:02d}:00",
+                "parse_ok": True,
+            }
+            for index, stage in enumerate(staged_order)
+            if stage in completed_stages
+        ],
+        "missing_generated_at_stages": [],
+        "unparsable_generated_at_stages": [],
+        "order_violations": [
+            {
+                "previous_stage": "LB26001_36",
+                "previous_generated_at": "2026-06-26 10:02:00",
+                "stage": "core_12",
+                "generated_at": "2026-06-26 10:01:00",
+            }
+        ]
+        if staged_sequence_wrong_order
+        else [],
+        "require_non_decreasing_required_sequence_timestamps": True,
+    }
+    staged_chronology_fields = {}
+    if not staged_sequence_legacy_missing_chronology:
+        staged_chronology_fields = {
+            "stage_generated_at_sequence_order_pass": not staged_sequence_wrong_order,
+            "stage_generated_at_sequence_order": staged_chronology,
+        }
     if staged_sequence_present:
         _write_json(
             staged_sequence_path,
@@ -877,6 +910,7 @@ def _fixture(
                 "qprocess_worker_required": True,
                 "application_ui_screenshot_is_final_gate": True,
                 "api_only_acceptance_allowed": staged_sequence_api_only,
+                **staged_chronology_fields,
                 "visual_audit_allowed_after_medium_30": staged_sequence_full_pass,
                 "full_129_allowed_after_visual_audit": staged_sequence_full_pass,
                 "blocking_issue_keys": [] if staged_sequence_full_pass else ["staged_sequence_incomplete"],
@@ -2393,6 +2427,24 @@ def test_product_evidence_gate_blocks_visual_audit_when_staged_sequence_order_is
         assert result["allowed_actions"]["full_129_allowed"] is False
         check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
         assert check["details"]["required_sequence_present_in_order"] is False
+        assert check["details"]["stage_generated_at_sequence_order"] is False
+        assert check["details"]["stage_generated_at_sequence_order_pass"] is False
+
+
+def test_product_evidence_gate_blocks_legacy_staged_sequence_without_chronology_contract() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), staged_sequence_legacy_missing_chronology=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["medium_30_allowed"] is False
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
+        assert check["pass"] is False
+        assert check["details"]["stage_generated_at_sequence_order"] is False
+        assert check["details"]["stage_generated_at_sequence_order_pass"] is None
+        assert "stage_generated_at_sequence_order" in check["details"]["mismatch_keys"]
 
 
 def test_product_evidence_gate_blocks_staged_sequence_api_only_proof() -> None:
@@ -3133,6 +3185,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_downstream_batches_when_staged_sequence_missing()
     test_product_evidence_gate_allows_medium30_only_after_staged_sequence_reaches_lb26001_36()
     test_product_evidence_gate_blocks_visual_audit_when_staged_sequence_order_is_wrong()
+    test_product_evidence_gate_blocks_legacy_staged_sequence_without_chronology_contract()
     test_product_evidence_gate_blocks_staged_sequence_api_only_proof()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()

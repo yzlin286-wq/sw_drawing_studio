@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-27 00:05:42",
+  "generated_at": "2026-06-27 00:12:11",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1422,6 +1422,8 @@
           "LB26001_36": 2,
           "medium_30": null
         },
+        "stage_generated_at_sequence_order_pass": false,
+        "stage_generated_at_sequence_order": false,
         "stage_contracts": {
           "024_040": {
             "stage": "024_040",
@@ -1547,6 +1549,7 @@
         "mismatch_keys": [
           "top_level_pass",
           "no_blocking_issue_keys",
+          "stage_generated_at_sequence_order",
           "visual_audit_allowed_after_medium_30",
           "full_129_allowed_after_visual_audit",
           "required_sequence_present_in_order",
@@ -1580,9 +1583,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1142477,
-          "mtime_epoch": 1782489618.5500915,
-          "mtime_local": "2026-06-27 00:00:18"
+          "size_bytes": 1146052,
+          "mtime_epoch": 1782490020.0900626,
+          "mtime_local": "2026-06-27 00:07:00"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

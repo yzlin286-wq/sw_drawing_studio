@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.staged_batch_sequence_gate.v4_4",
-  "generated_at": "2026-06-27 00:05:36",
+  "generated_at": "2026-06-27 00:12:11",
   "status": "pending",
   "pass": false,
   "required_sequence": [

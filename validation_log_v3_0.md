@@ -15954,3 +15954,48 @@ Remaining issues:
 - The required staged sequence is still not proven: `medium_30` is missing, old 024/core/LB summaries lack the current lock/UI-screenshot/API-only contract, `LB26001_36` misses the deliverable target, and the current chronological order is inverted.
 - This change improves staged evidence quality only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, staged batch sequence proof, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Product Gate Requires Staged Chronology Contract - 2026-06-27
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM Product Evidence Gate hardening step. It prevents a legacy staged sequence JSON from unlocking `medium_30`, Visual Audit full scope, `full_129`, or release when the report lacks the v4.4 chronological `generated_at` contract.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `_staged_batch_sequence_contract()` now requires `stage_generated_at_sequence_order_pass=true` and `stage_generated_at_sequence_order.pass=true`.
+  - `sequence_through_lb26001_36_pass` and `sequence_through_medium_30_pass` now depend on that chronology contract through the staged static contract.
+  - Product Gate details now expose `stage_generated_at_sequence_order_pass` and `stage_generated_at_sequence_order`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture staged reports now include the chronology contract by default.
+  - Added a regression proving a legacy staged report with `pass=true` but missing chronology fields is rejected.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py tools\validation\staged_batch_sequence_gate_v4_4.py test_v4_4_staged_batch_sequence_gate.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_4_staged_batch_sequence_gate.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B tools\validation\staged_batch_sequence_gate_v4_4.py --out-json drw_output\diagnostics\staged_batch_sequence_gate_v4_4.json --out-md drw_output\diagnostics\staged_batch_sequence_gate_v4_4.md
+python -B tools\validation\product_evidence_gate_v4_4.py
+```
+
+Results:
+
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_4_staged_batch_sequence_gate.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`.
+- Product Gate staged details now report `stage_generated_at_sequence_order=false`, `stage_generated_at_sequence_order_pass=false`, `sequence_through_lb26001_36_pass=false`, and `sequence_through_medium_30_pass=false`.
+- All allowed actions remain false: locked 006 CAD rerun, 006 UI review, ref6 expansion, `LB26001_36`, `medium_30`, Visual Audit full scope, `full_129`, and release.
+
+Remaining issues:
+
+- The required staged sequence is still not proven: `medium_30` is missing, old 024/core/LB summaries lack the current lock/UI-screenshot/API-only contract, `LB26001_36` misses the deliverable target, and the current chronological order is inverted.
+- This change improves Product Gate enforcement only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, staged batch sequence proof, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

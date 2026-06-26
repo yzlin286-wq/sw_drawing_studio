@@ -1015,6 +1015,10 @@ def _staged_batch_sequence_contract(path: Path, payload: dict[str, Any]) -> tupl
         ),
         "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate") is True,
         "api_only_acceptance_disallowed": payload.get("api_only_acceptance_allowed") is False,
+        "stage_generated_at_sequence_order": (
+            payload.get("stage_generated_at_sequence_order_pass") is True
+            and (payload.get("stage_generated_at_sequence_order") or {}).get("pass") is True
+        ),
         "visual_audit_allowed_after_medium_30": payload.get("visual_audit_allowed_after_medium_30") is True,
         "full_129_allowed_after_visual_audit": payload.get("full_129_allowed_after_visual_audit") is True,
     }
@@ -1028,6 +1032,7 @@ def _staged_batch_sequence_contract(path: Path, payload: dict[str, Any]) -> tupl
             "qprocess_worker_required",
             "application_ui_screenshot_is_final_gate",
             "api_only_acceptance_disallowed",
+            "stage_generated_at_sequence_order",
         ]
     )
     sequence_through_lb26001_36_pass = bool(
@@ -1067,6 +1072,8 @@ def _staged_batch_sequence_contract(path: Path, payload: dict[str, Any]) -> tupl
         "required_sequence": REQUIRED_STAGED_BATCH_SEQUENCE,
         "observed_sequence": ordered_names,
         "positions": positions,
+        "stage_generated_at_sequence_order_pass": payload.get("stage_generated_at_sequence_order_pass"),
+        "stage_generated_at_sequence_order": payload.get("stage_generated_at_sequence_order") or {},
         "stage_contracts": stage_contracts,
         "blocking_issue_keys": blocking_issue_keys,
         "sequence_through_lb26001_36_pass": sequence_through_lb26001_36_pass,
