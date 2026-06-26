@@ -242,6 +242,7 @@ def _fixture(
     requested_pass: bool = True,
     requested_missing_artifact_key: str = "",
     requested_invalid_screenshot_base: str = "",
+    requested_status_stale_generated_at: bool = False,
     final_artifacts: bool = True,
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
@@ -391,6 +392,10 @@ def _fixture(
         else "2026-06-26T10:00:00"
     )
     ui_visual_review_generated_at = "2026-06-26 10:02:00"
+    ui_defect_buckets_generated_at = "2026-06-26 10:02:00"
+    requested_generated_at = (
+        "2026-06-26 10:01:00" if requested_status_stale_generated_at else "2026-06-26 10:03:00"
+    )
     acceptance_generated_at = (
         "2026-06-26 10:01:00"
         if acceptance_proof_stale_generated_at
@@ -1103,6 +1108,7 @@ def _fixture(
             root / "ui_defect_buckets.json",
             {
                 "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
+                "generated_at": ui_defect_buckets_generated_at,
                 "base": BASE,
                 "status": ui_defect_status,
                 "pass": ui_defect_visual_pass,
@@ -1265,6 +1271,7 @@ def _fixture(
             root / "requested.json",
             {
                 "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
+                "generated_at": requested_generated_at,
                 "pass": requested_pass,
                 "status": "pass" if requested_pass else "blocked_by_006",
                 "pass_count": 6 if requested_pass else 0,
@@ -2345,6 +2352,36 @@ def test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_m
         ]
 
 
+def test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_older_than_006_sources() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                requested_pass=True,
+                requested_status_stale_generated_at=True,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert "requested_ref6_ui_status_pass" not in set(result["blocking_issue_keys"])
+        assert "requested_ref6_status_snapshot_current" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_status_snapshot_current")
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["requested_status_generated_at"] == "2026-06-26 10:01:00"
+        assert check["details"]["ui_visual_review_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["ui_defect_buckets_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["requested_generated_at_not_older_than_ui_visual_review"] is False
+        assert check["details"]["requested_generated_at_not_older_than_ui_defect_buckets"] is False
+        assert check["details"]["mismatch_keys"] == [
+            "requested_generated_at_not_older_than_ui_visual_review",
+            "requested_generated_at_not_older_than_ui_defect_buckets",
+        ]
+
+
 def test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), final_artifacts=False))
@@ -2914,6 +2951,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
     test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing()
+    test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_older_than_006_sources()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()

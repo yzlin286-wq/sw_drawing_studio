@@ -455,10 +455,12 @@ def test_requested_drawings_status_surfaces_manual_visual_checklist_missing() ->
     assert first["manual_visual_checklist_pass"] is False
     assert first["manual_visual_checklist_missing_items"] == ["display_dimensions"]
     assert first["application_ui_screenshot_gate_pass"] is False
-    assert first["missing_ui_acceptance_requirements"] == [
+    assert set(first["missing_ui_acceptance_requirements"]) == {
         "manual_visual_checklist",
+        "ui_screenshot_review_no_solidworks_probe",
+        "side_by_side_reference_generated_layout",
         "required_per_drawing_artifacts",
-    ]
+    }
 
 
 def test_requested_drawings_status_surfaces_manual_visual_checklist_failed() -> None:
@@ -540,10 +542,12 @@ def test_requested_drawings_status_surfaces_manual_visual_checklist_failed() -> 
     assert first["manual_visual_checklist_missing_items"] == []
     assert first["manual_visual_checklist_failed_items"] == ["title_block"]
     assert first["manual_visual_checklist_not_passed_items"] == ["title_block"]
-    assert first["missing_ui_acceptance_requirements"] == [
+    assert set(first["missing_ui_acceptance_requirements"]) == {
         "manual_case_pass",
+        "ui_screenshot_review_no_solidworks_probe",
+        "side_by_side_reference_generated_layout",
         "required_per_drawing_artifacts",
-    ]
+    }
 
 
 def test_requested_drawings_status_surfaces_manual_checklist_notes_and_correction() -> None:

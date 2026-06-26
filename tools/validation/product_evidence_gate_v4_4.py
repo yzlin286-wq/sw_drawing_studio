@@ -471,6 +471,21 @@ def build_product_evidence_gate(
         "All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.",
         requested_ref6_details,
     )
+    requested_ref6_snapshot_ok, requested_ref6_snapshot_details = _requested_ref6_status_snapshot_current(
+        requested_status_path,
+        requested_status,
+        ui_visual_review_path,
+        ui_visual_review,
+        ui_defect_buckets_path,
+        ui_defect_buckets,
+    )
+    _add_check(
+        checks,
+        "requested_ref6_status_snapshot_current",
+        requested_ref6_snapshot_ok,
+        "Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.",
+        requested_ref6_snapshot_details,
+    )
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
     exe_ui_robot_result = _read_json(final_artifacts.get("exe_ui_robot_result", Path()))
@@ -709,7 +724,10 @@ def build_product_evidence_gate(
             and _check_pass(checks, "006_evidence_chain_source_agreement")
             and _check_pass(checks, "006_acceptance_proof_ui_review_freshness")
         ),
-        requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
+        requested_ok=(
+            _check_pass(checks, "requested_ref6_ui_status_pass")
+            and _check_pass(checks, "requested_ref6_status_snapshot_current")
+        ),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
         exe_ui_stability_ok=_check_pass(checks, "exe_ui_and_stability_proof_pass"),
         cad_smoke_reference_ok=_check_pass(checks, "cad_smoke_dimension_reference_proof_pass"),
@@ -862,7 +880,10 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         or not _check_pass(checks, "006_acceptance_proof_ui_review_freshness")
     ):
         return "blocked_by_006_application_ui_review"
-    if not _check_pass(checks, "requested_ref6_ui_status_pass"):
+    if (
+        not _check_pass(checks, "requested_ref6_ui_status_pass")
+        or not _check_pass(checks, "requested_ref6_status_snapshot_current")
+    ):
         return "blocked_by_requested_ref6_ui_review"
     if (
         not _check_pass(checks, "final_release_artifacts_present")
@@ -2288,6 +2309,54 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "per_base_summary": per_base_summary,
     }
     return pass_gate, details
+
+
+def _requested_ref6_status_snapshot_current(
+    requested_status_path: Path,
+    requested_status: dict[str, Any],
+    ui_visual_review_path: Path,
+    ui_visual_review: dict[str, Any],
+    ui_defect_buckets_path: Path,
+    ui_defect_buckets: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    requested_generated_at = _parse_generated_at(requested_status.get("generated_at"))
+    ui_visual_review_generated_at = _parse_generated_at(ui_visual_review.get("generated_at"))
+    ui_defect_buckets_generated_at = _parse_generated_at(ui_defect_buckets.get("generated_at"))
+    checks = {
+        "generated_at_parse_ok": bool(
+            requested_generated_at is not None
+            and ui_visual_review_generated_at is not None
+            and ui_defect_buckets_generated_at is not None
+        ),
+        "requested_generated_at_not_older_than_ui_visual_review": bool(
+            requested_generated_at is not None
+            and ui_visual_review_generated_at is not None
+            and requested_generated_at >= ui_visual_review_generated_at
+        ),
+        "requested_generated_at_not_older_than_ui_defect_buckets": bool(
+            requested_generated_at is not None
+            and ui_defect_buckets_generated_at is not None
+            and requested_generated_at >= ui_defect_buckets_generated_at
+        ),
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    details = {
+        "requested_status_path": str(requested_status_path),
+        "ui_visual_review_path": str(ui_visual_review_path),
+        "ui_defect_buckets_path": str(ui_defect_buckets_path),
+        "requested_status_generated_at": requested_status.get("generated_at"),
+        "ui_visual_review_generated_at": ui_visual_review.get("generated_at"),
+        "ui_defect_buckets_generated_at": ui_defect_buckets.get("generated_at"),
+        "requested_status_status": requested_status.get("status"),
+        "requested_status_pass": requested_status.get("pass"),
+        "ui_visual_review_status": ui_visual_review.get("status"),
+        "ui_visual_review_pass": ui_visual_review.get("pass"),
+        "ui_defect_buckets_status": ui_defect_buckets.get("status"),
+        "ui_defect_buckets_pass": ui_defect_buckets.get("pass"),
+        **checks,
+        "mismatch_keys": mismatch_keys,
+    }
+    return bool(not mismatch_keys), details
 
 
 def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
