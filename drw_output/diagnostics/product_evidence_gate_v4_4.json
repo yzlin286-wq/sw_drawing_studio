@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 22:17:46",
+  "generated_at": "2026-06-26 22:32:04",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -52,7 +52,7 @@
       "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
-        "entrypoint_count": 538,
+        "entrypoint_count": 539,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -77,9 +77,9 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T21:19:36",
+        "generated_at": "2026-06-26T22:29:20",
         "status": "pass",
-        "entrypoint_count": 538,
+        "entrypoint_count": 539,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -99,8 +99,8 @@
       "details": {
         "stability_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
         "entrypoint_report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
-        "stability_generated_at": "2026-06-26T21:19:36",
-        "entrypoint_generated_at": "2026-06-26T21:19:36",
+        "stability_generated_at": "2026-06-26T22:29:20",
+        "entrypoint_generated_at": "2026-06-26T22:29:20",
         "generated_at_parse_ok": true,
         "stability_generated_at_not_older_than_entrypoint": true
       }
@@ -113,7 +113,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T21:19:36",
+        "generated_at": "2026-06-26T22:29:20",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -129,8 +129,8 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T21:19:36",
-        "level": "WARNING",
+        "generated_at": "2026-06-26T22:29:20",
+        "level": "FAIL",
         "counts": {
           "solidworks_processes": 1,
           "cad_job_workers": 0,
@@ -140,7 +140,7 @@
           "dialog_guards": 0
         },
         "lock_reason": "no_active_solidworks_lock",
-        "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
+        "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
         "strict_conflict_ok": false,
         "idle_solidworks_prelock_allowed_for_locked_006": false
       }
@@ -293,8 +293,8 @@
         "packet_readiness_ready": false,
         "real_cad_allowed_now": false,
         "expected_packet_status": "blocked_by_solidworks_readiness",
-        "packet_generated_at": "2026-06-26 21:47:22",
-        "readiness_generated_at": "2026-06-26 21:03:10",
+        "packet_generated_at": "2026-06-26 22:29:55",
+        "readiness_generated_at": "2026-06-26 22:29:33",
         "generated_at_parse_ok": true,
         "packet_generated_at_not_older_than_readiness": true
       }
@@ -307,7 +307,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 21:47:12",
+        "generated_at": "2026-06-26 22:29:45",
         "base": "LB26001-A-04-006",
         "status": "blocked_by_solidworks_readiness",
         "pass": false,
@@ -1320,9 +1320,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1110924,
-          "mtime_epoch": 1782483452.3269744,
-          "mtime_local": "2026-06-26 22:17:32"
+          "size_bytes": 1115728,
+          "mtime_epoch": 1782484313.629675,
+          "mtime_local": "2026-06-26 22:31:53"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

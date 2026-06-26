@@ -15561,3 +15561,60 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change prevents stale acceptance-proof reuse, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 SolidWorks Conflict Unsaved-Title Diagnostics - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM stability-gate hardening step. It improves conflict diagnostics so an unsaved SolidWorks title-bar marker is visible in `conflict_report.json`, not only in the 006 readiness report.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/solidworks_conflict_monitor.py`.
+  - Adds `solidworks_unsaved_document_visible` conflict finding when a SLDWORKS title ends with `*` or `*]`.
+  - Enriches SLDWORKS process rows with `Get-Process SLDWORKS` `Responding` and `MainWindowTitle` data by PID after the CIM command-line scan.
+  - Keeps the monitor file/process-state only; it does not call SolidWorks COM or mutate the SolidWorks session.
+- Updated `test_v4_1_solidworks_conflict_monitor.py`.
+  - Proves unsaved-title detection produces `level=FAIL`.
+  - Proves PID-based title enrichment restores a missing SLDWORKS window title.
+  - Writes fixture conflict reports to a temporary directory so tests cannot overwrite real diagnostics.
+
+Commands:
+
+```powershell
+python -B test_v4_1_solidworks_conflict_monitor.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+python -B tools\validation\lb26001_006_regeneration_evidence_gate_v4_4.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-json drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.json --out-md drw_output\diagnostics\lb26001_006_regeneration_evidence_gate_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --readiness drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --ui-defect-buckets drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- `test_v4_1_solidworks_conflict_monitor.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `conflict_report.json` is `level=FAIL`, `status=fail`, `pass=false`.
+- Current conflict findings:
+  - `solidworks_unsaved_document_visible`
+  - `solidworks_running_without_lock`
+- Current SolidWorks process evidence:
+  - `pid=8564`
+  - `responding=true`
+  - `main_window_title=SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]`
+- Refreshed `lb26001_006_regression_readiness_v4_2.json` remains `status=blocked`, `ready_to_start_locked_006_cad=false`, `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed `lb26001_006_rerun_packet_v4_2.json` remains `packet_build_ready=true`, `real_cad_allowed_now=false`, `offline_prerequisite_missing_keys=[]`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=24`, `failed_check_count=14`, and all follow-on actions remain false.
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves stability diagnostics, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

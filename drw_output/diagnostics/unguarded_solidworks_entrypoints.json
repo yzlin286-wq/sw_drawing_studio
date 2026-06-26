@@ -1,12 +1,12 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T21:19:36",
+  "generated_at": "2026-06-26T22:29:20",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scan_root": "C:\\Users\\Vision\\Desktop\\SW 相关",
   "scanned_files": 342,
-  "entrypoint_count": 538,
-  "total_findings": 538,
-  "guarded_count": 141,
+  "entrypoint_count": 539,
+  "total_findings": 539,
+  "guarded_count": 142,
   "unguarded_or_unknown_count": 0,
   "unguarded_count": 0,
   "missing_lock_count": 0,
@@ -10386,7 +10386,7 @@
     },
     {
       "file": "app/services/solidworks_conflict_monitor.py",
-      "line": 232,
+      "line": 247,
       "patterns": [
         "subprocess.run"
       ],
@@ -10400,7 +10400,21 @@
     },
     {
       "file": "app/services/solidworks_conflict_monitor.py",
-      "line": 270,
+      "line": 292,
+      "patterns": [
+        "subprocess.run"
+      ],
+      "guard_status": "guarded",
+      "scope": "service",
+      "risk_bucket": "global_lock_guarded",
+      "requires_global_lock": false,
+      "ui_thread_risk": false,
+      "service_direct_risk": false,
+      "text": "proc = subprocess.run("
+    },
+    {
+      "file": "app/services/solidworks_conflict_monitor.py",
+      "line": 344,
       "patterns": [
         "subprocess.run"
       ],

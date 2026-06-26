@@ -5,7 +5,12 @@ import os
 import tempfile
 from pathlib import Path
 
-from app.services.solidworks_conflict_monitor import ProcessInfo, build_conflict_report, write_conflict_report
+from app.services.solidworks_conflict_monitor import (
+    ProcessInfo,
+    _apply_solidworks_window_state,
+    build_conflict_report,
+    write_conflict_report,
+)
 
 
 def main() -> None:
@@ -59,7 +64,39 @@ def main() -> None:
             assert ok_report["fail_count"] == 0, ok_report
             assert ok_report["warning_count"] == 0, ok_report
 
-            out = Path("drw_output") / "diagnostics" / "conflict_report.json"
+            unsaved_report = build_conflict_report(
+                processes=[
+                    ProcessInfo(
+                        pid=101,
+                        name="SLDWORKS.exe",
+                        responding=True,
+                        main_window_title="SOLIDWORKS Premium 2025 SP5.0 - [fixture.SLDASM *]",
+                    )
+                ],
+                lock=lock_payload,
+            )
+            assert unsaved_report["level"] == "FAIL", unsaved_report
+            assert unsaved_report["status"] == "fail", unsaved_report
+            assert unsaved_report["pass"] is False, unsaved_report
+            assert unsaved_report["fail_count"] >= 1, unsaved_report
+            unsaved_keys = {item["key"] for item in unsaved_report["findings"]}
+            assert "solidworks_unsaved_document_visible" in unsaved_keys
+            assert "solidworks_running_without_lock" not in unsaved_keys
+            assert "保存或关闭未保存文档" in unsaved_report["fix_suggestion"]
+
+            merged = _apply_solidworks_window_state(
+                [ProcessInfo(pid=101, name="SLDWORKS.exe", responding=None, main_window_title="")],
+                {
+                    101: {
+                        "responding": True,
+                        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [fixture.SLDASM *]",
+                    }
+                },
+            )
+            assert merged[0].responding is True
+            assert merged[0].main_window_title.endswith("*]")
+
+            out = Path(tmp) / "conflict_report.json"
             written = write_conflict_report(out_path=out, processes=processes, lock=lock_payload)
             assert out.exists()
             assert written["level"] == "FAIL"

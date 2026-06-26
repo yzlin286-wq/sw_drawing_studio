@@ -103,6 +103,16 @@ def build_conflict_report(
             {"processes": [asdict(p) for p in not_responding]},
         )
 
+    unsaved_documents = [p for p in sw_processes if _title_has_unsaved_marker(p.main_window_title)]
+    if unsaved_documents:
+        add(
+            "FAIL",
+            "solidworks_unsaved_document_visible",
+            "检测到 SolidWorks 标题栏存在未保存标记",
+            "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
+            {"processes": [asdict(p) for p in unsaved_documents]},
+        )
+
     if sw_processes and not lock_data:
         add(
             "WARNING",
@@ -215,6 +225,11 @@ def _primary_fix(findings: list[dict[str, Any]]) -> str:
     return ""
 
 
+def _title_has_unsaved_marker(title: str) -> bool:
+    title = str(title or "").strip()
+    return title.endswith("*]") or title.endswith("*")
+
+
 def _enumerate_with_powershell() -> list[ProcessInfo]:
     if os.name != "nt":
         return []
@@ -258,9 +273,68 @@ def _enumerate_with_powershell() -> list[ProcessInfo]:
                     workspace_hint=_workspace_hint(str(item.get("CommandLine") or "")),
                 )
             )
-        return [p for p in rows if p.pid > 0 and p.name]
+        return _apply_solidworks_window_state(
+            [p for p in rows if p.pid > 0 and p.name],
+            _solidworks_window_state_by_pid(),
+        )
     except Exception:
         return []
+
+
+def _solidworks_window_state_by_pid() -> dict[int, dict[str, Any]]:
+    if os.name != "nt":
+        return {}
+    command = (
+        "Get-Process SLDWORKS -ErrorAction SilentlyContinue | "
+        "Select-Object Id,Responding,MainWindowTitle | ConvertTo-Json -Compress"
+    )
+    try:
+        proc = subprocess.run(
+            ["powershell", "-NoProfile", "-Command", command],
+            text=True,
+            capture_output=True,
+            timeout=8,
+            encoding="utf-8",
+            errors="replace",
+        )
+        raw = (proc.stdout or "").strip()
+        if not raw:
+            return {}
+        data = json.loads(raw)
+        if isinstance(data, dict):
+            data = [data]
+        state: dict[int, dict[str, Any]] = {}
+        for item in data if isinstance(data, list) else []:
+            try:
+                pid = int(item.get("Id") or 0)
+            except (TypeError, ValueError):
+                continue
+            if pid <= 0:
+                continue
+            state[pid] = {
+                "responding": item.get("Responding"),
+                "main_window_title": str(item.get("MainWindowTitle") or ""),
+            }
+        return state
+    except Exception:
+        return {}
+
+
+def _apply_solidworks_window_state(
+    processes: list[ProcessInfo],
+    state_by_pid: dict[int, dict[str, Any]],
+) -> list[ProcessInfo]:
+    for process in processes:
+        if process.name.lower() not in {"sldworks.exe", "sldworks"}:
+            continue
+        state = state_by_pid.get(process.pid) or {}
+        responding = _bool_or_none(state.get("responding"))
+        title = str(state.get("main_window_title") or "")
+        if responding is not None:
+            process.responding = responding
+        if title:
+            process.main_window_title = title
+    return processes
 
 
 def _enumerate_with_tasklist() -> list[ProcessInfo]:
