@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 11:34:53",
+  "generated_at": "2026-06-26 11:50:44",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -10,7 +10,7 @@
   "readiness_ready": false,
   "readiness_status": "blocked",
   "readiness_blocking_issue_keys": [
-    "solidworks_unsaved_document_visible"
+    "solidworks_not_running"
   ],
   "offline_prerequisite_missing_keys": [],
   "must_not_run_real_cad_when_blocked": true,
@@ -343,7 +343,7 @@
         "status": "blocked",
         "ready_to_start_locked_006_cad": false,
         "blocking_issue_keys": [
-          "solidworks_unsaved_document_visible"
+          "solidworks_not_running"
         ]
       },
       "fix_suggestion": "Regenerate lb26001_006_regression_readiness_v4_2.json."

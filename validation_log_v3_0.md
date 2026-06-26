@@ -12780,6 +12780,61 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - 006 still requires fresh CAD output followed by application Drawing Review UI screenshot capture and manual visual checklist PASS.
 
+## v4.4 Worker-Only Service API Surface Tightening - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline public API / Stability Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `app/services/__init__.py`.
+  - Removed package-level convenience exports for worker-only or legacy heavy operations:
+    - `SwRunner`
+    - `slddrw_to_png`
+    - `vision_score`
+    - `build_diagnostics_zip`
+    - `relink_refdoc`
+    - `build_case_library`
+    - `run_batch_validation`
+    - `write_batch_report`
+    - `compare_model_2d`
+    - `BATCH_DIR`
+  - The underlying modules remain available for explicit worker/tool imports; this only removes the broad `from app.services import ...` shortcut that could bypass JobRuntimeFacade/QProcess routing.
+- Updated `test_v4_1_solidworks_entrypoint_scan.py`.
+  - Extends the public API regression guard so those worker-only names cannot return to `app/services/__init__.py`.
+
+Commands:
+
+```powershell
+python -B -m py_compile app\services\__init__.py test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- Public API guard probe: PASS; `app.services` no longer exposes the worker-only names above, and `from app.services import solidworks_global_lock` still resolves.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, `entrypoint_count=527`, `ui_thread_direct_risk_count=0`, `ui_thread_subprocess_call_count=0`, `ui_thread_heavy_work_count=0`, `ui_threadpool_worker_count=0`, `service_direct_risk_count=0`, and `system_health_ui_thread_direct_probe_count=0`.
+- Refreshed SolidWorks Stability Gate is now `status=pass`, `pass=true`, `warning_reasons=[]`, because the conflict report currently sees no SolidWorks process or worker conflict.
+- Refreshed 006 readiness remains blocked, now with `blocking_issue_keys=["solidworks_not_running"]`.
+- Refreshed 006 rerun packet remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- Refreshed Product Gate is now `blocked_by_solidworks_readiness`, with `passed_check_count=11` and `failed_check_count=10`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks must be started and readiness must become safe before exactly one locked 006 CAD worker rerun may be attempted.
+- 006 still requires fresh CAD output followed by application Drawing Review UI screenshot capture and manual visual checklist PASS.
+- Expansion to `007/008/009/015/022`, `LB26001_36`, `medium_30`, Visual Audit full scope, `full_129`, and release remain blocked.
+
 ## v4.4 Product Gate Machine-Readable Check Rows - 2026-06-26
 
 Current judgment:

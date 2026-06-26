@@ -1,6 +1,6 @@
 # Product Evidence Gate v4.4
 
-- Status: `blocked_by_solidworks_stability_gate`
+- Status: `blocked_by_solidworks_readiness`
 - PASS: `false`
 - Release ready: `false`
 - Do not run full_129: `true`
@@ -21,11 +21,11 @@
 
 ## Checks
 
-- `fail` `solidworks_stability_gate_pass`: SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.
+- `pass` `solidworks_stability_gate_pass`: SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.
 - `pass` `ui_thread_direct_risk_zero`: UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.
 - `pass` `solidworks_entrypoint_scan_report_pass`: Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.
 - `pass` `solidworks_lock_test_report_pass`: SolidWorks global-lock test report must pass every lock ownership/conflict check.
-- `fail` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
+- `pass` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
 - `fail` `solidworks_readiness_for_006`: Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.
 - `fail` `solidworks_readiness_title_sampling_guard`: 006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.
 - `pass` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
@@ -45,8 +45,6 @@
 
 ## Blocking Issues
 
-- `solidworks_stability_gate_pass`
-- `solidworks_conflict_report_ok`
 - `solidworks_readiness_for_006`
 - `solidworks_readiness_title_sampling_guard`
 - `regeneration_006_fresh_evidence_pass`
@@ -60,4 +58,4 @@
 
 ## Next Required Action
 
-Fix the failing product evidence checks before advancing the validation stage.
+Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker.

@@ -50,7 +50,20 @@ def main() -> None:
         source = Path(ui_path).read_text(encoding="utf-8")
         assert "collect_system_health" not in source
     public_services_api = Path("app/services/__init__.py").read_text(encoding="utf-8")
-    assert "run_health_check" not in public_services_api
+    for token in [
+        "run_health_check",
+        "SwRunner",
+        "slddrw_to_png",
+        "vision_score",
+        "build_diagnostics_zip",
+        "relink_refdoc",
+        "build_case_library",
+        "run_batch_validation",
+        "write_batch_report",
+        "compare_model_2d",
+        "BATCH_DIR",
+    ]:
+        assert token not in public_services_api
     legacy_worker_source = Path("app/ui/_workers.py").read_text(encoding="utf-8")
     for token in ["QThreadPool", "QRunnable", "LLMWorker", "RunnerWorker"]:
         assert token not in legacy_worker_source

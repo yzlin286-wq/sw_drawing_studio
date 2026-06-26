@@ -1,12 +1,10 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T11:46:02",
-  "status": "warning",
-  "pass": false,
+  "generated_at": "2026-06-26T11:50:17",
+  "status": "pass",
+  "pass": true,
   "release_ready": false,
-  "warning_reasons": [
-    "solidworks_conflict_monitor_warning_or_fail"
-  ],
+  "warning_reasons": [],
   "reports": {
     "unguarded_solidworks_entrypoints": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
     "solidworks_lock_test_result": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
@@ -35,15 +33,15 @@
     "failure": ""
   },
   "conflict_summary": {
-    "level": "WARNING",
+    "level": "OK",
     "counts": {
-      "solidworks_processes": 1,
+      "solidworks_processes": 0,
       "cad_job_workers": 0,
       "batch_job_workers": 0,
       "waiting_jobs": 0,
       "smoke_leftovers": 0,
       "dialog_guards": 0
     },
-    "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁"
+    "fix_suggestion": ""
   }
 }

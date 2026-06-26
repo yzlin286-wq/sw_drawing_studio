@@ -1,28 +1,15 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regression_readiness.v4_2",
-  "generated_at": "2026-06-26 10:34:39",
+  "generated_at": "2026-06-26 11:50:37",
   "base": "LB26001-A-04-006",
   "ready_to_start_locked_006_cad": false,
   "status": "blocked",
   "solidworks_process": {
     "source": "process_probe",
-    "process_present": true,
-    "process_count": 1,
-    "processes": [
-      {
-        "pid": 22876,
-        "process_name": "SLDWORKS",
-        "responding": true,
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]"
-      }
-    ],
-    "pid": 22876,
-    "responding": true,
-    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]",
-    "returncode": 0,
-    "sample_count": 5,
-    "observation_count": 5,
-    "unsaved_title_observed": true,
+    "process_present": false,
+    "responding": null,
+    "main_window_title": "",
+    "returncode": 1,
     "probe_errors": []
   },
   "solidworks_lock_file": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
@@ -37,14 +24,21 @@
   "lb26001_expansion_gate_status": "need_review",
   "issues": [
     {
-      "key": "solidworks_unsaved_document_visible",
+      "key": "solidworks_not_running",
       "severity": "critical",
       "source": "lb26001_006_regression_readiness_v4_2",
       "confidence": 1.0,
       "evidence": {
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]"
+        "solidworks_process": {
+          "source": "process_probe",
+          "process_present": false,
+          "responding": null,
+          "main_window_title": "",
+          "returncode": 1,
+          "probe_errors": []
+        }
       },
-      "fix_suggestion": "Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun."
+      "fix_suggestion": "Start SolidWorks, open no unsaved work, and rerun this readiness audit before launching locked 006 CAD."
     },
     {
       "key": "previous_006_v6_ui_gate_not_pass",
@@ -76,6 +70,28 @@
           "manual_review_entry_screenshot_mismatch_paths": [],
           "manual_review_screenshot_matches_ui_report_entry": true,
           "manual_review_entry_screenshot_pass": true,
+          "ui_defect_bucket_closure_required": true,
+          "ui_defect_bucket_closure_pass": false,
+          "required_ui_defect_bucket_keys": [
+            "dimension_visual_overdense",
+            "dimension_lane_wrong",
+            "note_missing_or_wrong",
+            "titlebar_incomplete",
+            "projection_view_style_mismatch",
+            "callout_missing"
+          ],
+          "passed_ui_defect_bucket_keys": [],
+          "missing_ui_defect_bucket_keys": [
+            "callout_missing",
+            "dimension_lane_wrong",
+            "dimension_visual_overdense",
+            "note_missing_or_wrong",
+            "projection_view_style_mismatch",
+            "titlebar_incomplete"
+          ],
+          "failed_ui_defect_bucket_keys": [],
+          "bucket_closure_contract_count": 6,
+          "api_or_displaydim_metric_alone_can_close": false,
           "vision_qc_v6_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
           "vision_qc_v6_status": "need_review",
           "vision_qc_v6_visual_acceptance_pass": false,
@@ -134,6 +150,28 @@
           "manual_review_entry_screenshot_mismatch_paths": [],
           "manual_review_screenshot_matches_ui_report_entry": true,
           "manual_review_entry_screenshot_pass": true,
+          "ui_defect_bucket_closure_required": true,
+          "ui_defect_bucket_closure_pass": false,
+          "required_ui_defect_bucket_keys": [
+            "dimension_visual_overdense",
+            "dimension_lane_wrong",
+            "note_missing_or_wrong",
+            "titlebar_incomplete",
+            "projection_view_style_mismatch",
+            "callout_missing"
+          ],
+          "passed_ui_defect_bucket_keys": [],
+          "missing_ui_defect_bucket_keys": [
+            "callout_missing",
+            "dimension_lane_wrong",
+            "dimension_visual_overdense",
+            "note_missing_or_wrong",
+            "projection_view_style_mismatch",
+            "titlebar_incomplete"
+          ],
+          "failed_ui_defect_bucket_keys": [],
+          "bucket_closure_contract_count": 6,
+          "api_or_displaydim_metric_alone_can_close": false,
           "vision_qc_v6_with_ui_review": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json",
           "vision_qc_v6_status": "need_review",
           "vision_qc_v6_visual_acceptance_pass": false,
@@ -182,15 +220,15 @@
     }
   ],
   "blocking_issue_keys": [
-    "solidworks_unsaved_document_visible"
+    "solidworks_not_running"
   ],
   "safe_recovery_guidance": {
     "manual_recovery_required": true,
     "automatic_restart_allowed": false,
     "reason": "Automatic restart is forbidden while SolidWorks is unresponsive or an unsaved document marker is visible.",
-    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [装配体5 *]",
+    "observed_main_window_title": "",
     "steps": [
-      "In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.",
+      "Start SolidWorks manually and leave it responsive with no unsaved document marker in the title bar.",
       "Rerun this no-COM readiness audit after SolidWorks is responsive.",
       "Only when readiness is ready, rerun the no-COM 006 rerun packet.",
       "Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3."

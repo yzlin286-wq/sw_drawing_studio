@@ -1,9 +1,9 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-26 11:34:53`
+- Generated at: `2026-06-26 11:50:44`
 - Status: `blocked_by_solidworks_readiness`
 - Real CAD allowed now: `False`
-- Readiness blockers: `solidworks_unsaved_document_visible`
+- Readiness blockers: `solidworks_not_running`
 - Offline missing prerequisites: `none`
 - This packet is not acceptance evidence; the application UI screenshot judgement remains the final gate.
 
