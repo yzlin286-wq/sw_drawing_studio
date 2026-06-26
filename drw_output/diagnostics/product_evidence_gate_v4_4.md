@@ -43,6 +43,7 @@
 - `fail` `006_acceptance_proof_ui_review_freshness`: 006 acceptance proof must be generated at or after the canonical application UI visual review.
 - `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.
 - `pass` `requested_ref6_status_snapshot_current`: Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.
+- `fail` `staged_batch_sequence_proof_pass`: Staged CAD validation must prove the ordered 024/040 -> core_12 -> LB26001_36 -> medium_30 sequence through locked JobRuntimeFacade and Q-process-backed workers plus application UI screenshot evidence before full-scope Visual Audit or full_129 is allowed.
 - `fail` `final_release_artifacts_present`: Final release artifacts must exist before release/full_129 completion can be claimed.
 - `fail` `exe_ui_and_stability_proof_pass`: Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text spot-check PASS.
 - `fail` `cad_smoke_dimension_reference_proof_pass`: Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof.
@@ -60,6 +61,7 @@
 - `006_evidence_chain_source_agreement`
 - `006_acceptance_proof_ui_review_freshness`
 - `requested_ref6_ui_status_pass`
+- `staged_batch_sequence_proof_pass`
 - `final_release_artifacts_present`
 - `exe_ui_and_stability_proof_pass`
 - `cad_smoke_dimension_reference_proof_pass`

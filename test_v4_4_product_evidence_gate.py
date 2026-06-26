@@ -291,6 +291,10 @@ def _fixture(
     reference_contract_locked: bool = True,
     regeneration_ui_contract: bool = True,
     regeneration_staged_contract: bool = True,
+    staged_sequence_present: bool = True,
+    staged_sequence_completed_through: str = "medium_30",
+    staged_sequence_wrong_order: bool = False,
+    staged_sequence_api_only: bool = False,
 ) -> dict[str, Path]:
     gap_pass = (
         bool(raw_issue_schema_pass and normalized_issue_schema_pass and final_artifacts)
@@ -785,7 +789,7 @@ def _fixture(
                 "Do not use API or file creation as a substitute for the Drawing Review UI screenshot judgement.",
             ],
         },
-    }
+        }
     if readiness_sampling_schema:
         readiness_payload["solidworks_process"] = {
             "source": "process_probe",
@@ -819,6 +823,65 @@ def _fixture(
             "unsaved_title_observed": readiness_unsaved_title_observed,
             "probe_errors": [],
         }
+    staged_sequence_path = root / "staged_batch_sequence_gate_v4_4.json"
+    staged_order = ["024_040", "core_12", "LB26001_36", "medium_30"]
+    if staged_sequence_wrong_order:
+        staged_order = ["024_040", "LB26001_36", "core_12", "medium_30"]
+    staged_completion_index = {
+        "024_040": 0,
+        "core_12": 1,
+        "LB26001_36": 2,
+        "medium_30": 3,
+    }.get(staged_sequence_completed_through, 3)
+    completed_stages = set(staged_order[: staged_completion_index + 1])
+    staged_sequence_full_pass = bool(
+        staged_sequence_present
+        and staged_sequence_completed_through == "medium_30"
+        and not staged_sequence_wrong_order
+        and not staged_sequence_api_only
+    )
+    staged_records = [
+        {
+            "stage": stage,
+            "status": "pass",
+            "pass": True,
+            "run_id": f"{stage}_fixture",
+            "run_dir": str(root / "runs" / f"{stage}_fixture"),
+            "solidworks_lock_owned": True,
+            "used_job_runtime_facade": True,
+            "used_qprocess": True,
+            "application_ui_screenshot_evidence": True,
+            "manual_visual_judgement_pass": True,
+            "api_only_acceptance_allowed": staged_sequence_api_only,
+            "artifact_contract_pass": not staged_sequence_api_only,
+            "required_artifacts": {
+                "manifest": True,
+                "job_event_log": True,
+            },
+        }
+        for stage in staged_order
+        if stage in completed_stages
+    ]
+    if staged_sequence_present:
+        _write_json(
+            staged_sequence_path,
+            {
+                "schema": "sw_drawing_studio.staged_batch_sequence_gate.v4_4",
+                "generated_at": "2026-06-26 10:06:00",
+                "status": "pass" if staged_sequence_full_pass else "pending",
+                "pass": staged_sequence_full_pass,
+                "sequence": [stage for stage in staged_order if stage in completed_stages],
+                "stages": staged_records,
+                "solidworks_global_lock_required": True,
+                "job_runtime_facade_required": True,
+                "qprocess_worker_required": True,
+                "application_ui_screenshot_is_final_gate": True,
+                "api_only_acceptance_allowed": staged_sequence_api_only,
+                "visual_audit_allowed_after_medium_30": staged_sequence_full_pass,
+                "full_129_allowed_after_visual_audit": staged_sequence_full_pass,
+                "blocking_issue_keys": [] if staged_sequence_full_pass else ["staged_sequence_incomplete"],
+            },
+        )
     paths = {
         "stability": _write_json(
             root / "stability.json",
@@ -1291,6 +1354,7 @@ def _fixture(
                 ),
             },
         ),
+        "staged_sequence": staged_sequence_path,
         "issue_schema": _write_json(
             raw_issue_schema_path,
             {
@@ -1428,6 +1492,7 @@ def _build(paths: dict[str, Path]) -> dict:
         acceptance_proof_path=paths["acceptance"],
         ui_visual_review_path=paths["ui_visual_review"],
         requested_status_path=paths["requested"],
+        staged_sequence_path=paths["staged_sequence"],
         issue_schema_validation_path=paths["issue_schema"],
         normalized_issue_schema_validation_path=paths["normalized_issue_schema"],
         visual_audit_schema_gap_path=paths["visual_audit_schema_gap"],
@@ -2284,6 +2349,66 @@ def test_product_evidence_gate_blocks_ref6_completion_when_006_acceptance_fails_
         assert "requested_ref6_ui_status_pass" not in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_downstream_batches_when_staged_sequence_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), staged_sequence_present=False))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["lb26001_36_allowed"] is True
+        assert result["allowed_actions"]["medium_30_allowed"] is False
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert result["allowed_actions"]["release_allowed"] is False
+        assert "staged_batch_sequence_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
+        assert check["details"]["exists"] is False
+        assert check["details"]["sequence_through_lb26001_36_pass"] is False
+        assert check["details"]["sequence_through_medium_30_pass"] is False
+
+
+def test_product_evidence_gate_allows_medium30_only_after_staged_sequence_reaches_lb26001_36() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), staged_sequence_completed_through="LB26001_36"))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["lb26001_36_allowed"] is True
+        assert result["allowed_actions"]["medium_30_allowed"] is True
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
+        assert check["details"]["sequence_through_lb26001_36_pass"] is True
+        assert check["details"]["sequence_through_medium_30_pass"] is False
+
+
+def test_product_evidence_gate_blocks_visual_audit_when_staged_sequence_order_is_wrong() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), staged_sequence_wrong_order=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["medium_30_allowed"] is False
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
+        assert check["details"]["required_sequence_present_in_order"] is False
+
+
+def test_product_evidence_gate_blocks_staged_sequence_api_only_proof() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), staged_sequence_api_only=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["allowed_actions"]["medium_30_allowed"] is False
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        check = next(item for item in result["checks"] if item["key"] == "staged_batch_sequence_proof_pass")
+        assert check["details"]["api_only_acceptance_disallowed"] is False
+        assert check["details"]["stage_contracts"]["024_040"]["api_only_acceptance_disallowed"] is False
+
+
 def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(
@@ -3005,6 +3130,10 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
     test_product_evidence_gate_blocks_ref6_completion_when_006_acceptance_fails_even_if_requested_status_passes()
+    test_product_evidence_gate_blocks_downstream_batches_when_staged_sequence_missing()
+    test_product_evidence_gate_allows_medium30_only_after_staged_sequence_reaches_lb26001_36()
+    test_product_evidence_gate_blocks_visual_audit_when_staged_sequence_order_is_wrong()
+    test_product_evidence_gate_blocks_staged_sequence_api_only_proof()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
     test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing()

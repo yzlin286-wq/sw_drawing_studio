@@ -41,6 +41,7 @@ DEFAULT_UI_VISUAL_REVIEW = (
     / "ui_visual_review.json"
 )
 DEFAULT_REQUESTED_STATUS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_requested_drawings_status_v4_2.json"
+DEFAULT_STAGED_SEQUENCE_GATE = REPO_ROOT / "drw_output" / "diagnostics" / "staged_batch_sequence_gate_v4_4.json"
 DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.json"
 DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "product_evidence_gate_v4_4.md"
 
@@ -92,6 +93,7 @@ REQUIRED_REF6_PER_DRAWING_ARTIFACT_KEYS = [
     "vision_qc",
     "ui_visual_review",
 ]
+REQUIRED_STAGED_BATCH_SEQUENCE = ["024_040", "core_12", "LB26001_36", "medium_30"]
 MIN_UI_SCREENSHOT_WIDTH = 1000
 MIN_UI_SCREENSHOT_HEIGHT = 600
 
@@ -112,6 +114,7 @@ def build_product_evidence_gate(
     acceptance_proof_path: Path = DEFAULT_ACCEPTANCE_PROOF,
     ui_visual_review_path: Path = DEFAULT_UI_VISUAL_REVIEW,
     requested_status_path: Path = DEFAULT_REQUESTED_STATUS,
+    staged_sequence_path: Path = DEFAULT_STAGED_SEQUENCE_GATE,
     issue_schema_validation_path: Path = DEFAULT_ISSUE_SCHEMA_VALIDATION,
     normalized_issue_schema_validation_path: Path = DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION,
     visual_audit_schema_gap_path: Path = DEFAULT_VISUAL_AUDIT_SCHEMA_GAP,
@@ -134,6 +137,7 @@ def build_product_evidence_gate(
     acceptance_proof = _read_json(acceptance_proof_path)
     ui_visual_review = _read_json(ui_visual_review_path)
     requested_status = _read_json(requested_status_path)
+    staged_sequence = _read_json(staged_sequence_path)
     issue_schema_validation = _read_json(issue_schema_validation_path)
     normalized_issue_schema_validation = _read_json(normalized_issue_schema_validation_path)
     visual_audit_schema_gap = _read_json(visual_audit_schema_gap_path)
@@ -488,6 +492,21 @@ def build_product_evidence_gate(
         "Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.",
         requested_ref6_snapshot_details,
     )
+    staged_sequence_ok, staged_sequence_details = _staged_batch_sequence_contract(
+        staged_sequence_path,
+        staged_sequence,
+    )
+    _add_check(
+        checks,
+        "staged_batch_sequence_proof_pass",
+        staged_sequence_ok,
+        (
+            "Staged CAD validation must prove the ordered 024/040 -> core_12 -> LB26001_36 -> medium_30 "
+            "sequence through locked JobRuntimeFacade and Q-process-backed workers plus application UI screenshot evidence "
+            "before full-scope Visual Audit or full_129 is allowed."
+        ),
+        staged_sequence_details,
+    )
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
     exe_ui_robot_result = _read_json(final_artifacts.get("exe_ui_robot_result", Path()))
@@ -734,6 +753,12 @@ def build_product_evidence_gate(
         exe_ui_stability_ok=_check_pass(checks, "exe_ui_and_stability_proof_pass"),
         cad_smoke_reference_ok=_check_pass(checks, "cad_smoke_dimension_reference_proof_pass"),
         visual_audit_schema_ok=_check_pass(checks, "visual_audit_schema_proof_pass"),
+        staged_sequence_through_lb26001_36_ok=bool(
+            staged_sequence_details.get("sequence_through_lb26001_36_pass")
+        ),
+        staged_sequence_through_medium_30_ok=bool(
+            staged_sequence_details.get("sequence_through_medium_30_pass")
+        ),
     )
     payload = {
         "schema": SCHEMA,
@@ -769,6 +794,7 @@ def build_product_evidence_gate(
             "acceptance_proof": str(acceptance_proof_path),
             "ui_visual_review": str(ui_visual_review_path),
             "requested_status": str(requested_status_path),
+            "staged_sequence": str(staged_sequence_path),
             "issue_schema_validation": str(issue_schema_validation_path),
             "normalized_issue_schema_validation": str(normalized_issue_schema_validation_path),
             "visual_audit_schema_gap": str(visual_audit_schema_gap_path),
@@ -891,6 +917,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         not _check_pass(checks, "final_release_artifacts_present")
         or not _check_pass(checks, "exe_ui_and_stability_proof_pass")
         or not _check_pass(checks, "cad_smoke_dimension_reference_proof_pass")
+        or not _check_pass(checks, "staged_batch_sequence_proof_pass")
         or not _check_pass(checks, "visual_audit_schema_proof_pass")
     ):
         return "warning_not_release_ready"
@@ -911,14 +938,18 @@ def _allowed_actions(
     exe_ui_stability_ok: bool,
     cad_smoke_reference_ok: bool,
     visual_audit_schema_ok: bool,
+    staged_sequence_through_lb26001_36_ok: bool,
+    staged_sequence_through_medium_30_ok: bool,
 ) -> dict[str, bool]:
     locked_006 = bool(stability_ok and readiness_ok and reference_ok and reference_plan_ok and rerun_packet_ok)
     ui_review = bool(regeneration_ok)
     expand_ref6 = bool(stability_ok and readiness_ok and regeneration_ok and acceptance_ok)
     ref6_complete = bool(acceptance_ok and requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and reference_plan_ok and rerun_packet_ok and ref6_complete)
+    medium_30 = bool(lb26001_36 and staged_sequence_through_lb26001_36_ok)
+    visual_audit_full_scope = bool(medium_30 and staged_sequence_through_medium_30_ok)
     full_129 = bool(
-        lb26001_36
+        visual_audit_full_scope
         and final_artifacts_ok
         and exe_ui_stability_ok
         and cad_smoke_reference_ok
@@ -930,10 +961,237 @@ def _allowed_actions(
         "expand_007_008_009_015_022_allowed": expand_ref6,
         "requested_ref6_complete": ref6_complete,
         "lb26001_36_allowed": lb26001_36,
-        "medium_30_allowed": lb26001_36,
-        "visual_audit_full_scope_allowed": lb26001_36,
+        "medium_30_allowed": medium_30,
+        "visual_audit_full_scope_allowed": visual_audit_full_scope,
         "full_129_allowed": full_129,
         "release_allowed": full_129,
+    }
+
+
+def _staged_batch_sequence_contract(path: Path, payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
+    exists = path.exists() and path.is_file()
+    records = _staged_stage_records(payload)
+    ordered_names = _staged_ordered_names(payload, records)
+    positions = {
+        stage: _first_stage_position(stage, ordered_names)
+        for stage in REQUIRED_STAGED_BATCH_SEQUENCE
+    }
+    stage_contracts = {
+        stage: _staged_stage_contract(_first_staged_record(stage, records))
+        for stage in REQUIRED_STAGED_BATCH_SEQUENCE
+    }
+    order_through_lb26001_36_pass = _stage_positions_are_ordered(
+        [positions[stage] for stage in REQUIRED_STAGED_BATCH_SEQUENCE[:3]]
+    )
+    order_through_medium_30_pass = _stage_positions_are_ordered(
+        [positions[stage] for stage in REQUIRED_STAGED_BATCH_SEQUENCE]
+    )
+    stage_contracts_through_lb26001_36_pass = all(
+        stage_contracts[stage]["pass"] is True
+        for stage in REQUIRED_STAGED_BATCH_SEQUENCE[:3]
+    )
+    stage_contracts_through_medium_30_pass = all(
+        stage_contracts[stage]["pass"] is True
+        for stage in REQUIRED_STAGED_BATCH_SEQUENCE
+    )
+    schema = str(payload.get("schema") or "")
+    blocking_issue_keys = payload.get("blocking_issue_keys") or []
+    top_level_checks = {
+        "path_exists": exists,
+        "schema_is_v4_4_staged_sequence_gate": schema.endswith("staged_batch_sequence_gate.v4_4"),
+        "top_level_pass": _pass_flag(payload),
+        "no_blocking_issue_keys": not list(blocking_issue_keys),
+        "solidworks_global_lock_required": _any_truthy(
+            payload,
+            ["solidworks_global_lock_required", "requires_solidworks_lock", "global_lock_required"],
+        ),
+        "job_runtime_facade_required": _any_truthy(
+            payload,
+            ["job_runtime_facade_required", "requires_job_runtime_facade"],
+        ),
+        "qprocess_worker_required": _any_truthy(
+            payload,
+            ["qprocess_worker_required", "requires_qprocess_worker"],
+        ),
+        "application_ui_screenshot_is_final_gate": payload.get("application_ui_screenshot_is_final_gate") is True,
+        "api_only_acceptance_disallowed": payload.get("api_only_acceptance_allowed") is False,
+        "visual_audit_allowed_after_medium_30": payload.get("visual_audit_allowed_after_medium_30") is True,
+        "full_129_allowed_after_visual_audit": payload.get("full_129_allowed_after_visual_audit") is True,
+    }
+    top_static_contract_pass = all(
+        top_level_checks[key] is True
+        for key in [
+            "path_exists",
+            "schema_is_v4_4_staged_sequence_gate",
+            "solidworks_global_lock_required",
+            "job_runtime_facade_required",
+            "qprocess_worker_required",
+            "application_ui_screenshot_is_final_gate",
+            "api_only_acceptance_disallowed",
+        ]
+    )
+    sequence_through_lb26001_36_pass = bool(
+        top_static_contract_pass
+        and order_through_lb26001_36_pass
+        and stage_contracts_through_lb26001_36_pass
+    )
+    sequence_through_medium_30_pass = bool(
+        top_static_contract_pass
+        and top_level_checks["top_level_pass"]
+        and top_level_checks["no_blocking_issue_keys"]
+        and top_level_checks["visual_audit_allowed_after_medium_30"]
+        and order_through_medium_30_pass
+        and stage_contracts_through_medium_30_pass
+    )
+    checks = {
+        **top_level_checks,
+        "required_sequence_present_in_order": order_through_medium_30_pass,
+        "stage_contracts_through_lb26001_36_pass": stage_contracts_through_lb26001_36_pass,
+        "stage_contracts_through_medium_30_pass": stage_contracts_through_medium_30_pass,
+        "sequence_through_lb26001_36_pass": sequence_through_lb26001_36_pass,
+        "sequence_through_medium_30_pass": sequence_through_medium_30_pass,
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    passed = bool(
+        sequence_through_medium_30_pass
+        and top_level_checks["full_129_allowed_after_visual_audit"]
+        and not mismatch_keys
+    )
+    details = {
+        "path": str(path),
+        "exists": exists,
+        "schema": payload.get("schema"),
+        "generated_at": payload.get("generated_at"),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "required_sequence": REQUIRED_STAGED_BATCH_SEQUENCE,
+        "observed_sequence": ordered_names,
+        "positions": positions,
+        "stage_contracts": stage_contracts,
+        "blocking_issue_keys": blocking_issue_keys,
+        "sequence_through_lb26001_36_pass": sequence_through_lb26001_36_pass,
+        "sequence_through_medium_30_pass": sequence_through_medium_30_pass,
+        **checks,
+        "mismatch_keys": mismatch_keys,
+    }
+    return passed, details
+
+
+def _staged_stage_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for key in ["stages", "stage_results", "stage_evidence"]:
+        value = payload.get(key)
+        if isinstance(value, list):
+            records.extend(item for item in value if isinstance(item, dict))
+        elif isinstance(value, dict):
+            for stage_key, item in value.items():
+                if isinstance(item, dict):
+                    records.append({"stage": stage_key, **item})
+    sequence = payload.get("sequence") or payload.get("ordered_stages") or payload.get("required_sequence")
+    if isinstance(sequence, list):
+        records.extend(item for item in sequence if isinstance(item, dict))
+    return records
+
+
+def _staged_ordered_names(payload: dict[str, Any], records: list[dict[str, Any]]) -> list[str]:
+    sequence = payload.get("sequence") or payload.get("ordered_stages") or payload.get("required_sequence")
+    values = sequence if isinstance(sequence, list) and sequence else records
+    names: list[str] = []
+    for item in values:
+        stage = _normalize_staged_stage_name(_staged_stage_name(item))
+        if stage:
+            names.append(stage)
+    return names
+
+
+def _staged_stage_name(value: Any) -> str:
+    if isinstance(value, dict):
+        for key in ["stage", "stage_key", "key", "name", "batch", "id"]:
+            item = value.get(key)
+            if isinstance(item, (str, int, float)):
+                return str(item)
+        return _selected_payload_text(value, ["stage", "stage_key", "key", "name", "batch", "id", "run_id", "run_dir"])
+    if isinstance(value, (str, int, float)):
+        return str(value)
+    return ""
+
+
+def _normalize_staged_stage_name(value: str) -> str:
+    text = value.lower().replace("\\", "/").replace("-", "_").replace(" ", "_")
+    if "024" in text and "040" in text:
+        return "024_040"
+    if "core" in text and "12" in text:
+        return "core_12"
+    if "lb26001" in text and "36" in text:
+        return "LB26001_36"
+    if "medium" in text and "30" in text:
+        return "medium_30"
+    return ""
+
+
+def _first_stage_position(stage: str, ordered_names: list[str]) -> int | None:
+    for index, name in enumerate(ordered_names):
+        if name == stage:
+            return index
+    return None
+
+
+def _stage_positions_are_ordered(positions: list[int | None]) -> bool:
+    if any(position is None for position in positions):
+        return False
+    concrete = [int(position) for position in positions if position is not None]
+    return concrete == sorted(concrete) and len(set(concrete)) == len(concrete)
+
+
+def _first_staged_record(stage: str, records: list[dict[str, Any]]) -> dict[str, Any]:
+    for record in records:
+        if _normalize_staged_stage_name(_staged_stage_name(record)) == stage:
+            return record
+    return {}
+
+
+def _staged_stage_contract(record: dict[str, Any]) -> dict[str, Any]:
+    exists = bool(record)
+    artifact_contract_present = any(
+        key in record
+        for key in ["artifact_contract_pass", "stage_artifact_contract_pass", "required_artifacts", "artifacts", "outputs"]
+    )
+    artifact_contract_pass = bool(
+        _any_truthy(record, ["artifact_contract_pass", "stage_artifact_contract_pass"])
+        or _required_artifact_proof(record, ["manifest", "job_event_log"])
+    )
+    checks = {
+        "record_present": exists,
+        "stage_pass": exists and _record_passes(record),
+        "solidworks_lock_owned": _any_truthy(
+            record,
+            ["solidworks_lock_owned", "used_solidworks_global_lock", "used_global_solidworks_lock", "lock_owned"],
+        ),
+        "job_runtime_facade_proof": _job_runtime_facade_proof(record),
+        "qprocess_worker_proof": _qprocess_worker_proof(record),
+        "application_ui_screenshot_evidence": _any_truthy(
+            record,
+            [
+                "application_ui_screenshot_evidence",
+                "application_ui_review_pass",
+                "ui_screenshot_review_pass",
+                "manual_visual_judgement_pass",
+                "visual_acceptance_pass",
+            ],
+        ),
+        "api_only_acceptance_disallowed": record.get("api_only_acceptance_allowed") is False,
+        "artifact_contract_present": artifact_contract_present,
+        "artifact_contract_pass": artifact_contract_pass,
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    return {
+        "stage": _normalize_staged_stage_name(_staged_stage_name(record)) if exists else "",
+        "status": record.get("status"),
+        "pass": not mismatch_keys,
+        "run_id": record.get("run_id"),
+        "run_dir": record.get("run_dir"),
+        **checks,
+        "mismatch_keys": mismatch_keys,
     }
 
 
@@ -3606,6 +3864,11 @@ def _next_required_action(status: str, checks: list[dict[str, Any]] | None = Non
         return "Open Drawing Review in the application, capture side-by-side screenshots, and pass the manual visual checklist."
     if status == "blocked_by_requested_ref6_ui_review":
         return "Only after 006 passes, process 007/008/009/015/022 with per-drawing UI screenshot evidence."
+    if any(item.get("key") == "staged_batch_sequence_proof_pass" and item.get("pass") is False for item in checks or []):
+        return (
+            "Complete the staged CAD sequence proof in order: 024/040, core_12, LB26001_36, then medium_30; "
+            "only then run full-scope Visual Audit and full_129."
+        )
     if status == "warning_not_release_ready":
         return "Complete final EXE, stability, Visual Audit raw/normalized issue schema proof, and release artifacts before release."
     if status == "pass":
@@ -3652,6 +3915,7 @@ def main() -> int:
     parser.add_argument("--acceptance-proof", default=str(DEFAULT_ACCEPTANCE_PROOF))
     parser.add_argument("--ui-visual-review", default=str(DEFAULT_UI_VISUAL_REVIEW))
     parser.add_argument("--requested-status", default=str(DEFAULT_REQUESTED_STATUS))
+    parser.add_argument("--staged-sequence", default=str(DEFAULT_STAGED_SEQUENCE_GATE))
     parser.add_argument("--issue-schema-validation", default=str(DEFAULT_ISSUE_SCHEMA_VALIDATION))
     parser.add_argument("--normalized-issue-schema-validation", default=str(DEFAULT_NORMALIZED_ISSUE_SCHEMA_VALIDATION))
     parser.add_argument("--visual-audit-schema-gap", default=str(DEFAULT_VISUAL_AUDIT_SCHEMA_GAP))
@@ -3673,6 +3937,7 @@ def main() -> int:
         acceptance_proof_path=_repo_path(args.acceptance_proof),
         ui_visual_review_path=_repo_path(args.ui_visual_review),
         requested_status_path=_repo_path(args.requested_status),
+        staged_sequence_path=_repo_path(args.staged_sequence),
         issue_schema_validation_path=_repo_path(args.issue_schema_validation),
         normalized_issue_schema_validation_path=_repo_path(args.normalized_issue_schema_validation),
         visual_audit_schema_gap_path=_repo_path(args.visual_audit_schema_gap),
