@@ -130,10 +130,15 @@ def main() -> None:
         assert set(checklist) == set(report["required_bucket_keys"])
         assert checklist["callout_missing"]["required_callout_keys"] == [
             "thread_callout_m4_6h",
+            "hole_callout_4x3_3",
             "surface_finish_rest_3_2",
         ]
         assert checklist["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]
-        assert report["reference_callout_review_required_keys"] == ["thread_callout_m4_6h", "surface_finish_rest_3_2"]
+        assert report["reference_callout_review_required_keys"] == [
+            "thread_callout_m4_6h",
+            "hole_callout_4x3_3",
+            "surface_finish_rest_3_2",
+        ]
         assert report["reference_callout_absence_check_keys"] == ["radius_callout", "chamfer_callout"]
         observation_policy = report["screenshot_visual_observation_policy"]
         assert observation_policy["source"] == "application_drawing_review_ui_screenshot"
@@ -146,6 +151,7 @@ def main() -> None:
         assert observations["dimension_visual_overdense"]["api_or_displaydim_metric_alone_can_close"] is False
         assert observations["callout_missing"]["next_screenshot_check_required"] is True
         assert observations["callout_missing"]["supports_active_bucket"] is False
+        assert "4-3.3" in observations["callout_missing"]["reference_expectation"]
         assert str(ui_report) in observations["dimension_lane_wrong"]["source_paths"]
         contract = {item["bucket"]: item for item in report["bucket_closure_contract"]}
         assert set(contract) == set(report["required_bucket_keys"])
@@ -156,6 +162,7 @@ def main() -> None:
         assert "manual_visual_judgement" in contract["titlebar_incomplete"]["post_rerun_required_evidence"]
         assert contract["callout_missing"]["required_callout_keys"] == [
             "thread_callout_m4_6h",
+            "hole_callout_4x3_3",
             "surface_finish_rest_3_2",
         ]
         assert contract["callout_missing"]["absence_check_keys"] == ["radius_callout", "chamfer_callout"]

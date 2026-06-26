@@ -12870,6 +12870,51 @@ Remaining issues:
 - Full-scope Visual Audit remains blocked until 006 and then the requested six drawings pass application UI screenshot review.
 - Normalized issue index and raw issue backfill overlay are supporting-only; they cannot replace raw historical issue compliance.
 
+## v4.4 006 Callout Checklist Regression Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline regression-test hardening step for the `callout_missing` bucket contract.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, or release action was run.
+- This does not make `LB26001-A-04-006` pass; the required callouts still must be verified in a future application Drawing Review UI screenshot and manual checklist.
+
+Implementation:
+
+- Updated `test_v4_4_lb26001_006_ui_defect_buckets.py`.
+  - The `callout_missing` next screenshot checklist must include:
+    - `thread_callout_m4_6h`
+    - `hole_callout_4x3_3`
+    - `surface_finish_rest_3_2`
+  - The bucket closure contract must include the same three required callout keys.
+  - The screenshot visual observation must explicitly mention the `4-3.3` hole callout.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\lb26001_006_ui_defect_buckets_v4_4.py test_v4_4_lb26001_006_ui_defect_buckets.py tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_ui_defect_buckets.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_ui_defect_buckets_v4_4.py --out drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.json --out-md drw_output\diagnostics\lb26001_006_ui_defect_buckets_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_lb26001_006_ui_defect_buckets.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Manual artifact refresh confirmed the current UI defect bucket report still carries the three required callout keys:
+  - `thread_callout_m4_6h`
+  - `hole_callout_4x3_3`
+  - `surface_finish_rest_3_2`
+- The refreshed report remains `status=blocked_by_solidworks_readiness` and `pass=false`; the artifact only changed timestamp, so it was not recommitted.
+
+Remaining issues:
+
+- `callout_missing` remains a required next-screenshot checklist bucket; API metrics and DisplayDim counts cannot close it.
+- `callout_missing` is not marked as a proven active missing-callout failure because the latest evidence does not independently prove a specific callout is absent.
+- Future 006 UI review must explicitly verify `M4-6H`, `4-3.3`, `Ra3.2`, and radius/chamfer absence before the callout bucket can close.
+
 ## v4.4 006 Reference View Outline-Size Evidence - 2026-06-26
 
 Current judgment:
