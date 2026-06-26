@@ -15016,3 +15016,58 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change improves the next 006 repair path but does not prove the generated drawing passes the application UI screenshot review.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 006 Final Acceptance Blocks DisplayDim Over Reference Intent Cap - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline generator/rerun-packet hardening step for the next single locked `LB26001-A-04-006` attempt.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - `_reference_intent_final_acceptance_blockers(...)` now accepts `dimension_plan`.
+  - When `dimension_visual_overdense` / `reject_generic_autodim_survivors` is active, final acceptance computes `reference_intent_cap=max(reference_display_dim_floor, reference_intent_target_count)`.
+  - If final DisplayDim count exceeds the cap, it emits `display_dim_over_reference_intent_cap`.
+  - The post-layout final blocker call now passes the current DrawingBlueprint `dimension_plan`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Adds source signature `final_acceptance_over_cap_blocker`.
+  - A future locked 006 rerun packet cannot be build-ready if this blocker is removed.
+- Updated tests.
+  - `test_v3_generator_reference_style_plan.py` proves that 24 DisplayDims with all 12 targets covered still blocks under active UI visual-density policy.
+  - `test_v4_2_lb26001_006_rerun_packet.py` proves missing `final_acceptance_over_cap_blocker` blocks packet readiness.
+
+Commands:
+
+```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed rerun packet remains:
+  - `status=blocked_by_solidworks_readiness`
+  - `packet_build_ready=true`
+  - `real_cad_allowed_now=false`
+  - `offline_prerequisite_missing_keys=[]`
+  - `readiness_blocking_issue_keys=["solidworks_unsaved_document_visible"]`
+- Refreshed generator source signatures pass and include `final_acceptance_over_cap_blocker`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change prevents API/coverage-only over-dense drawings from appearing acceptable, but it does not prove the generated drawing passes the application UI screenshot review.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

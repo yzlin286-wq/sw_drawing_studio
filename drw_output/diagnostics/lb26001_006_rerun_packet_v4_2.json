@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 20:50:14",
+  "generated_at": "2026-06-26 20:58:35",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -743,6 +743,11 @@
           {
             "key": "final_acceptance_blockers",
             "signature": "_reference_intent_final_acceptance_blockers",
+            "present": true
+          },
+          {
+            "key": "final_acceptance_over_cap_blocker",
+            "signature": "display_dim_over_reference_intent_cap",
             "present": true
           },
           {
@@ -2251,6 +2256,11 @@
         {
           "key": "final_acceptance_blockers",
           "signature": "_reference_intent_final_acceptance_blockers",
+          "present": true
+        },
+        {
+          "key": "final_acceptance_over_cap_blocker",
+          "signature": "display_dim_over_reference_intent_cap",
           "present": true
         },
         {

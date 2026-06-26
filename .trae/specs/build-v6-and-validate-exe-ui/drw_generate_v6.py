@@ -3245,7 +3245,12 @@ def _reference_intent_post_layout_repair_reason(display_dim_count, dimension_flo
     return ""
 
 
-def _reference_intent_final_acceptance_blockers(display_dim_count, dimension_floor, target_coverage):
+def _reference_intent_final_acceptance_blockers(
+    display_dim_count,
+    dimension_floor,
+    target_coverage,
+    dimension_plan=None,
+):
     try:
         count = int(display_dim_count or 0)
     except Exception:
@@ -3254,6 +3259,23 @@ def _reference_intent_final_acceptance_blockers(display_dim_count, dimension_flo
         floor = int(dimension_floor or 0)
     except Exception:
         floor = 0
+    plan = dimension_plan if isinstance(dimension_plan, dict) else {}
+    targets = [
+        item for item in (plan.get("dimension_targets") or [])
+        if isinstance(item, dict) and str(item.get("key") or "").strip()
+    ]
+    target_count = len(targets)
+    constraints = _reference_intent_visual_defect_constraints(plan)
+    active_buckets = {
+        str(item or "").strip()
+        for item in ((plan.get("ui_defect_buckets") or {}).get("active_buckets") or [])
+        if str(item or "").strip()
+    }
+    overcap_policy_required = bool(
+        constraints.get("reject_generic_autodim_survivors")
+        or "dimension_visual_overdense" in active_buckets
+    )
+    reference_intent_cap = max(floor, target_count)
     blockers = []
     if floor > 0 and count < floor:
         blockers.append({
@@ -3268,6 +3290,20 @@ def _reference_intent_final_acceptance_blockers(display_dim_count, dimension_flo
             "key": "reference_intent_targets_missing",
             "missing_target_keys": missing,
             "missing_count": len(missing),
+        })
+    if overcap_policy_required and reference_intent_cap > 0 and count > reference_intent_cap:
+        # final_reference_intent_display_dim_over_cap_blocker:
+        # The 006 UI failure showed that target coverage alone can still leave
+        # a visibly AutoDimension-like sheet. Under active visual-overdense
+        # repair policy, final acceptance must reject surplus DisplayDims.
+        blockers.append({
+            "key": "display_dim_over_reference_intent_cap",
+            "display_dim_count": count,
+            "reference_intent_cap": reference_intent_cap,
+            "reference_display_dim_floor": floor,
+            "reference_intent_target_count": target_count,
+            "surplus": count - reference_intent_cap,
+            "policy": "dimension_visual_overdense",
         })
     return blockers
 
@@ -10169,6 +10205,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 _dim_final_for_reference,
                 _dim_floor,
                 _post_layout_dim_result.get("target_coverage_final") or {},
+                (_drawing_blueprint_v4 or {}).get("dimension_plan") or {},
             )
             _post_layout_dim_result["final_acceptance_blockers"] = _post_layout_final_blockers
             if _post_layout_final_blockers:

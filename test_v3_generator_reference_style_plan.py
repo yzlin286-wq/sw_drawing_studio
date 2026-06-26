@@ -1661,6 +1661,32 @@ def test_generator_reports_final_reference_intent_acceptance_blockers() -> None:
         12,
         {"covered_target_keys": ["overall_length", "hole_pitch"], "missing_target_keys": []},
     ) == []
+    overcap_blockers = module._reference_intent_final_acceptance_blockers(
+        24,
+        12,
+        {"covered_target_keys": ["target_%02d" % i for i in range(12)], "missing_target_keys": []},
+        {
+            "dimension_targets": [{"key": "target_%02d" % i} for i in range(12)],
+            "visual_defect_constraints": {"reject_generic_autodim_survivors": True},
+            "ui_defect_buckets": {"active_buckets": ["dimension_visual_overdense"]},
+        },
+    )
+    assert overcap_blockers == [
+        {
+            "key": "display_dim_over_reference_intent_cap",
+            "display_dim_count": 24,
+            "reference_intent_cap": 12,
+            "reference_display_dim_floor": 12,
+            "reference_intent_target_count": 12,
+            "surplus": 12,
+            "policy": "dimension_visual_overdense",
+        }
+    ]
+    assert module._reference_intent_final_acceptance_blockers(
+        24,
+        12,
+        {"covered_target_keys": ["overall_length", "hole_pitch"], "missing_target_keys": []},
+    ) == []
 
 
 def test_generator_reports_reference_intent_target_coverage_stage_delta() -> None:

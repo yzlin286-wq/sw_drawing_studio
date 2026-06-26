@@ -80,6 +80,7 @@ GENERATOR_SIGNATURES = {
     "coverage_delta_diagnostics": "reference_intent_target_coverage_delta",
     "coverage_based_post_layout_repair": "_reference_intent_post_layout_repair_reason",
     "final_acceptance_blockers": "_reference_intent_final_acceptance_blockers",
+    "final_acceptance_over_cap_blocker": "display_dim_over_reference_intent_cap",
     "visible_entity_rank": "_reference_intent_entity_rank",
     "created_but_uncovered_detection": "created_but_target_not_covered",
     "generator_final_blocker_warning": "post_layout_reference_intent_final_blocked",
