@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:26:20",
+  "generated_at": "2026-06-26 19:33:58",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -423,6 +423,12 @@
         "missing_dimension_keys": [],
         "missing_callout_keys": [],
         "dimension_missing_fields": {},
+        "dimension_evidence_contract": {
+          "pass": true,
+          "checked_dimension_count": 12,
+          "mismatch_count": 0,
+          "mismatch_by_key": {}
+        },
         "callout_missing_fields": {},
         "note_substitution_keys": [],
         "generic_autodim_allowed_keys": [],
@@ -1145,9 +1151,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1038574,
-          "mtime_epoch": 1782472847.2448103,
-          "mtime_local": "2026-06-26 19:20:47"
+          "size_bytes": 1041741,
+          "mtime_epoch": 1782473254.9589918,
+          "mtime_local": "2026-06-26 19:27:34"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

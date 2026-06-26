@@ -12804,6 +12804,67 @@ Remaining issues:
 - SolidWorks readiness/stability and 006 application UI screenshot review remain blocking gates.
 - Final Visual Audit report and raw issue-schema compliance remain incomplete.
 
+## v4.4 Product Gate Requires 006 Dimension Evidence Consistency - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, full Visual Audit, automatic restart, EXE rebuild, `full_129`, `LB26001_36`, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `dimension_evidence_contract` inside `reference_intent_006_plan_complete`.
+  - For every 006 DisplayDim target, `source_reference_evidence` must agree with that dimension's:
+    - `source_reference`
+    - `target_view`
+    - `expected_type`
+    - `reference_value`
+    - `reference_value_unit`
+    - `reference_value_status`
+  - The evidence must include at least one human-readable reference cue: `source_text` or `visual_reading`.
+  - Any mismatch blocks `reference_intent_006_plan_complete`.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Fixture dimensions now carry self-consistent reference evidence.
+  - Adds regression coverage proving Product Gate blocks a DisplayDim target whose evidence carries the wrong reference value.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Product Gate refresh returned the expected nonzero result:
+  - `status=blocked_by_solidworks_stability_gate`
+  - `pass=false`
+  - `release_ready=false`
+- New 006 dimension evidence contract result in `drw_output/diagnostics/product_evidence_gate_v4_4.json`:
+  - `reference_intent_006_plan_complete=true`
+  - `dimension_evidence_contract.pass=true`
+  - `checked_dimension_count=12`
+  - `mismatch_count=0`
+- All follow-on actions remain false:
+  - `locked_006_cad_rerun_allowed_now=false`
+  - `006_application_ui_review_allowed_now=false`
+  - `expand_007_008_009_015_022_allowed=false`
+  - `visual_audit_full_scope_allowed=false`
+  - `full_129_allowed=false`
+  - `release_allowed=false`
+
+Remaining issues:
+
+- This proves only the reference-intent plan's internal evidence consistency; it does not accept the generated drawing.
+- The next real CAD action remains exactly one locked 006 rerun after SolidWorks readiness becomes safe.
+- 006 still requires application Drawing Review UI screenshot judgement before any requested-reference expansion.
+
 ## v4.4 Product Gate Requires Visual Audit Index Contract - 2026-06-26
 
 Current judgment:

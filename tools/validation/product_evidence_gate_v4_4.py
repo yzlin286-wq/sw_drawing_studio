@@ -1028,6 +1028,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         for item in dims
         if item.get("generic_autodimension_acceptance_allowed") is not False
     ]
+    dimension_evidence_contract = _dimension_evidence_contract(dims)
     required_layout_slots = {"front", "top", "right", "iso"}
     missing_layout_slots = sorted(required_layout_slots - view_slots)
     layout_outline_failures = {
@@ -1139,6 +1140,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "missing_dimension_keys": sorted(required_dim_keys - dim_keys),
         "missing_callout_keys": sorted(required_callouts - callout_keys),
         "dimension_missing_fields": dim_missing_fields,
+        "dimension_evidence_contract": dimension_evidence_contract,
         "callout_missing_fields": callout_missing_fields,
         "note_substitution_keys": sorted(filter(None, note_substitution_keys)),
         "generic_autodim_allowed_keys": sorted(filter(None, generic_autodim_allowed_keys)),
@@ -1189,6 +1191,7 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and not details["missing_dimension_keys"]
         and not details["missing_callout_keys"]
         and not dim_missing_fields
+        and dimension_evidence_contract.get("pass") is True
         and not callout_missing_fields
         and not note_substitution_keys
         and not generic_autodim_allowed_keys
@@ -1276,6 +1279,46 @@ def _reference_intent_contract_check(
         and not non_manufacturing_ops
     )
     return passed, details
+
+
+def _dimension_evidence_contract(dims: list[dict[str, Any]]) -> dict[str, Any]:
+    mismatch_by_key: dict[str, list[str]] = {}
+    for index, item in enumerate(dims):
+        key = str(item.get("key") or f"index_{index}")
+        evidence = item.get("source_reference_evidence") if isinstance(item.get("source_reference_evidence"), dict) else {}
+        mismatches: list[str] = []
+        if not evidence:
+            mismatches.append("source_reference_evidence")
+        if str(evidence.get("source_reference") or "") != str(item.get("source_reference") or ""):
+            mismatches.append("source_reference")
+        if str(evidence.get("target_view") or "") != str(item.get("target_view") or ""):
+            mismatches.append("target_view")
+        if str(evidence.get("expected_type") or "") != str(item.get("expected_type") or ""):
+            mismatches.append("expected_type")
+        if not _values_match(evidence.get("reference_value"), item.get("reference_value")):
+            mismatches.append("reference_value")
+        if str(evidence.get("reference_value_unit") or "") != str(item.get("reference_value_unit") or ""):
+            mismatches.append("reference_value_unit")
+        if str(evidence.get("reference_value_status") or "") != str(item.get("reference_value_status") or ""):
+            mismatches.append("reference_value_status")
+        if not (str(evidence.get("source_text") or "").strip() or str(evidence.get("visual_reading") or "").strip()):
+            mismatches.append("source_text_or_visual_reading")
+        if mismatches:
+            mismatch_by_key[key] = sorted(set(mismatches))
+    return {
+        "pass": not mismatch_by_key,
+        "checked_dimension_count": len(dims),
+        "mismatch_count": len(mismatch_by_key),
+        "mismatch_by_key": mismatch_by_key,
+    }
+
+
+def _values_match(left: Any, right: Any) -> bool:
+    if left == right:
+        return True
+    if isinstance(left, (int, float)) and isinstance(right, (int, float)):
+        return abs(float(left) - float(right)) < 1e-9
+    return False
 
 
 def _callouts_forbid_displaydim_substitution(callouts: list[dict[str, Any]]) -> bool:

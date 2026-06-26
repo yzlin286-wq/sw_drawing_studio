@@ -451,17 +451,28 @@ def _fixture(
         "small_feature_location",
     ]
     dim_keys = required_dim_keys if reference_plan_complete else required_dim_keys[:-1]
+    fixture_source_reference = "reference/LB26001-A-04-006.SLDDRW"
     dimensions = [
         {
             "key": key,
-            "source_reference": "3D转2D测试图纸/LB26001-A-04-006.SLDDRW",
+            "source_reference": fixture_source_reference,
             "target_view": "front" if not key.startswith("projection") and key != "small_feature_location" else "right",
             "expected_type": "linear_horizontal",
             "is_manufacturing_dimension": True,
             "fallback_policy": "need_review_when_real_displaydim_unavailable",
-            "source_reference_evidence": {"source_text": key},
             "reference_value": 1,
+            "reference_value_unit": "mm",
             "reference_value_status": "visual_reading_recorded",
+            "source_reference_evidence": {
+                "source_reference": fixture_source_reference,
+                "target_view": "front" if not key.startswith("projection") and key != "small_feature_location" else "right",
+                "expected_type": "linear_horizontal",
+                "reference_value": 1,
+                "reference_value_unit": "mm",
+                "reference_value_status": "visual_reading_recorded",
+                "source_text": key,
+                "visual_reading": f"fixture visual reading for {key}",
+            },
             "create_as": "Note" if reference_plan_note_substitution else "SolidWorks DisplayDim",
             "forbid_note_substitution": not reference_plan_note_substitution,
             "generic_autodimension_acceptance_allowed": False,
@@ -1358,6 +1369,27 @@ def test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence() ->
         assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
         assert check["details"]["callout_missing_fields"] == {"radius_callout": ["source_reference_evidence"]}
+
+
+def test_product_evidence_gate_blocks_when_reference_dimension_evidence_value_mismatches() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        plan_path = paths["reference_intent_plan"]
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        overall_length = next(item for item in plan["dimensions"] if item["key"] == "overall_length")
+        overall_length["source_reference_evidence"]["reference_value"] = 999
+        _write_json(plan_path, plan)
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_reference_intent"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert "reference_intent_006_plan_complete" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "reference_intent_006_plan_complete")
+        contract = check["details"]["dimension_evidence_contract"]
+        assert contract["pass"] is False
+        assert contract["mismatch_by_key"] == {"overall_length": ["reference_value"]}
 
 
 def test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution() -> None:
@@ -2293,6 +2325,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_allows_idle_solidworks_prelock_for_locked_006_only()
     test_product_evidence_gate_blocks_when_reference_intent_plan_missing_target()
     test_product_evidence_gate_blocks_when_reference_callout_lacks_evidence()
+    test_product_evidence_gate_blocks_when_reference_dimension_evidence_value_mismatches()
     test_product_evidence_gate_blocks_when_reference_intent_plan_uses_note_substitution()
     test_product_evidence_gate_blocks_when_reference_intent_contract_is_not_lock_owned()
     test_product_evidence_gate_blocks_locked_006_when_rerun_packet_offline_missing()
