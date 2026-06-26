@@ -114,6 +114,8 @@ GENERATOR_SIGNATURES = {
     "post_layout_prune_guard_after_arrange_blocker": "post_layout_prune_guard_after_arrange_still_blocked",
     "post_layout_final_exact_prune": "post_layout_final_exact_prune",
     "post_layout_final_exact_prune_failed": "post_layout_final_exact_prune_failed",
+    "post_layout_prune_defer_failed_restore": "restore_on_failed_prune=False",
+    "post_layout_prune_repair_handoff": "caller_will_repair_failed_prune",
     "reference_outline_layout_extraction": "_v4_blueprint_layout_outlines",
     "reference_outline_scale_hint": "_reference_outline_scale_hint",
     "persisted_layout_target_outlines": "target_outlines=_layout_outlines_for_solver",

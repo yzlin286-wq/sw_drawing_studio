@@ -2154,6 +2154,80 @@ def test_persisted_reference_prune_does_not_save_failed_prune() -> None:
     assert result["restore_after_failed_prune"]["success"] is True
 
 
+def test_persisted_reference_prune_can_defer_failed_prune_restore_to_repair_guard() -> None:
+    module = _load_generator()
+
+    calls = {"save": 0, "restore": 0}
+    fake_reopened = object()
+    original_reopen = module._reopen_saved_drawing
+    original_prune = module._prune_display_dims_to_cap
+    original_save = module._save_drawing_doc
+    original_restore = module._discard_unsaved_and_reopen_drawing
+
+    def fake_reopen(*_args, **_kwargs):
+        return fake_reopened, {"success": True}
+
+    def fake_prune(*_args, **_kwargs):
+        return {
+            "deleted": 9,
+            "success": False,
+            "reasons": [
+                "reference_intent_target_coverage_missing_after_prune:overall_width"
+            ],
+        }
+
+    def fake_save(*_args, **_kwargs):
+        calls["save"] += 1
+        return {"success": True}
+
+    def fake_restore(*_args, **_kwargs):
+        calls["restore"] += 1
+        return object(), {"success": True}
+
+    try:
+        module._reopen_saved_drawing = fake_reopen
+        module._prune_display_dims_to_cap = fake_prune
+        module._save_drawing_doc = fake_save
+        module._discard_unsaved_and_reopen_drawing = fake_restore
+        compact_doc, result = module._prune_persisted_reference_display_dims(
+            object(),
+            object(),
+            "drawing.SLDDRW",
+            12,
+            part_class="long_thin",
+            dimension_plan={
+                "dimension_targets": [{"key": "overall_width"}],
+                "view_dimension_quotas": {"top": 1},
+            },
+            layout_plan={},
+            restore_on_failed_prune=False,
+        )
+    finally:
+        module._reopen_saved_drawing = original_reopen
+        module._prune_display_dims_to_cap = original_prune
+        module._save_drawing_doc = original_save
+        module._discard_unsaved_and_reopen_drawing = original_restore
+
+    assert compact_doc is fake_reopened
+    assert calls["save"] == 0
+    assert calls["restore"] == 0
+    assert result["success"] is False
+    assert result["save"]["skipped_reason"] == "prune_failed_no_save"
+    assert result["restore_after_failed_prune"]["skipped_reason"] == (
+        "caller_will_repair_failed_prune"
+    )
+    assert result["prune"]["discarded_after_failed_prune"] is False
+    assert result["prune"]["restore_reason"] == "caller_will_repair_failed_prune"
+
+
+def test_generator_post_layout_reference_prune_defers_restore_to_repair_guard() -> None:
+    source = GENERATOR_PATH.read_text(encoding="utf-8")
+    call_start = source.index('_post_layout_dim_result["post_layout_reference_prune"]')
+    call_block = source[source.rfind("_prune_persisted_reference_display_dims", 0, call_start):call_start]
+
+    assert "restore_on_failed_prune=False" in call_block
+
+
 def test_persisted_reference_prune_uses_exact_target_cap_for_strict_006() -> None:
     module = _load_generator()
 
@@ -2504,6 +2578,8 @@ if __name__ == "__main__":
     test_generator_prune_blocks_generic_survivor_even_when_count_matches_cap()
     test_generator_prune_refuses_to_break_unique_target_coverage_for_cap()
     test_persisted_reference_prune_does_not_save_failed_prune()
+    test_persisted_reference_prune_can_defer_failed_prune_restore_to_repair_guard()
+    test_generator_post_layout_reference_prune_defers_restore_to_repair_guard()
     test_persisted_reference_prune_uses_exact_target_cap_for_strict_006()
     test_generator_rebinds_reference_intent_slots_from_persisted_outlines()
     test_generator_rebinds_reference_intent_slot_by_name_without_centers()

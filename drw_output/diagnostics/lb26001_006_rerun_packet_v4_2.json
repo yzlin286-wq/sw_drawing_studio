@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 17:32:32",
+  "generated_at": "2026-06-26 17:51:12",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -832,6 +832,16 @@
           {
             "key": "post_layout_final_exact_prune_failed",
             "signature": "post_layout_final_exact_prune_failed",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_defer_failed_restore",
+            "signature": "restore_on_failed_prune=False",
+            "present": true
+          },
+          {
+            "key": "post_layout_prune_repair_handoff",
+            "signature": "caller_will_repair_failed_prune",
             "present": true
           },
           {
@@ -2234,6 +2244,16 @@
         {
           "key": "post_layout_final_exact_prune_failed",
           "signature": "post_layout_final_exact_prune_failed",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_defer_failed_restore",
+          "signature": "restore_on_failed_prune=False",
+          "present": true
+        },
+        {
+          "key": "post_layout_prune_repair_handoff",
+          "signature": "caller_will_repair_failed_prune",
           "present": true
         },
         {

@@ -4818,6 +4818,7 @@ def _prune_persisted_reference_display_dims(
     part_class="",
     dimension_plan=None,
     layout_plan=None,
+    restore_on_failed_prune=True,
 ):
     original_cap = _reference_display_dim_cap(reference_dim_floor, part_class=part_class)
     cap = original_cap
@@ -4899,6 +4900,17 @@ def _prune_persisted_reference_display_dims(
                 "deleted": prune_info.get("deleted"),
                 "reasons": list(prune_info.get("reasons") or []),
             }
+            if not restore_on_failed_prune:
+                result["restore_after_failed_prune"] = {
+                    "success": False,
+                    "skipped_reason": "caller_will_repair_failed_prune",
+                    "deleted": prune_info.get("deleted"),
+                    "reasons": list(prune_info.get("reasons") or []),
+                }
+                result["prune"]["discarded_after_failed_prune"] = False
+                result["prune"]["restore_reason"] = "caller_will_repair_failed_prune"
+                result["success"] = False
+                return reopened, result
             restored, restore_info = _discard_unsaved_and_reopen_drawing(
                 sw,
                 reopened,
@@ -9825,6 +9837,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                         part_class=(_drawing_blueprint_v4 or {}).get("part_class", ""),
                         dimension_plan=(_drawing_blueprint_v4 or {}).get("dimension_plan") or {},
                         layout_plan=(_drawing_blueprint_v4 or {}).get("layout_plan") or {},
+                        restore_on_failed_prune=False,
                     )
                     _post_layout_dim_result["post_layout_reference_prune"] = _post_layout_prune
                     prune_info = (_post_layout_prune or {}).get("prune") or {}

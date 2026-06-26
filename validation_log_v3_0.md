@@ -12744,6 +12744,77 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 006 Failed-Prune Repair Handoff Evidence - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline 006 generator hardening step for the `dimension_visual_overdense` and `dimension_lane_wrong` screenshot buckets.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted. `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Evidence reviewed:
+
+- Last real 006 run still showed a dense post-layout dimension state:
+  - `post_layout_before_repair=12`
+  - `post_layout_explicit_after=18`
+  - `post_layout_final_exact_prune_before=24`
+  - `post_layout_final_exact_prune_after=24`
+- `vision_qc_v6.json` still reported `dimension_visual_overdense` and `dimension_visual_clustered_unreadable`, with `dimension_text_candidate_count=118`, `dimension_arrow_candidate_count=29`, and `max_local_dimension_text_cluster_count=32`.
+- `dimension_arrange.json` contained 24 DisplayDims, concentrated in top/right lanes.
+- The previous prune path deleted compact candidates but restored the dense document when target coverage or slot quota checks failed, so the next repair guard started from the wrong state.
+
+Implementation:
+
+- Updated `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py`.
+  - Added `restore_on_failed_prune` to `_prune_persisted_reference_display_dims`, defaulting to the existing safe restore behavior.
+  - The post-layout reference-prune call now passes `restore_on_failed_prune=False`.
+  - Failed prune still is not saved as acceptance evidence; it returns the compact pruned document to the existing explicit repair guard and records `caller_will_repair_failed_prune`.
+- Updated `tools/validation/lb26001_006_rerun_packet_v4_2.py`.
+  - Source-guards `restore_on_failed_prune=False`.
+  - Source-guards `caller_will_repair_failed_prune`.
+- Updated tests:
+  - `test_v3_generator_reference_style_plan.py`
+  - `test_v4_2_lb26001_006_rerun_packet.py`
+
+Commands:
+
+```powershell
+python -B -m py_compile .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_2_lb26001_006_rerun_packet.py test_v4_4_product_evidence_gate.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_4_lb26001_006_reference_intent_proof.py
+python -B test_v4_1_solidworks_entrypoint_scan.py
+python -B test_v4_2_reference_intent_dimension_planner.py
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- `test_v4_4_lb26001_006_reference_intent_proof.py`: PASS.
+- `test_v4_1_solidworks_entrypoint_scan.py`: PASS.
+- `test_v4_2_reference_intent_dimension_planner.py`: PASS.
+- Refreshed reference intent proof remains `plan_proof_pass_requires_locked_cad_run`.
+- Refreshed rerun packet remains `blocked_by_solidworks_readiness`, with `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`. The generator source signatures now include `post_layout_prune_defer_failed_restore` and `post_layout_prune_repair_handoff`.
+- SolidWorks Stability Gate remains `warning`; source scan and lock tests pass, but an idle SolidWorks process is present outside a worker-owned lock.
+- Refreshed readiness remains `blocked`, with `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- This is not a visual acceptance PASS. The next proof must be one locked 006-only CAD rerun after SolidWorks readiness clears.
+- The regenerated drawing must then be reviewed through the application Drawing Review UI screenshot workflow with manual visual judgement.
+- Only after 006 passes the UI screenshot gate may `007/008/009/015/022` be expanded.
+
 ## v4.4 006 Reference View Outline-Size Evidence - 2026-06-26
 
 Current judgment:
