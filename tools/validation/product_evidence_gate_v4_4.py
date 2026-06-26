@@ -1420,6 +1420,7 @@ def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
         and screenshot_evidence["valid_ui_screenshot"]
         and checks.get("ui_report_entry_pass") is True
         and checks.get("manual_review_entry_screenshot_pass") is True
+        and checks.get("ui_defect_bucket_closure_pass") is True
         and checks.get("vision_qc_v6_visual_acceptance_pass") is True
         and checks.get("reference_compare_v4_pass") is True
     )

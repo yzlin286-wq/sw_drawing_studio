@@ -27,6 +27,9 @@ from tools.validation.staged_cad_validation_v3 import (
 )
 
 
+DEFAULT_UI_DEFECT_BUCKETS = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_ui_defect_buckets_v4_4.json"
+
+
 def _read_json(path: Path | None) -> dict[str, Any]:
     if not path:
         return {}
@@ -278,10 +281,104 @@ def _manual_entry_screenshot_gate(
     }
 
 
+def _bucket_checklist_value(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, dict):
+        for key in ("pass", "visual_acceptance_pass", "closed", "confirmed", "ok"):
+            if key in value:
+                return bool(value.get(key))
+    return None
+
+
+def _manual_bucket_closure_checklist(item: dict[str, Any]) -> dict[str, bool | None]:
+    raw = (
+        item.get("ui_defect_bucket_closure_checklist")
+        or item.get("defect_bucket_closure_checklist")
+        or item.get("bucket_closure_checklist")
+        or item.get("ui_defect_bucket_closure")
+        or item.get("bucket_closure")
+        or {}
+    )
+    result: dict[str, bool | None] = {}
+    if isinstance(raw, dict):
+        for key, value in raw.items():
+            bucket = str(key or "").strip()
+            if bucket:
+                result[bucket] = _bucket_checklist_value(value)
+    elif isinstance(raw, list):
+        for item_raw in raw:
+            if not isinstance(item_raw, dict):
+                continue
+            bucket = str(item_raw.get("bucket") or item_raw.get("key") or "").strip()
+            if bucket:
+                result[bucket] = _bucket_checklist_value(item_raw)
+    return result
+
+
+def _ui_defect_bucket_closure_gate(
+    *,
+    base: str,
+    manual_review: dict[str, Any],
+    ui_defect_buckets: dict[str, Any],
+) -> dict[str, Any]:
+    # ui_defect_bucket_closure_review_gate:
+    # A future 006 PASS must close every Drawing Review screenshot defect bucket
+    # by manual/application-UI visual judgement. API metrics, DisplayDim counts,
+    # and reference JSON are supporting evidence only.
+    required_base = str(ui_defect_buckets.get("base") or "").strip()
+    required = [
+        str(item or "").strip()
+        for item in (
+            ui_defect_buckets.get("required_next_screenshot_check_buckets")
+            or ui_defect_buckets.get("required_bucket_keys")
+            or []
+        )
+        if str(item or "").strip()
+    ]
+    if not ui_defect_buckets or not required or (required_base and required_base != base):
+        return {
+            "ui_defect_bucket_closure_required": False,
+            "ui_defect_bucket_closure_pass": True,
+            "required_ui_defect_bucket_keys": [],
+            "passed_ui_defect_bucket_keys": [],
+            "missing_ui_defect_bucket_keys": [],
+            "failed_ui_defect_bucket_keys": [],
+            "bucket_closure_contract_count": 0,
+            "api_or_displaydim_metric_alone_can_close": False,
+        }
+
+    entries = _matching_manual_entries(manual_review, base)
+    merged: dict[str, bool | None] = {}
+    for entry in entries:
+        merged.update(_manual_bucket_closure_checklist(entry))
+    passed = sorted(key for key in required if merged.get(key) is True)
+    failed = sorted(key for key in required if key in merged and merged.get(key) is not True)
+    missing = sorted(key for key in required if key not in merged)
+    pass_gate = bool(required and not failed and not missing)
+    return {
+        "ui_defect_bucket_closure_required": True,
+        "ui_defect_bucket_closure_pass": pass_gate,
+        "required_ui_defect_bucket_keys": required,
+        "passed_ui_defect_bucket_keys": passed,
+        "missing_ui_defect_bucket_keys": missing,
+        "failed_ui_defect_bucket_keys": failed,
+        "bucket_closure_contract_count": len([
+            item for item in ui_defect_buckets.get("bucket_closure_contract") or []
+            if isinstance(item, dict)
+        ]),
+        "api_or_displaydim_metric_alone_can_close": False,
+    }
+
+
 def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
     checks = {
         "ui_report_entry_pass": bool(entry.get("ui_report_entry_pass")),
         "manual_review_entry_screenshot_pass": bool(entry.get("manual_review_entry_screenshot_pass")),
+        "ui_defect_bucket_closure_pass": (
+            not bool(entry.get("ui_defect_bucket_closure_required"))
+            or bool(entry.get("ui_defect_bucket_closure_pass"))
+        ),
         "vision_qc_v6_visual_acceptance_pass": bool(entry.get("vision_qc_v6_visual_acceptance_pass")),
         "reference_compare_v4_pass": bool(entry.get("reference_compare_v4_pass")),
         "generated_png_source_pass": (
@@ -295,6 +392,8 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
         blocking_keys.append("ui_report_entry_not_pass")
     if not checks["manual_review_entry_screenshot_pass"]:
         blocking_keys.append("manual_review_screenshot_not_bound")
+    if not checks["ui_defect_bucket_closure_pass"]:
+        blocking_keys.append("ui_defect_bucket_closure_not_proven")
     if not checks["vision_qc_v6_visual_acceptance_pass"]:
         blocking_keys.append("vision_qc_v6_with_ui_not_pass")
     if not checks["reference_compare_v4_pass"]:
@@ -313,6 +412,16 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
         "vision_qc_v6_with_ui_review": entry.get("vision_qc_v6_with_ui_review"),
         "reference_compare_v4_with_ui_review": entry.get("reference_compare_v4_with_ui_review"),
         "checks": checks,
+        "ui_defect_bucket_closure": {
+            "required": bool(entry.get("ui_defect_bucket_closure_required")),
+            "pass": bool(entry.get("ui_defect_bucket_closure_pass")),
+            "required_bucket_keys": list(entry.get("required_ui_defect_bucket_keys") or []),
+            "passed_bucket_keys": list(entry.get("passed_ui_defect_bucket_keys") or []),
+            "missing_bucket_keys": list(entry.get("missing_ui_defect_bucket_keys") or []),
+            "failed_bucket_keys": list(entry.get("failed_ui_defect_bucket_keys") or []),
+            "bucket_closure_contract_count": entry.get("bucket_closure_contract_count"),
+            "api_or_displaydim_metric_alone_can_close": False,
+        },
         "blocking_issue_keys": blocking_keys,
         "reasons": list(entry.get("reasons") or []),
     }
@@ -367,10 +476,12 @@ def apply_ui_visual_review(
     out_dir: Path,
     bases: list[str] | None = None,
     reference_profiles: Path = DEFAULT_REFERENCE_PROFILES_V4,
+    ui_defect_buckets: Path | None = None,
 ) -> dict[str, Any]:
     summary = _read_json(summary_path)
     ui_report = _read_json(ui_report_path)
     manual_review = _read_json(manual_review_path)
+    ui_defects = _read_json(ui_defect_buckets)
     out_dir.mkdir(parents=True, exist_ok=True)
     effective_manual_review_path = _manual_review_with_source_report(
         manual_review=manual_review,
@@ -404,6 +515,11 @@ def apply_ui_visual_review(
             manual_review=effective_manual_review,
             manual_review_path=effective_manual_review_path,
             ui_entry_gate=ui_entry_gate,
+        )
+        bucket_closure_gate = _ui_defect_bucket_closure_gate(
+            base=base,
+            manual_review=effective_manual_review,
+            ui_defect_buckets=ui_defects,
         )
         case_dir = _case_dir(case, summary_path)
         run_dir = _run_dir(case)
@@ -450,6 +566,7 @@ def apply_ui_visual_review(
             "generated_png": str(generated_png),
             **ui_entry_gate,
             **manual_entry_gate,
+            **bucket_closure_gate,
             "vision_qc_v6_with_ui_review": str(v6_path),
             "vision_qc_v6_status": v6.get("status"),
             "vision_qc_v6_visual_acceptance_pass": bool(v6.get("visual_acceptance_pass")),
@@ -467,6 +584,19 @@ def apply_ui_visual_review(
     all_v4_pass = all(bool(item.get("reference_compare_v4_pass")) for item in entries)
     all_ui_entries_pass = all(bool(item.get("ui_report_entry_pass")) for item in entries)
     all_manual_entries_pass = all(bool(item.get("manual_review_entry_screenshot_pass")) for item in entries)
+    all_bucket_closure_pass = all(
+        (not bool(item.get("ui_defect_bucket_closure_required")))
+        or bool(item.get("ui_defect_bucket_closure_pass"))
+        for item in entries
+    )
+    pass_gate = bool(
+        entries
+        and all_ui_entries_pass
+        and all_manual_entries_pass
+        and all_bucket_closure_pass
+        and all_v6_pass
+        and all_v4_pass
+    )
     payload = {
         "schema": "sw_drawing_studio.ui_visual_review_gate.v4",
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -479,10 +609,12 @@ def apply_ui_visual_review(
         "total": len(entries),
         "ui_report_entries_all_pass": all_ui_entries_pass,
         "manual_review_entries_all_pass": all_manual_entries_pass,
+        "ui_defect_bucket_closure_all_pass": all_bucket_closure_pass,
+        "ui_defect_bucket_source": str(ui_defect_buckets) if ui_defect_buckets else "",
         "vision_qc_v6_all_pass": all_v6_pass,
         "reference_compare_v4_all_pass": all_v4_pass,
-        "pass": bool(entries and all_ui_entries_pass and all_manual_entries_pass and all_v6_pass and all_v4_pass),
-        "status": "pass" if entries and all_ui_entries_pass and all_manual_entries_pass and all_v6_pass and all_v4_pass else "need_review",
+        "pass": pass_gate,
+        "status": "pass" if pass_gate else "need_review",
         "api_is_not_final_judgement": True,
         "entries": entries,
     }
@@ -501,6 +633,7 @@ def main() -> int:
     parser.add_argument("--out-dir", default="")
     parser.add_argument("--base", action="append", default=[], help="Limit to a drawing base. Repeat for multiple bases.")
     parser.add_argument("--reference-profiles", default=str(DEFAULT_REFERENCE_PROFILES_V4))
+    parser.add_argument("--ui-defect-buckets", default=str(DEFAULT_UI_DEFECT_BUCKETS))
     args = parser.parse_args()
 
     ui_report = Path(args.ui_report)
@@ -512,6 +645,7 @@ def main() -> int:
         out_dir=out_dir,
         bases=list(args.base or []),
         reference_profiles=Path(args.reference_profiles),
+        ui_defect_buckets=Path(args.ui_defect_buckets) if args.ui_defect_buckets else None,
     )
     print(json.dumps({
         "pass": payload.get("pass"),

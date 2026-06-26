@@ -657,6 +657,7 @@ def _fixture(
                         "checks": {
                             "ui_report_entry_pass": True,
                             "manual_review_entry_screenshot_pass": True,
+                            "ui_defect_bucket_closure_pass": ui_review_pass,
                             "vision_qc_v6_visual_acceptance_pass": ui_review_pass,
                             "reference_compare_v4_pass": ui_review_pass,
                             "generated_png_source_pass": True,
@@ -1179,6 +1180,22 @@ def test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_
         assert check["details"]["base_entry"]["visual_acceptance_pass"] is False
 
 
+def test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True)
+        payload = json.loads(paths["ui_visual_review"].read_text(encoding="utf-8"))
+        payload["entries"][0]["checks"].pop("ui_defect_bucket_closure_pass", None)
+        paths["ui_visual_review"].write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["base_entry"]["checks"].get("ui_defect_bucket_closure_pass") is None
+
+
 def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(
@@ -1448,6 +1465,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_006_ui_acceptance_fails()
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
+    test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()

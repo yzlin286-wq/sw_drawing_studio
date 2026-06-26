@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.ui_visual_review.v4_4",
-  "generated_at": "2026-06-26 00:51:02",
+  "generated_at": "2026-06-26 11:20:22",
   "review_method": "application_drawing_review_ui_screenshot",
   "status": "need_review",
   "pass": false,
@@ -18,6 +18,7 @@
   "pass_count": 0,
   "fail_count": 1,
   "blocking_issue_keys": [
+    "ui_defect_bucket_closure_not_proven",
     "vision_qc_v6_with_ui_not_pass",
     "reference_compare_v4_with_ui_not_pass"
   ],
@@ -36,11 +37,37 @@
       "checks": {
         "ui_report_entry_pass": true,
         "manual_review_entry_screenshot_pass": true,
+        "ui_defect_bucket_closure_pass": false,
         "vision_qc_v6_visual_acceptance_pass": false,
         "reference_compare_v4_pass": false,
         "generated_png_source_pass": true
       },
+      "ui_defect_bucket_closure": {
+        "required": true,
+        "pass": false,
+        "required_bucket_keys": [
+          "dimension_visual_overdense",
+          "dimension_lane_wrong",
+          "note_missing_or_wrong",
+          "titlebar_incomplete",
+          "projection_view_style_mismatch",
+          "callout_missing"
+        ],
+        "passed_bucket_keys": [],
+        "missing_bucket_keys": [
+          "callout_missing",
+          "dimension_lane_wrong",
+          "dimension_visual_overdense",
+          "note_missing_or_wrong",
+          "projection_view_style_mismatch",
+          "titlebar_incomplete"
+        ],
+        "failed_bucket_keys": [],
+        "bucket_closure_contract_count": 6,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
       "blocking_issue_keys": [
+        "ui_defect_bucket_closure_not_proven",
         "vision_qc_v6_with_ui_not_pass",
         "reference_compare_v4_with_ui_not_pass"
       ],

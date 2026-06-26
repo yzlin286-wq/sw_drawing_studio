@@ -4,6 +4,7 @@ from tempfile import TemporaryDirectory
 
 from PIL import Image, ImageDraw
 
+from tools.validation import apply_ui_visual_review_v4 as review_module
 from tools.validation.apply_ui_visual_review_v4 import apply_ui_visual_review
 
 
@@ -515,8 +516,62 @@ def test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_
     assert result["entries"][0]["manual_review_entry_screenshot_mismatch_paths"] == [str(other_screenshot)]
 
 
+def test_apply_ui_visual_review_requires_006_bucket_closure_checklist() -> None:
+    base = "LB26001-A-04-006"
+    defect_buckets = {
+        "base": base,
+        "required_next_screenshot_check_buckets": [
+            "dimension_visual_overdense",
+            "dimension_lane_wrong",
+            "callout_missing",
+        ],
+        "bucket_closure_contract": [
+            {"bucket": "dimension_visual_overdense"},
+            {"bucket": "dimension_lane_wrong"},
+            {"bucket": "callout_missing"},
+        ],
+    }
+    manual_review = {
+        "cases": [
+            {
+                "base": base,
+                "ui_defect_bucket_closure_checklist": {
+                    "dimension_visual_overdense": True,
+                    "dimension_lane_wrong": {"pass": True},
+                },
+            }
+        ]
+    }
+
+    missing_gate = review_module._ui_defect_bucket_closure_gate(
+        base=base,
+        manual_review=manual_review,
+        ui_defect_buckets=defect_buckets,
+    )
+    manual_review["cases"][0]["ui_defect_bucket_closure_checklist"]["callout_missing"] = {
+        "visual_acceptance_pass": True
+    }
+    passing_gate = review_module._ui_defect_bucket_closure_gate(
+        base=base,
+        manual_review=manual_review,
+        ui_defect_buckets=defect_buckets,
+    )
+
+    assert missing_gate["ui_defect_bucket_closure_required"] is True
+    assert missing_gate["ui_defect_bucket_closure_pass"] is False
+    assert missing_gate["missing_ui_defect_bucket_keys"] == ["callout_missing"]
+    assert missing_gate["api_or_displaydim_metric_alone_can_close"] is False
+    assert passing_gate["ui_defect_bucket_closure_pass"] is True
+    assert passing_gate["passed_ui_defect_bucket_keys"] == [
+        "callout_missing",
+        "dimension_lane_wrong",
+        "dimension_visual_overdense",
+    ]
+
+
 if __name__ == "__main__":
     test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts()
     test_apply_ui_visual_review_blocks_pass_without_matching_ui_report_entry()
     test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_ui_report()
+    test_apply_ui_visual_review_requires_006_bucket_closure_checklist()
     print("PASS test_v4_apply_ui_visual_review")

@@ -315,6 +315,9 @@ APPLY_UI_REVIEW_SIGNATURES = {
     "ui_report_entry_gate": "ui_report_entry_pass",
     "manual_screenshot_binding_gate": "manual_review_entry_screenshot_pass",
     "manual_review_entries_all_pass": "manual_review_entries_all_pass",
+    "ui_defect_bucket_closure_review_gate": "ui_defect_bucket_closure_not_proven",
+    "ui_defect_bucket_closure_all_pass": "ui_defect_bucket_closure_all_pass",
+    "ui_defect_buckets_cli_input": "--ui-defect-buckets",
     "application_ui_report_source_check": "_source_ui_report_application_ui_ok",
     "generated_png_source_gate": "generated_png_source_pass",
 }

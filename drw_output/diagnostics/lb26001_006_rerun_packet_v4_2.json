@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 11:11:26",
+  "generated_at": "2026-06-26 11:20:43",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1749,6 +1749,21 @@
             "present": true
           },
           {
+            "key": "ui_defect_bucket_closure_review_gate",
+            "signature": "ui_defect_bucket_closure_not_proven",
+            "present": true
+          },
+          {
+            "key": "ui_defect_bucket_closure_all_pass",
+            "signature": "ui_defect_bucket_closure_all_pass",
+            "present": true
+          },
+          {
+            "key": "ui_defect_buckets_cli_input",
+            "signature": "--ui-defect-buckets",
+            "present": true
+          },
+          {
             "key": "application_ui_report_source_check",
             "signature": "_source_ui_report_application_ui_ok",
             "present": true
@@ -3023,6 +3038,21 @@
         {
           "key": "manual_review_entries_all_pass",
           "signature": "manual_review_entries_all_pass",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_closure_review_gate",
+          "signature": "ui_defect_bucket_closure_not_proven",
+          "present": true
+        },
+        {
+          "key": "ui_defect_bucket_closure_all_pass",
+          "signature": "ui_defect_bucket_closure_all_pass",
+          "present": true
+        },
+        {
+          "key": "ui_defect_buckets_cli_input",
+          "signature": "--ui-defect-buckets",
           "present": true
         },
         {

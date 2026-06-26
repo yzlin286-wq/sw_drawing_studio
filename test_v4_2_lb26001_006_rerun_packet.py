@@ -167,6 +167,7 @@ def _build_packet_fixture(
     omit_real_cad_smoke_signature: str = "",
     omit_drawing_visual_review_signature: str = "",
     omit_manual_visual_judgement_template_signature: str = "",
+    omit_apply_ui_review_signature: str = "",
     generated_png_source_pass: bool = True,
     include_failed_items: bool = True,
     stale_correction_plan: bool = False,
@@ -235,7 +236,11 @@ def _build_packet_fixture(
             CORRECTION_PLAN_SIGNATURES,
             omit=omit_correction_plan_signature,
         )
-        apply_ui_review_source = _source_file(root / "apply_ui_visual_review_v4.py", APPLY_UI_REVIEW_SIGNATURES)
+        apply_ui_review_source = _source_file(
+            root / "apply_ui_visual_review_v4.py",
+            APPLY_UI_REVIEW_SIGNATURES,
+            omit=omit_apply_ui_review_signature,
+        )
         acceptance_gate_source = _source_file(
             root / "lb26001_acceptance_gate_v4_2.py",
             ACCEPTANCE_GATE_SIGNATURES,
@@ -940,6 +945,21 @@ def test_006_rerun_packet_blocks_when_generic_survivor_block_signature_is_missin
     assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
     assert packet["source_signatures"]["generator"]["missing_signatures"] == [
         "ui_defect_block_generic_after_prune"
+    ]
+
+
+def test_006_rerun_packet_blocks_when_apply_ui_bucket_closure_gate_is_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_apply_ui_review_signature="ui_defect_bucket_closure_review_gate",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "apply_ui_review_source_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["apply_ui_visual_review_v4"]["missing_signatures"] == [
+        "ui_defect_bucket_closure_review_gate"
     ]
 
 
