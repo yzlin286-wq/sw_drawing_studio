@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 18:21:21",
+  "generated_at": "2026-06-26 18:28:48",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1141,7 +1141,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1008237
+          "size_bytes": 1011143
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1358,6 +1358,28 @@
             "check_pass_counts_match": true,
             "check_pass_boolean_failures": [],
             "stale_report_without_counters_blocked": false
+          },
+          "source_agreement": {
+            "pass": true,
+            "raw_source_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+            "normalized_source_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+            "raw_expected_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+            "normalized_expected_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+            "raw_source_path_matches": true,
+            "normalized_source_path_matches": true,
+            "raw_issue_schema_pass_matches": true,
+            "normalized_issue_schema_pass_matches": true,
+            "raw_noncompliant_issue_count_matches": true,
+            "normalized_noncompliant_issue_count_matches": true,
+            "raw_expected_pass": false,
+            "normalized_expected_pass": true,
+            "raw_gap_pass": false,
+            "normalized_gap_pass": true,
+            "raw_expected_noncompliant_issue_count": 5931,
+            "normalized_expected_noncompliant_issue_count": 0,
+            "raw_gap_noncompliant_issue_count": 5931,
+            "normalized_gap_noncompliant_issue_count": 0,
+            "mismatch_keys": []
           },
           "raw_noncompliant_issue_count": 5931,
           "normalized_noncompliant_issue_count": 0,

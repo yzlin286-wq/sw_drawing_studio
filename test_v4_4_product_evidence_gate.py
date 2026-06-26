@@ -199,6 +199,8 @@ def _fixture(
     visual_audit_schema_gap_pass: bool | None = None,
     visual_audit_schema_gap_counters: bool = True,
     visual_audit_schema_gap_check_mismatch: bool = False,
+    visual_audit_schema_gap_source_mismatch: bool = False,
+    visual_audit_schema_gap_raw_count_mismatch: bool = False,
     rerun_packet_build_ready: bool = True,
     rerun_packet_real_cad_allowed_now: bool | None = None,
     ui_defect_buckets_ready: bool = True,
@@ -244,6 +246,16 @@ def _fixture(
         }
         if visual_audit_schema_gap_counters
         else {}
+    )
+    raw_issue_schema_path = root / "issue_schema_validation.json"
+    normalized_issue_schema_path = root / "issue_schema_validation_normalized.json"
+    gap_raw_count = 0 if raw_issue_schema_pass else 7
+    if visual_audit_schema_gap_raw_count_mismatch:
+        gap_raw_count += 1
+    gap_raw_source_path = (
+        root / "stale_issue_schema_validation.json"
+        if visual_audit_schema_gap_source_mismatch
+        else raw_issue_schema_path
     )
     packet_real_cad_allowed = (
         bool(rerun_packet_build_ready and readiness_ready)
@@ -907,7 +919,7 @@ def _fixture(
             },
         ),
         "issue_schema": _write_json(
-            root / "issue_schema_validation.json",
+            raw_issue_schema_path,
             {
                 "status": "pass" if raw_issue_schema_pass else "fail",
                 "pass": raw_issue_schema_pass,
@@ -917,7 +929,7 @@ def _fixture(
             },
         ),
         "normalized_issue_schema": _write_json(
-            root / "issue_schema_validation_normalized.json",
+            normalized_issue_schema_path,
             {
                 "status": "pass" if normalized_issue_schema_pass else "fail",
                 "pass": normalized_issue_schema_pass,
@@ -934,12 +946,18 @@ def _fixture(
                 "pass": gap_pass,
                 **gap_counter_payload,
                 "checks": gap_checks,
-                "raw_noncompliant_issue_count": 0 if raw_issue_schema_pass else 7,
+                "raw_issue_schema_pass": raw_issue_schema_pass,
+                "normalized_issue_schema_pass": normalized_issue_schema_pass,
+                "raw_noncompliant_issue_count": gap_raw_count,
                 "normalized_noncompliant_issue_count": 0 if normalized_issue_schema_pass else 1,
                 "visual_audit_report_final_present": final_artifacts,
                 "visual_audit_full_scope_allowed_now": gap_pass,
                 "normalized_supporting_only": True,
                 "normalized_cannot_replace_raw": True,
+                "source_artifacts": {
+                    "raw_issue_schema_validation": str(gap_raw_source_path),
+                    "normalized_issue_schema_validation": str(normalized_issue_schema_path),
+                },
                 "raw_issue_backfill_overlay_present": True,
                 "raw_issue_backfill_overlay_ready": True,
                 "raw_issue_backfill_overlay_cannot_replace_raw": True,
@@ -1699,6 +1717,38 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_check
         assert "checks_pass_counts" in counter_contract["invalid_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_schema_gap_source_mismatch=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        source_agreement = check["details"]["visual_audit_schema_gap"]["source_agreement"]
+        assert source_agreement["pass"] is False
+        assert source_agreement["raw_source_path_matches"] is False
+        assert "raw_source_path_matches" in source_agreement["mismatch_keys"]
+
+
+def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_schema_gap_raw_count_mismatch=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        source_agreement = check["details"]["visual_audit_schema_gap"]["source_agreement"]
+        assert source_agreement["pass"] is False
+        assert source_agreement["raw_noncompliant_issue_count_matches"] is False
+        assert "raw_noncompliant_issue_count_matches" in source_agreement["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -1881,6 +1931,8 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counters_are_missing()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_checks_do_not_match_counters()
+    test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale()
+    test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
     test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()

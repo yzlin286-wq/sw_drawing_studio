@@ -438,6 +438,15 @@ def build_product_evidence_gate(
     visual_audit_schema_gap_counter_ok, visual_audit_schema_gap_counter_details = (
         _visual_audit_schema_gap_counter_contract(visual_audit_schema_gap)
     )
+    visual_audit_schema_gap_source_ok, visual_audit_schema_gap_source_details = (
+        _visual_audit_schema_gap_source_agreement(
+            visual_audit_schema_gap,
+            issue_schema_validation,
+            normalized_issue_schema_validation,
+            issue_schema_validation_path,
+            normalized_issue_schema_validation_path,
+        )
+    )
     _add_check(
         checks,
         "visual_audit_schema_proof_pass",
@@ -449,6 +458,7 @@ def build_product_evidence_gate(
             and int(normalized_issue_schema_validation.get("noncompliant_issue_count") or 0) == 0
             and visual_audit_schema_gap.get("pass") is True
             and visual_audit_schema_gap_counter_ok
+            and visual_audit_schema_gap_source_ok
             and visual_audit_schema_gap.get("normalized_supporting_only") is True
             and visual_audit_schema_gap.get("normalized_cannot_replace_raw") is True
         ),
@@ -483,6 +493,7 @@ def build_product_evidence_gate(
                 "passed_check_count": visual_audit_schema_gap.get("passed_check_count"),
                 "failed_check_count": visual_audit_schema_gap.get("failed_check_count"),
                 "counter_contract": visual_audit_schema_gap_counter_details,
+                "source_agreement": visual_audit_schema_gap_source_details,
                 "raw_noncompliant_issue_count": visual_audit_schema_gap.get("raw_noncompliant_issue_count"),
                 "normalized_noncompliant_issue_count": visual_audit_schema_gap.get("normalized_noncompliant_issue_count"),
                 "visual_audit_report_final_present": visual_audit_schema_gap.get("visual_audit_report_final_present"),
@@ -2060,6 +2071,80 @@ def _visual_audit_schema_gap_counter_contract(payload: dict[str, Any]) -> tuple[
             "stale_report_without_counters_blocked": bool(missing_keys),
         },
     )
+
+
+def _visual_audit_schema_gap_source_agreement(
+    gap: dict[str, Any],
+    raw: dict[str, Any],
+    normalized: dict[str, Any],
+    raw_path: Path,
+    normalized_path: Path,
+) -> tuple[bool, dict[str, Any]]:
+    source_artifacts = gap.get("source_artifacts") if isinstance(gap.get("source_artifacts"), dict) else {}
+    raw_expected_pass = raw.get("pass") is True and _optional_int(raw.get("noncompliant_issue_count")) == 0
+    normalized_expected_pass = (
+        normalized.get("pass") is True and _optional_int(normalized.get("noncompliant_issue_count")) == 0
+    )
+    raw_expected_count = _optional_int(raw.get("noncompliant_issue_count"))
+    normalized_expected_count = _optional_int(normalized.get("noncompliant_issue_count"))
+    raw_gap_count = _optional_int(gap.get("raw_noncompliant_issue_count"))
+    normalized_gap_count = _optional_int(gap.get("normalized_noncompliant_issue_count"))
+
+    details = {
+        "pass": False,
+        "raw_source_path": source_artifacts.get("raw_issue_schema_validation", ""),
+        "normalized_source_path": source_artifacts.get("normalized_issue_schema_validation", ""),
+        "raw_expected_path": str(raw_path),
+        "normalized_expected_path": str(normalized_path),
+        "raw_source_path_matches": _path_values_match(source_artifacts.get("raw_issue_schema_validation"), raw_path),
+        "normalized_source_path_matches": _path_values_match(
+            source_artifacts.get("normalized_issue_schema_validation"),
+            normalized_path,
+        ),
+        "raw_issue_schema_pass_matches": gap.get("raw_issue_schema_pass") is raw_expected_pass,
+        "normalized_issue_schema_pass_matches": gap.get("normalized_issue_schema_pass") is normalized_expected_pass,
+        "raw_noncompliant_issue_count_matches": raw_gap_count == raw_expected_count,
+        "normalized_noncompliant_issue_count_matches": normalized_gap_count == normalized_expected_count,
+        "raw_expected_pass": raw_expected_pass,
+        "normalized_expected_pass": normalized_expected_pass,
+        "raw_gap_pass": gap.get("raw_issue_schema_pass"),
+        "normalized_gap_pass": gap.get("normalized_issue_schema_pass"),
+        "raw_expected_noncompliant_issue_count": raw_expected_count,
+        "normalized_expected_noncompliant_issue_count": normalized_expected_count,
+        "raw_gap_noncompliant_issue_count": raw_gap_count,
+        "normalized_gap_noncompliant_issue_count": normalized_gap_count,
+        "mismatch_keys": [],
+    }
+    mismatch_keys = [
+        key
+        for key in [
+            "raw_source_path_matches",
+            "normalized_source_path_matches",
+            "raw_issue_schema_pass_matches",
+            "normalized_issue_schema_pass_matches",
+            "raw_noncompliant_issue_count_matches",
+            "normalized_noncompliant_issue_count_matches",
+        ]
+        if details.get(key) is not True
+    ]
+    details["mismatch_keys"] = mismatch_keys
+    details["pass"] = not mismatch_keys
+    return bool(details["pass"]), details
+
+
+def _path_values_match(value: Any, expected: Path) -> bool:
+    try:
+        path = _resolve_path(value)
+        return path is not None and path.resolve() == expected.resolve()
+    except Exception:
+        return False
+
+
+def _optional_int(value: Any) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _job_runtime_facade_proof(payload: dict[str, Any]) -> bool:
