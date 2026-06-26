@@ -11,7 +11,7 @@ import json
 import sys
 import time
 
-sys.stdout.reconfigure(line_buffering=True)
+sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 
 
 def _emit(event_type: str, job_id: str, data: dict | None = None, message: str = "") -> None:

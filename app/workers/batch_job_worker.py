@@ -38,7 +38,7 @@ from app.services.solidworks_resource_audit import (
 )
 
 # 确保 stdout 行缓冲（事件实时传递）
-sys.stdout.reconfigure(line_buffering=True)
+sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 
 RUNTIME_ROOT = runtime_path(".")
 

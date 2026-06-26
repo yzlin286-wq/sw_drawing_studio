@@ -12790,6 +12790,75 @@ Remaining issues:
 - The next allowed CAD action remains exactly one locked 006-only JobRuntimeFacade/QProcess rerun after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 2-Hour EXE Stability and Chinese Text Spot-Check - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This step adds real 2-hour Windows EXE navigation stability evidence and a stricter EXE/UI text-quality gate.
+- No real CAD, `OpenDoc6`, `SaveAs`, `CloseDoc`, 006 rerun, `007/008/009/015/022` expansion, `LB26001_36`, `full_129`, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted because the application Drawing Review UI screenshot gate has not passed.
+
+Commands:
+
+```powershell
+python -B tools\ui_robot\exe_stability_runner.py --exe dist\sw_drawing_studio.exe --out-dir drw_output\ui_acceptance\exe_stability_2h_v3_20260626_122917 --duration-s 7200 --sample-interval-s 60 --screenshot-interval-s 600 --page-wait-s 0.5
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\lb26001_006_regression_readiness_v4_2.py --out drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\diagnostics\lb26001_006_regression_readiness_v4_2.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py test_v4_4_worker_stdout_encoding.py app\workers\health_check_worker.py app\workers\drawing_review_worker.py app\workers\mock_long_job_worker.py app\workers\vision_audit_worker.py app\workers\cad_job_worker.py app\workers\batch_job_worker.py app\workers\solidworks_com_probe_worker.py
+python -B test_v4_4_worker_stdout_encoding.py
+python -B test_v4_4_product_evidence_gate.py
+python -B test_v4_4_solidworks_stability_gate.py
+```
+
+Results:
+
+- 2-hour Windows EXE navigation stability: PASS.
+  - Source: `drw_output/ui_acceptance/exe_stability_2h_v3_20260626_122917/exe_stability_report.json`.
+  - Canonical copy: `stability_2h_ui_v3_0.json`.
+  - Mode: `windows_exe_navigation_stability`.
+  - EXE: `dist\sw_drawing_studio.exe`.
+  - `duration_requested_s=7200.0`.
+  - `duration_observed_s=7204.84`.
+  - `sample_count=113`.
+  - `screenshot_count=13`.
+  - `failure_count=0`.
+  - All nine navigation pages were visited at least 148 times.
+- Manual visual spot-check: FAIL for final Chinese text quality.
+  - Diagnostic: `drw_output/diagnostics/exe_stability_2h_visual_spotcheck_v4_4.json`.
+  - Spotchecked screenshot: `drw_output/ui_acceptance/exe_stability_2h_v3_20260626_122917/screenshots/013_final.png`.
+  - Finding: the System Health page layout and navigation are readable, but several Chinese message/fix fields contain replacement-character mojibake.
+  - The current `dist/sw_drawing_studio.exe` evidence predates the worker stdout UTF-8 source fix below, so a rebuilt EXE and fresh EXE UI evidence are still required before final Chinese UI acceptance.
+- Source fix:
+  - `app/workers/health_check_worker.py`
+  - `app/workers/drawing_review_worker.py`
+  - `app/workers/mock_long_job_worker.py`
+  - `app/workers/vision_audit_worker.py`
+  - `app/workers/cad_job_worker.py`
+  - `app/workers/batch_job_worker.py`
+  - `app/workers/solidworks_com_probe_worker.py`
+  - These workers now force `sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)` before emitting `ensure_ascii=False` JSON.
+  - Added `test_v4_4_worker_stdout_encoding.py`.
+- Product Gate update:
+  - `tools/validation/product_evidence_gate_v4_4.py` now requires `drw_output/diagnostics/exe_stability_2h_visual_spotcheck_v4_4.json` to pass before `exe_ui_and_stability_proof_pass` can pass.
+  - `test_v4_4_product_evidence_gate.py` now covers failure of the EXE UI text-quality spot-check.
+  - Current Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`.
+  - `exe_ui_and_stability_proof_pass` still fails even though EXE robot, 20-minute mock, and 2-hour EXE stability JSON are all PASS, because the text-quality spot-check is `pass=false`.
+- Refreshed SolidWorks Stability Gate is `status=warning`, `pass=false`, because current `conflict_report.json` sees one `SLDWORKS.exe` process without a worker-owned global lock.
+- Refreshed 006 readiness is `status=blocked`, `ready_to_start_locked_006_cad=false`, with `blocking_issue_keys=["solidworks_unsaved_document_visible"]`.
+- Refreshed 006 rerun packet remains `status=blocked_by_solidworks_readiness`, `packet_build_ready=true`, `offline_prerequisite_missing_keys=[]`, and `real_cad_allowed_now=false`.
+- All follow-on actions remain false, including `locked_006_cad_rerun_allowed_now`, `006_application_ui_review_allowed_now`, `expand_007_008_009_015_022_allowed`, `full_129_allowed`, and `release_allowed`.
+
+Remaining issues:
+
+- Rebuild `dist/sw_drawing_studio.exe` from the UTF-8 worker source fix.
+- Rerun EXE UI robot and 2-hour Windows EXE stability after rebuild, then repeat visual text-quality spot-check.
+- Manual SolidWorks cleanup is still required before any locked 006 CAD rerun because an unsaved document marker is visible.
+- The next allowed CAD action remains exactly one locked 006-only JobRuntimeFacade/QProcess rerun after readiness becomes safe.
+- Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
+
 ## v4.4 Remove Legacy Health Check Public Export - 2026-06-26
 
 Current judgment:

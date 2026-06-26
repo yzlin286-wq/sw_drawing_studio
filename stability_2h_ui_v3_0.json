@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-06-26 14:29:41",
+  "mode": "windows_exe_navigation_stability",
+  "exe": "dist\\sw_drawing_studio.exe",
+  "out_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917",
+  "pass": true,
+  "duration_requested_s": 7200.0,
+  "duration_observed_s": 7204.84,
+  "sample_interval_s": 60.0,
+  "screenshot_interval_s": 600.0,
+  "page_wait_s": 0.5,
+  "sample_count": 113,
+  "screenshot_count": 13,
+  "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\stability_samples.jsonl",
+  "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots",
+  "screenshots": [
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\001_elapsed_5s_01_仪表盘.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 231.38,
+      "page": "仪表盘",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\002_elapsed_606s_05_图纸复核.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 16,
+      "avg_luma": 232.8,
+      "page": "图纸复核",
+      "min_bytes": 70000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\003_elapsed_1209s_01_仪表盘.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 231.38,
+      "page": "仪表盘",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\004_elapsed_1812s_06_批量验证.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 232.09,
+      "page": "批量验证",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\005_elapsed_2415s_07_系统健康.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 29,
+      "avg_luma": 227.93,
+      "page": "系统健康",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\006_elapsed_3019s_01_仪表盘.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 231.38,
+      "page": "仪表盘",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\007_elapsed_3622s_06_批量验证.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 232.09,
+      "page": "批量验证",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\008_elapsed_4226s_02_单件制图.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 19,
+      "avg_luma": 230.2,
+      "page": "单件制图",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\009_elapsed_4827s_07_系统健康.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 29,
+      "avg_luma": 227.93,
+      "page": "系统健康",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\010_elapsed_5432s_03_作业队列.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 21,
+      "avg_luma": 231.21,
+      "page": "作业队列",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\011_elapsed_6033s_04_视觉审计.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 29,
+      "avg_luma": 229.12,
+      "page": "视觉审计",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\012_elapsed_6636s_09_设置.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 14,
+      "avg_luma": 229.45,
+      "page": "设置",
+      "min_bytes": 50000,
+      "pass": true
+    },
+    {
+      "path": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots\\013_final.png",
+      "size_bytes": 8518016,
+      "width": 2365,
+      "height": 1200,
+      "sample_unique_colors": 29,
+      "avg_luma": 227.93,
+      "page": "系统健康",
+      "min_bytes": 50000,
+      "pass": true
+    }
+  ],
+  "checks": {
+    "duration_met": true,
+    "process_alive_final": true,
+    "samples_written": true,
+    "sample_count": 113,
+    "screenshots_pass": true,
+    "full_cycle_required": true,
+    "all_pages_visited": true,
+    "page_counts": {
+      "仪表盘": 149,
+      "单件制图": 149,
+      "作业队列": 149,
+      "视觉审计": 149,
+      "图纸复核": 149,
+      "批量验证": 149,
+      "系统健康": 149,
+      "日志诊断": 148,
+      "设置": 148
+    },
+    "failure_count": 0
+  },
+  "failures": [],
+  "artifacts": {
+    "ui_events": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\ui_events.jsonl",
+    "samples_jsonl": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\stability_samples.jsonl",
+    "report_json": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\exe_stability_report.json",
+    "report_md": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\exe_stability_report.md",
+    "screenshots_dir": "drw_output\\ui_acceptance\\exe_stability_2h_v3_20260626_122917\\screenshots"
+  },
+  "remaining_gates": [
+    "This validates EXE navigation stability; staged real CAD validation remains separate.",
+    "Historical visual audit 100 percent coverage remains pending."
+  ]
+}

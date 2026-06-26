@@ -49,6 +49,7 @@ DEFAULT_FINAL_ARTIFACTS = {
     "validation_log": REPO_ROOT / "validation_log_v3_0.md",
     "ui_acceptance_report": REPO_ROOT / "ui_acceptance_report_v3_0.md",
     "exe_ui_robot_result": REPO_ROOT / "exe_ui_robot_result_v3_0.json",
+    "exe_ui_text_quality_spotcheck": REPO_ROOT / "drw_output" / "diagnostics" / "exe_stability_2h_visual_spotcheck_v4_4.json",
     "cad_smoke": REPO_ROOT / "cad_smoke_v3_0.json",
     "dimension_validation_smoke": REPO_ROOT / "dimension_validation_smoke.json",
     "reference_compare_smoke": REPO_ROOT / "reference_compare_smoke.json",
@@ -367,6 +368,7 @@ def build_product_evidence_gate(
 
     final_artifact_evidence = _final_artifact_evidence(final_artifacts)
     exe_ui_robot_result = _read_json(final_artifacts.get("exe_ui_robot_result", Path()))
+    exe_ui_text_quality_spotcheck = _read_json(final_artifacts.get("exe_ui_text_quality_spotcheck", Path()))
     cad_smoke = _read_json(final_artifacts.get("cad_smoke", Path()))
     dimension_validation_smoke = _read_json(final_artifacts.get("dimension_validation_smoke", Path()))
     reference_compare_smoke = _read_json(final_artifacts.get("reference_compare_smoke", Path()))
@@ -389,16 +391,24 @@ def build_product_evidence_gate(
         and _duration_at_least(stability_20min_mock, 1200.0)
         and _pass_flag(stability_2h_ui)
         and _duration_at_least(stability_2h_ui, 7200.0)
-        and _mode_has_any(stability_2h_ui, ["exe", "windows"]),
+        and _mode_has_any(stability_2h_ui, ["exe", "windows"])
+        and _pass_flag(exe_ui_text_quality_spotcheck)
+        and exe_ui_text_quality_spotcheck.get("ui_text_quality_pass") is True
+        and exe_ui_text_quality_spotcheck.get("stability_json_pass") is True,
         (
             "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, "
-            "20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS."
+            "20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text "
+            "spot-check PASS."
         ),
         {
             "dist_exe": final_artifact_evidence.get("dist_exe") or {},
             "exe_ui_robot_result": _ui_stability_summary(final_artifacts.get("exe_ui_robot_result", Path()), exe_ui_robot_result),
             "stability_20min_mock": _ui_stability_summary(final_artifacts.get("stability_20min_mock", Path()), stability_20min_mock),
             "stability_2h_ui": _ui_stability_summary(final_artifacts.get("stability_2h_ui", Path()), stability_2h_ui),
+            "exe_ui_text_quality_spotcheck": _exe_ui_text_quality_summary(
+                final_artifacts.get("exe_ui_text_quality_spotcheck", Path()),
+                exe_ui_text_quality_spotcheck,
+            ),
         },
     )
     _add_check(
@@ -1590,6 +1600,21 @@ def _ui_stability_summary(path: Path | None, payload: dict[str, Any]) -> dict[st
         "pass": payload.get("pass"),
         "duration_observed_s": payload.get("duration_observed_s", payload.get("duration_s")),
         "duration_requested_s": payload.get("duration_requested_s"),
+    }
+
+
+def _exe_ui_text_quality_summary(path: Path | None, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "path": str(path or ""),
+        "exists": bool(path and path.exists()),
+        "status": payload.get("status"),
+        "pass": payload.get("pass"),
+        "stability_json_pass": payload.get("stability_json_pass"),
+        "ui_text_quality_pass": payload.get("ui_text_quality_pass"),
+        "spotchecked_screenshot": payload.get("spotchecked_screenshot"),
+        "blocking_issue_keys": payload.get("blocking_issue_keys") or [],
+        "rebuild_required": ((payload.get("source_fix") or {}).get("rebuild_required")),
+        "rerun_2h_exe_stability_required": ((payload.get("source_fix") or {}).get("rerun_2h_exe_stability_required")),
     }
 
 

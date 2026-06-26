@@ -20,7 +20,7 @@ from typing import Optional
 from app.services.resource_paths import bundle_root
 
 # 确保 stdout 行缓冲（事件实时传递）
-sys.stdout.reconfigure(line_buffering=True)
+sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 
 REPO_ROOT = bundle_root()
 

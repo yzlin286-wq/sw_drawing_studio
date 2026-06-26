@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 12:22:31",
+  "generated_at": "2026-06-26 14:43:40",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -76,7 +76,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T12:22:20",
+        "generated_at": "2026-06-26T14:39:54",
         "status": "pass",
         "entrypoint_count": 527,
         "unguarded_or_unknown_count": 0,
@@ -97,7 +97,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T12:22:20",
+        "generated_at": "2026-06-26T14:39:54",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -113,7 +113,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T12:22:21",
+        "generated_at": "2026-06-26T14:39:55",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -948,7 +948,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 945269
+          "size_bytes": 949104
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -959,6 +959,11 @@
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
           "exists": true,
           "size_bytes": 5512
+        },
+        "exe_ui_text_quality_spotcheck": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\exe_stability_2h_visual_spotcheck_v4_4.json",
+          "exists": true,
+          "size_bytes": 2077
         },
         "cad_smoke": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
@@ -997,8 +1002,8 @@
         },
         "stability_2h_ui": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
-          "exists": false,
-          "size_bytes": 0
+          "exists": true,
+          "size_bytes": 6640
         }
       }
     },
@@ -1006,7 +1011,7 @@
       "key": "exe_ui_and_stability_proof_pass",
       "pass": false,
       "status": "fail",
-      "message": "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS.",
+      "message": "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text spot-check PASS.",
       "details": {
         "dist_exe": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
@@ -1035,13 +1040,28 @@
         },
         "stability_2h_ui": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
-          "exists": false,
-          "mode": null,
-          "exe": null,
+          "exists": true,
+          "mode": "windows_exe_navigation_stability",
+          "exe": "dist\\sw_drawing_studio.exe",
           "status": null,
-          "pass": null,
-          "duration_observed_s": null,
-          "duration_requested_s": null
+          "pass": true,
+          "duration_observed_s": 7204.84,
+          "duration_requested_s": 7200.0
+        },
+        "exe_ui_text_quality_spotcheck": {
+          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\exe_stability_2h_visual_spotcheck_v4_4.json",
+          "exists": true,
+          "status": "warning_text_quality_issue",
+          "pass": false,
+          "stability_json_pass": true,
+          "ui_text_quality_pass": false,
+          "spotchecked_screenshot": "drw_output/ui_acceptance/exe_stability_2h_v3_20260626_122917/screenshots/013_final.png",
+          "blocking_issue_keys": [
+            "system_health_mojibake_in_final_screenshot",
+            "current_dist_predates_worker_stdout_utf8_fix"
+          ],
+          "rebuild_required": true,
+          "rerun_2h_exe_stability_required": true
         }
       }
     },
@@ -1200,6 +1220,7 @@
       "validation_log": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
       "ui_acceptance_report": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
       "exe_ui_robot_result": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
+      "exe_ui_text_quality_spotcheck": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\exe_stability_2h_visual_spotcheck_v4_4.json",
       "cad_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
       "dimension_validation_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\dimension_validation_smoke.json",
       "reference_compare_smoke": "C:\\Users\\Vision\\Desktop\\SW 相关\\reference_compare_smoke.json",

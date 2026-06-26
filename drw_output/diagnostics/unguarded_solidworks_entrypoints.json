@@ -1,8 +1,8 @@
 {
   "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-  "generated_at": "2026-06-26T12:24:30",
+  "generated_at": "2026-06-26T14:39:54",
   "root": "C:\\Users\\Vision\\Desktop\\SW 相关",
-  "scanned_files": 339,
+  "scanned_files": 340,
   "entrypoint_count": 527,
   "guarded_count": 140,
   "unguarded_or_unknown_count": 0,
@@ -11183,7 +11183,7 @@
     },
     {
       "file": "app/workers/solidworks_com_probe_worker.py",
-      "line": 51,
+      "line": 53,
       "patterns": [
         "GetActiveObject"
       ],
@@ -11197,7 +11197,7 @@
     },
     {
       "file": "app/workers/solidworks_com_probe_worker.py",
-      "line": 53,
+      "line": 55,
       "patterns": [
         "Dispatch"
       ],
@@ -11211,7 +11211,7 @@
     },
     {
       "file": "app/workers/solidworks_com_probe_worker.py",
-      "line": 55,
+      "line": 57,
       "patterns": [
         "DispatchEx"
       ],

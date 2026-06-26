@@ -46,6 +46,23 @@ def _write_png(path: Path, width: int = 1200, height: int = 800) -> Path:
 def _write_final_artifact(path: Path, key: str) -> Path:
     if key == "exe_ui_robot_result":
         return _write_json(path, {"mode": "windows_exe_ui_robot", "pass": True})
+    if key == "exe_ui_text_quality_spotcheck":
+        return _write_json(
+            path,
+            {
+                "schema": "sw_drawing_studio.exe_stability_2h_visual_spotcheck.v4_4",
+                "status": "pass",
+                "pass": True,
+                "stability_json_pass": True,
+                "ui_text_quality_pass": True,
+                "spotchecked_screenshot": "drw_output/ui_acceptance/exe_stability_2h_v3/screenshots/final.png",
+                "blocking_issue_keys": [],
+                "source_fix": {
+                    "rebuild_required": False,
+                    "rerun_2h_exe_stability_required": False,
+                },
+            },
+        )
     if key == "cad_smoke":
         return _write_json(
             path,
@@ -748,6 +765,7 @@ def _fixture(
         "validation_log": root / "validation_log_v3_0.md",
         "ui_acceptance_report": root / "ui_acceptance_report_v3_0.md",
         "exe_ui_robot_result": root / "exe_ui_robot_result_v3_0.json",
+        "exe_ui_text_quality_spotcheck": root / "drw_output" / "diagnostics" / "exe_stability_2h_visual_spotcheck_v4_4.json",
         "cad_smoke": root / "cad_smoke_v3_0.json",
         "dimension_validation_smoke": root / "dimension_validation_smoke.json",
         "reference_compare_smoke": root / "reference_compare_smoke.json",
@@ -1393,6 +1411,39 @@ def test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
         assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
 
 
+def test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp))
+        _write_json(
+            paths["final_artifacts"]["exe_ui_text_quality_spotcheck"],  # type: ignore[index]
+            {
+                "schema": "sw_drawing_studio.exe_stability_2h_visual_spotcheck.v4_4",
+                "status": "warning_text_quality_issue",
+                "pass": False,
+                "stability_json_pass": True,
+                "ui_text_quality_pass": False,
+                "spotchecked_screenshot": "drw_output/ui_acceptance/exe_stability_2h_v3/screenshots/final.png",
+                "blocking_issue_keys": ["system_health_mojibake_in_final_screenshot"],
+                "source_fix": {
+                    "rebuild_required": True,
+                    "rerun_2h_exe_stability_required": True,
+                },
+            },
+        )
+
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "exe_ui_and_stability_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "exe_ui_and_stability_proof_pass")
+        details = check["details"]["exe_ui_text_quality_spotcheck"]
+        assert details["ui_text_quality_pass"] is False
+        assert details["rebuild_required"] is True
+
+
 def test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp))
@@ -1524,6 +1575,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()
     test_product_evidence_gate_blocks_release_when_exe_stability_is_not_proven()
+    test_product_evidence_gate_blocks_when_exe_ui_text_quality_spotcheck_fails()
     test_product_evidence_gate_rejects_source_ui_robot_as_exe_evidence()
     test_product_evidence_gate_blocks_release_when_cad_smoke_is_api_only()
     test_product_evidence_gate_blocks_release_when_dimension_smoke_counts_notes_as_displaydim()
