@@ -1138,6 +1138,10 @@ def test_generator_source_blocks_reference_intent_autodim_after_ui_failure() -> 
     assert "post_layout_prune_guard_after_arrange_still_blocked" in source
     assert "post_layout_final_exact_prune" in source
     assert "post_layout_final_exact_prune_failed" in source
+    assert "post_layout_final_exact_prune_restore_deferred" in source
+    assert "post_layout_final_exact_prune_failed_compact" in source
+    assert "post_layout_final_exact_prune_repair" in source
+    assert "post_layout_final_exact_prune_repair_still_blocked" in source
     assert "_v4_blueprint_layout_outlines" in source
     assert "_reference_outline_scale_hint" in source
     assert "target_outlines=_layout_outlines_for_solver" in source

@@ -10035,6 +10035,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                         part_class=(_drawing_blueprint_v4 or {}).get("part_class", ""),
                         dimension_plan=(_drawing_blueprint_v4 or {}).get("dimension_plan") or {},
                         layout_plan=(_drawing_blueprint_v4 or {}).get("layout_plan") or {},
+                        restore_on_failed_prune=False,
                     )
                     _post_layout_final_exact_prune_after = _count_display_dims(drw)
                     _post_layout_dim_result.update({
@@ -10064,6 +10065,90 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                             _post_layout_dim_result["post_layout_final_exact_prune_reexport_error"] = str(exc_export)
                             warnings_box.append({"code":"post_layout_final_exact_prune_reexport_failed","msg":str(exc_export)})
                     else:
+                        _post_layout_dim_result["post_layout_final_exact_prune_restore_deferred"] = True
+                        _post_layout_final_exact_prune_failed_coverage = _record_reference_intent_target_coverage(
+                            "post_layout_final_exact_prune_failed_compact",
+                            persisted_after_reopen=True,
+                        )
+                        _post_layout_final_exact_prune_repair_reason = _reference_intent_post_layout_repair_reason(
+                            _post_layout_final_exact_prune_after,
+                            _dim_floor,
+                            _post_layout_final_exact_prune_failed_coverage or {},
+                        )
+                        _post_layout_dim_result.update({
+                            "post_layout_final_exact_prune_failed_compact_coverage": (
+                                _post_layout_final_exact_prune_failed_coverage
+                            ),
+                            "post_layout_final_exact_prune_repair_reason": (
+                                _post_layout_final_exact_prune_repair_reason
+                            ),
+                        })
+                        if _skip_generic_model_dim_import and _post_layout_final_exact_prune_repair_reason:
+                            _post_layout_dim_result["post_layout_final_exact_prune_repair_attempted"] = True
+                            _post_layout_final_exact_prune_repair = _run_reference_intent_explicit_display_dims(
+                                "post_layout_final_exact_prune_repair"
+                            )
+                            _post_layout_final_exact_prune_repair_after = _count_display_dims(drw)
+                            _post_layout_final_exact_prune_repair_missing = sorted(
+                                _reference_intent_missing_target_keys(
+                                    (_post_layout_final_exact_prune_repair or {}).get("target_coverage_after") or {}
+                                )
+                            )
+                            _post_layout_dim_result.update({
+                                "post_layout_final_exact_prune_repair": _post_layout_final_exact_prune_repair,
+                                "post_layout_final_exact_prune_repair_display_dim_count_after": (
+                                    _post_layout_final_exact_prune_repair_after
+                                ),
+                                "post_layout_final_exact_prune_repair_missing_target_keys_after": (
+                                    _post_layout_final_exact_prune_repair_missing
+                                ),
+                            })
+                            _post_layout_final_exact_prune_repair_still_blocked = (
+                                _post_layout_final_exact_prune_repair_after < _dim_floor
+                                or bool(_post_layout_final_exact_prune_repair_missing)
+                            )
+                            if not _post_layout_final_exact_prune_repair_still_blocked:
+                                try:
+                                    err.value = 0; warn.value = 0
+                                    drw.Extension.SaveAs(slddrw, 0, 1, vt_dispatch_none(), err, warn)
+                                    _post_layout_dim_result["post_layout_final_exact_prune_repair_save"] = {
+                                        "errors": int(err.value),
+                                        "warnings": int(warn.value),
+                                        "method": "Extension.SaveAs",
+                                    }
+                                    log(f"  [reference_style] post-layout final exact-prune repair SLDDRW save: err={err.value}")
+                                except Exception as exc_save:
+                                    _post_layout_dim_result["post_layout_final_exact_prune_repair_save_error"] = str(exc_save)
+                                    warnings_box.append({"code":"post_layout_final_exact_prune_repair_save_failed","msg":str(exc_save)})
+                                try:
+                                    pdf_data = sw.GetExportFileData(1)
+                                    sheet_names = list(drw.GetSheetNames()) if callable(getattr(drw, "GetSheetNames", None)) else []
+                                    if pdf_data and sheet_names and callable(getattr(pdf_data, "SetSheets", None)):
+                                        pdf_data.SetSheets(0, sheet_names)
+                                    err.value = 0; warn.value = 0
+                                    drw.Extension.SaveAs(pdf, 0, 1, pdf_data, err, warn)
+                                    err.value = 0; warn.value = 0
+                                    drw.Extension.SaveAs(dxf, 0, 1, vt_dispatch_none(), err, warn)
+                                    _post_layout_dim_result["post_layout_final_exact_prune_repair_reexported"] = True
+                                    log("  [reference_style] post-layout final exact-prune repair PDF/DXF re-exported")
+                                    _png_render_result = _render_pdf_first_page_to_png(pdf, png_path, warnings_box, log)
+                                    _post_layout_dim_result["post_layout_final_exact_prune_repair_png_render"] = (
+                                        _png_render_result
+                                    )
+                                except Exception as exc_export:
+                                    _post_layout_dim_result["post_layout_final_exact_prune_repair_reexport_error"] = str(exc_export)
+                                    warnings_box.append({"code":"post_layout_final_exact_prune_repair_reexport_failed","msg":str(exc_export)})
+                            else:
+                                warnings_box.append({
+                                    "code": "post_layout_final_exact_prune_repair_still_blocked",
+                                    "before": _post_layout_final_exact_prune_after,
+                                    "after": _post_layout_final_exact_prune_repair_after,
+                                    "missing_target_keys": _post_layout_final_exact_prune_repair_missing,
+                                    "repair_reason": _post_layout_final_exact_prune_repair_reason,
+                                    "msg": "Final exact-prune compact state could not be repaired back to every required reference-intent target.",
+                                })
+                        else:
+                            _post_layout_dim_result["post_layout_final_exact_prune_repair_attempted"] = False
                         warnings_box.append({
                             "code": "post_layout_final_exact_prune_failed",
                             "before": _post_layout_final_exact_prune_before,

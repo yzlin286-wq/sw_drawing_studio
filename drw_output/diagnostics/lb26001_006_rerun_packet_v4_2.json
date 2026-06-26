@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 20:32:46",
+  "generated_at": "2026-06-26 20:50:14",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -923,6 +923,21 @@
           {
             "key": "post_layout_final_exact_prune_failed",
             "signature": "post_layout_final_exact_prune_failed",
+            "present": true
+          },
+          {
+            "key": "post_layout_final_exact_prune_defer_failed_restore",
+            "signature": "post_layout_final_exact_prune_restore_deferred",
+            "present": true
+          },
+          {
+            "key": "post_layout_final_exact_prune_repair",
+            "signature": "\"post_layout_final_exact_prune_repair\": _post_layout_final_exact_prune_repair",
+            "present": true
+          },
+          {
+            "key": "post_layout_final_exact_prune_repair_blocker",
+            "signature": "post_layout_final_exact_prune_repair_still_blocked",
             "present": true
           },
           {
@@ -2416,6 +2431,21 @@
         {
           "key": "post_layout_final_exact_prune_failed",
           "signature": "post_layout_final_exact_prune_failed",
+          "present": true
+        },
+        {
+          "key": "post_layout_final_exact_prune_defer_failed_restore",
+          "signature": "post_layout_final_exact_prune_restore_deferred",
+          "present": true
+        },
+        {
+          "key": "post_layout_final_exact_prune_repair",
+          "signature": "\"post_layout_final_exact_prune_repair\": _post_layout_final_exact_prune_repair",
+          "present": true
+        },
+        {
+          "key": "post_layout_final_exact_prune_repair_blocker",
+          "signature": "post_layout_final_exact_prune_repair_still_blocked",
           "present": true
         },
         {

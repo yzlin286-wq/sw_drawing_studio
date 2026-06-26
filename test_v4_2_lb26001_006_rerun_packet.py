@@ -779,6 +779,21 @@ def test_006_rerun_packet_blocks_when_generator_final_exact_prune_failure_guard_
     ]
 
 
+def test_006_rerun_packet_blocks_when_generator_final_exact_prune_repair_is_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_generator_signature="post_layout_final_exact_prune_repair",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "generator_repair_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["generator"]["missing_signatures"] == [
+        "post_layout_final_exact_prune_repair"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_generator_prune_repair_handoff_is_missing() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1368,6 +1383,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_generator_post_layout_prune_guard_is_missing()
     test_006_rerun_packet_blocks_when_generator_prune_guard_arrange_guard_is_missing()
     test_006_rerun_packet_blocks_when_generator_final_exact_prune_failure_guard_is_missing()
+    test_006_rerun_packet_blocks_when_generator_final_exact_prune_repair_is_missing()
     test_006_rerun_packet_blocks_when_generator_prune_repair_handoff_is_missing()
     test_006_rerun_packet_blocks_when_generator_displaydim_dedupe_is_missing()
     test_006_rerun_packet_blocks_when_generator_ui_defect_bucket_constraints_missing()
