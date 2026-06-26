@@ -143,6 +143,13 @@ def build_product_evidence_gate(
     )
     strict_conflict_ok = conflict_report.get("level") == "OK" and _counts_all_zero(conflict_report.get("counts"))
     conflict_ok_for_locked_006 = strict_conflict_ok or idle_solidworks_prelock_ok
+    stability_generated_at = _parse_generated_at(stability_gate.get("generated_at"))
+    entrypoint_generated_at = _parse_generated_at(entrypoint_report.get("generated_at"))
+    stability_entrypoint_snapshot_current = bool(
+        stability_generated_at is not None
+        and entrypoint_generated_at is not None
+        and stability_generated_at >= entrypoint_generated_at
+    )
 
     checks: list[dict[str, Any]] = []
     _add_check(
@@ -189,6 +196,20 @@ def build_product_evidence_gate(
         and entrypoint_report.get("system_health_probe_lock_contract_status") == "pass",
         "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.",
         _entrypoint_report_summary(entrypoint_report_path, entrypoint_report),
+    )
+    _add_check(
+        checks,
+        "solidworks_stability_entrypoint_snapshot_current",
+        stability_entrypoint_snapshot_current,
+        "SolidWorks stability gate must be generated no earlier than the raw entrypoint scan it summarizes.",
+        {
+            "stability_gate_path": str(stability_gate_path),
+            "entrypoint_report_path": str(entrypoint_report_path),
+            "stability_generated_at": stability_gate.get("generated_at"),
+            "entrypoint_generated_at": entrypoint_report.get("generated_at"),
+            "generated_at_parse_ok": stability_generated_at is not None and entrypoint_generated_at is not None,
+            "stability_generated_at_not_older_than_entrypoint": stability_entrypoint_snapshot_current,
+        },
     )
     _add_check(
         checks,
@@ -594,6 +615,7 @@ def build_product_evidence_gate(
             _check_pass(checks, "solidworks_stability_gate_pass")
             and _check_pass(checks, "ui_thread_direct_risk_zero")
             and _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
+            and _check_pass(checks, "solidworks_stability_entrypoint_snapshot_current")
             and _check_pass(checks, "solidworks_lock_test_report_pass")
             and _check_pass(checks, "solidworks_conflict_report_ok")
         ),
@@ -736,6 +758,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         not _check_pass(checks, "solidworks_stability_gate_pass")
         or not _check_pass(checks, "ui_thread_direct_risk_zero")
         or not _check_pass(checks, "solidworks_entrypoint_scan_report_pass")
+        or not _check_pass(checks, "solidworks_stability_entrypoint_snapshot_current")
         or not _check_pass(checks, "solidworks_lock_test_report_pass")
         or not _check_pass(checks, "solidworks_conflict_report_ok")
     ):

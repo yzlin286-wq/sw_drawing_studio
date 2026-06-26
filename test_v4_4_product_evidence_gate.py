@@ -271,6 +271,7 @@ def _fixture(
     ui_visual_review_screenshot_exists: bool = True,
     ui_visual_review_screenshot_valid: bool = True,
     entrypoint_report_pass: bool = True,
+    entrypoint_report_newer_than_stability: bool = False,
     ui_thread_subprocess_call_count: int = 0,
     ui_thread_heavy_work_count: int = 0,
     ui_threadpool_worker_count: int = 0,
@@ -371,6 +372,10 @@ def _fixture(
     )
     readiness_generated_at = "2026-06-26 10:00:00"
     packet_generated_at = "2026-06-26 09:59:59" if rerun_packet_stale_generated_at else "2026-06-26 10:01:00"
+    stability_generated_at = "2026-06-26T10:01:00"
+    entrypoint_generated_at = (
+        "2026-06-26T10:02:00" if entrypoint_report_newer_than_stability else "2026-06-26T10:00:00"
+    )
     ui_review_pass = acceptance_pass if ui_visual_review_pass is None else ui_visual_review_pass
     ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
     if ui_visual_review_screenshot_exists:
@@ -739,6 +744,7 @@ def _fixture(
         "stability": _write_json(
             root / "stability.json",
             {
+                "generated_at": stability_generated_at,
                 "status": "warning" if idle_solidworks_without_lock else "pass",
                 "pass": not idle_solidworks_without_lock,
                 "warning_reasons": ["solidworks_conflict_monitor_warning_or_fail"] if idle_solidworks_without_lock else [],
@@ -758,6 +764,7 @@ def _fixture(
             root / "unguarded_solidworks_entrypoints.json",
             {
                 "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
+                "generated_at": entrypoint_generated_at,
                 "status": "pass" if entrypoint_report_pass else "warning",
                 "entrypoint_count": 10,
                 "unguarded_or_unknown_count": 0 if entrypoint_report_pass else 1,
@@ -1382,6 +1389,24 @@ def test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk() -
         assert "solidworks_entrypoint_scan_report_pass" in set(result["blocking_issue_keys"])
         check = next(item for item in result["checks"] if item["key"] == "solidworks_entrypoint_scan_report_pass")
         assert check["details"]["ui_thread_direct_risk_count"] == 1
+
+
+def test_product_evidence_gate_blocks_when_stability_gate_is_older_than_entrypoint_report() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), entrypoint_report_newer_than_stability=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_solidworks_stability_gate"
+        assert result["allowed_actions"]["locked_006_cad_rerun_allowed_now"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert "solidworks_stability_entrypoint_snapshot_current" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"] if item["key"] == "solidworks_stability_entrypoint_snapshot_current"
+        )
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["stability_generated_at"] == "2026-06-26T10:01:00"
+        assert check["details"]["entrypoint_generated_at"] == "2026-06-26T10:02:00"
+        assert check["details"]["stability_generated_at_not_older_than_entrypoint"] is False
 
 
 def test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing() -> None:
@@ -2587,6 +2612,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_old_readiness_without_title_sampling()
     test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed()
     test_product_evidence_gate_blocks_when_raw_entrypoint_report_has_ui_risk()
+    test_product_evidence_gate_blocks_when_stability_gate_is_older_than_entrypoint_report()
     test_product_evidence_gate_blocks_when_system_health_probe_lock_contract_missing()
     test_product_evidence_gate_blocks_when_ui_threadpool_worker_returns()
     test_product_evidence_gate_blocks_when_ui_shell_subprocess_returns()

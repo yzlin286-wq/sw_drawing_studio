@@ -15189,3 +15189,52 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change tightens Task 1 coverage, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Stability Gate EntryPoint Snapshot Freshness Contract - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step. It prevents a stale SolidWorks stability summary from standing in for a newer raw entrypoint scan.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Added `solidworks_stability_entrypoint_snapshot_current`.
+  - The check compares `solidworks_stability_gate_v4_4.json.generated_at` with `unguarded_solidworks_entrypoints.json.generated_at`.
+  - Product Gate now blocks the stability gate if the raw entrypoint report is newer than the stability report that summarizes it.
+  - The check participates in `blocked_by_solidworks_stability_gate` and in the `stability_ok` prerequisite for follow-on actions.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Added fixture timestamps for stability and entrypoint evidence.
+  - Added a regression test proving a stability gate older than the entrypoint scan blocks `locked_006_cad_rerun_allowed_now` and `full_129_allowed`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\scan_solidworks_entrypoints_v4_1.py
+python -B tools\validation\run_solidworks_stability_gate_v4_4.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed `unguarded_solidworks_entrypoints.json` remains `status=pass`, `pass=true`, `entrypoint_count=538`.
+- Refreshed `solidworks_stability_gate_v4_4.json` remains `status=warning`, `pass=false`, with `warning_reasons=["solidworks_conflict_monitor_warning_or_fail"]`.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`; all follow-on actions remain false.
+- The new freshness contract currently passes:
+  - `stability_generated_at=2026-06-26T21:19:36`
+  - `entrypoint_generated_at=2026-06-26T21:19:36`
+  - `generated_at_parse_ok=true`
+  - `stability_generated_at_not_older_than_entrypoint=true`
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change tightens Task 1 evidence freshness. It does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
