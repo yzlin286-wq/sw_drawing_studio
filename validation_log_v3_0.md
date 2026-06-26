@@ -12738,6 +12738,64 @@ Remaining issues:
 - The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
 - Application Drawing Review UI screenshot PASS remains the final 006 correctness gate.
 
+## v4.4 Product Gate Machine-Readable Check Rows - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate evidence-structure hardening step.
+- No real CAD, COM, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `_add_check()` now writes a boolean `pass` field on every check row in addition to string `status`.
+  - The top-level Product Gate JSON now records `check_count`, `passed_check_count`, and `failed_check_count`.
+  - `blocking_issue_keys` remains derived from failed check rows, so existing gate behavior is unchanged.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Adds regression coverage that every check row has a boolean `pass`.
+  - Verifies `status` and `pass` stay consistent.
+  - Verifies top-level pass/fail counts and `blocking_issue_keys` match the check rows.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, and `release_ready=false`.
+- Refreshed Product Gate now records:
+  - `check_count=21`
+  - `passed_check_count=9`
+  - `failed_check_count=12`
+  - every `checks[*].pass` is a boolean
+- Blocking issue keys are unchanged:
+  - `solidworks_stability_gate_pass`
+  - `solidworks_conflict_report_ok`
+  - `solidworks_readiness_for_006`
+  - `solidworks_readiness_title_sampling_guard`
+  - `regeneration_006_fresh_evidence_pass`
+  - `application_ui_006_acceptance_pass`
+  - `canonical_006_ui_visual_review_pass`
+  - `requested_ref6_ui_status_pass`
+  - `final_release_artifacts_present`
+  - `exe_ui_and_stability_proof_pass`
+  - `cad_smoke_dimension_reference_proof_pass`
+  - `visual_audit_schema_proof_pass`
+
+Remaining issues:
+
+- SolidWorks still has visible unsaved work; manual save/close is required before any CAD worker rerun.
+- The next allowed CAD action is still exactly one locked 006-only rerun, and only after readiness becomes safe.
+- 006 still requires fresh CAD output followed by application Drawing Review UI screenshot capture and manual visual checklist PASS.
+
 ## v4.4 Requested Ref6 Requires 006 UI Bucket Closure - 2026-06-26
 
 Current judgment:

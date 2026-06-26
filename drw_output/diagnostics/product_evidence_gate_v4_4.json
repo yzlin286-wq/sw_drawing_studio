@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 11:34:58",
+  "generated_at": "2026-06-26 11:41:34",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -31,6 +31,7 @@
   "checks": [
     {
       "key": "solidworks_stability_gate_pass",
+      "pass": false,
       "status": "fail",
       "message": "SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.",
       "details": {
@@ -46,6 +47,7 @@
     },
     {
       "key": "ui_thread_direct_risk_zero",
+      "pass": true,
       "status": "pass",
       "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
@@ -68,6 +70,7 @@
     },
     {
       "key": "solidworks_entrypoint_scan_report_pass",
+      "pass": true,
       "status": "pass",
       "message": "Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.",
       "details": {
@@ -88,6 +91,7 @@
     },
     {
       "key": "solidworks_lock_test_report_pass",
+      "pass": true,
       "status": "pass",
       "message": "SolidWorks global-lock test report must pass every lock ownership/conflict check.",
       "details": {
@@ -103,6 +107,7 @@
     },
     {
       "key": "solidworks_conflict_report_ok",
+      "pass": false,
       "status": "fail",
       "message": "Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.",
       "details": {
@@ -126,6 +131,7 @@
     },
     {
       "key": "solidworks_readiness_for_006",
+      "pass": false,
       "status": "fail",
       "message": "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
       "details": {
@@ -139,6 +145,7 @@
     },
     {
       "key": "solidworks_readiness_title_sampling_guard",
+      "pass": false,
       "status": "fail",
       "message": "006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.",
       "details": {
@@ -165,6 +172,7 @@
     },
     {
       "key": "lb26001_006_rerun_packet_ready",
+      "pass": true,
       "status": "pass",
       "message": "006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.",
       "details": {
@@ -249,6 +257,7 @@
     },
     {
       "key": "lb26001_006_rerun_packet_readiness_state_current",
+      "pass": true,
       "status": "pass",
       "message": "006 rerun packet readiness state must match the current readiness result before real CAD can start.",
       "details": {
@@ -264,6 +273,7 @@
     },
     {
       "key": "lb26001_006_ui_defect_buckets_ready",
+      "pass": true,
       "status": "pass",
       "message": "006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.",
       "details": {
@@ -340,6 +350,7 @@
     },
     {
       "key": "reference_intent_006_proof_pass",
+      "pass": true,
       "status": "pass",
       "message": "006 reference-intent plan proof must pass while remaining supporting evidence only.",
       "details": {
@@ -352,6 +363,7 @@
     },
     {
       "key": "reference_intent_006_plan_complete",
+      "pass": true,
       "status": "pass",
       "message": "006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.",
       "details": {
@@ -377,6 +389,7 @@
     },
     {
       "key": "reference_intent_006_contract_locked_worker_only",
+      "pass": true,
       "status": "pass",
       "message": "006 reference-intent execution contract must require SolidWorks global lock and forbid UI-thread execution.",
       "details": {
@@ -398,6 +411,7 @@
     },
     {
       "key": "regeneration_006_fresh_evidence_pass",
+      "pass": false,
       "status": "fail",
       "message": "006 must have a fresh run evidence gate PASS before UI screenshot review can close acceptance.",
       "details": {
@@ -420,6 +434,7 @@
     },
     {
       "key": "application_ui_006_acceptance_pass",
+      "pass": false,
       "status": "fail",
       "message": "006 must pass the application Drawing Review UI screenshot and manual visual checklist.",
       "details": {
@@ -451,6 +466,7 @@
     },
     {
       "key": "canonical_006_ui_visual_review_pass",
+      "pass": false,
       "status": "fail",
       "message": "006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.",
       "details": {
@@ -501,6 +517,7 @@
     },
     {
       "key": "requested_ref6_ui_status_pass",
+      "pass": false,
       "status": "fail",
       "message": "All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.",
       "details": {
@@ -914,6 +931,7 @@
     },
     {
       "key": "final_release_artifacts_present",
+      "pass": false,
       "status": "fail",
       "message": "Final release artifacts must exist before release/full_129 completion can be claimed.",
       "details": {
@@ -930,7 +948,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 932111
+          "size_bytes": 936343
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -986,6 +1004,7 @@
     },
     {
       "key": "exe_ui_and_stability_proof_pass",
+      "pass": false,
       "status": "fail",
       "message": "Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, and 2-hour Windows EXE UI stability PASS.",
       "details": {
@@ -1028,6 +1047,7 @@
     },
     {
       "key": "cad_smoke_dimension_reference_proof_pass",
+      "pass": false,
       "status": "fail",
       "message": "Final CAD/dimension/reference smoke evidence must be semantic PASS: fresh CAD output through JobRuntimeFacade/qprocess, true DisplayDim validation, and reference comparison proof.",
       "details": {
@@ -1072,6 +1092,7 @@
     },
     {
       "key": "visual_audit_schema_proof_pass",
+      "pass": false,
       "status": "fail",
       "message": "Final Visual Audit must have visual_audit_report_v3_0.xlsx plus raw and normalized issue schema proof plus the v4.4 schema-gap diagnostic; normalized proof alone does not replace raw historical issue compliance.",
       "details": {
@@ -1138,6 +1159,9 @@
       }
     }
   ],
+  "check_count": 21,
+  "passed_check_count": 9,
+  "failed_check_count": 12,
   "blocking_issue_keys": [
     "solidworks_stability_gate_pass",
     "solidworks_conflict_report_ok",

@@ -485,6 +485,8 @@ def build_product_evidence_gate(
     )
 
     failed = [item for item in checks if item["status"] != "pass"]
+    passed_count = sum(1 for item in checks if item.get("pass") is True)
+    failed_count = sum(1 for item in checks if item.get("pass") is False)
     status = _status_from_checks(checks)
     allowed_actions = _allowed_actions(
         stability_ok=(
@@ -534,6 +536,9 @@ def build_product_evidence_gate(
         "do_not_expand_007_008_009_015_022": not allowed_actions["expand_007_008_009_015_022_allowed"],
         "allowed_actions": allowed_actions,
         "checks": checks,
+        "check_count": len(checks),
+        "passed_check_count": passed_count,
+        "failed_check_count": failed_count,
         "blocking_issue_keys": [item["key"] for item in failed],
         "source_artifacts": {
             "stability_gate": str(stability_gate_path),
@@ -611,6 +616,7 @@ def _add_check(
 ) -> None:
     checks.append({
         "key": key,
+        "pass": passed,
         "status": "pass" if passed else "fail",
         "message": message,
         "details": details or {},

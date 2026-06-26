@@ -798,6 +798,22 @@ def test_product_evidence_gate_can_pass_complete_fixture() -> None:
         assert not result["blocking_issue_keys"]
 
 
+def test_product_evidence_gate_checks_are_boolean_machine_readable() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), readiness_ready=False))
+
+        checks = result["checks"]
+        assert checks
+        assert all(isinstance(item.get("pass"), bool) for item in checks)
+        assert all((item["status"] == "pass") == item["pass"] for item in checks)
+        assert result["check_count"] == len(checks)
+        assert result["passed_check_count"] == sum(1 for item in checks if item["pass"] is True)
+        assert result["failed_check_count"] == sum(1 for item in checks if item["pass"] is False)
+        assert set(result["blocking_issue_keys"]) == {
+            item["key"] for item in checks if item["pass"] is False
+        }
+
+
 def test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), readiness_ready=False))
@@ -1472,6 +1488,7 @@ def test_product_evidence_gate_tool_is_file_only() -> None:
 
 if __name__ == "__main__":
     test_product_evidence_gate_can_pass_complete_fixture()
+    test_product_evidence_gate_checks_are_boolean_machine_readable()
     test_product_evidence_gate_blocks_when_solidworks_readiness_is_blocked()
     test_product_evidence_gate_blocks_old_readiness_without_title_sampling()
     test_product_evidence_gate_blocks_ready_readiness_when_unsaved_title_was_observed()
