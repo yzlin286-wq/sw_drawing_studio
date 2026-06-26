@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_requested_drawings_status.v4_2",
-  "generated_at": "2026-06-26 11:34:48",
+  "generated_at": "2026-06-26 15:28:53",
   "requested_bases": [
     "LB26001-A-04-006",
     "LB26001-A-04-007",
@@ -37,10 +37,10 @@
   "canonical_ui_visual_review_status": "need_review",
   "canonical_ui_visual_review_pass": false,
   "manual_reviews": [
+    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement_template.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement_template.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
-    "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement_template.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_035852_visual_review\\manual_visual_judgement.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_035852_visual_review\\manual_visual_judgement_template.json",
     "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_034438_visual_review\\manual_visual_judgement.json",
@@ -92,7 +92,7 @@
       "base": "LB26001-A-04-006",
       "application_ui_screenshot_required": true,
       "application_ui_screenshot_present": true,
-      "application_ui_screenshot_file_count": 2,
+      "application_ui_screenshot_file_count": 1,
       "application_ui_screenshot_content_check_pass": true,
       "manual_visual_judgement_required": true,
       "manual_visual_judgement_present": true,
@@ -139,29 +139,16 @@
       "ui_defect_bucket_closure_contract_count": 6,
       "ui_defect_bucket_api_or_displaydim_metric_alone_can_close": false,
       "latest_manual_visual_checklist": {
-        "reference_match": false,
-        "view_layout": false,
-        "display_dimensions": false,
-        "dimension_readability": false,
-        "title_block": false,
-        "manufacturing_notes": false
+        "reference_match": null,
+        "view_layout": null,
+        "display_dimensions": null,
+        "dimension_readability": null,
+        "title_block": null,
+        "manufacturing_notes": null
       },
-      "latest_manual_visual_checklist_notes": {
-        "reference_match": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
-        "view_layout": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
-        "display_dimensions": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
-        "dimension_readability": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
-        "title_block": "The visible title/data area is positioned and formatted differently from the compact reference style.",
-        "manufacturing_notes": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions."
-      },
-      "latest_manual_findings": [
-        "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
-        "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
-        "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
-        "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
-        "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
-      ],
-      "latest_manual_required_correction": "Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI.",
+      "latest_manual_visual_checklist_notes": {},
+      "latest_manual_findings": [],
+      "latest_manual_required_correction": "",
       "source_ui_report_application_ui_ok": true,
       "ui_visual_review_status": "manual_visual_checklist_failed",
       "acceptance_status": "manual_visual_checklist_failed",
@@ -171,16 +158,14 @@
         "ui_defect_bucket_closure"
       ],
       "ui_screenshot_files": [
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
       ],
       "application_ui_screenshot_paths_existing_application_ui": [
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
       ],
-      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
-      "generated_png": "drw_output\\runs\\03eab4738911\\drawing\\LB26001-A-04-006_v5.PNG",
-      "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png",
+      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
       "vision_qc_v6_visual_acceptance_pass": false,
       "reference_compare_v4_pass": false,
       "required_artifact_keys": [
@@ -780,28 +765,11 @@
       "application_ui_screenshot_review_present": true,
       "application_ui_screenshot_content_check_pass": true,
       "application_ui_screenshot_paths_existing_application_ui": [
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
       ],
       "application_ui_screenshot_content_checks": [
         {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
-          "pass": true,
-          "exists": true,
-          "width": 2600,
-          "height": 1400,
-          "reasons": [],
-          "checks": {
-            "min_size_pass": true,
-            "aspect_pass": true,
-            "top_chrome_pass": true,
-            "left_nav_pass": true,
-            "bottom_log_pass": true,
-            "side_by_side_review_region_pass": true
-          }
-        },
-        {
-          "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
           "pass": true,
           "exists": true,
           "width": 2600,
@@ -929,40 +897,26 @@
       "required_artifact_run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
       "required_artifact_case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\staged_validation\\LB26001_006_locked_real_rerun_20260625_041353\\01_LB26001-A-04-006",
       "manual_review_count": 38,
-      "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\manual_visual_judgement.json",
-      "latest_manual_status": "fail",
+      "latest_manual_review": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement_template.json",
+      "latest_manual_status": "pending",
       "latest_manual_visual_acceptance_pass": false,
-      "latest_manual_findings": [
-        "Application Drawing Review UI screenshot was inspected side by side with the same-name reference.",
-        "The run uses current-run generated PNG evidence from drw_output/runs/03eab4738911.",
-        "DisplayDim lifecycle passes, but the visible drawing still fails the final UI screenshot review.",
-        "Reference style evidence shows reference display_dim_count=12 and generated display_dim_count=25.",
-        "API metrics are supporting evidence only; this UI screenshot review is the final gate and is FAIL."
-      ],
+      "latest_manual_findings": [],
       "latest_manual_visual_checklist": {
-        "reference_match": false,
-        "view_layout": false,
-        "display_dimensions": false,
-        "dimension_readability": false,
-        "title_block": false,
-        "manufacturing_notes": false
+        "reference_match": null,
+        "view_layout": null,
+        "display_dimensions": null,
+        "dimension_readability": null,
+        "title_block": null,
+        "manufacturing_notes": null
       },
-      "latest_manual_visual_checklist_notes": {
-        "reference_match": "Generated drawing still differs materially from the same-name reference: it keeps dense visible dimensions, cross-region diagonal lines, and a visibly different notes/title area.",
-        "view_layout": "The four-view family is present, but the generated drawing reads as a crowded central dimension cluster instead of the compact reference composition.",
-        "display_dimensions": "The generated drawing has 25 visible DisplayDim entries while the same-name reference has 12, so it remains over-dimensioned.",
-        "dimension_readability": "Dimension lines and leaders cross large blank and view regions; hole and station callouts are not grouped into clean manufacturing lanes.",
-        "title_block": "The visible title/data area is positioned and formatted differently from the compact reference style.",
-        "manufacturing_notes": "The notes block is present but not placed and formatted like the reference note area, and it competes with the dense generated dimensions."
-      },
-      "latest_manual_required_correction": "Implement SolidWorks resource governance before any further real CAD rerun, then revise 006 final exact prune so the kept physical DisplayDim set is exactly the 12 semantic targets, remains visible after export, and reads like the same-name reference in the Drawing Review UI.",
-      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
-      "generated_png": "drw_output\\runs\\03eab4738911\\drawing\\LB26001-A-04-006_v5.PNG",
-      "reference_png": "drw_output\\case_library\\LB26001-A-04-006.png",
-      "ui_screenshot_file_count": 2,
+      "latest_manual_visual_checklist_notes": {},
+      "latest_manual_required_correction": "",
+      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+      "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+      "ui_screenshot_file_count": 1,
       "ui_screenshot_files": [
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
-        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_042953_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
+        "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png"
       ],
       "invalid_or_missing_gate_ui_screenshot_files": [],
       "issue_keys": [

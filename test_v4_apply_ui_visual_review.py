@@ -61,6 +61,25 @@ def _write_json(path: Path, payload: dict) -> Path:
     return path
 
 
+def _side_by_side(reference_png: Path, generated_png: Path, comparison_png: Path | None = None) -> dict:
+    comparison = comparison_png or generated_png
+    return {
+        "required": True,
+        "pass": True,
+        "left_panel": "reference_drawing",
+        "right_panel": "generated_drawing",
+        "left_reference_png": str(reference_png),
+        "right_generated_png": str(generated_png),
+        "comparison_png": str(comparison),
+        "comparison_width": 1800,
+        "comparison_height": 1200,
+        "reference_loaded": True,
+        "generated_loaded": True,
+        "application_page": "Drawing Review",
+        "api_only_acceptance_allowed": False,
+    }
+
+
 def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -147,6 +166,7 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
                         "base": base,
                         "generated_png": str(png),
                         "ui_screenshot": {"path": str(screenshot), "pass": True},
+                        "side_by_side_reference_generated_layout": _side_by_side(reference_png, png),
                         "generated_png_evidence": {
                             "strict_source_pass": True,
                             "under_run_dir": True,
@@ -211,6 +231,7 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
     assert result["effective_manual_review"].endswith("manual_visual_judgement_with_source.json")
     assert result["entries"][0]["vision_qc_v6_visual_acceptance_pass"] is False
     assert result["entries"][0]["ui_screenshot_review_pass"] is True
+    assert result["entries"][0]["side_by_side_reference_generated_layout_pass"] is True
     assert result["entries"][0]["generated_png_source_required"] is True
     assert result["entries"][0]["generated_png_source_pass"] is True
     assert result["entries"][0]["reference_compare_v4_pass"] is False
@@ -236,6 +257,9 @@ def test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts() -> None:
     assert canonical["pass"] is False
     assert canonical["entries"][0]["base"] == base
     assert canonical["entries"][0]["application_ui_screenshot"] == str(screenshot)
+    assert canonical["entries"][0]["checks"]["side_by_side_reference_generated_layout_pass"] is True
+    assert canonical["entries"][0]["side_by_side_reference_generated_layout"]["left_panel"] == "reference_drawing"
+    assert canonical["entries"][0]["side_by_side_reference_generated_layout"]["right_panel"] == "generated_drawing"
     assert "reference_compare_v4_with_ui_not_pass" in canonical["blocking_issue_keys"]
     assert result["ui_report_entries_all_pass"] is True
     assert result["manual_review_entries_all_pass"] is True
@@ -467,6 +491,7 @@ def test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_
                         "base": base,
                         "generated_png": str(png),
                         "ui_screenshot": {"path": str(ui_screenshot), "pass": True},
+                        "side_by_side_reference_generated_layout": _side_by_side(root / f"{base}.png", png),
                     }
                 ],
             },
@@ -510,6 +535,7 @@ def test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_
     assert result["ui_report_entries_all_pass"] is True
     assert result["manual_review_entries_all_pass"] is False
     assert result["entries"][0]["ui_report_entry_pass"] is True
+    assert result["entries"][0]["side_by_side_reference_generated_layout_pass"] is True
     assert result["entries"][0]["manual_review_entry_present"] is True
     assert result["entries"][0]["manual_review_screenshot_matches_ui_report_entry"] is False
     assert result["entries"][0]["manual_review_entry_screenshot_pass"] is False
@@ -569,9 +595,48 @@ def test_apply_ui_visual_review_requires_006_bucket_closure_checklist() -> None:
     ]
 
 
+def test_apply_ui_visual_review_requires_side_by_side_reference_generated_layout() -> None:
+    missing = review_module._side_by_side_layout_gate({})
+    bad_order = review_module._side_by_side_layout_gate(
+        {
+            "side_by_side_reference_generated_layout": {
+                "required": True,
+                "pass": True,
+                "left_panel": "generated_drawing",
+                "right_panel": "reference_drawing",
+                "reference_loaded": True,
+                "generated_loaded": True,
+                "comparison_png": str(Path(__file__).resolve()),
+                "api_only_acceptance_allowed": False,
+            }
+        }
+    )
+    ok = review_module._side_by_side_layout_gate(
+        {
+            "side_by_side_reference_generated_layout": {
+                "required": True,
+                "pass": True,
+                "left_panel": "reference_drawing",
+                "right_panel": "generated_drawing",
+                "reference_loaded": True,
+                "generated_loaded": True,
+                "comparison_png": str(Path(__file__).resolve()),
+                "api_only_acceptance_allowed": False,
+            }
+        }
+    )
+
+    assert missing["side_by_side_reference_generated_layout_pass"] is False
+    assert "side_by_side_reference_generated_layout" in missing["side_by_side_reference_generated_layout"]["missing_or_invalid_keys"]
+    assert bad_order["side_by_side_reference_generated_layout_pass"] is False
+    assert "left_panel_reference_drawing" in bad_order["side_by_side_reference_generated_layout"]["missing_or_invalid_keys"]
+    assert ok["side_by_side_reference_generated_layout_pass"] is True
+
+
 if __name__ == "__main__":
     test_apply_ui_visual_review_writes_v6_and_v4_with_ui_artifacts()
     test_apply_ui_visual_review_blocks_pass_without_matching_ui_report_entry()
     test_apply_ui_visual_review_blocks_pass_when_manual_screenshot_differs_from_ui_report()
     test_apply_ui_visual_review_requires_006_bucket_closure_checklist()
+    test_apply_ui_visual_review_requires_side_by_side_reference_generated_layout()
     print("PASS test_v4_apply_ui_visual_review")

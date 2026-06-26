@@ -677,9 +677,22 @@ def _fixture(
                         "pass": ui_review_pass,
                         "visual_acceptance_pass": ui_review_pass,
                         "application_ui_screenshot": str(ui_screenshot),
+                        "side_by_side_reference_generated_layout": {
+                            "required": True,
+                            "pass": ui_review_pass,
+                            "left_panel": "reference_drawing",
+                            "right_panel": "generated_drawing",
+                            "left_reference_png": str(root / "reference.png"),
+                            "right_generated_png": str(root / "generated.png"),
+                            "comparison_png": str(ui_screenshot),
+                            "reference_loaded": ui_review_pass,
+                            "generated_loaded": ui_review_pass,
+                            "api_only_acceptance_allowed": False,
+                        },
                         "checks": {
                             "ui_report_entry_pass": True,
                             "manual_review_entry_screenshot_pass": True,
+                            "side_by_side_reference_generated_layout_pass": ui_review_pass,
                             "ui_defect_bucket_closure_pass": ui_review_pass,
                             "vision_qc_v6_visual_acceptance_pass": ui_review_pass,
                             "reference_compare_v4_pass": ui_review_pass,
@@ -1236,6 +1249,23 @@ def test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
         assert check["details"]["base_entry"]["checks"].get("ui_defect_bucket_closure_pass") is None
 
 
+def test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing() -> None:
+    with TemporaryDirectory() as tmp:
+        paths = _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True)
+        payload = json.loads(paths["ui_visual_review"].read_text(encoding="utf-8"))
+        payload["entries"][0]["checks"].pop("side_by_side_reference_generated_layout_pass", None)
+        payload["entries"][0].pop("side_by_side_reference_generated_layout", None)
+        paths["ui_visual_review"].write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        result = _build(paths)
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "canonical_006_ui_visual_review_pass")
+        assert check["details"]["base_entry"]["checks"].get("side_by_side_reference_generated_layout_pass") is None
+
+
 def test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(
@@ -1565,6 +1595,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
+    test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()

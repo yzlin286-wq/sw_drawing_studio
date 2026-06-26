@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.manual_visual_judgement.v4_2.template",
-  "generated_at": "2026-06-25 04:18:45",
+  "generated_at": "2026-06-26 15:28:24",
   "template_status": "requires_human_visual_judgement",
   "overall_status": "PENDING_MANUAL_REVIEW",
   "visual_acceptance_pass": false,

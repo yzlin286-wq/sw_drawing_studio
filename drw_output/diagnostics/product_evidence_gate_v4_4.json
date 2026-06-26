@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 15:09:01",
+  "generated_at": "2026-06-26 15:28:58",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -113,7 +113,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T14:58:30",
+        "generated_at": "2026-06-26T15:20:10",
         "level": "WARNING",
         "counts": {
           "solidworks_processes": 1,
@@ -499,6 +499,23 @@
           "application_ui_screenshot_min_dimensions_pass": true,
           "application_ui_screenshot_valid": true,
           "application_ui_screenshot_failure": "",
+          "side_by_side_reference_generated_layout": {
+            "required": true,
+            "pass": true,
+            "left_panel": "reference_drawing",
+            "right_panel": "generated_drawing",
+            "left_reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+            "right_generated_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "comparison_png": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "comparison_width": 1800,
+            "comparison_height": 1200,
+            "reference_loaded": true,
+            "generated_loaded": true,
+            "application_page": "Drawing Review",
+            "api_only_acceptance_allowed": false,
+            "comparison_png_exists": true,
+            "missing_or_invalid_keys": []
+          },
           "blocking_issue_keys": [
             "ui_defect_bucket_closure_not_proven",
             "vision_qc_v6_with_ui_not_pass",
@@ -507,6 +524,7 @@
           "checks": {
             "ui_report_entry_pass": true,
             "manual_review_entry_screenshot_pass": true,
+            "side_by_side_reference_generated_layout_pass": true,
             "ui_defect_bucket_closure_pass": false,
             "vision_qc_v6_visual_acceptance_pass": false,
             "reference_compare_v4_pass": false,
@@ -948,7 +966,7 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 955748
+          "size_bytes": 958136
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",

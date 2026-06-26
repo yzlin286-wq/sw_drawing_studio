@@ -1444,6 +1444,7 @@ def _canonical_ui_visual_review_pass(payload: dict[str, Any]) -> bool:
         and screenshot_evidence["valid_ui_screenshot"]
         and checks.get("ui_report_entry_pass") is True
         and checks.get("manual_review_entry_screenshot_pass") is True
+        and checks.get("side_by_side_reference_generated_layout_pass") is True
         and checks.get("ui_defect_bucket_closure_pass") is True
         and checks.get("vision_qc_v6_visual_acceptance_pass") is True
         and checks.get("reference_compare_v4_pass") is True
@@ -1481,6 +1482,9 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
             "application_ui_screenshot_min_dimensions_pass": screenshot_evidence["min_dimensions_pass"],
             "application_ui_screenshot_valid": screenshot_evidence["valid_ui_screenshot"],
             "application_ui_screenshot_failure": screenshot_evidence["failure"],
+            "side_by_side_reference_generated_layout": base_entry.get(
+                "side_by_side_reference_generated_layout"
+            ) or {},
             "blocking_issue_keys": base_entry.get("blocking_issue_keys") or [],
             "checks": base_entry.get("checks") or {},
         },

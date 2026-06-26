@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.vision_qc_v6",
   "version": "v6",
-  "generated_at": "2026-06-26 11:20:19",
+  "generated_at": "2026-06-26 15:28:44",
   "base": "LB26001-A-04-006",
   "source_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
   "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
@@ -6631,7 +6631,7 @@
       "api_is_not_final_judgement": true
     }
   },
-  "duration_s": 2.319,
+  "duration_s": 1.895,
   "status": "need_review",
   "output_path": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\vision_qc_v6_with_ui_review\\LB26001-A-04-006.json"
 }

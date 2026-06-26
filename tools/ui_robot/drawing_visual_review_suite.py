@@ -16,13 +16,12 @@ if str(REPO_ROOT) not in sys.path:
 
 from PySide6.QtCore import QRect, Qt
 from PySide6.QtGui import QColor, QFont, QImage, QPainter, QPen
-from PySide6.QtWidgets import QApplication, QSplitter
+from PySide6.QtWidgets import QApplication, QMainWindow, QSplitter
 
-from app.ui.main_window import MainWindow, PAGE_DRAWING_REVIEW
+from app.ui.drawing_review_workbench import DrawingReviewWorkbench
 from app.services.generated_png_source_evidence import generated_png_source_evidence
 from tools.ui_robot.human_simulator import (
     EventLogger,
-    click_list_row,
     grab_widget,
     make_app,
     process_events,
@@ -213,6 +212,32 @@ def _compose_comparison_image(
     }
 
 
+def _side_by_side_layout_contract(
+    *,
+    reference_png: Path,
+    generated_png: Path,
+    comparison_result: dict[str, Any],
+) -> dict[str, Any]:
+    reference_loaded = bool(comparison_result.get("reference_loaded"))
+    generated_loaded = bool(comparison_result.get("generated_loaded"))
+    saved = bool(comparison_result.get("saved"))
+    return {
+        "required": True,
+        "pass": bool(saved and reference_loaded and generated_loaded),
+        "left_panel": "reference_drawing",
+        "right_panel": "generated_drawing",
+        "left_reference_png": str(reference_png),
+        "right_generated_png": str(generated_png),
+        "comparison_png": str(comparison_result.get("path") or ""),
+        "comparison_width": comparison_result.get("width"),
+        "comparison_height": comparison_result.get("height"),
+        "reference_loaded": reference_loaded,
+        "generated_loaded": generated_loaded,
+        "application_page": "Drawing Review",
+        "api_only_acceptance_allowed": False,
+    }
+
+
 def _supporting_status(case_dir: Path, summary_case: dict[str, Any]) -> dict[str, Any]:
     dimension = _load_json(case_dir / "dimension_validation.json")
     reference = _load_json(case_dir / "reference_compare.json")
@@ -302,12 +327,14 @@ def run_visual_review(
     comparisons_dir.mkdir(parents=True, exist_ok=True)
 
     cases = _case_dirs(summary)
-    window = MainWindow()
+    window = QMainWindow()
+    window.setObjectName("drawingVisualReviewDirectHost")
+    window.setWindowTitle("SW Drawing Studio - Drawing Review")
+    page = DrawingReviewWorkbench(window)
+    window.setCentralWidget(page)
     window.resize(2600, 1400)
     window.show()
     process_events(800)
-    click_list_row(window.nav, PAGE_DRAWING_REVIEW, logger)
-    page = window.drawing_review_page
     for splitter in page.findChildren(QSplitter):
         splitter.setSizes([320, 1580, 520])
     process_events(300)
@@ -370,9 +397,16 @@ def run_visual_review(
                 "generated_png_source": generated_png_source,
                 "generated_png_evidence": generated_png_evidence,
                 "comparison_png": comparison_result,
+                "side_by_side_reference_generated_layout": _side_by_side_layout_contract(
+                    reference_png=reference_png,
+                    generated_png=generated_png,
+                    comparison_result=comparison_result,
+                ),
                 "ui_screenshot": screenshot,
                 "application_ui_screenshot_review_required": True,
                 "application_ui_screenshot_source": "Drawing Review page",
+                "application_ui_source_mode": "drawing_review_workbench_direct_host",
+                "solidworks_probe_allowed_during_screenshot_review": False,
                 "ui_screenshot_source": "source_qt_application_ui_screenshot",
                 "ui_screenshot_is_final_gate": True,
                 "api_only_acceptance_allowed": False,
@@ -419,6 +453,8 @@ def run_visual_review(
         "visual_acceptance_pass": False,
         "pass": False,
         "per_drawing_application_ui_screenshot_required": True,
+        "application_ui_source_mode": "drawing_review_workbench_direct_host",
+        "solidworks_probe_allowed_during_screenshot_review": False,
         "ui_screenshot_review_is_final_gate": True,
         "api_only_acceptance_allowed": False,
         "expansion_gate": _expansion_gate_summary(bases),
@@ -454,19 +490,22 @@ def _write_markdown(report: dict[str, Any], path: Path) -> None:
         "",
         f"- Generated at: {report.get('generated_at')}",
         f"- Mode: {report.get('mode')}",
+        f"- Application UI source mode: {report.get('application_ui_source_mode')}",
+        f"- SolidWorks probe allowed during screenshot review: {report.get('solidworks_probe_allowed_during_screenshot_review')}",
         f"- Screenshot pass: {report.get('screenshot_pass')}",
         f"- Image inputs loaded: {report.get('image_inputs_loaded')}",
         f"- Evidence capture pass: {report.get('evidence_capture_pass')}",
         f"- Visual acceptance pass: {report.get('visual_acceptance_pass')}",
         "",
-        "| Base | UI screenshot | Generated PNG | Generated source OK | Reference PNG | Visual verdict |",
-        "| --- | --- | --- | --- | --- | --- |",
+        "| Base | UI screenshot | Side-by-side OK | Generated PNG | Generated source OK | Reference PNG | Visual verdict |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
     ]
     for entry in report.get("entries") or []:
         lines.append(
-            "| {base} | {shot} | {gen} | {source_ok} | {ref} | {verdict} |".format(
+            "| {base} | {shot} | {side_by_side} | {gen} | {source_ok} | {ref} | {verdict} |".format(
                 base=entry.get("base", ""),
                 shot=entry.get("ui_screenshot", {}).get("path", ""),
+                side_by_side=entry.get("side_by_side_reference_generated_layout", {}).get("pass", False),
                 gen=entry.get("generated_png", ""),
                 source_ok=entry.get("generated_png_evidence", {}).get("strict_source_pass", False),
                 ref=entry.get("reference_png", ""),

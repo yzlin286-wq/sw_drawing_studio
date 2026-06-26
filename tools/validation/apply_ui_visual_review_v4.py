@@ -204,6 +204,63 @@ def _entry_ui_screenshot_gate(
     }
 
 
+def _side_by_side_layout_gate(entry: dict[str, Any]) -> dict[str, Any]:
+    raw = (
+        entry.get("side_by_side_reference_generated_layout")
+        or entry.get("side_by_side_layout")
+        or {}
+    )
+    if not isinstance(raw, dict):
+        raw = {}
+    required = bool(raw.get("required", True))
+    left_ok = str(raw.get("left_panel") or "") == "reference_drawing"
+    right_ok = str(raw.get("right_panel") or "") == "generated_drawing"
+    reference_loaded = bool(raw.get("reference_loaded"))
+    generated_loaded = bool(raw.get("generated_loaded"))
+    comparison_png = str(raw.get("comparison_png") or "")
+    comparison_path = _repo_path(comparison_png) if comparison_png else None
+    comparison_exists = bool(
+        comparison_path is not None
+        and comparison_path.exists()
+        and comparison_path.is_file()
+        and comparison_path.stat().st_size > 0
+    )
+    pass_gate = bool(
+        required
+        and raw.get("pass") is True
+        and left_ok
+        and right_ok
+        and reference_loaded
+        and generated_loaded
+        and comparison_exists
+        and raw.get("api_only_acceptance_allowed") is False
+    )
+    missing: list[str] = []
+    if not raw:
+        missing.append("side_by_side_reference_generated_layout")
+    if not left_ok:
+        missing.append("left_panel_reference_drawing")
+    if not right_ok:
+        missing.append("right_panel_generated_drawing")
+    if not reference_loaded:
+        missing.append("reference_loaded")
+    if not generated_loaded:
+        missing.append("generated_loaded")
+    if not comparison_exists:
+        missing.append("comparison_png_exists")
+    if raw.get("api_only_acceptance_allowed") is not False:
+        missing.append("api_only_acceptance_allowed_false")
+    return {
+        "side_by_side_reference_generated_layout_required": required,
+        "side_by_side_reference_generated_layout_pass": pass_gate,
+        "side_by_side_reference_generated_layout": {
+            **raw,
+            "comparison_png_exists": comparison_exists,
+            "missing_or_invalid_keys": missing,
+        },
+    }
+
+
 def _matching_manual_entries(manual_review: dict[str, Any], base: str) -> list[dict[str, Any]]:
     matches: list[dict[str, Any]] = []
     for container_key in ["cases", "entries"]:
@@ -375,6 +432,9 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
     checks = {
         "ui_report_entry_pass": bool(entry.get("ui_report_entry_pass")),
         "manual_review_entry_screenshot_pass": bool(entry.get("manual_review_entry_screenshot_pass")),
+        "side_by_side_reference_generated_layout_pass": bool(
+            entry.get("side_by_side_reference_generated_layout_pass")
+        ),
         "ui_defect_bucket_closure_pass": (
             not bool(entry.get("ui_defect_bucket_closure_required"))
             or bool(entry.get("ui_defect_bucket_closure_pass"))
@@ -392,6 +452,8 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
         blocking_keys.append("ui_report_entry_not_pass")
     if not checks["manual_review_entry_screenshot_pass"]:
         blocking_keys.append("manual_review_screenshot_not_bound")
+    if not checks["side_by_side_reference_generated_layout_pass"]:
+        blocking_keys.append("side_by_side_reference_generated_layout_not_proven")
     if not checks["ui_defect_bucket_closure_pass"]:
         blocking_keys.append("ui_defect_bucket_closure_not_proven")
     if not checks["vision_qc_v6_visual_acceptance_pass"]:
@@ -409,6 +471,7 @@ def _canonical_entry(entry: dict[str, Any]) -> dict[str, Any]:
         "case_dir": entry.get("case_dir"),
         "generated_png": entry.get("generated_png"),
         "application_ui_screenshot": entry.get("ui_report_entry_screenshot"),
+        "side_by_side_reference_generated_layout": entry.get("side_by_side_reference_generated_layout") or {},
         "vision_qc_v6_with_ui_review": entry.get("vision_qc_v6_with_ui_review"),
         "reference_compare_v4_with_ui_review": entry.get("reference_compare_v4_with_ui_review"),
         "checks": checks,
@@ -510,6 +573,7 @@ def apply_ui_visual_review(
             ui_report=ui_report,
             ui_report_path=ui_report_path,
         )
+        side_by_side_gate = _side_by_side_layout_gate(entry)
         manual_entry_gate = _manual_entry_screenshot_gate(
             base=base,
             manual_review=effective_manual_review,
@@ -565,6 +629,7 @@ def apply_ui_visual_review(
             "run_dir": str(run_dir),
             "generated_png": str(generated_png),
             **ui_entry_gate,
+            **side_by_side_gate,
             **manual_entry_gate,
             **bucket_closure_gate,
             "vision_qc_v6_with_ui_review": str(v6_path),
@@ -584,6 +649,9 @@ def apply_ui_visual_review(
     all_v4_pass = all(bool(item.get("reference_compare_v4_pass")) for item in entries)
     all_ui_entries_pass = all(bool(item.get("ui_report_entry_pass")) for item in entries)
     all_manual_entries_pass = all(bool(item.get("manual_review_entry_screenshot_pass")) for item in entries)
+    all_side_by_side_pass = all(
+        bool(item.get("side_by_side_reference_generated_layout_pass")) for item in entries
+    )
     all_bucket_closure_pass = all(
         (not bool(item.get("ui_defect_bucket_closure_required")))
         or bool(item.get("ui_defect_bucket_closure_pass"))
@@ -593,6 +661,7 @@ def apply_ui_visual_review(
         entries
         and all_ui_entries_pass
         and all_manual_entries_pass
+        and all_side_by_side_pass
         and all_bucket_closure_pass
         and all_v6_pass
         and all_v4_pass
@@ -609,6 +678,7 @@ def apply_ui_visual_review(
         "total": len(entries),
         "ui_report_entries_all_pass": all_ui_entries_pass,
         "manual_review_entries_all_pass": all_manual_entries_pass,
+        "side_by_side_reference_generated_layout_all_pass": all_side_by_side_pass,
         "ui_defect_bucket_closure_all_pass": all_bucket_closure_pass,
         "ui_defect_bucket_source": str(ui_defect_buckets) if ui_defect_buckets else "",
         "vision_qc_v6_all_pass": all_v6_pass,
