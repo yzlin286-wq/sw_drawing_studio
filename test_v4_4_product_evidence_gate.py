@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import struct
 from tempfile import TemporaryDirectory
+import time
 import zlib
 
 from tools.validation.product_evidence_gate_v4_4 import (
@@ -102,6 +104,15 @@ def _write_final_artifact(path: Path, key: str) -> Path:
         )
     if key == "reference_compare_smoke":
         return _write_json(path, {"status": "pass", "pass": True, "reference_compare_pass": True})
+    if key == "visual_audit_index":
+        return _write_json(
+            path,
+            {
+                "generated_at": "2026-06-26 10:03:00",
+                "total_files": 10,
+                "total_bases": 6,
+            },
+        )
     if key == "stability_20min_mock":
         return _write_json(path, {"mode": "source_qt_mock_stability", "pass": True, "duration_observed_s": 1201.0})
     if key == "stability_2h_ui":
@@ -207,6 +218,7 @@ def _fixture(
     visual_audit_backfill_overlay_source_mismatch: bool = False,
     visual_audit_backfill_overlay_stale_generated_at: bool = False,
     visual_audit_backfill_overlay_bad_sha256: bool = False,
+    visual_audit_report_stale_mtime: bool = False,
     visual_audit_repair_plan_release_ready: bool = False,
     visual_audit_repair_plan_count_mismatch: bool = False,
     visual_audit_repair_plan_source_mismatch: bool = False,
@@ -1062,6 +1074,9 @@ def _fixture(
     if final_artifacts:
         for key, path in final.items():
             _write_final_artifact(path, key)
+        if visual_audit_report_stale_mtime:
+            stale = time.mktime(time.strptime("2026-06-26 09:00:00", "%Y-%m-%d %H:%M:%S"))
+            os.utime(final["visual_audit_report"], (stale, stale))
     paths["final_artifacts"] = final  # type: ignore[assignment]
     return paths
 
@@ -1834,6 +1849,23 @@ def test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_ol
         assert "gap_generated_at_not_older_than_normalized" in source_agreement["mismatch_keys"]
 
 
+def test_product_evidence_gate_blocks_release_when_final_visual_audit_report_is_stale() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), visual_audit_report_stale_mtime=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "warning_not_release_ready"
+        assert result["release_ready"] is False
+        assert "visual_audit_schema_proof_pass" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "visual_audit_schema_proof_pass")
+        freshness = check["details"]["visual_audit_schema_gap"]["visual_audit_report_freshness_contract"]
+        assert freshness["pass"] is False
+        assert freshness["report_exists"] is True
+        assert "report_mtime_not_older_than_index_generated_at" in freshness["mismatch_keys"]
+        assert "report_mtime_not_older_than_raw_generated_at" in freshness["mismatch_keys"]
+        assert "report_mtime_not_older_than_gap_generated_at" in freshness["mismatch_keys"]
+
+
 def test_product_evidence_gate_blocks_release_when_backfill_overlay_claims_release_ready() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(_fixture(Path(tmp), visual_audit_backfill_overlay_release_ready=True))
@@ -2166,6 +2198,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_sources_are_stale()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_counts_disagree_with_raw_report()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_older_than_source_reports()
+    test_product_evidence_gate_blocks_release_when_final_visual_audit_report_is_stale()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_claims_release_ready()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_count_disagrees_with_raw_failures()
     test_product_evidence_gate_blocks_release_when_backfill_overlay_source_is_stale()

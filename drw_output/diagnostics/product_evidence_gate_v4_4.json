@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 19:05:30",
+  "generated_at": "2026-06-26 19:13:58",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1131,72 +1131,100 @@
         "dist_exe": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
           "exists": true,
-          "size_bytes": 540571711
+          "size_bytes": 540571711,
+          "mtime_epoch": 1782059484.2599454,
+          "mtime_local": "2026-06-22 00:31:24"
         },
         "release_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\release_log_v3_0.md",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1029976
+          "size_bytes": 1032672,
+          "mtime_epoch": 1782471993.4379344,
+          "mtime_local": "2026-06-26 19:06:33"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "exe_ui_robot_result": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
           "exists": true,
-          "size_bytes": 5512
+          "size_bytes": 5512,
+          "mtime_epoch": 1782446286.282751,
+          "mtime_local": "2026-06-26 11:58:06"
         },
         "exe_ui_text_quality_spotcheck": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\exe_stability_2h_visual_spotcheck_v4_4.json",
           "exists": true,
-          "size_bytes": 2077
+          "size_bytes": 2077,
+          "mtime_epoch": 1782456028.7782583,
+          "mtime_local": "2026-06-26 14:40:28"
         },
         "cad_smoke": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\cad_smoke_v3_0.json",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "dimension_validation_smoke": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dimension_validation_smoke.json",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "reference_compare_smoke": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\reference_compare_smoke.json",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "reference_comparison_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_comparison_report_v3_0.xlsx",
           "exists": true,
-          "size_bytes": 24143
+          "size_bytes": 24143,
+          "mtime_epoch": 1782097893.7815404,
+          "mtime_local": "2026-06-22 11:11:33"
         },
         "visual_audit_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "visual_audit_index": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
           "exists": true,
-          "size_bytes": 630386
+          "size_bytes": 630386,
+          "mtime_epoch": 1782458411.2012885,
+          "mtime_local": "2026-06-26 15:20:11"
         },
         "stability_20min_mock": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_20min_mock_v3_0.json",
           "exists": true,
-          "size_bytes": 3844
+          "size_bytes": 3844,
+          "mtime_epoch": 1782447617.773537,
+          "mtime_local": "2026-06-26 12:20:17"
         },
         "stability_2h_ui": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json",
           "exists": true,
-          "size_bytes": 6640
+          "size_bytes": 6640,
+          "mtime_epoch": 1782455381.9068997,
+          "mtime_local": "2026-06-26 14:29:41"
         }
       }
     },
@@ -1209,7 +1237,9 @@
         "dist_exe": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\dist\\sw_drawing_studio.exe",
           "exists": true,
-          "size_bytes": 540571711
+          "size_bytes": 540571711,
+          "mtime_epoch": 1782059484.2599454,
+          "mtime_local": "2026-06-22 00:31:24"
         },
         "exe_ui_robot_result": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\exe_ui_robot_result_v3_0.json",
@@ -1312,7 +1342,9 @@
         "visual_audit_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
           "exists": false,
-          "size_bytes": 0
+          "size_bytes": 0,
+          "mtime_epoch": null,
+          "mtime_local": ""
         },
         "issue_schema_validation": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
@@ -1447,6 +1479,60 @@
             "lossy_normalized_issue_count_nonnegative": true,
             "lossy_normalized_issue_count_not_greater_than_raw": true,
             "mismatch_keys": []
+          },
+          "visual_audit_report_freshness_contract": {
+            "pass": false,
+            "report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_report_v3_0.xlsx",
+            "index_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\visual_audit_index.json",
+            "raw_issue_schema_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation.json",
+            "normalized_issue_schema_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\issue_schema_validation_normalized.json",
+            "visual_audit_schema_gap_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\visual_audit_schema_gap_v4_4.json",
+            "report_mtime_epoch": null,
+            "report_mtime_local": "",
+            "index_mtime_epoch": 1782458411.2012885,
+            "index_mtime_local": "2026-06-26 15:20:11",
+            "raw_mtime_epoch": 1782413605.2155578,
+            "raw_mtime_local": "2026-06-26 02:53:25",
+            "normalized_mtime_epoch": 1782413605.7592003,
+            "normalized_mtime_local": "2026-06-26 02:53:25",
+            "gap_mtime_epoch": 1782468004.8380804,
+            "gap_mtime_local": "2026-06-26 18:00:04",
+            "index_generated_at": "2026-06-26 15:20:11",
+            "raw_generated_at": "2026-06-26 02:53:25",
+            "normalized_generated_at": "2026-06-26 02:53:25",
+            "gap_generated_at": "2026-06-26 18:00:04",
+            "report_exists": false,
+            "report_has_content": false,
+            "report_mtime_present": false,
+            "index_file_mtime_present": true,
+            "raw_file_mtime_present": true,
+            "normalized_file_mtime_present": true,
+            "gap_file_mtime_present": true,
+            "index_generated_at_parse_ok": true,
+            "raw_generated_at_parse_ok": true,
+            "normalized_generated_at_parse_ok": true,
+            "gap_generated_at_parse_ok": true,
+            "report_mtime_not_older_than_index_mtime": false,
+            "report_mtime_not_older_than_raw_mtime": false,
+            "report_mtime_not_older_than_normalized_mtime": false,
+            "report_mtime_not_older_than_gap_mtime": false,
+            "report_mtime_not_older_than_index_generated_at": false,
+            "report_mtime_not_older_than_raw_generated_at": false,
+            "report_mtime_not_older_than_normalized_generated_at": false,
+            "report_mtime_not_older_than_gap_generated_at": false,
+            "mismatch_keys": [
+              "report_exists",
+              "report_has_content",
+              "report_mtime_present",
+              "report_mtime_not_older_than_index_mtime",
+              "report_mtime_not_older_than_raw_mtime",
+              "report_mtime_not_older_than_normalized_mtime",
+              "report_mtime_not_older_than_gap_mtime",
+              "report_mtime_not_older_than_index_generated_at",
+              "report_mtime_not_older_than_raw_generated_at",
+              "report_mtime_not_older_than_normalized_generated_at",
+              "report_mtime_not_older_than_gap_generated_at"
+            ]
           },
           "raw_noncompliant_issue_count": 5931,
           "normalized_noncompliant_issue_count": 0,

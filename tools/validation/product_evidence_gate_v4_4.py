@@ -375,6 +375,7 @@ def build_product_evidence_gate(
     reference_compare_smoke = _read_json(final_artifacts.get("reference_compare_smoke", Path()))
     stability_20min_mock = _read_json(final_artifacts.get("stability_20min_mock", Path()))
     stability_2h_ui = _read_json(final_artifacts.get("stability_2h_ui", Path()))
+    visual_audit_index = _read_json(final_artifacts.get("visual_audit_index", Path()))
     _add_check(
         checks,
         "final_release_artifacts_present",
@@ -454,6 +455,20 @@ def build_product_evidence_gate(
         visual_audit_schema_gap,
         issue_schema_validation,
     )
+    visual_audit_report_freshness_ok, visual_audit_report_freshness_details = (
+        _visual_audit_report_freshness_contract(
+            final_artifacts.get("visual_audit_report", Path()),
+            visual_audit_report,
+            final_artifacts.get("visual_audit_index", Path()),
+            visual_audit_index,
+            issue_schema_validation_path,
+            issue_schema_validation,
+            normalized_issue_schema_validation_path,
+            normalized_issue_schema_validation,
+            visual_audit_schema_gap_path,
+            visual_audit_schema_gap,
+        )
+    )
     _add_check(
         checks,
         "visual_audit_schema_proof_pass",
@@ -468,6 +483,7 @@ def build_product_evidence_gate(
             and visual_audit_schema_gap_source_ok
             and visual_audit_backfill_overlay_ok
             and visual_audit_repair_plan_ok
+            and visual_audit_report_freshness_ok
             and visual_audit_schema_gap.get("normalized_supporting_only") is True
             and visual_audit_schema_gap.get("normalized_cannot_replace_raw") is True
         ),
@@ -505,6 +521,7 @@ def build_product_evidence_gate(
                 "source_agreement": visual_audit_schema_gap_source_details,
                 "backfill_overlay_contract": visual_audit_backfill_overlay_details,
                 "repair_plan_contract": visual_audit_repair_plan_details,
+                "visual_audit_report_freshness_contract": visual_audit_report_freshness_details,
                 "raw_noncompliant_issue_count": visual_audit_schema_gap.get("raw_noncompliant_issue_count"),
                 "normalized_noncompliant_issue_count": visual_audit_schema_gap.get("normalized_noncompliant_issue_count"),
                 "visual_audit_report_final_present": visual_audit_schema_gap.get("visual_audit_report_final_present"),
@@ -766,10 +783,13 @@ def _final_artifact_evidence(final_artifacts: dict[str, Path]) -> dict[str, dict
     evidence: dict[str, dict[str, Any]] = {}
     for key, path in final_artifacts.items():
         exists = path.exists() and path.is_file()
+        mtime_epoch = path.stat().st_mtime if exists else None
         evidence[key] = {
             "path": str(path),
             "exists": exists,
             "size_bytes": path.stat().st_size if exists else 0,
+            "mtime_epoch": mtime_epoch,
+            "mtime_local": _format_epoch(mtime_epoch),
         }
     return evidence
 
@@ -2173,6 +2193,79 @@ def _visual_audit_schema_gap_source_agreement(
     return bool(details["pass"]), details
 
 
+def _visual_audit_report_freshness_contract(
+    report_path: Path,
+    report_evidence: dict[str, Any],
+    index_path: Path,
+    index: dict[str, Any],
+    raw_path: Path,
+    raw: dict[str, Any],
+    normalized_path: Path,
+    normalized: dict[str, Any],
+    gap_path: Path,
+    gap: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    report_mtime = _file_mtime_epoch(report_path)
+    index_mtime = _file_mtime_epoch(index_path)
+    raw_mtime = _file_mtime_epoch(raw_path)
+    normalized_mtime = _file_mtime_epoch(normalized_path)
+    gap_mtime = _file_mtime_epoch(gap_path)
+    index_generated_at = _parse_generated_at(index.get("generated_at"))
+    raw_generated_at = _parse_generated_at(raw.get("generated_at"))
+    normalized_generated_at = _parse_generated_at(normalized.get("generated_at"))
+    gap_generated_at = _parse_generated_at(gap.get("generated_at"))
+    checks = {
+        "report_exists": report_evidence.get("exists") is True,
+        "report_has_content": int(report_evidence.get("size_bytes") or 0) > 0,
+        "report_mtime_present": report_mtime is not None,
+        "index_file_mtime_present": index_mtime is not None,
+        "raw_file_mtime_present": raw_mtime is not None,
+        "normalized_file_mtime_present": normalized_mtime is not None,
+        "gap_file_mtime_present": gap_mtime is not None,
+        "index_generated_at_parse_ok": index_generated_at is not None,
+        "raw_generated_at_parse_ok": raw_generated_at is not None,
+        "normalized_generated_at_parse_ok": normalized_generated_at is not None,
+        "gap_generated_at_parse_ok": gap_generated_at is not None,
+        "report_mtime_not_older_than_index_mtime": _epoch_not_older(report_mtime, index_mtime),
+        "report_mtime_not_older_than_raw_mtime": _epoch_not_older(report_mtime, raw_mtime),
+        "report_mtime_not_older_than_normalized_mtime": _epoch_not_older(report_mtime, normalized_mtime),
+        "report_mtime_not_older_than_gap_mtime": _epoch_not_older(report_mtime, gap_mtime),
+        "report_mtime_not_older_than_index_generated_at": _epoch_not_older(report_mtime, index_generated_at),
+        "report_mtime_not_older_than_raw_generated_at": _epoch_not_older(report_mtime, raw_generated_at),
+        "report_mtime_not_older_than_normalized_generated_at": _epoch_not_older(
+            report_mtime,
+            normalized_generated_at,
+        ),
+        "report_mtime_not_older_than_gap_generated_at": _epoch_not_older(report_mtime, gap_generated_at),
+    }
+    mismatch_keys = [key for key, value in checks.items() if value is not True]
+    details = {
+        "pass": not mismatch_keys,
+        "report_path": str(report_path),
+        "index_path": str(index_path),
+        "raw_issue_schema_path": str(raw_path),
+        "normalized_issue_schema_path": str(normalized_path),
+        "visual_audit_schema_gap_path": str(gap_path),
+        "report_mtime_epoch": report_mtime,
+        "report_mtime_local": _format_epoch(report_mtime),
+        "index_mtime_epoch": index_mtime,
+        "index_mtime_local": _format_epoch(index_mtime),
+        "raw_mtime_epoch": raw_mtime,
+        "raw_mtime_local": _format_epoch(raw_mtime),
+        "normalized_mtime_epoch": normalized_mtime,
+        "normalized_mtime_local": _format_epoch(normalized_mtime),
+        "gap_mtime_epoch": gap_mtime,
+        "gap_mtime_local": _format_epoch(gap_mtime),
+        "index_generated_at": index.get("generated_at"),
+        "raw_generated_at": raw.get("generated_at"),
+        "normalized_generated_at": normalized.get("generated_at"),
+        "gap_generated_at": gap.get("generated_at"),
+        **checks,
+        "mismatch_keys": mismatch_keys,
+    }
+    return bool(details["pass"]), details
+
+
 def _visual_audit_backfill_overlay_contract(
     gap: dict[str, Any],
     raw: dict[str, Any],
@@ -2370,6 +2463,23 @@ def _parse_generated_at(value: Any) -> float | None:
         except ValueError:
             continue
     return None
+
+
+def _file_mtime_epoch(path: Path) -> float | None:
+    try:
+        return path.stat().st_mtime if path.exists() and path.is_file() else None
+    except OSError:
+        return None
+
+
+def _format_epoch(value: float | None) -> str:
+    if value is None:
+        return ""
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(value))
+
+
+def _epoch_not_older(value: float | None, reference: float | None) -> bool:
+    return bool(value is not None and reference is not None and value >= reference - 1.0)
 
 
 def _is_sha256_hex(value: str) -> bool:
