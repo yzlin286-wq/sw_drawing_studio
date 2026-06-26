@@ -15464,3 +15464,52 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change proves future fresh regeneration evidence must bind staged dimension/reference artifacts, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 006 Evidence Chain Source Agreement Gate - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step. It prevents a fresh regeneration report, acceptance proof, and canonical UI review from being combined unless they all point to the same 006 run directory, staged summary, and generated PNG.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `006_evidence_chain_source_agreement`.
+  - Compares regeneration `run_dir` and `summary_path` against canonical `ui_visual_review.json`.
+  - Compares acceptance proof `generated_png_source_evidence.path` against the UI review generated PNG.
+  - Requires the acceptance/UI generated PNG paths to live under the regeneration `run_dir`.
+  - Blocks downstream acceptance/expansion when the chain does not agree.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Complete synthetic Product Gate fixture now carries a single generated PNG under `runs/run006`.
+  - Added a regression test proving a canonical UI review that points to another `run_dir` blocks `006_evidence_chain_source_agreement`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, and all follow-on actions remain false.
+- New blocking issue: `006_evidence_chain_source_agreement`.
+- Current source-agreement details:
+  - regeneration is still `blocked_by_missing_fresh_006_run`
+  - regeneration `run_dir` and `summary_path` are empty
+  - historical UI review and acceptance proof still point to `drw_output/runs/2aba76ff152d`
+  - `ui_generated_png_matches_acceptance=true`
+  - but regeneration/source-chain checks fail because no fresh regeneration evidence exists
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change prevents cross-run evidence stitching, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

@@ -400,6 +400,18 @@ def build_product_evidence_gate(
         "006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.",
         _ui_visual_review_summary(ui_visual_review_path, ui_visual_review),
     )
+    chain_ok, chain_details = _006_evidence_chain_source_agreement(
+        regeneration_gate,
+        acceptance_proof,
+        ui_visual_review,
+    )
+    _add_check(
+        checks,
+        "006_evidence_chain_source_agreement",
+        chain_ok,
+        "006 regeneration, acceptance proof, and canonical UI visual review must bind to the same run_dir, staged summary, and generated PNG.",
+        chain_details,
+    )
     requested_ref6_ok, requested_ref6_details = _requested_ref6_status_check(
         requested_status_path,
         requested_status,
@@ -645,6 +657,7 @@ def build_product_evidence_gate(
         acceptance_ok=(
             _check_pass(checks, "application_ui_006_acceptance_pass")
             and _check_pass(checks, "canonical_006_ui_visual_review_pass")
+            and _check_pass(checks, "006_evidence_chain_source_agreement")
         ),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
@@ -791,7 +804,11 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         return "blocked_by_006_rerun_packet"
     if not _check_pass(checks, "regeneration_006_fresh_evidence_pass"):
         return "blocked_by_006_regeneration_evidence"
-    if not _check_pass(checks, "application_ui_006_acceptance_pass") or not _check_pass(checks, "canonical_006_ui_visual_review_pass"):
+    if (
+        not _check_pass(checks, "application_ui_006_acceptance_pass")
+        or not _check_pass(checks, "canonical_006_ui_visual_review_pass")
+        or not _check_pass(checks, "006_evidence_chain_source_agreement")
+    ):
         return "blocked_by_006_application_ui_review"
     if not _check_pass(checks, "requested_ref6_ui_status_pass"):
         return "blocked_by_requested_ref6_ui_review"
@@ -2245,6 +2262,92 @@ def _ui_visual_review_summary(path: Path, payload: dict[str, Any]) -> dict[str, 
     }
 
 
+def _006_evidence_chain_source_agreement(
+    regeneration_gate: dict[str, Any],
+    acceptance_proof: dict[str, Any],
+    ui_visual_review: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    entries = [item for item in ui_visual_review.get("entries") or [] if isinstance(item, dict)]
+    base_entry = next((item for item in entries if item.get("base") == BASE), {})
+    ui_checks = base_entry.get("checks") if isinstance(base_entry.get("checks"), dict) else {}
+    ui_layout = (
+        base_entry.get("side_by_side_reference_generated_layout")
+        if isinstance(base_entry.get("side_by_side_reference_generated_layout"), dict)
+        else {}
+    )
+    ui_generated_png = base_entry.get("generated_png") or ui_layout.get("right_generated_png")
+    ui_closure = (
+        acceptance_proof.get("ui_closure_evidence")
+        if isinstance(acceptance_proof.get("ui_closure_evidence"), dict)
+        else {}
+    )
+    generated_png_source = (
+        ui_closure.get("generated_png_source_evidence")
+        if isinstance(ui_closure.get("generated_png_source_evidence"), dict)
+        else {}
+    )
+    acceptance_generated_png = generated_png_source.get("path")
+    details = {
+        "regeneration_status": regeneration_gate.get("status"),
+        "regeneration_pass": regeneration_gate.get("pass"),
+        "regeneration_run_dir": regeneration_gate.get("run_dir"),
+        "regeneration_summary_path": regeneration_gate.get("summary_path"),
+        "acceptance_status": acceptance_proof.get("status"),
+        "acceptance_pass": acceptance_proof.get("pass"),
+        "ui_visual_review_status": ui_visual_review.get("status"),
+        "ui_visual_review_pass": ui_visual_review.get("pass"),
+        "ui_visual_review_summary": ui_visual_review.get("summary"),
+        "ui_entry_present": bool(base_entry),
+        "ui_entry_run_dir": base_entry.get("run_dir"),
+        "ui_entry_generated_png": ui_generated_png,
+        "acceptance_generated_png": acceptance_generated_png,
+        "acceptance_generated_png_source_pass": (
+            generated_png_source.get("strict_source_pass") is True
+            and generated_png_source.get("under_run_dir") is True
+        ),
+        "ui_generated_png_source_pass": ui_checks.get("generated_png_source_pass") is True,
+        "regeneration_run_dir_present": bool(str(regeneration_gate.get("run_dir") or "").strip()),
+        "regeneration_summary_path_present": bool(str(regeneration_gate.get("summary_path") or "").strip()),
+        "ui_entry_run_dir_matches_regeneration": _path_value_matches_value(
+            base_entry.get("run_dir"),
+            regeneration_gate.get("run_dir"),
+        ),
+        "ui_summary_matches_regeneration": _path_value_matches_value(
+            ui_visual_review.get("summary"),
+            regeneration_gate.get("summary_path"),
+        ),
+        "acceptance_generated_png_under_regeneration_run_dir": _path_is_under(
+            acceptance_generated_png,
+            regeneration_gate.get("run_dir"),
+        ),
+        "ui_generated_png_under_regeneration_run_dir": _path_is_under(
+            ui_generated_png,
+            regeneration_gate.get("run_dir"),
+        ),
+        "ui_generated_png_matches_acceptance": _path_value_matches_value(
+            ui_generated_png,
+            acceptance_generated_png,
+        ),
+    }
+    required_true_keys = [
+        "regeneration_pass",
+        "ui_entry_present",
+        "acceptance_generated_png_source_pass",
+        "ui_generated_png_source_pass",
+        "regeneration_run_dir_present",
+        "regeneration_summary_path_present",
+        "ui_entry_run_dir_matches_regeneration",
+        "ui_summary_matches_regeneration",
+        "acceptance_generated_png_under_regeneration_run_dir",
+        "ui_generated_png_under_regeneration_run_dir",
+        "ui_generated_png_matches_acceptance",
+    ]
+    mismatch_keys = [key for key in required_true_keys if details.get(key) is not True]
+    details["mismatch_keys"] = mismatch_keys
+    details["pass"] = not mismatch_keys
+    return bool(details["pass"]), details
+
+
 def _image_file_evidence(value: Any) -> dict[str, Any]:
     path = _resolve_path(value)
     evidence = {
@@ -3096,6 +3199,18 @@ def _path_values_match(value: Any, expected: Path) -> bool:
     try:
         path = _resolve_path(value)
         return path is not None and path.resolve() == expected.resolve()
+    except Exception:
+        return False
+
+
+def _path_is_under(value: Any, expected_root: Any) -> bool:
+    try:
+        path = _resolve_path(value)
+        root = _resolve_path(expected_root)
+        if path is None or root is None:
+            return False
+        path.resolve().relative_to(root.resolve())
+        return True
     except Exception:
         return False
 

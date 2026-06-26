@@ -271,6 +271,7 @@ def _fixture(
     ui_visual_review_pass: bool | None = None,
     ui_visual_review_screenshot_exists: bool = True,
     ui_visual_review_screenshot_valid: bool = True,
+    ui_visual_review_run_dir_mismatch: bool = False,
     entrypoint_report_pass: bool = True,
     entrypoint_report_newer_than_stability: bool = False,
     ui_thread_subprocess_call_count: int = 0,
@@ -388,6 +389,16 @@ def _fixture(
     manual_review_path = _write_json(root / "manual_visual_judgement.json", {"base": BASE, "fixture": "manual"})
     ui_report_path = _write_json(root / "drawing_visual_review_report.json", {"base": BASE, "fixture": "ui_report"})
     staged_summary_path = _write_json(root / "staged_summary.json", {"base": BASE, "fixture": "summary"})
+    run_dir_path = root / "runs" / "run006"
+    generated_png_path = _write_file(run_dir_path / "drawing" / f"{BASE}_v5.PNG")
+    ui_entry_run_dir = root / "runs" / "other_run" if ui_visual_review_run_dir_mismatch else run_dir_path
+    ui_entry_generated_png = (
+        root / "runs" / "other_run" / "drawing" / f"{BASE}_v5.PNG"
+        if ui_visual_review_run_dir_mismatch
+        else generated_png_path
+    )
+    if ui_visual_review_run_dir_mismatch:
+        _write_file(ui_entry_generated_png)
     required_active_defect_buckets = [
         "dimension_visual_overdense",
         "dimension_lane_wrong",
@@ -1080,7 +1091,8 @@ def _fixture(
                 "status": "regeneration_evidence_pass_requires_application_ui_screenshot_review" if regeneration_pass else "blocked_by_missing_fresh_006_run",
                 "release_ready": False,
                 "run_id": "run006" if regeneration_pass else "",
-                "run_dir": str(root / "runs" / "run006") if regeneration_pass else "",
+                "run_dir": str(run_dir_path) if regeneration_pass else "",
+                "summary_path": str(staged_summary_path) if regeneration_pass else "",
                 "report_is_drawing_acceptance_evidence": False,
                 "api_only_acceptance_allowed": False if regeneration_ui_contract else True,
                 "ui_screenshot_acceptance_required": regeneration_ui_contract,
@@ -1110,6 +1122,14 @@ def _fixture(
                     "direct_ui_screenshot_recheck_pass": acceptance_pass,
                     "manual_visual_checklist_pass": acceptance_pass,
                     "manual_visual_checklist_failed_items": [] if acceptance_pass else ["display_dimensions"],
+                    "generated_png_source_evidence": {
+                        "path": str(generated_png_path),
+                        "source": "run_dir",
+                        "exists": True,
+                        "strict_sample": True,
+                        "under_run_dir": True,
+                        "strict_source_pass": True,
+                    },
                 },
             },
         ),
@@ -1139,6 +1159,8 @@ def _fixture(
                         "status": "pass" if ui_review_pass else "need_review",
                         "pass": ui_review_pass,
                         "visual_acceptance_pass": ui_review_pass,
+                        "run_dir": str(ui_entry_run_dir),
+                        "generated_png": str(ui_entry_generated_png),
                         "application_ui_screenshot": str(ui_screenshot),
                         "application_ui_source_mode": "drawing_review_workbench_direct_host",
                         "solidworks_probe_allowed_during_screenshot_review": False,
@@ -1148,7 +1170,7 @@ def _fixture(
                             "left_panel": "reference_drawing",
                             "right_panel": "generated_drawing",
                             "left_reference_png": str(root / "reference.png"),
-                            "right_generated_png": str(root / "generated.png"),
+                            "right_generated_png": str(ui_entry_generated_png),
                             "comparison_png": str(ui_screenshot),
                             "reference_loaded": ui_review_pass,
                             "generated_loaded": ui_review_pass,
@@ -1971,6 +1993,27 @@ def test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_
         assert check["details"]["base_entry"]["visual_acceptance_pass"] is False
 
 
+def test_product_evidence_gate_blocks_when_006_evidence_chain_run_dir_mismatches() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                ui_visual_review_pass=True,
+                ui_visual_review_run_dir_mismatch=True,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "006_evidence_chain_source_agreement" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "006_evidence_chain_source_agreement")
+        assert check["details"]["ui_entry_run_dir_matches_regeneration"] is False
+        assert check["details"]["ui_generated_png_under_regeneration_run_dir"] is False
+        assert check["details"]["ui_generated_png_matches_acceptance"] is False
+
+
 def test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True)
@@ -2720,6 +2763,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_regeneration_gate_relaxes_ui_contract()
     test_product_evidence_gate_blocks_when_regeneration_gate_lacks_staged_validation_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
+    test_product_evidence_gate_blocks_when_006_evidence_chain_run_dir_mismatches()
     test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_no_probe_proof_missing()
