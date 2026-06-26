@@ -915,7 +915,7 @@ def _allowed_actions(
     locked_006 = bool(stability_ok and readiness_ok and reference_ok and reference_plan_ok and rerun_packet_ok)
     ui_review = bool(regeneration_ok)
     expand_ref6 = bool(stability_ok and readiness_ok and regeneration_ok and acceptance_ok)
-    ref6_complete = bool(requested_ok)
+    ref6_complete = bool(acceptance_ok and requested_ok)
     lb26001_36 = bool(stability_ok and readiness_ok and reference_plan_ok and rerun_packet_ok and ref6_complete)
     full_129 = bool(
         lb26001_36

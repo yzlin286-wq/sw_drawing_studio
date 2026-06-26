@@ -15821,3 +15821,41 @@ Remaining issues:
 - A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
 - This change improves requested-ref6 evidence-chain freshness only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 Ref6 Allowed-Action Requires 006 UI Acceptance - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is a no-COM Product Evidence Gate hardening step. It fixes an allowed-action semantic gap where a passing requested six-drawing status could mark `requested_ref6_complete`, `LB26001_36`, `medium_30`, Visual Audit full scope, `full_129`, and release as allowed even while 006 application UI acceptance was failing.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - `ref6_complete` now requires both `acceptance_ok` and `requested_ok`.
+  - This keeps downstream allowed actions false when 006 UI acceptance is failing, even if a requested-status report is otherwise marked pass.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Added a regression test where `acceptance_pass=false` and `requested_pass=true`.
+  - The test proves `requested_ref6_complete`, `LB26001_36`, `medium_30`, Visual Audit full scope, `full_129`, and release remain false.
+
+Commands:
+
+```powershell
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+```
+
+Results:
+
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- AST parse for `tools/validation/product_evidence_gate_v4_4.py` and `test_v4_4_product_evidence_gate.py`: PASS.
+- Synthetic regression now reports `requested_ref6_complete=false`, `LB26001_36=false`, `medium_30=false`, `visual_audit_full_scope_allowed=false`, `full_129=false`, and `release_allowed=false` when 006 UI acceptance fails even if requested status passes.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=26`, `passed_check_count=12`, `failed_check_count=14`, and all allowed actions remain false.
+
+Remaining issues:
+
+- A visible unsaved SolidWorks document is still present; no real 006 CAD rerun is allowed until the user manually saves or closes it and readiness is regenerated.
+- This change improves allowed-action correctness only. It does not prove 006 visual correctness or application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 UI status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

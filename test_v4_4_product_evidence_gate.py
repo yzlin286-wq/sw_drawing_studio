@@ -2266,6 +2266,24 @@ def test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes() -> 
         assert result["allowed_actions"]["full_129_allowed"] is False
 
 
+def test_product_evidence_gate_blocks_ref6_completion_when_006_acceptance_fails_even_if_requested_status_passes() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(_fixture(Path(tmp), acceptance_pass=False, requested_pass=True))
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert result["allowed_actions"]["medium_30_allowed"] is False
+        assert result["allowed_actions"]["visual_audit_full_scope_allowed"] is False
+        assert result["allowed_actions"]["full_129_allowed"] is False
+        assert result["allowed_actions"]["release_allowed"] is False
+        assert "application_ui_006_acceptance_pass" in set(result["blocking_issue_keys"])
+        assert "canonical_006_ui_visual_review_pass" in set(result["blocking_issue_keys"])
+        assert "requested_ref6_ui_status_pass" not in set(result["blocking_issue_keys"])
+
+
 def test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing() -> None:
     with TemporaryDirectory() as tmp:
         result = _build(
@@ -2986,6 +3004,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_missing()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_screenshot_is_not_image()
     test_product_evidence_gate_allows_ref6_expansion_only_after_006_passes()
+    test_product_evidence_gate_blocks_ref6_completion_when_006_acceptance_fails_even_if_requested_status_passes()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_artifact_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_per_drawing_screenshot_is_invalid()
     test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing()

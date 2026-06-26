@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 23:17:13",
+  "generated_at": "2026-06-26 23:22:30",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -1416,9 +1416,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1132868,
-          "mtime_epoch": 1782487019.1144602,
-          "mtime_local": "2026-06-26 23:16:59"
+          "size_bytes": 1135857,
+          "mtime_epoch": 1782487335.5458055,
+          "mtime_local": "2026-06-26 23:22:15"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
