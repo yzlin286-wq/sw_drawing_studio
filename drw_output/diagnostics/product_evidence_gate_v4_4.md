@@ -39,6 +39,7 @@
 - `fail` `application_ui_006_acceptance_pass`: 006 must pass the application Drawing Review UI screenshot and manual visual checklist.
 - `fail` `canonical_006_ui_visual_review_pass`: 006 canonical ui_visual_review.json must pass using application Drawing Review UI screenshot evidence.
 - `fail` `006_evidence_chain_source_agreement`: 006 regeneration, acceptance proof, and canonical UI visual review must bind to the same run_dir, staged summary, and generated PNG.
+- `fail` `006_acceptance_proof_ui_review_freshness`: 006 acceptance proof must be generated at or after the canonical application UI visual review.
 - `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.
 - `fail` `final_release_artifacts_present`: Final release artifacts must exist before release/full_129 completion can be claimed.
 - `fail` `exe_ui_and_stability_proof_pass`: Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text spot-check PASS.
@@ -55,6 +56,7 @@
 - `application_ui_006_acceptance_pass`
 - `canonical_006_ui_visual_review_pass`
 - `006_evidence_chain_source_agreement`
+- `006_acceptance_proof_ui_review_freshness`
 - `requested_ref6_ui_status_pass`
 - `final_release_artifacts_present`
 - `exe_ui_and_stability_proof_pass`

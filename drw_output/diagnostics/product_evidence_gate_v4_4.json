@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-26 22:07:25",
+  "generated_at": "2026-06-26 22:17:46",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -802,6 +802,28 @@
       }
     },
     {
+      "key": "006_acceptance_proof_ui_review_freshness",
+      "pass": false,
+      "status": "fail",
+      "message": "006 acceptance proof must be generated at or after the canonical application UI visual review.",
+      "details": {
+        "acceptance_status": "blocked_by_006",
+        "acceptance_pass": false,
+        "ui_visual_review_status": "need_review",
+        "ui_visual_review_pass": false,
+        "acceptance_generated_at": "2026-06-26 00:54:29",
+        "ui_visual_review_generated_at": "2026-06-26 15:40:38",
+        "acceptance_generated_at_epoch": 1782406469.0,
+        "ui_visual_review_generated_at_epoch": 1782459638.0,
+        "generated_at_parse_ok": true,
+        "acceptance_generated_at_not_older_than_ui_review": false,
+        "mismatch_keys": [
+          "acceptance_generated_at_not_older_than_ui_review"
+        ],
+        "pass": false
+      }
+    },
+    {
       "key": "requested_ref6_ui_status_pass",
       "pass": false,
       "status": "fail",
@@ -1298,9 +1320,9 @@
         "validation_log": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\validation_log_v3_0.md",
           "exists": true,
-          "size_bytes": 1104595,
-          "mtime_epoch": 1782482355.1157997,
-          "mtime_local": "2026-06-26 21:59:15"
+          "size_bytes": 1110924,
+          "mtime_epoch": 1782483452.3269744,
+          "mtime_local": "2026-06-26 22:17:32"
         },
         "ui_acceptance_report": {
           "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\ui_acceptance_report_v3_0.md",
@@ -1814,9 +1836,9 @@
       }
     }
   ],
-  "check_count": 23,
+  "check_count": 24,
   "passed_check_count": 10,
-  "failed_check_count": 13,
+  "failed_check_count": 14,
   "blocking_issue_keys": [
     "solidworks_stability_gate_pass",
     "solidworks_conflict_report_ok",
@@ -1826,6 +1848,7 @@
     "application_ui_006_acceptance_pass",
     "canonical_006_ui_visual_review_pass",
     "006_evidence_chain_source_agreement",
+    "006_acceptance_proof_ui_review_freshness",
     "requested_ref6_ui_status_pass",
     "final_release_artifacts_present",
     "exe_ui_and_stability_proof_pass",

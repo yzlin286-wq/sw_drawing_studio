@@ -15513,3 +15513,51 @@ Remaining issues:
 - SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
 - This change prevents cross-run evidence stitching, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
 - Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.
+
+## v4.4 006 Acceptance Proof Freshness Gate - 2026-06-26
+
+Current judgment:
+
+- Status remains `WARNING / NOT RELEASE READY`.
+- This is an offline Product Evidence Gate hardening step. It prevents an older `lb26001_006_acceptance_proof_v4_2.json` from closing a newer canonical application Drawing Review UI screenshot result.
+- No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
+- `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
+
+Implementation:
+
+- Updated `tools/validation/product_evidence_gate_v4_4.py`.
+  - Adds `006_acceptance_proof_ui_review_freshness`.
+  - Requires parseable `generated_at` values on the acceptance proof and canonical `ui_visual_review.json`.
+  - Requires the acceptance proof timestamp to be at or after the canonical UI visual-review timestamp.
+  - Blocks downstream acceptance/expansion when the acceptance proof is older than the UI visual review.
+- Updated `test_v4_4_product_evidence_gate.py`.
+  - Complete synthetic Product Gate fixture now carries explicit acceptance/UI review timestamps.
+  - Added a regression test proving stale acceptance proof evidence blocks `blocked_by_006_application_ui_review`.
+
+Commands:
+
+```powershell
+python -B -m py_compile tools\validation\product_evidence_gate_v4_4.py test_v4_4_product_evidence_gate.py
+python -B test_v4_4_product_evidence_gate.py
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+git diff --check
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=24`, `failed_check_count=14`, and all follow-on actions remain false.
+- New blocking issue: `006_acceptance_proof_ui_review_freshness`.
+- Current freshness details:
+  - acceptance proof `generated_at=2026-06-26 00:54:29`
+  - canonical UI visual review `generated_at=2026-06-26 15:40:38`
+  - `generated_at_parse_ok=true`
+  - `acceptance_generated_at_not_older_than_ui_review=false`
+  - `mismatch_keys=["acceptance_generated_at_not_older_than_ui_review"]`
+
+Remaining issues:
+
+- SolidWorks readiness is still blocked by `solidworks_unsaved_document_visible`, so no real 006 CAD rerun is allowed right now.
+- This change prevents stale acceptance-proof reuse, but it does not prove 006 visual correctness or the application Drawing Review screenshot acceptance.
+- Product Gate still blocks on SolidWorks stability/readiness, fresh 006 regeneration evidence, application Drawing Review UI acceptance, canonical 006 visual review, evidence-chain agreement, acceptance-proof freshness, requested-ref6 status, final release artifacts, EXE/stability evidence, CAD smoke dimension/reference proof, and Visual Audit schema proof.

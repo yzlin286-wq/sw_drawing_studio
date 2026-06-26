@@ -412,6 +412,17 @@ def build_product_evidence_gate(
         "006 regeneration, acceptance proof, and canonical UI visual review must bind to the same run_dir, staged summary, and generated PNG.",
         chain_details,
     )
+    freshness_ok, freshness_details = _006_acceptance_proof_ui_review_freshness(
+        acceptance_proof,
+        ui_visual_review,
+    )
+    _add_check(
+        checks,
+        "006_acceptance_proof_ui_review_freshness",
+        freshness_ok,
+        "006 acceptance proof must be generated at or after the canonical application UI visual review.",
+        freshness_details,
+    )
     requested_ref6_ok, requested_ref6_details = _requested_ref6_status_check(
         requested_status_path,
         requested_status,
@@ -658,6 +669,7 @@ def build_product_evidence_gate(
             _check_pass(checks, "application_ui_006_acceptance_pass")
             and _check_pass(checks, "canonical_006_ui_visual_review_pass")
             and _check_pass(checks, "006_evidence_chain_source_agreement")
+            and _check_pass(checks, "006_acceptance_proof_ui_review_freshness")
         ),
         requested_ok=_check_pass(checks, "requested_ref6_ui_status_pass"),
         final_artifacts_ok=_check_pass(checks, "final_release_artifacts_present"),
@@ -808,6 +820,7 @@ def _status_from_checks(checks: list[dict[str, Any]]) -> str:
         not _check_pass(checks, "application_ui_006_acceptance_pass")
         or not _check_pass(checks, "canonical_006_ui_visual_review_pass")
         or not _check_pass(checks, "006_evidence_chain_source_agreement")
+        or not _check_pass(checks, "006_acceptance_proof_ui_review_freshness")
     ):
         return "blocked_by_006_application_ui_review"
     if not _check_pass(checks, "requested_ref6_ui_status_pass"):
@@ -2341,6 +2354,38 @@ def _006_evidence_chain_source_agreement(
         "acceptance_generated_png_under_regeneration_run_dir",
         "ui_generated_png_under_regeneration_run_dir",
         "ui_generated_png_matches_acceptance",
+    ]
+    mismatch_keys = [key for key in required_true_keys if details.get(key) is not True]
+    details["mismatch_keys"] = mismatch_keys
+    details["pass"] = not mismatch_keys
+    return bool(details["pass"]), details
+
+
+def _006_acceptance_proof_ui_review_freshness(
+    acceptance_proof: dict[str, Any],
+    ui_visual_review: dict[str, Any],
+) -> tuple[bool, dict[str, Any]]:
+    acceptance_generated_at = _parse_generated_at(acceptance_proof.get("generated_at"))
+    ui_visual_review_generated_at = _parse_generated_at(ui_visual_review.get("generated_at"))
+    details = {
+        "acceptance_status": acceptance_proof.get("status"),
+        "acceptance_pass": acceptance_proof.get("pass"),
+        "ui_visual_review_status": ui_visual_review.get("status"),
+        "ui_visual_review_pass": ui_visual_review.get("pass"),
+        "acceptance_generated_at": acceptance_proof.get("generated_at"),
+        "ui_visual_review_generated_at": ui_visual_review.get("generated_at"),
+        "acceptance_generated_at_epoch": acceptance_generated_at,
+        "ui_visual_review_generated_at_epoch": ui_visual_review_generated_at,
+        "generated_at_parse_ok": acceptance_generated_at is not None and ui_visual_review_generated_at is not None,
+        "acceptance_generated_at_not_older_than_ui_review": bool(
+            acceptance_generated_at is not None
+            and ui_visual_review_generated_at is not None
+            and acceptance_generated_at >= ui_visual_review_generated_at
+        ),
+    }
+    required_true_keys = [
+        "generated_at_parse_ok",
+        "acceptance_generated_at_not_older_than_ui_review",
     ]
     mismatch_keys = [key for key in required_true_keys if details.get(key) is not True]
     details["mismatch_keys"] = mismatch_keys

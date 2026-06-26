@@ -272,6 +272,7 @@ def _fixture(
     ui_visual_review_screenshot_exists: bool = True,
     ui_visual_review_screenshot_valid: bool = True,
     ui_visual_review_run_dir_mismatch: bool = False,
+    acceptance_proof_stale_generated_at: bool = False,
     entrypoint_report_pass: bool = True,
     entrypoint_report_newer_than_stability: bool = False,
     ui_thread_subprocess_call_count: int = 0,
@@ -378,6 +379,12 @@ def _fixture(
     stability_generated_at = "2026-06-26T10:01:00"
     entrypoint_generated_at = (
         "2026-06-26T10:02:00" if entrypoint_report_newer_than_stability else "2026-06-26T10:00:00"
+    )
+    ui_visual_review_generated_at = "2026-06-26 10:02:00"
+    acceptance_generated_at = (
+        "2026-06-26 10:01:00"
+        if acceptance_proof_stale_generated_at
+        else "2026-06-26 10:03:00"
     )
     ui_review_pass = acceptance_pass if ui_visual_review_pass is None else ui_visual_review_pass
     ui_screenshot = root / "ui_acceptance" / "screenshots" / f"01_{BASE}_ui_visual_review.png"
@@ -1113,6 +1120,7 @@ def _fixture(
             root / "acceptance.json",
             {
                 "base": BASE,
+                "generated_at": acceptance_generated_at,
                 "pass": acceptance_pass,
                 "status": "pass" if acceptance_pass else "blocked_by_006",
                 "application_ui_screenshot_is_final_gate": True,
@@ -1137,6 +1145,7 @@ def _fixture(
             root / "ui_visual_review.json",
             {
                 "schema": "sw_drawing_studio.ui_visual_review.v4_4",
+                "generated_at": ui_visual_review_generated_at,
                 "status": "pass" if ui_review_pass else "need_review",
                 "pass": ui_review_pass,
                 "visual_acceptance_pass": ui_review_pass,
@@ -2014,6 +2023,32 @@ def test_product_evidence_gate_blocks_when_006_evidence_chain_run_dir_mismatches
         assert check["details"]["ui_generated_png_matches_acceptance"] is False
 
 
+def test_product_evidence_gate_blocks_when_acceptance_proof_is_older_than_ui_review() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                ui_visual_review_pass=True,
+                acceptance_proof_stale_generated_at=True,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_006_application_ui_review"
+        assert result["allowed_actions"]["expand_007_008_009_015_022_allowed"] is False
+        assert "006_acceptance_proof_ui_review_freshness" in set(result["blocking_issue_keys"])
+        check = next(
+            item for item in result["checks"]
+            if item["key"] == "006_acceptance_proof_ui_review_freshness"
+        )
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["acceptance_generated_at"] == "2026-06-26 10:01:00"
+        assert check["details"]["ui_visual_review_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["acceptance_generated_at_not_older_than_ui_review"] is False
+        assert check["details"]["mismatch_keys"] == ["acceptance_generated_at_not_older_than_ui_review"]
+
+
 def test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing() -> None:
     with TemporaryDirectory() as tmp:
         paths = _fixture(Path(tmp), acceptance_pass=True, ui_visual_review_pass=True)
@@ -2764,6 +2799,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_when_regeneration_gate_lacks_staged_validation_contract()
     test_product_evidence_gate_blocks_expansion_when_canonical_ui_visual_review_fails()
     test_product_evidence_gate_blocks_when_006_evidence_chain_run_dir_mismatches()
+    test_product_evidence_gate_blocks_when_acceptance_proof_is_older_than_ui_review()
     test_product_evidence_gate_blocks_when_canonical_ui_bucket_closure_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_side_by_side_layout_missing()
     test_product_evidence_gate_blocks_when_canonical_ui_no_probe_proof_missing()
