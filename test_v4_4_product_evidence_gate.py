@@ -243,6 +243,7 @@ def _fixture(
     requested_missing_artifact_key: str = "",
     requested_invalid_screenshot_base: str = "",
     requested_status_stale_generated_at: bool = False,
+    requested_status_older_than_acceptance_proof: bool = False,
     final_artifacts: bool = True,
     raw_issue_schema_pass: bool = True,
     normalized_issue_schema_pass: bool = True,
@@ -394,7 +395,11 @@ def _fixture(
     ui_visual_review_generated_at = "2026-06-26 10:02:00"
     ui_defect_buckets_generated_at = "2026-06-26 10:02:00"
     requested_generated_at = (
-        "2026-06-26 10:01:00" if requested_status_stale_generated_at else "2026-06-26 10:03:00"
+        "2026-06-26 10:01:00"
+        if requested_status_stale_generated_at
+        else "2026-06-26 10:02:00"
+        if requested_status_older_than_acceptance_proof
+        else "2026-06-26 10:03:00"
     )
     acceptance_generated_at = (
         "2026-06-26 10:01:00"
@@ -2372,13 +2377,47 @@ def test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_old
         check = next(item for item in result["checks"] if item["key"] == "requested_ref6_status_snapshot_current")
         assert check["details"]["generated_at_parse_ok"] is True
         assert check["details"]["requested_status_generated_at"] == "2026-06-26 10:01:00"
+        assert check["details"]["acceptance_proof_generated_at"] == "2026-06-26 10:03:00"
         assert check["details"]["ui_visual_review_generated_at"] == "2026-06-26 10:02:00"
         assert check["details"]["ui_defect_buckets_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["requested_generated_at_not_older_than_acceptance_proof"] is False
         assert check["details"]["requested_generated_at_not_older_than_ui_visual_review"] is False
         assert check["details"]["requested_generated_at_not_older_than_ui_defect_buckets"] is False
         assert check["details"]["mismatch_keys"] == [
+            "requested_generated_at_not_older_than_acceptance_proof",
             "requested_generated_at_not_older_than_ui_visual_review",
             "requested_generated_at_not_older_than_ui_defect_buckets",
+        ]
+
+
+def test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_older_than_acceptance_proof() -> None:
+    with TemporaryDirectory() as tmp:
+        result = _build(
+            _fixture(
+                Path(tmp),
+                acceptance_pass=True,
+                requested_pass=True,
+                requested_status_older_than_acceptance_proof=True,
+            )
+        )
+
+        assert result["pass"] is False
+        assert result["status"] == "blocked_by_requested_ref6_ui_review"
+        assert result["allowed_actions"]["requested_ref6_complete"] is False
+        assert result["allowed_actions"]["lb26001_36_allowed"] is False
+        assert "requested_ref6_ui_status_pass" not in set(result["blocking_issue_keys"])
+        assert "requested_ref6_status_snapshot_current" in set(result["blocking_issue_keys"])
+        check = next(item for item in result["checks"] if item["key"] == "requested_ref6_status_snapshot_current")
+        assert check["details"]["generated_at_parse_ok"] is True
+        assert check["details"]["requested_status_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["acceptance_proof_generated_at"] == "2026-06-26 10:03:00"
+        assert check["details"]["ui_visual_review_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["ui_defect_buckets_generated_at"] == "2026-06-26 10:02:00"
+        assert check["details"]["requested_generated_at_not_older_than_acceptance_proof"] is False
+        assert check["details"]["requested_generated_at_not_older_than_ui_visual_review"] is True
+        assert check["details"]["requested_generated_at_not_older_than_ui_defect_buckets"] is True
+        assert check["details"]["mismatch_keys"] == [
+            "requested_generated_at_not_older_than_acceptance_proof",
         ]
 
 
@@ -2952,6 +2991,7 @@ if __name__ == "__main__":
     test_product_evidence_gate_blocks_ref6_complete_when_no_probe_or_side_by_side_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_006_bucket_closure_is_missing()
     test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_older_than_006_sources()
+    test_product_evidence_gate_blocks_ref6_complete_when_requested_status_is_older_than_acceptance_proof()
     test_product_evidence_gate_blocks_release_when_final_artifacts_are_missing()
     test_product_evidence_gate_blocks_release_when_raw_issue_schema_fails()
     test_product_evidence_gate_blocks_release_when_visual_audit_schema_gap_is_missing()

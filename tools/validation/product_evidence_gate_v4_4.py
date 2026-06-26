@@ -474,6 +474,8 @@ def build_product_evidence_gate(
     requested_ref6_snapshot_ok, requested_ref6_snapshot_details = _requested_ref6_status_snapshot_current(
         requested_status_path,
         requested_status,
+        acceptance_proof_path,
+        acceptance_proof,
         ui_visual_review_path,
         ui_visual_review,
         ui_defect_buckets_path,
@@ -2314,19 +2316,28 @@ def _requested_ref6_status_check(path: Path, payload: dict[str, Any]) -> tuple[b
 def _requested_ref6_status_snapshot_current(
     requested_status_path: Path,
     requested_status: dict[str, Any],
+    acceptance_proof_path: Path,
+    acceptance_proof: dict[str, Any],
     ui_visual_review_path: Path,
     ui_visual_review: dict[str, Any],
     ui_defect_buckets_path: Path,
     ui_defect_buckets: dict[str, Any],
 ) -> tuple[bool, dict[str, Any]]:
     requested_generated_at = _parse_generated_at(requested_status.get("generated_at"))
+    acceptance_proof_generated_at = _parse_generated_at(acceptance_proof.get("generated_at"))
     ui_visual_review_generated_at = _parse_generated_at(ui_visual_review.get("generated_at"))
     ui_defect_buckets_generated_at = _parse_generated_at(ui_defect_buckets.get("generated_at"))
     checks = {
         "generated_at_parse_ok": bool(
             requested_generated_at is not None
+            and acceptance_proof_generated_at is not None
             and ui_visual_review_generated_at is not None
             and ui_defect_buckets_generated_at is not None
+        ),
+        "requested_generated_at_not_older_than_acceptance_proof": bool(
+            requested_generated_at is not None
+            and acceptance_proof_generated_at is not None
+            and requested_generated_at >= acceptance_proof_generated_at
         ),
         "requested_generated_at_not_older_than_ui_visual_review": bool(
             requested_generated_at is not None
@@ -2342,13 +2353,17 @@ def _requested_ref6_status_snapshot_current(
     mismatch_keys = [key for key, value in checks.items() if value is not True]
     details = {
         "requested_status_path": str(requested_status_path),
+        "acceptance_proof_path": str(acceptance_proof_path),
         "ui_visual_review_path": str(ui_visual_review_path),
         "ui_defect_buckets_path": str(ui_defect_buckets_path),
         "requested_status_generated_at": requested_status.get("generated_at"),
+        "acceptance_proof_generated_at": acceptance_proof.get("generated_at"),
         "ui_visual_review_generated_at": ui_visual_review.get("generated_at"),
         "ui_defect_buckets_generated_at": ui_defect_buckets.get("generated_at"),
         "requested_status_status": requested_status.get("status"),
         "requested_status_pass": requested_status.get("pass"),
+        "acceptance_proof_status": acceptance_proof.get("status"),
+        "acceptance_proof_pass": acceptance_proof.get("pass"),
         "ui_visual_review_status": ui_visual_review.get("status"),
         "ui_visual_review_pass": ui_visual_review.get("pass"),
         "ui_defect_buckets_status": ui_defect_buckets.get("status"),

@@ -15773,7 +15773,7 @@ Remaining issues:
 Current judgment:
 
 - Status remains `WARNING / NOT RELEASE READY`.
-- This is a no-COM Product Evidence Gate hardening step. It prevents stale `lb26001_requested_drawings_status_v4_2.json` from proving the six requested reference drawings after newer 006 UI defect-bucket or canonical UI-review evidence exists.
+- This is a no-COM Product Evidence Gate hardening step. It prevents stale `lb26001_requested_drawings_status_v4_2.json` from proving the six requested reference drawings after newer 006 acceptance proof, UI defect-bucket, or canonical UI-review evidence exists.
 - No real CAD, COM document operation, `OpenDoc6`, `SaveAs`, `CloseDoc`, OCR, YOLO, batch validation, Visual Audit full scope, automatic restart, EXE rebuild, UI screenshot acceptance, or release action was run.
 - `LB26001-A-04-006` is still not accepted, and `007/008/009/015/022` remain blocked until 006 passes the locked CAD rerun plus application Drawing Review UI screenshot review.
 
@@ -15781,11 +15781,11 @@ Implementation:
 
 - Updated `tools/validation/product_evidence_gate_v4_4.py`.
   - Added `requested_ref6_status_snapshot_current`.
-  - The check requires `lb26001_requested_drawings_status_v4_2.json.generated_at` to be parseable and not older than canonical `ui_visual_review.json.generated_at` or `lb26001_006_ui_defect_buckets_v4_4.json.generated_at`.
+  - The check requires `lb26001_requested_drawings_status_v4_2.json.generated_at` to be parseable and not older than `lb26001_006_acceptance_proof_v4_2.json.generated_at`, canonical `ui_visual_review.json.generated_at`, or `lb26001_006_ui_defect_buckets_v4_4.json.generated_at`.
   - `requested_ok` now requires both `requested_ref6_ui_status_pass` and `requested_ref6_status_snapshot_current`, so stale requested-status evidence cannot unlock `requested_ref6_complete`, `LB26001_36`, `medium_30`, `full_129`, or release.
 - Updated `test_v4_4_product_evidence_gate.py`.
   - Fixture requested and 006 defect-bucket reports now include `generated_at`.
-  - Added a regression test proving stale requested-status evidence blocks ref6 completion even when the per-drawing matrix itself is otherwise passing.
+  - Added regression tests proving stale requested-status evidence blocks ref6 completion even when the per-drawing matrix itself is otherwise passing, including a case where the requested status is only older than the 006 acceptance proof.
 - Updated `test_v4_2_lb26001_requested_drawings_status.py`.
   - Refreshed two manual-checklist assertions to include the newer no-SolidWorks-probe and side-by-side UI source requirements.
 
@@ -15811,6 +15811,7 @@ Results:
 - Refreshed requested status remains `status=blocked_by_006`, `pass=false`, `pass_count=0`, and `not_pass_count=6`.
 - Refreshed Product Gate records `requested_ref6_status_snapshot_current=pass`:
   - requested status `generated_at=2026-06-26 23:08:19`
+  - 006 acceptance proof `generated_at=2026-06-26 00:54:29`
   - canonical UI review `generated_at=2026-06-26 15:40:38`
   - 006 defect buckets `generated_at=2026-06-26 23:08:11`
 - Refreshed Product Gate remains `blocked_by_solidworks_stability_gate`, `pass=false`, `check_count=26`, `passed_check_count=12`, `failed_check_count=14`, and all allowed actions remain false.
