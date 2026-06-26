@@ -181,6 +181,7 @@ def _build_packet_fixture(
     omit_ui_defect_callout_closure_keys: bool = False,
     omit_ui_defect_screenshot_observation_bucket: str = "",
     omit_ui_defect_source_artifact: str = "",
+    omit_ui_defect_post_rerun_evidence: str = "",
 ) -> dict:
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -355,6 +356,9 @@ def _build_packet_fixture(
                 "implementation_guard_keys": ["generator.ui_defect_bucket_constraints"],
                 "post_rerun_required_evidence": [
                     "fresh_run_manifest",
+                    "generated_slddrw_pdf_dxf_png",
+                    "reference_compare_v4",
+                    "vision_qc_v6",
                     "application_drawing_review_ui_screenshot",
                     "manual_visual_judgement",
                 ],
@@ -366,6 +370,12 @@ def _build_packet_fixture(
                 if not omit_ui_defect_callout_closure_keys:
                     item["required_callout_keys"] = ["thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"]
                     item["absence_check_keys"] = ["radius_callout", "chamfer_callout"]
+            if omit_ui_defect_post_rerun_evidence:
+                item["post_rerun_required_evidence"] = [
+                    value
+                    for value in item["post_rerun_required_evidence"]
+                    if value != omit_ui_defect_post_rerun_evidence
+                ]
             bucket_closure_contract.append(item)
         ui_defect_buckets.write_text(
             json.dumps(
@@ -979,6 +989,21 @@ def test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing(
     assert packet["ui_defect_buckets"]["missing_bucket_closure_contract_keys"] == ["dimension_lane_wrong"]
 
 
+def test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_reference_compare_evidence() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_ui_defect_post_rerun_evidence="reference_compare_v4",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "006_ui_defect_buckets_ready" in packet["offline_prerequisite_missing_keys"]
+    assert packet["ui_defect_buckets"]["incomplete_bucket_closure_contracts"]["dimension_visual_overdense"] == [
+        "post_rerun_required_evidence"
+    ]
+
+
 def test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete() -> None:
     packet = _build_packet_fixture(
         readiness_ready=True,
@@ -1446,6 +1471,7 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_when_reference_lane_geometry_guard_missing()
     test_006_rerun_packet_blocks_when_ui_defect_callout_next_check_missing()
     test_006_rerun_packet_blocks_when_ui_defect_bucket_closure_contract_missing()
+    test_006_rerun_packet_blocks_when_ui_defect_bucket_lacks_reference_compare_evidence()
     test_006_rerun_packet_blocks_when_ui_defect_callout_closure_contract_incomplete()
     test_006_rerun_packet_blocks_when_active_ui_defect_screenshot_observation_missing()
     test_006_rerun_packet_blocks_when_ui_defect_source_artifact_is_missing()

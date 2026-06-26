@@ -74,6 +74,10 @@ REQUIRED_006_DEFECT_BUCKETS = REQUIRED_ACTIVE_006_DEFECT_BUCKETS | {"callout_mis
 REQUIRED_CALLOUT_KEYS = {"thread_callout_m4_6h", "hole_callout_4x3_3", "surface_finish_rest_3_2"}
 CALLOUT_ABSENCE_CHECK_KEYS = {"radius_callout", "chamfer_callout"}
 REQUIRED_CLOSURE_EVIDENCE_KEYS = {
+    "fresh_run_manifest",
+    "generated_slddrw_pdf_dxf_png",
+    "reference_compare_v4",
+    "vision_qc_v6",
     "application_drawing_review_ui_screenshot",
     "manual_visual_judgement",
 }
