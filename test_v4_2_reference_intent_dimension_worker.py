@@ -84,7 +84,7 @@ def test_cad_worker_prepares_006_reference_intent_plan_and_contract_without_com(
         )
 
 
-def test_006_reference_intent_plan_uses_right_side_callout_and_projection_quota() -> None:
+def test_006_reference_intent_plan_uses_local_hole_lanes_and_projection_quota() -> None:
     reference_profile = {
         "source_reference": r"C:\refs\LB26001-A-04-006.SLDDRW",
         "display_dim_count": 12,
@@ -96,7 +96,8 @@ def test_006_reference_intent_plan_uses_right_side_callout_and_projection_quota(
     targets = {item["key"]: item for item in intent_plan["dimensions"]}
 
     assert targets["overall_width"]["preferred_side"] == "right"
-    assert targets["hole_y_location"]["preferred_side"] == "callout_right"
+    assert targets["hole_diameter"]["preferred_side"] == "above"
+    assert targets["hole_y_location"]["preferred_side"] == "left"
     assert targets["hole_diameter"]["expected_add_method"] == "AddDiameterDimension2"
     assert targets["hole_pitch"]["expected_add_method"] == "AddHorizontalDimension2"
     assert targets["projection_view_height"]["expected_add_method"] == "AddVerticalDimension2"
@@ -108,6 +109,14 @@ def test_006_reference_intent_plan_uses_right_side_callout_and_projection_quota(
     assert targets["hole_pitch"]["placement_lane"]["lane_family"] == "outside_top"
     assert targets["hole_pitch"]["prune_protection_policy"]["delete_only_if_target_covered_elsewhere"] is True
     assert all(item["avoid_generic_model_annotation"] for item in targets.values())
+    lane_policy = intent_plan["reference_dimension_lane_policy"]
+    assert lane_policy["schema"] == "sw_drawing_studio.reference_dimension_lane_policy.v4_4"
+    assert lane_policy["max_visible_display_dim_count"] == 12
+    assert lane_policy["reference_lane_geometry_issue_count_after_required"] == 0
+    lane_targets = {item["target_key"]: item for item in lane_policy["lane_targets"]}
+    assert lane_targets["hole_diameter"]["preferred_side"] == "above"
+    assert lane_targets["hole_y_location"]["preferred_side"] == "left"
+    assert lane_policy["right_side_hole_thread_text_uses_callout_checklist"] is True
 
     plan = build_dimension_plan(
         part_class="long_thin",
@@ -188,7 +197,7 @@ def test_cad_worker_streamed_subprocess_cleans_orphan_child_without_com() -> Non
 
 if __name__ == "__main__":
     test_cad_worker_prepares_006_reference_intent_plan_and_contract_without_com()
-    test_006_reference_intent_plan_uses_right_side_callout_and_projection_quota()
+    test_006_reference_intent_plan_uses_local_hole_lanes_and_projection_quota()
     test_cad_worker_skips_reference_intent_contract_for_other_bases()
     test_cad_worker_streamed_subprocess_captures_output_without_com()
     test_cad_worker_streamed_subprocess_cleans_orphan_child_without_com()

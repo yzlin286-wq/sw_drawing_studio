@@ -408,6 +408,35 @@ def _fixture(
             "application_ui_screenshot_required": True,
         },
     }
+    reference_dimension_lane_policy = {
+        "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+        "base": BASE,
+        "target_buckets": ["dimension_visual_overdense", "dimension_lane_wrong"],
+        "required_target_count": 12,
+        "max_visible_display_dim_count": 12,
+        "reference_lane_geometry_issue_count_after_required": 0,
+        "compact_local_lanes_required": True,
+        "reject_generic_autodim_survivors": True,
+        "reject_far_lane": True,
+        "reject_diagonal_or_cross_region_leaders": True,
+        "allow_compact_top_view_side_lanes": True,
+        "top_view_side_lane_max_gap_m": 0.018,
+        "api_or_displaydim_metric_alone_can_close": False,
+        "application_ui_screenshot_required": True,
+        "lane_targets": [
+            {
+                "target_key": item["key"],
+                "target_view": item["target_view"],
+                "expected_type": item["expected_type"],
+                "preferred_side": item.get("preferred_side", "above"),
+                "lane_family": "outside_top",
+                "lane_index": 0,
+                "station": 0.5,
+                "readability_required": True,
+            }
+            for item in dimensions
+        ],
+    }
     readiness_payload = {
         "status": "ready" if readiness_ready else "blocked",
         "ready_to_start_locked_006_cad": readiness_ready,
@@ -561,6 +590,7 @@ def _fixture(
                 "view_plan": view_plan,
                 "layout_plan": layout_plan,
                 "ui_defect_repair_layout_targets": reference_layout_policy["ui_defect_repair_layout_targets"],
+                "reference_dimension_lane_policy": reference_dimension_lane_policy,
                 "dimensions": dimensions,
                 "reference_callouts": [
                     {

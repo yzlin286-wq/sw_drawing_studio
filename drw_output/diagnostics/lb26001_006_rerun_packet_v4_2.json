@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-26 16:26:01",
+  "generated_at": "2026-06-26 16:48:05",
   "base": "LB26001-A-04-006",
   "status": "blocked_by_solidworks_readiness",
   "pass": false,
@@ -1080,6 +1080,21 @@
             "present": true
           },
           {
+            "key": "reference_dimension_lane_policy_attached",
+            "signature": "reference_dimension_lane_policy_attached",
+            "present": true
+          },
+          {
+            "key": "reference_dimension_lane_policy_top_side_gap",
+            "signature": "top_view_side_lane_max_gap_m",
+            "present": true
+          },
+          {
+            "key": "reference_dimension_lane_policy_issue_floor",
+            "signature": "reference_lane_geometry_issue_count_after_required",
+            "present": true
+          },
+          {
             "key": "generator_reference_lane_geometry_guard",
             "signature": "reference_lane_geometry_guard",
             "present": true
@@ -1332,6 +1347,16 @@
           {
             "key": "reference_lane_diagonal_leader_guard",
             "signature": "reference_lane_diagonal_or_cross_region_leader",
+            "present": true
+          },
+          {
+            "key": "reference_dimension_lane_policy",
+            "signature": "reference_dimension_lane_policy",
+            "present": true
+          },
+          {
+            "key": "compact_top_side_lane_gap_policy",
+            "signature": "top_view_side_lane_max_gap_m",
             "present": true
           }
         ],
@@ -2432,6 +2457,21 @@
           "present": true
         },
         {
+          "key": "reference_dimension_lane_policy_attached",
+          "signature": "reference_dimension_lane_policy_attached",
+          "present": true
+        },
+        {
+          "key": "reference_dimension_lane_policy_top_side_gap",
+          "signature": "top_view_side_lane_max_gap_m",
+          "present": true
+        },
+        {
+          "key": "reference_dimension_lane_policy_issue_floor",
+          "signature": "reference_lane_geometry_issue_count_after_required",
+          "present": true
+        },
+        {
           "key": "generator_reference_lane_geometry_guard",
           "signature": "reference_lane_geometry_guard",
           "present": true
@@ -2659,6 +2699,16 @@
         {
           "key": "reference_lane_diagonal_leader_guard",
           "signature": "reference_lane_diagonal_or_cross_region_leader",
+          "present": true
+        },
+        {
+          "key": "reference_dimension_lane_policy",
+          "signature": "reference_dimension_lane_policy",
+          "present": true
+        },
+        {
+          "key": "compact_top_side_lane_gap_policy",
+          "signature": "top_view_side_lane_max_gap_m",
           "present": true
         }
       ],

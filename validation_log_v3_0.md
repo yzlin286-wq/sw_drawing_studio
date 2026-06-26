@@ -12792,6 +12792,56 @@ Results:
 - `test_v4_4_product_evidence_gate.py`: PASS.
 - 006 remains not accepted. The next permitted product action is still to clear the SolidWorks readiness/stability blocker, run exactly one locked 006 CAD worker rerun, then perform application Drawing Review UI screenshot judgement. Do not expand to `007/008/009/015/022` until 006 has UI screenshot PASS.
 
+## v4.4 006 Reference Dimension Lane Policy Evidence - 2026-06-26
+
+Current result: WARNING / not release-ready.
+
+This slice added offline source and gate evidence only. No CAD, COM, OpenDoc6, SaveAs, CloseDoc, OCR, YOLO, batch validation, Visual Audit batch, automatic restart, or release action was run.
+
+Changes:
+
+- `app/services/reference_intent_dimension_planner.py` now emits `reference_dimension_lane_policy` for `LB26001-A-04-006`.
+- The policy contains 12 lane targets, `max_visible_display_dim_count=12`, `reference_lane_geometry_issue_count_after_required=0`, `compact_local_lanes_required=true`, `reject_far_lane=true`, `reject_diagonal_or_cross_region_leaders=true`, `api_or_displaydim_metric_alone_can_close=false`, and `application_ui_screenshot_required=true`.
+- The hole DisplayDim targets were moved away from the old far-right callout lane: `hole_diameter.preferred_side=above` and `hole_y_location.preferred_side=left`. The right-side hole/thread text remains governed by the callout checklist, not by a DisplayDim pretending to be a note/callout.
+- `app/services/dimension_arrange_service.py` and `.trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py` now allow compact top-view side lanes only when the side gap is within `top_view_side_lane_max_gap_m=0.018`; far side lanes and diagonal/cross-region leaders remain blocking geometry issues.
+- `app/services/reference_intent_dimension_executor.py`, `tools/validation/lb26001_006_reference_intent_proof_v4_4.py`, `tools/validation/product_evidence_gate_v4_4.py`, and `tools/validation/lb26001_006_rerun_packet_v4_2.py` now carry, validate, or source-guard the new lane policy.
+
+Refreshed artifacts:
+
+- `drw_output/reference_intent_dimension_plan_006.json`: `reference_dimension_lane_policy.schema=sw_drawing_studio.reference_dimension_lane_policy.v4_4`, `lane_target_count=12`, `hole_diameter.preferred_side=above`, and `hole_y_location.preferred_side=left`.
+- `drw_output/reference_intent_dimension_contract_006.json`: carries `reference_dimension_lane_policy` while remaining `contract_ready_requires_cad_worker_lock`.
+- `drw_output/diagnostics/lb26001_006_reference_intent_proof_v4_4.json/.md`: `status=plan_proof_pass_requires_locked_cad_run`, `pass=true`, with `lane_summary.lane_target_count=12` and `reference_lane_geometry_issue_count_after_required=0`; this remains planning proof only, not drawing acceptance evidence.
+- `drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json/.md`: remains `blocked_by_solidworks_readiness`, `packet_build_ready=true`, `real_cad_allowed_now=false`.
+- `drw_output/diagnostics/product_evidence_gate_v4_4.json/.md`: remains `blocked_by_solidworks_stability_gate`, `pass=false`; all allowed actions remain false.
+
+Commands:
+
+```powershell
+python -B app\services\reference_intent_dimension_planner.py --base LB26001-A-04-006 --out drw_output\reference_intent_dimension_plan_006.json
+python -B app\services\reference_intent_dimension_executor.py --plan drw_output\reference_intent_dimension_plan_006.json --out drw_output\reference_intent_dimension_contract_006.json
+python -B tools\validation\lb26001_006_reference_intent_proof_v4_4.py --plan drw_output\reference_intent_dimension_plan_006.json --contract drw_output\reference_intent_dimension_contract_006.json --out-json drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.json --out-md drw_output\diagnostics\lb26001_006_reference_intent_proof_v4_4.md
+python -B tools\validation\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\diagnostics\lb26001_006_rerun_packet_v4_2.md
+python -B tools\validation\product_evidence_gate_v4_4.py --out-json drw_output\diagnostics\product_evidence_gate_v4_4.json --out-md drw_output\diagnostics\product_evidence_gate_v4_4.md
+python -B -m py_compile app\services\reference_intent_dimension_planner.py app\services\reference_intent_dimension_executor.py app\services\dimension_arrange_service.py .trae\specs\build-v6-and-validate-exe-ui\drw_generate_v6.py tools\validation\lb26001_006_reference_intent_proof_v4_4.py tools\validation\product_evidence_gate_v4_4.py tools\validation\lb26001_006_rerun_packet_v4_2.py test_v3_generator_reference_style_plan.py test_v4_4_product_evidence_gate.py test_v4_dimension_arrange_service.py
+python -B test_v4_dimension_arrange_service.py
+python -B test_v3_generator_reference_style_plan.py
+python -B test_v4_2_reference_intent_dimension_worker.py
+python -B test_v4_4_lb26001_006_reference_intent_proof.py
+python -B test_v4_2_lb26001_006_rerun_packet.py
+python -B test_v4_4_product_evidence_gate.py
+```
+
+Results:
+
+- Compile check: PASS.
+- `test_v4_dimension_arrange_service.py`: PASS.
+- `test_v3_generator_reference_style_plan.py`: PASS.
+- `test_v4_2_reference_intent_dimension_worker.py`: PASS.
+- `test_v4_4_lb26001_006_reference_intent_proof.py`: PASS.
+- `test_v4_2_lb26001_006_rerun_packet.py`: PASS.
+- `test_v4_4_product_evidence_gate.py`: PASS.
+- 006 remains not accepted. The next permitted product action is still to clear the SolidWorks readiness/stability blocker, run exactly one locked 006 CAD worker rerun, then perform application Drawing Review UI screenshot judgement. Do not expand to `007/008/009/015/022` until 006 has UI screenshot PASS.
+
 ## v4.4 006 Required Hole Callout Contract Tightening - 2026-06-26
 
 Current judgment:

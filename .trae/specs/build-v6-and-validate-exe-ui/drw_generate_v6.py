@@ -948,6 +948,9 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
         reference_layout_policy = intent_plan.get("reference_layout_policy") or {}
         if isinstance(reference_layout_policy, dict) and reference_layout_policy:
             dimension_plan["reference_layout_policy"] = reference_layout_policy
+        reference_dimension_lane_policy = intent_plan.get("reference_dimension_lane_policy") or {}
+        if isinstance(reference_dimension_lane_policy, dict) and reference_dimension_lane_policy:
+            dimension_plan["reference_dimension_lane_policy"] = reference_dimension_lane_policy
         plan_view_plan = intent_plan.get("view_plan") or reference_layout_policy.get("view_plan") or []
         if isinstance(plan_view_plan, list) and plan_view_plan:
             # reference_intent_layout_policy_attached:
@@ -974,6 +977,8 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
                 layout_plan["source"] = "reference_intent_dimension_plan_006.reference_layout_policy"
                 layout_plan["target_outlines_required"] = True
                 layout_plan["api_or_reference_json_alone_can_close"] = False
+                if isinstance(reference_dimension_lane_policy, dict) and reference_dimension_lane_policy:
+                    layout_plan["reference_dimension_lane_policy"] = reference_dimension_lane_policy
         repair_layout_targets = (
             intent_plan.get("ui_defect_repair_layout_targets")
             or reference_layout_policy.get("ui_defect_repair_layout_targets")
@@ -981,6 +986,28 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
         )
         if isinstance(repair_layout_targets, dict) and repair_layout_targets:
             dimension_plan["ui_defect_repair_layout_targets"] = repair_layout_targets
+        if isinstance(reference_dimension_lane_policy, dict) and reference_dimension_lane_policy:
+            constraints = dimension_plan.setdefault("visual_defect_constraints", {})
+            if isinstance(constraints, dict):
+                constraints.setdefault("source", "reference_intent_dimension_plan_006.reference_dimension_lane_policy")
+                constraints["reference_dimension_lane_policy_attached"] = True
+                constraints["compact_local_lanes_required"] = bool(
+                    reference_dimension_lane_policy.get("compact_local_lanes_required")
+                )
+                constraints["reject_generic_autodim_survivors"] = bool(
+                    reference_dimension_lane_policy.get("reject_generic_autodim_survivors")
+                )
+                constraints["reject_far_lane"] = bool(reference_dimension_lane_policy.get("reject_far_lane"))
+                constraints["reject_diagonal_or_cross_region_leaders"] = bool(
+                    reference_dimension_lane_policy.get("reject_diagonal_or_cross_region_leaders")
+                )
+                constraints["reference_lane_geometry_issue_count_after_required"] = (
+                    reference_dimension_lane_policy.get("reference_lane_geometry_issue_count_after_required")
+                )
+                constraints["top_view_side_lane_max_gap_m"] = reference_dimension_lane_policy.get(
+                    "top_view_side_lane_max_gap_m"
+                )
+                constraints["api_or_displaydim_metric_alone_can_close"] = False
         dimension_plan["allow_note_substitution"] = False
         dimension_plan["fallback_policy"] = "need_review_when_real_displaydim_unavailable"
         reasons = list(dimension_plan.get("reasons") or [])
@@ -990,6 +1017,8 @@ def _v4_apply_reference_intent_plan_path(blueprint_data, warnings_box=None):
         ]
         if isinstance(reference_layout_policy, dict) and reference_layout_policy:
             attach_reasons.append("reference_intent_layout_policy_attached")
+        if isinstance(reference_dimension_lane_policy, dict) and reference_dimension_lane_policy:
+            attach_reasons.append("reference_dimension_lane_policy_attached")
         if isinstance(repair_layout_targets, dict) and repair_layout_targets:
             attach_reasons.append("ui_defect_repair_layout_targets_attached")
         for reason in attach_reasons:
@@ -8776,6 +8805,14 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
             # still makes 006 read like AutoDimension output.
             if part_class != "long_thin":
                 return []
+            lane_policy = (((_drawing_blueprint_v4 or {}).get("layout_plan") or {}).get(
+                "reference_dimension_lane_policy"
+            ) or {})
+            allow_compact_top_side = bool(lane_policy.get("allow_compact_top_view_side_lanes"))
+            try:
+                top_side_max_gap = float(lane_policy.get("top_view_side_lane_max_gap_m") or 0.0)
+            except Exception:
+                top_side_max_gap = 0.0
             issues = []
             for item_for_check in items_for_check or []:
                 slot = str(item_for_check.get("slot") or "").strip().lower()
@@ -8801,7 +8838,14 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                 elif side == "right":
                     gap = max(0.0, pos[0] - x1)
                 issue_key = ""
-                if slot == "top" and side in {"left", "right"}:
+                compact_top_side_lane = (
+                    slot == "top"
+                    and side in {"left", "right"}
+                    and allow_compact_top_side
+                    and top_side_max_gap > 0.0
+                    and gap <= top_side_max_gap
+                )
+                if slot == "top" and side in {"left", "right"} and not compact_top_side_lane:
                     issue_key = "top_view_cross_region_side"
                 elif side in {"top", "bottom"} and gap > 0.046:
                     issue_key = "reference_lane_far_from_view"
@@ -8979,6 +9023,9 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
                     "titlebar_box": list(titlebar_box),
                     "notes_box": list(notes_box) if notes_box else [],
                     "avoid_boxes": [list(box) for box in avoid_boxes],
+                    "reference_dimension_lane_policy": (((_drawing_blueprint_v4 or {}).get("layout_plan") or {}).get(
+                        "reference_dimension_lane_policy"
+                    ) or {}),
                     "dimensions": dimensions_report,
                 }, ensure_ascii=False, indent=2, default=str),
                 encoding="utf-8",

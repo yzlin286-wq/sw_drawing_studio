@@ -1,7 +1,7 @@
 {
   "schema": "sw_drawing_studio.reference_intent_dimension_plan.v4_4",
   "version": "v4.4",
-  "generated_at": "2026-06-26 16:25:44",
+  "generated_at": "2026-06-26 16:47:15",
   "base": "LB26001-A-04-006",
   "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
   "reference_display_dim_count": 12,
@@ -625,6 +625,174 @@
     "api_or_reference_json_alone_can_close": false,
     "application_ui_screenshot_required": true
   },
+  "reference_dimension_lane_policy": {
+    "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+    "base": "LB26001-A-04-006",
+    "source": "application_ui_screenshot_failed_buckets",
+    "target_buckets": [
+      "dimension_visual_overdense",
+      "dimension_lane_wrong"
+    ],
+    "required_target_count": 12,
+    "max_visible_display_dim_count": 12,
+    "reference_lane_geometry_issue_count_after_required": 0,
+    "compact_local_lanes_required": true,
+    "reject_generic_autodim_survivors": true,
+    "reject_far_lane": true,
+    "reject_diagonal_or_cross_region_leaders": true,
+    "allow_compact_top_view_side_lanes": true,
+    "top_view_side_lane_max_gap_m": 0.018,
+    "top_view_right_callout_lane_allowed_for_displaydim": false,
+    "right_side_hole_thread_text_uses_callout_checklist": true,
+    "api_or_displaydim_metric_alone_can_close": false,
+    "application_ui_screenshot_required": true,
+    "lane_targets": [
+      {
+        "target_key": "overall_length",
+        "target_view": "front",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 0,
+        "station": 0.5,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "overall_width",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "preferred_side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.58,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "overall_height",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "preferred_side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.56,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "left_end_offset",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "below",
+        "lane_family": "outside_bottom",
+        "lane_index": 0,
+        "station": 0.18,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "right_end_offset",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "below",
+        "lane_family": "outside_bottom",
+        "lane_index": 1,
+        "station": 0.82,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "hole_diameter",
+        "target_view": "top",
+        "expected_type": "diameter",
+        "preferred_side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 0,
+        "station": 0.54,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "hole_x_location",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 1,
+        "station": 0.38,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "hole_y_location",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "preferred_side": "left",
+        "lane_family": "outside_left",
+        "lane_index": 1,
+        "station": 0.46,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "hole_pitch",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 2,
+        "station": 0.7,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "projection_view_width",
+        "target_view": "right",
+        "expected_type": "linear_horizontal",
+        "preferred_side": "above",
+        "lane_family": "outside_top",
+        "lane_index": 0,
+        "station": 0.5,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "projection_view_height",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "preferred_side": "right",
+        "lane_family": "outside_right",
+        "lane_index": 0,
+        "station": 0.5,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      },
+      {
+        "target_key": "small_feature_location",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "preferred_side": "left",
+        "lane_family": "outside_left",
+        "lane_index": 1,
+        "station": 0.35,
+        "readability_required": true,
+        "reject_far_lane": true,
+        "reject_diagonal_or_cross_region_leader": true
+      }
+    ]
+  },
   "reference_extraction": {
     "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
     "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
@@ -672,12 +840,12 @@
       "key": "hole_locations",
       "label": "hole diameter and center locations",
       "reading_order": 3,
-      "placement_policy": "compact_callout_and_pitch_lanes_near_top_view",
+      "placement_policy": "compact_local_hole_lanes_near_top_view",
       "target_views": [
         "top"
       ],
       "required_count": 4,
-      "source_reference_rule": "group hole callouts into the compact right-side leader lane seen in the same-name reference"
+      "source_reference_rule": "keep DisplayDim hole dimensions in compact local lanes; right-side hole/thread text is handled by reference callout checklist"
     },
     {
       "key": "small_projected_view",
@@ -1231,11 +1399,11 @@
         "confidence": "visual_readable_supporting_evidence"
       },
       "expected_add_method": "AddDiameterDimension2",
-      "preferred_side": "callout_right",
+      "preferred_side": "above",
       "placement_lane": {
         "view_slot": "top",
-        "side": "callout_right",
-        "lane_family": "outside_right",
+        "side": "above",
+        "lane_family": "outside_top",
         "lane_index": 0,
         "station": 0.54,
         "outside_gap_m": 0.01,
@@ -1435,11 +1603,11 @@
         "confidence": "visual_readable_supporting_evidence"
       },
       "expected_add_method": "AddVerticalDimension2",
-      "preferred_side": "callout_right",
+      "preferred_side": "left",
       "placement_lane": {
         "view_slot": "top",
-        "side": "callout_right",
-        "lane_family": "outside_right",
+        "side": "left",
+        "lane_family": "outside_left",
         "lane_index": 1,
         "station": 0.46,
         "outside_gap_m": 0.01,

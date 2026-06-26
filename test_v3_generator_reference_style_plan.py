@@ -645,6 +645,34 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
             "compact_titlebar_fields_required": True,
             "reference_style_notes_required": True,
         }
+        reference_lane_policy = {
+            "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+            "base": "LB26001-A-04-006",
+            "target_buckets": ["dimension_visual_overdense", "dimension_lane_wrong"],
+            "required_target_count": 1,
+            "max_visible_display_dim_count": 1,
+            "reference_lane_geometry_issue_count_after_required": 0,
+            "compact_local_lanes_required": True,
+            "reject_generic_autodim_survivors": True,
+            "reject_far_lane": True,
+            "reject_diagonal_or_cross_region_leaders": True,
+            "allow_compact_top_view_side_lanes": True,
+            "top_view_side_lane_max_gap_m": 0.018,
+            "api_or_displaydim_metric_alone_can_close": False,
+            "application_ui_screenshot_required": True,
+            "lane_targets": [
+                {
+                    "target_key": "hole_diameter",
+                    "target_view": "top",
+                    "expected_type": "diameter",
+                    "preferred_side": "above",
+                    "lane_family": "outside_top",
+                    "lane_index": 0,
+                    "station": 0.54,
+                    "readability_required": True,
+                }
+            ],
+        }
         plan_path.write_text(
             json.dumps(
                 {
@@ -668,6 +696,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
                     },
                     "view_plan": reference_view_plan,
                     "layout_plan": reference_layout_plan,
+                    "reference_dimension_lane_policy": reference_lane_policy,
                     "dimensions": [
                         {
                             "key": "hole_diameter",
@@ -823,6 +852,12 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert blueprint["layout_plan"]["notes_box_norm"] == [0.58, 0.64, 0.96, 0.82]
     assert blueprint["layout_plan"]["titlebar_box_norm"] == [0.60, 0.02, 0.96, 0.13]
     assert blueprint["layout_plan"]["target_outlines_required"] is True
+    assert blueprint["layout_plan"]["reference_dimension_lane_policy"]["schema"] == (
+        "sw_drawing_studio.reference_dimension_lane_policy.v4_4"
+    )
+    assert blueprint["dimension_plan"]["reference_dimension_lane_policy"]["lane_targets"][0]["target_key"] == (
+        "hole_diameter"
+    )
     assert blueprint["dimension_plan"]["ui_defect_repair_layout_targets"]["target_buckets"] == [
         "projection_view_style_mismatch",
         "note_missing_or_wrong",
@@ -839,6 +874,11 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     }
     assert callout_plan["absence_check_keys"] == ["radius_callout"]
     assert constraints["callout_presence_recheck_required"] is True
+    assert constraints["reference_dimension_lane_policy_attached"] is True
+    assert constraints["reject_far_lane"] is True
+    assert constraints["reject_diagonal_or_cross_region_leaders"] is True
+    assert constraints["reference_lane_geometry_issue_count_after_required"] == 0
+    assert constraints["top_view_side_lane_max_gap_m"] == 0.018
     assert constraints["reference_callout_review_required_keys"] == callout_plan["required_keys"]
     assert constraints["reference_callout_absence_check_keys"] == ["radius_callout"]
     assert [item["bucket"] for item in closure_contract] == [
@@ -880,6 +920,7 @@ def test_generator_attaches_reference_callout_review_plan_for_006_ui_closure() -
     assert "ui_defect_bucket_closure_contract" in blueprint["dimension_plan"]["reasons"]
     assert "ui_defect_screenshot_visual_observations" in blueprint["dimension_plan"]["reasons"]
     assert "reference_intent_layout_policy_attached" in blueprint["dimension_plan"]["reasons"]
+    assert "reference_dimension_lane_policy_attached" in blueprint["dimension_plan"]["reasons"]
     assert "ui_defect_repair_layout_targets_attached" in blueprint["dimension_plan"]["reasons"]
 
 

@@ -867,12 +867,15 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
     dims = [item for item in payload.get("dimensions") or [] if isinstance(item, dict)]
     callouts = [item for item in payload.get("reference_callouts") or [] if isinstance(item, dict)]
     layout_policy = payload.get("reference_layout_policy") or {}
+    lane_policy = payload.get("reference_dimension_lane_policy") or {}
     view_plan = payload.get("view_plan") or layout_policy.get("view_plan") or []
     layout_plan = payload.get("layout_plan") or layout_policy.get("layout_plan") or {}
     view_items = [item for item in view_plan if isinstance(item, dict)]
+    lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
     dim_keys = {str(item.get("key") or "") for item in dims}
     callout_keys = {str(item.get("key") or "") for item in callouts}
     view_slots = {str(item.get("slot") or "") for item in view_items}
+    lane_target_keys = {str(item.get("target_key") or "") for item in lane_targets}
     required_dim_keys = {
         "overall_length",
         "overall_width",
@@ -953,6 +956,33 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         key for key in ["notes_box_norm", "titlebar_box_norm"]
         if not _valid_norm_box(layout_plan.get(key))
     ]
+    missing_lane_targets = sorted(required_dim_keys - lane_target_keys)
+    lane_policy_failures = []
+    if lane_policy.get("schema") != "sw_drawing_studio.reference_dimension_lane_policy.v4_4":
+        lane_policy_failures.append("schema")
+    for key in [
+        "compact_local_lanes_required",
+        "reject_generic_autodim_survivors",
+        "reject_far_lane",
+        "reject_diagonal_or_cross_region_leaders",
+        "application_ui_screenshot_required",
+    ]:
+        if lane_policy.get(key) is not True:
+            lane_policy_failures.append(key)
+    if lane_policy.get("api_or_displaydim_metric_alone_can_close") is not False:
+        lane_policy_failures.append("api_or_displaydim_metric_alone_can_close")
+    try:
+        max_visible_display_dim_count = int(lane_policy.get("max_visible_display_dim_count"))
+    except Exception:
+        max_visible_display_dim_count = -1
+    try:
+        required_lane_issue_count_after = int(lane_policy.get("reference_lane_geometry_issue_count_after_required"))
+    except Exception:
+        required_lane_issue_count_after = -1
+    if max_visible_display_dim_count != len(required_dim_keys):
+        lane_policy_failures.append("max_visible_display_dim_count")
+    if required_lane_issue_count_after != 0:
+        lane_policy_failures.append("reference_lane_geometry_issue_count_after_required")
     details = {
         "path": str(path),
         "schema": payload.get("schema"),
@@ -985,6 +1015,16 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
         "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
         "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
+        "reference_dimension_lane_policy_schema": lane_policy.get("schema"),
+        "lane_target_count": len(lane_targets),
+        "lane_target_keys": sorted(lane_target_keys),
+        "missing_lane_targets": missing_lane_targets,
+        "lane_policy_failures": lane_policy_failures,
+        "max_visible_display_dim_count": lane_policy.get("max_visible_display_dim_count"),
+        "reference_lane_geometry_issue_count_after_required": lane_policy.get(
+            "reference_lane_geometry_issue_count_after_required"
+        ),
+        "top_view_side_lane_max_gap_m": lane_policy.get("top_view_side_lane_max_gap_m"),
     }
     passed = bool(
         payload.get("schema") == "sw_drawing_studio.reference_intent_dimension_plan.v4_4"
@@ -1009,6 +1049,9 @@ def _reference_intent_plan_check(path: Path, payload: dict[str, Any]) -> tuple[b
         and layout_plan.get("projection_view_style_match_required") is True
         and layout_plan.get("compact_titlebar_fields_required") is True
         and layout_plan.get("reference_style_notes_required") is True
+        and bool(lane_policy)
+        and not missing_lane_targets
+        and not lane_policy_failures
     )
     return passed, details
 

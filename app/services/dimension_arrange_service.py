@@ -835,6 +835,14 @@ class DimensionArrangeService:
         # still make the drawing read like AutoDimension output.
         if self.part_class != "long_thin":
             return []
+        lane_policy = {}
+        if isinstance(self.layout_plan, dict):
+            lane_policy = self.layout_plan.get("reference_dimension_lane_policy") or {}
+        allow_compact_top_side = bool(lane_policy.get("allow_compact_top_view_side_lanes"))
+        try:
+            top_side_max_gap = float(lane_policy.get("top_view_side_lane_max_gap_m") or 0.0)
+        except Exception:
+            top_side_max_gap = 0.0
         issues: list[dict] = []
         for dim in dims:
             outline = self._get_view_outline(dim.view_name)
@@ -857,7 +865,14 @@ class DimensionArrangeService:
                 gap = max(0.0, pos[0] - xmax)
 
             issue_key = ""
-            if slot == "top" and side in {"left", "right"}:
+            compact_top_side_lane = (
+                slot == "top"
+                and side in {"left", "right"}
+                and allow_compact_top_side
+                and top_side_max_gap > 0.0
+                and gap <= top_side_max_gap
+            )
+            if slot == "top" and side in {"left", "right"} and not compact_top_side_lane:
                 issue_key = "top_view_cross_region_side"
             elif side in {"top", "bottom"} and gap > 0.046:
                 issue_key = "reference_lane_far_from_view"
@@ -962,6 +977,9 @@ class DimensionArrangeService:
             "titlebar_box": list(self.titlebar_box),
             "notes_box": list(self.notes_box) if self.notes_box else [],
             "avoid_boxes": [list(box) for box in self.avoid_boxes],
+            "reference_dimension_lane_policy": self.layout_plan.get("reference_dimension_lane_policy", {})
+            if isinstance(self.layout_plan, dict)
+            else {},
         }
 
         out_path = qc_dir / "dimension_arrange.json"

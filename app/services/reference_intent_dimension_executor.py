@@ -70,6 +70,7 @@ def build_execution_contract(
         "view_plan": plan.get("view_plan") or [],
         "layout_plan": plan.get("layout_plan") or {},
         "ui_defect_repair_layout_targets": plan.get("ui_defect_repair_layout_targets") or {},
+        "reference_dimension_lane_policy": plan.get("reference_dimension_lane_policy") or {},
         "operations": operations,
         "operation_count": len(operations),
         "status": "contract_ready_requires_cad_worker_lock",

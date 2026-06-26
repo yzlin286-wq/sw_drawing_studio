@@ -52,11 +52,13 @@ def build_reference_intent_dimension_plan(
         required_count = max(12, reference_display_dim_count, len(dimensions))
         dimension_groups = _lb26001_006_groups()
         reference_layout_policy = _lb26001_006_reference_layout_policy(profile, view_slots, source_reference)
+        reference_dimension_lane_policy = _lb26001_006_reference_dimension_lane_policy(dimensions)
     else:
         dimensions = _generic_dimensions(base, source_reference)
         required_count = max(reference_display_dim_count, len(dimensions))
         dimension_groups = _generic_groups(dimensions)
         reference_layout_policy = {}
+        reference_dimension_lane_policy = {}
 
     plan = {
         "schema": SCHEMA,
@@ -74,6 +76,7 @@ def build_reference_intent_dimension_plan(
         "view_plan": reference_layout_policy.get("view_plan", []),
         "layout_plan": reference_layout_policy.get("layout_plan", {}),
         "ui_defect_repair_layout_targets": reference_layout_policy.get("ui_defect_repair_layout_targets", {}),
+        "reference_dimension_lane_policy": reference_dimension_lane_policy,
         "reference_extraction": _reference_extraction_summary(base, source_reference, reference_display_dim_count),
         "dimension_groups": dimension_groups,
         "dimensions": dimensions,
@@ -111,9 +114,9 @@ def _lb26001_006_dimensions(source_reference: str) -> list[dict[str, Any]]:
         ("overall_height", "overall_envelope", "right", "linear_vertical", "right", 12),
         ("left_end_offset", "end_offsets", "top", "linear_horizontal", "below", 20),
         ("right_end_offset", "end_offsets", "top", "linear_horizontal", "below", 21),
-        ("hole_diameter", "hole_locations", "top", "diameter", "callout_right", 30),
+        ("hole_diameter", "hole_locations", "top", "diameter", "above", 30),
         ("hole_x_location", "hole_locations", "top", "linear_horizontal", "above", 31),
-        ("hole_y_location", "hole_locations", "top", "linear_vertical", "callout_right", 32),
+        ("hole_y_location", "hole_locations", "top", "linear_vertical", "left", 32),
         ("hole_pitch", "hole_locations", "top", "linear_horizontal", "above", 33),
         ("projection_view_width", "small_projected_view", "right", "linear_horizontal", "above", 40),
         ("projection_view_height", "small_projected_view", "right", "linear_vertical", "right", 41),
@@ -157,10 +160,10 @@ def _lb26001_006_groups() -> list[dict[str, Any]]:
             "key": "hole_locations",
             "label": "hole diameter and center locations",
             "reading_order": 3,
-            "placement_policy": "compact_callout_and_pitch_lanes_near_top_view",
+            "placement_policy": "compact_local_hole_lanes_near_top_view",
             "target_views": ["top"],
             "required_count": 4,
-            "source_reference_rule": "group hole callouts into the compact right-side leader lane seen in the same-name reference",
+            "source_reference_rule": "keep DisplayDim hole dimensions in compact local lanes; right-side hole/thread text is handled by reference callout checklist",
         },
         {
             "key": "small_projected_view",
@@ -695,6 +698,49 @@ def _lb26001_006_reference_layout_policy(
     }
 
 
+def _lb26001_006_reference_dimension_lane_policy(dimensions: list[dict[str, Any]]) -> dict[str, Any]:
+    lane_targets: list[dict[str, Any]] = []
+    for item in dimensions:
+        if not isinstance(item, dict):
+            continue
+        lane = item.get("placement_lane") if isinstance(item.get("placement_lane"), dict) else {}
+        target_view = str(item.get("target_view") or "")
+        preferred_side = str(item.get("preferred_side") or lane.get("side") or "")
+        lane_targets.append({
+            "target_key": str(item.get("key") or ""),
+            "target_view": target_view,
+            "expected_type": str(item.get("expected_type") or ""),
+            "preferred_side": preferred_side,
+            "lane_family": str(lane.get("lane_family") or _lane_family(preferred_side)),
+            "lane_index": lane.get("lane_index", 0),
+            "station": lane.get("station", 0.5),
+            "readability_required": True,
+            "reject_far_lane": True,
+            "reject_diagonal_or_cross_region_leader": True,
+        })
+
+    return {
+        "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_failed_buckets",
+        "target_buckets": ["dimension_visual_overdense", "dimension_lane_wrong"],
+        "required_target_count": len(lane_targets),
+        "max_visible_display_dim_count": len(lane_targets),
+        "reference_lane_geometry_issue_count_after_required": 0,
+        "compact_local_lanes_required": True,
+        "reject_generic_autodim_survivors": True,
+        "reject_far_lane": True,
+        "reject_diagonal_or_cross_region_leaders": True,
+        "allow_compact_top_view_side_lanes": True,
+        "top_view_side_lane_max_gap_m": 0.018,
+        "top_view_right_callout_lane_allowed_for_displaydim": False,
+        "right_side_hole_thread_text_uses_callout_checklist": True,
+        "api_or_displaydim_metric_alone_can_close": False,
+        "application_ui_screenshot_required": True,
+        "lane_targets": lane_targets,
+    }
+
+
 def _position_for_slot(positions: list[dict[str, Any]], slot_data: dict[str, Any]) -> dict[str, Any]:
     ref_name = str(slot_data.get("reference_view_name") or "")
     ref_type = str(slot_data.get("sw_view_type") or "")
@@ -831,6 +877,17 @@ def _validate_plan(plan: dict[str, Any]) -> None:
             missing.append(f"{item.get('key', '<unknown>')}:generic_autodimension_acceptance_allowed")
     if missing:
         raise ValueError("dimension plan missing required fields: " + ", ".join(missing))
+    if plan.get("base") == "LB26001-A-04-006":
+        lane_policy = plan.get("reference_dimension_lane_policy") or {}
+        lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
+        lane_keys = {str(item.get("target_key") or "") for item in lane_targets}
+        dim_keys = {str(item.get("key") or "") for item in plan.get("dimensions") or [] if isinstance(item, dict)}
+        if lane_policy.get("schema") != "sw_drawing_studio.reference_dimension_lane_policy.v4_4":
+            raise ValueError("006 reference intent plan missing reference dimension lane policy")
+        if lane_keys != dim_keys:
+            raise ValueError("006 reference dimension lane policy does not cover every dimension target")
+        if lane_policy.get("application_ui_screenshot_required") is not True:
+            raise ValueError("006 reference dimension lane policy must require application UI screenshot review")
     if plan.get("allow_note_substitution"):
         raise ValueError("reference intent dimensions must not allow Note substitution")
 

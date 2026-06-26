@@ -117,6 +117,7 @@ def build_reference_intent_proof(
     _check_dimension_values(checks, plan)
     _check_reference_callouts(checks, plan)
     _check_reference_layout_policy(checks, plan)
+    _check_reference_dimension_lane_policy(checks, plan)
     _check_policy(checks, plan)
     _check_execution_contract(checks, contract_path, contract, plan)
 
@@ -142,6 +143,7 @@ def build_reference_intent_proof(
         "dimension_summary": _dimension_summary(plan),
         "callout_summary": _callout_summary(plan),
         "layout_summary": _layout_summary(plan),
+        "lane_summary": _lane_summary(plan),
         "checks": checks,
         "blocking_issue_keys": [item["key"] for item in failed],
         "next_required_action": (
@@ -466,6 +468,53 @@ def _check_reference_layout_policy(checks: list[dict[str, Any]], plan: dict[str,
     )
 
 
+def _check_reference_dimension_lane_policy(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
+    lane_policy = plan.get("reference_dimension_lane_policy") or {}
+    lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
+    lane_keys = {str(item.get("target_key") or "") for item in lane_targets}
+    missing_lane_targets = sorted(REQUIRED_DIMENSION_KEYS - lane_keys)
+    invalid_lane_targets = {
+        str(item.get("target_key") or f"index_{index}"): [
+            key for key in ["target_view", "expected_type", "preferred_side", "lane_family", "station"]
+            if not str(item.get(key) if key != "station" else item.get(key, ""))
+        ]
+        for index, item in enumerate(lane_targets)
+    }
+    invalid_lane_targets = {key: value for key, value in invalid_lane_targets.items() if value}
+    try:
+        required_issue_count_after = int(lane_policy.get("reference_lane_geometry_issue_count_after_required"))
+    except Exception:
+        required_issue_count_after = -1
+    _add_check(
+        checks,
+        "reference_dimension_lane_policy",
+        lane_policy.get("schema") == "sw_drawing_studio.reference_dimension_lane_policy.v4_4"
+        and lane_policy.get("compact_local_lanes_required") is True
+        and lane_policy.get("reject_generic_autodim_survivors") is True
+        and lane_policy.get("reject_far_lane") is True
+        and lane_policy.get("reject_diagonal_or_cross_region_leaders") is True
+        and lane_policy.get("api_or_displaydim_metric_alone_can_close") is False
+        and lane_policy.get("application_ui_screenshot_required") is True
+        and int(lane_policy.get("max_visible_display_dim_count") or 0) == len(REQUIRED_DIMENSION_KEYS)
+        and required_issue_count_after == 0
+        and not missing_lane_targets
+        and not invalid_lane_targets,
+        "006 reference-intent plan carries local dimension lane policy for the UI screenshot lane/overdense buckets",
+        {
+            "schema": lane_policy.get("schema"),
+            "target_buckets": lane_policy.get("target_buckets"),
+            "max_visible_display_dim_count": lane_policy.get("max_visible_display_dim_count"),
+            "reference_lane_geometry_issue_count_after_required": lane_policy.get(
+                "reference_lane_geometry_issue_count_after_required"
+            ),
+            "allow_compact_top_view_side_lanes": lane_policy.get("allow_compact_top_view_side_lanes"),
+            "top_view_side_lane_max_gap_m": lane_policy.get("top_view_side_lane_max_gap_m"),
+            "missing_lane_targets": missing_lane_targets,
+            "invalid_lane_targets": invalid_lane_targets,
+        },
+    )
+
+
 def _check_policy(checks: list[dict[str, Any]], plan: dict[str, Any]) -> None:
     _add_check(
         checks,
@@ -629,6 +678,24 @@ def _layout_summary(plan: dict[str, Any]) -> dict[str, Any]:
         "projection_view_style_match_required": layout_plan.get("projection_view_style_match_required"),
         "compact_titlebar_fields_required": layout_plan.get("compact_titlebar_fields_required"),
         "reference_style_notes_required": layout_plan.get("reference_style_notes_required"),
+    }
+
+
+def _lane_summary(plan: dict[str, Any]) -> dict[str, Any]:
+    lane_policy = plan.get("reference_dimension_lane_policy") or {}
+    lane_targets = [item for item in lane_policy.get("lane_targets") or [] if isinstance(item, dict)]
+    return {
+        "schema": lane_policy.get("schema"),
+        "target_buckets": lane_policy.get("target_buckets"),
+        "lane_target_count": len(lane_targets),
+        "lane_target_keys": [str(item.get("target_key") or "") for item in lane_targets],
+        "max_visible_display_dim_count": lane_policy.get("max_visible_display_dim_count"),
+        "reference_lane_geometry_issue_count_after_required": lane_policy.get(
+            "reference_lane_geometry_issue_count_after_required"
+        ),
+        "compact_local_lanes_required": lane_policy.get("compact_local_lanes_required"),
+        "reject_diagonal_or_cross_region_leaders": lane_policy.get("reject_diagonal_or_cross_region_leaders"),
+        "top_view_side_lane_max_gap_m": lane_policy.get("top_view_side_lane_max_gap_m"),
     }
 
 

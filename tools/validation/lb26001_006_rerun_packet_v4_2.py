@@ -163,6 +163,9 @@ GENERATOR_SIGNATURES = {
     "ui_defect_screenshot_visual_observations": "ui_defect_screenshot_visual_observations",
     "reference_intent_delete_equivalence_dedupe": "reference_intent_delete_equivalence_dedupe",
     "reference_intent_delete_equivalence_key": "reference_intent_delete_equivalence_key",
+    "reference_dimension_lane_policy_attached": "reference_dimension_lane_policy_attached",
+    "reference_dimension_lane_policy_top_side_gap": "top_view_side_lane_max_gap_m",
+    "reference_dimension_lane_policy_issue_floor": "reference_lane_geometry_issue_count_after_required",
     "generator_reference_lane_geometry_guard": "reference_lane_geometry_guard",
     "generator_reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
 }
@@ -206,6 +209,8 @@ DIMENSION_ARRANGE_SIGNATURES = {
     "reference_lane_geometry_guard": "reference_lane_geometry_guard",
     "reference_lane_geometry_issue_count": "reference_lane_geometry_issue_count_after",
     "reference_lane_diagonal_leader_guard": "reference_lane_diagonal_or_cross_region_leader",
+    "reference_dimension_lane_policy": "reference_dimension_lane_policy",
+    "compact_top_side_lane_gap_policy": "top_view_side_lane_max_gap_m",
 }
 
 APPLICATION_UI_SCREENSHOT_VALIDATOR_SIGNATURES = {

@@ -328,6 +328,45 @@ def test_arrange_dimensions_reports_reference_lane_geometry_issues() -> None:
     assert "reference_lane_geometry_issues" in report
 
 
+def test_arrange_dimensions_allows_compact_top_side_lane_policy() -> None:
+    compact_dim = FakeDisplayDimension((0.040, 0.124), arrow_position=(0.050, 0.124))
+    far_dim = FakeDisplayDimension((0.010, 0.124), arrow_position=(0.050, 0.124))
+    top_outline = (0.0483, 0.1177, 0.1717, 0.1321)
+    layout_plan = {
+        "part_class": "long_thin",
+        "sheet_size": {"width": 0.297, "height": 0.210},
+        "views": [
+            {
+                "slot": "top",
+                "box_norm": [0.1627, 0.5605, 0.5781, 0.6291],
+                "center_norm": [0.3704, 0.5948],
+            }
+        ],
+        "reference_dimension_lane_policy": {
+            "allow_compact_top_view_side_lanes": True,
+            "top_view_side_lane_max_gap_m": 0.018,
+        },
+    }
+
+    compact_result = arrange_dimensions(
+        object(),
+        FakeDoc(FakeSheet([FakeView("Top", top_outline, [compact_dim])])),
+        run_dir=None,
+        run_id="compact-top-side-lane",
+        layout_plan=layout_plan,
+    )
+    far_result = arrange_dimensions(
+        object(),
+        FakeDoc(FakeSheet([FakeView("Top", top_outline, [far_dim])])),
+        run_dir=None,
+        run_id="far-top-side-lane",
+        layout_plan=layout_plan,
+    )
+
+    assert compact_result.reference_lane_geometry_issue_count_before == 0
+    assert far_result.reference_lane_geometry_issue_count_before >= 1
+
+
 if __name__ == "__main__":
     test_arrange_dimensions_moves_dense_text_out_of_titlebar_and_notes_boxes()
     test_arrange_dimensions_collects_displaydim_annotations_when_api_list_is_empty()
@@ -335,4 +374,5 @@ if __name__ == "__main__":
     test_arrange_dimensions_pushes_long_thin_top_view_to_protected_lane()
     test_arrange_dimensions_keeps_dense_top_dimensions_in_local_lanes()
     test_arrange_dimensions_reports_reference_lane_geometry_issues()
+    test_arrange_dimensions_allows_compact_top_side_lane_policy()
     print("PASS test_v4_dimension_arrange_service")

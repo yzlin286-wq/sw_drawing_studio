@@ -36,6 +36,7 @@
 - `pass` `surface_finish_policy`: 3.2 rest surface-finish note is required callout evidence but does not count as DisplayDim
 - `pass` `radius_chamfer_absence_policy`: radius/chamfer are recorded as visually absent and must not be fabricated
 - `pass` `reference_layout_policy`: 006 reference-intent plan carries reference view outlines plus compact notes/titlebar layout targets
+- `pass` `reference_dimension_lane_policy`: 006 reference-intent plan carries local dimension lane policy for the UI screenshot lane/overdense buckets
 - `pass` `api_and_ui_policy`: plan requires UI screenshot acceptance and forbids Note substitution
 - `pass` `acceptance_trace_requirements`: plan requires selected entity, add method, before/after counts, target coverage, and post-layout persistence trace
 - `pass` `contract_file_exists`: reference-intent execution contract exists

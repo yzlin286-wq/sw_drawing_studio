@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_reference_intent_proof.v4_4",
-  "generated_at": "2026-06-26 16:26:01",
+  "generated_at": "2026-06-26 16:48:05",
   "base": "LB26001-A-04-006",
   "status": "plan_proof_pass_requires_locked_cad_run",
   "pass": true,
@@ -77,6 +77,33 @@
     "projection_view_style_match_required": true,
     "compact_titlebar_fields_required": true,
     "reference_style_notes_required": true
+  },
+  "lane_summary": {
+    "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+    "target_buckets": [
+      "dimension_visual_overdense",
+      "dimension_lane_wrong"
+    ],
+    "lane_target_count": 12,
+    "lane_target_keys": [
+      "overall_length",
+      "overall_width",
+      "overall_height",
+      "left_end_offset",
+      "right_end_offset",
+      "hole_diameter",
+      "hole_x_location",
+      "hole_y_location",
+      "hole_pitch",
+      "projection_view_width",
+      "projection_view_height",
+      "small_feature_location"
+    ],
+    "max_visible_display_dim_count": 12,
+    "reference_lane_geometry_issue_count_after_required": 0,
+    "compact_local_lanes_required": true,
+    "reject_diagonal_or_cross_region_leaders": true,
+    "top_view_side_lane_max_gap_m": 0.018
   },
   "checks": [
     {
@@ -340,6 +367,24 @@
         "projection_view_style_match_required": true,
         "compact_titlebar_fields_required": true,
         "reference_style_notes_required": true
+      }
+    },
+    {
+      "key": "reference_dimension_lane_policy",
+      "status": "pass",
+      "message": "006 reference-intent plan carries local dimension lane policy for the UI screenshot lane/overdense buckets",
+      "details": {
+        "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+        "target_buckets": [
+          "dimension_visual_overdense",
+          "dimension_lane_wrong"
+        ],
+        "max_visible_display_dim_count": 12,
+        "reference_lane_geometry_issue_count_after_required": 0,
+        "allow_compact_top_view_side_lanes": true,
+        "top_view_side_lane_max_gap_m": 0.018,
+        "missing_lane_targets": [],
+        "invalid_lane_targets": {}
       }
     },
     {
