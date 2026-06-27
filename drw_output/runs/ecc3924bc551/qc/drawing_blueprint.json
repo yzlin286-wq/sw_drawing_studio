@@ -1,0 +1,2762 @@
+{
+  "base": "LB26001-A-04-006",
+  "part_class": "long_thin",
+  "drawing_purpose": "manufacturing",
+  "manufacturing_intent": "make_or_inspect",
+  "reference_storyboard": {
+    "source": "same_name_reference",
+    "narrative": "readable_manufacturing_drawing",
+    "primary_reading_order": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "view_story": {
+      "front": "long_envelope_and_end_identity",
+      "top": "hole_location_relationships_and_long_axis_offsets",
+      "right": "small_projected_section_and_transverse_size",
+      "iso": "compact_part_recognition_only"
+    },
+    "dimension_story": [
+      "overall_envelope_outside_views",
+      "end_offsets_below_long_axis",
+      "hole_callouts_grouped_near_top_view",
+      "projected_view_size_next_to_right_view"
+    ],
+    "reference_view_slots": [
+      "front",
+      "top",
+      "right",
+      "iso"
+    ],
+    "api_metrics_are_supporting_only": true,
+    "ui_screenshot_is_final_gate": true
+  },
+  "view_roles": {
+    "front": {
+      "role": "primary_shape_story",
+      "dimension_lane_policy": "outer_envelope_and_end_identity",
+      "allow_dimension_targets": true,
+      "view_type": "named",
+      "create_method": "named_view",
+      "projected_from": "",
+      "required": true,
+      "center_norm": [
+        0.3704,
+        0.8074
+      ],
+      "outline_norm": [
+        0.1627,
+        0.7719,
+        0.5781,
+        0.8429
+      ]
+    },
+    "top": {
+      "role": "functional_feature_relationships",
+      "dimension_lane_policy": "hole_offsets_pitch_and_callouts",
+      "allow_dimension_targets": true,
+      "view_type": "projected",
+      "create_method": "projection_api",
+      "projected_from": "front",
+      "required": true,
+      "center_norm": [
+        0.3704,
+        0.5948
+      ],
+      "outline_norm": [
+        0.1627,
+        0.5605,
+        0.5781,
+        0.6291
+      ]
+    },
+    "right": {
+      "role": "projected_small_feature_size",
+      "dimension_lane_policy": "local_projection_lanes",
+      "allow_dimension_targets": true,
+      "view_type": "projected",
+      "create_method": "projection_api",
+      "projected_from": "front",
+      "required": true,
+      "center_norm": [
+        0.7259,
+        0.8074
+      ],
+      "outline_norm": [
+        0.7016,
+        0.7719,
+        0.7501,
+        0.8429
+      ]
+    },
+    "iso": {
+      "role": "visual_part_recognition",
+      "dimension_lane_policy": "no_primary_manufacturing_dimensions",
+      "allow_dimension_targets": false,
+      "view_type": "iso",
+      "create_method": "named_view",
+      "projected_from": "",
+      "required": true,
+      "center_norm": [
+        0.8025,
+        0.478
+      ],
+      "outline_norm": [
+        0.7164,
+        0.3929,
+        0.8886,
+        0.5631
+      ]
+    }
+  },
+  "notes_title_policy": {
+    "source": "same_name_reference",
+    "title_block_mode": "compact_reference_fields",
+    "strip_default_template_artifacts": true,
+    "preserve_reference_notes_zone": true,
+    "required_title_fields": [
+      "drawing_no",
+      "name",
+      "material",
+      "scale",
+      "date"
+    ],
+    "present_title_fields": [
+      "drawing_no",
+      "name"
+    ],
+    "missing_title_fields": [
+      "material",
+      "scale",
+      "date"
+    ],
+    "manufacturing_notes_required": true,
+    "required_note_topics": [
+      "general_tolerance",
+      "surface_roughness",
+      "technical_requirements",
+      "material_or_specification"
+    ],
+    "reference_notes_present": true,
+    "notes_must_not_replace_display_dimensions": true
+  },
+  "visual_acceptance_checklist": [
+    "reference_match",
+    "view_layout",
+    "display_dimensions",
+    "dimension_readability",
+    "title_block",
+    "manufacturing_notes"
+  ],
+  "reference_base": "LB26001-A-04-006",
+  "schema": "sw_drawing_studio.drawing_blueprint.v4",
+  "version": "v4.0",
+  "generated_at": "2026-06-27 16:28:15",
+  "view_plan": [
+    {
+      "slot": "front",
+      "required": true,
+      "reference_view_name": "工程图视图1",
+      "sw_view_type": "7",
+      "expected_create_method": "named_or_standard",
+      "center_norm": [
+        0.3704,
+        0.8074
+      ],
+      "size_norm": [
+        0.4155,
+        0.071
+      ],
+      "outline_norm": [
+        0.162626,
+        0.771905,
+        0.578114,
+        0.842857
+      ],
+      "box_norm": [
+        0.162626,
+        0.771905,
+        0.578114,
+        0.842857
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "top",
+      "required": true,
+      "reference_view_name": "工程图视图3",
+      "sw_view_type": "4",
+      "expected_create_method": "projection_api",
+      "center_norm": [
+        0.3704,
+        0.5948
+      ],
+      "size_norm": [
+        0.4155,
+        0.0686
+      ],
+      "outline_norm": [
+        0.162626,
+        0.560476,
+        0.578114,
+        0.629048
+      ],
+      "box_norm": [
+        0.162626,
+        0.560476,
+        0.578114,
+        0.629048
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "right",
+      "required": true,
+      "reference_view_name": "工程图视图2",
+      "sw_view_type": "4",
+      "expected_create_method": "projection_api",
+      "center_norm": [
+        0.7259,
+        0.8074
+      ],
+      "size_norm": [
+        0.0485,
+        0.071
+      ],
+      "outline_norm": [
+        0.701684,
+        0.771905,
+        0.750168,
+        0.842857
+      ],
+      "box_norm": [
+        0.701684,
+        0.771905,
+        0.750168,
+        0.842857
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    },
+    {
+      "slot": "iso",
+      "required": true,
+      "reference_view_name": "工程图视图4",
+      "sw_view_type": "7",
+      "expected_create_method": "named_or_standard",
+      "center_norm": [
+        0.8025,
+        0.478
+      ],
+      "size_norm": [
+        0.1723,
+        0.1702
+      ],
+      "outline_norm": [
+        0.71635,
+        0.39289,
+        0.888673,
+        0.563129
+      ],
+      "box_norm": [
+        0.71635,
+        0.39289,
+        0.888673,
+        0.563129
+      ],
+      "source": "reference_profiles_v4.view_positions"
+    }
+  ],
+  "dimension_plan": {
+    "required_display_dim_count": 12,
+    "reference_display_dim_count": 12,
+    "required_overall_dims": [
+      "overall_length",
+      "overall_diameter"
+    ],
+    "hole_dims": [],
+    "slot_dims": [],
+    "radius_dims": [],
+    "thread_dims": [],
+    "datum_dims": [],
+    "inspection_dims": [],
+    "dimension_intent_groups": [
+      {
+        "key": "overall_envelope",
+        "label": "overall length/width/height",
+        "reading_order": 1,
+        "placement_policy": "outside_view_envelope_lanes",
+        "target_views": [
+          "front",
+          "top",
+          "right"
+        ],
+        "required_count": 3,
+        "source_reference_rule": "match same-name 006 envelope dimensions"
+      },
+      {
+        "key": "end_offsets",
+        "label": "left and right end offsets",
+        "reading_order": 2,
+        "placement_policy": "below_long_axis_and_separated_by_station",
+        "target_views": [
+          "top"
+        ],
+        "required_count": 2,
+        "source_reference_rule": "keep end-offset dimensions outside the long top view"
+      },
+      {
+        "key": "hole_locations",
+        "label": "hole diameter and center locations",
+        "reading_order": 3,
+        "placement_policy": "compact_local_hole_lanes_near_top_view",
+        "target_views": [
+          "top"
+        ],
+        "required_count": 4,
+        "source_reference_rule": "keep DisplayDim hole dimensions in compact local lanes; right-side hole/thread text is handled by reference callout checklist"
+      },
+      {
+        "key": "small_projected_view",
+        "label": "right-side projected view size and small-feature location",
+        "reading_order": 4,
+        "placement_policy": "local_lanes_around_projected_right_view",
+        "target_views": [
+          "right"
+        ],
+        "required_count": 3,
+        "source_reference_rule": "dimension the small projection without replacing it with a named view"
+      },
+      {
+        "key": "radius_chamfer_thread",
+        "label": "radius/chamfer/thread callouts when detected",
+        "reading_order": 5,
+        "placement_policy": "only_when_geometry_or_reference_proves_feature",
+        "target_views": [
+          "front",
+          "top",
+          "right"
+        ],
+        "required_count": 0,
+        "optional": true,
+        "source_reference_rule": "add only when geometry/reference notes prove the feature is present"
+      }
+    ],
+    "dimension_targets": [
+      {
+        "key": "overall_length",
+        "group": "overall_envelope",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "front",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "above",
+        "priority": 10,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "overall_width",
+        "group": "overall_envelope",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "preferred_side": "right",
+        "priority": 11,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "overall_height",
+        "group": "overall_envelope",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "preferred_side": "right",
+        "priority": 12,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "left_end_offset",
+        "group": "end_offsets",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "below",
+        "priority": 20,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "right_end_offset",
+        "group": "end_offsets",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "below",
+        "priority": 21,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "hole_diameter",
+        "group": "hole_locations",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "diameter",
+        "expected_add_method": "AddDiameterDimension2",
+        "preferred_side": "above",
+        "priority": 30,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "hole_x_location",
+        "group": "hole_locations",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "above",
+        "priority": 31,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "hole_y_location",
+        "group": "hole_locations",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "preferred_side": "left",
+        "priority": 32,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "hole_pitch",
+        "group": "hole_locations",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "top",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "above",
+        "priority": 33,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "projection_view_width",
+        "group": "small_projected_view",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "right",
+        "expected_type": "linear_horizontal",
+        "expected_add_method": "AddHorizontalDimension2",
+        "preferred_side": "above",
+        "priority": 40,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "projection_view_height",
+        "group": "small_projected_view",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "preferred_side": "right",
+        "priority": 41,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      },
+      {
+        "key": "small_feature_location",
+        "group": "small_projected_view",
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "target_view": "right",
+        "expected_type": "linear_vertical",
+        "expected_add_method": "AddVerticalDimension2",
+        "preferred_side": "left",
+        "priority": 42,
+        "fallback_policy": "need_review_when_real_displaydim_unavailable",
+        "create_as": "SolidWorks DisplayDim",
+        "forbid_note_substitution": true,
+        "avoid_generic_model_annotation": true
+      }
+    ],
+    "reference_callouts": [
+      {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "fallback_policy": "need_review_when_real_callout_unavailable",
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true,
+        "key": "thread_callout_m4_6h",
+        "target_view": "top",
+        "expected_type": "thread_callout",
+        "is_manufacturing_dimension": true,
+        "reference_value": "M4-6H 完全贯穿",
+        "source_reference_evidence": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "target_view": "top",
+          "expected_type": "thread_callout",
+          "reference_value": "M4-6H 完全贯穿",
+          "visual_reading": "Thread callout near top view reads M4-6H 完全贯穿.",
+          "source_text": "M4-6H 完全贯穿",
+          "extraction_method": "manual_visual_reading_from_reference_png"
+        },
+        "forbid_note_substitution_for_displaydim": true,
+        "create_as": "SolidWorks hole/thread callout or attached manufacturing callout, not a substitute DisplayDim"
+      },
+      {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "fallback_policy": "need_review_when_real_callout_unavailable",
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true,
+        "key": "hole_callout_4x3_3",
+        "target_view": "top",
+        "expected_type": "hole_callout",
+        "is_manufacturing_dimension": true,
+        "reference_value": "4-3.3 through",
+        "source_reference_evidence": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "target_view": "top",
+          "expected_type": "hole_callout",
+          "reference_value": "4-3.3 through",
+          "visual_reading": "Hole callout near top view reads 4-3.3 through.",
+          "source_text": "4-3.3",
+          "extraction_method": "manual_visual_reading_from_reference_png"
+        },
+        "forbid_note_substitution_for_displaydim": true,
+        "create_as": "SolidWorks hole callout or attached manufacturing callout, not a substitute DisplayDim"
+      },
+      {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "fallback_policy": "need_review_when_real_callout_unavailable",
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true,
+        "key": "surface_finish_rest_3_2",
+        "target_view": "sheet_notes",
+        "expected_type": "surface_finish_callout",
+        "is_manufacturing_dimension": true,
+        "reference_value": "3.2 其余",
+        "source_reference_evidence": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "target_view": "sheet_notes",
+          "expected_type": "surface_finish_callout",
+          "reference_value": "3.2 其余",
+          "visual_reading": "Upper-right sheet note reads 3.2 其余.",
+          "source_text": "3.2 其余",
+          "extraction_method": "manual_visual_reading_from_reference_png"
+        },
+        "create_as": "manufacturing note/symbol; does not count as DisplayDim"
+      },
+      {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true,
+        "key": "radius_callout",
+        "target_view": "front/top/right",
+        "expected_type": "radius_callout",
+        "is_manufacturing_dimension": false,
+        "reference_value": null,
+        "source_reference_evidence": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "target_view": "front/top/right",
+          "expected_type": "radius_callout",
+          "reference_value": null,
+          "visual_reading": "No radius callout is visually present in the reference PNG.",
+          "source_text": "",
+          "extraction_method": "manual_visual_absence_check"
+        }
+      },
+      {
+        "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+        "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+        "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+        "api_is_supporting_only": true,
+        "ui_screenshot_acceptance_required": true,
+        "key": "chamfer_callout",
+        "target_view": "front/top/right",
+        "expected_type": "chamfer_callout",
+        "is_manufacturing_dimension": false,
+        "reference_value": null,
+        "source_reference_evidence": {
+          "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+          "reference_png": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\case_library\\LB26001-A-04-006.png",
+          "target_view": "front/top/right",
+          "expected_type": "chamfer_callout",
+          "reference_value": null,
+          "visual_reading": "No chamfer callout is visually present in the reference PNG.",
+          "source_text": "",
+          "extraction_method": "manual_visual_absence_check"
+        }
+      }
+    ],
+    "view_dimension_quotas": {
+      "front": 3,
+      "top": 6,
+      "right": 3
+    },
+    "dimension_priority": [
+      "overall_length",
+      "overall_width",
+      "overall_height",
+      "left_end_offset",
+      "right_end_offset",
+      "hole_diameter",
+      "hole_x_location",
+      "hole_y_location",
+      "hole_pitch",
+      "projection_view_width",
+      "projection_view_height",
+      "small_feature_location",
+      "overall_diameter",
+      "overall_envelope",
+      "end_offsets",
+      "hole_positions",
+      "projected_view_size",
+      "inspection_reference"
+    ],
+    "fallback_policy": "need_review_when_real_displaydim_unavailable",
+    "allow_note_substitution": false,
+    "source": "reference_intent_dimension_plan_v4_2",
+    "reasons": [
+      "part_class=long_thin",
+      "reference_display_dim_count=12",
+      "part_class_default_display_dim_floor=4",
+      "required_display_dim_count=12",
+      "notes_do_not_count_as_display_dim",
+      "reference_profile_controls_display_dim_floor",
+      "view_dimension_quotas_control_autodim_prune",
+      "dimension_intent_groups_required_for_ui_visual_review",
+      "reference_intent_dimension_targets_control_worker_execution",
+      "explicit_dimension_targets_replace_generic_autodimension_acceptance",
+      "ui_screenshot_review_is_final_gate",
+      "reference_intent_dimension_plan_path_attached",
+      "reference_intent_layout_policy_attached",
+      "reference_dimension_lane_policy_attached",
+      "ui_defect_repair_layout_targets_attached",
+      "lb26001_006_ui_correction_evidence_attached",
+      "reference_intent_ui_defect_bucket_constraints",
+      "ui_defect_bucket_reject_generic_autodim_survivors",
+      "ui_defect_bucket_compact_local_lanes",
+      "ui_defect_bucket_reference_callout_review_plan",
+      "ui_defect_bucket_closure_contract",
+      "ui_defect_screenshot_visual_observations"
+    ],
+    "reference_callout_review_plan": {
+      "schema": "sw_drawing_studio.reference_callout_review_plan.v4_4",
+      "source": "reference_intent_dimension_plan_006.reference_callouts",
+      "application_ui_screenshot_required": true,
+      "api_is_supporting_only": true,
+      "notes_do_not_count_as_display_dim": true,
+      "required_keys": [
+        "hole_diameter",
+        "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
+        "surface_finish_rest_3_2"
+      ],
+      "absence_check_keys": [
+        "radius_callout",
+        "chamfer_callout"
+      ],
+      "items": [
+        {
+          "key": "hole_diameter",
+          "source_dimension_key": "hole_diameter",
+          "target_view": "top",
+          "expected_type": "hole_callout",
+          "reference_value": {
+            "hole_count": 4,
+            "diameter_mm": 3.3,
+            "thread": "M4-6H",
+            "through": true
+          },
+          "source_text": "4-⌀3.3 完全贯穿; M4-6H 完全贯穿",
+          "required_visual_confirmation": true,
+          "is_manufacturing_dimension": true,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        },
+        {
+          "key": "thread_callout_m4_6h",
+          "target_view": "top",
+          "expected_type": "thread_callout",
+          "reference_value": "M4-6H 完全贯穿",
+          "source_text": "M4-6H 完全贯穿",
+          "fallback_policy": "need_review_when_real_callout_unavailable",
+          "required_visual_confirmation": true,
+          "absence_check_required": false,
+          "is_manufacturing_dimension": true,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        },
+        {
+          "key": "hole_callout_4x3_3",
+          "target_view": "top",
+          "expected_type": "hole_callout",
+          "reference_value": "4-3.3 through",
+          "source_text": "4-3.3",
+          "fallback_policy": "need_review_when_real_callout_unavailable",
+          "required_visual_confirmation": true,
+          "absence_check_required": false,
+          "is_manufacturing_dimension": true,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        },
+        {
+          "key": "surface_finish_rest_3_2",
+          "target_view": "sheet_notes",
+          "expected_type": "surface_finish_callout",
+          "reference_value": "3.2 其余",
+          "source_text": "3.2 其余",
+          "fallback_policy": "need_review_when_real_callout_unavailable",
+          "required_visual_confirmation": true,
+          "absence_check_required": false,
+          "is_manufacturing_dimension": true,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        },
+        {
+          "key": "radius_callout",
+          "target_view": "front/top/right",
+          "expected_type": "radius_callout",
+          "reference_value": null,
+          "source_text": "",
+          "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+          "required_visual_confirmation": false,
+          "absence_check_required": true,
+          "is_manufacturing_dimension": false,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        },
+        {
+          "key": "chamfer_callout",
+          "target_view": "front/top/right",
+          "expected_type": "chamfer_callout",
+          "reference_value": null,
+          "source_text": "",
+          "fallback_policy": "do_not_create_unless_geometry_or_reference_proves_feature",
+          "required_visual_confirmation": false,
+          "absence_check_required": true,
+          "is_manufacturing_dimension": false,
+          "notes_do_not_count_as_display_dim": true,
+          "application_ui_screenshot_required": true
+        }
+      ]
+    },
+    "reference_view_slots": {
+      "front": {
+        "reference_view_name": "工程图视图1",
+        "sw_view_type": "7",
+        "center_norm": [
+          0.3704,
+          0.8074
+        ],
+        "size_norm": [
+          0.4155,
+          0.071
+        ],
+        "expected_create_method": "named_or_standard"
+      },
+      "iso": {
+        "reference_view_name": "工程图视图4",
+        "sw_view_type": "7",
+        "center_norm": [
+          0.8025,
+          0.478
+        ],
+        "size_norm": [
+          0.1723,
+          0.1702
+        ],
+        "expected_create_method": "named_or_standard"
+      },
+      "right": {
+        "reference_view_name": "工程图视图2",
+        "sw_view_type": "4",
+        "center_norm": [
+          0.7259,
+          0.8074
+        ],
+        "size_norm": [
+          0.0485,
+          0.071
+        ],
+        "expected_create_method": "projection_api"
+      },
+      "top": {
+        "reference_view_name": "工程图视图3",
+        "sw_view_type": "4",
+        "center_norm": [
+          0.3704,
+          0.5948
+        ],
+        "size_norm": [
+          0.4155,
+          0.0686
+        ],
+        "expected_create_method": "projection_api"
+      }
+    },
+    "reference_layout_policy": {
+      "schema": "sw_drawing_studio.reference_layout_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source_reference": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDDRW",
+      "source_profile": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json",
+      "view_plan": [
+        {
+          "slot": "front",
+          "required": true,
+          "reference_view_name": "工程图视图1",
+          "sw_view_type": "7",
+          "expected_create_method": "named_or_standard",
+          "center_norm": [
+            0.3704,
+            0.8074
+          ],
+          "size_norm": [
+            0.4155,
+            0.071
+          ],
+          "outline_norm": [
+            0.162626,
+            0.771905,
+            0.578114,
+            0.842857
+          ],
+          "box_norm": [
+            0.162626,
+            0.771905,
+            0.578114,
+            0.842857
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "top",
+          "required": true,
+          "reference_view_name": "工程图视图3",
+          "sw_view_type": "4",
+          "expected_create_method": "projection_api",
+          "center_norm": [
+            0.3704,
+            0.5948
+          ],
+          "size_norm": [
+            0.4155,
+            0.0686
+          ],
+          "outline_norm": [
+            0.162626,
+            0.560476,
+            0.578114,
+            0.629048
+          ],
+          "box_norm": [
+            0.162626,
+            0.560476,
+            0.578114,
+            0.629048
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "right",
+          "required": true,
+          "reference_view_name": "工程图视图2",
+          "sw_view_type": "4",
+          "expected_create_method": "projection_api",
+          "center_norm": [
+            0.7259,
+            0.8074
+          ],
+          "size_norm": [
+            0.0485,
+            0.071
+          ],
+          "outline_norm": [
+            0.701684,
+            0.771905,
+            0.750168,
+            0.842857
+          ],
+          "box_norm": [
+            0.701684,
+            0.771905,
+            0.750168,
+            0.842857
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        },
+        {
+          "slot": "iso",
+          "required": true,
+          "reference_view_name": "工程图视图4",
+          "sw_view_type": "7",
+          "expected_create_method": "named_or_standard",
+          "center_norm": [
+            0.8025,
+            0.478
+          ],
+          "size_norm": [
+            0.1723,
+            0.1702
+          ],
+          "outline_norm": [
+            0.71635,
+            0.39289,
+            0.888673,
+            0.563129
+          ],
+          "box_norm": [
+            0.71635,
+            0.39289,
+            0.888673,
+            0.563129
+          ],
+          "source": "reference_profiles_v4.view_positions"
+        }
+      ],
+      "layout_plan": {
+        "source": "reference_intent_dimension_plan_006.reference_layout_policy",
+        "sheet_size": {
+          "width": 0.297,
+          "height": 0.21
+        },
+        "views": [
+          {
+            "slot": "front",
+            "required": true,
+            "reference_view_name": "工程图视图1",
+            "sw_view_type": "7",
+            "expected_create_method": "named_or_standard",
+            "center_norm": [
+              0.3704,
+              0.8074
+            ],
+            "size_norm": [
+              0.4155,
+              0.071
+            ],
+            "outline_norm": [
+              0.162626,
+              0.771905,
+              0.578114,
+              0.842857
+            ],
+            "box_norm": [
+              0.162626,
+              0.771905,
+              0.578114,
+              0.842857
+            ],
+            "source": "reference_profiles_v4.view_positions"
+          },
+          {
+            "slot": "top",
+            "required": true,
+            "reference_view_name": "工程图视图3",
+            "sw_view_type": "4",
+            "expected_create_method": "projection_api",
+            "center_norm": [
+              0.3704,
+              0.5948
+            ],
+            "size_norm": [
+              0.4155,
+              0.0686
+            ],
+            "outline_norm": [
+              0.162626,
+              0.560476,
+              0.578114,
+              0.629048
+            ],
+            "box_norm": [
+              0.162626,
+              0.560476,
+              0.578114,
+              0.629048
+            ],
+            "source": "reference_profiles_v4.view_positions"
+          },
+          {
+            "slot": "right",
+            "required": true,
+            "reference_view_name": "工程图视图2",
+            "sw_view_type": "4",
+            "expected_create_method": "projection_api",
+            "center_norm": [
+              0.7259,
+              0.8074
+            ],
+            "size_norm": [
+              0.0485,
+              0.071
+            ],
+            "outline_norm": [
+              0.701684,
+              0.771905,
+              0.750168,
+              0.842857
+            ],
+            "box_norm": [
+              0.701684,
+              0.771905,
+              0.750168,
+              0.842857
+            ],
+            "source": "reference_profiles_v4.view_positions"
+          },
+          {
+            "slot": "iso",
+            "required": true,
+            "reference_view_name": "工程图视图4",
+            "sw_view_type": "7",
+            "expected_create_method": "named_or_standard",
+            "center_norm": [
+              0.8025,
+              0.478
+            ],
+            "size_norm": [
+              0.1723,
+              0.1702
+            ],
+            "outline_norm": [
+              0.71635,
+              0.39289,
+              0.888673,
+              0.563129
+            ],
+            "box_norm": [
+              0.71635,
+              0.39289,
+              0.888673,
+              0.563129
+            ],
+            "source": "reference_profiles_v4.view_positions"
+          }
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.64,
+          0.96,
+          0.82
+        ],
+        "titlebar_box_norm": [
+          0.6,
+          0.02,
+          0.96,
+          0.13
+        ],
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "projection_view_style_match_required": true,
+        "compact_titlebar_fields_required": true,
+        "reference_style_notes_required": true,
+        "sheet_template_policy": {
+          "policy": "strip_default_template_artifacts",
+          "skip_builtin_gb_frame_titleblock": true,
+          "default_template_artifacts_allowed": false,
+          "suppress_default_titlebar_fields": true,
+          "source": "application_ui_screenshot_reference",
+          "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
+          "application_ui_screenshot_required": true
+        },
+        "reference_titlebar_policy": {
+          "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+          "base": "LB26001-A-04-006",
+          "source": "application_ui_screenshot_reference",
+          "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+          "default_template_artifacts_allowed": false,
+          "suppress_default_titlebar_fields": true,
+          "suppress_drawing_no_name_visible_note": true,
+          "render_reference_bottom_notice": true,
+          "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+          "bottom_notice_box_norm": [
+            0.3,
+            0.16,
+            0.66,
+            0.24
+          ],
+          "api_or_reference_json_alone_can_close": false,
+          "application_ui_screenshot_required": true
+        },
+        "reference_view_outline_policy": {
+          "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+          "base": "LB26001-A-04-006",
+          "source": "application_ui_screenshot_reference",
+          "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+          "view_outline_size_match_required": true,
+          "view_outline_size_tolerance": 0.18,
+          "independent_view_scale_allowed": true,
+          "downscale_oversized_views_only": true,
+          "target_outlines_required": true,
+          "api_or_reference_json_alone_can_close": false,
+          "application_ui_screenshot_required": true
+        },
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true
+      },
+      "reference_titlebar_policy": {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+        "default_template_artifacts_allowed": false,
+        "suppress_default_titlebar_fields": true,
+        "suppress_drawing_no_name_visible_note": true,
+        "render_reference_bottom_notice": true,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "reference_view_outline_policy": {
+        "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true,
+        "downscale_oversized_views_only": true,
+        "target_outlines_required": true,
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "ui_defect_repair_layout_targets": {
+        "source": "application_ui_screenshot_failed_buckets",
+        "target_buckets": [
+          "projection_view_style_mismatch",
+          "note_missing_or_wrong",
+          "titlebar_incomplete"
+        ],
+        "required_view_slots": [
+          "front",
+          "top",
+          "right",
+          "iso"
+        ],
+        "notes_box_norm": [
+          0.58,
+          0.64,
+          0.96,
+          0.82
+        ],
+        "titlebar_box_norm": [
+          0.6,
+          0.02,
+          0.96,
+          0.13
+        ],
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "suppress_default_titlebar_fields": true,
+        "view_outline_size_match_required": true,
+        "reference_view_outline_policy": {
+          "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+          "base": "LB26001-A-04-006",
+          "source": "application_ui_screenshot_reference",
+          "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+          "view_outline_size_match_required": true,
+          "view_outline_size_tolerance": 0.18,
+          "independent_view_scale_allowed": true,
+          "downscale_oversized_views_only": true,
+          "target_outlines_required": true,
+          "api_or_reference_json_alone_can_close": false,
+          "application_ui_screenshot_required": true
+        },
+        "reference_titlebar_policy": {
+          "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+          "base": "LB26001-A-04-006",
+          "source": "application_ui_screenshot_reference",
+          "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+          "default_template_artifacts_allowed": false,
+          "suppress_default_titlebar_fields": true,
+          "suppress_drawing_no_name_visible_note": true,
+          "render_reference_bottom_notice": true,
+          "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+          "bottom_notice_box_norm": [
+            0.3,
+            0.16,
+            0.66,
+            0.24
+          ],
+          "api_or_reference_json_alone_can_close": false,
+          "application_ui_screenshot_required": true
+        },
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      }
+    },
+    "reference_dimension_lane_policy": {
+      "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_failed_buckets",
+      "target_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong"
+      ],
+      "required_target_count": 12,
+      "max_visible_display_dim_count": 12,
+      "reference_lane_geometry_issue_count_after_required": 0,
+      "compact_local_lanes_required": true,
+      "reject_generic_autodim_survivors": true,
+      "reject_far_lane": true,
+      "reject_diagonal_or_cross_region_leaders": true,
+      "allow_compact_top_view_side_lanes": true,
+      "top_view_side_lane_max_gap_m": 0.018,
+      "top_view_right_callout_lane_allowed_for_displaydim": false,
+      "right_side_hole_thread_text_uses_callout_checklist": true,
+      "api_or_displaydim_metric_alone_can_close": false,
+      "application_ui_screenshot_required": true,
+      "lane_targets": [
+        {
+          "target_key": "overall_length",
+          "target_view": "front",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "overall_width",
+          "target_view": "top",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.58,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "overall_height",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.56,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "left_end_offset",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 0,
+          "station": 0.18,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "right_end_offset",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 1,
+          "station": 0.82,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_diameter",
+          "target_view": "top",
+          "expected_type": "diameter",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.54,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_x_location",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 1,
+          "station": 0.38,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_y_location",
+          "target_view": "top",
+          "expected_type": "linear_vertical",
+          "preferred_side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.46,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_pitch",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 2,
+          "station": 0.7,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "projection_view_width",
+          "target_view": "right",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "projection_view_height",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "small_feature_location",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.35,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        }
+      ]
+    },
+    "ui_defect_repair_layout_targets": {
+      "source": "application_ui_screenshot_failed_buckets",
+      "target_buckets": [
+        "projection_view_style_mismatch",
+        "note_missing_or_wrong",
+        "titlebar_incomplete"
+      ],
+      "required_view_slots": [
+        "front",
+        "top",
+        "right",
+        "iso"
+      ],
+      "notes_box_norm": [
+        0.58,
+        0.64,
+        0.96,
+        0.82
+      ],
+      "titlebar_box_norm": [
+        0.6,
+        0.02,
+        0.96,
+        0.13
+      ],
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "suppress_default_titlebar_fields": true,
+      "view_outline_size_match_required": true,
+      "reference_view_outline_policy": {
+        "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+        "view_outline_size_match_required": true,
+        "view_outline_size_tolerance": 0.18,
+        "independent_view_scale_allowed": true,
+        "downscale_oversized_views_only": true,
+        "target_outlines_required": true,
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "reference_titlebar_policy": {
+        "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+        "base": "LB26001-A-04-006",
+        "source": "application_ui_screenshot_reference",
+        "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+        "default_template_artifacts_allowed": false,
+        "suppress_default_titlebar_fields": true,
+        "suppress_drawing_no_name_visible_note": true,
+        "render_reference_bottom_notice": true,
+        "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+        "bottom_notice_box_norm": [
+          0.3,
+          0.16,
+          0.66,
+          0.24
+        ],
+        "api_or_reference_json_alone_can_close": false,
+        "application_ui_screenshot_required": true
+      },
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "visual_defect_constraints": {
+      "source": "lb26001_006_ui_defect_buckets_v4_4",
+      "reference_dimension_lane_policy_attached": true,
+      "compact_local_lanes_required": true,
+      "reject_generic_autodim_survivors": true,
+      "reject_far_lane": true,
+      "reject_diagonal_or_cross_region_leaders": true,
+      "reference_lane_geometry_issue_count_after_required": 0,
+      "top_view_side_lane_max_gap_m": 0.018,
+      "api_or_displaydim_metric_alone_can_close": false,
+      "active_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch"
+      ],
+      "reference_style_notes_required": true,
+      "compact_titlebar_fields_required": true,
+      "projection_view_style_match_required": true,
+      "callout_presence_recheck_required": true,
+      "reference_callout_review_required_keys": [
+        "hole_diameter",
+        "thread_callout_m4_6h",
+        "hole_callout_4x3_3",
+        "surface_finish_rest_3_2"
+      ],
+      "reference_callout_absence_check_keys": [
+        "radius_callout",
+        "chamfer_callout"
+      ],
+      "bucket_closure_contract_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "ui_review_bucket_pass_conditions": {
+        "dimension_visual_overdense": "manual_visual_judgement must confirm the visible DisplayDim set is compact, readable, and matches the 12 reference-intent manufacturing targets.",
+        "dimension_lane_wrong": "manual_visual_judgement must confirm leaders and text stay in compact local top/bottom lanes with no cross-region clutter.",
+        "note_missing_or_wrong": "manual_visual_judgement must confirm manufacturing notes and roughness text match the reference note region.",
+        "titlebar_incomplete": "manual_visual_judgement must confirm the title/data area uses only the compact reference-like fields.",
+        "projection_view_style_mismatch": "manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference.",
+        "callout_missing": "manual_visual_judgement reference_callout_checklist must prove required callouts are present and radius/chamfer callouts are not fabricated."
+      },
+      "screenshot_visual_observation_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "screenshot_visual_observations": [
+        {
+          "bucket": "dimension_visual_overdense",
+          "observation_key": "dimension_visual_overdense_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "display_dimensions",
+          "visual_check_pass": false,
+          "manual_note": "The final sheet still contains 24 visible DisplayDims, far above the 12 reference-intent target count.",
+          "visual_fact": "The generated sheet visibly keeps an over-dense dimension set around the main long-part view.",
+          "reference_expectation": "The reference drawing uses a sparse 12-target manufacturing dimension set.",
+          "generated_failure": "Extra length/offset/width/height dimensions remain visible and make the sheet read like AutoDimension output.",
+          "repair_signal": "After physical DisplayDim de-duplication, final export must keep only reference-intent manufacturing targets.",
+          "supports_active_bucket": true,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        },
+        {
+          "bucket": "dimension_lane_wrong",
+          "observation_key": "dimension_lane_wrong_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "dimension_readability",
+          "visual_check_pass": false,
+          "manual_note": "Dimension text, leaders, extension lines, and diagonal cross-region geometry dominate the drawing and reduce manufacturing readability.",
+          "visual_fact": "The generated drawing shows diagonal and cross-region dimension/extension geometry through the main view.",
+          "reference_expectation": "The reference drawing keeps dimension text in compact local lanes near the relevant view.",
+          "generated_failure": "Long leaders and diagonal extension lines dominate the central drawing area and reduce readability.",
+          "repair_signal": "Reject far-lane/cross-region placements and preserve compact top/bottom local lanes.",
+          "supports_active_bucket": true,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        },
+        {
+          "bucket": "note_missing_or_wrong",
+          "observation_key": "note_missing_or_wrong_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "manufacturing_notes",
+          "visual_check_pass": false,
+          "manual_note": "Manufacturing notes are present but still not formatted or placed like the reference note block.",
+          "visual_fact": "The generated note block is placed and formatted like generic technical requirements instead of the reference note region.",
+          "reference_expectation": "Reference notes and roughness text are compact and visually tied to the reference drawing layout.",
+          "generated_failure": "Manufacturing notes are present, but their placement and styling do not match the reference screenshot.",
+          "repair_signal": "Use the reference-style note region and keep roughness/manufacturing notes visually compact.",
+          "supports_active_bucket": true,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        },
+        {
+          "bucket": "titlebar_incomplete",
+          "observation_key": "titlebar_incomplete_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "title_block",
+          "visual_check_pass": false,
+          "manual_note": "The title/data area remains positioned and formatted differently from the reference.",
+          "visual_fact": "The generated title/data area is visibly different from the compact reference-like fields.",
+          "reference_expectation": "The reference drawing uses a small, unobtrusive title/data area rather than a default template block.",
+          "generated_failure": "The title/data text appears sparse and displaced, so the sheet still fails the UI title-area check.",
+          "repair_signal": "Suppress default template artifacts and fill only compact reference-like fields.",
+          "supports_active_bucket": true,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        },
+        {
+          "bucket": "projection_view_style_mismatch",
+          "observation_key": "projection_view_style_mismatch_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "view_layout",
+          "visual_check_pass": false,
+          "manual_note": "View family is present, but view scale, visual organization, and dimension geometry do not match the compact reference drawing.",
+          "visual_fact": "The generated front/top/right/isometric composition and scale still differ from the reference screenshot.",
+          "reference_expectation": "The reference drawing keeps the small right projection and isometric view balanced with the long views.",
+          "generated_failure": "The generated right projection carries a separate cluttered dimension cluster and the view balance is off.",
+          "repair_signal": "Match reference view-family scale, small right projection footprint, and compact isometric placement.",
+          "supports_active_bucket": true,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        },
+        {
+          "bucket": "callout_missing",
+          "observation_key": "callout_missing_application_ui_screenshot_observation",
+          "source": "application_drawing_review_ui_screenshot",
+          "source_paths": [
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+            "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+            "drw_output\\case_library\\LB26001-A-04-006.png",
+            "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+            "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+          ],
+          "visual_check": "reference_match",
+          "visual_check_pass": false,
+          "manual_note": "Generated drawing still differs materially from the same-name reference: visible dimension density, diagonal/cross-region dimension lines, and title/notes placement remain non-reference-like.",
+          "visual_fact": "The latest screenshot does not independently close the required callout bucket.",
+          "reference_expectation": "The next UI screenshot must explicitly verify M4-6H, 4-3.3, Ra3.2, and radius/chamfer absence policy.",
+          "generated_failure": "Callout presence/absence cannot be accepted from API metrics or DisplayDim counts.",
+          "repair_signal": "Require a reference_callout_checklist in the next manual visual judgement.",
+          "supports_active_bucket": false,
+          "next_screenshot_check_required": true,
+          "api_or_displaydim_metric_alone_can_close": false
+        }
+      ]
+    },
+    "ui_correction_evidence": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\qc\\lb26001_006_ui_correction_evidence.json",
+      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "failed_visual_checklist_items": [
+        "reference_match",
+        "view_layout",
+        "display_dimensions",
+        "dimension_readability",
+        "title_block",
+        "manufacturing_notes"
+      ],
+      "latest_manual_findings": [],
+      "latest_manual_required_correction": "",
+      "application_ui_screenshot_is_final_gate": true,
+      "api_is_not_final_judgement": true
+    },
+    "ui_defect_buckets": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+      "status": "needs_006_fix",
+      "active_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch"
+      ],
+      "bucket_closure_contract_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "screenshot_visual_observation_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "application_ui_screenshot_is_final_gate": true,
+      "api_is_not_final_judgement": true,
+      "expansion_allowed_now": false
+    },
+    "ui_defect_bucket_closure_contract": [
+      {
+        "bucket": "dimension_visual_overdense",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.physical_displaydim_dedupe",
+          "generator.ui_defect_reject_autodim",
+          "dimension_visual_validator.reference_style_readability_gate"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement must confirm the visible DisplayDim set is compact, readable, and matches the 12 reference-intent manufacturing targets.",
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "dimension_lane_wrong",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.ui_defect_compact_lanes",
+          "dimension_arrange.top_view_local_reference_lanes",
+          "vision_qc_v6.dimension_cluster_issue"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement must confirm leaders and text stay in compact local top/bottom lanes with no cross-region clutter.",
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "note_missing_or_wrong",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.ui_defect_compact_notes",
+          "vision_qc_v6.template_policy_supporting_api_guard",
+          "manual_visual_judgement_template.all_required_checklist_items"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement must confirm manufacturing notes and roughness text match the reference note region.",
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "titlebar_incomplete",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.ui_defect_compact_titlebar",
+          "vision_qc_v6.reference_sheet_template_artifact_check",
+          "drawing_visual_review_suite.application_ui_source_mode"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement must confirm the title/data area uses only the compact reference-like fields.",
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "projection_view_style_mismatch",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.reference_outline_layout_extraction",
+          "generator.persisted_layout_target_outlines",
+          "reference_compare.post_layout_final_required"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement must confirm front/top/right/iso view scale and composition match the reference.",
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "callout_missing",
+        "source_failure_evidence": [
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement_failed_checklist"
+        ],
+        "repair_inputs": [
+          "application_drawing_review_ui_screenshot_failure",
+          "screenshot_visual_observations",
+          "reference_intent_dimension_plan_006",
+          "reference_intent_dimension_contract_006",
+          "lb26001_006_ui_defect_buckets_v4_4"
+        ],
+        "implementation_guard_keys": [
+          "generator.reference_callout_review_plan",
+          "generator.reference_callout_required_keys",
+          "vision_qc_v6.reference_callout_manual_checklist"
+        ],
+        "post_rerun_required_evidence": [
+          "fresh_run_manifest",
+          "generated_slddrw_pdf_dxf_png",
+          "dimension_validation",
+          "reference_compare_v4",
+          "vision_qc_v6",
+          "final_quality",
+          "sw_session",
+          "job_event_log",
+          "application_drawing_review_ui_screenshot",
+          "manual_visual_judgement",
+          "reference_callout_checklist"
+        ],
+        "ui_review_pass_condition": "manual_visual_judgement reference_callout_checklist must prove required callouts are present and radius/chamfer callouts are not fabricated.",
+        "api_or_displaydim_metric_alone_can_close": false,
+        "required_callout_keys": [
+          "thread_callout_m4_6h",
+          "hole_callout_4x3_3",
+          "surface_finish_rest_3_2"
+        ],
+        "absence_check_keys": [
+          "radius_callout",
+          "chamfer_callout"
+        ],
+        "reference_callout_checklist_required": true
+      }
+    ],
+    "ui_defect_screenshot_visual_observations": [
+      {
+        "bucket": "dimension_visual_overdense",
+        "observation_key": "dimension_visual_overdense_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "display_dimensions",
+        "visual_check_pass": false,
+        "manual_note": "The final sheet still contains 24 visible DisplayDims, far above the 12 reference-intent target count.",
+        "visual_fact": "The generated sheet visibly keeps an over-dense dimension set around the main long-part view.",
+        "reference_expectation": "The reference drawing uses a sparse 12-target manufacturing dimension set.",
+        "generated_failure": "Extra length/offset/width/height dimensions remain visible and make the sheet read like AutoDimension output.",
+        "repair_signal": "After physical DisplayDim de-duplication, final export must keep only reference-intent manufacturing targets.",
+        "supports_active_bucket": true,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "dimension_lane_wrong",
+        "observation_key": "dimension_lane_wrong_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "dimension_readability",
+        "visual_check_pass": false,
+        "manual_note": "Dimension text, leaders, extension lines, and diagonal cross-region geometry dominate the drawing and reduce manufacturing readability.",
+        "visual_fact": "The generated drawing shows diagonal and cross-region dimension/extension geometry through the main view.",
+        "reference_expectation": "The reference drawing keeps dimension text in compact local lanes near the relevant view.",
+        "generated_failure": "Long leaders and diagonal extension lines dominate the central drawing area and reduce readability.",
+        "repair_signal": "Reject far-lane/cross-region placements and preserve compact top/bottom local lanes.",
+        "supports_active_bucket": true,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "note_missing_or_wrong",
+        "observation_key": "note_missing_or_wrong_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "manufacturing_notes",
+        "visual_check_pass": false,
+        "manual_note": "Manufacturing notes are present but still not formatted or placed like the reference note block.",
+        "visual_fact": "The generated note block is placed and formatted like generic technical requirements instead of the reference note region.",
+        "reference_expectation": "Reference notes and roughness text are compact and visually tied to the reference drawing layout.",
+        "generated_failure": "Manufacturing notes are present, but their placement and styling do not match the reference screenshot.",
+        "repair_signal": "Use the reference-style note region and keep roughness/manufacturing notes visually compact.",
+        "supports_active_bucket": true,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "titlebar_incomplete",
+        "observation_key": "titlebar_incomplete_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "title_block",
+        "visual_check_pass": false,
+        "manual_note": "The title/data area remains positioned and formatted differently from the reference.",
+        "visual_fact": "The generated title/data area is visibly different from the compact reference-like fields.",
+        "reference_expectation": "The reference drawing uses a small, unobtrusive title/data area rather than a default template block.",
+        "generated_failure": "The title/data text appears sparse and displaced, so the sheet still fails the UI title-area check.",
+        "repair_signal": "Suppress default template artifacts and fill only compact reference-like fields.",
+        "supports_active_bucket": true,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "projection_view_style_mismatch",
+        "observation_key": "projection_view_style_mismatch_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "view_layout",
+        "visual_check_pass": false,
+        "manual_note": "View family is present, but view scale, visual organization, and dimension geometry do not match the compact reference drawing.",
+        "visual_fact": "The generated front/top/right/isometric composition and scale still differ from the reference screenshot.",
+        "reference_expectation": "The reference drawing keeps the small right projection and isometric view balanced with the long views.",
+        "generated_failure": "The generated right projection carries a separate cluttered dimension cluster and the view balance is off.",
+        "repair_signal": "Match reference view-family scale, small right projection footprint, and compact isometric placement.",
+        "supports_active_bucket": true,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      },
+      {
+        "bucket": "callout_missing",
+        "observation_key": "callout_missing_application_ui_screenshot_observation",
+        "source": "application_drawing_review_ui_screenshot",
+        "source_paths": [
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\screenshots\\01_LB26001-A-04-006_ui_visual_review.png",
+          "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+          "drw_output\\case_library\\LB26001-A-04-006.png",
+          "drw_output\\runs\\2aba76ff152d\\drawing\\LB26001-A-04-006_v5.PNG",
+          "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\drawing_visual_review_report.json"
+        ],
+        "visual_check": "reference_match",
+        "visual_check_pass": false,
+        "manual_note": "Generated drawing still differs materially from the same-name reference: visible dimension density, diagonal/cross-region dimension lines, and title/notes placement remain non-reference-like.",
+        "visual_fact": "The latest screenshot does not independently close the required callout bucket.",
+        "reference_expectation": "The next UI screenshot must explicitly verify M4-6H, 4-3.3, Ra3.2, and radius/chamfer absence policy.",
+        "generated_failure": "Callout presence/absence cannot be accepted from API metrics or DisplayDim counts.",
+        "repair_signal": "Require a reference_callout_checklist in the next manual visual judgement.",
+        "supports_active_bucket": false,
+        "next_screenshot_check_required": true,
+        "api_or_displaydim_metric_alone_can_close": false
+      }
+    ]
+  },
+  "annotation_plan": {
+    "roughness_required": true,
+    "datum_required": false,
+    "center_marks_required": false,
+    "centerlines_required": false,
+    "section_arrows_required": false,
+    "symbols": [],
+    "source": "reference_profile",
+    "reasons": [
+      "reference_symbols_preserved"
+    ]
+  },
+  "titlebar_plan": {
+    "required_fields": [
+      "drawing_no",
+      "name",
+      "material",
+      "scale",
+      "date"
+    ],
+    "fields": {
+      "drawing_no": "LB26001-A-04-006",
+      "name": "LB26001-A-04-006"
+    },
+    "missing_fields": [
+      "material",
+      "scale",
+      "date"
+    ],
+    "source_priority": [
+      "ui_input",
+      "custom_property",
+      "reference_titlebar",
+      "filename",
+      "default"
+    ],
+    "source": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\lb26001_36_reference_style_profile.json"
+  },
+  "notes_plan": {
+    "part_class": "long_thin",
+    "required_notes": [
+      "技术要求：",
+      "总长和装配关键尺寸为重点检验尺寸。",
+      "未注粗糙度 Ra3.2。",
+      "去毛刺，锐边倒钝。"
+    ],
+    "optional_notes": [
+      "运输和装夹过程不得弯曲变形。"
+    ],
+    "raw_reference_notes": [],
+    "normalized_notes": [],
+    "warning_notes": [],
+    "note_box_norm": [],
+    "source": "part_class_default",
+    "reasons": [
+      "part_class=long_thin",
+      "required_notes=4",
+      "optional_notes=1",
+      "no_reference_notes_profile_available"
+    ]
+  },
+  "validation_plan": {
+    "required_artifacts": [
+      "SLDDRW",
+      "PDF",
+      "DXF",
+      "PNG",
+      "drawing_blueprint.json",
+      "dimension_validation.json",
+      "reference_compare.json",
+      "vision_qc.json"
+    ],
+    "view_match_min": 0.9,
+    "dimension_match_min": 0.8,
+    "titlebar_match_min": 0.85,
+    "notes_match_min": 0.85,
+    "layout_match_min": 0.8,
+    "require_true_display_dim": true,
+    "forbid_note_as_display_dim": true,
+    "forbid_named_view_as_projected": true,
+    "require_ui_visual_review": true,
+    "failure_bucket_required": true,
+    "reasons": [
+      "ui_screenshot_is_final_visual_gate",
+      "api_metrics_are_supporting_evidence_only"
+    ]
+  },
+  "layout_plan": {
+    "schema": "sw_drawing_studio.layout_composition.v4",
+    "sheet_size": {
+      "width": 0.297,
+      "height": 0.21
+    },
+    "titlebar_box_norm": [
+      0.6,
+      0.02,
+      0.96,
+      0.13
+    ],
+    "notes_box_norm": [
+      0.58,
+      0.64,
+      0.96,
+      0.82
+    ],
+    "views": [
+      {
+        "slot": "front",
+        "required": true,
+        "reference_view_name": "工程图视图1",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.3704,
+          0.8074
+        ],
+        "size_norm": [
+          0.4155,
+          0.071
+        ],
+        "outline_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "box_norm": [
+          0.162626,
+          0.771905,
+          0.578114,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "top",
+        "required": true,
+        "reference_view_name": "工程图视图3",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.3704,
+          0.5948
+        ],
+        "size_norm": [
+          0.4155,
+          0.0686
+        ],
+        "outline_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "box_norm": [
+          0.162626,
+          0.560476,
+          0.578114,
+          0.629048
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "right",
+        "required": true,
+        "reference_view_name": "工程图视图2",
+        "sw_view_type": "4",
+        "expected_create_method": "projection_api",
+        "center_norm": [
+          0.7259,
+          0.8074
+        ],
+        "size_norm": [
+          0.0485,
+          0.071
+        ],
+        "outline_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "box_norm": [
+          0.701684,
+          0.771905,
+          0.750168,
+          0.842857
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      },
+      {
+        "slot": "iso",
+        "required": true,
+        "reference_view_name": "工程图视图4",
+        "sw_view_type": "7",
+        "expected_create_method": "named_or_standard",
+        "center_norm": [
+          0.8025,
+          0.478
+        ],
+        "size_norm": [
+          0.1723,
+          0.1702
+        ],
+        "outline_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "box_norm": [
+          0.71635,
+          0.39289,
+          0.888673,
+          0.563129
+        ],
+        "source": "reference_profiles_v4.view_positions"
+      }
+    ],
+    "view_overlap": false,
+    "overlap_pairs": [],
+    "out_of_frame": false,
+    "out_of_frame_slots": [],
+    "titlebar_collision": false,
+    "titlebar_collision_slots": [],
+    "notes_collision": false,
+    "notes_collision_slots": [],
+    "dimension_collision": null,
+    "utilization": 0.0907,
+    "readability_score": 1.0,
+    "sheet_template_policy": {
+      "policy": "strip_default_template_artifacts",
+      "skip_builtin_gb_frame_titleblock": true,
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "source": "application_ui_screenshot_reference",
+      "reference_titlebar_style": "no_default_titlebar_bottom_center_notice",
+      "application_ui_screenshot_required": true
+    },
+    "dimension_lane_policy": {
+      "source": "reference_intent_dimension_targets",
+      "lane_targets": [
+        {
+          "target_key": "overall_length",
+          "view_slot": "front",
+          "reading_group": "01_overall_envelope",
+          "side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true
+        },
+        {
+          "target_key": "overall_width",
+          "view_slot": "top",
+          "reading_group": "01_overall_envelope",
+          "side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.58,
+          "readability_required": true
+        },
+        {
+          "target_key": "overall_height",
+          "view_slot": "right",
+          "reading_group": "01_overall_envelope",
+          "side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.56,
+          "readability_required": true
+        },
+        {
+          "target_key": "left_end_offset",
+          "view_slot": "top",
+          "reading_group": "02_end_offsets",
+          "side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 0,
+          "station": 0.18,
+          "readability_required": true
+        },
+        {
+          "target_key": "right_end_offset",
+          "view_slot": "top",
+          "reading_group": "02_end_offsets",
+          "side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 1,
+          "station": 0.82,
+          "readability_required": true
+        },
+        {
+          "target_key": "hole_diameter",
+          "view_slot": "top",
+          "reading_group": "03_hole_locations",
+          "side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.54,
+          "readability_required": true
+        },
+        {
+          "target_key": "hole_x_location",
+          "view_slot": "top",
+          "reading_group": "03_hole_locations",
+          "side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 1,
+          "station": 0.38,
+          "readability_required": true
+        },
+        {
+          "target_key": "hole_y_location",
+          "view_slot": "top",
+          "reading_group": "03_hole_locations",
+          "side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.46,
+          "readability_required": true
+        },
+        {
+          "target_key": "hole_pitch",
+          "view_slot": "top",
+          "reading_group": "03_hole_locations",
+          "side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 2,
+          "station": 0.7,
+          "readability_required": true
+        },
+        {
+          "target_key": "projection_view_width",
+          "view_slot": "right",
+          "reading_group": "04_small_projected_view",
+          "side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true
+        },
+        {
+          "target_key": "projection_view_height",
+          "view_slot": "right",
+          "reading_group": "04_small_projected_view",
+          "side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true
+        },
+        {
+          "target_key": "small_feature_location",
+          "view_slot": "right",
+          "reading_group": "04_small_projected_view",
+          "side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.35,
+          "readability_required": true
+        }
+      ],
+      "avoid_view_overlap": true,
+      "avoid_title_notes_zone": true,
+      "fallback_when_unreadable": "rearrange_before_validation",
+      "final_gate": "ui_screenshot_visual_review"
+    },
+    "bottom_notice_box_norm": [
+      0.3,
+      0.16,
+      0.66,
+      0.24
+    ],
+    "projection_view_style_match_required": true,
+    "compact_titlebar_fields_required": true,
+    "reference_style_notes_required": true,
+    "reference_titlebar_policy": {
+      "schema": "sw_drawing_studio.reference_titlebar_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "titlebar_incomplete_bucket_policy": "suppress_default_template_artifacts",
+      "default_template_artifacts_allowed": false,
+      "suppress_default_titlebar_fields": true,
+      "suppress_drawing_no_name_visible_note": true,
+      "render_reference_bottom_notice": true,
+      "bottom_notice_text": "细节尺寸较多，未注尺寸请核对3D图档",
+      "bottom_notice_box_norm": [
+        0.3,
+        0.16,
+        0.66,
+        0.24
+      ],
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "reference_view_outline_policy": {
+      "schema": "sw_drawing_studio.reference_view_outline_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_reference",
+      "projection_view_style_bucket_policy": "match_reference_view_outline_size_after_creation",
+      "view_outline_size_match_required": true,
+      "view_outline_size_tolerance": 0.18,
+      "independent_view_scale_allowed": true,
+      "downscale_oversized_views_only": true,
+      "target_outlines_required": true,
+      "api_or_reference_json_alone_can_close": false,
+      "application_ui_screenshot_required": true
+    },
+    "view_outline_size_match_required": true,
+    "view_outline_size_tolerance": 0.18,
+    "independent_view_scale_allowed": true,
+    "source": "reference_intent_dimension_plan_006.reference_layout_policy",
+    "target_outlines_required": true,
+    "api_or_reference_json_alone_can_close": false,
+    "reference_dimension_lane_policy": {
+      "schema": "sw_drawing_studio.reference_dimension_lane_policy.v4_4",
+      "base": "LB26001-A-04-006",
+      "source": "application_ui_screenshot_failed_buckets",
+      "target_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong"
+      ],
+      "required_target_count": 12,
+      "max_visible_display_dim_count": 12,
+      "reference_lane_geometry_issue_count_after_required": 0,
+      "compact_local_lanes_required": true,
+      "reject_generic_autodim_survivors": true,
+      "reject_far_lane": true,
+      "reject_diagonal_or_cross_region_leaders": true,
+      "allow_compact_top_view_side_lanes": true,
+      "top_view_side_lane_max_gap_m": 0.018,
+      "top_view_right_callout_lane_allowed_for_displaydim": false,
+      "right_side_hole_thread_text_uses_callout_checklist": true,
+      "api_or_displaydim_metric_alone_can_close": false,
+      "application_ui_screenshot_required": true,
+      "lane_targets": [
+        {
+          "target_key": "overall_length",
+          "target_view": "front",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "overall_width",
+          "target_view": "top",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.58,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "overall_height",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.56,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "left_end_offset",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 0,
+          "station": 0.18,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "right_end_offset",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "below",
+          "lane_family": "outside_bottom",
+          "lane_index": 1,
+          "station": 0.82,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_diameter",
+          "target_view": "top",
+          "expected_type": "diameter",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.54,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_x_location",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 1,
+          "station": 0.38,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_y_location",
+          "target_view": "top",
+          "expected_type": "linear_vertical",
+          "preferred_side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.46,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "hole_pitch",
+          "target_view": "top",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 2,
+          "station": 0.7,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "projection_view_width",
+          "target_view": "right",
+          "expected_type": "linear_horizontal",
+          "preferred_side": "above",
+          "lane_family": "outside_top",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "projection_view_height",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "right",
+          "lane_family": "outside_right",
+          "lane_index": 0,
+          "station": 0.5,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        },
+        {
+          "target_key": "small_feature_location",
+          "target_view": "right",
+          "expected_type": "linear_vertical",
+          "preferred_side": "left",
+          "lane_family": "outside_left",
+          "lane_index": 1,
+          "station": 0.35,
+          "readability_required": true,
+          "reject_far_lane": true,
+          "reject_diagonal_or_cross_region_leader": true
+        }
+      ]
+    }
+  },
+  "source_inputs": {
+    "part_understanding": {
+      "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+      "bbox_m": [
+        0.23,
+        0.013000000000000001,
+        0.012
+      ],
+      "bbox_mm": [
+        230.0,
+        13.000000000000002,
+        12.0
+      ],
+      "titlebar_source_props": {
+        "SWFormatSize": "210mm*297mm",
+        "机型": "",
+        "品名": "",
+        "图号": "LB26001-A-04-006",
+        "类别": "",
+        "数量": "1",
+        "材质": "",
+        "表面处理": "",
+        "设计": "",
+        "日期": "",
+        "UNIT_OF_MEASURE": "mm",
+        "Material": "",
+        "重量": ""
+      },
+      "part_classification": {
+        "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+        "part_name": "LB26001-A-04-006.SLDPRT",
+        "part_class": "long_thin",
+        "reason": "long_thin ratio=17.69",
+        "bbox_mm": [
+          230.0,
+          13.000000000000002,
+          12.0
+        ],
+        "is_standard": false,
+        "std_no": "",
+        "std_spec": "",
+        "long_thin_ratio": 17.69,
+        "is_tiny": false,
+        "is_sheet_like": false,
+        "has_features": null,
+        "history_dim_total": 0
+      }
+    },
+    "reference_profile_schema": "sw_drawing_studio.reference_profile_sample.v4",
+    "titlebar_profile_schema": "sw_drawing_studio.reference_titlebar_profile.v4",
+    "notes_profile_schema": "sw_drawing_studio.reference_notes_profile.v4",
+    "reference_profile_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\reference_style_profile\\reference_profiles_v4.json",
+    "reference_intent_dimension_plan_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\qc\\reference_intent_dimension_plan_006.json",
+    "reference_intent_dimension_contract_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\qc\\reference_intent_dimension_contract_006.json",
+    "lb26001_006_ui_correction_evidence_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\qc\\lb26001_006_ui_correction_evidence.json",
+    "lb26001_006_ui_correction_evidence": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\qc\\lb26001_006_ui_correction_evidence.json",
+      "comparison_image": "drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\comparison_images\\01_LB26001-A-04-006_reference_vs_generated.png",
+      "failed_visual_checklist_items": [
+        "reference_match",
+        "view_layout",
+        "display_dimensions",
+        "dimension_readability",
+        "title_block",
+        "manufacturing_notes"
+      ],
+      "latest_manual_findings": [],
+      "latest_manual_required_correction": "",
+      "application_ui_screenshot_is_final_gate": true,
+      "api_is_not_final_judgement": true
+    },
+    "lb26001_006_ui_defect_buckets_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+    "lb26001_006_ui_defect_buckets": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
+      "status": "needs_006_fix",
+      "active_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch"
+      ],
+      "bucket_closure_contract_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "screenshot_visual_observation_buckets": [
+        "dimension_visual_overdense",
+        "dimension_lane_wrong",
+        "note_missing_or_wrong",
+        "titlebar_incomplete",
+        "projection_view_style_mismatch",
+        "callout_missing"
+      ],
+      "application_ui_screenshot_is_final_gate": true,
+      "api_is_not_final_judgement": true,
+      "expansion_allowed_now": false
+    }
+  },
+  "warnings": [
+    "titlebar_missing:material",
+    "titlebar_missing:scale",
+    "titlebar_missing:date",
+    "reference_sheet_template_policy:strip_default_template_artifacts"
+  ],
+  "reasons": [
+    "reference_profile_preferred",
+    "note_annotations_do_not_count_as_displaydim",
+    "projected_views_must_use_projection_api"
+  ]
+}

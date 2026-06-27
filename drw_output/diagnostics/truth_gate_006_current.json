@@ -1,0 +1,15 @@
+{
+  "schema": "sw_drawing_studio.truth_gate.v1",
+  "profile": "release-v3",
+  "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+  "pass": true,
+  "allowed_to_claim_release_pass": true,
+  "hard_fail_count": 0,
+  "hard_failures": [],
+  "checked_files": {
+    "json_count": 14,
+    "drawing_artifact_count": 4,
+    "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\sw_session.json",
+    "reference_compare_count": 1
+  }
+}

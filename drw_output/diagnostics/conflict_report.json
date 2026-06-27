@@ -1,16 +1,16 @@
 {
   "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-  "generated_at": "2026-06-26T23:08:04",
-  "level": "FAIL",
-  "status": "fail",
+  "generated_at": "2026-06-27T16:27:41",
+  "level": "WARNING",
+  "status": "warning",
   "pass": false,
-  "fail_count": 1,
+  "fail_count": 0,
   "warning_count": 1,
   "lock_path": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
   "lock": null,
   "lock_owner": {},
   "lock_reason": "no_active_solidworks_lock",
-  "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
+  "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
   "counts": {
     "solidworks_processes": 1,
     "cad_job_workers": 0,
@@ -21,11 +21,11 @@
   },
   "solidworks_processes": [
     {
-      "pid": 8564,
+      "pid": 24184,
       "name": "SLDWORKS.exe",
-      "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
+      "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe -Embedding",
       "responding": true,
-      "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
+      "main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
       "workspace_hint": ""
     }
   ],
@@ -36,24 +36,6 @@
   "dialog_guards": [],
   "findings": [
     {
-      "severity": "FAIL",
-      "key": "solidworks_unsaved_document_visible",
-      "message": "检测到 SolidWorks 标题栏存在未保存标记",
-      "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
-      "details": {
-        "processes": [
-          {
-            "pid": 8564,
-            "name": "SLDWORKS.exe",
-            "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
-            "responding": true,
-            "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
-            "workspace_hint": ""
-          }
-        ]
-      }
-    },
-    {
       "severity": "WARNING",
       "key": "solidworks_running_without_lock",
       "message": "SW running 但无 SolidWorks 全局锁",
@@ -61,11 +43,11 @@
       "details": {
         "processes": [
           {
-            "pid": 8564,
+            "pid": 24184,
             "name": "SLDWORKS.exe",
-            "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe ",
+            "command_line": "C:\\PROGRA~1\\SOLIDW~1\\SOLIDW~1\\SLDWORKS.exe -Embedding",
             "responding": true,
-            "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
+            "main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
             "workspace_hint": ""
           }
         ]

@@ -1,0 +1,27 @@
+{
+  "schema": "sw_drawing_studio.truth_gate.v1",
+  "profile": "release-v3",
+  "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551",
+  "pass": false,
+  "allowed_to_claim_release_pass": false,
+  "hard_fail_count": 2,
+  "hard_failures": [
+    {
+      "key": "sw_session_not_connected",
+      "path": "sw_session.json",
+      "status": "not_collected",
+      "message": "sw_session.status must be connected."
+    },
+    {
+      "key": "reference_compare_missing_without_reason",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551",
+      "message": "reference_compare evidence is required unless no_reference_reason is explicit."
+    }
+  ],
+  "checked_files": {
+    "json_count": 9,
+    "drawing_artifact_count": 0,
+    "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\sw_session.json",
+    "reference_compare_count": 0
+  }
+}

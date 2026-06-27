@@ -1,10 +1,10 @@
 # LB26001-A-04-006 UI Defect Buckets v4.4
 
-- Status: `blocked_by_solidworks_readiness`
+- Status: `needs_006_fix`
 - pass: `False`
 - release_ready: `False`
 - Active buckets: `dimension_visual_overdense, dimension_lane_wrong, note_missing_or_wrong, titlebar_incomplete, projection_view_style_mismatch`
-- SolidWorks readiness: `blocked`
+- SolidWorks readiness: `ready`
 
 ## Required Next Screenshot Checks
 
@@ -79,7 +79,7 @@
 
 ## Next Allowed Action
 
-Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker.
+Run exactly one locked 006 CAD worker, then repeat Drawing Review UI screenshot judgement.
 
 ## Do Not
 

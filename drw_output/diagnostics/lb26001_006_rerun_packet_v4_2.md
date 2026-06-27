@@ -1,10 +1,10 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-27 16:19:09`
-- Status: `offline_prerequisites_missing`
-- Real CAD allowed now: `False`
+- Generated at: `2026-06-27 16:27:35`
+- Status: `ready_for_locked_006_rerun`
+- Real CAD allowed now: `True`
 - Readiness blockers: `none`
-- Offline missing prerequisites: `truth_gate_current_006_release_claim_allowed`
+- Offline missing prerequisites: `none`
 - This packet is not acceptance evidence; the application UI screenshot judgement remains the final gate.
 
 ## Current UI Verdict
@@ -17,8 +17,8 @@
 
 ## Truth Gate
 
-- allowed_to_claim_release_pass: `False`
-- hard_fail_count: `1`
+- allowed_to_claim_release_pass: `True`
+- hard_fail_count: `0`
 - case_dir: `C:\Users\Vision\Desktop\SW 相关\drw_output\runs\2aba76ff152d`
 
 ## Next Gates
@@ -38,4 +38,4 @@
 
 ## Block Policy
 
-Do not run real CAD while readiness or offline prerequisites are blocked.
+006 may be run once through the locked CAD path, then must be closed through Drawing Review UI screenshots.

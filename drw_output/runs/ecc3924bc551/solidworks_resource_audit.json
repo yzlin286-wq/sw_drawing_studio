@@ -1,0 +1,194 @@
+{
+  "schema": "sw_drawing_studio.solidworks_resource_audit.v1",
+  "snapshots": [
+    {
+      "phase": "before_cad",
+      "timestamp": "2026-06-27T16:28:06",
+      "job_id": "d5f8affb",
+      "lock_state": {
+        "current_job_holds_lock": true,
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "sw_drawing_studio",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+          "owner_pid": 25780,
+          "owner_worker_pid": 25780,
+          "owner_job_id": "d5f8affb",
+          "owner_run_id": "ecc3924bc551",
+          "operation": "cad_job_worker.generate_drawing",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-27T16:28:04",
+          "heartbeat_at": "2026-06-27T16:28:04",
+          "ttl_sec": 180,
+          "allow_restart_sw": false,
+          "status": "active"
+        },
+        "lock_result_status": "acquired",
+        "lock_acquired": true
+      },
+      "solidworks_processes": [
+        {
+          "pid": 24184,
+          "name": "SLDWORKS.exe",
+          "working_set_mb": 438.383,
+          "private_memory_mb": 258.906,
+          "handle_count": 1834
+        }
+      ],
+      "solidworks_process_count": 1,
+      "memory_working_set_mb": 438.383,
+      "private_memory_mb": 258.906,
+      "handle_count": 1834,
+      "open_documents": {
+        "collected": true,
+        "open_doc_count": 0,
+        "documents": [],
+        "reason": ""
+      },
+      "open_doc_count": 0,
+      "document_registry": {},
+      "resource_blockers": [],
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "phase": "after_cad_cleanup",
+      "timestamp": "2026-06-27T16:28:27",
+      "job_id": "d5f8affb",
+      "lock_state": {
+        "current_job_holds_lock": true,
+        "lock": {
+          "lock_version": 1,
+          "owner_project": "sw_drawing_studio",
+          "owner_workspace": "C:\\Users\\Vision\\Desktop\\SW 相关",
+          "owner_codex_session": "019ee607-41a8-7023-a872-0476eca1e9b1",
+          "owner_pid": 25780,
+          "owner_worker_pid": 25780,
+          "owner_job_id": "d5f8affb",
+          "owner_run_id": "ecc3924bc551",
+          "operation": "cad_job_worker.generate_drawing",
+          "part_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+          "sw_pid": null,
+          "created_at": "2026-06-27T16:28:04",
+          "heartbeat_at": "2026-06-27T16:28:16",
+          "ttl_sec": 180,
+          "allow_restart_sw": false,
+          "status": "active"
+        },
+        "lock_result_status": "acquired",
+        "lock_acquired": true
+      },
+      "solidworks_processes": [
+        {
+          "pid": 24184,
+          "name": "SLDWORKS.exe",
+          "working_set_mb": 2339.27,
+          "private_memory_mb": 2487.582,
+          "handle_count": 3224
+        }
+      ],
+      "solidworks_process_count": 1,
+      "memory_working_set_mb": 2339.27,
+      "private_memory_mb": 2487.582,
+      "handle_count": 3224,
+      "open_documents": {
+        "collected": false,
+        "open_doc_count": null,
+        "documents": [],
+        "reason": "(-2147221008, '尚未调用 CoInitialize。', None, None)"
+      },
+      "open_doc_count": null,
+      "document_registry": {
+        "schema": "sw_drawing_studio.solidworks_document_registry.v1",
+        "generated_at": "2026-06-27T16:28:25",
+        "event_count": 3,
+        "opened_count": 2,
+        "closed_count": 0,
+        "open_job_owned_documents": [
+          {
+            "schema": "sw_drawing_studio.solidworks_document_registry.v1",
+            "event_type": "solidworks_doc_opened",
+            "timestamp": "2026-06-27T16:28:15",
+            "job_id": "d5f8affb",
+            "role": "copied_part",
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\3D转2D测试图纸\\LB26001-A-04-006.SLDPRT",
+            "title": "LB26001-A-04-006.SLDPRT",
+            "doc_type": "part",
+            "stage": "initial_part_open",
+            "owned_by_job": true,
+            "close_verified": null,
+            "reason": "",
+            "extra": {
+              "open_errors": 0,
+              "open_warnings": 0
+            }
+          },
+          {
+            "schema": "sw_drawing_studio.solidworks_document_registry.v1",
+            "event_type": "solidworks_doc_opened",
+            "timestamp": "2026-06-27T16:28:18",
+            "job_id": "d5f8affb",
+            "role": "generated_drawing",
+            "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\v5\\LB26001-A-04-006_v5.SLDDRW",
+            "title": "工程图1 - 图纸1",
+            "doc_type": "drawing",
+            "stage": "new_drawing_created",
+            "owned_by_job": true,
+            "close_verified": null,
+            "reason": "",
+            "extra": {}
+          }
+        ],
+        "open_job_owned_document_count": 2,
+        "close_failures": [
+          {
+            "schema": "sw_drawing_studio.solidworks_document_registry.v1",
+            "event_type": "solidworks_doc_close_failed",
+            "timestamp": "2026-06-27T16:28:25",
+            "job_id": "d5f8affb",
+            "role": "cleanup",
+            "path": "",
+            "title": "",
+            "doc_type": "",
+            "stage": "cleanup_job_owned_documents",
+            "owned_by_job": true,
+            "close_verified": null,
+            "reason": "connect_failed: (-2147221008, '尚未调用 CoInitialize。', None, None)",
+            "extra": {}
+          }
+        ],
+        "close_failure_count": 1,
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551\\solidworks_document_registry.json"
+      },
+      "resource_blockers": [
+        {
+          "key": "job_owned_document_close_failed",
+          "status": "blocked_by_solidworks_resource_pressure",
+          "close_failure_count": 1,
+          "reason": "One or more job-owned SolidWorks documents could not be verified closed.",
+          "fix_suggestion": "Inspect solidworks_document_registry.json and avoid another CAD rerun until cleanup is clean."
+        }
+      ],
+      "pass": false,
+      "status": "blocked_by_solidworks_resource_pressure"
+    }
+  ],
+  "generated_at": "2026-06-27T16:28:27",
+  "job_id": "d5f8affb",
+  "run_id": "ecc3924bc551",
+  "run_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\ecc3924bc551",
+  "status": "blocked_by_solidworks_resource_pressure",
+  "pass": false,
+  "resource_blockers": [
+    {
+      "key": "job_owned_document_close_failed",
+      "status": "blocked_by_solidworks_resource_pressure",
+      "close_failure_count": 1,
+      "reason": "One or more job-owned SolidWorks documents could not be verified closed.",
+      "fix_suggestion": "Inspect solidworks_document_registry.json and avoid another CAD rerun until cleanup is clean."
+    }
+  ],
+  "latest_phase": "after_cad_cleanup"
+}

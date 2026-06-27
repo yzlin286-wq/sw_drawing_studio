@@ -1,8 +1,8 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-  "generated_at": "2026-06-26 23:58:53",
+  "generated_at": "2026-06-27 16:26:46",
   "base": "LB26001-A-04-006",
-  "status": "blocked_by_solidworks_readiness",
+  "status": "needs_006_fix",
   "pass": false,
   "release_ready": false,
   "api_is_not_final_judgement": true,
@@ -10,13 +10,11 @@
   "application_ui_screenshot_is_final_gate": true,
   "expansion_allowed_now": false,
   "solidworks_readiness": {
-    "status": "blocked",
-    "ready_to_start_locked_006_cad": false,
-    "blocking_issue_keys": [
-      "solidworks_unsaved_document_visible"
-    ],
+    "status": "ready",
+    "ready_to_start_locked_006_cad": true,
+    "blocking_issue_keys": [],
     "automatic_restart_allowed": false,
-    "manual_recovery_required": true
+    "manual_recovery_required": false
   },
   "ui_final_gate": {
     "manual_review_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\manual_visual_judgement.json",
@@ -635,7 +633,7 @@
       "fix_action": "On the next UI screenshot pass, explicitly check M4-6H through-thread, 4-3.3 hole callout, and Ra3.2 rest roughness callout."
     }
   ],
-  "next_allowed_action": "Start SolidWorks manually, rerun readiness, then run exactly one locked 006 CAD worker.",
+  "next_allowed_action": "Run exactly one locked 006 CAD worker, then repeat Drawing Review UI screenshot judgement.",
   "do_not": [
     "Do not run full_129.",
     "Do not run LB26001_36.",

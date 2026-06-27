@@ -7649,15 +7649,16 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
         return pairs_
 
     def _apply_reference_outline_size_corrections(stage_):
-        layout_policy_ = (layout_plan or {}).get("reference_view_outline_policy") or {}
+        layout_plan_ = ((_drawing_blueprint_v4 or {}).get("layout_plan") or {})
+        layout_policy_ = layout_plan_.get("reference_view_outline_policy") or {}
         required_ = (
             bool(reference_layout_outlines)
             and (
-                (layout_plan or {}).get("view_outline_size_match_required") is True
+                layout_plan_.get("view_outline_size_match_required") is True
                 or layout_policy_.get("view_outline_size_match_required") is True
             )
             and (
-                (layout_plan or {}).get("independent_view_scale_allowed") is True
+                layout_plan_.get("independent_view_scale_allowed") is True
                 or layout_policy_.get("independent_view_scale_allowed") is True
             )
         )
@@ -7665,7 +7666,7 @@ def generate_for(part_path, *, out_dir=OUT_DIR, sw=None, issues=None):
             return []
         try:
             tolerance_ = float(
-                (layout_plan or {}).get(
+                layout_plan_.get(
                     "view_outline_size_tolerance",
                     layout_policy_.get("view_outline_size_tolerance", 0.18),
                 )

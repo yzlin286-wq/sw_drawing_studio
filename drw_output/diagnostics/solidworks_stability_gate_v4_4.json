@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-26T23:08:04",
+  "generated_at": "2026-06-27T16:27:41",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -14,7 +14,7 @@
   },
   "entrypoint_summary": {
     "status": "pass",
-    "entrypoint_count": 539,
+    "entrypoint_count": 540,
     "unguarded_or_unknown_count": 0,
     "ui_thread_direct_risk_count": 0,
     "ui_thread_subprocess_call_count": 0,
@@ -36,20 +36,15 @@
     "failure": ""
   },
   "conflict_summary": {
-    "level": "FAIL",
-    "status": "fail",
+    "level": "WARNING",
+    "status": "warning",
     "pass": false,
-    "fail_count": 1,
+    "fail_count": 0,
     "warning_count": 1,
     "finding_keys": [
-      "solidworks_unsaved_document_visible",
       "solidworks_running_without_lock"
     ],
     "finding_severities": [
-      {
-        "key": "solidworks_unsaved_document_visible",
-        "severity": "FAIL"
-      },
       {
         "key": "solidworks_running_without_lock",
         "severity": "WARNING"
@@ -63,9 +58,9 @@
       "smoke_leftovers": 0,
       "dialog_guards": 0
     },
-    "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
+    "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
     "solidworks_process_titles": [
-      "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+      "SOLIDWORKS Premium 2025 SP5.0"
     ]
   }
 }

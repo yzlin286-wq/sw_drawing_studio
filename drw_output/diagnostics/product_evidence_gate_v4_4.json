@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.product_evidence_gate.v4_4",
-  "generated_at": "2026-06-27 16:19:19",
+  "generated_at": "2026-06-27 16:29:59",
   "status": "blocked_by_solidworks_stability_gate",
   "pass": false,
   "release_ready": false,
@@ -31,8 +31,8 @@
   "checks": [
     {
       "key": "solidworks_stability_gate_pass",
-      "pass": false,
-      "status": "fail",
+      "pass": true,
+      "status": "pass",
       "message": "SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
@@ -42,7 +42,7 @@
           "solidworks_conflict_monitor_warning_or_fail"
         ],
         "strict_stability_ok": false,
-        "idle_solidworks_prelock_allowed_for_locked_006": false
+        "idle_solidworks_prelock_allowed_for_locked_006": true
       }
     },
     {
@@ -52,7 +52,7 @@
       "message": "UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.",
       "details": {
         "status": "pass",
-        "entrypoint_count": 539,
+        "entrypoint_count": 540,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -77,9 +77,9 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
         "schema": "sw_drawing_studio.unguarded_solidworks_entrypoints.v4_4",
-        "generated_at": "2026-06-26T23:08:03",
+        "generated_at": "2026-06-27T16:27:40",
         "status": "pass",
-        "entrypoint_count": 539,
+        "entrypoint_count": 540,
         "unguarded_or_unknown_count": 0,
         "ui_thread_direct_risk_count": 0,
         "ui_thread_subprocess_call_count": 0,
@@ -99,8 +99,8 @@
       "details": {
         "stability_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
         "entrypoint_report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\unguarded_solidworks_entrypoints.json",
-        "stability_generated_at": "2026-06-26T23:08:04",
-        "entrypoint_generated_at": "2026-06-26T23:08:03",
+        "stability_generated_at": "2026-06-27T16:27:41",
+        "entrypoint_generated_at": "2026-06-27T16:27:40",
         "generated_at_parse_ok": true,
         "stability_generated_at_not_older_than_entrypoint": true
       }
@@ -114,9 +114,9 @@
         "stability_gate_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json",
         "conflict_report_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "readiness_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
-        "stability_generated_at": "2026-06-26T23:08:04",
-        "conflict_generated_at": "2026-06-26T23:08:04",
-        "readiness_generated_at": "2026-06-27 16:18:57",
+        "stability_generated_at": "2026-06-27T16:27:41",
+        "conflict_generated_at": "2026-06-27T16:27:41",
+        "readiness_generated_at": "2026-06-27 16:29:41",
         "generated_at_parse_ok": true,
         "stability_generated_at_not_older_than_readiness": false,
         "conflict_generated_at_not_older_than_readiness": false
@@ -130,7 +130,7 @@
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\solidworks_lock_test_result.json",
         "schema": "sw_drawing_studio.solidworks_lock_test_result.v4_4",
-        "generated_at": "2026-06-26T23:08:03",
+        "generated_at": "2026-06-27T16:27:40",
         "status": "pass",
         "pass": true,
         "failure": "",
@@ -140,27 +140,22 @@
     },
     {
       "key": "solidworks_conflict_report_ok",
-      "pass": false,
-      "status": "fail",
+      "pass": true,
+      "status": "pass",
       "message": "Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\conflict_report.json",
         "schema": "sw_drawing_studio.solidworks_conflict_report.v1",
-        "generated_at": "2026-06-26T23:08:04",
-        "level": "FAIL",
-        "status": "fail",
+        "generated_at": "2026-06-27T16:27:41",
+        "level": "WARNING",
+        "status": "warning",
         "pass": false,
-        "fail_count": 1,
+        "fail_count": 0,
         "warning_count": 1,
         "finding_keys": [
-          "solidworks_unsaved_document_visible",
           "solidworks_running_without_lock"
         ],
         "finding_severities": [
-          {
-            "key": "solidworks_unsaved_document_visible",
-            "severity": "FAIL"
-          },
           {
             "key": "solidworks_running_without_lock",
             "severity": "WARNING"
@@ -175,12 +170,12 @@
           "dialog_guards": 0
         },
         "lock_reason": "no_active_solidworks_lock",
-        "fix_suggestion": "请先在 SolidWorks 中手动保存或关闭未保存文档；自动化不得重启或控制该会话",
+        "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
         "solidworks_process_titles": [
-          "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+          "SOLIDWORKS Premium 2025 SP5.0"
         ],
         "strict_conflict_ok": false,
-        "idle_solidworks_prelock_allowed_for_locked_006": false
+        "idle_solidworks_prelock_allowed_for_locked_006": true
       }
     },
     {
@@ -190,7 +185,7 @@
       "message": "Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
-        "generated_at": "2026-06-27 16:18:57",
+        "generated_at": "2026-06-27 16:29:41",
         "status": "ready",
         "ready_to_start_locked_006_cad": true,
         "blocking_issue_keys": [],
@@ -207,18 +202,18 @@
           "Do not start 007/008/009/015/022 acceptance before 006 passes.",
           "Do not use API or file creation as a substitute for the Drawing Review UI screenshot judgement."
         ],
-        "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
+        "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]",
         "solidworks_process": {
           "process_present": true,
           "process_count": 1,
           "pid": 24184,
           "responding": true,
-          "main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
+          "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]",
           "sample_count": 5,
           "observation_count": 5,
           "unsaved_title_observed": false,
           "observed_titles": [
-            "SOLIDWORKS Premium 2025 SP5.0"
+            "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]"
           ]
         }
       }
@@ -239,32 +234,30 @@
         "process_present": true,
         "process_count": 1,
         "pid": 24184,
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]",
         "observed_titles": [
-          "SOLIDWORKS Premium 2025 SP5.0"
+          "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]"
         ],
         "missing_or_invalid_sampling_fields": []
       }
     },
     {
       "key": "lb26001_006_rerun_packet_ready",
-      "pass": false,
-      "status": "fail",
+      "pass": true,
+      "status": "pass",
       "message": "006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json",
-        "status": "offline_prerequisites_missing",
+        "status": "ready_for_locked_006_rerun",
         "base": "LB26001-A-04-006",
-        "packet_build_ready": false,
-        "real_cad_allowed_now": false,
+        "packet_build_ready": true,
+        "real_cad_allowed_now": true,
         "readiness_ready": true,
         "readiness_status": "ready",
         "report_is_acceptance_evidence": false,
         "api_only_acceptance_allowed": false,
         "application_ui_screenshot_is_final_gate": true,
-        "offline_prerequisite_missing_keys": [
-          "truth_gate_current_006_release_claim_allowed"
-        ],
+        "offline_prerequisite_missing_keys": [],
         "source_signature_summary": {
           "cad_job_worker": {
             "pass": true,
@@ -355,27 +348,27 @@
         "readiness_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json",
         "readiness_ok": true,
         "readiness_status": "ready",
-        "packet_status": "offline_prerequisites_missing",
+        "packet_status": "ready_for_locked_006_rerun",
         "packet_readiness_ready": true,
-        "real_cad_allowed_now": false,
+        "real_cad_allowed_now": true,
         "expected_packet_status": "ready_for_locked_006_rerun",
-        "packet_generated_at": "2026-06-27 16:19:09",
-        "readiness_generated_at": "2026-06-27 16:18:57",
+        "packet_generated_at": "2026-06-27 16:27:35",
+        "readiness_generated_at": "2026-06-27 16:29:41",
         "generated_at_parse_ok": true,
-        "packet_generated_at_not_older_than_readiness": true
+        "packet_generated_at_not_older_than_readiness": false
       }
     },
     {
       "key": "lb26001_006_ui_defect_buckets_ready",
-      "pass": false,
-      "status": "fail",
+      "pass": true,
+      "status": "pass",
       "message": "006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.",
       "details": {
         "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_006_ui_defect_buckets_v4_4.json",
         "schema": "sw_drawing_studio.lb26001_006_ui_defect_buckets.v4_4",
-        "generated_at": "2026-06-26 23:58:53",
+        "generated_at": "2026-06-27 16:26:46",
         "base": "LB26001-A-04-006",
-        "status": "blocked_by_solidworks_readiness",
+        "status": "needs_006_fix",
         "pass": false,
         "release_ready": false,
         "api_only_acceptance_allowed": false,
@@ -384,8 +377,8 @@
         "ui_final_gate_visual_acceptance_pass": false,
         "ui_report_screenshot_pass": true,
         "ui_report_evidence_capture_pass": true,
-        "readiness_synced": false,
-        "readiness_status": "blocked",
+        "readiness_synced": true,
+        "readiness_status": "ready",
         "current_readiness_status": "ready",
         "active_bucket_count": 5,
         "active_buckets": [
@@ -1365,8 +1358,8 @@
     },
     {
       "key": "requested_ref6_status_snapshot_current",
-      "pass": true,
-      "status": "pass",
+      "pass": false,
+      "status": "fail",
       "message": "Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.",
       "details": {
         "requested_status_path": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\diagnostics\\lb26001_requested_drawings_status_v4_2.json",
@@ -1376,20 +1369,22 @@
         "requested_status_generated_at": "2026-06-26 23:59:25",
         "acceptance_proof_generated_at": "2026-06-26 00:54:29",
         "ui_visual_review_generated_at": "2026-06-26 15:40:38",
-        "ui_defect_buckets_generated_at": "2026-06-26 23:58:53",
+        "ui_defect_buckets_generated_at": "2026-06-27 16:26:46",
         "requested_status_status": "blocked_by_006",
         "requested_status_pass": false,
         "acceptance_proof_status": "blocked_by_006",
         "acceptance_proof_pass": false,
         "ui_visual_review_status": "need_review",
         "ui_visual_review_pass": false,
-        "ui_defect_buckets_status": "blocked_by_solidworks_readiness",
+        "ui_defect_buckets_status": "needs_006_fix",
         "ui_defect_buckets_pass": false,
         "generated_at_parse_ok": true,
         "requested_generated_at_not_older_than_acceptance_proof": true,
         "requested_generated_at_not_older_than_ui_visual_review": true,
-        "requested_generated_at_not_older_than_ui_defect_buckets": true,
-        "mismatch_keys": []
+        "requested_generated_at_not_older_than_ui_defect_buckets": false,
+        "mismatch_keys": [
+          "requested_generated_at_not_older_than_ui_defect_buckets"
+        ]
       }
     },
     {
@@ -2099,21 +2094,18 @@
     }
   ],
   "check_count": 27,
-  "passed_check_count": 10,
-  "failed_check_count": 17,
+  "passed_check_count": 13,
+  "failed_check_count": 14,
   "blocking_issue_keys": [
-    "solidworks_stability_gate_pass",
     "solidworks_stability_readiness_snapshot_current",
-    "solidworks_conflict_report_ok",
-    "lb26001_006_rerun_packet_ready",
     "lb26001_006_rerun_packet_readiness_state_current",
-    "lb26001_006_ui_defect_buckets_ready",
     "regeneration_006_fresh_evidence_pass",
     "application_ui_006_acceptance_pass",
     "canonical_006_ui_visual_review_pass",
     "006_evidence_chain_source_agreement",
     "006_acceptance_proof_ui_review_freshness",
     "requested_ref6_ui_status_pass",
+    "requested_ref6_status_snapshot_current",
     "staged_batch_sequence_proof_pass",
     "final_release_artifacts_present",
     "exe_ui_and_stability_proof_pass",
@@ -2156,5 +2148,5 @@
       "stability_2h_ui": "C:\\Users\\Vision\\Desktop\\SW 相关\\stability_2h_ui_v3_0.json"
     }
   },
-  "next_required_action": "Manually save or close the visible unsaved SolidWorks document, rerun the no-COM readiness and Product Evidence Gate diagnostics, then run exactly one locked LB26001-A-04-006 CAD worker only if readiness is green."
+  "next_required_action": "Complete the staged CAD sequence proof in order: 024/040, core_12, LB26001_36, then medium_30; only then run full-scope Visual Audit and full_129."
 }

@@ -21,18 +21,18 @@
 
 ## Checks
 
-- `fail` `solidworks_stability_gate_pass`: SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.
+- `pass` `solidworks_stability_gate_pass`: SolidWorks stability gate must pass with no warnings, except a single idle SolidWorks pre-lock process is allowed for the next locked 006 rerun.
 - `pass` `ui_thread_direct_risk_zero`: UI/service direct SolidWorks, probe, QThreadPool, OCR/YOLO/batch, and blocking-risk buckets must remain zero.
 - `pass` `solidworks_entrypoint_scan_report_pass`: Raw SolidWorks entrypoint scan must prove no UI/service direct COM, probe, QThreadPool, OCR/YOLO/batch, subprocess, or sleep risks.
 - `pass` `solidworks_stability_entrypoint_snapshot_current`: SolidWorks stability gate must be generated no earlier than the raw entrypoint scan it summarizes.
 - `fail` `solidworks_stability_readiness_snapshot_current`: SolidWorks stability and conflict evidence must be generated no earlier than the 006 readiness report they gate.
 - `pass` `solidworks_lock_test_report_pass`: SolidWorks global-lock test report must pass every lock ownership/conflict check.
-- `fail` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
+- `pass` `solidworks_conflict_report_ok`: Current conflict report must be OK, or show exactly one idle SolidWorks process waiting for a worker-owned global lock before the 006 rerun.
 - `pass` `solidworks_readiness_for_006`: Readiness must allow exactly one locked 006 CAD rerun before any real CAD action.
 - `pass` `solidworks_readiness_title_sampling_guard`: 006 readiness must include multi-sample SolidWorks title evidence and must not observe an unsaved document marker.
-- `fail` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
+- `pass` `lb26001_006_rerun_packet_ready`: 006 rerun packet must have all offline defect-closure prerequisites and source signatures before a locked rerun.
 - `fail` `lb26001_006_rerun_packet_readiness_state_current`: 006 rerun packet readiness state must match the current readiness result and be generated no earlier than that readiness result before real CAD can start.
-- `fail` `lb26001_006_ui_defect_buckets_ready`: 006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.
+- `pass` `lb26001_006_ui_defect_buckets_ready`: 006 UI screenshot defect buckets must be current and complete before the next locked 006 rerun.
 - `pass` `reference_intent_006_proof_pass`: 006 reference-intent plan proof must pass while remaining supporting evidence only.
 - `pass` `reference_intent_006_plan_complete`: 006 reference-intent dimension plan must directly define the required manufacturing DisplayDim targets and callout policy.
 - `pass` `reference_intent_006_contract_locked_worker_only`: 006 reference-intent execution contract must require SolidWorks global lock, forbid UI-thread execution, and mirror the plan operation-by-operation.
@@ -42,7 +42,7 @@
 - `fail` `006_evidence_chain_source_agreement`: 006 regeneration, acceptance proof, and canonical UI visual review must bind to the same run_dir, staged summary, and generated PNG.
 - `fail` `006_acceptance_proof_ui_review_freshness`: 006 acceptance proof must be generated at or after the canonical application UI visual review.
 - `fail` `requested_ref6_ui_status_pass`: All six requested reference samples must have application UI screenshot PASS plus per-drawing DrawingBlueprint, dimension, reference, vision, and UI visual-review evidence.
-- `pass` `requested_ref6_status_snapshot_current`: Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.
+- `fail` `requested_ref6_status_snapshot_current`: Requested six-drawing status must be generated no earlier than the canonical 006 UI review and 006 UI defect-bucket evidence it depends on.
 - `fail` `staged_batch_sequence_proof_pass`: Staged CAD validation must prove the ordered 024/040 -> core_12 -> LB26001_36 -> medium_30 sequence through locked JobRuntimeFacade and Q-process-backed workers plus application UI screenshot evidence before full-scope Visual Audit or full_129 is allowed.
 - `fail` `final_release_artifacts_present`: Final release artifacts must exist before release/full_129 completion can be claimed.
 - `fail` `exe_ui_and_stability_proof_pass`: Final EXE/UI evidence must include dist/sw_drawing_studio.exe, EXE-level UI robot PASS, 20-minute mock stability PASS, 2-hour Windows EXE UI stability PASS, and readable Chinese UI text spot-check PASS.
@@ -51,18 +51,15 @@
 
 ## Blocking Issues
 
-- `solidworks_stability_gate_pass`
 - `solidworks_stability_readiness_snapshot_current`
-- `solidworks_conflict_report_ok`
-- `lb26001_006_rerun_packet_ready`
 - `lb26001_006_rerun_packet_readiness_state_current`
-- `lb26001_006_ui_defect_buckets_ready`
 - `regeneration_006_fresh_evidence_pass`
 - `application_ui_006_acceptance_pass`
 - `canonical_006_ui_visual_review_pass`
 - `006_evidence_chain_source_agreement`
 - `006_acceptance_proof_ui_review_freshness`
 - `requested_ref6_ui_status_pass`
+- `requested_ref6_status_snapshot_current`
 - `staged_batch_sequence_proof_pass`
 - `final_release_artifacts_present`
 - `exe_ui_and_stability_proof_pass`
@@ -71,4 +68,4 @@
 
 ## Next Required Action
 
-Manually save or close the visible unsaved SolidWorks document, rerun the no-COM readiness and Product Evidence Gate diagnostics, then run exactly one locked LB26001-A-04-006 CAD worker only if readiness is green.
+Complete the staged CAD sequence proof in order: 024/040, core_12, LB26001_36, then medium_30; only then run full-scope Visual Audit and full_129.

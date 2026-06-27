@@ -1,20 +1,29 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_closed_loop_final_decision.v1",
-  "generated_at": "2026-06-27 01:24:00",
+  "generated_at": "2026-06-27 16:36:00",
   "base": "LB26001-A-04-006",
   "decision": "BLOCKED",
-  "reason": "SolidWorks readiness does not allow a real locked 006 CAD rerun.",
+  "reason": "The locked 006 CAD rerun was started through the approved staged JobRuntimeFacade/QProcess path, but the fresh CAD worker failed before producing SLDDRW/PDF/DXF/PNG artifacts. A generator NameError was fixed offline, but the failed run's SolidWorks resource audit did not prove clean document cleanup, so a second CAD rerun is blocked until cleanup/readiness evidence is clean.",
   "blocking_reason": {
-    "key": "solidworks_unsaved_document_visible",
+    "key": "fresh_006_rerun_failed_and_cleanup_not_clean",
     "severity": "critical",
     "evidence": {
-      "process_present": true,
-      "process_count": 1,
-      "pid": 8564,
-      "responding": true,
-      "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+      "staged_summary": "drw_output/staged_validation/LB26001_006_locked_real_rerun_20260627_162754/summary.json",
+      "fresh_run_dir": "drw_output/runs/ecc3924bc551",
+      "fresh_run_id": "ecc3924bc551",
+      "job_id": "d5f8affb",
+      "cad_status": "fail",
+      "cad_failure_bucket": "cad_subprocess_failed",
+      "generator_exception": "NameError: name 'layout_plan' is not defined",
+      "generator_exception_file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+      "generator_exception_line": 7652,
+      "resource_audit": "drw_output/runs/ecc3924bc551/solidworks_resource_audit.json",
+      "resource_audit_status": "blocked_by_solidworks_resource_pressure",
+      "open_job_owned_document_count": 2,
+      "close_failure_count": 1,
+      "truth_gate_fresh_failed_rerun": "drw_output/diagnostics/truth_gate_006_fresh_failed_rerun.json"
     },
-    "fix_suggestion": "Manually save or close the unsaved SolidWorks document, then rerun the no-COM readiness check before starting any CAD worker."
+    "fix_suggestion": "First make SolidWorks cleanup/readiness evidence clean for the failed run, including closing any job-owned part/drawing documents if still open. Then rerun the no-COM readiness, stability gate, rerun packet, and Product Gate before starting another single locked LB26001-A-04-006 rerun."
   },
   "completed_steps": [
     "Step 1 evidence_inventory",
@@ -22,12 +31,13 @@
     "Step 3 selected_fix_scope",
     "Step 4 implemented_focused_fix",
     "Step 5 offline_validation_passed",
-    "Step 6 no_com_readiness_blocked"
+    "Step 6 no_com_readiness_ready",
+    "Step 7 locked_real_006_rerun_started_once",
+    "Step 8 post_rerun_validation_failed_due_to_missing_cad_artifacts"
   ],
   "skipped_steps_due_to_block": [
-    "Step 7 locked_real_006_rerun",
-    "Step 8 post_rerun_drawing_validation",
-    "Step 9 Drawing Review UI screenshot recheck"
+    "Step 9 Drawing Review UI screenshot recheck",
+    "Step 10 PASS_or_FAIL_visual_acceptance"
   ],
   "artifacts": {
     "evidence_summary": "drw_output/diagnostics/006_current_evidence_summary.json",
@@ -38,11 +48,37 @@
     "readiness": "drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json",
     "readiness_md": "drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.md",
     "rerun_packet": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json",
-    "rerun_packet_md": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md"
+    "rerun_packet_md": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.md",
+    "truth_gate_current_previous_run": "drw_output/diagnostics/truth_gate_006_current.json",
+    "reference_compare_v4_previous_run": "drw_output/runs/2aba76ff152d/qc/reference_compare_v4.json",
+    "product_evidence_gate": "drw_output/diagnostics/product_evidence_gate_v4_4.json",
+    "fresh_staged_summary": "drw_output/staged_validation/LB26001_006_locked_real_rerun_20260627_162754/summary.json",
+    "fresh_run_manifest": "drw_output/runs/ecc3924bc551/manifest.json",
+    "fresh_job_event_log": "drw_output/runs/ecc3924bc551/job_event_log.jsonl",
+    "fresh_sw_session": "drw_output/runs/ecc3924bc551/sw_session.json",
+    "fresh_resource_audit": "drw_output/runs/ecc3924bc551/solidworks_resource_audit.json"
+  },
+  "code_fix": {
+    "file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
+    "function": "_apply_reference_outline_size_corrections",
+    "change": "Resolved the layout_plan NameError by reading layout_plan_ from _drawing_blueprint_v4.layout_plan inside the function scope.",
+    "rollback": "Revert the single layout_plan_ substitution if a later generator refactor defines a local layout_plan in this scope."
+  },
+  "validation": {
+    "py_compile": "pass",
+    "test_v4_reference_compare": "pass",
+    "fresh_failed_run_truth_gate": "fail_expected",
+    "fresh_failed_run_truth_gate_hard_failures": [
+      "sw_session_not_connected",
+      "reference_compare_missing_without_reason"
+    ]
   },
   "constraints_confirmed": {
-    "real_cad_rerun_started": false,
-    "solidworks_com_called_by_this_task": false,
+    "real_cad_rerun_started": true,
+    "real_cad_rerun_count": 1,
+    "fresh_run_artifacts_complete": false,
+    "drawing_review_ui_screenshot_started_after_failed_cad": false,
+    "solidworks_com_called_without_global_lock": false,
     "global_lock_bypassed": false,
     "advanced_007_008_009_015_022": false,
     "advanced_lb26001_36": false,
@@ -53,10 +89,11 @@
     "notes_counted_as_displaydims": false,
     "api_pass_claimed_as_final_pass": false
   },
-  "resume_after_user_action": [
-    "Save or close the unsaved SolidWorks document shown in the readiness report.",
+  "resume_after_cleanup": [
+    "Verify SolidWorks has no unsaved or job-owned documents from run ecc3924bc551.",
     "Run: python -B tools\\validation\\lb26001_006_regression_readiness_v4_2.py --out drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.json --out-md drw_output\\diagnostics\\lb26001_006_regression_readiness_v4_2.md",
-    "Only if readiness is ready, start the fresh locked 006 rerun through JobRuntimeFacade/QProcess worker.",
-    "Then run dimension_validation, reference_compare, vision_qc, final_quality, and Drawing Review UI screenshot复核 for the fresh run."
+    "Run: python -B tools\\validation\\run_solidworks_stability_gate_v4_4.py --out-json drw_output\\diagnostics\\solidworks_stability_gate_v4_4.json --out-md drw_output\\diagnostics\\solidworks_stability_gate_v4_4.md",
+    "Run: python -B tools\\validation\\lb26001_006_rerun_packet_v4_2.py --out-json drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.json --out-md drw_output\\diagnostics\\lb26001_006_rerun_packet_v4_2.md",
+    "Only if Product Gate again reports locked_006_cad_rerun_allowed_now=true, start one fresh LB26001-A-04-006 locked rerun and then perform Drawing Review UI screenshot review."
   ]
 }
