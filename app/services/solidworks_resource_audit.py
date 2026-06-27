@@ -133,6 +133,7 @@ def collect_open_document_snapshot(job_id: str) -> dict[str, Any]:
             "documents": [],
             "reason": "solidworks_com_probe_skipped_without_current_job_lock",
         }
+    com_context = _initialize_com_for_resource_audit()
     try:
         import win32com.client
 
@@ -151,6 +152,8 @@ def collect_open_document_snapshot(job_id: str) -> dict[str, Any]:
             "documents": [],
             "reason": str(exc),
         }
+    finally:
+        _uninitialize_com_for_resource_audit(com_context)
 
 
 class SolidWorksResourceAudit:
@@ -353,6 +356,7 @@ def cleanup_job_owned_documents(run_dir: str | Path, job_id: str) -> dict[str, A
             "registry_summary": after,
             "reason": "current_job_does_not_hold_lock",
         }
+    com_context = _initialize_com_for_resource_audit()
     try:
         import win32com.client
 
@@ -374,62 +378,68 @@ def cleanup_job_owned_documents(run_dir: str | Path, job_id: str) -> dict[str, A
             "registry_summary": after,
             "reason": str(exc),
         }
+    finally:
+        if "sw" not in locals():
+            _uninitialize_com_for_resource_audit(com_context)
 
-    for doc in open_docs:
-        role = str(doc.get("role") or "")
-        path = str(doc.get("path") or "")
-        title = str(doc.get("title") or "")
-        stage = str(doc.get("stage") or "cleanup")
-        record = {"role": role, "path": path, "title": title, "stage": stage}
-        try:
-            model = _get_open_document(sw, path, title)
-            if model is None:
+    try:
+        for doc in open_docs:
+            role = str(doc.get("role") or "")
+            path = str(doc.get("path") or "")
+            title = str(doc.get("title") or "")
+            stage = str(doc.get("stage") or "cleanup")
+            record = {"role": role, "path": path, "title": title, "stage": stage}
+            try:
+                model = _get_open_document(sw, path, title)
+                if model is None:
+                    append_document_registry_event(
+                        registry_path,
+                        "solidworks_doc_closed",
+                        job_id=job_id,
+                        role=role,
+                        path=path,
+                        title=title,
+                        stage="cleanup_not_open",
+                        close_verified=True,
+                        reason="document_not_open",
+                    )
+                    record["close_verified"] = True
+                    record["reason"] = "document_not_open"
+                    cleanup_records.append(record)
+                    continue
+                actual_title = _read_com_value(model, "GetTitle") or title
+                sw.CloseDoc(actual_title)
+                still_open = _get_open_document(sw, path, actual_title) is not None
                 append_document_registry_event(
                     registry_path,
-                    "solidworks_doc_closed",
+                    "solidworks_doc_closed" if not still_open else "solidworks_doc_close_failed",
+                    job_id=job_id,
+                    role=role,
+                    path=path,
+                    title=str(actual_title or title),
+                    stage="cleanup_job_owned_documents",
+                    close_verified=not still_open,
+                    reason="" if not still_open else "document_still_open_after_CloseDoc",
+                )
+                record["close_verified"] = not still_open
+                record["reason"] = "" if not still_open else "document_still_open_after_CloseDoc"
+            except Exception as exc:
+                append_document_registry_event(
+                    registry_path,
+                    "solidworks_doc_close_failed",
                     job_id=job_id,
                     role=role,
                     path=path,
                     title=title,
-                    stage="cleanup_not_open",
-                    close_verified=True,
-                    reason="document_not_open",
+                    stage="cleanup_job_owned_documents",
+                    close_verified=False,
+                    reason=str(exc),
                 )
-                record["close_verified"] = True
-                record["reason"] = "document_not_open"
-                cleanup_records.append(record)
-                continue
-            actual_title = _read_com_value(model, "GetTitle") or title
-            sw.CloseDoc(actual_title)
-            still_open = _get_open_document(sw, path, actual_title) is not None
-            append_document_registry_event(
-                registry_path,
-                "solidworks_doc_closed" if not still_open else "solidworks_doc_close_failed",
-                job_id=job_id,
-                role=role,
-                path=path,
-                title=str(actual_title or title),
-                stage="cleanup_job_owned_documents",
-                close_verified=not still_open,
-                reason="" if not still_open else "document_still_open_after_CloseDoc",
-            )
-            record["close_verified"] = not still_open
-            record["reason"] = "" if not still_open else "document_still_open_after_CloseDoc"
-        except Exception as exc:
-            append_document_registry_event(
-                registry_path,
-                "solidworks_doc_close_failed",
-                job_id=job_id,
-                role=role,
-                path=path,
-                title=title,
-                stage="cleanup_job_owned_documents",
-                close_verified=False,
-                reason=str(exc),
-            )
-            record["close_verified"] = False
-            record["reason"] = str(exc)
-        cleanup_records.append(record)
+                record["close_verified"] = False
+                record["reason"] = str(exc)
+            cleanup_records.append(record)
+    finally:
+        _uninitialize_com_for_resource_audit(com_context)
     after = summarize_document_registry(run_dir_path)
     ok = int(after.get("open_job_owned_document_count") or 0) == 0 and int(after.get("close_failure_count") or 0) == 0
     return {
@@ -438,6 +448,25 @@ def cleanup_job_owned_documents(run_dir: str | Path, job_id: str) -> dict[str, A
         "cleanup_records": cleanup_records,
         "registry_summary": after,
     }
+
+
+def _initialize_com_for_resource_audit() -> Any:
+    try:
+        import pythoncom
+
+        pythoncom.CoInitialize()
+        return pythoncom
+    except Exception:
+        return None
+
+
+def _uninitialize_com_for_resource_audit(com_context: Any) -> None:
+    if com_context is None:
+        return
+    try:
+        com_context.CoUninitialize()
+    except Exception:
+        pass
 
 
 def _collect_processes_with_psutil() -> list[dict[str, Any]]:

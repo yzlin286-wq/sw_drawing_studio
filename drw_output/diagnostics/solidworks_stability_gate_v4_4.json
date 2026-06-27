@@ -1,6 +1,6 @@
 {
   "schema": "sw_drawing_studio.solidworks_stability_gate.v4_4",
-  "generated_at": "2026-06-27T16:27:41",
+  "generated_at": "2026-06-27T16:35:16",
   "status": "warning",
   "pass": false,
   "release_ready": false,
@@ -14,7 +14,7 @@
   },
   "entrypoint_summary": {
     "status": "pass",
-    "entrypoint_count": 540,
+    "entrypoint_count": 541,
     "unguarded_or_unknown_count": 0,
     "ui_thread_direct_risk_count": 0,
     "ui_thread_subprocess_call_count": 0,
@@ -60,7 +60,7 @@
     },
     "fix_suggestion": "真实 CAD / Add-in / OpenDoc6 操作前必须通过 worker 获取全局锁",
     "solidworks_process_titles": [
-      "SOLIDWORKS Premium 2025 SP5.0"
+      "SOLIDWORKS Premium 2025 SP5.0 - [LB26001-A-04-006 - 图纸1 [只读]]"
     ]
   }
 }

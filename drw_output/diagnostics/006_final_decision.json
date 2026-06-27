@@ -1,11 +1,11 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_closed_loop_final_decision.v1",
-  "generated_at": "2026-06-27 16:36:00",
+  "generated_at": "2026-06-27 16:45:00",
   "base": "LB26001-A-04-006",
   "decision": "BLOCKED",
-  "reason": "The locked 006 CAD rerun was started through the approved staged JobRuntimeFacade/QProcess path, but the fresh CAD worker failed before producing SLDDRW/PDF/DXF/PNG artifacts. A generator NameError was fixed offline, but the failed run's SolidWorks resource audit did not prove clean document cleanup, so a second CAD rerun is blocked until cleanup/readiness evidence is clean.",
+  "reason": "The locked 006 CAD rerun was started once through the approved staged JobRuntimeFacade/QProcess path, but the fresh CAD worker failed before producing SLDDRW/PDF/DXF/PNG artifacts. The generator NameError and cleanup COM-initialization defect have been fixed offline, but this task package allowed only one locked 006 rerun. Therefore no second CAD rerun or Drawing Review UI screenshot rerun was started in this continuation.",
   "blocking_reason": {
-    "key": "fresh_006_rerun_failed_and_cleanup_not_clean",
+    "key": "fresh_006_rerun_failed_one_rerun_limit_consumed",
     "severity": "critical",
     "evidence": {
       "staged_summary": "drw_output/staged_validation/LB26001_006_locked_real_rerun_20260627_162754/summary.json",
@@ -18,12 +18,15 @@
       "generator_exception_file": ".trae/specs/build-v6-and-validate-exe-ui/drw_generate_v6.py",
       "generator_exception_line": 7652,
       "resource_audit": "drw_output/runs/ecc3924bc551/solidworks_resource_audit.json",
-      "resource_audit_status": "blocked_by_solidworks_resource_pressure",
+      "resource_audit_status_at_failed_run": "blocked_by_solidworks_resource_pressure",
       "open_job_owned_document_count": 2,
       "close_failure_count": 1,
-      "truth_gate_fresh_failed_rerun": "drw_output/diagnostics/truth_gate_006_fresh_failed_rerun.json"
+      "truth_gate_fresh_failed_rerun": "drw_output/diagnostics/truth_gate_006_fresh_failed_rerun.json",
+      "current_product_gate": "drw_output/diagnostics/product_evidence_gate_v4_4.json",
+      "current_product_gate_locked_006_rerun_allowed_now": true,
+      "second_rerun_started_after_code_fix": false
     },
-    "fix_suggestion": "First make SolidWorks cleanup/readiness evidence clean for the failed run, including closing any job-owned part/drawing documents if still open. Then rerun the no-COM readiness, stability gate, rerun packet, and Product Gate before starting another single locked LB26001-A-04-006 rerun."
+    "fix_suggestion": "Start a new explicitly authorized 006-only rerun package after confirming SolidWorks has no unsaved or job-owned documents. Do not expand to 007/008/009/015/022 or batch stages until 006 passes the Drawing Review UI screenshot checklist."
   },
   "completed_steps": [
     "Step 1 evidence_inventory",
@@ -33,7 +36,8 @@
     "Step 5 offline_validation_passed",
     "Step 6 no_com_readiness_ready",
     "Step 7 locked_real_006_rerun_started_once",
-    "Step 8 post_rerun_validation_failed_due_to_missing_cad_artifacts"
+    "Step 8 post_rerun_validation_failed_due_to_missing_cad_artifacts",
+    "Continuation cleanup_defect_fix"
   ],
   "skipped_steps_due_to_block": [
     "Step 9 Drawing Review UI screenshot recheck",
@@ -64,8 +68,22 @@
     "change": "Resolved the layout_plan NameError by reading layout_plan_ from _drawing_blueprint_v4.layout_plan inside the function scope.",
     "rollback": "Revert the single layout_plan_ substitution if a later generator refactor defines a local layout_plan in this scope."
   },
+  "cleanup_fix": {
+    "file": "app/services/solidworks_resource_audit.py",
+    "functions": [
+      "collect_open_document_snapshot",
+      "cleanup_job_owned_documents"
+    ],
+    "change": "SolidWorks resource-audit COM probes and job-owned document cleanup now call CoInitialize before GetActiveObject/CloseDoc and CoUninitialize afterwards.",
+    "test": "test_v4_4_solidworks_resource_audit.py"
+  },
   "validation": {
     "py_compile": "pass",
+    "test_v4_4_solidworks_resource_audit": "pass",
+    "test_v4_1_solidworks_global_lock": "pass",
+    "pytest_tests_truth_gate": "pass",
+    "truth_gate_fake_pass_case": "fail_expected",
+    "test_v4_4_product_evidence_gate": "pass",
     "test_v4_reference_compare": "pass",
     "fresh_failed_run_truth_gate": "fail_expected",
     "fresh_failed_run_truth_gate_hard_failures": [
@@ -76,6 +94,7 @@
   "constraints_confirmed": {
     "real_cad_rerun_started": true,
     "real_cad_rerun_count": 1,
+    "second_real_cad_rerun_started": false,
     "fresh_run_artifacts_complete": false,
     "drawing_review_ui_screenshot_started_after_failed_cad": false,
     "solidworks_com_called_without_global_lock": false,
