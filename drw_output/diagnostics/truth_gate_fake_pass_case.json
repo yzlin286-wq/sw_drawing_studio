@@ -1,0 +1,55 @@
+{
+  "schema": "sw_drawing_studio.truth_gate.v1",
+  "profile": "release-v3",
+  "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\tests\\fixtures\\fake_pass_case",
+  "pass": false,
+  "allowed_to_claim_release_pass": false,
+  "hard_fail_count": 5,
+  "hard_failures": [
+    {
+      "key": "sw_session_not_connected",
+      "path": "sw_session.json",
+      "status": "disconnected",
+      "message": "sw_session.status must be connected."
+    },
+    {
+      "key": "drawing_artifact_stale",
+      "path": "drawing\\fake_generated.PNG",
+      "job_started_at": "2999-01-01T00:00:00Z",
+      "artifact_mtime": "2026-06-27T08:13:42.005507Z",
+      "message": "Drawing artifact mtime must be >= job_started_at."
+    },
+    {
+      "key": "note_dimensions_masquerade_as_displaydims",
+      "path": "dimension_validation.json",
+      "part_class": "feature_part",
+      "display_dim_count": 0,
+      "note_dim_count": 3,
+      "message": "feature_part cannot claim dimensions from Note annotations."
+    },
+    {
+      "key": "mock_synthetic_or_fallback_claimed_release_pass",
+      "paths": [
+        "final_quality.json",
+        "manifest.json"
+      ],
+      "tokens": [
+        "mock",
+        "synthetic",
+        "fallback"
+      ],
+      "message": "mock/synthetic/fallback evidence cannot claim release_pass=true."
+    },
+    {
+      "key": "reference_compare_missing_without_reason",
+      "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\tests\\fixtures\\fake_pass_case",
+      "message": "reference_compare evidence is required unless no_reference_reason is explicit."
+    }
+  ],
+  "checked_files": {
+    "json_count": 4,
+    "drawing_artifact_count": 1,
+    "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\tests\\fixtures\\fake_pass_case\\sw_session.json",
+    "reference_compare_count": 0
+  }
+}

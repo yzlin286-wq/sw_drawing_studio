@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -79,6 +80,7 @@ DEFAULT_MANUAL_VISUAL_JUDGEMENT_TEMPLATE_SOURCE = REPO_ROOT / "tools" / "validat
 DEFAULT_APPLY_UI_REVIEW_SOURCE = REPO_ROOT / "tools" / "validation" / "apply_ui_visual_review_v4.py"
 DEFAULT_ACCEPTANCE_GATE_SOURCE = REPO_ROOT / "tools" / "validation" / "lb26001_acceptance_gate_v4_2.py"
 DEFAULT_ACCEPTANCE_PROOF_SOURCE = REPO_ROOT / "tools" / "validation" / "lb26001_006_acceptance_proof_v4_2.py"
+DEFAULT_TRUTH_GATE_SOURCE = REPO_ROOT / "tools" / "truth_gate.py"
 DEFAULT_OUT_JSON = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.json"
 DEFAULT_OUT_MD = REPO_ROOT / "drw_output" / "diagnostics" / "lb26001_006_rerun_packet_v4_2.md"
 
@@ -399,6 +401,15 @@ ACCEPTANCE_PROOF_SIGNATURES = {
     "fresh_png_source_blocker": "generated_png_source_not_current_run",
 }
 
+TRUTH_GATE_SIGNATURES = {
+    "allowed_release_flag": "allowed_to_claim_release_pass",
+    "sw_session_status_guard": "sw_session.status must be connected",
+    "artifact_mtime_guard": "Drawing artifact mtime must be >= job_started_at",
+    "note_not_displaydim_guard": "feature_part cannot claim dimensions from Note annotations",
+    "mock_synthetic_fallback_guard": "mock/synthetic/fallback evidence cannot claim release_pass=true",
+    "reference_compare_or_reason_guard": "reference_compare evidence is required unless no_reference_reason is explicit",
+}
+
 
 def _now() -> str:
     return time.strftime("%Y-%m-%d %H:%M:%S")
@@ -456,6 +467,70 @@ def _signature_status(path: Path, signatures: dict[str, str]) -> dict[str, Any]:
         "required_signatures": items,
         "missing_signatures": [item["key"] for item in items if not item["present"]],
     }
+
+
+def _current_006_truth_gate_case_dir(current_006: dict[str, Any]) -> Path | None:
+    for key in ("run_dir", "case_dir"):
+        value = str(current_006.get(key) or "").strip()
+        if value:
+            return _repo_path(value)
+
+    evidence = current_006.get("generated_png_source_evidence")
+    candidates = []
+    if isinstance(evidence, dict):
+        candidates.append(evidence.get("path"))
+    candidates.extend([
+        current_006.get("generated_png"),
+        current_006.get("right_generated_png"),
+    ])
+    for raw in candidates:
+        value = str(raw or "").strip()
+        if not value:
+            continue
+        path = _repo_path(value)
+        if path.suffix:
+            if path.parent.name.lower() == "drawing":
+                return path.parent.parent
+            return path.parent
+        return path
+    return None
+
+
+def _truth_gate_status(current_006: dict[str, Any]) -> dict[str, Any]:
+    case_dir = _current_006_truth_gate_case_dir(current_006)
+    if case_dir is None:
+        return {
+            "pass": False,
+            "allowed_to_claim_release_pass": False,
+            "case_dir": "",
+            "hard_failures": [
+                {
+                    "key": "truth_gate_input_missing",
+                    "message": "Current 006 generated PNG/run_dir evidence is required before a locked rerun can be allowed.",
+                }
+            ],
+        }
+    try:
+        root_text = str(REPO_ROOT)
+        if root_text not in sys.path:
+            sys.path.insert(0, root_text)
+        from tools.truth_gate import evaluate_case
+
+        report = evaluate_case(case_dir, profile="release-v3")
+    except Exception as exc:
+        return {
+            "pass": False,
+            "allowed_to_claim_release_pass": False,
+            "case_dir": str(case_dir),
+            "hard_failures": [
+                {
+                    "key": "truth_gate_execution_failed",
+                    "message": str(exc),
+                }
+            ],
+        }
+    report["case_dir"] = str(case_dir)
+    return report
 
 
 def _reference_intent_artifact_status(path: Path, expected_keys: list[str] | None = None) -> dict[str, Any]:
@@ -779,6 +854,7 @@ def build_rerun_packet(
     apply_ui_review_source_path: Path = DEFAULT_APPLY_UI_REVIEW_SOURCE,
     acceptance_gate_source_path: Path = DEFAULT_ACCEPTANCE_GATE_SOURCE,
     acceptance_proof_source_path: Path = DEFAULT_ACCEPTANCE_PROOF_SOURCE,
+    truth_gate_source_path: Path = DEFAULT_TRUTH_GATE_SOURCE,
 ) -> dict[str, Any]:
     requested_by_base = _base_map(requested_status, "base_results")
     correction_by_base = _base_map(correction_plan, "entries")
@@ -835,6 +911,8 @@ def build_rerun_packet(
     apply_ui_review_signatures = _signature_status(apply_ui_review_source_path, APPLY_UI_REVIEW_SIGNATURES)
     acceptance_gate_signatures = _signature_status(acceptance_gate_source_path, ACCEPTANCE_GATE_SIGNATURES)
     acceptance_proof_signatures = _signature_status(acceptance_proof_source_path, ACCEPTANCE_PROOF_SIGNATURES)
+    truth_gate_signatures = _signature_status(truth_gate_source_path, TRUTH_GATE_SIGNATURES)
+    truth_gate = _truth_gate_status(current_006)
     reference_intent_plan = _reference_intent_artifact_status(
         reference_intent_plan_path,
         expected_keys=["target_key", "post_layout_final", "AddDiameterDimension2"],
@@ -1078,6 +1156,18 @@ def build_rerun_packet(
             acceptance_proof_signatures,
             "Restore the 006 proof signatures that expose application UI source, manual case, manual checklist, and fresh PNG blockers.",
         ),
+        _prerequisite(
+            "truth_gate_source_signatures_present",
+            truth_gate_signatures["pass"],
+            truth_gate_signatures,
+            "Restore tools/truth_gate.py so anti-fallback release claims are blocked before the 006 rerun packet can allow CAD.",
+        ),
+        _prerequisite(
+            "truth_gate_current_006_release_claim_allowed",
+            truth_gate.get("allowed_to_claim_release_pass") is True,
+            truth_gate,
+            "Fix hard truth-gate failures; mock/synthetic/fallback, stale artifacts, Note dimensions, disconnected sw_session, or missing reference_compare cannot be warnings.",
+        ),
     ]
     offline_missing = [item["key"] for item in prerequisites if not item["pass"]]
     offline_ready = not offline_missing
@@ -1208,6 +1298,7 @@ def build_rerun_packet(
             "reference_png": current_006.get("reference_png"),
         },
         "ui_defect_buckets": ui_defect_buckets,
+        "truth_gate": truth_gate,
         "offline_prerequisites": prerequisites,
         "source_signatures": {
             "cad_job_worker": cad_worker_signatures,
@@ -1228,6 +1319,7 @@ def build_rerun_packet(
             "apply_ui_visual_review_v4": apply_ui_review_signatures,
             "lb26001_acceptance_gate_v4_2": acceptance_gate_signatures,
             "lb26001_006_acceptance_proof_v4_2": acceptance_proof_signatures,
+            "truth_gate": truth_gate_signatures,
         },
         "reference_intent_artifacts": {
             "plan": reference_intent_plan,
@@ -1266,6 +1358,17 @@ def render_markdown(packet: dict[str, Any]) -> str:
         lines.extend(["", "## Latest UI Findings", ""])
         for finding in findings:
             lines.append(f"- {finding}")
+    truth_gate = packet.get("truth_gate") or {}
+    lines.extend(
+        [
+            "",
+            "## Truth Gate",
+            "",
+            f"- allowed_to_claim_release_pass: `{truth_gate.get('allowed_to_claim_release_pass')}`",
+            f"- hard_fail_count: `{truth_gate.get('hard_fail_count')}`",
+            f"- case_dir: `{truth_gate.get('case_dir') or ''}`",
+        ]
+    )
     lines.extend(["", "## Next Gates", ""])
     for index, gate in enumerate(packet.get("ordered_next_gates") or [], start=1):
         lines.append(f"{index}. `{gate.get('gate')}` - {gate.get('acceptance')}")
@@ -1304,6 +1407,7 @@ def write_rerun_packet(
     apply_ui_review_source_path: Path = DEFAULT_APPLY_UI_REVIEW_SOURCE,
     acceptance_gate_source_path: Path = DEFAULT_ACCEPTANCE_GATE_SOURCE,
     acceptance_proof_source_path: Path = DEFAULT_ACCEPTANCE_PROOF_SOURCE,
+    truth_gate_source_path: Path = DEFAULT_TRUTH_GATE_SOURCE,
     out_json: Path = DEFAULT_OUT_JSON,
     out_md: Path = DEFAULT_OUT_MD,
 ) -> dict[str, Any]:
@@ -1332,6 +1436,7 @@ def write_rerun_packet(
         apply_ui_review_source_path=apply_ui_review_source_path,
         acceptance_gate_source_path=acceptance_gate_source_path,
         acceptance_proof_source_path=acceptance_proof_source_path,
+        truth_gate_source_path=truth_gate_source_path,
     )
     _write_json(out_json, packet)
     _write_text(out_md, render_markdown(packet))
@@ -1368,6 +1473,7 @@ def main() -> int:
     parser.add_argument("--apply-ui-review-source", default=str(DEFAULT_APPLY_UI_REVIEW_SOURCE))
     parser.add_argument("--acceptance-gate-source", default=str(DEFAULT_ACCEPTANCE_GATE_SOURCE))
     parser.add_argument("--acceptance-proof-source", default=str(DEFAULT_ACCEPTANCE_PROOF_SOURCE))
+    parser.add_argument("--truth-gate-source", default=str(DEFAULT_TRUTH_GATE_SOURCE))
     parser.add_argument("--out-json", default=str(DEFAULT_OUT_JSON))
     parser.add_argument("--out-md", default=str(DEFAULT_OUT_MD))
     args = parser.parse_args()
@@ -1395,6 +1501,7 @@ def main() -> int:
         apply_ui_review_source_path=_repo_path(args.apply_ui_review_source),
         acceptance_gate_source_path=_repo_path(args.acceptance_gate_source),
         acceptance_proof_source_path=_repo_path(args.acceptance_proof_source),
+        truth_gate_source_path=_repo_path(args.truth_gate_source),
         out_json=_repo_path(args.out_json),
         out_md=_repo_path(args.out_md),
     )

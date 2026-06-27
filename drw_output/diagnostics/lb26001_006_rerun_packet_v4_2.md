@@ -1,10 +1,10 @@
 # LB26001-A-04-006 v4.2 rerun packet
 
-- Generated at: `2026-06-27 00:59:40`
-- Status: `blocked_by_solidworks_readiness`
+- Generated at: `2026-06-27 16:19:09`
+- Status: `offline_prerequisites_missing`
 - Real CAD allowed now: `False`
-- Readiness blockers: `solidworks_unsaved_document_visible`
-- Offline missing prerequisites: `none`
+- Readiness blockers: `none`
+- Offline missing prerequisites: `truth_gate_current_006_release_claim_allowed`
 - This packet is not acceptance evidence; the application UI screenshot judgement remains the final gate.
 
 ## Current UI Verdict
@@ -14,6 +14,12 @@
 - Failed visual checks: `reference_match, view_layout, display_dimensions, dimension_readability, title_block, manufacturing_notes`
 - Comparison image: `drw_output\ui_acceptance\LB26001_006_locked_real_rerun_20260625_041353_visual_review\comparison_images\01_LB26001-A-04-006_reference_vs_generated.png`
 - Required correction: 
+
+## Truth Gate
+
+- allowed_to_claim_release_pass: `False`
+- hard_fail_count: `1`
+- case_dir: `C:\Users\Vision\Desktop\SW 相关\drw_output\runs\2aba76ff152d`
 
 ## Next Gates
 

@@ -1,28 +1,28 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_regression_readiness.v4_2",
-  "generated_at": "2026-06-27 00:59:31",
+  "generated_at": "2026-06-27 16:18:57",
   "base": "LB26001-A-04-006",
-  "ready_to_start_locked_006_cad": false,
-  "status": "blocked",
+  "ready_to_start_locked_006_cad": true,
+  "status": "ready",
   "solidworks_process": {
     "source": "process_probe",
     "process_present": true,
     "process_count": 1,
     "processes": [
       {
-        "pid": 8564,
+        "pid": 24184,
         "process_name": "SLDWORKS",
         "responding": true,
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
+        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0"
       }
     ],
-    "pid": 8564,
+    "pid": 24184,
     "responding": true,
-    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
+    "main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
     "returncode": 0,
     "sample_count": 5,
     "observation_count": 5,
-    "unsaved_title_observed": true,
+    "unsaved_title_observed": false,
     "probe_errors": []
   },
   "solidworks_lock_file": "C:\\Users\\Vision\\AppData\\Local\\sw_drawing_studio\\solidworks_global_lock.json",
@@ -36,16 +36,6 @@
   "lb26001_expansion_gate": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\ui_acceptance\\LB26001_006_locked_real_rerun_20260625_041353_visual_review\\closed_loop\\lb26001_acceptance_gate_v4_2.json",
   "lb26001_expansion_gate_status": "need_review",
   "issues": [
-    {
-      "key": "solidworks_unsaved_document_visible",
-      "severity": "critical",
-      "source": "lb26001_006_regression_readiness_v4_2",
-      "confidence": 1.0,
-      "evidence": {
-        "main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]"
-      },
-      "fix_suggestion": "Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun."
-    },
     {
       "key": "previous_006_v6_ui_gate_not_pass",
       "severity": "info",
@@ -273,16 +263,13 @@
       "fix_suggestion": "This is expected until 006 passes; do not run acceptance on 007/008/009/015/022."
     }
   ],
-  "blocking_issue_keys": [
-    "solidworks_unsaved_document_visible"
-  ],
+  "blocking_issue_keys": [],
   "safe_recovery_guidance": {
-    "manual_recovery_required": true,
+    "manual_recovery_required": false,
     "automatic_restart_allowed": false,
-    "reason": "Automatic restart is forbidden while SolidWorks is unresponsive or an unsaved document marker is visible.",
-    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]",
+    "reason": "No manual SolidWorks recovery blocker is present in the readiness report.",
+    "observed_main_window_title": "SOLIDWORKS Premium 2025 SP5.0",
     "steps": [
-      "In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.",
       "Rerun this no-COM readiness audit after SolidWorks is responsive.",
       "Only when readiness is ready, rerun the no-COM 006 rerun packet.",
       "Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.py --stage LB26001_006; that wrapper invokes real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> QProcess cad_job_worker."

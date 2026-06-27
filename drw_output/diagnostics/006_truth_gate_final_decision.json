@@ -1,0 +1,60 @@
+{
+  "schema": "sw_drawing_studio.lb26001_006_truth_gate_final_decision.v1",
+  "generated_at": "2026-06-27 16:28:00",
+  "base": "LB26001-A-04-006",
+  "decision": "BLOCKED",
+  "reason": "006 no-COM readiness is ready, but the anti-fallback truth gate is a hard prerequisite and currently fails.",
+  "truth_gate": {
+    "source": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json.truth_gate",
+    "allowed_to_claim_release_pass": false,
+    "hard_failures": [
+      {
+        "key": "reference_compare_missing_without_reason",
+        "message": "reference_compare evidence is required unless no_reference_reason is explicit."
+      }
+    ]
+  },
+  "readiness": {
+    "path": "drw_output/diagnostics/lb26001_006_regression_readiness_v4_2.json",
+    "status": "ready",
+    "blocking_issue_keys": []
+  },
+  "rerun_packet": {
+    "path": "drw_output/diagnostics/lb26001_006_rerun_packet_v4_2.json",
+    "status": "offline_prerequisites_missing",
+    "packet_build_ready": false,
+    "real_cad_allowed_now": false,
+    "offline_prerequisite_missing_keys": [
+      "truth_gate_current_006_release_claim_allowed"
+    ]
+  },
+  "product_evidence_gate": {
+    "path": "drw_output/diagnostics/product_evidence_gate_v4_4.json",
+    "locked_006_cad_rerun_allowed_now": false
+  },
+  "completed_steps": [
+    "Step 1 truth_gate existence check and implementation",
+    "Step 2 truth_gate wired into 006 rerun packet hard prerequisites",
+    "Step 3 no-COM readiness refreshed"
+  ],
+  "stopped_before": [
+    "Step 4 locked 006 CAD rerun",
+    "Step 5 006 quality validation",
+    "Step 6 Drawing Review UI screenshot recheck"
+  ],
+  "constraints_confirmed": {
+    "ran_007_008_009_015_022": false,
+    "ran_LB26001_36": false,
+    "ran_medium_30": false,
+    "ran_full_129": false,
+    "claimed_release_ready": false,
+    "lowered_displaydim_threshold": false,
+    "counted_note_as_displaydim": false,
+    "used_api_pass_as_ui_pass": false,
+    "reused_old_run_as_new_result": false,
+    "called_solidworks_com_without_lock": false,
+    "modified_original_cad": false,
+    "added_fallback_to_bypass_failure": false
+  },
+  "next_user_action": "Do not run CAD yet. Provide or generate valid same-run reference_compare evidence for the current 006 truth gate case, or allow the rerun packet to point truth_gate at a fresh complete pre-rerun evidence case with explicit no_reference_reason if no same-name reference exists."
+}

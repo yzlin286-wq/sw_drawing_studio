@@ -1,0 +1,6 @@
+{
+  "release_pass": true,
+  "status": "pass",
+  "mode": "mock_fallback",
+  "summary": "mock fallback evidence should never claim release pass"
+}

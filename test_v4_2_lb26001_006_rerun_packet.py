@@ -20,6 +20,7 @@ from tools.validation.lb26001_006_rerun_packet_v4_2 import (
     REFERENCE_COMPARE_SIGNATURES,
     REFERENCE_INTENT_EXECUTOR_SIGNATURES,
     STAGED_VALIDATION_SIGNATURES,
+    TRUTH_GATE_SIGNATURES,
     VISION_QC_V6_SIGNATURES,
     build_rerun_packet,
     render_markdown,
@@ -172,10 +173,12 @@ def _build_packet_fixture(
     omit_drawing_visual_review_signature: str = "",
     omit_manual_visual_judgement_template_signature: str = "",
     omit_apply_ui_review_signature: str = "",
+    omit_truth_gate_signature: str = "",
     generated_png_source_pass: bool = True,
     include_failed_items: bool = True,
     stale_correction_plan: bool = False,
     stale_screenshot_content_status: bool = False,
+    truth_gate_fail: bool = False,
     omit_ui_defect_callout_next_check: bool = False,
     omit_ui_defect_closure_contract_bucket: str = "",
     omit_ui_defect_callout_closure_keys: bool = False,
@@ -269,6 +272,49 @@ def _build_packet_fixture(
             ACCEPTANCE_PROOF_SIGNATURES,
             omit=omit_acceptance_proof_signature,
         )
+        truth_gate_source = _source_file(
+            root / "truth_gate.py",
+            TRUTH_GATE_SIGNATURES,
+            omit=omit_truth_gate_signature,
+        )
+        truth_case = root / "truth_case"
+        truth_drawing = truth_case / "drawing"
+        truth_drawing.mkdir(parents=True)
+        truth_png = truth_drawing / "LB26001-A-04-006_v5.PNG"
+        truth_png.write_bytes(b"fixture")
+        (truth_case / "sw_session.json").write_text(
+            json.dumps({"status": "disconnected" if truth_gate_fail else "connected"}, indent=2),
+            encoding="utf-8",
+        )
+        (truth_case / "manifest.json").write_text(
+            json.dumps(
+                {
+                    "job_started_at": "2999-01-01T00:00:00Z" if truth_gate_fail else "2000-01-01T00:00:00Z",
+                    "release_pass": bool(truth_gate_fail),
+                    "drawing_artifacts": ["drawing/LB26001-A-04-006_v5.PNG"],
+                    "part_class": "feature_part",
+                    "result": "mock fallback" if truth_gate_fail else "real",
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        (truth_case / "dimension_validation.json").write_text(
+            json.dumps(
+                {
+                    "part_class": "feature_part",
+                    "display_dim_count": 0 if truth_gate_fail else 12,
+                    "note_dim_count": 2 if truth_gate_fail else 0,
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        if not truth_gate_fail:
+            (truth_case / "reference_compare.json").write_text(
+                json.dumps({"pass": True}, indent=2),
+                encoding="utf-8",
+            )
         plan = _artifact(
             root / "reference_intent_dimension_plan_006.json",
             ["target_key", "post_layout_final", "AddDiameterDimension2"],
@@ -440,12 +486,17 @@ def _build_packet_fixture(
             "ready_to_start_locked_006_cad": readiness_ready,
             "blocking_issue_keys": [] if readiness_ready else ["solidworks_not_responding"],
         }
+        requested_status = _requested_status(
+            generated_png_source_pass=generated_png_source_pass,
+            include_failed_items=include_failed_items,
+        )
+        for item in requested_status["base_results"]:
+            if item["base"] == "LB26001-A-04-006":
+                item["generated_png"] = str(truth_png)
+                item["generated_png_source_evidence"]["path"] = str(truth_png)
         packet = build_rerun_packet(
             readiness=readiness,
-            requested_status=_requested_status(
-                generated_png_source_pass=generated_png_source_pass,
-                include_failed_items=include_failed_items,
-            ),
+            requested_status=requested_status,
             correction_plan=_correction_plan(
                 generated_png_source_pass=generated_png_source_pass,
                 stale_manual_review=stale_correction_plan,
@@ -472,6 +523,7 @@ def _build_packet_fixture(
             apply_ui_review_source_path=apply_ui_review_source,
             acceptance_gate_source_path=acceptance_gate_source,
             acceptance_proof_source_path=acceptance_proof_source,
+            truth_gate_source_path=truth_gate_source,
         )
         markdown = render_markdown(packet)
     return {"packet": packet, "markdown": markdown}
@@ -520,6 +572,8 @@ def test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     assert packet["source_signatures"]["apply_ui_visual_review_v4"]["pass"] is True
     assert packet["source_signatures"]["lb26001_acceptance_gate_v4_2"]["pass"] is True
     assert packet["source_signatures"]["lb26001_006_acceptance_proof_v4_2"]["pass"] is True
+    assert packet["source_signatures"]["truth_gate"]["pass"] is True
+    assert packet["truth_gate"]["allowed_to_claim_release_pass"] is True
     assert packet["reference_intent_artifacts"]["plan"]["pass"] is True
     assert packet["reference_intent_artifacts"]["contract"]["pass"] is True
     assert packet["ui_defect_buckets"]["pass"] is True
@@ -552,6 +606,7 @@ def test_006_rerun_packet_allows_one_locked_rerun_when_offline_and_readiness_pas
     assert packet["packet_build_ready"] is True
     assert packet["readiness_ready"] is True
     assert packet["real_cad_allowed_now"] is True
+    assert packet["truth_gate"]["allowed_to_claim_release_pass"] is True
     gate_names = [item["gate"] for item in packet["ordered_next_gates"]]
     assert gate_names[0] == "no_com_readiness_audit"
     assert gate_names.index("dimension_validation") < gate_names.index("displaydim_lifecycle_audit")
@@ -598,6 +653,40 @@ def test_006_rerun_packet_does_not_require_future_fresh_png_before_rerun() -> No
     assert post_requirements["reference_compare_v3_pass"]["required"] is True
     assert post_requirements["reference_style_pass"]["required"] is True
     assert post_requirements["vision_qc_v6_pass"]["required"] is True
+
+
+def test_006_rerun_packet_blocks_when_truth_gate_fails() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        truth_gate_fail=True,
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "truth_gate_current_006_release_claim_allowed" in packet["offline_prerequisite_missing_keys"]
+    assert packet["truth_gate"]["allowed_to_claim_release_pass"] is False
+    keys = {item["key"] for item in packet["truth_gate"]["hard_failures"]}
+    assert "sw_session_not_connected" in keys
+    assert "drawing_artifact_stale" in keys
+    assert "note_dimensions_masquerade_as_displaydims" in keys
+    assert "mock_synthetic_or_fallback_claimed_release_pass" in keys
+    assert "reference_compare_missing_without_reason" in keys
+
+
+def test_006_rerun_packet_blocks_when_truth_gate_source_signature_missing() -> None:
+    packet = _build_packet_fixture(
+        readiness_ready=True,
+        omit_truth_gate_signature="mock_synthetic_fallback_guard",
+    )["packet"]
+
+    assert packet["status"] == "offline_prerequisites_missing"
+    assert packet["packet_build_ready"] is False
+    assert packet["real_cad_allowed_now"] is False
+    assert "truth_gate_source_signatures_present" in packet["offline_prerequisite_missing_keys"]
+    assert packet["source_signatures"]["truth_gate"]["missing_signatures"] == [
+        "mock_synthetic_fallback_guard"
+    ]
 
 
 def test_006_rerun_packet_uses_correction_plan_effective_checks_when_status_failed_items_empty() -> None:
@@ -1567,6 +1656,8 @@ if __name__ == "__main__":
     test_006_rerun_packet_blocks_real_cad_when_solidworks_readiness_is_blocked()
     test_006_rerun_packet_allows_one_locked_rerun_when_offline_and_readiness_pass()
     test_006_rerun_packet_does_not_require_future_fresh_png_before_rerun()
+    test_006_rerun_packet_blocks_when_truth_gate_fails()
+    test_006_rerun_packet_blocks_when_truth_gate_source_signature_missing()
     test_006_rerun_packet_uses_correction_plan_effective_checks_when_status_failed_items_empty()
     test_006_rerun_packet_blocks_stale_correction_plan_ui_status()
     test_006_rerun_packet_blocks_stale_correction_plan_screenshot_content_status()

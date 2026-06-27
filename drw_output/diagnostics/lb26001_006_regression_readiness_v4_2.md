@@ -1,18 +1,18 @@
 # LB26001-A-04-006 Readiness Recovery Checklist v4.2
 
-- Generated at: `2026-06-27 00:59:31`
-- Status: `blocked`
-- ready_to_start_locked_006_cad: `False`
-- Manual recovery required: `True`
+- Generated at: `2026-06-27 16:18:57`
+- Status: `ready`
+- ready_to_start_locked_006_cad: `True`
+- Manual recovery required: `False`
 - Automatic restart allowed: `False`
-- Blocking issue keys: `solidworks_unsaved_document_visible`
+- Blocking issue keys: ``
 
 ## Observed SolidWorks State
 
 - process_present: `True`
 - responding: `True`
-- pid: `8564`
-- main_window_title: `SOLIDWORKS Premium 2025 SP5.0 - [installed_validation_assembly_d7520397_add_rotary_motor.SLDASM *]`
+- pid: `24184`
+- main_window_title: `SOLIDWORKS Premium 2025 SP5.0`
 - global_lock_present: `False`
 - global_lock_stale: `False`
 
@@ -31,10 +31,9 @@
 
 ## Manual Recovery Steps
 
-1. In SolidWorks, manually save or close the visible unsaved document before any automated CAD job starts.
-2. Rerun this no-COM readiness audit after SolidWorks is responsive.
-3. Only when readiness is ready, rerun the no-COM 006 rerun packet.
-4. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.py --stage LB26001_006; that wrapper invokes real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> QProcess cad_job_worker.
+1. Rerun this no-COM readiness audit after SolidWorks is responsive.
+2. Only when readiness is ready, rerun the no-COM 006 rerun packet.
+3. Then run exactly one locked LB26001-A-04-006 CAD regression through staged_cad_validation_v3.py --stage LB26001_006; that wrapper invokes real_cad_smoke_v3.py -> JobRuntimeFacade.start_cad_job -> QProcess cad_job_worker.
 
 ## Do Not
 
@@ -65,7 +64,6 @@
 
 ## Issues
 
-- `solidworks_unsaved_document_visible` severity=`critical` fix=`Manually save or close the unsaved SolidWorks document before any CAD worker attempts the 006 rerun.`
 - `previous_006_v6_ui_gate_not_pass` severity=`info` fix=`This is expected for the previous failed run; rerun closure after the next fresh 006 CAD/UI screenshot attempt.`
 - `previous_006_v4_ui_gate_not_pass` severity=`info` fix=`This is expected for the previous failed run; next run must resolve strict v4 blockers.`
 - `lb26001_expansion_currently_blocked` severity=`info` fix=`This is expected until 006 passes; do not run acceptance on 007/008/009/015/022.`

@@ -1,18 +1,18 @@
 {
   "schema": "sw_drawing_studio.lb26001_006_rerun_packet.v4_2",
-  "generated_at": "2026-06-27 00:59:40",
+  "generated_at": "2026-06-27 16:19:09",
   "base": "LB26001-A-04-006",
-  "status": "blocked_by_solidworks_readiness",
+  "status": "offline_prerequisites_missing",
   "pass": false,
   "report_is_acceptance_evidence": false,
-  "packet_build_ready": true,
+  "packet_build_ready": false,
   "real_cad_allowed_now": false,
-  "readiness_ready": false,
-  "readiness_status": "blocked",
-  "readiness_blocking_issue_keys": [
-    "solidworks_unsaved_document_visible"
+  "readiness_ready": true,
+  "readiness_status": "ready",
+  "readiness_blocking_issue_keys": [],
+  "offline_prerequisite_missing_keys": [
+    "truth_gate_current_006_release_claim_allowed"
   ],
-  "offline_prerequisite_missing_keys": [],
   "must_not_run_real_cad_when_blocked": true,
   "api_is_not_final_judgement": true,
   "api_only_acceptance_allowed": false,
@@ -365,16 +365,35 @@
       "manual_recovery_required": true
     }
   },
+  "truth_gate": {
+    "schema": "sw_drawing_studio.truth_gate.v1",
+    "profile": "release-v3",
+    "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+    "pass": false,
+    "allowed_to_claim_release_pass": false,
+    "hard_fail_count": 1,
+    "hard_failures": [
+      {
+        "key": "reference_compare_missing_without_reason",
+        "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+        "message": "reference_compare evidence is required unless no_reference_reason is explicit."
+      }
+    ],
+    "checked_files": {
+      "json_count": 13,
+      "drawing_artifact_count": 4,
+      "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\sw_session.json",
+      "reference_compare_count": 0
+    }
+  },
   "offline_prerequisites": [
     {
       "key": "readiness_report_loaded",
       "pass": true,
       "evidence": {
-        "status": "blocked",
-        "ready_to_start_locked_006_cad": false,
-        "blocking_issue_keys": [
-          "solidworks_unsaved_document_visible"
-        ]
+        "status": "ready",
+        "ready_to_start_locked_006_cad": true,
+        "blocking_issue_keys": []
       },
       "fix_suggestion": "Regenerate lb26001_006_regression_readiness_v4_2.json."
     },
@@ -2185,6 +2204,75 @@
         "missing_signatures": []
       },
       "fix_suggestion": "Restore the 006 proof signatures that expose application UI source, manual case, manual checklist, and fresh PNG blockers."
+    },
+    {
+      "key": "truth_gate_source_signatures_present",
+      "pass": true,
+      "evidence": {
+        "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\truth_gate.py",
+        "exists": true,
+        "pass": true,
+        "required_signatures": [
+          {
+            "key": "allowed_release_flag",
+            "signature": "allowed_to_claim_release_pass",
+            "present": true
+          },
+          {
+            "key": "sw_session_status_guard",
+            "signature": "sw_session.status must be connected",
+            "present": true
+          },
+          {
+            "key": "artifact_mtime_guard",
+            "signature": "Drawing artifact mtime must be >= job_started_at",
+            "present": true
+          },
+          {
+            "key": "note_not_displaydim_guard",
+            "signature": "feature_part cannot claim dimensions from Note annotations",
+            "present": true
+          },
+          {
+            "key": "mock_synthetic_fallback_guard",
+            "signature": "mock/synthetic/fallback evidence cannot claim release_pass=true",
+            "present": true
+          },
+          {
+            "key": "reference_compare_or_reason_guard",
+            "signature": "reference_compare evidence is required unless no_reference_reason is explicit",
+            "present": true
+          }
+        ],
+        "missing_signatures": []
+      },
+      "fix_suggestion": "Restore tools/truth_gate.py so anti-fallback release claims are blocked before the 006 rerun packet can allow CAD."
+    },
+    {
+      "key": "truth_gate_current_006_release_claim_allowed",
+      "pass": false,
+      "evidence": {
+        "schema": "sw_drawing_studio.truth_gate.v1",
+        "profile": "release-v3",
+        "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+        "pass": false,
+        "allowed_to_claim_release_pass": false,
+        "hard_fail_count": 1,
+        "hard_failures": [
+          {
+            "key": "reference_compare_missing_without_reason",
+            "case_dir": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d",
+            "message": "reference_compare evidence is required unless no_reference_reason is explicit."
+          }
+        ],
+        "checked_files": {
+          "json_count": 13,
+          "drawing_artifact_count": 4,
+          "sw_session": "C:\\Users\\Vision\\Desktop\\SW 相关\\drw_output\\runs\\2aba76ff152d\\sw_session.json",
+          "reference_compare_count": 0
+        }
+      },
+      "fix_suggestion": "Fix hard truth-gate failures; mock/synthetic/fallback, stale artifacts, Note dimensions, disconnected sw_session, or missing reference_compare cannot be warnings."
     }
   ],
   "source_signatures": {
@@ -3642,6 +3730,44 @@
         {
           "key": "fresh_png_source_blocker",
           "signature": "generated_png_source_not_current_run",
+          "present": true
+        }
+      ],
+      "missing_signatures": []
+    },
+    "truth_gate": {
+      "path": "C:\\Users\\Vision\\Desktop\\SW 相关\\tools\\truth_gate.py",
+      "exists": true,
+      "pass": true,
+      "required_signatures": [
+        {
+          "key": "allowed_release_flag",
+          "signature": "allowed_to_claim_release_pass",
+          "present": true
+        },
+        {
+          "key": "sw_session_status_guard",
+          "signature": "sw_session.status must be connected",
+          "present": true
+        },
+        {
+          "key": "artifact_mtime_guard",
+          "signature": "Drawing artifact mtime must be >= job_started_at",
+          "present": true
+        },
+        {
+          "key": "note_not_displaydim_guard",
+          "signature": "feature_part cannot claim dimensions from Note annotations",
+          "present": true
+        },
+        {
+          "key": "mock_synthetic_fallback_guard",
+          "signature": "mock/synthetic/fallback evidence cannot claim release_pass=true",
+          "present": true
+        },
+        {
+          "key": "reference_compare_or_reason_guard",
+          "signature": "reference_compare evidence is required unless no_reference_reason is explicit",
           "present": true
         }
       ],

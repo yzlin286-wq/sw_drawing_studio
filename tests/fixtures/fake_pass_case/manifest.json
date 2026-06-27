@@ -1,0 +1,10 @@
+{
+  "schema": "sw_drawing_studio.test.fake_pass_case",
+  "job_started_at": "2999-01-01T00:00:00Z",
+  "release_pass": true,
+  "result": "synthetic fallback result marked as pass",
+  "part_class": "feature_part",
+  "drawing_artifacts": [
+    "drawing/fake_generated.PNG"
+  ]
+}
